@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.grid_remote_tests;
+package com.epam.jdi.uitests.testing.career.parallel.tests;
 
 import com.epam.commons.Timer;
 import com.epam.commons.map.MapArray;
@@ -15,7 +15,7 @@ import java.util.List;
 import static com.epam.commons.CalculationUtils.average;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.testing.career.grid_remote_tests.TestScenarios.getDriverName;
+import static com.epam.jdi.uitests.testing.career.parallel.tests.TestScenarios.getDriverName;
 import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebDrivers;
 import static java.lang.String.format;

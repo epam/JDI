@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.common_tests;
+package com.epam.jdi.uitests.testing.career.common.tests;
 
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeeProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;

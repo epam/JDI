@@ -1,9 +1,9 @@
-package com.epam.jdi.uitests.testing.career.grid_remote_tests;
+package com.epam.jdi.uitests.testing.career.parallel.tests;
 
-import com.epam.jdi.uitests.testing.career.common_tests.TestsParallelBase;
+import com.epam.jdi.uitests.testing.career.common.tests.TestsParallelBase;
 import org.testng.annotations.Test;
 
-import static com.epam.jdi.uitests.testing.career.grid_remote_tests.TestScenarios.sendCVTest;
+import static com.epam.jdi.uitests.testing.career.parallel.tests.TestScenarios.sendCVTest;
 
 public class TestNGParallelTests extends TestsParallelBase {
     @Test

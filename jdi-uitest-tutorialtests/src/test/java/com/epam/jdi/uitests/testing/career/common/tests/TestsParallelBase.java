@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.common_tests;
+package com.epam.jdi.uitests.testing.career.common.tests;
 
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.web.WebSettings;

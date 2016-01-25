@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.grid_remote_tests;
+package com.epam.jdi.uitests.testing.career.parallel.tests;
 
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.jdi.uitests.testing.career.page_objects.site.EpamSiteParallel;
