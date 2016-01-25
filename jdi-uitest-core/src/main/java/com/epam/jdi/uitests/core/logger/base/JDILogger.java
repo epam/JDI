@@ -35,11 +35,12 @@ public class JDILogger implements Logger {
     }
 
     public boolean isTraceEnabled() {
-        return false;
+        return logger.isTraceEnabled();
     }
 
     public void trace(String s) {
         logger.trace(pattern.apply(s));
+
     }
 
     public void trace(String s, Object o) {
@@ -89,7 +90,7 @@ public class JDILogger implements Logger {
     }
 
     public boolean isDebugEnabled() {
-        return false;
+        return logger.isDebugEnabled();
     }
 
     public void debug(String s) {
@@ -143,7 +144,7 @@ public class JDILogger implements Logger {
     }
 
     public boolean isInfoEnabled() {
-        return false;
+        return logger.isInfoEnabled();
     }
 
     public void info(String s) {
@@ -197,7 +198,7 @@ public class JDILogger implements Logger {
     }
 
     public boolean isWarnEnabled() {
-        return false;
+        return logger.isWarnEnabled();
     }
 
     public void warn(String s) {
@@ -251,7 +252,7 @@ public class JDILogger implements Logger {
     }
 
     public boolean isErrorEnabled() {
-        return false;
+        return logger.isErrorEnabled();
     }
 
     public void error(String s) {

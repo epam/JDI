@@ -18,11 +18,11 @@
 
 package com.epam.jdi.uitests.web;
 
-import com.epam.jdi.uitests.core.logger.base.JDILogger;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
+import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGRunner;
 import com.epam.web.matcher.testng.Check;
 import org.openqa.selenium.JavascriptExecutor;
@@ -59,7 +59,7 @@ public class WebSettings extends JDISettings {
         if (driverFactory.getDriver() instanceof JavascriptExecutor) {
             return (JavascriptExecutor) driverFactory.getDriver();
         } else {
-            throw new ClassCastException("JavaScript doesn't support.");
+            throw new ClassCastException("JavaScript Executor doesn't support");
         }
     }
 
@@ -71,13 +71,12 @@ public class WebSettings extends JDISettings {
                 return ScreenshotMaker.doScreenshotGetMessage();
             }
         }.doScreenshot(SCREEN_ON_FAIL);
-        logger = new JDILogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s));
         timeouts = new WebTimeoutSettings();
         testRunner = new TestNGRunner();
         getProperties(jdiSettingsPath);
         fillAction(p -> logger = (p.equals("true") || p.equals("1"))
-            ? new JDILogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
-            : new JDILogger("JDI Logger")
+            ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
+            : new TestNGLogger("JDI Logger")
         , "multithread");
     }
 }
