@@ -18,6 +18,7 @@
 
 package com.epam.jdi.uitests.web.selenium.elements.actions;
 
+import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.core.logger.enums.LogLevels;
 import com.epam.jdi.uitests.core.settings.JDISettings;
@@ -70,12 +71,10 @@ public class ActionInvoker {
     }
 
     public final void doJAction(String actionName, JAction action, LogLevels level) {
-        try {
+        Timer.alwaysDoneAction(() -> {
             processDemoMode();
             actionScenrios.setElement(element).actionScenario(actionName, action, level);
-        } catch (Exception | Error ex) {
-            throw exception("Failed to do '%s' action. Exception: %s", actionName, ex);
-        }
+        });
     }
 
     public void processDemoMode() {

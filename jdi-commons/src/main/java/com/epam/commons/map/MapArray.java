@@ -26,7 +26,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.TryCatchUtil.throwRuntimeException;
@@ -133,6 +132,29 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         lock.unlock();
         return true;
     }
+    public MapArray<K,V> update(K key, V value) {
+        ReentrantLock lock = this.lock;
+        lock.lock();
+        if (hasKey(key))
+            removeByKey(key);
+        pairs.add(new Pair<>(key, value));
+        lock.unlock();
+        return this;
+    }
+
+
+    public MapArray<K,V> update(K key, Function<V, V> func) {
+        ReentrantLock lock = this.lock;
+        lock.lock();
+        V value = null;
+        if (hasKey(key)) {
+            value = get(key);
+            removeByKey(key);
+        }
+        pairs.add(new Pair<>(key, func.apply(value)));
+        lock.unlock();
+        return this;
+    }
 
     public void add(Object[][] pairs) {
         for (Object[] pair : pairs)
@@ -147,9 +169,12 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public void addOrReplace(Object[][] pairs) {
+        ReentrantLock lock = this.lock;
+        lock.lock();
         for (Object[] pair : pairs)
             if (pair.length == 2)
                 addOrReplace((K) pair[0], (V) pair[1]);
+        lock.unlock();
     }
 
     private boolean hasKey(K key) {
@@ -347,7 +372,7 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         try {
             return pairs.stream()
                     .map(pair -> func.apply(pair.key, pair.value))
-                    .collect(Collectors.toList());
+                    .collect(toList());
         } catch (Exception ignore) {
             throwRuntimeException(ignore);
             return new ArrayList<>();

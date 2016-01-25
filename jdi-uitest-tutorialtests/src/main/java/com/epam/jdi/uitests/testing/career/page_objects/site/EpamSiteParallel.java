@@ -34,4 +34,5 @@ public class EpamSiteParallel extends Site {
 
     public EpamSiteParallel() { }
     public EpamSiteParallel(DriverTypes driver) { super(driver); }
+    public EpamSiteParallel(String driver) { super(driver); }
 }

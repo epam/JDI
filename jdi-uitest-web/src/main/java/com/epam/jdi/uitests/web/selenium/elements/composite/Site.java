@@ -40,15 +40,13 @@ public class Site {
 
     public Site() { CascadeInit.initPages(this, getDriverFactory().currentDriverName); }
     public Site(DriverTypes driver) {
-        driverName = useDriver(driver);
-        CascadeInit.initPages(this, driverName);
-    }
-    public Site(String driver) {
-        driverName = useDriver(driver);
-        CascadeInit.initPages(this, driverName);
+        this(useDriver(driver));
     }
     public Site(Supplier<WebDriver> driver) {
-        driverName = useDriver(driver);
+        this(useDriver(driver));
+    }
+    public Site(String driverName) {
+        this.driverName = driverName;
         CascadeInit.initPages(this, driverName);
     }
 

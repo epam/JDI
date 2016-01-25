@@ -18,8 +18,6 @@
 
 package com.epam.jdi.uitests.web.selenium.driver;
 
-import com.epam.commons.PropertyReader;
-import com.epam.commons.TryCatchUtil;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
@@ -37,11 +35,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -53,7 +47,6 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
 import static java.lang.String.format;
-import static java.lang.System.getProperties;
 import static java.lang.System.setProperty;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
@@ -207,6 +200,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public WebDriver getDriver(String driverName) {
+        if (!drivers.keys().contains(driverName))
+            throw exception("Can't find driver with name '%s'", driverName);
         try {
             if (runDrivers.keys().contains(driverName))
                 return runDrivers.get(driverName);
@@ -218,7 +213,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             resultDriver.manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
             return resultDriver;
         } catch (Exception ex) {
-            throw exception("Can't get driver");
+            logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
+            throw exception("Can't get driver; Thread: " + Thread.currentThread().getId());
         }
     }
 

@@ -25,14 +25,13 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.epam.commons.TryCatchUtil.throwRuntimeException;
 import static java.lang.System.currentTimeMillis;
 
 /**
  * Created by 12345 on 28.09.2014.
  */
 public class Timer {
-    private final Long start = currentTimeMillis();
+    private Long start = currentTimeMillis();
     private long timeoutInMSec = 5 * 1000L;
     private long retryTimeoutInMSec = 100;
 
@@ -49,6 +48,8 @@ public class Timer {
         this();
         this.timeoutInMSec = timeoutInMSec;
     }
+
+    public void restart() { start = currentTimeMillis(); }
 
     public static String nowTime() {
         return nowTime("HH:mm:ss.SSS");
@@ -121,9 +122,7 @@ public class Timer {
                 if (waitCase.getAsBoolean())
                     return true;
                 sleep(retryTimeoutInMSec);
-            } catch (Exception | Error ignore) {
-                throwRuntimeException(ignore);
-            }
+            } catch (Exception | Error ignorre) { }
         return false;
     }
 
@@ -137,9 +136,7 @@ public class Timer {
                 T result = getFunc.get();
                 if (result != null && conditionFunc.apply(result))
                     return result;
-            } catch (Exception | Error ignore) {
-                throwRuntimeException(ignore);
-            }
+            } catch (Exception | Error ignore) { }
             sleep(retryTimeoutInMSec);
         } while (!timeoutPassed());
         return null;

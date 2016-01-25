@@ -180,11 +180,9 @@ public abstract class CascadeInit implements IBaseElement {
         else if (instance.getLocator() == null)
             instance.avatar.byLocator = getNewLocator(field);
         instance.avatar.context = new Pairs<>();
-        if (type != null) {
-            By frameBy = WebAnnotationsUtil.getFrame(type.getDeclaredAnnotation(Frame.class));
-            if (frameBy != null)
-                instance.avatar.context.add(ContextType.Frame, frameBy);
-        }
+        By frameBy = WebAnnotationsUtil.getFrame(field.getDeclaredAnnotation(Frame.class));
+        if (frameBy != null)
+            instance.avatar.context.add(ContextType.Frame, frameBy);
         return instance;
     }
 
