@@ -30,7 +30,7 @@ import java.util.List;
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.jdi.uitests.core.logger.enums.LogLevels.DEBUG;
+import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 

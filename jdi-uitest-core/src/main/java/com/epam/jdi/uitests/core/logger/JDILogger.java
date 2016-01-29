@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.logger.base;
+package com.epam.jdi.uitests.core.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -49,12 +49,10 @@ public class JDILogger implements Logger {
 
     public void trace(String s, Object o, Object o1) {
         logger.trace(pattern.apply(s), o, o1);
-
     }
 
     public void trace(String s, Object... objects) {
         logger.trace(pattern.apply(s), objects);
-
     }
 
     public void trace(String s, Throwable throwable) {

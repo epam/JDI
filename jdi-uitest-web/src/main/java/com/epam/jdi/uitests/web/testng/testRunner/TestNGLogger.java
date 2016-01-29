@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.web.testng.testRunner;
 
-import com.epam.jdi.uitests.core.logger.base.JDILogger;
+import com.epam.jdi.uitests.core.logger.JDILogger;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 

@@ -26,7 +26,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.*;
 import com.epam.jdi.uitests.core.interfaces.complex.*;
-import com.epam.jdi.uitests.core.logger.enums.LogLevels;
+import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ElementsActions;
@@ -49,7 +49,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.jdi.uitests.core.logger.enums.LogLevels.INFO;
+import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;

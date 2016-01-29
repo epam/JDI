@@ -48,7 +48,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.function.Function;
 
-import static com.epam.jdi.uitests.core.logger.enums.LogLevels.DEBUG;
+import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static java.lang.String.format;
 

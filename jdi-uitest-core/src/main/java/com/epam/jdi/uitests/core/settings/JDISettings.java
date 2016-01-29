@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.settings;
 
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.interfaces.settings.ITestRunner;
-import com.epam.jdi.uitests.core.logger.enums.LogLevels;
+import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.web.matcher.base.IAsserter;
 import org.slf4j.Logger;
 

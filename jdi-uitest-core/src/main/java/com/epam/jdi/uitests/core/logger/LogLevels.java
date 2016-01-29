@@ -15,19 +15,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.epam.jdi.uitests.core.logger.enums;
+package com.epam.jdi.uitests.core.logger;
 
 /**
- * Created by Roman_Iovlev on 6/30/2015.
+ * Created by Roman_Iovlev on 6/9/2015.
  */
-public enum LogInfoTypes {
-    BUSINESS(1),
-    FRAMEWORK(2),
-    TECHNICAL(4);
+public enum LogLevels {
+    OFF(-1),        // No logging
+    FATAL(0),       // Unexpected errors
+    ERROR(3),       // Critical errors
+    WARNING(4),     // Errors due to wrong params
+    INFO(6),        // Actions Info
+    DEBUG(7),       // Debug info (not for prod)
+    ALL(100);       // All log messages
 
-    public int type;
+    private int priority;
 
-    LogInfoTypes(int flag) {
-        this.type = flag;
+    LogLevels(int priority) {
+        this.priority = priority;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public boolean equalOrLessThan(LogLevels level) {
+        return getPriority() >= level.getPriority();
     }
 }

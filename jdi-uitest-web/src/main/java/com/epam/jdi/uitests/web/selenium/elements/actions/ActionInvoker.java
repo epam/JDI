@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.actions;
 
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
-import com.epam.jdi.uitests.core.logger.enums.LogLevels;
+import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -29,7 +29,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.ReflectionUtils.isClass;
-import static com.epam.jdi.uitests.core.logger.enums.LogLevels.INFO;
+import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.BaseElement.actionScenrios;
 

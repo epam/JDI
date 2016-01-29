@@ -53,8 +53,6 @@
         <module>jdi-uitest-web</module>
         <module>jdi-commons</module>
         <module>jdi-matchers</module>
-        <module>jdi-uitest-android</module>
-        <module>jdi-uitest-mobile</module>
     </modules>
 
     <!--<dependencies>
