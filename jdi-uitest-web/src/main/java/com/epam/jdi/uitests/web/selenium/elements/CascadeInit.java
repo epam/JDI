@@ -40,6 +40,7 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.commons.ThreadLockUtils.threadSafe;
 import static com.epam.commons.TryCatchUtil.tryGetResult;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -53,23 +54,25 @@ public abstract class CascadeInit implements IBaseElement {
     public static boolean firstInstance = true;
 
     public static void InitElements(Object parent, String driverName) {
-        if (parent.getClass().getName().contains("$")) return;
-        Object parentInstance = null;
-        Class<?> parentType = parent.getClass();
-        boolean firstInstanceCreated = false;
+        threadSafe(() -> {
+            if (parent.getClass().getName().contains("$")) return;
+            Object parentInstance = null;
+            Class<?> parentType = parent.getClass();
+            boolean firstInstanceCreated = false;
 
-        if (firstInstance) {
-            parentInstance = getParentInstance(parentType);
-            firstInstanceCreated = true;
-        }
+            if (firstInstance) {
+                parentInstance = getParentInstance(parentType);
+                firstInstanceCreated = true;
+            }
 
-        initSubElements(parent, parentInstance, driverName);
+            initSubElements(parent, parentInstance, driverName);
 
-        if (isClass(parentType, WebPage.class) && parentType.isAnnotationPresent(JPage.class))
-            WebAnnotationsUtil.fillPageFromAnnotaiton((WebPage) parent, parentType.getAnnotation(JPage.class), null);
+            if (isClass(parentType, WebPage.class) && parentType.isAnnotationPresent(JPage.class))
+                WebAnnotationsUtil.fillPageFromAnnotaiton((WebPage) parent, parentType.getAnnotation(JPage.class), null);
 
-        if (firstInstanceCreated)
-            firstInstance = true;
+            if (firstInstanceCreated)
+                firstInstance = true;
+        });
     }
 
     private static Object getParentInstance(Class<?> parentType) {

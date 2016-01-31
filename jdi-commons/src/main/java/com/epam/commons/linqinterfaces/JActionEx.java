@@ -15,26 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package com.epam.jdi.uitests.web.selenium.elements;
-
-import com.epam.commons.map.MapArray;
+package com.epam.commons.linqinterfaces;
 
 /**
- * Created by Roman_Iovlev on 8/17/2015.
+ * Created by roman.i on 01.10.2014.
  */
-public class MapInterfaceToElement {
-    private static MapArray<Class, Class> map = new MapArray<>();
-
-    public static void init(Object[][] pairs) {
-        map = new MapArray<>(pairs);
-    }
-    public static void update(Object[][] pairs) {
-        map.addOrReplace(pairs);
-    }
-
-    public static Class getClassFromInterface(Class clazz) {
-        return map.get(clazz);
-    }
-
+@FunctionalInterface
+public interface JActionEx {
+    void invoke() throws Exception;
 }

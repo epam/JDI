@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.commons.PropertyReader.getProperties;
+import static com.epam.commons.ThreadLockUtils.threadSafe;
+import static com.epam.commons.ThreadLockUtils.threadSafeException;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -64,13 +66,15 @@ public abstract class JDISettings {
         return driverFactory.registerDriver(driverName);
     }
 
-    public static void initJDIFromProperties() throws IOException {
-        getProperties(jdiSettingsPath);
-        fillAction(driverFactory::registerDriver, "driver");
-        fillAction(driverFactory::setRunType, "run.type");
-        fillAction(p -> domain = p, "domain");
-        fillAction(p -> timeouts.waitElementSec = parseInt(p), "timeout.wait.element");
-        fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
+    public static void initJDIFromProperties() {
+        threadSafeException(() -> {
+            getProperties(jdiSettingsPath);
+            fillAction(driverFactory::registerDriver, "driver");
+            fillAction(driverFactory::setRunType, "run.type");
+            fillAction(p -> domain = p, "domain");
+            fillAction(p -> timeouts.waitElementSec = parseInt(p), "timeout.wait.element");
+            fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
+        });
     }
 
     public static void initJDIFromProperties(String propertyPath) throws IOException {

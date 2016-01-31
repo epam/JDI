@@ -18,10 +18,21 @@
 
 package com.epam.jdi.uitests.web;
 
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
+import com.epam.jdi.uitests.core.interfaces.base.IElement;
+import com.epam.jdi.uitests.core.interfaces.common.*;
+import com.epam.jdi.uitests.core.interfaces.complex.*;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
+import com.epam.jdi.uitests.web.selenium.elements.MapInterfaceToElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.common.*;
+import com.epam.jdi.uitests.web.selenium.elements.complex.*;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.testng.Check;
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,6 +43,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.commons.PropertyReader.getProperties;
+import static com.epam.commons.ThreadLockUtils.threadSafeException;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 
 /**
@@ -62,19 +74,48 @@ public class WebSettings extends JDISettings {
         }
     }
 
-    public static void init() throws IOException {
-        driverFactory = new SeleniumDriverFactory();
-        asserter = new Check() {
-            @Override
-            protected String doScreenshotGetMessage() {
-                return ScreenshotMaker.doScreenshotGetMessage();
-            }
-        }.doScreenshot(SCREEN_ON_FAIL);
-        timeouts = new WebTimeoutSettings();
-        getProperties(jdiSettingsPath);
-        fillAction(p -> logger = (p.equals("true") || p.equals("1"))
-            ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
-            : new TestNGLogger("JDI Logger")
-        , "multithread");
+    public static void init() {
+        threadSafeException(() -> {
+            driverFactory = new SeleniumDriverFactory();
+            asserter = new Check() {
+                @Override
+                protected String doScreenshotGetMessage() {
+                    return ScreenshotMaker.doScreenshotGetMessage();
+                }
+            }.doScreenshot(SCREEN_ON_FAIL);
+            timeouts = new WebTimeoutSettings();
+            getProperties(jdiSettingsPath);
+            fillAction(p -> logger = (p.equals("true") || p.equals("1"))
+                    ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
+                    : new TestNGLogger("JDI Logger")
+                    , "multithread");
+            MapInterfaceToElement.init(defaultInterfacesMap);
+        });
     }
+
+    private static Object[][] defaultInterfacesMap = new Object[][]{
+            {IElement.class, Element.class},
+            {IButton.class, Button.class},
+            {IClickable.class, Clickable.class},
+            {IComboBox.class, ComboBox.class},
+            {ILink.class, Link.class},
+            {ISelector.class, Selector.class},
+            {IText.class, Text.class},
+            {IImage.class, Image.class},
+            {ITextArea.class, TextArea.class},
+            {ITextField.class, TextField.class},
+            {ILabel.class, Label.class},
+            {IDropDown.class, Dropdown.class},
+            {IDropList.class, DropList.class},
+            {IGroup.class, ElementsGroup.class},
+            {ITable.class, Table.class},
+            {ICheckBox.class, CheckBox.class},
+            {IRadioButtons.class, RadioButtons.class},
+            {ICheckList.class, CheckList.class},
+            {ITextList.class, TextList.class},
+            {ITabs.class, Tabs.class},
+            {IMenu.class, Menu.class},
+            {IFileInput.class, FileInput.class},
+            {IDatePicker.class, DatePicker.class},
+    };
 }

@@ -29,6 +29,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.epam.commons.PrintUtils.print;
+import static com.epam.commons.ThreadLockUtils.threadSafe;
 import static com.epam.commons.TryCatchUtil.throwRuntimeException;
 import static java.util.stream.Collectors.toList;
 
@@ -36,7 +37,6 @@ import static java.util.stream.Collectors.toList;
  * Created by Roman_Iovlev on 6/3/2015.
  */
 public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
-    final transient ReentrantLock lock = new ReentrantLock();
     public List<Pair<K, V>> pairs;
 
     public MapArray() {
@@ -125,36 +125,33 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public boolean add(K key, V value) {
-        ReentrantLock lock = this.lock;
-        lock.lock();
-        if (hasKey(key))
-            return false;
-        pairs.add(new Pair<>(key, value));
-        lock.unlock();
-        return true;
+        return threadSafe(() -> {
+            if (hasKey(key))
+                return false;
+            pairs.add(new Pair<>(key, value));
+            return true;
+        });
     }
     public MapArray<K,V> update(K key, V value) {
-        ReentrantLock lock = this.lock;
-        lock.lock();
-        if (hasKey(key))
-            removeByKey(key);
-        pairs.add(new Pair<>(key, value));
-        lock.unlock();
-        return this;
+        return threadSafe(() -> {
+            if (hasKey(key))
+                removeByKey(key);
+            pairs.add(new Pair<>(key, value));
+            return this;
+        });
     }
 
 
     public MapArray<K,V> update(K key, Function<V, V> func) {
-        ReentrantLock lock = this.lock;
-        lock.lock();
-        V value = null;
-        if (hasKey(key)) {
-            value = get(key);
-            removeByKey(key);
-        }
-        pairs.add(new Pair<>(key, func.apply(value)));
-        lock.unlock();
-        return this;
+        return threadSafe(() -> {
+            V value = null;
+            if (hasKey(key)) {
+                value = get(key);
+                removeByKey(key);
+            }
+            pairs.add(new Pair<>(key, func.apply(value)));
+            return this;
+        });
     }
 
     public void add(Object[][] pairs) {
@@ -170,12 +167,11 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public void addOrReplace(Object[][] pairs) {
-        ReentrantLock lock = this.lock;
-        lock.lock();
-        for (Object[] pair : pairs)
-            if (pair.length == 2)
-                addOrReplace((K) pair[0], (V) pair[1]);
-        lock.unlock();
+        threadSafe(() -> {
+            for (Object[] pair : pairs)
+                if (pair.length == 2)
+                    addOrReplace((K) pair[0], (V) pair[1]);
+        });
     }
 
     private boolean hasKey(K key) {

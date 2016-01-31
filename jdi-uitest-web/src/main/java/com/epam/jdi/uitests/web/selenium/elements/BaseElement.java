@@ -21,22 +21,12 @@ package com.epam.jdi.uitests.web.selenium.elements;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
-import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.core.interfaces.common.*;
-import com.epam.jdi.uitests.core.interfaces.complex.*;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ElementsActions;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
-import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.common.*;
-import com.epam.jdi.uitests.web.selenium.elements.complex.*;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 import org.openqa.selenium.By;
@@ -51,6 +41,8 @@ import java.util.function.Consumer;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.web.selenium.elements.CascadeInit.*;
+import static com.epam.jdi.uitests.web.selenium.elements.CascadeInit.InitElements;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -85,9 +77,8 @@ public abstract class BaseElement implements IBaseElement {
 
     public BaseElement(By byLocator) {
         avatar = new GetElementModule(byLocator, this);
-        if (isInterface(getClass(), IComposite.class) && !createFreeInstance && CascadeInit.firstInstance)
-            CascadeInit.InitElements(this, avatar.getDriverName());
-        MapInterfaceToElement.init(seleniumDefaultMap());
+        if (isInterface(getClass(), IComposite.class) && !createFreeInstance && firstInstance)
+            InitElements(this, avatar.getDriverName());
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {
@@ -96,34 +87,6 @@ public abstract class BaseElement implements IBaseElement {
 
     public static void setValueRule(String text, Consumer<String> action) {
         doActionRule.accept(text, action);
-    }
-
-    private static Object[][] seleniumDefaultMap() {
-        return new Object[][]{
-                {IElement.class, Element.class},
-                {IButton.class, Button.class},
-                {IClickable.class, Clickable.class},
-                {IComboBox.class, ComboBox.class},
-                {ILink.class, Link.class},
-                {ISelector.class, Selector.class},
-                {IText.class, Text.class},
-                {IImage.class, Image.class},
-                {ITextArea.class, TextArea.class},
-                {ITextField.class, TextField.class},
-                {ILabel.class, Label.class},
-                {IDropDown.class, Dropdown.class},
-                {IDropList.class, DropList.class},
-                {IGroup.class, ElementsGroup.class},
-                {ITable.class, Table.class},
-                {ICheckBox.class, CheckBox.class},
-                {IRadioButtons.class, RadioButtons.class},
-                {ICheckList.class, CheckList.class},
-                {ITextList.class, TextList.class},
-                {ITabs.class, Tabs.class},
-                {IMenu.class, Menu.class},
-                {IFileInput.class, FileInput.class},
-                {IDatePicker.class, DatePicker.class},
-        };
     }
 
     public String getName() {
