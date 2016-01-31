@@ -68,19 +68,20 @@ public class ChecklistTests extends InitTests {
         assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
 
     }
+private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void select2IndexTest() {
         nature().select(1, 4);
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
 
     @Test
     public void select2EnumTest() {
         nature().select(Nature.WATER, Nature.FIRE);
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
 
     @Test
@@ -105,7 +106,7 @@ public class ChecklistTests extends InitTests {
     public void check2StringTest() {
         nature().check("Water", "Fire");
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
 
     }
 
@@ -113,14 +114,14 @@ public class ChecklistTests extends InitTests {
     public void check2IndexTest() {
         nature().check(1, 4);
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
 
     @Test
     public void check2EnumTest() {
         nature().check(Nature.WATER, Nature.FIRE);
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
 
     @Test
