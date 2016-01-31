@@ -74,7 +74,7 @@ public class GetElementModule {
         this.rootElement = rootElement;
     }
 
-    public boolean haveLocator() {
+    public boolean hasLocator() {
         return byLocator != null;
     }
 

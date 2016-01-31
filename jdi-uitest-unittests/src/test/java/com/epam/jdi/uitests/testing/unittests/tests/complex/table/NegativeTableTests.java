@@ -1,26 +1,14 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.dataproviders.IndexesDP;
-import com.epam.jdi.uitests.testing.unittests.dataproviders.TableDP;
-import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
-import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.TableSettings;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SORTING_TABLE_PAGE;
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.dynamicTablePage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.sortingTablePage;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Row.row;
 import static com.epam.jdi.uitests.web.selenium.preconditions.PreconditionsState.isInState;
-import static com.epam.web.matcher.testng.Assert.areEquals;
-import static java.lang.String.format;
 
 /**
  * Created by Natalia_Grebenshchik on 10/28/2015.

@@ -23,7 +23,6 @@ import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
-import com.epam.jdi.uitests.web.testng.testRunner.TestNGRunner;
 import com.epam.web.matcher.testng.Check;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -72,7 +71,6 @@ public class WebSettings extends JDISettings {
             }
         }.doScreenshot(SCREEN_ON_FAIL);
         timeouts = new WebTimeoutSettings();
-        testRunner = new TestNGRunner();
         getProperties(jdiSettingsPath);
         fillAction(p -> logger = (p.equals("true") || p.equals("1"))
             ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))

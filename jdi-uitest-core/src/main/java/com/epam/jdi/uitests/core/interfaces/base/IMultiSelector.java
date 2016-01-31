@@ -98,14 +98,14 @@ public interface IMultiSelector<TEnum extends Enum> extends IBaseElement, ISetVa
 
     /**
      * @param names Specify names
-     * @return Wait while all options with names (use text) selected. Return false if this not happens
+     * Wait while all options with names (use text) selected. Return false if this not happens
      */
     @JDIAction
     void waitSelected(String... names);
 
     /**
      * @param names Specify names
-     * @return Wait while all options with names (use enum) selected. Return false if this not happens
+     * Wait while all options with names (use enum) selected. Return false if this not happens
      */
     @JDIAction
     void waitSelected(TEnum... names);
@@ -118,14 +118,14 @@ public interface IMultiSelector<TEnum extends Enum> extends IBaseElement, ISetVa
 
     /**
      * @param names Specify names
-     * @return Wait while all options with names (use text) deselected. Return false if this not happens
+     * Wait while all options with names (use text) deselected. Return false if this not happens
      */
     @JDIAction
     void waitDeselected(String... names);
 
     /**
      * @param names Specify names
-     * @return Wait while all options with names (use enum) deselected. Return false if this not happens
+     * Wait while all options with names (use enum) deselected. Return false if this not happens
      */
     @JDIAction
     void waitDeselected(TEnum... names);

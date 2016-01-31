@@ -78,14 +78,14 @@ public interface ISelector<TEnum extends Enum> extends IBaseElement, ISetValue {
 
     /**
      * @param name Specify name using string
-     * @return Wait while option (from text) is selected. Return false if this not happens
+     * Wait while option (from text) is selected. Return false if this not happens
      */
     @JDIAction
     void waitSelected(String name);
 
     /**
      * @param name Specify name using enum
-     * @return Wait while option (from enum) is selected. Return false if this not happens
+     * Wait while option (from enum) is selected. Return false if this not happens
      */
     @JDIAction
     void waitSelected(TEnum name);

@@ -48,7 +48,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public abstract class BaseMatcher implements IAsserter, IChecker {
     private static Logger logger = getLogger("JDI Logger");
-    public void setLogger(Logger logger) { this.logger = logger; }
+    public void setLogger(Logger logger) { BaseMatcher.logger = logger; }
     private static long defaultWaitTimeout;
     private static DoScreen defaultDoScreenType = NO_SCREEN;
     private static String FOUND = "FOUND";

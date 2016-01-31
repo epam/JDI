@@ -63,8 +63,7 @@ public class TestNGListener implements IInvokedMethodListener {
         if (method.isTestMethod()) {
             List<String> fails = getFails();
             if (!fails.isEmpty()) {
-                for (String fail : fails)
-                    logger.error(fail);
+                fails.forEach(logger::error);
                 result.setStatus(FAILURE);
             }
             logger.info("=== Test '%s' %s ===", testName, getTestResult(result));

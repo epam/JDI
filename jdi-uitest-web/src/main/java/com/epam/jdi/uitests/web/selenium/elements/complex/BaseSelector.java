@@ -61,7 +61,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected void selectAction(String name) {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", name);
         if (getLocator().toString().contains("%s")) {
             new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), name)).click();
@@ -86,7 +86,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected void selectAction(int index) {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", index);
         if (allLabels() != null) {
             selectFromList(allLabels().getWebElements(), index);
@@ -168,7 +168,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected List<WebElement> getElements() {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't check is element displayed or not. No optionsNamesLocator and allLabelsLocator found");
         if (allLabels() != null)
             return allLabels().getWebElements();
@@ -181,7 +181,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction(String name) {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't check is option '%s' displayed. No optionsNamesLocator and allLabelsLocator found", name);
         if (getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), name)).isDisplayed();
@@ -202,7 +202,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction(int index) {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't check is option '%s' displayed. No optionsNamesLocator and allLabelsLocator found", index);
         if (getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), index)).isDisplayed();

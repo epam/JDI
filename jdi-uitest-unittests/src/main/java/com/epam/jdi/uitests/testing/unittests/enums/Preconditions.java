@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.testing.unittests.enums;
 
-import com.epam.jdi.uitests.testing.unittests.CommonData;
 import com.epam.jdi.uitests.web.selenium.preconditions.IPreconditions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT_USER;
+import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.dates;
 import static com.epam.jdi.uitests.web.WebSettings.getDriver;
@@ -22,9 +21,9 @@ public enum Preconditions implements IPreconditions {
     CONTACT_PAGE("page1.htm"),
     CONTACT_PAGE_FILLED(d -> IPreconditions.checkUrl("page1.htm", d), d -> {
         IPreconditions.openUri("page1.htm", d);
-        contactFormPage.name.newInput(DEFAULT_USER.name);
-        contactFormPage.lastName.newInput(DEFAULT_USER.lastName);
-        contactFormPage.description.newInput(DEFAULT_USER.description);
+        contactFormPage.name.newInput(DEFAULT.name);
+        contactFormPage.lastName.newInput(DEFAULT.lastName);
+        contactFormPage.description.newInput(DEFAULT.description);
     }),
     METALS_AND_COLORS_PAGE("page2.htm"),
     DATES_PAGE("page4.htm"),
@@ -36,7 +35,7 @@ public enum Preconditions implements IPreconditions {
         IPreconditions.openUri("page4.htm", d);
         WebElement datePicker = getDriver().findElement(dates.datepicker.getLocator());
         datePicker.clear();
-        datePicker.sendKeys(CommonData.TEST_DATE);
+        datePicker.sendKeys("09/09/1945");
     });
 
     public String _htmlPageName;

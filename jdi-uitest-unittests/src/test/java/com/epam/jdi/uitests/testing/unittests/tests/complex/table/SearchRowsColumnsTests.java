@@ -1,15 +1,12 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.commons.PrintUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
-import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;

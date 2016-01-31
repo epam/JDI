@@ -36,7 +36,7 @@ public interface IElement extends IBaseElement, IVisible {
     /**
      * @param name  Specify attribute name
      * @param value Specify attribute value
-     * @return Waits while attribute gets expected value. Return false if this not happens
+     * Waits while attribute gets expected value. Return false if this not happens
      */
     @JDIAction
     void waitAttribute(String name, String value);

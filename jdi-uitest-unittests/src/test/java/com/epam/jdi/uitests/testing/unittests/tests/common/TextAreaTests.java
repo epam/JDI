@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT_USER;
+import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
@@ -65,7 +65,7 @@ public class TextAreaTests extends InitTests {
         return new Object[]{
                 new TextFieldTests("ITextArea", CONTACT_PAGE_FILLED,
                         this::textItem, "text123", "text123",
-                        DEFAULT_USER.description, "pti", ".escriptio.")
+                        DEFAULT.description, "pti", ".escriptio.")
         };
     }
 }

@@ -80,8 +80,8 @@ public class ScreenshotMaker {
         String path = new File(".").getCanonicalPath() + getValidUrl(pathSuffix);
         String screensFilePath = getFileName(path + (testName != null ? testName : "screen") + Timer.nowDate().replace(":", "-"));
         new File(screensFilePath).getParentFile().mkdirs();
-            File screensFile = ((TakesScreenshot) driverFactory.getDriver()).getScreenshotAs(FILE);
-            copyFile(screensFile, new File(screensFilePath));
+        File screensFile = ((TakesScreenshot) driverFactory.getDriver()).getScreenshotAs(FILE);
+        copyFile(screensFile, new File(screensFilePath));
         return screensFilePath;
     }
 

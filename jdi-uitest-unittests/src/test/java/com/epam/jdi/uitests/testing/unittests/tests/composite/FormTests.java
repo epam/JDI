@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.testing.unittests.entities.Contact.DEFAULT_CONTACT;
+import static com.epam.jdi.uitests.testing.unittests.entities.Contact.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Buttons.SUBMIT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
@@ -37,43 +37,43 @@ public class FormTests extends InitTests {
 
     @Test
     public void fillTest() {
-        form.get().fill(DEFAULT_CONTACT);
-        assertEquals(form.get().getFormValue(), DEFAULT_CONTACT.toList());
+        form.get().fill(DEFAULT);
+        assertEquals(form.get().getFormValue(), DEFAULT.toList());
     }
 
     @Test
     public void submitTest() {
-        form.get().submit(DEFAULT_CONTACT);
-        checkResult(DEFAULT_CONTACT.toString());
+        form.get().submit(DEFAULT);
+        checkResult(DEFAULT.toString());
     }
 
     @Test
     public void submitSpecButtonStringTest() {
-        form.get().submit(DEFAULT_CONTACT, "submit");
-        checkResult(DEFAULT_CONTACT.toString());
+        form.get().submit(DEFAULT, "submit");
+        checkResult(DEFAULT.toString());
     }
 
     @Test
     public void submitSpecButtonEnumTest() throws Exception {
-        form.get().submit(DEFAULT_CONTACT, SUBMIT);
-        checkResult(DEFAULT_CONTACT.toString());
+        form.get().submit(DEFAULT, SUBMIT);
+        checkResult(DEFAULT.toString());
     }
 
     @Test
     public void submitStringTest() throws Exception {
-        form.get().submit(DEFAULT_CONTACT.name);
-        checkResult(format("Summary: 3\nName: %s", DEFAULT_CONTACT.name));
+        form.get().submit(DEFAULT.name);
+        checkResult(format("Summary: 3\nName: %s", DEFAULT.name));
     }
 
     @Test
     public void verifyTest() {
-        form.get().fillForm(DEFAULT_CONTACT);
-        isEmpty(form.get().verify(DEFAULT_CONTACT));
+        form.get().fillForm(DEFAULT);
+        isEmpty(form.get().verify(DEFAULT));
     }
 
     @Test
     public void checkTest() {
-        form.get().fillForm(DEFAULT_CONTACT);
-        hasNoExceptions(() -> form.get().check(DEFAULT_CONTACT));
+        form.get().fillForm(DEFAULT);
+        hasNoExceptions(() -> form.get().check(DEFAULT));
     }
 }

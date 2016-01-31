@@ -151,8 +151,8 @@ public abstract class BaseElement implements IBaseElement {
         return (JavascriptExecutor) getDriver();
     }
 
-    public boolean haveLocator() {
-        return avatar.haveLocator();
+    public boolean hasLocator() {
+        return avatar.hasLocator();
     }
 
     /**

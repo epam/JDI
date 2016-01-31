@@ -1,12 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.dataproviders;
 
-import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.common.Image;
-import com.epam.jdi.uitests.web.selenium.elements.common.Label;
-import com.epam.jdi.uitests.web.selenium.elements.common.Link;
 import org.testng.annotations.DataProvider;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by Natalia_Grebenshchik on 12/21/2015.

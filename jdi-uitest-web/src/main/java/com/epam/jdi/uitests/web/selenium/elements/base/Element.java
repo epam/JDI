@@ -140,7 +140,7 @@ public class Element extends BaseElement implements IElement {
 
     /**
      * @param resultFunc Specify expected function result
-     * @return Waits while condition with WebElement happens during specified timeout and returns result using resultFunc
+     * Waits while condition with WebElement happens during specified timeout and returns result using resultFunc
      */
     @JDIAction
     public void wait(Function<WebElement, Boolean> resultFunc) {
@@ -161,7 +161,7 @@ public class Element extends BaseElement implements IElement {
     /**
      * @param resultFunc Specify expected function result
      * @param timeoutSec Specify timeout
-     * @return Waits while condition with WebElement happens during specified timeout and returns wait result
+     * Waits while condition with WebElement happens during specified timeout and returns wait result
      */
     @JDIAction
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {

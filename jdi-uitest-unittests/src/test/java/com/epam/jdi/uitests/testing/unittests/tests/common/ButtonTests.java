@@ -1,9 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.tests.common;
 
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
-import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -17,28 +15,11 @@ import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActions
 import static com.epam.jdi.uitests.web.selenium.preconditions.PreconditionsState.isInState;
 
 public class ButtonTests extends InitTests {
-    private Supplier<IClickable> button = () -> metalsColorsPage.calculateButton;
-    private Preconditions page = METALS_AND_COLORS_PAGE;
-    private String expectedText = "CALCULATE";
-    private String contains = "CUL";
-    private String regEx = ".*LCU.*";
-    private String elementType = "Button";
-
-    public ButtonTests() {
-    }
-
-    public ButtonTests(String elementType, Preconditions page, Supplier<IClickable> textItem, String expectedText, String contains, String regEx){
-        this.elementType = elementType;
-        this.page = page;
-        this.button = textItem;
-        this.expectedText = expectedText;
-        this.contains = contains;
-        this.regEx = regEx;
-    }
+    private Supplier<IButton> button = () -> metalsColorsPage.calculateButton;
 
     @BeforeMethod
     public void before(final Method method) {
-        isInState(page, method);
+        isInState(METALS_AND_COLORS_PAGE, method);
     }
 
     @Test
@@ -50,7 +31,7 @@ public class ButtonTests extends InitTests {
     @Factory
     public Object[] textTests() {
         return new Object[]{
-                new TextTests(elementType, page, () -> (IText) button.get(), expectedText, contains, regEx)
+                new TextTests("Button", METALS_AND_COLORS_PAGE, button::get, "CALCULATE", "CUL", ".*LCU.*")
         };
     }
 }

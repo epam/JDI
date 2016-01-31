@@ -1,12 +1,10 @@
 package com.epam.jdi.uitests.web.testng.testRunner;
 
 import com.epam.jdi.uitests.core.logger.JDILogger;
-import org.slf4j.Logger;
 import org.slf4j.Marker;
 
 import java.util.function.Function;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Reporter.log;
 
 /**
@@ -15,25 +13,12 @@ import static org.testng.Reporter.log;
 public class TestNGLogger extends JDILogger {
 
     public TestNGLogger() {
-        logger = getLogger("JDI Logger");
-        this.name = "JDI Logger";
     }
     public TestNGLogger(String name) {
-        logger = getLogger(name);
-        this.name = name;
+        super(name);
     }
     public TestNGLogger(String name, Function<String, String> pattern) {
-        logger = getLogger(name);
-        this.name = name;
-        this.pattern = pattern;
-    }
-
-    private String name;
-    private Logger logger;
-    private Function<String, String> pattern = s -> s;
-
-    public String getName() {
-        return name;
+        super(name, pattern);
     }
 
     @Override

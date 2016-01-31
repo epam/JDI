@@ -108,7 +108,7 @@ public class ComboBoxTests extends InitTests {
         try {
             metals().waitSelected("Col");
         } catch (Exception ex) {
-            exception("WaitSelected throws exception");
+            throw exception("WaitSelected throws exception");
         }
     }
 

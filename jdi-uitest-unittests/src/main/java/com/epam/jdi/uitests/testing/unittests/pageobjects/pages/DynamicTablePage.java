@@ -35,7 +35,7 @@ public class DynamicTablePage extends WebPage {
     @FindBy(xpath = "*//button[text()='Apply']")
     public Button applyBtn;
 
-    public abstract class ColumnDropList<ColumnHeaders extends Enum> extends DropList<ColumnHeaders> {
+    public abstract class ColumnDropList<ColHeaders extends Enum> extends DropList<ColHeaders> {
         public ColumnDropList(By xpath, By xpath1) {
             super(xpath, xpath1);
         }

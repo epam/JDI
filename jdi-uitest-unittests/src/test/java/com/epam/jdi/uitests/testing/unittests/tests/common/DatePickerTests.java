@@ -4,7 +4,6 @@ import com.epam.jdi.uitests.testing.unittests.InitTests;
 import org.testng.annotations.Factory;
 
 import static com.epam.commons.Timer.nowTime;
-import static com.epam.jdi.uitests.testing.unittests.CommonData.TEST_DATE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.DATES_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.dates;
 
@@ -20,7 +19,7 @@ public class DatePickerTests extends InitTests {
                         () -> dates.datepicker,
                         nowTime("MM/dd/yyyy"),
                         nowTime("MM/dd/yyyy"),
-                        TEST_DATE,
+                        "09/09/1945",
                         "1945",
                         "([0-9]{2}[\\/]{1}){2}[0-9]{4}")
         };

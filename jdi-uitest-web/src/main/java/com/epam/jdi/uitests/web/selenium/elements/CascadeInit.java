@@ -41,7 +41,7 @@ import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.TryCatchUtil.tryGetResult;
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSTION;
+import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.isStatic;
@@ -93,7 +93,7 @@ public abstract class CascadeInit implements IBaseElement {
         return result;
     }
 
-    public static List<Field> deepGetFields(Object obj, Class<?> type) {
+    private static List<Field> deepGetFields(Object obj, Class<?> type) {
         return LinqUtils.where(deepGetFields(obj.getClass()), field -> !isStatic(field.getModifiers()) && (isClass(field, type) || isInterface(field, type)));
     }
     public static void initPages(Class<?> parentType, String driverName) {
@@ -134,7 +134,7 @@ public abstract class CascadeInit implements IBaseElement {
         return obj == null ? "NULL Class" : obj.getClass().getSimpleName();
     }
 
-    public static void setElement(Object parent, Object parentInstance, Field field, String driverName) {
+    private static void setElement(Object parent, Object parentInstance, Field field, String driverName) {
         try {
             Class<?> type = field.getType();
             if (parentInstance == null)
@@ -240,7 +240,7 @@ public abstract class CascadeInit implements IBaseElement {
     private static By getNewLocator(Field field) {
         try {
             By byLocator = null;
-            String locatorGroup = APP_VERSTION;
+            String locatorGroup = APP_VERSION;
             if (locatorGroup != null) {
                 JFindBy jFindBy = field.getAnnotation(JFindBy.class);
                 if (jFindBy != null && locatorGroup.equals(jFindBy.group()))

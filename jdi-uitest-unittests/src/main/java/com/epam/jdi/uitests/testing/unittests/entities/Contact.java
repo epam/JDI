@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Contact {
 
-    public static final Contact DEFAULT_CONTACT = new Contact();
+    public static final Contact DEFAULT = new Contact();
 
     public String name;
     public String lastName;

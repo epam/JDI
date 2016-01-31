@@ -122,7 +122,7 @@ public class Timer {
                 if (waitCase.getAsBoolean())
                     return true;
                 sleep(retryTimeoutInMSec);
-            } catch (Exception | Error ignorre) { }
+            } catch (Exception | Error ignore) { }
         return false;
     }
 

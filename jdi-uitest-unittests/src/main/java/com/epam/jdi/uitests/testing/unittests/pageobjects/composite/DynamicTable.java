@@ -50,7 +50,7 @@ class CellCheckBox extends CheckBox {
 
     @Override
     protected boolean isCheckedAction() {
-        return Boolean.valueOf(new Element(((CellCheckBox) this).
+        return Boolean.valueOf(new Element(this.
                 getWebElement().
                 findElement(By.xpath("../input"))).
                 getInvisibleElement().getAttribute("checked"));

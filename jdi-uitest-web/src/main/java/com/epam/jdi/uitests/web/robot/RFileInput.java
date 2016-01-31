@@ -37,6 +37,8 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.web.selenium.elements.common.FileInput;
 import org.openqa.selenium.By;
 
+import static com.epam.jdi.uitests.web.robot.JRobot.pasteText;
+
 /**
  * Text Field control implementation
  *
@@ -59,7 +61,7 @@ public class RFileInput extends FileInput implements ITextField {
     @Override
     protected void inputAction(CharSequence text) {
         getWebElement().click();
-        RobotF.robot.pasteText(text);
+        pasteText(text);
     }
 
 }

@@ -64,10 +64,7 @@ public class LinqUtils {
         if (map == null)
             throw new RuntimeException("Can't do selectMap. Collection is Null");
         try {
-            List<R> result = new ArrayList<>();
-            for (Map.Entry<K, V> el : map.entrySet())
-                result.add(func.apply(el));
-            return result;
+            return map.entrySet().stream().map(func::apply).collect(Collectors.toList());
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
@@ -119,9 +116,7 @@ public class LinqUtils {
             throw new RuntimeException("Can't do where. Collection is Null");
         try {
             Map<K, V> result = new HashMap<>();
-            for (Map.Entry<K, V> el : map.entrySet())
-                if (func.apply(el))
-                    result.put(el.getKey(), el.getValue());
+            map.entrySet().stream().filter(func::apply).forEach(el -> result.put(el.getKey(), el.getValue()));
             return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do where. Exception: " + ex.getMessage());
@@ -147,8 +142,7 @@ public class LinqUtils {
         if (map == null)
             throw new RuntimeException("Can't do foreach. Collection is Null");
         try {
-            for (Map.Entry<K, V> entry : map.entrySet())
-                action.accept(entry);
+            map.entrySet().forEach(action::accept);
         } catch (Exception ex) {
             throw new RuntimeException("Can't do foreach. Exception: " + ex.getMessage());
         }
@@ -157,9 +151,7 @@ public class LinqUtils {
     public static <T> T first(Iterable<T> list) {
         if (list == null)
             throw new RuntimeException("Can't do first. Collection is Null");
-        for (T el : list)
-            return el;
-        return null;
+        return list.iterator().next();
     }
 
     public static <T> T first(T[] list) {
@@ -169,9 +161,7 @@ public class LinqUtils {
     public static <K, V> V first(Map<K, V> map) {
         if (map == null)
             throw new RuntimeException("Can't do first. Collection is Null");
-        for (Map.Entry<K, V> el : map.entrySet())
-            return el.getValue();
-        return null;
+        return map.entrySet().iterator().next().getValue();
     }
 
     public static <T> T first(Iterable<T> list, Function<T, Boolean> func) {

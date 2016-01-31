@@ -35,14 +35,12 @@ public class Pairs<TValue1, TValue2> extends ArrayList<Pair<TValue1, TValue2>> {
 
     public Pairs(List<Pair<TValue1, TValue2>> pairs) {
         if (pairs == null) return;
-        for (Pair<TValue1, TValue2> element : pairs)
-            this.add(element);
+        pairs.forEach(this::add);
     }
 
     public Pairs(TValue1 value1, TValue2 value2, Collection<Pair<TValue1, TValue2>> pairs) {
         if (pairs != null)
-            for (Pair<TValue1, TValue2> element : pairs)
-                this.add(element);
+            pairs.forEach(this::add);
         add(value1, value2);
     }
 
@@ -70,8 +68,7 @@ public class Pairs<TValue1, TValue2> extends ArrayList<Pair<TValue1, TValue2>> {
     }
 
     public void foreach(Consumer<Pair<TValue1, TValue2>> action) {
-        for (Pair<TValue1, TValue2> element : this)
-            action.accept(element);
+        this.forEach(action::accept);
     }
 
     public Pairs<TValue1, TValue2> subList(int from) {

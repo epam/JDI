@@ -3,7 +3,7 @@
 <suite name="Test suite" parallel="methods" thread-count="2">
     <test name="Tests" preserve-order="true">
         <classes>
-            <class name="com.epam.jdi.uitests.testing.career.parallel.tests.SeleniumParallelTests"></class>
+            <class name="com.epam.jdi.uitests.testing.career.parallel.tests.SeleniumParallelTests"/>
         </classes>
     </test>
 </suite>

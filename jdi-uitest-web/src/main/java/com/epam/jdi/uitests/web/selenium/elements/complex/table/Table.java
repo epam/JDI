@@ -51,7 +51,7 @@ public class Table extends Text implements ITable, Cloneable {
     private List<ICell> allCells = new ArrayList<>();
     private Columns _columns = new Columns();
     private Rows _rows = new Rows();
-    private By footerLocator = By.xpath(".//tfoot//th");
+    private By footerLocator = By.xpath(".//tfoot/tr/th");
 
     // ------------------------------------------ //
 
@@ -278,7 +278,7 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     protected String[] getFooterAction() {
-        return select(getWebElement().findElements(By.xpath(".//tfoot/tr/th")), WebElement::getText)
+        return select(getWebElement().findElements(footerLocator), WebElement::getText)
                 .toArray(new String[1]);
     }
 

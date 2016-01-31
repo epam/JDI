@@ -48,13 +48,6 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 7/8/2015.
  */
 public class Form<T> extends Element implements IForm<T> {
-    private boolean fillEmptyValue = false;
-
-    public Form fillEmptyValue() {
-        fillEmptyValue = true;
-        return this;
-    }
-
     protected void setValueAction(String text, ISetValue element) {
         element.setValue(text);
     }

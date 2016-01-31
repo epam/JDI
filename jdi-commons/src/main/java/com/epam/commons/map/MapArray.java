@@ -26,6 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.TryCatchUtil.throwRuntimeException;
@@ -381,11 +382,8 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
 
     public MapArray<K, V> where(BiFunction<K, V, Boolean> func) {
         try {
-            MapArray<K, V> result = new MapArray<>();
-            for (Pair<K, V> pair : pairs)
-                if (func.apply(pair.key, pair.value))
-                    result.add(pair);
-            return result;
+            return pairs.stream().filter(pair -> func.apply(pair.key, pair.value))
+                    .collect(Collectors.toCollection(MapArray::new));
         } catch (Exception ignore) {
             throwRuntimeException(ignore);
             return null;

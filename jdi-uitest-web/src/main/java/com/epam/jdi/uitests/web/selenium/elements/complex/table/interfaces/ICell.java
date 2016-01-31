@@ -28,7 +28,7 @@ import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 public interface ICell extends ISelect {
     SelectElement get();
 
-    <T extends BaseElement> T get(Class<T> clazz) throws Exception;
+    <T extends BaseElement> T get(Class<T> clazz);
 
     <T extends BaseElement> T get(T element);
 

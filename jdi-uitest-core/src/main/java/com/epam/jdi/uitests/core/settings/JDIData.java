@@ -22,7 +22,7 @@ package com.epam.jdi.uitests.core.settings;
  */
 public class JDIData {
     public static final String FRAMEWORK_NAME = "Jedi";
-    public static final String APP_VERSTION = "2.0.0";
+    public static String APP_VERSION = "2.0.0";
     public static String testName;
 
     private JDIData() {

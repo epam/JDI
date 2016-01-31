@@ -25,7 +25,7 @@ public class InitTests extends TestNGBase {
         //Assert.noScreenOnFail();
         Init(EpamJDISite.class);
         homePage.open();
-        login.submit(User.DEFAULT_USER);
+        login.submit(User.DEFAULT);
         logger.info("Run Tests");
         Verify.getFails();
     }

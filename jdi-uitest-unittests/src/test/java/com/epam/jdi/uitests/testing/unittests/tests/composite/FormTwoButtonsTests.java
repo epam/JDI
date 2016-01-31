@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.testing.unittests.entities.Contact.DEFAULT_CONTACT;
+import static com.epam.jdi.uitests.testing.unittests.entities.Contact.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.checkResult;
@@ -35,7 +35,7 @@ public class FormTwoButtonsTests extends InitTests {
 
     @Test
     public void submitSpecButtonStringTest() {
-        form.get().submit(DEFAULT_CONTACT, "calculate");
+        form.get().submit(DEFAULT, "calculate");
         checkResult("Summary: 3");
     }
 }

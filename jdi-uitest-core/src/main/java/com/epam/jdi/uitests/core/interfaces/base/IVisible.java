@@ -36,13 +36,13 @@ public interface IVisible {
     boolean isHidden();
 
     /**
-     * @return Waits while Element becomes visible
+     * Waits while Element becomes visible
      */
     @JDIAction
     void waitDisplayed();
 
     /**
-     * @return Waits while Element becomes invisible
+     * Waits while Element becomes invisible
      */
     @JDIAction
     void waitVanished();

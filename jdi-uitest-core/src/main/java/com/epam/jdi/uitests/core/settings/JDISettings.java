@@ -35,7 +35,6 @@ import static java.lang.Integer.parseInt;
 public abstract class JDISettings {
     public static Logger logger;
     public static IAsserter asserter;
-    public static ITestRunner testRunner;
     public static TimeoutSettings timeouts = new TimeoutSettings();
     public static boolean isDemoMode;
     public static HighlightSettings highlightSettings = new HighlightSettings();

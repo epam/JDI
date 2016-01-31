@@ -4,7 +4,7 @@ package com.epam.jdi.uitests.testing.unittests.entities;
  * Created by Roman_Iovlev on 5/21/2015.
  */
 public class User {
-    public static User DEFAULT_USER = new User();
+    public static User DEFAULT = new User();
 
     public String login = "epam";
     public String password = "1234";

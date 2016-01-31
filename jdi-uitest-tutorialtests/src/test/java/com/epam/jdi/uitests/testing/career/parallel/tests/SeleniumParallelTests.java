@@ -71,7 +71,7 @@ public class SeleniumParallelTests {
             driver.findElements(By.cssSelector(".tile-menu>li>a")).get(i).click();
             update(i, t.timePassedInMSec(), t);
             System.out.println("Click " + i + " done");
-            try {Thread.sleep(1000); } catch (Exception ex) {}
+            try {Thread.sleep(1000); } catch (Exception ignore) {}
         }
     }
 

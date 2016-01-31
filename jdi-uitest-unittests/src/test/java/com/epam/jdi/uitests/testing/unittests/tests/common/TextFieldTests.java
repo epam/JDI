@@ -21,7 +21,7 @@ import static org.testng.Assert.assertEquals;
  * Created by Dmitry_Lebedev1 on 11/12/2015.
  */
 public class TextFieldTests extends InitTests {
-    public String text = User.DEFAULT_USER.name;
+    public String text = User.DEFAULT.name;
     public String contains = "ame";
     public String regex = ".am.";
     Supplier<ITextField> textField = () -> contactFormPage.name;

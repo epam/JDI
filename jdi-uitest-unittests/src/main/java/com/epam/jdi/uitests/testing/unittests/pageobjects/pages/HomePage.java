@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IImage;
-import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;

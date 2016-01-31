@@ -53,7 +53,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
     }
 
     protected void clearAction() {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't clear options. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             throw exception("Can't clear options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
@@ -74,7 +74,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
 
     protected WebElement getElement(String name) {
         List<WebElement> els = null;
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             els = new GetElementModule(WebDriverByUtils.fillByTemplate(getLocator(), name), getAvatar().context, this).getElements();
@@ -98,7 +98,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
     }
 
     protected WebElement getElement(int index) {
-        if (!haveLocator() && allLabels() == null)
+        if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
@@ -140,7 +140,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
 
     @Override
     protected void setValueAction(String value) {
-        selectListAction(value.split(", "));
+        selectListAction(value.split(separator));
     }
 
     public IMultiSelector<TEnum> setValuesSeparator(String separator) {
