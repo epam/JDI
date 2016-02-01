@@ -38,16 +38,19 @@ public class Site {
     }
     protected String driverName;
 
-    public Site() { CascadeInit.initPages(this, getDriverFactory().currentDriverName); }
-    public Site(DriverTypes driver) {
-        this(useDriver(driver));
+    public <T> T init() {
+        return init(getDriverFactory().currentDriverName);
     }
-    public Site(Supplier<WebDriver> driver) {
-        this(useDriver(driver));
-    }
-    public Site(String driverName) {
+    public <T> T init(String driverName) {
         this.driverName = driverName;
-        CascadeInit.initPages(this, driverName);
+        CascadeInit.initPages(this, getDriverFactory().currentDriverName);
+        return (T) this;
+    }
+    public <T> T init(DriverTypes driver) {
+        return init(useDriver(driver));
+    }
+    public <T> T init(Supplier<WebDriver> driver) {
+        return init(useDriver(driver));
     }
 
     public void isInState(IPreconditions precondition) {

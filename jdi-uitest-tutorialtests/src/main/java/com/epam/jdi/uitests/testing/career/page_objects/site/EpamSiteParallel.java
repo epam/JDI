@@ -5,7 +5,6 @@ import com.epam.jdi.uitests.testing.career.page_objects.site.pages.CareerPage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.HomePage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobDescriptionPage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobListingPage;
-import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Site;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
@@ -32,7 +31,4 @@ public class EpamSiteParallel extends Site {
     @FindBy(css = ".tile-menu>li>a")
     public Menu<HeaderMenu> headerMenu;
 
-    public EpamSiteParallel() { }
-    public EpamSiteParallel(DriverTypes driver) { super(driver); }
-    public EpamSiteParallel(String driver) { super(driver); }
 }

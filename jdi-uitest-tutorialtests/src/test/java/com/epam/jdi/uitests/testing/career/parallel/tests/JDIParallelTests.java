@@ -48,7 +48,7 @@ public class JDIParallelTests {
 
     private void seleniumScenario(int num) {
         logger.info(format("Start test %s; Thread: %s", num, Thread.currentThread().getId()));
-        EpamSiteParallel site = new EpamSiteParallel(getDriverName());
+        EpamSiteParallel site = new EpamSiteParallel().init(getDriverName());
         site.homePage.open();
         logger.info(format("Site opened: %s; Thread: %s", num, Thread.currentThread().getId()));
         Timer t = new Timer();
@@ -71,7 +71,7 @@ public class JDIParallelTests {
 
     private void seleniumScenario2(int num) {
         logger.info(format("Start test %s; Thread: %s ", num, Thread.currentThread().getId()));
-        EpamSiteParallel site = new EpamSiteParallel(getDriverName());
+        EpamSiteParallel site = new EpamSiteParallel().init(getDriverName());
         site.homePage.open();
         logger.info(format("Site opened: %s; Thread: %s", num, Thread.currentThread().getId()));
         for(int i = 1; i<=5; i++) {

@@ -7,4 +7,6 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
  */
 public class HomePage extends WebPage {
 
+    public HomePage() { }
+    public HomePage(String test) { super(); url = test; }
 }

@@ -40,7 +40,6 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.commons.TryCatchUtil.tryGetResult;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
@@ -50,39 +49,20 @@ import static java.lang.reflect.Modifier.isStatic;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public abstract class CascadeInit implements IBaseElement {
-    public static boolean firstInstance = true;
 
     public synchronized static void InitElements(Object parent, String driverName) {
         if (parent.getClass().getName().contains("$")) return;
-        Object parentInstance = null;
         Class<?> parentType = parent.getClass();
-        boolean firstInstanceCreated = false;
 
-        if (firstInstance) {
-            parentInstance = getParentInstance(parentType);
-            firstInstanceCreated = true;
-        }
-
-        initSubElements(parent, parentInstance, driverName);
+        initSubElements(parent, driverName);
 
         if (isClass(parentType, WebPage.class) && parentType.isAnnotationPresent(JPage.class))
             WebAnnotationsUtil.fillPageFromAnnotaiton((WebPage) parent, parentType.getAnnotation(JPage.class), null);
-
-        if (firstInstanceCreated)
-            firstInstance = true;
     }
 
-    private static Object getParentInstance(Class<?> parentType) {
-        firstInstance = false;
-        BaseElement.createFreeInstance = true;
-        Object parentInstance = tryGetResult(parentType::newInstance);
-        BaseElement.createFreeInstance = false;
-        return parentInstance;
-    }
-
-    private static void initSubElements(Object parent, Object parentInstance, String driverName) {
+    private static void initSubElements(Object parent, String driverName) {
         foreach(deepGetFields(parent, IBaseElement.class),
-                field -> setElement(parent, parentInstance, field, driverName));
+                field -> setElement(parent, field, driverName));
     }
 
     private static List<Field> deepGetFields(Class<?> clazz) {
@@ -134,19 +114,17 @@ public abstract class CascadeInit implements IBaseElement {
         return obj == null ? "NULL Class" : obj.getClass().getSimpleName();
     }
 
-    private static void setElement(Object parent, Object parentInstance, Field field, String driverName) {
+    private static void setElement(Object parent, Field field, String driverName) {
         try {
             Class<?> type = field.getType();
-            if (parentInstance == null)
-                parentInstance = parent;
             BaseElement instance;
             if (isClass(type, WebPage.class)) {
-                instance = (BaseElement) getValueField(field, parentInstance);
+                instance = (BaseElement) getValueField(field, parent);
                 if (instance == null)
                     instance = (BaseElement) type.newInstance();
                 fillPage(instance, field, parent != null ? parent.getClass() : null);
             } else {
-                instance = createChildFromField(parent, parentInstance, field, type, driverName);
+                instance = createChildFromField(parent, field, type, driverName);
                 instance.function = WebAnnotationsUtil.getFunction(field);
             }
             instance.setName(field);
@@ -186,15 +164,15 @@ public abstract class CascadeInit implements IBaseElement {
         return instance;
     }
 
-    private static BaseElement createChildFromField(Object parent, Object parentInstance, Field field, Class<?> type, String driverName) {
-        BaseElement instance = (BaseElement) getValueField(field, parentInstance);
+    private static BaseElement createChildFromField(Object parent, Field field, Class<?> type, String driverName) {
+        BaseElement instance = (BaseElement) getValueField(field, parent);
         if (instance == null)
             try {
                 instance = getElementInstance(type, field.getName(), getNewLocator(field), driverName);
             } catch (Exception ex) {
                 throw exception(
                         format("Can't create child for parent '%s' with type '%s'",
-                                parentInstance.getClass().getSimpleName(), field.getType().getSimpleName()));
+                                parent.getClass().getSimpleName(), field.getType().getSimpleName()));
             }
         else if (instance.getLocator() == null)
             instance.avatar.byLocator = getNewLocator(field);

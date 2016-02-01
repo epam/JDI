@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.web.selenium.elements;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
@@ -38,11 +37,9 @@ import java.text.MessageFormat;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static com.epam.jdi.uitests.web.selenium.elements.CascadeInit.*;
-import static com.epam.jdi.uitests.web.selenium.elements.CascadeInit.InitElements;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -72,13 +69,12 @@ public abstract class BaseElement implements IBaseElement {
     private String typeName;
 
     public BaseElement() {
-        this(null);
+        this(By.id("EMPTY"));
     }
 
     public BaseElement(By byLocator) {
-        avatar = new GetElementModule(byLocator, this);
-        if (isInterface(getClass(), IComposite.class) && !createFreeInstance && firstInstance)
-            InitElements(this, avatar.getDriverName());
+        avatar = new GetElementModule(!getByLocator(byLocator).equals("EMPTY") ? byLocator : null, this);
+        //InitElements(this, avatar.getDriverName());
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {

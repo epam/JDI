@@ -27,21 +27,17 @@ public class TestScenarios {
         return driverName;
     }
 
-    public static String getDriverName() {
-        ReentrantLock lock = rLock;
-        lock.lock();
+    public synchronized static String getDriverName() {
         long threadId = currentThread().getId();
-        String result = threadsDrivers.containsKey(threadId)
+        return threadsDrivers.containsKey(threadId)
                 ? threadsDrivers.get(threadId)
                 : registerNewdriver(threadId);
-        lock.unlock();
-        return result;
     }
 
     protected static void sendCVTest(String testName) {
         Attendee attendee = new Attendee(testName + " Thread: " + currentThread().getId());
         attendee.cv = null;
-        EpamSiteParallel site = new EpamSiteParallel(getDriverName());
+        EpamSiteParallel site = new EpamSiteParallel().init(getDriverName());
         site.isInState(HOME_PAGE);
         site.headerMenu.select(CAREERS);
         site.careerPage.checkOpened();
