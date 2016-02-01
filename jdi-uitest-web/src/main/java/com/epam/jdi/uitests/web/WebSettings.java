@@ -43,7 +43,6 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.commons.PropertyReader.getProperties;
-import static com.epam.commons.ThreadLockUtils.threadSafeException;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 
 /**
@@ -74,23 +73,21 @@ public class WebSettings extends JDISettings {
         }
     }
 
-    public static void init() {
-        threadSafeException(() -> {
-            driverFactory = new SeleniumDriverFactory();
-            asserter = new Check() {
-                @Override
-                protected String doScreenshotGetMessage() {
-                    return ScreenshotMaker.doScreenshotGetMessage();
-                }
-            }.doScreenshot(SCREEN_ON_FAIL);
-            timeouts = new WebTimeoutSettings();
-            getProperties(jdiSettingsPath);
-            fillAction(p -> logger = (p.equals("true") || p.equals("1"))
-                    ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
-                    : new TestNGLogger("JDI Logger")
-                    , "multithread");
-            MapInterfaceToElement.init(defaultInterfacesMap);
-        });
+    public synchronized static void init() throws IOException {
+        driverFactory = new SeleniumDriverFactory();
+        asserter = new Check() {
+            @Override
+            protected String doScreenshotGetMessage() {
+                return ScreenshotMaker.doScreenshotGetMessage();
+            }
+        }.doScreenshot(SCREEN_ON_FAIL);
+        timeouts = new WebTimeoutSettings();
+        getProperties(jdiSettingsPath);
+        fillAction(p -> logger = (p.equals("true") || p.equals("1"))
+                ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
+                : new TestNGLogger("JDI Logger")
+                , "multithread");
+        MapInterfaceToElement.init(defaultInterfacesMap);
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{

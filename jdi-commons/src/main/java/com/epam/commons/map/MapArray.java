@@ -22,14 +22,12 @@ import com.epam.commons.pairs.Pair;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.commons.ThreadLockUtils.threadSafe;
 import static com.epam.commons.TryCatchUtil.throwRuntimeException;
 import static java.util.stream.Collectors.toList;
 
@@ -125,33 +123,27 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public boolean add(K key, V value) {
-        return threadSafe(() -> {
-            if (hasKey(key))
-                return false;
-            pairs.add(new Pair<>(key, value));
-            return true;
-        });
+        if (hasKey(key))
+            return false;
+        pairs.add(new Pair<>(key, value));
+        return true;
     }
     public MapArray<K,V> update(K key, V value) {
-        return threadSafe(() -> {
-            if (hasKey(key))
-                removeByKey(key);
-            pairs.add(new Pair<>(key, value));
-            return this;
-        });
+        if (hasKey(key))
+            removeByKey(key);
+        pairs.add(new Pair<>(key, value));
+        return this;
     }
 
 
     public MapArray<K,V> update(K key, Function<V, V> func) {
-        return threadSafe(() -> {
-            V value = null;
-            if (hasKey(key)) {
-                value = get(key);
-                removeByKey(key);
-            }
-            pairs.add(new Pair<>(key, func.apply(value)));
-            return this;
-        });
+        V value = null;
+        if (hasKey(key)) {
+            value = get(key);
+            removeByKey(key);
+        }
+        pairs.add(new Pair<>(key, func.apply(value)));
+        return this;
     }
 
     public void add(Object[][] pairs) {
@@ -167,11 +159,9 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public void addOrReplace(Object[][] pairs) {
-        threadSafe(() -> {
-            for (Object[] pair : pairs)
-                if (pair.length == 2)
-                    addOrReplace((K) pair[0], (V) pair[1]);
-        });
+        for (Object[] pair : pairs)
+            if (pair.length == 2)
+                addOrReplace((K) pair[0], (V) pair[1]);
     }
 
     private boolean hasKey(K key) {
