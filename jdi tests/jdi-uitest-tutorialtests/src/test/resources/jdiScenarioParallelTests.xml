@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test suite" parallel="methods" thread-count="2">
+    <test name="Tests" preserve-order="true">
+        <classes>
+            <class name="com.epam.jdi.uitests.testing.career.parallel.tests.JDIParallelSceanrioTests"/>
+        </classes>
+    </test>
+</suite>
