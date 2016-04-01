@@ -1,0 +1,34 @@
+﻿using System;
+using Epam.JDI.Core;
+using Epam.JDI.Web.Selenium.Elements.Base;
+using Epam.JDI.Core.Interfaces.Common;
+using OpenQA.Selenium;
+
+namespace Epam.JDI.Web.Selenium.Elements.Common
+{
+    public class Textbox : WebElement, IText
+    {
+        public Textbox() : this (null) { }
+        public Textbox(By byLocator = null, IWebElement webElement = null)
+            : base(byLocator, webElement) { }
+
+        protected Func<WebBaseElement, string> GetTextFunc =
+            el => el.WebAvatar.FindImmediately(() => el.WebElement.Text, "");
+
+        public string Text => Actions.GetText(GetTextFunc);
+        
+        protected Func<WebBaseElement, string> GetValueFunc = el => ((Textbox)el).GetTextFunc(el);
+        
+        public string Value => Actions.GetValue(GetValueFunc);
+
+        public string WaitText(string text)
+        {
+            return Actions.WaitText(text, GetTextFunc);
+        }
+
+        public string WaitMatchText(string regEx)
+        {
+            return Actions.WaitMatchText(regEx, GetTextFunc);
+        }
+    }
+}

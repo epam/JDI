@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="2" name="jdi-selenium-framework" parallel="false">
+    <test verbose="2" name="jdi-ui-tests" preserve-order="true">
+        <classes>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.ChecklistTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.ComboBoxTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.DropdownTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.DropdownExpandedTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.RadioButtonsTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.RadioButtonsWithSelectedTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.SelectorTests"/>
+            <class name="com.epam.jdi.uitests.testing.unittests.tests.complex.SelectorWithSelectedTests"/>
+        </classes>
+    </test>
+</suite>

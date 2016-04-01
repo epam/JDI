@@ -1,7 +1,6 @@
 #JDI Automation UI Test Framework#
 
 Copyright (c) 2015, EPAM Systems
-Support only Windows platform
 
 ##Introduction##
 

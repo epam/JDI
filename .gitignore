@@ -6,3 +6,7 @@ target/
 .logs/
 *.xlsx
 *.html
+bin/
+obj/
+.vs/
+packages/

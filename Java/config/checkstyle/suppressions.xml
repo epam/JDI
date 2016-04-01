@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC "-//Puppy Crawl//DTD Suppressions 1.1//EN" "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+<suppressions>
+  <!-- relax rules in unit tests, we need less docs and magic numbers are commonplace in tests -->
+  <suppress checks="JavadocMethod|IllegalInstantiation|IllegalThrows|MagicNumber" files=".*Test.java" />
+  <!-- relax rules in package info files, they are not real classes -->
+  <suppress checks="RegexpHeader" files=".*package-info.java" />
+  <!-- Functional Test methods need to have _ char in the name in order to follow the TC  Test Script Naming Conventions -->
+  <suppress checks="MethodName" files=".*Test.java"/>
+
+  <!-- All interfaces has JavaDocs and all implementations inherits them, but static analyser can't get this so we can't leave this rule as it is -->
+  <!-- Won't cover utility public methods by JavaDocs now this will take a lot of effort and give 0 value for user. This will be done later in background -->
+  <suppress checks="JavadocMethod" files=".*.java"/>
+  <suppress checks="JavadocType" files=".*.java"/>
+  <suppress checks="JavadocStyle" files=".*.java"/>
+
+  <!-- Minor, useless, not definite rules -->
+  <suppress checks="NewlineAtEndOfFile" files=".*.java"/>
+  <suppress checks="NeedBraces" files=".*.java"/>
+  <suppress checks="ParameterName" files=".*.java"/>
+  <suppress checks="ReturnCount" files=".*.java"/>
+  <suppress checks="ParameterNumber" files=".*.java"/>
+  <suppress checks="RegexpSingleline" files=".*.java"/>
+  <suppress checks="DeclarationOrder" files=".*.java"/>
+  <suppress checks="VisibilityModifier" files=".*.java"/>
+  <suppress checks="Indentation" files=".*.java"/>
+  <suppress checks="AvoidStarImport" files=".*.java"/>
+  <suppress checks="EqualsAvoidNull" files=".*.java"/>
+  <suppress checks="MagicNumber" files=".*.java"/>
+  <suppress checks="ExplicitInitialization" files=".*.java"/>
+  <suppress checks="MissingSwitchDefault" files=".*.java"/>
+  <suppress checks="SuperClone" files=".*.java"/>
+  <suppress checks="NPathComplexity" files=".*.java"/>
+  <suppress checks="IllegalThrows" files=".*.java"/>  
+  <suppress checks="InnerAssignment" files=".*.java"/>  
+  <suppress checks="LeftCurly" files=".*.java"/>
+  <suppress checks="MissingDeprecated" files=".*.java"/>
+  
+
+</suppressions>
