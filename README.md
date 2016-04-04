@@ -10,8 +10,7 @@ So all elements and abilities has default realization that mostly used, but in c
 Similar you can use any kind of external tools and frameworks for related functionality (different loggers, reporting tools, drivers test runners and asserters)
 We try to do test process easier and full of joy! :)
 
-For more details please visit
-http://lifescience.opensource.epam.com/selenium.html
+We in VK https://vk.com/jdi_framework
 
 ##License##
 
