@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 {
@@ -10,8 +6,8 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
     {
         public bool ColumnHasHeaders { set; get; } = true;
         public bool RowHasHeaders { set; get; } = true;
-        public List<String> ColumnHeaders { set; get; }
-        public List<String> RowHeaders { set; get; }
+        public List<string> ColumnHeaders { set; get; }
+        public List<string> RowHeaders { set; get; }
         public int ColumnsCount { set; get; }
         public int RowsCount { set; get; }
 

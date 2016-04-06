@@ -21,7 +21,8 @@ namespace Epam.JDI.Core
     {
         public By Locator => WebAvatar.ByLocator;
         public By Frame;
-        
+        private IWebElement _webElement;
+
         public object Parent { get; set; }
         
 
@@ -63,11 +64,12 @@ namespace Epam.JDI.Core
         {
         }
         
-        public WebBaseElement(By byLocator)
+        public WebBaseElement(By byLocator = null, IWebElement webElement = null)
         {
             Invoker = new ActionInvoker(this);
             GetElementClass = new GetElementClass(this);
             Actions = new ElementsActions(this);
+            _webElement = webElement;
             Avatar = new GetElementModule
             {
                 Element = this,
@@ -79,7 +81,7 @@ namespace Epam.JDI.Core
 
         public IWebElement WebElement
         {
-            get { return WebAvatar.WebElement; }
+            get { return _webElement ?? WebAvatar.WebElement; }
             set { WebAvatar.WebElement = value; }
         }
 

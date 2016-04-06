@@ -15,20 +15,12 @@ namespace Epam.JDI.Web.Selenium.Elements.Base
 {
     public class WebElement : WebBaseElement, IElement
     {
-        private IWebElement _webElement;
 
         public WebElement() : this (null) { }
 
-        public WebElement(By byLocator = null, IWebElement webElement = null) : base(byLocator)
-        {
-            _webElement = webElement;
-        }
-
-        protected WebElement(IWebElement webElement)
-        {
-            _webElement = webElement;
-        }
-
+        public WebElement(By byLocator = null, IWebElement webElement = null) 
+            : base(byLocator, webElement) { }
+        
         public static T Copy<T>(T element, By newLocator) where T : WebElement
         {
             return ActionWithException(() => 

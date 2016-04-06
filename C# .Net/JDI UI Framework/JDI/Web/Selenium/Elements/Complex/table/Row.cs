@@ -8,17 +8,15 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 {
     public class Row : RowColumn
     {
-        public Row (int num) : base(num) { }
-        public Row(string name) : base(name) { }
-        //TODO
+        public Row (int num = -1, string name = null) : base(num, name) { }
         public static Row row(int num)
         {
             return new Row(num);
         }
 
-        public static Row row(String name)
+        public static Row row(string name)
         {
-            return new Row(name);
+            return new Row(name: name);
         }
     }
 }

@@ -158,6 +158,7 @@
     <Compile Include="JDI\Web\Selenium\DriverFactory\WebDriverByUtils.cs" />
     <Compile Include="JDI\Web\Selenium\DriverFactory\WebDriverUtil.cs" />
     <Compile Include="JDI\Web\Selenium\DriverFactory\WebDriverFactory.cs" />
+    <Compile Include="JDI\Web\Selenium\Elements\Base\SelectableElement.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\WebActions\ActionInvoker.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\APIInteract\ContextType.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\WebActions\ActionScenrios.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="JDI\Web\Selenium\Elements\Base\ClickableText.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\Base\WebElement.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\Common\Button.cs" />
-    <Compile Include="JDI\Web\Selenium\Elements\Base\OptionElement.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\Common\CheckBox.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\Common\DatePicker.cs" />
     <Compile Include="JDI\Web\Selenium\Elements\Common\FileInput.cs" />

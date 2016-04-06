@@ -20,14 +20,40 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         public static By FillByTemplate(this By by, params object[] args)
         {
             var byLocator = by.GetByLocator();
-            if (!byLocator.Contains("%"))
+            if (!byLocator.Contains("{0}"))
                 throw new Exception(GetBadLocatorMsg(byLocator, args));
             byLocator = ExceptionUtils.ActionWithException(
                 () => Format(byLocator, args),
                 ex => GetBadLocatorMsg(byLocator, args));
             return by.GetByFunc().Invoke(byLocator);
         }
+        public static By FillByMsgTemplate(this By by, params object[] args)
+        {
+            var byLocator = GetByLocator(by);
+            try
+            {
+                byLocator = Format(byLocator, args);
+            }
+            catch
+            {
+                throw new Exception(GetBadLocatorMsg(byLocator, args));
+            }
+            return GetByFunc(by)(byLocator);
+        }
 
+        public static By copyBy(By by)
+        {
+            var byLocator = GetByLocator(by);
+            return GetByFunc(by)(byLocator);
+        }
+        
+        /*public static string GetByName(By by)
+        {
+            Matcher m = Pattern.compile("By\\.(?<locator>.*):.*").matcher(by.ToString());
+            if (m.find())
+                return m.group("locator");
+            throw new RuntimeException("Can't get By name for: " + by);
+        }*/
         public static string GetByLocator(this By by)
         {
             var byAsString = by.ToString();

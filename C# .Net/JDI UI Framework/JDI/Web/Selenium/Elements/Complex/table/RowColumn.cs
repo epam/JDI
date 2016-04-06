@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces;
 using static System.String;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table
@@ -13,19 +8,13 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
         public int Num { get; set; }
         public string Name { get; set; }
 
-        public RowColumn(int num)
+        public RowColumn(int num, string name)
         {
             Num = num;
-        }
-        public RowColumn(string name)
-        {
             Name = name;
         }
 
-        public bool HaveName()
-        {
-            return IsNullOrEmpty(Name);
-        }
+        public bool HasName => !IsNullOrEmpty(Name);
 
         public T Get<T>(Func<RowColumn, T> action)
         {
@@ -33,7 +22,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
         }
         public T Get<T>(Func<string, T> nameAction, Func<int, T> numAction)
         {
-            return HaveName() ? nameAction.Invoke(Name) : numAction.Invoke(Num);
+            return HasName ? nameAction.Invoke(Name) : numAction.Invoke(Num);
         }
     }
 }

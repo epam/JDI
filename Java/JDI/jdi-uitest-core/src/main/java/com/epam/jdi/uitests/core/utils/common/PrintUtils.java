@@ -71,16 +71,18 @@ public final class PrintUtils {
                 : input;
     }
 
-    public static MapArray<String, String> parseObjectAsString(String string) {
-        if (string == null)
+    public static MapArray<String, String> parseObjectAsString(String objString) {
+        if (objString == null)
             return null;
         MapArray<String, String> result = new MapArray<>();
         List<String> values = new ArrayList<>();
         int i = 1;
-        String str = string;
-        while (string.indexOf("#(#") > 0) {
-            values.add(string.substring(string.indexOf("#(#") + 3, string.indexOf("#)#")));
-            str = string.replaceAll("#\\(#.*#\\)#", "#VAL" + i++);
+        String str = objString;
+        int from;
+        while ((from = str.indexOf("#(#")) > 0) {
+            int to = str.indexOf("#)#");
+            values.add(str.substring(from + 3, to));
+            str = str.replaceAll("#\\(#.*#\\)#", "#VAL" + i++);
         }
         String[] fields = str.split("#;#");
         for (String field : fields) {

@@ -1,31 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 {
     public class Column : RowColumn
     {
-        public Column(string name) : base(name)
-        {
-
-        }
-
-        private Column(int num) : base(num)
-        {
-
-        }
+        public Column(int num = -1, string name = null) : base(num, name) { }
 
         public static Column column(int num)
         {
             return new Column(num);
         }
 
-        public static Column column(String name)
+        public static Column column(string name)
         {
-            return new Column(name);
+            return new Column(name: name);
         }
     }
 }

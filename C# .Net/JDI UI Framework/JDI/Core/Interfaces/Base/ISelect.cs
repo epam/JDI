@@ -8,7 +8,7 @@ namespace Epam.JDI.Core.Interfaces.Base
      * Selects WebElement. Similar to click()
      */
        //TODO [JDIAction]
-    void Select();
+        void Select();
 
         /**
          * return - Checks is WebElement selected

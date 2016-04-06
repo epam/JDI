@@ -35,8 +35,8 @@ abstract class RowColumn {
         this.name = name;
     }
 
-    public boolean haveName() {
-        return name != null;
+    public boolean hasName() {
+        return name != null && !name.equals("");
     }
 
     public int getNum() {
@@ -52,6 +52,6 @@ abstract class RowColumn {
     }
 
     public <T> T get(Function<String, T> nameAction, Function<Integer, T> numAction) {
-        return haveName() ? nameAction.apply(name) : numAction.apply(num);
+        return hasName() ? nameAction.apply(name) : numAction.apply(num);
     }
 }

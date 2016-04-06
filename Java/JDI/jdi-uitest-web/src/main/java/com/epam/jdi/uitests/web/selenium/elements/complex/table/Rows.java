@@ -42,18 +42,12 @@ public class Rows extends TableLine {
         defaultTemplate = By.xpath(".//tr[%s]/td");
     }
 
-
     protected List<WebElement> getHeadersAction() {
         return table.getWebElement().findElements(headersLocator);
     }
 
     protected List<WebElement> getFirstLine() {
         return table.columns().getLineAction(1);
-    }
-
-    protected int getCount() {
-        List<WebElement> elements = getFirstLine();
-        return elements != null ? elements.size() : 0;
     }
 
     public MapArray<String, MapArray<String, ICell>> get() {
@@ -84,8 +78,10 @@ public class Rows extends TableLine {
         if (count() < 0 || table.rows().count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
-            List<WebElement> webRow = getLineAction(rowNum);
-            return new MapArray<>(table.columns().count(),
+            int colsCount = table.columns().count();
+            List<WebElement> webRow = timer().getResultByCondition(
+                    () -> getLineAction(rowNum), els -> els.size() == colsCount);
+            return new MapArray<>(colsCount,
                     key -> table.columns().headers().get(key),
                     value -> table.cell(webRow.get(value), new Column(value + 1), new Row(rowNum)));
         } catch (Exception | Error ex) {
@@ -109,10 +105,12 @@ public class Rows extends TableLine {
 
     public final MapArray<String, ICell> getRow(String rowName) {
         try {
+            int colsCount = table.columns().count();
+            List<WebElement> webRowLine = timer().getResultByCondition(
+                    () -> getLineAction(rowName), els -> els.size() == colsCount);
             List<String> headers = table.columns().headers();
-            List<WebElement> webRowLine = getLineAction(rowName);
             List<WebElement> webRow = skipFirstColumn() ? listCopy(webRowLine, 1) : webRowLine;
-            return new MapArray<>(table.columns().count(),
+            return new MapArray<>(colsCount,
                     table.columns().headers::get,
                     value -> table.cell(webRow.get(value), new Column(headers.get(value)), new Row(rowName)));
         } catch (Exception | Error ex) {
@@ -124,7 +122,7 @@ public class Rows extends TableLine {
         return hasHeader && lineTemplate == null;
     }
 
-    private RuntimeException throwRowsException(String colName, String ex) {
-        return exception("Can't Get Row '%s'. Reason: %s", colName, ex);
+    private RuntimeException throwRowsException(String rowName, String ex) {
+        return exception("Can't Get Row '%s'. Reason: %s", rowName, ex);
     }
 }

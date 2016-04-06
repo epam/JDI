@@ -2,33 +2,34 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Epam.JDI.Core.Settings;
-using Epam.JDI.Web.Selenium.DriverFactory;
+using Epam.JDI.Commons;
 using Epam.JDI.Web.Selenium.Elements.APIInteract;
 using Epam.JDI.Web.Selenium.Elements.Base;
 using Epam.JDI.Web.Selenium.Elements.Common;
 using Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
+using static System.TimeSpan;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 {
-    public class Table : Textbox, ITable, ICloneable
+    public class Table : Textbox, ITable
     {
-        private List<ICell> _allCells = new List<ICell>();
-        private Columns _columns = new Columns();
-        private Rows _rows = new Rows();
-        private List<string> _footer;
+        private IList<ICell> _allCells = new List<ICell>();
+        private readonly Columns _columns = new Columns();
+        private readonly Rows _rows = new Rows();
+        private IList<string> _footer;
 
-        private List<ICell> AllCells
+        private IList<ICell> AllCells
         {
             get
             {
                 var result = new List<ICell>();
                 var rows = Rows.Get();
                 Columns.Headers.ForEach(columnName => Rows.Headers
-                    .ForEach(rowName => { result.Add(rows[rowName][columnName]); }));
+                    .ForEach(rowName => result.Add(rows[rowName][columnName])));
 
                 if (Cache)
                     AllCells = result;
@@ -37,13 +38,13 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             set { _allCells = value; }
         }
 
-        private Columns Columns
+        public Columns Columns
         {
             get { return _columns; }
             set { _columns.Update(value); }
         }
 
-        private Rows Rows
+        public Rows Rows
         {
             get { return _rows; }
             set { _rows.Update(value); }
@@ -117,13 +118,14 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
         {
             SetTableSettings(settings);
         }
+        
 
         public Table Copy()
         {
             return (Table) Clone();
         }
 
-        public object Clone()
+        public Table Clone()
         {
             var newTable = new Table();
             newTable.Rows = Rows.Clone(new Rows(), newTable);
@@ -161,6 +163,11 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             Clean();
         }
 
+        Columns ITable.Columns()
+        {
+            throw new NotImplementedException();
+        }
+
         public Dictionary<string, ICell> Column(int colNum)
         {
             return Columns.GetColumn(colNum);
@@ -177,18 +184,23 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return columnCell != null ? Columns.GetColumn(columnCell.ColumnNum) : null;
         }
 
+        Rows ITable.Rows()
+        {
+            throw new NotImplementedException();
+        }
+
         public Dictionary<string, ICell> Row(string value, Column column)
         {
             var rowCell = Cell(value, column);
             return rowCell != null ? Rows.GetRow(rowCell.RowNum) : null;
         }
         
-        public List<string> ColumnValue(int colNum)
+        public IList<string> ColumnValue(int colNum)
         {
             return Columns.GetColumnValue(colNum);
         }
 
-        public List<string> ColumnValue(string colName)
+        public IList<string> ColumnValue(string colName)
         {
             return Columns.GetColumnValue(colName);
         }
@@ -209,12 +221,12 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return Rows.GetRow(rowName);
         }
 
-        public List<string> RowValue(int rowNum)
+        public IList<string> RowValue(int rowNum)
         {
             return Rows.GetRowValue(rowNum);
         }
 
-        public List<string> RowValue(string rowName)
+        public IList<string> RowValue(string rowName)
         {
             return Rows.GetRowValue(rowName);
         }
@@ -252,22 +264,22 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
         }
 
 
-        public ITable HasColumnHeaders(List<string> value)
+        public ITable HasColumnHeaders(IList<string> value)
         {
             Columns.HasHeader = true;
-            Columns.Headers = new List<string>(value);
+            Columns.AddHeaders(value);
             return this;
         }
 
-        public ITable  HasColumnHeaders (Type headers)
+        public ITable HasColumnHeaders (Type headers)
         {
             return HasColumnHeaders(GetAllEnumNames(headers));
         }
 
-        public ITable HasRowHeaders(List<string> value)
+        public ITable HasRowHeaders(IList<string> value)
         {
             Rows.HasHeader = true;
-            Rows.Headers = new List<string>(value);
+            Rows.AddHeaders(value);
             return this;
         }
 
@@ -276,7 +288,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return HasRowHeaders(GetAllEnumNames(headers));
         }
 
-        private List<string> GetAllEnumNames(Type headers)
+        private IList<string> GetAllEnumNames(Type headers)
         {
             return typeof(Enum).IsAssignableFrom(headers) 
                 ? Enum.GetNames(headers).ToList() 
@@ -295,35 +307,39 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return this;
         }
 
-        protected List<string> GetFooterAction()
+        protected IList<string> GetFooterAction()
         {
-            //return select(getWebElement().findElements(footerLocator), WebElement::getText);
-            return (List<string>) WebElement.FindElements(FooterLocator).Select(e => e.Text); // TODO error expexted
+            return WebElement.FindElements(FooterLocator).Select(e => e.Text).ToList();
         }
 
 
-        public List<string> Footer
+        public IList<string> Footer
         {
             get { return new List<string>(_footer); }
             set { _footer = new List<string>(value); }
         }
 
-        public ReadOnlyDictionary<string, OptionElement> Header()
+        public Dictionary<string, SelectableElement> Header()
         {
             return Columns.Header();
         }
 
-        public OptionElement Header(string name)
+        public SelectableElement Header(string name)
         {
             return Columns.Header(name);
         }
 
-        public List<string> Headers()
+        public IList<string> Headers()
         {
             return Columns.Headers;
         }
 
-        public List<string> FooterInstance() // TODO method name conflict
+        IList<string> ITable.Footer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<string> FooterInstance() // TODO method name conflict
         {
             if (Footer != null)
                 return Footer;
@@ -345,6 +361,16 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
                     row.Get(name => name, num => ""));
         }
 
+        public ICell Cell(string columnName, string rowName)
+        {
+            return Cell(table.Column.column(columnName), table.Row.row(rowName));
+        }
+
+        public ICell Cell(int columnIndex, int rowIndex)
+        {
+            return Cell(table.Column.column(columnIndex), table.Row.row(rowIndex));
+        }
+
         public ICell Cell(IWebElement webElement, Column column, Row row)
         {
             return AddCell(webElement,
@@ -354,12 +380,12 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
                     row.Get(name => name, num => ""));
         }
 
-        private List<ICell> Matches(Collection<ICell> list, string regex)
+        private IList<ICell> Matches(Collection<ICell> list, string regex)
         {
             return new List<ICell> (list.Where(cell => cell.Value.Matches(regex)));
         }
 
-        public List<ICell> Cells(string value)
+        public IList<ICell> Cells(string value)
         {
             return new List<ICell>(GetCells().Where(cell => cell.Value.Equals(value)));
         }
@@ -370,7 +396,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.Text.Equals(value)).Value).FirstOrDefault(result => result != null);
         }
 
-        private List<ICell> GetCells()
+        public IList<ICell> GetCells()
         {
             var rows = Rows.Get();
             var result = (from columnName in Columns.Headers from rowName in Rows.Headers select rows[rowName][columnName]).ToList();
@@ -379,20 +405,20 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return result;
         }
 
-        public Dictionary<string, Dictionary<string, ICell>> RowsTemp(params string[] colNameValues) // TODO method name conflict
+        public Dictionary<string, Dictionary<string, ICell>> GetRows(params string[] colNameValues) // TODO method name conflict
         {
             var result = new Dictionary<string, Dictionary<string, ICell>>();
             foreach (var row in Rows.Get())
             {
-                bool matches = true;
+                var matches = true;
                 foreach (var colNameValue in colNameValues)
                 {
                     if (!colNameValue.Matches("[^=]+=[^=]*"))
-                        throw new Exception("Wrong searchCriteria for Cells: " + colNameValue);
-                    string[] splitted = colNameValue.Split(Convert.ToChar("="));
-                    string colName = splitted[0];
-                    string colValue = splitted[1];
-                    ICell cell = row.Value[colName];
+                        throw Exception($"Wrong searchCriteria for Cells: {colNameValue}");
+                    var splitted = colNameValue.Split(Convert.ToChar("="));
+                    var colName = splitted[0];
+                    var colValue = splitted[1];
+                    var cell = row.Value[colName];
                     if (cell == null || !cell.Value.Equals(colValue))
                     {
                         matches = false;
@@ -404,20 +430,20 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return result;
         }
 
-        public Dictionary<string, Dictionary<string, ICell>> ColumnsTemp(params string[] rowNameValues) // TODO method name conflict
+        public Dictionary<string, Dictionary<string, ICell>> GetColumns(params string[] rowNameValues) // TODO method name conflict
         {
             var result = new Dictionary<string, Dictionary<string, ICell>>();
             foreach (var column in Columns.Get())
             {
-                bool matches = true;
-                foreach (string rowNameValue in rowNameValues)
+                var matches = true;
+                foreach (var rowNameValue in rowNameValues)
                 {
                     if (!rowNameValue.Matches("[^=]+=[^=]*"))
-                        throw new Exception("Wrong searchCritaria for Cells: " + rowNameValue);
-                    string[] splitted = rowNameValue.Split(Convert.ToChar("="));
-                    string rowName = splitted[0];
-                    string rowValue = splitted[1];
-                    ICell cell = column.Value[rowName];
+                        throw Exception($"Wrong searchCritaria for Cells: {rowNameValue}");
+                    var splitted = rowNameValue.Split(Convert.ToChar("="));
+                    var rowName = splitted[0];
+                    var rowValue = splitted[1];
+                    var cell = column.Value[rowName];
                     if (cell == null || !cell.Value.Equals(rowValue))
                     {
                         matches = false;
@@ -428,6 +454,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             }
             return result;
         }
+        
 
         public bool WaitValue(string value, Row row)
         {
@@ -439,12 +466,13 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return Timer.Wait(() => Row(value, column) != null);
         }
 
-        public bool IsEmpty() // TODO
+        bool ITable.IsEmpty { get; }
+
+        public bool IsEmpty()
         {
-            var f = new WebDriverFactory();
-            f.GetDriver().Manage().Timeouts().ImplicitlyWait(TimeSpan.Zero);
-            int rowsCount = Rows.Count;
-            f.GetDriver().Manage().Timeouts().ImplicitlyWait(new TimeSpan(JDISettings.Timeouts.CurrentTimeoutSec));
+            WebDriver.Manage().Timeouts().ImplicitlyWait(Zero);
+            var rowsCount = Rows.Count;
+            WebDriver.Manage().Timeouts().ImplicitlyWait(FromSeconds(Timeouts.CurrentTimeoutSec));
             return rowsCount == 0;
         }
 
@@ -458,19 +486,19 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             return Timer.Wait(() => Rows.Count >= count);
         }
 
-        private ICell Cell(string value, Column column)
+        public ICell Cell(string value, Column column)
         {
             var colIndex = column.Get(name => Columns.Headers.IndexOf(name) + 1, num => num);
             return Columns.GetColumn(colIndex).FirstOrDefault(pair => pair.Value.Value.Equals(value)).Value;
         }
 
-        private ICell Cell(string value, Row row)
+        public ICell Cell(string value, Row row)
         {
-            var rowNum = row.HaveName() ? Rows.Headers.IndexOf(row.Name) + 1 : row.Num;
+            var rowNum = row.HasName ? Rows.Headers.IndexOf(row.Name) + 1 : row.Num;
             return Rows.GetRow(rowNum).FirstOrDefault(pair => pair.Value.Value.Equals(value)).Value;
         }
 
-        public List<ICell> CellsMatch(string regex)
+        public IList<ICell> CellsMatch(string regex)
         {
             return Matches(new Collection<ICell>(GetCells()), regex);
         }
@@ -478,59 +506,59 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
         {
             return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.Text.Matches(regex)).Value).FirstOrDefault(result => result != null);
         }
-
-        public List<ICell> CellsMatch(string regex, Column column)
+        
+        public IList<ICell> CellsMatch(string regex, Column column)
         {
-            Dictionary<string, ICell> columnLine = Column(column);
+            var columnLine = Column(column);
             return new List<ICell>(((Dictionary<string, ICell>)columnLine.Where(v => v.Key.Matches(regex))).Values);
         }
 
-        public List<ICell> CellsMatch(string regex, Row row)
+        public IList<ICell> CellsMatch(string regex, Row row)
         {
-            Dictionary<string, ICell> columnLine = Row(row);
+            var columnLine = Row(row);
             return new List<ICell>(((Dictionary<string, ICell>)columnLine.Where(v => v.Key.Matches(regex))).Values);
         }
 
         private int GetColumnIndex(string name)
         {
             int nameIndex;
-            List<string> headers = Columns.Headers;
+            var headers = Columns.Headers;
             if (headers != null && headers.Contains(name))
                 nameIndex = headers.IndexOf(name);
             else
-                throw new Exception($"Can't Get Column: {name} ."); // TODO print avilable ColumnHeaders
-            //throw exception("Can't Get Column: '" + name + "'. " + ((headers == null)
-            //        ? "ColumnHeaders is Null"
-            //        : ("Available ColumnHeaders: " + print(headers, ", ", "'{0}'") + ")")));
+            throw Exception("Can't Get Column: '" + name + "'. " + ((headers == null)
+                    ? "ColumnHeaders is Null"
+                    : "Available ColumnHeaders: " + headers.Print(", ", "'{0}'") + ")"));
             return nameIndex + Columns.StartIndex;
         }
 
         private object GetRowIndex(string name)
         {
             int nameIndex;
-            List<string> headers = Rows.Headers;
+            var headers = Rows.Headers;
             if (headers != null && headers.Contains(name))
                 nameIndex = headers.IndexOf(name);
             else
-                throw new Exception($"Can't Get Row: {name} ."); // TODO print avilable RowHeaders
+                throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers().Print(", ", "'{0}'")}"); 
             return nameIndex + Rows.StartIndex;
         }
 
         protected new string GetTextAction()
         {
-            throw new NotImplementedException(); // TODO
-            //return "||X||" + print(columns().headers(), "|") + "||\n" +
-            //        print(select(rows().headers(),
-            //                rowName-> "||" + rowName + "||" + print(select(where(getCells(),
-            //                        cell->cell.rowName().equals(rowName)), ICell::getValue), "|") + "||"), "\n");
+            return "||X||" + Columns.Headers.Print("|") + "||\n" +
+                    Rows.Headers.Select(rowName => 
+                        "||" + rowName + "||" + GetCells().Where(cell => 
+                            cell.RowName.Equals(rowName)).Select(cell => cell.Value)
+                            .Print("|") + "||")
+                                .Print("\n");
         }
 
         private ICell AddCell(int colIndex, int rowIndex, int colNum, int rowNum, string colName, string rowName)
         {
-            Cell cell = (Cell) AllCells.FirstOrDefault((c) => c.ColumnNum == colNum && c.RowNum == rowNum);
+            var cell = (Cell) AllCells.FirstOrDefault(c => c.ColumnNum == colNum && c.RowNum == rowNum);
             if (cell != null)
                 return cell.UpdateData(colName, rowName);
-            cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, CellLocatorTemplate, this);
+            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorTemplate, this, colIndex, rowIndex);
             cell.SetAvatar((GetElementModule) cell.Get().Avatar);
 
             if (Cache)
@@ -540,13 +568,13 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 
         private ICell AddCell(IWebElement webElement, int colNum, int rowNum, string colName, string rowName)
         {
-            Cell cell = (Cell)AllCells.FirstOrDefault(c => c.ColumnNum == colNum && c.RowNum == rowNum);
+            var cell = (Cell) _allCells.FirstOrDefault(c => c.ColumnNum == colNum && c.RowNum == rowNum);
             if (cell != null)
             {
                 cell.WebElement = webElement;
                 return cell.UpdateData(colName, rowName);
             }
-            cell = new Cell(webElement, colNum, rowNum, colName, rowName, CellLocatorTemplate, this);
+            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorTemplate, this, -1, webElement: webElement);
 
             if (Cache)
                 AllCells.Add(cell);

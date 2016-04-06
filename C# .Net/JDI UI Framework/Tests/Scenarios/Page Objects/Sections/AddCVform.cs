@@ -1,10 +1,11 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Web.Attributes;
 using Epam.JDI.Web.Selenium.Elements.Composite;
+using Epam.Tests.Scenarios.Entities;
 
 namespace Epam.Tests.Scenarios.Page_Objects.Sections
 {
-    public class AddCVForm : Section
+    public class AddCVForm : Form<Attendee>
     {
         [FindBy(Css = "[placeholder='First Name']")]
         private ITextField _name;

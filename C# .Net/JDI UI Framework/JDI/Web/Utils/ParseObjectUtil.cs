@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Epam.JDI.Commons;
 using Epam.JDI.Core.Attributes;
 using RestSharp.Extensions;
@@ -79,10 +80,12 @@ namespace Epam.JDI.Web.Utils
             var values = new List<string>();
             var i = 1;
             var str = objString;
-            while (objString.IndexOf("#(#") > 0)
+            int from;
+            while ((from = str.IndexOf("#(#")) > 0)
             {
-                values.Add(objString.Substring(objString.IndexOf("#(#") + 3, objString.IndexOf("#)#")));
-                str = objString.Replace("#\\(#.*#\\)#", "#VAL" + i++);
+                var to = str.IndexOf("#)#");
+                values.Add(str.Substring(from + 3, to - from - 3));
+                str = new Regex("#\\(#.*#\\)#").Replace(str, "#VAL" + i++);
             }
             var fields = str.Split("#;#");
             fields.ForEach(field =>

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Attributes.Functions;
 using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Web.Selenium.Elements.Common;
-using static Epam.JDI.Commons.ReflectionUtils;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace Epam.JDI.Web.Selenium.Attributes
@@ -22,7 +22,7 @@ namespace Epam.JDI.Web.Selenium.Attributes
 
         public static bool NamesEqual(string name1, string name2)
         {
-            return name1.ToLower().Replace(" ", "").Equals(name2.ToLower().Replace(" ", ""));
+            return name1.ToLower().Trim('_', ' ').Equals(name2.ToLower().Trim('_', ' '));
         }
 
         public Button GetButton(string buttonName)
@@ -38,14 +38,15 @@ namespace Epam.JDI.Web.Selenium.Attributes
                     var buttons = fields.Select(f => (Button)f.GetValue(_element));
                     var button = buttons.FirstOrDefault(b => NamesEqual(ToButton(b.Name), ToButton(buttonName)));
                     if (button == null)
-                        throw Exception($"Can't find button '{buttonName}' for Element '{ToString()}'");
+                        throw Exception($"Can't find button '{buttonName}' for Element '{ToString()}'." +
+                                        $"(Found following buttons: {buttons.Select(el => el.Name).Print()}).".FromNewLine());
                     return button;
             }
         }
 
         private string ToButton(string buttonName)
         {
-            return buttonName.ToLower().Contains("button") ? buttonName : buttonName + "button";
+            return buttonName.Contains("button") ? buttonName : buttonName + "button";
         }
 
         public Button GetButton(Functions funcName)

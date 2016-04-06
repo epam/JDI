@@ -29,10 +29,10 @@ namespace Epam.JDI.Web.Selenium.Elements.Composite
 
         public void Fill(Dictionary<string, string> map)
         {
-                this.GetFields(typeof(ISetValue)).ForEach(element =>  
+            this.GetFields(typeof(ISetValue)).ForEach(element =>  
             {
                 var fieldValue = map.FirstOrDefault(pair =>
-                    GetElementClass.NamesEqual(pair.Key, NameAttribute.GetElementName(element))).Value;
+                    GetElementClass.NamesEqual(pair.Key.ToLower().Trim('_'), NameAttribute.GetElementName(element).ToLower().Trim('_'))).Value;
                 if (fieldValue == null) return;
                 var setValueElement = (ISetValue) element.GetValue(this);
                 DoActionRule(fieldValue, val => SetFieldValueAction(this, val, setValueElement));

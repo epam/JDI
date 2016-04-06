@@ -57,7 +57,7 @@ namespace Epam.JDI.Commons
                         return result;
                 } catch (Exception ex) { exception = ex; }
                 Thread.Sleep(_retryTimeoutInMSec);
-            } while (!TimeoutPassed) ;
+            } while (!TimeoutPassed);
                 if (exception != null)
                     throw new Exception(exception.Message);
                 return default(T);

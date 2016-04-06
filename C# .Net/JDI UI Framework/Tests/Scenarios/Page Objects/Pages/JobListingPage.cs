@@ -13,8 +13,8 @@ namespace Epam.Tests.Scenarios.Page_Objects.Pages
     {
         [FindBy(ClassName = "search-result-list")]
         public ITable JobsList = new Table(null,
-                By.XPath(".//li[%s]//div"),
-                By.XPath(".//li//div[%s]"))
+                By.XPath(".//li[{0}]//div"),
+                By.XPath(".//li//div[{0}]"))
                 .HasColumnHeaders(typeof(JobListHeaders));
 
         public void GetJobRowByName(string jobName)

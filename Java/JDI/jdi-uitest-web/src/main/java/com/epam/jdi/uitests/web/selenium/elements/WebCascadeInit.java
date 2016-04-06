@@ -117,7 +117,7 @@ public class WebCascadeInit extends CascadeInit {
         By newLocator = getNewLocator(field);
         try {
             BaseElement instance = null;
-            if (isClass(type, List.class)) {
+            if (isInterface(type, List.class)) {
                 Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
                 if (elementClass.isInterface())
                     elementClass = MapInterfaceToElement.getClassFromInterface(type);
@@ -132,8 +132,8 @@ public class WebCascadeInit extends CascadeInit {
                 }
             }
             if (instance == null)
-                throw exception("Unknown interface: " + type
-                        + ". Add relation interface -> class in VIElement.InterfaceTypeMap");
+                throw exception("Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
+                        type, fieldName);
             instance.avatar.setDriverName(driverName);
             return instance;
         } catch (Exception ex) {

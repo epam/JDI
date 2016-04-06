@@ -428,7 +428,7 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ICell cell(String value, Row row) {
-        int rowNum = (row.haveName())
+        int rowNum = (row.hasName())
                 ? rows().headers().indexOf(row.getName()) + 1
                 : row.getNum();
         return rows().getRow(rowNum).first((name, cell) -> cell.getValue().equals(value));

@@ -52,16 +52,13 @@ public class Columns extends TableLine {
         return table.rows().skipFirstColumn() ? listCopy(line, 1) : line;
     }
 
-    protected int getCount() {
-        List<WebElement> elements = getFirstLine();
-        return elements != null ? elements.size() : 0;
-    }
-
     public final MapArray<String, ICell> getColumn(String colName) {
         try {
+            int rowsCount = table.rows().count();
             List<String> headers = table.rows().headers();
-            List<WebElement> webColumn = getLineAction(colName);
-            return new MapArray<>(table.rows().count(),
+            List<WebElement> webColumn = timer().getResultByCondition(
+                    () -> getLineAction(colName), els -> els.size() == rowsCount);
+            return new MapArray<>(rowsCount,
                     table.rows().headers::get,
                     value -> table.cell(webColumn.get(value), new Column(colName), new Row(headers.get(value))));
         } catch (Exception | Error ex) {
@@ -91,8 +88,10 @@ public class Columns extends TableLine {
         if (count() < 0 || table.columns().count() < colNum || colNum <= 0)
             throw exception("Can't Get Column '%s'. [num] > RowsCount(%s).", colNum, count());
         try {
-            List<WebElement> webColumn = getLineAction(colNum);
-            return new MapArray<>(table.rows().count(),
+            int rowsCount = table.rows().count();
+            List<WebElement> webColumn = timer().getResultByCondition(
+                    () -> getLineAction(colNum), els -> els.size() == rowsCount);
+            return new MapArray<>(rowsCount,
                     key -> table.rows().headers().get(key),
                     value -> table.cell(webColumn.get(value), new Column(colNum), new Row(value + 1)));
         } catch (Exception | Error ex) {
@@ -118,7 +117,7 @@ public class Columns extends TableLine {
         return new MapArray<>(headers(), key -> key, this::getColumn);
     }
 
-    private RuntimeException throwColumnException(String rowName, String ex) {
-        return exception("Can't Get Column '%s'. Reason: %s", rowName, ex);
+    private RuntimeException throwColumnException(String columnName, String ex) {
+        return exception("Can't Get Column '%s'. Reason: %s", columnName, ex);
     }
 }

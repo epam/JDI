@@ -52,7 +52,6 @@ class Cell extends SelectElement implements ISelect, ICell {
     private String columnName;
     private String rowName;
     private By cellLocatorTemplate = By.xpath(".//tr[{1}]/td[{0}]");
-    private Class<?>[] columnsTemplate;
 
     Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
                 By cellLocatorTemplate, Table table) {

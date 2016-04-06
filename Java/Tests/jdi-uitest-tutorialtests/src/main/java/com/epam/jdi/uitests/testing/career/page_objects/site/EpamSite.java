@@ -6,7 +6,8 @@ import com.epam.jdi.uitests.testing.career.page_objects.site.pages.CareerPage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.HomePage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobDescriptionPage;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobListingPage;
-import com.epam.jdi.uitests.web.selenium.elements.common.Label;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
@@ -16,8 +17,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAIN;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
 
@@ -26,6 +25,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageType
  */
 @JSite(domain = "https://www.epam.com")
 public class EpamSite extends WebSite {
+
     @JPage(url = "/", title = "EPAM | Software Product Development Services")
     public static HomePage homePage;
     @JPage(url = "/careers", title = "Careers")
@@ -39,7 +39,7 @@ public class EpamSite extends WebSite {
     public static Menu<HeaderMenu> headerMenu;
 
     @FindBy(css = ".tile-menu>li>a")
-    public static List<Label> listMenu;
+    public static Elements<Button> listMenu;
 
     @FindBy(css = ".tile-menu .submenu a")
     public static Menu<HeaderSolutionsMenu> headerSolutionsMenu = new Menu<HeaderSolutionsMenu>() {

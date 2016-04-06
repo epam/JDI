@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Epam.JDI.Core.Interfaces.Base;
-using NUnit.Framework;
 using static Epam.JDI.Commons.ReflectionUtils;
 
 namespace Epam.JDI.Core.Base

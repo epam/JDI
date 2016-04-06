@@ -83,6 +83,13 @@ namespace Epam.JDI.Commons
         {
             return s.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
         }
-
+        public static IList<T> ListCopy<T>(this IList<T> list, int from, int to = -1)
+        {
+            var result = new List<T>();
+            var bound = to > 0 ? to : list.Count - 1;
+            for (var i = from; i <= bound; i++)
+                result.Add(list[i]);
+            return result;
+        }
     }
 }

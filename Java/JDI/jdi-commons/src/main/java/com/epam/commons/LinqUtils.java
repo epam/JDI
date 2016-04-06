@@ -178,7 +178,7 @@ public final class LinqUtils {
     }
 
     public static <T> boolean any(Collection<T> list, Function<T, Boolean> func) {
-        return first(list, func) == null;
+        return first(list, func) != null;
     }
 
     public static <T> int firstIndex(List<T> list, Function<T, Boolean> func) {
@@ -297,6 +297,7 @@ public final class LinqUtils {
                 return i;
         return -1;
     }
+
     public static <T> List<T> listCopy(List<T> array, int from) {
         return listCopy(array, from, array.size() - 1);
     }

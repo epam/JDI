@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Web.Selenium.DriverFactory;
@@ -6,102 +7,96 @@ using Epam.JDI.Web.Selenium.Elements.Base;
 using Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces;
 using Epam.JDI.Web.Settings;
 using OpenQA.Selenium;
+using static System.String;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 {
-    class Cell : OptionElement, ICell
+    public class Cell : SelectableElement, ICell
     {
-        public string Value { get; set; }
-        public int ColumnIndex { get; }
-        public int RowIndex { get; }
+        public int RowIndex { set; get; }
+        public int ColumnIndex { set; get; }
+        public Table Table { get; set; }
         public int ColumnNum { get; set; }
-        public int RowNum
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set { _rowNum = value; }
-        }
-        public string ColumnName { get; set; }
-        public string RowName { get; set; }
-        public By CellLocatorTemplate { get; } = By.XPath(".//tr[{1}]/td[{0}]"); // TODO
-        public Table Table { get; }
-        public new IWebElement WebElement { get; set; } // TODO
-        private int _rowNum;
+        public int RowNum { get; set; }
+        private string _columnName { get; set; }
+        private string _rowName { get; set; }
+        private readonly By _cellLocatorTemplate = By.XPath(".//tr[{1}]/td[{0}]");
+        
 
-        public Cell(IWebElement webElement, int columnNum, int rowNum, string columnName, string rowName, By cellLocatorTemplate, Table table)
+        public Cell(int columnNum, int rowNum, string colName, string rowName,
+                    By cellLocatorTemplate, Table table, int columnIndex = -1, int rowIndex = -1, IWebElement webElement = null)
         {
+            if (columnIndex > 0)
+                ColumnIndex = table.Rows.HasHeader && table.Rows.LineTemplate == null 
+                    ? ColumnIndex + 1 
+                    : ColumnIndex;
             WebElement = webElement;
-            ColumnNum = columnNum;
-            RowNum = rowNum;
-            ColumnName = columnName;
-            RowName = rowName;
-            if (CellLocatorTemplate != null)
-                CellLocatorTemplate = cellLocatorTemplate;
-            Table = table;
-        }
-
-        public Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, string columnName, string rowName, By cellLocatorTemplate, Table table)
-        {
-            ColumnIndex = columnIndex;
             RowIndex = rowIndex;
             ColumnNum = columnNum;
             RowNum = rowNum;
-            ColumnName = columnName;
-            RowName = rowName;
-            if (CellLocatorTemplate != null)
-                CellLocatorTemplate = cellLocatorTemplate;
+            _columnName = colName;
+            _rowName = rowName;
+            if (cellLocatorTemplate != null)
+                _cellLocatorTemplate = cellLocatorTemplate;
             Table = table;
-        }
+            ClickAction = c => ((Cell)c).Get().Click();
+    }
+        
+        public string ColumnName => _columnName != null && !_columnName.Equals("")
+                    ? _columnName
+                    : Table.Columns.Headers[ColumnNum - 1];
 
-        protected new string GetTextAction()
-        {
-            return Get().Text;
-        }
-        protected new void ClickAction()
-        {
-            Get().Click();
-        }
-        protected new bool IsSelectedAction() // TODO
-        {
-            return Get().Selected;
-        }
+        public string RowName => _rowName != null && !_rowName.Equals("")
+                    ? _rowName
+                    : Table.Rows.Headers[RowNum - 1];
+        protected Func<Cell, string> TextAction => c => Get().Text;
 
-        public OptionElement Get()
+
+        protected new Func<Cell, bool> SelectedAction => c => Get().Selected;
+
+        public SelectableElement Get()
         {
             return WebElement != null
-                    ? new OptionElement(webElement: WebElement)
-                    : new OptionElement(CellLocatorTemplate.FillByTemplate(ColumnIndex, RowIndex));
+                    ? new SelectableElement(webElement: WebElement)
+                    : new SelectableElement(_cellLocatorTemplate.FillByMsgTemplate(ColumnIndex, RowIndex));
         }
 
         public T Get<T>(Type clazz) where T : WebBaseElement
         {
-            var instance = ExceptionUtils.ActionWithException(() => (T) (clazz.IsInterface
-                ? (T) Activator.CreateInstance(MapInterfaceToElement.ClassFromInterface(clazz))
-                : Activator.CreateInstance(clazz)), ex => $"Can't get Cell from interface/class: {clazz.Name} .");
+            T instance;
+            try
+            {
+                instance = (T) Activator.CreateInstance(clazz.IsInterface
+                        ? MapInterfaceToElement.ClassFromInterface(clazz)
+                        : clazz);
+            }
+            catch
+            {
+                throw Exception("Can't get Cell from interface/class: " + clazz.ToString().Split("\\.").Last());
+            }
             return Get(instance);
         }
 
-        private T Get<T>(T cell) where T : WebBaseElement
+        public T Get<T>(T cell) where T : WebBaseElement
         {
-            By locator = null; //cell.Locator; TODO Locator missong
+            var locator = cell.Locator;
             if (locator == null || locator.ToString().Equals(""))
-                locator = CellLocatorTemplate;
+                locator = _cellLocatorTemplate;
             if (!locator.ToString().Contains("{0}") || !locator.ToString().Contains("{1}"))
-                throw new Exception("Can't create cell with locator template " /*+ cell.Locator */+ // TODO Locator missong
-                        ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-            cell.WebAvatar.ByLocator = WebDriverByUtils.FillByTemplate(locator, RowIndex, ColumnIndex);
-            //cell.Avatar.Context.Add(ContextType.Locator, table.Locator); // TODO table.Locator missing
+                throw Exception("Can't create cell with locator template " + cell.Locator
+                        + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
+            cell.WebAvatar.ByLocator = locator.FillByMsgTemplate(RowIndex, ColumnIndex);
+            cell.Parent = Table;
             return cell;
         }
 
-        public ICell UpdateData(string colName, string rowName)
+        public Cell UpdateData(string colName, string rowName)
         {
-            if ((ColumnName == null || ColumnName.Equals("")) && !(colName == null || colName.Equals("")))
-                ColumnName = colName;
-            if ((RowName == null || RowName.Equals("")) && !(rowName == null || rowName.Equals("")))
-                RowName = rowName;
+            if (IsNullOrEmpty(_columnName) && !IsNullOrEmpty(colName))
+                _columnName = colName;
+            if (IsNullOrEmpty(_rowName) && !IsNullOrEmpty(rowName))
+                _rowName = rowName;
             return this;
         }
     }

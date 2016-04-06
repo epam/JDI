@@ -20,8 +20,10 @@ package com.epam.commons;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import static com.epam.commons.LinqUtils.any;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Arrays.asList;
 
 /**
  * Created by roman.i on 25.09.2014.
@@ -57,20 +59,13 @@ public final class ReflectionUtils {
         return isInterface(field.getType(), expected);
     }
 
-    public static boolean deepInterface(Class<?> type, Class<?> expected) {
-        Class<?>[] interfaces = type.getInterfaces();
-        return interfaces.length != 0 && (LinqUtils.first(interfaces, i -> i == expected) != null || LinqUtils.first(interfaces, i -> deepInterface(i, expected)) != null);
-    }
-
-    public static boolean isInterface(Class<?> t, Class<?> expected) {
-        Class<?> type = t;
-        while (type != null && type != Object.class) {
-            Class<?>[] interfaces = type.getInterfaces();
-            if (interfaces.length != 0 && (LinqUtils.first(interfaces, i -> i == expected) != null || LinqUtils.first(interfaces, i -> deepInterface(i, expected)) != null))
-                return true;
-            type = type.getSuperclass();
-        }
-        return false;
+    public static boolean isInterface(Class<?> type, Class<?> expected) {
+        if (type == null || expected == null || type == Object.class)
+            return false;
+        if (type == expected)
+            return true;
+        List<Class> interfaces = asList(type.getInterfaces());
+        return any(interfaces, i -> isInterface(i, expected)) || isInterface(type.getSuperclass(), expected);
     }
 
     public static List<Field> getFields(Object obj, Class<?> type) {
@@ -86,7 +81,8 @@ public final class ReflectionUtils {
     }
     public static boolean isExpectedClass(Field field, Class<?>... types) {
         for (Class<?> type : types)
-            if (isClass(field, type) || isInterface(field, type)) return true;
+            if (isClass(field, type) || isInterface(field, type))
+                return true;
         return false;
     }
 
