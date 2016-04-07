@@ -20,20 +20,10 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 
         public int Count
         {
-            get
-            {
-                if (_count > 0)
-                    return _count;
-                if (_headers != null && _headers.Count > 0)
-                    return _headers.Count;
-                return GetCount();
-            }
-            set
-            {
-                if (Table.Cache) _count = value;
-            }
+            get { return GetCount(false); }
+            set { if (Table.Cache) _count = value; }
         }
-
+        
         private IList<string> _headers;
 
         public void AddHeaders(IList<string> headers)
@@ -134,9 +124,15 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
 
         protected abstract IList<IWebElement> GetFirstLine();
 
-        protected int GetCount()
+        public int GetCount(bool acceptEmpty)
         {
-            var elements = Timer.GetResultByCondition(GetFirstLine, el => el != null && el.Count > 0);
+            if (_count > 0)
+                return _count;
+            if (_headers != null && _headers.Count > 0)
+                return _headers.Count;
+            var elements = acceptEmpty 
+                ? GetFirstLine()
+                : Timer.GetResultByCondition(GetFirstLine, el => el != null && el.Count > 0);
             return elements?.Count ?? 0;
         }
         public void Clean()

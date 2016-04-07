@@ -66,7 +66,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces
         /**
          * Indicates are any rows in table. Check immediately
          */
-        bool IsEmpty { get; }
+        bool Empty { get; }
 
         /**
          * Wait while at least one row appear in table
