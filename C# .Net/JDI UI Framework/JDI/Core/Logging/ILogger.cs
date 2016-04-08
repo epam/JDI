@@ -11,5 +11,6 @@ namespace Epam.JDI.Core.Logging
         void Step(String message);
         void TestDescription(String message);
         void TestSuit(String message);
+        void ToLog(string message, LogLevels level);
     }
 }
