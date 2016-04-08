@@ -91,6 +91,7 @@
     <Compile Include="JDI\Commons\EnumExtensions.cs" />
     <Compile Include="JDI\Commons\ReflectionUtils.cs" />
     <Compile Include="JDI\Commons\TimerExtensions.cs" />
+    <Compile Include="JDI\Core\Attributes\Scenario.cs" />
     <Compile Include="JDI\Core\ExceptionUtils.cs" />
     <Compile Include="JDI\Commons\Pairs\Pair.cs" />
     <Compile Include="JDI\Commons\Pairs\Pairs.cs" />
