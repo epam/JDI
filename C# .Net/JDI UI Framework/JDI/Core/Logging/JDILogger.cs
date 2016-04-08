@@ -96,6 +96,26 @@ namespace Epam.JDI.Core.Logging
         {
             InLog("Event", "Suit", msg);
         }
+        public void ToLog(string message, LogLevels level)
+        {
+            switch (level)
+            {
+                case LogLevels.Info:
+                    Info(message);
+                    break;
+                case LogLevels.Error:
+                    Error(message);
+                    break;
+
+                case LogLevels.Trace:
+                    Trace(message);
+                    break;
+
+                case LogLevels.Debug:
+                    Debug(message);
+                    break;
+            }
+        }
     }
 }
 
