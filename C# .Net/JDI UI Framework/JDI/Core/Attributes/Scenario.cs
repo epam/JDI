@@ -75,18 +75,17 @@ namespace Epam.JDI.Core.Attributes
         {
             _stopwatch.Stop();
 
-            var executedTime = $"{args.Method.Name} Executed in {_stopwatch.ElapsedMilliseconds / 1000} seconds";
+            if (args.ReturnValue != null)
+                Logger.ToLog($"Return value: {args.ReturnValue}", LogLevel);
+
+            if (args.ReturnValue != null)
+                Logger.ToLog("Result: " + args.ReturnValue, LogLevel);
+
+            var executedTime = $"Total time: {_stopwatch.ElapsedMilliseconds * 0.001} seconds";
 
             PerformanceStatistic.AddStatistic(_stopwatch.ElapsedMilliseconds);
 
             Logger.ToLog(executedTime, LogLevel);
-
-            if (args.ReturnValue != null)
-                Logger.ToLog($"Return value = {args.ReturnValue}", LogLevel);
-
-            if (args.ReturnValue != null)
-                Logger.ToLog("result  " + args.ReturnValue, LogLevel);
-
             Logger.ToLog($"End {args.Method.Name}", LogLevel);
         }
 
