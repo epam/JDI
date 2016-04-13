@@ -10,3 +10,5 @@ bin/
 obj/
 .vs/
 packages/
+*.nupkg
+*.nuspec

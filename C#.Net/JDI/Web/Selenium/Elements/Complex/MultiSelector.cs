@@ -36,11 +36,18 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 m.ClearElements(m.AllLabels.WebElements);
                 return;
             }
-            var els = m.WebElements;
-            if (els.Count == 1)
-                m.Selector.DeselectAll();
-            else
-                m.ClearElements(els);
+            var elements = m.WebAvatar.SearchAll().WebElements;
+            if (elements.Count == 1 && elements[0].TagName.Equals("select"))
+                if (m.Selector.Options.Any())
+                {
+                    m.Selector.DeselectAll();
+                    return;
+                }
+                else
+                    throw Exception($"<select> tag has no <option> tags. Please Clarify element locator ({m})");
+            if (elements.Count == 1 && elements[0].TagName.Equals("ul"))
+                elements = elements[0].FindElements(By.TagName("li")).ToList();
+            m.ClearElements(elements);
         };
 
         private void ClearElements(IList<IWebElement> els)
@@ -52,29 +59,24 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
         {
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            IList<IWebElement> els = null;
             if (Locator.ToString().Contains("%s"))
-                els = new GetElementModule {
+                return new GetElementModule {
                     ByLocator = Locator.FillByTemplate(name),
                     Element = this }
-                .WebElements;
+                .WebElements[0];
             if (AllLabels != null)
-                els = GetWebElement(AllLabels.WebElements, name);
-            if (els == null)
-                els = WebElements;
-            if (els.Count == 1)
-                els = Selector.Options;
-            if (els == null)
-                throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            els = GetWebElement(els, name);
-            if (els == null || els.Count != 1)
-                throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            return els[0];
+                return GetWebElement(AllLabels.WebElements, name);
+            return GetWebElement(GetElementsFromTag(), name);
         }
 
-        private IList<IWebElement> GetWebElement(IList<IWebElement> els, string name)
+        private IWebElement GetWebElement(IList<IWebElement> els, string name)
         {
-            return els.Where(el => el.Text.Equals(name)).ToList();
+            if (els == null)
+                throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
+            var elements = els.Where(el => el.Text.Equals(name)).ToList();
+            if (elements.Count == 1)
+                return elements[0];
+            throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         }
 
         protected IWebElement GetWebElement(int index)
@@ -85,10 +87,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 throw Exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '{0}')");
             if (AllLabels != null)
                 return GetWebElement(AllLabels.WebElements, index);
-            var els = WebAvatar.SearchAll().WebElements;
-            return GetWebElement(els.Count == 1
-                    ? Selector.Options
-                    : els, index);
+            return GetWebElement(GetElementsFromTag(), index);
         }
 
         private IWebElement GetWebElement(IList<IWebElement> els, int index)

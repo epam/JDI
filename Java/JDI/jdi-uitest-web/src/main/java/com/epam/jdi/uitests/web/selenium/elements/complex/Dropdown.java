@@ -62,7 +62,8 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         getAvatar().context.clear();
         if (element().isDisplayed()) {
             setWaitTimeout(0);
-            if (!isDisplayedAction(name)) element().click();
+            if (!isDisplayedAction(name))
+                element().click();
             restoreWaitTimeout();
         }
     }

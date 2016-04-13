@@ -44,16 +44,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
             return Actions.SelectedIndex(s => SelectedIndexAction(this));
         }
 
-        public Func<Selector<TEnum>, string> SelectedAction = s =>
-            {
-                if (s.AllLabels != null)
-                    return s.Selected(s.AllLabels.WebElements);
-                if (s.Locator.ToString().Contains("{0}"))
-                    throw Exception(
-                        "Can't get Selected options. Override getSelectedAction or place locator to <select> tag");
-                var els = s.WebAvatar.SearchAll().WebElements;
-                return s.Selected(els.Count == 1 ? s.Selector.Options.ToList() : els);
-            };
+        public Func<Selector<TEnum>, string> SelectedAction = s => s.Selected(s.Elements);
 
         public string Selected(IList<IWebElement> els) {
             var element = els.FirstOrDefault(el => SelectedElementAction(this, el));
@@ -62,19 +53,10 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
             return element.Text;
         }
 
-        public Func<Selector<TEnum>, int> SelectedIndexAction = s =>
-        {
-            if (s.AllLabels != null)
-                return s.SelectedIndex(s.AllLabels.WebElements);
-            if (s.Locator.ToString().Contains("{0}"))
-                throw Exception(
-                    "Can't get Selected options. Override getSelectedAction or place locator to <select> tag");
-            var els = s.WebAvatar.SearchAll().WebElements;
-            return s.SelectedIndex(els.Count == 1 ? s.Selector.Options.ToList() : els);
-        };
+        public Func<Selector<TEnum>, int> SelectedIndexAction = s => s.SelectedIndex(s.Elements);
 
-        private int SelectedIndex(List<IWebElement> els) {
-            var index = els.FindIndex(el => SelectedElementAction(this, el)) + 1;
+        private int SelectedIndex(IList<IWebElement> els) {
+            var index = els.ToList().FindIndex(el => SelectedElementAction(this, el)) + 1;
             if (index == 0)
                 throw Exception("No elements selected. Override getSelectedAction or place locator to <select> tag");
             return index;

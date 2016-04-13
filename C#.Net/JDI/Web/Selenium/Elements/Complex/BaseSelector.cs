@@ -48,12 +48,26 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 return;
             }
             var elements = s.WebAvatar.SearchAll().WebElements;
-            if (elements.Count == 1)
-                s.Selector.SelectByText(name);
-            else
-                s.SelectFromList(elements, name);
+            if (elements.Count == 1 && elements[0].TagName.Equals("select"))
+                if (s.Selector.Options.Any())
+                {
+                    s.Selector.SelectByText(name);
+                    return;
+                }
+                else
+                    throw Exception($"<select> tag has no <option> tags. Please Clarify element locator ({s})");
+            if (elements.Count == 1 && elements[0].TagName.Equals("ul"))
+                elements = elements[0].FindElements(By.TagName("li")).ToList();
+            s.SelectFromList(elements, name);
         };
 
+        private void SelectFromList(IList<IWebElement> els, string name)
+        {
+            var element = els.FirstOrDefault(el => el.Text.Equals(name));
+            if (element == null)
+                throw Exception($"Can't find option '{name}'. Please fix _allLabelsLocator");
+            element.Click();
+        }
 
         public Action<BaseSelector<TEnum>, int> SelectNumAction = (s, index) =>
         {
@@ -69,20 +83,19 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 new Clickable(s.Locator.FillByTemplate(index)).Click();
                 return;
             }
-            var els = s.WebAvatar.SearchAll().WebElements;
-            if (els.Count == 1)
-                s.Selector.SelectByIndex(index);
-            else
-                s.SelectFromList(els, index);
+            var elements = s.WebAvatar.SearchAll().WebElements;
+            if (elements.Count == 1 && elements[0].TagName.Equals("select"))
+                if (s.Selector.Options.Any())
+                {
+                    s.Selector.SelectByIndex(index);
+                    return;
+                }
+                else
+                    throw Exception($"<select> tag has no <option> tags. Please Clarify element locator ({s})");
+            if (elements.Count == 1 && elements[0].TagName.Equals("ul"))
+                elements = elements[0].FindElements(By.TagName("li")).ToList();
+            s.SelectFromList(elements, index);
         };
-        private void SelectFromList(IList<IWebElement> els, string name)
-        {
-            var element = els.FirstOrDefault(el => el.Text.Equals(name));
-            if (element == null)
-                throw Exception($"Can't find option '{name}'. Please fix _allLabelsLocator");
-            element.Click();
-        }
-
 
         private void SelectFromList(IList<IWebElement> els, int index)
         {
@@ -157,27 +170,27 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 if (Locator.ToString().Contains("%s"))
                     throw Exception(
                         "Can't check is element displayed or not. Please specify allLabelsLocator or correct optionsNamesLocator (should not contain '%s')");
-                var els = WebAvatar.SearchAll().WebElements;
-                if (els.Count == 1)
-                    els = Selector.AllSelectedOptions.ToList();
-                return els;
+                return GetElementsFromTag();
             }
         }
 
-        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) =>
+        public IList<IWebElement> GetElementsFromTag()
         {
-            if (!s.HasLocator && s.AllLabels == null)
-                throw Exception(
-                    $"Can't check is option '{name}' displayed. No optionsNamesLocator and _allLabelsLocator found");
-            if (s.Locator.ToString().Contains("%s"))
-                return new Clickable(s.Locator.FillByTemplate(name)).Displayed;
-            if (s.AllLabels != null)
-                return s.DisplayedInList(s.AllLabels.WebElements, name);
-            List<IWebElement> els;
-            try { els = s.WebAvatar.SearchAll().WebElements; }
-            catch { return false; }
-            return s.DisplayedInList(els.Count == 1 ? s.Selector.Options.ToList() : els, name);
-        };
+            IList<IWebElement> elements;
+            try { elements = WebAvatar.SearchAll().WebElements; }
+            catch { return new List<IWebElement>(); }
+            if (elements.Count == 1)
+                switch (elements[0].TagName)
+                {
+                    case "select":
+                        return Selector.Options;
+                    case "ul":
+                        return elements[0].FindElements(By.TagName("li"));
+                }
+            return elements;
+        }
+
+        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) => s.DisplayedInList(s.Elements, name);
 
         private bool DisplayedInList(IList<IWebElement> els, string name)
         {
@@ -185,20 +198,9 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
             return element != null && element.Displayed;
         }
 
-        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction => (s, index) =>
-        {
-            if (!HasLocator && AllLabels == null)
-                throw Exception(
-                    $"Can't check is option '{index}' displayed. No optionsNamesLocator and _allLabelsLocator found");
-            if (Locator.ToString().Contains("%s"))
-                return new Clickable(Locator.FillByTemplate(index)).Displayed;
-            if (AllLabels != null)
-                return DisplayedInList(AllLabels.WebElements, index);
-            var els = WebAvatar.SearchAll().WebElements;
-            return DisplayedInList(els.Count == 1 ? Selector.Options.ToList() : els, index);
-        };
+        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction = (s, index) => s.DisplayedInList(s.Elements, index);
 
-        private static bool DisplayedInList(IList<IWebElement> els, int index)
+        private bool DisplayedInList(IList<IWebElement> els, int index)
         {
             if (index <= 0)
                 throw Exception($"Can't get option with index '{index}'. Index should be 1 or more");
