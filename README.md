@@ -6,7 +6,7 @@ License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
 ##Introduction
 
-JDI (Just Do It) – is the test Framework for automation of UI applications testing. It extends Page Objects design pattern and introduces lot of additional elements with implementation of its common usages.
+JDI – is the test Framework for automation of UI applications testing. It extends Page Objects design pattern and introduces lot of additional elements with implementation of its common usages.
 
 Framework used concept “Easy things should be easy, and hard things should be possible” Larry Wall (c). 
 
