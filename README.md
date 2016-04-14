@@ -43,7 +43,8 @@ public class CareerPage extends WebPage {
     public ITextField keywords;
     
     public IDropDown<JobCategories> category =    // Complex Dropdown with two locators
-            new Dropdown<>(By.className("multi-select-filter"), By.className("blue-checkbox-label"));
+        new Dropdown<>(By.className("multi-select-filter"), 
+            By.className("blue-checkbox-label"));
     @FindBy(className = "career-location-box")    // Simple Dropdown
     public IDropDown<Locations> city;
 
@@ -59,9 +60,11 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(css = "[placeholder='Last Name']")  private ITextField lastName;
     @FindBy(css = "[placeholder='Email']")      private ITextField email;
     @FindBy(css = ".country-selection")         private IDropDown country 
-      = new Dropdown<>(By.cssSelector(".country-wrapper .arrow"), By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
+      = new Dropdown<>(By.cssSelector(".country-wrapper .arrow"), 
+        By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
     @FindBy(css = ".city-selection")            private IDropDown city 
-      = new Dropdown<>(By.cssSelector(".city-wrapper .arrow"), By.xpath("//*[contains(@id,'select-box-applicantCity')]//li"));
+      = new Dropdown<>(By.cssSelector(".city-wrapper .arrow"), 
+        By.xpath("//*[contains(@id,'select-box-applicantCity')]//li"));
     @FindBy(css = ".file-upload")               private RFileInput cv;
     @FindBy(css = ".comment-input")             private ITextArea comment;
 
