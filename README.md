@@ -88,7 +88,7 @@ public class AddCVForm extends Form<Attendee> {
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
-    <artifactId>jdi-uitest-web</artifactId>
+    <artifactId>jdi-uitest-gui</artifactId>
     <version>1.0.3-SNAPSHOT</version>
 </dependency>
 ```
@@ -96,7 +96,7 @@ public class AddCVForm extends Form<Attendee> {
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
-    <artifactId>jdi-uitest-web</artifactId>
+    <artifactId>jdi-uitest-mobile</artifactId>
     <version>1.0.3-SNAPSHOT</version>
 </dependency>
 ```
