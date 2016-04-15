@@ -36,7 +36,7 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 8/10/2015.
  */
 public class ActionScenrios {
-    private BaseElement element;
+    protected BaseElement element;
 
     public ActionScenrios setElement(BaseElement element) {
         this.element = element;
