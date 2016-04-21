@@ -1,5 +1,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/jdi?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/jdi/branch/master)
 [![NuGet Version](https://img.shields.io/nuget/v/JDI.UITestFramework.svg)](https://www.nuget.org/packages/JDI.UITestFramework)
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
 
 #JDI UI Test Automation Framework
 
