@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
+using Epam.JDI.Core.Settings;
 using Epam.JDI.Web.Selenium.Elements.Common;
 using Epam.JDI.Web.Selenium.Elements.Complex;
 using Epam.JDI.Web.Selenium.Elements.Composite;
@@ -29,7 +30,9 @@ namespace Epam.Tests.Scenarios.Tests
             KillAllRunWebDrivers();
 
             if (!DriverFactory.HasDrivers())
+            {
                 UseDriver(Chrome);
+            }
             Timer = new Timer();
             
             WebSite.Init(typeof(EpamSite));

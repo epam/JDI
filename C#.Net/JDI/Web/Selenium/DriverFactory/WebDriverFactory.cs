@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Settings;
@@ -27,11 +29,32 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
         private Dictionary<string, IWebDriver> RunDrivers { get; } = new Dictionary<string, IWebDriver>();
         public string CurrentDriverName { get; set; }
-        public string DriverPath { get; set; } = "C:/Selenium";
+        //public string DriverPath { get; set; } = "C:/Selenium";
+        public string DriverPath { get; set; } = AssemblyDirectory + @"\JDI\Web\Selenium\Drivers";
         public RunTypes RunType { get; set; } = Local;
         public HighlightSettings HighlightSettings = new HighlightSettings();
         public Func<IWebElement, bool> ElementSearchCriteria = el => el.Displayed;
-        
+
+        public static string AssemblyDirectory
+        {
+            get
+            {
+                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                Console.WriteLine("cb: " + codeBase);
+                var fileName = Path.GetFileName(codeBase);
+                Console.WriteLine("f name: " + fileName);
+
+                //TODO: Not working because of folder name "C#.Net"
+                //var uri = new UriBuilder(codeBase);
+                //var path = Uri.UnescapeDataString(uri.Path);
+                
+                var path = codeBase.Remove(codeBase.IndexOf(fileName, StringComparison.Ordinal));
+
+                //return Path.GetDirectoryName(path);
+                return path.Replace(@"file:///", "");
+            }
+        }
+
         private readonly Dictionary<DriverTypes, string> _driverNamesDictionary = new Dictionary<DriverTypes, string>
         {
             {DriverTypes.Chrome, "chrome"},
@@ -96,7 +119,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             return driver;
         };
 
-    public IWebDriver GetDriver(string driverName)
+        public IWebDriver GetDriver(string driverName)
         {
             if (!Drivers.ContainsKey(driverName))
                 throw new Exception($"Can't find driver with name {driverName}");
@@ -130,6 +153,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
 
         public string RegisterDriver(DriverTypes driverType)
         {
+            Console.WriteLine("DP: " + DriverPath);
             switch (RunType)
             {
                 case Local:
@@ -203,7 +227,6 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         {
             return RunDrivers.Any();
         }
-        
         
         public void Highlight(IElement element)
         {

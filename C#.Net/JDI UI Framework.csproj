@@ -290,6 +290,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\Common\Selenium\chromedriver.exe">
+      <Link>JDI\Web\Selenium\Drivers\chromedriver.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Tests\TutorialTests\README.txt" />
   </ItemGroup>
   <Choose>
