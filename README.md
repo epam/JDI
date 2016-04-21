@@ -1,3 +1,5 @@
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/jdi?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/jdi/branch/master)
+
 #JDI UI Test Automation Framework
 
 Copyright (c) 2016, EPAM Systems
