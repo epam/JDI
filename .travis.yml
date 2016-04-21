@@ -4,3 +4,8 @@ jdk:
   - oraclejdk8
 script: 
   mvn test -f ./Java/pom.xml
+notifications:
+  slack:
+    on_success: never
+  slack:
+    on_success: never
