@@ -4,8 +4,8 @@
     - master
 
   before_build:
-    - nuget restore C#.Net/JDI UI Framework.sln
+    - nuget restore "C#.Net/JDI UI Framework.sln"
 
   build_script: 
-    - msbuild C#.Net/JDI UI Framework.sln /p:Configuration=Release /t:Rebuild
+    - msbuild "C#.Net/JDI UI Framework.sln" /p:Configuration=Release /t:Rebuild
   
