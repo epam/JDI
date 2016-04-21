@@ -1,4 +1,5 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/jdi?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/jdi/branch/master)
+[![NuGet Version](https://img.shields.io/nuget/v/JDI.UITestFramework.svg)](https://www.nuget.org/packages/JDI.UITestFramework)
 
 #JDI UI Test Automation Framework
 
