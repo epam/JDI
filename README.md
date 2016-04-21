@@ -61,20 +61,27 @@ public class CareerPage extends WebPage {
 ### Form
 ```Java
 public class AddCVForm extends Form<Attendee> {  
-    @FindBy(css = "[placeholder='First Name']") private ITextField name;
-    @FindBy(css = "[placeholder='Last Name']")  private ITextField lastName;
-    @FindBy(css = "[placeholder='Email']")      private ITextField email;
+    @FindBy(css = "[placeholder='First Name']") 
+    private ITextField name;
+    @FindBy(css = "[placeholder='Last Name']")  
+    private ITextField lastName;
+    @FindBy(css = "[placeholder='Email']")      
+    private ITextField email;
     private IDropDown country = new Dropdown<>(
         By.cssSelector(".country-wrapper .arrow"), 
         By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
     private IDropDown city = new Dropdown<>(
         By.cssSelector(".city-wrapper .arrow"), 
         By.xpath("//*[contains(@id,'select-box-applicantCity')]//li"));
-    @FindBy(css = ".file-upload")               private RFileInput cv;
-    @FindBy(css = ".comment-input")             private ITextArea comment;
+    @FindBy(css = ".file-upload")               
+    private RFileInput cv;
+    @FindBy(css = ".comment-input")             
+    private ITextArea comment;
 
-    @FindBy(xpath = "//*[.='Submit']")          private IButton submit;
-    @FindBy(xpath = "//*[.='Cancel']")          private IButton cancel;
+    @FindBy(xpath = "//*[.='Submit']")          
+    private IButton submit;
+    @FindBy(xpath = "//*[.='Cancel']")          
+    private IButton cancel;
 
 }
 ```
