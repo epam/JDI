@@ -1,2 +1,6 @@
-language: java
-script: mvn test -f ./Java/pom.xml
+language: 
+  java
+jdk:
+  - oraclejdk8
+script: 
+  mvn test -f ./Java/pom.xml
