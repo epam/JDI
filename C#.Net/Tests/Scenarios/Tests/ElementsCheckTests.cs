@@ -1,15 +1,11 @@
-﻿using System;
-using Epam.JDI.Core.Settings;
-using Epam.JDI.Web.Selenium.DriverFactory;
-using Epam.Tests.Scenarios.Enums;
+﻿using Epam.Tests.Scenarios.Enums;
 using NUnit.Framework;
-using OpenQA.Selenium.Chrome;
 using static Epam.Tests.Scenarios.Page_Objects.EpamSite;
 
 namespace Epam.Tests.Scenarios.Tests
 {
     [TestFixture]
-    public class ElementsCheckTests
+    public class ElementsCheckTests : TestsBase
     {
         [Test]
         public void ElementsTest_Textbox_Text()

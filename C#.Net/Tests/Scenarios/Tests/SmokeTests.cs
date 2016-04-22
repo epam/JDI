@@ -6,7 +6,7 @@ using static Epam.Tests.Scenarios.Page_Objects.EpamSite;
 namespace Epam.Tests.Scenarios.Tests
 {
     [TestFixture]
-    public class SmokeTests
+    public class SmokeTests : TestsBase
     {
         [Test]
         public void CareerTest()
