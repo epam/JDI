@@ -13,4 +13,4 @@
   - iis
   
   test_script:
-    - nunit3-console "jdi/C#.Net/bin/Release/JDI UI Framework.dll" --noresult
+    - nunit3-console "C#.Net/bin/Release/JDI UI Framework.dll" --noresult
