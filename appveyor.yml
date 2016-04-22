@@ -6,8 +6,8 @@
      on_build_failure: false
      on_build_status_changed: false
   
-  install:
-    - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-desktop.ps1'))
+  #install:
+  #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-desktop.ps1'))
 
   before_build:
     - nuget restore "C#.Net/JDI UI Framework.sln"
@@ -15,15 +15,15 @@
   build_script: 
     - msbuild "C#.Net/JDI UI Framework.sln" /p:Configuration=Release /t:Rebuild
   
-  services:
-  - iis
+  #services:
+  #- iis
   
   #test_script:
   #  - nunit3-console "C#.Net/bin/Release/JDI UI Framework.dll" --noresult
     
-  test:
-    assemblies:
-      - '**\*Tests.dll'
-    categories:
-      only:
-        - AppveyorTests
+  #test:
+  #  assemblies:
+  #    - '**\*Tests.dll'
+  #  categories:
+  #    only:
+  #      - AppveyorTests
