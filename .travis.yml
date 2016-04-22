@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 sudo: false
 script: 
-  - mvn clean complie ./Java/pom.xml
+  - mvn clean compiler:testCompile surefire:test
   - mvn test -f ./Java/pom.xml
 notifications:
   email: false
