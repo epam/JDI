@@ -3,7 +3,8 @@ language:
 jdk:
   - oraclejdk8
 script: 
-  mvn clean install
-  mvn test -f ./Java/pom.xml
+  - mvn clean 
+  - mvn install
+  - mvn test -f ./Java/pom.xml
 notifications:
   email: false
