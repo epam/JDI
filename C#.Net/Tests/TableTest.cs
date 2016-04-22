@@ -8,12 +8,11 @@ namespace Epam.Tests
     [TestFixture]
     public class TableTests
     {
-        
         public TestContext TestContext { get; set; }
         private IWebDriver Driver { set; get; }
         private Table Table { get; set; }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void MyTestInitialize()
         {
             //Driver = new WebDriverFactory().GetDriver();
@@ -29,7 +28,7 @@ namespace Epam.Tests
             Table = new Table(By.CssSelector(".uui-table"));
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             KillAllRunWebDrivers();

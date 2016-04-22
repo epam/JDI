@@ -22,7 +22,7 @@ namespace Epam.Tests.Scenarios.Tests
         protected static Timer Timer;
         public static TimeSpan TestRunTime => Timer.TimePassed;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Init()
         {
             InitFromProperties();
@@ -40,7 +40,7 @@ namespace Epam.Tests.Scenarios.Tests
             Logger.Info("Run Tests");
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TestCleanup()
         {
             Logger.Info($@"
@@ -49,4 +49,5 @@ Total test run time: {TestRunTime.ToString(@"hh\:mm\:ss\.fff")}");
             KillAllRunWebDrivers();
         }
     }
+    
 }
