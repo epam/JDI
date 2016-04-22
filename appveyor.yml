@@ -21,9 +21,9 @@
   #test_script:
   #  - nunit3-console "C#.Net/bin/Release/JDI UI Framework.dll" --noresult
     
-  #test:
-  #  assemblies:
-  #    - '**\*Tests.dll'
-  #  categories:
-  #    only:
-  #      - AppveyorTests
+  test:
+    assemblies:
+      - '**\*Tests.dll'
+    categories:
+      only:
+        - AppveyorTests
