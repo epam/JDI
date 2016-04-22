@@ -2,7 +2,9 @@ language:
   java
 jdk:
   - oraclejdk8
+sudo: false
 script: 
-  - mvn test ./Java/pom.xml
+  - mvn clean verify
+  - mvn test -f ./Java/pom.xml
 notifications:
   email: false
