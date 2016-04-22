@@ -29,8 +29,9 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
         private Dictionary<string, IWebDriver> RunDrivers { get; } = new Dictionary<string, IWebDriver>();
         public string CurrentDriverName { get; set; }
+        public string DriverPath { get; set; } = "";
         //public string DriverPath { get; set; } = "C:/Selenium";
-        public string DriverPath { get; set; } = AssemblyDirectory + @"\JDI\Web\Selenium\Drivers";
+        //public string DriverPath { get; set; } = AssemblyDirectory + @"\JDI\Web\Selenium\Drivers";
         public RunTypes RunType { get; set; } = Local;
         public HighlightSettings HighlightSettings = new HighlightSettings();
         public Func<IWebElement, bool> ElementSearchCriteria = el => el.Displayed;
@@ -61,9 +62,9 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         };
         private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary<DriverTypes, Func<string, IWebDriver>>
         {
-            {DriverTypes.Chrome, path => new ChromeDriver(path)},
+            {DriverTypes.Chrome, path => path == null || path.Equals(Empty) ? new ChromeDriver() : new ChromeDriver(path)},
             {DriverTypes.Firefox, path => new FirefoxDriver()},
-            {DriverTypes.IE, path => new InternetExplorerDriver(path)}
+            {DriverTypes.IE, path => path == null || path.Equals(Empty) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
         };
 
         //TODO 

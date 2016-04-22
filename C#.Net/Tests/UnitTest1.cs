@@ -64,7 +64,7 @@ namespace Epam.Tests
             example2(5);
             example2(new List<String> { "test", "data", "example" });
             var list = new List<String> {"test", "data", "example"};
-            String third = list[3];
+            //String third = list[3];
         }
 
         private Boolean example1(String value)
