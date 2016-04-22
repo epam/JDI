@@ -40,9 +40,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             get
             {
                 var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                Console.WriteLine("cb: " + codeBase);
                 var fileName = Path.GetFileName(codeBase);
-                Console.WriteLine("f name: " + fileName);
 
                 //TODO: Not working because of folder name "C#.Net"
                 //var uri = new UriBuilder(codeBase);
