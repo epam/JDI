@@ -5,7 +5,7 @@ jdk:
 sudo: false
 script: 
   - mvn clean -f ./Java/pom.xml
-  - mvn complie -f ./Java/pom.xml
+  - mvn compile -f ./Java/pom.xml
   - mvn test -f ./Java/pom.xml -X
 notifications:
   email: false
