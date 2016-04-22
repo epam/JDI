@@ -16,7 +16,7 @@ using static Epam.JDI.Web.Settings.WebSettings;
 
 namespace Epam.Tests.Scenarios.Tests
 {
-    [SetUpFixture]
+    //[SetUpFixture]
     public class TestsBase
     {
         protected static Timer Timer;
