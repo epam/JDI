@@ -122,6 +122,7 @@ Add Nuget package "JDI.UITestFramework"
 
 ##Links
 
+Site: http://jdi.epam.com/
 VK: https://vk.com/jdi_framework
 
 You can ask your questions on StackOverflow with [![htmlelements](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework) tag.
