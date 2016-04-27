@@ -16,6 +16,8 @@ namespace Epam.Tests.Scenarios.Page_Objects
 
         [Page(Url = "/careers", Title = "Careers")]
         public static CareerPage CareerPage;
+        [Page(Title = "EPAM Software Product Development Services", UrlCheckType = None)]
+        public static CareerPage CareerPageTest;
 
         [Page(Url = "/careers/job-listings", Title = "Job Listings", UrlCheckType = Contain, TitleCheckType = Contain)]
         public static JobListingPage JobListingPage;

@@ -37,10 +37,10 @@ public @interface JPage {
 
     String urlTemplate() default "";
 
-    CheckPageTypes checkType() default CheckPageTypes.NONE;
+    CheckPageTypes checkType() default CheckPageTypes.EQUAL;
 
-    CheckPageTypes urlCheckType() default CheckPageTypes.NONE;
+    CheckPageTypes urlCheckType() default CheckPageTypes.EQUAL;
 
-    CheckPageTypes titleCheckType() default CheckPageTypes.NONE;
+    CheckPageTypes titleCheckType() default CheckPageTypes.EQUAL;
 
 }

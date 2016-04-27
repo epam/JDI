@@ -17,6 +17,7 @@ public class TestScenarios {
         Attendee attendee = new Attendee(testName + " Thread: " + currentThread().getId());
         attendee.cv = null;
         EpamSiteParallel site = init(EpamSiteParallel.class, getDriverName());
+
         site.homePage.open();
         //site.isInState(HOME_PAGE);
         site.headerMenu.select(CAREERS);

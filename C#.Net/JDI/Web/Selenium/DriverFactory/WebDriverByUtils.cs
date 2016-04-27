@@ -15,7 +15,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         }
         private static string GetBadLocatorMsg(this string byLocator, params object[] args)
         {
-            return "Bad locator template '" + byLocator + "'. Args: " + args.Select(el => el.ToString()).Print(", ", "'%s'") + ".";
+            return "Bad locator template '" + byLocator + "'. Args: " + args.Select(el => el.ToString()).Print(", ", "'{0}'") + ".";
         }
         public static By FillByTemplate(this By by, params object[] args)
         {

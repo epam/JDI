@@ -25,7 +25,7 @@ namespace Epam.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ie")]
+        [global::System.Configuration.DefaultSettingValueAttribute("chrome")]
         public string driver {
             get {
                 return ((string)(this["driver"]));

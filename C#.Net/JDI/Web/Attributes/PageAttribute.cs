@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Epam.JDI.Web.Selenium.Elements.Composite;
 using static System.String;
@@ -14,9 +15,10 @@ namespace Epam.JDI.Web.Attributes
         public string Url           = "";
         public string UrlTemplate   = "";
         public string Title         = "";
-        public CheckPageTypes CheckType        = None;
-        public CheckPageTypes UrlCheckType     = None;
-        public CheckPageTypes TitleCheckType   = None;
+        public Dictionary<String, String> UrlParams; 
+        public CheckPageTypes CheckType        = Equal;
+        public CheckPageTypes UrlCheckType     = Equal;
+        public CheckPageTypes TitleCheckType   = Equal;
         
         public static PageAttribute Handler(FieldInfo field)
         {
@@ -43,13 +45,8 @@ namespace Epam.JDI.Web.Attributes
                 urlTemplate = urlTemplate.Contains("://") || parentClass == null || !HasDomain
                         ? urlTemplate
                         : GetMatchFromDomain(urlTemplate);
-            var checkType = CheckType;
             var urlCheckType = UrlCheckType;
             var titleCheckType = TitleCheckType;
-            if (urlCheckType == None)
-                urlCheckType = checkType != None ? checkType : Equal;
-            if (titleCheckType == None)
-                titleCheckType = checkType != None ? checkType : Equal;
             if (urlCheckType == CheckPageTypes.Match || urlCheckType == Contain && IsNullOrEmpty(urlTemplate))
                 urlTemplate = url;
             page.UpdatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Web.Attributes;
 using Epam.JDI.Web.Selenium.Elements.Base;
 using Epam.JDI.Web.Selenium.Elements.Common;
@@ -18,7 +17,7 @@ namespace Epam.Tests.Scenarios.Page_Objects.Pages
 
         [FindBy(Css = ".job-search-title")]
         public Textbox JobSearchTitle;
-        
+
         [FindBy(XPath = "//div[@class='footer - content']/div/a[@href='/about/investors']")]
         public Link InvestorLinkFooter;
 

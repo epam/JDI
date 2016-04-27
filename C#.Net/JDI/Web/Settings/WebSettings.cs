@@ -55,7 +55,7 @@ namespace Epam.JDI.Web.Settings
             // var isMultithread = Default["multithread"].ToString();
             // TODO
             /*Logger = isMultithread.Equals("true") || isMultithread.Equals("1")
-                ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
+                ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: {0}] {0}", Thread.currentThread().getId(), s))
                 : new TestNGLogger("JDI Logger");*/
         }
 

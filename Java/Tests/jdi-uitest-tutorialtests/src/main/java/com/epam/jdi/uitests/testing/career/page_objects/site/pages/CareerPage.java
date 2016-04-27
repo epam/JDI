@@ -16,4 +16,6 @@ public class CareerPage extends WebPage {
 
     @FindBy(css = ".tile-menu>li>a")
     public List<Label> listMenu;
+
+
 }

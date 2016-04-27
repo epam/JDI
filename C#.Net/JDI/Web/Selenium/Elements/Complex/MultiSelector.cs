@@ -28,7 +28,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
         {
             if (!m.HasLocator && m.AllLabels == null)
                 throw Exception("Can't clear options. No optionsNamesLocator and allLabelsLocator found");
-            if (m.Locator.ToString().Contains("%s"))
+            if (m.Locator.ToString().Contains("{0}"))
                 throw Exception(
                     "Can't clear options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '{0}')");
             if (m.AllLabels != null)
@@ -59,7 +59,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
         {
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            if (Locator.ToString().Contains("%s"))
+            if (Locator.ToString().Contains("{0}"))
                 return new GetElementModule {
                     ByLocator = Locator.FillByTemplate(name),
                     Element = this }
@@ -83,7 +83,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
         {
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            if (Locator.ToString().Contains("%s"))
+            if (Locator.ToString().Contains("{0}"))
                 throw Exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '{0}')");
             if (AllLabels != null)
                 return GetWebElement(AllLabels.WebElements, index);
