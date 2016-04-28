@@ -44,5 +44,6 @@ namespace Epam.Tests.Scenarios.Page_Objects.Pages
 
         [FindBy(Css = ".search-result-header")]
         public Textbox SearchResultHeader;
+
     }
 }

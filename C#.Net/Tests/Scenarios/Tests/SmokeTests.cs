@@ -20,7 +20,6 @@ namespace Epam.Tests.Scenarios.Tests
             //new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
             JobListingPage.GetJobRowByName("Senior QA Automation Engineer");
             JobDescriptionPage.AddCvForm.Submit(attendee);
-            JobListingPage.JobsList.Row(1)["1"].Get(typeof(Button));
             //new Check("Captcha").Contains(()->jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
         }
     }

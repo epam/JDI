@@ -1,4 +1,5 @@
-﻿using Epam.JDI.Core;
+﻿using System;
+using Epam.JDI.Core;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Web.Selenium.Elements.Base;
 
