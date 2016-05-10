@@ -88,6 +88,26 @@ public final class WebDriverByUtils {
         throw new RuntimeException("Can't get By name for: " + by);
     }
 
+    public static By getByFromString(String stringLocator) {
+        if (stringLocator == null || stringLocator.equals(""))
+            throw new RuntimeException("Can't get By locator from string empty or null string");
+        String[] split = stringLocator.split("(^=)*=.*");
+        if (split.length == 1)
+            return By.cssSelector(split[0]);
+        switch (split[0]) {
+            case "css": return By.cssSelector(split[1]);
+            case "xpath": return By.xpath(split[1]);
+            case "class": return By.className(split[1]);
+            case "name": return By.name(split[1]);
+            case "id": return By.id(split[1]);
+            case "tag": return By.tagName(split[1]);
+            case "link": return By.partialLinkText(split[1]);
+            default: throw new RuntimeException(
+                    String.format("Can't get By locator from string: %s. Bad suffix: %s. (available: css, xpath, class, id, name, link, tag)",
+                            stringLocator, split[0]));
+        }
+    }
+
     private static Map<String, Function<String, By>> getMapByTypes() {
         Map<String, Function<String, By>> map = new HashMap<>();
         map.put("By.cssSelector", By::cssSelector);

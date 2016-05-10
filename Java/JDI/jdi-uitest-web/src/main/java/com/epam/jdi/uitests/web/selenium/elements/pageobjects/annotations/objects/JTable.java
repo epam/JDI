@@ -18,24 +18,34 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  */
 
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
+
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMN_HEADERS;
 
 /**
  * Created by roman.i on 06.10.2014.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
-public @interface Table {
+public @interface JTable {
     String root() default "";
-
-    String header() default "";
+    String[] header() default {};
+    String[] rowsHeader() default {};
 
     String cell() default "";
-
     String row() default "";
-
     String column() default "";
+    String footer() default "";
+
+    int height() default -1;
+    int width() default -1;
+    String size() default "";
+
+    int rowStartIndex() default -1;
+    int colStartIndex() default -1;
+
+    TableHeaderTypes headerType() default COLUMN_HEADERS;
+    boolean useCache() default true;
+
+
 }

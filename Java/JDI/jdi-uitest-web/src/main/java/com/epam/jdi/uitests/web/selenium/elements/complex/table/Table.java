@@ -18,25 +18,35 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
+import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
+import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMN_HEADERS;
+import static java.lang.Integer.*;
+import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -44,7 +54,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * Created by Roman_Iovlev on 6/2/2015.
  */
 public class Table extends Text implements ITable, Cloneable {
-    public boolean cache = false;
+    public boolean cache = true;
     protected List<String> footer;
     protected By cellLocatorTemplate;
     private List<ICell> allCells = new ArrayList<>();
@@ -118,6 +128,52 @@ public class Table extends Text implements ITable, Cloneable {
     public Table(TableSettings settings) {
         this();
         setTableSettings(settings);
+    }
+    private void fillLocator(String value, Consumer<By> action) {
+        if (!value.equals(""))
+            action.accept(getByFromString(value));
+    }
+
+    public void setUp(JTable jTable) {
+        fillLocator(jTable.root(), value -> avatar.byLocator = value);
+        fillLocator(jTable.cell(), value -> cellLocatorTemplate = value);
+        fillLocator(jTable.row(), value -> rows.lineTemplate = value);
+        fillLocator(jTable.column(), value -> columns.lineTemplate = value);
+        fillLocator(jTable.footer(), value -> footerLocator = value);
+
+        if (jTable.header().length > 0)
+            hasColumnHeaders(asList(jTable.header()));
+        if (jTable.rowsHeader().length > 0)
+            hasRowHeaders(asList(jTable.rowsHeader()));
+
+
+        if (jTable.height() > 0)
+            setColumnsCount(jTable.height());
+        if (jTable.width() > 0)
+            setRowsCount(jTable.width());
+        if (!jTable.size().equals("")) {
+            String[] split;
+            split = jTable.size().split("x");
+            if (split.length == 1)
+                split = jTable.size().split("X");
+            if (split.length != 2)
+                throw exception("Can't setup Table from attribute. Bad size: " + jTable.size());
+            setColumnsCount(parseInt(split[0]));
+            setRowsCount(parseInt(split[1]));
+        }
+
+        if (jTable.colStartIndex() > 0)
+            columns.startIndex = jTable.colStartIndex();
+        if (jTable.rowStartIndex() > 0)
+            rows.startIndex = jTable.rowStartIndex();
+
+        switch (jTable.headerType()) {
+            case COLUMN_HEADERS: hasOnlyColumnHeaders();
+            case ROWS_HEADERS: hasOnlyRowHeaders();
+            case ALL_HEADERS: hasAllHeaders();
+            case NO_HEADERS: hasNoHeaders();
+        }
+        cache = jTable.useCache();
     }
 
     public Table copy() {
