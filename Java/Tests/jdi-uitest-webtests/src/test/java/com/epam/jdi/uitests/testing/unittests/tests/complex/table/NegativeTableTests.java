@@ -48,7 +48,8 @@ public class NegativeTableTests extends SupportTableTestsBase {
     @Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Can't Get Row 'No matching records found'. Reason: Index: 0, Size: 0")
     public void getBlankTableTest(){
         isInState(SORTING_TABLE_PAGE);
-        ITable table = sortingTablePage.sortingTable.hasAllHeaders();
+        ITable table = sortingTablePage.sortingTable.hasAllHeaders().useCache(false);
+        table.useCache(false);
 
         sortingTablePage.search("smth");
         table.getCells();

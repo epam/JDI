@@ -22,8 +22,7 @@ public class SmokeTableTests extends SupportTableTestsBase {
 
     @Test
     public void getValueTest() {
- //       new Check("Table print").areEquals(table().getValue(), tableAsText);
-        table().getValue();
+        new Check("Table print").areEquals(table().getValue(), tableAsText);
     }
 
     @Test

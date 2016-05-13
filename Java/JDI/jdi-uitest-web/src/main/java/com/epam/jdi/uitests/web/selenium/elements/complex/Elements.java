@@ -21,13 +21,11 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
@@ -42,17 +40,19 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     private Class<T> classType;
 
     public Elements() {
+        this(null, null);
     }
 
     public Elements(Class<T> classType) {
-        this.classType = classType;
+        this(null, classType);
     }
     public Elements(By byLocator) {
-        super(byLocator);
+        this(byLocator, null);
     }
     public Elements(By byLocator, Class<T> classType) {
         super(byLocator);
-        this.classType = classType;
+        this.classType = classType != null ? classType : (Class<T>) Button.class;
+        elements = new ArrayList<>();
     }
 
     protected boolean getElementByNameAction(WebElement element, String name) {
@@ -62,11 +62,13 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     private List<T> elements;
 
     public List<T> listOfElements() {
-        return JDISettings.useCache && elements != null && !elements.isEmpty()
+        return JDISettings.useCache && !elements.isEmpty()
             ? elements
             : (elements = select(getAvatar().searchAll().getElements(), el -> {
                 try {
-                    return classType.getDeclaredConstructor(WebElement.class).newInstance(el);
+                    T element = classType.newInstance();
+                    element.setWebElement(el);
+                    return element;
                 } catch (Exception ex) {
                     throw exception("Can't instantiate list element");
                 }
@@ -74,7 +76,7 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     }
 
     public int size() {
-        return elements.size();
+        return listOfElements().size();
     }
 
     public boolean isEmpty() {
@@ -98,11 +100,11 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     }
 
     public boolean add(T tType) {
-        return elements.add(tType);
+        return listOfElements().add(tType);
     }
 
     public boolean remove(Object o) {
-        return elements.remove(o);
+        return listOfElements().remove(o);
     }
 
     public boolean containsAll(Collection<?> c) {
@@ -110,23 +112,23 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     }
 
     public boolean addAll(Collection<? extends T> c) {
-        return elements.addAll(c);
+        return listOfElements().addAll(c);
     }
 
     public boolean addAll(int index, Collection<? extends T> c) {
-        return elements.addAll(index, c);
+        return listOfElements().addAll(index, c);
     }
 
     public boolean removeAll(Collection<?> c) {
-        return elements.removeAll(c);
+        return listOfElements().removeAll(c);
     }
 
     public boolean retainAll(Collection<?> c) {
-        return elements.retainAll(c);
+        return listOfElements().retainAll(c);
     }
 
     public void clear() {
-        elements.clear();
+        listOfElements().clear();
     }
 
     public T get(int index) {
@@ -140,15 +142,15 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     }
 
     public T set(int index, T element) {
-        return elements.set(index, element);
+        return listOfElements().set(index, element);
     }
 
     public void add(int index, T element) {
-        elements.add(index, element);
+        listOfElements().add(index, element);
     }
 
     public T remove(int index) {
-        return elements.remove(index);
+        return listOfElements().remove(index);
     }
 
     public int indexOf(Object o) {
@@ -160,14 +162,14 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     }
 
     public ListIterator<T> listIterator() {
-        return elements.listIterator();
+        return listOfElements().listIterator();
     }
 
     public ListIterator<T> listIterator(int index) {
-        return elements.listIterator(index);
+        return listOfElements().listIterator(index);
     }
 
     public List<T> subList(int fromIndex, int toIndex) {
-        return elements.subList(fromIndex, toIndex);
+        return listOfElements().subList(fromIndex, toIndex);
     }
 }

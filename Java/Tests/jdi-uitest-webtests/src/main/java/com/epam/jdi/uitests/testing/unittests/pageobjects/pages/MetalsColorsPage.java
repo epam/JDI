@@ -32,12 +32,7 @@ public class MetalsColorsPage extends WebPage {
     public Label calculate;
 
     @FindBy(id = "calculate-button")
-    public Button calculateButton = new Button() {
-        @Override
-        protected String getTextAction() {
-            return getWebElement().getText();
-        }
-    };
+    public Button calculateButton;
     @FindBy(id = "calculate-button")
     public ILabel calculateLabel;
 

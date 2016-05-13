@@ -18,17 +18,15 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
-import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
+import com.epam.commons.pairs.Pairs;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -36,16 +34,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
-import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMN_HEADERS;
-import static java.lang.Integer.*;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByFromString;
+import static com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType.Locator;
+import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -190,17 +188,16 @@ public class Table extends Text implements ITable, Cloneable {
 
     public List<ICell> getCells() {
         List<ICell> result = new ArrayList<>();
-        MapArray<String, MapArray<String, ICell>> rows = rows().get();
         for (String columnName : columns().headers())
             for (String rowName : rows().headers())
-                result.add(rows.get(rowName).get(columnName));
+                result.add(cell(columnName, rowName));
         if (cache)
             allCells = result;
         return result;
     }
 
-    public ITable useCache() {
-        cache = true;
+    public ITable useCache(boolean value) {
+        cache = value;
         return this;
     }
 
@@ -552,8 +549,8 @@ public class Table extends Text implements ITable, Cloneable {
         if (cell != null)
             return cell.updateData(colName, rowName);
         cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
-        cell.setAvatar(cell.get().getAvatar());
-
+        cell.getAvatar().context = new Pairs<>(getAvatar().context);
+        cell.getAvatar().context.add(new Pair<>(Locator, getLocator()));
         if (cache)
             allCells.add(cell);
         return cell;
