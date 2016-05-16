@@ -40,9 +40,4 @@ public class Button extends ClickableText implements IButton {
         super(webElement);
     }
 
-    @Override
-    protected String getTextAction() {
-        return getWebElement().getAttribute("value");
-    }
-
 }

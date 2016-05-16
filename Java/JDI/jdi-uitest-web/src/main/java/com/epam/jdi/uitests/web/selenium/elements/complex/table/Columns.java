@@ -27,7 +27,6 @@ import org.openqa.selenium.WebElement;
 import java.util.Collection;
 import java.util.List;
 
-import static com.epam.commons.LinqUtils.listCopy;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
@@ -43,13 +42,11 @@ public class Columns extends TableLine {
     }
 
     protected List<WebElement> getHeadersAction() {
-        List<WebElement> headers = table.getWebElement().findElements(headersLocator);
-        return table.rows().skipFirstColumn() ? listCopy(headers, 1) : headers;
+        return table.getWebElement().findElements(headersLocator);
     }
 
     protected List<WebElement> getFirstLine() {
-        List<WebElement> line = table.rows().getLineAction(1);
-        return table.rows().skipFirstColumn() ? listCopy(line, 1) : line;
+        return table.rows().getLineAction(1);
     }
 
     public final MapArray<String, ICell> getColumn(String colName) {

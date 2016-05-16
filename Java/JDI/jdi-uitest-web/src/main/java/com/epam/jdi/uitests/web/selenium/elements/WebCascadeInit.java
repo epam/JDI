@@ -25,11 +25,14 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -41,6 +44,7 @@ import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
 import static java.lang.String.format;
 
 /**
@@ -59,7 +63,7 @@ public class WebCascadeInit extends CascadeInit {
             if (parent != null)
                 instance.getAvatar().setDriverName(driverName);
             instance.setTypeName(type.getSimpleName());
-            instance.setParentName(parentName);
+            instance.setParent(parent);
             field.set(parent, instance);
             if (isInterface(field, IComposite.class))
                 initElements(instance, driverName);
@@ -95,6 +99,8 @@ public class WebCascadeInit extends CascadeInit {
             }
         else if (instance.getLocator() == null)
             instance.avatar.byLocator = getNewLocator(field);
+        if (hasJDIAttribute(field))
+            fillFromAttribute(instance, field);
         instance.avatar.context = (parent != null && isBaseElement(parent))
                 ? ((BaseElement) parent).avatar.context.copy()
                 : new Pairs<>();
@@ -149,15 +155,26 @@ public class WebCascadeInit extends CascadeInit {
             if (locatorGroup != null) {
                 JFindBy jFindBy = field.getAnnotation(JFindBy.class);
                 if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
-                    byLocator = WebAnnotationsUtil.getFindByLocator(jFindBy);
+                    byLocator = getFindByLocator(jFindBy);
             }
-            return (byLocator != null)
-                    ? byLocator
-                    : WebAnnotationsUtil.getFindByLocator(field.getAnnotation(FindBy.class));
+            return byLocator != null
+                ? byLocator
+                : getFindByLocator(field.getAnnotation(FindBy.class));
         } catch (Exception ex) {
             throw exception("Error in get locator for type '%s'", field.getType().getName()
                     + LINE_BREAK + ex.getMessage());
         }
+    }
+
+    private boolean hasJDIAttribute(Field field) {
+        JTable jTable = field.getAnnotation(JTable.class);
+        return jTable != null;
+    }
+    private void fillFromAttribute(BaseElement instance, Field field) {
+        JTable jTable = field.getAnnotation(JTable.class);
+        if (jTable == null || !isInterface(field, ITable.class))
+            return;
+        ((Table) instance).setUp(jTable);
     }
 
 }

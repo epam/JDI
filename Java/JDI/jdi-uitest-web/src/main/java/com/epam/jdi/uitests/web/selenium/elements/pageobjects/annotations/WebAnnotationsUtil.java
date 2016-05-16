@@ -47,13 +47,8 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             urlTemplate = (urlTemplate.contains("://") || parentClass == null || !hasDomain())
                     ? urlTemplate
                     : getMatchFromDomain(urlTemplate);
-        CheckPageTypes checkType = pageAnnotation.checkType();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
         CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
-        if (urlCheckType == NONE)
-            urlCheckType = (checkType != NONE) ? checkType : EQUAL;
-        if (titleCheckType == NONE)
-            titleCheckType = (checkType != NONE) ? checkType : EQUAL;
         if (urlCheckType == MATCH || urlCheckType == CONTAIN && (urlTemplate == null || urlTemplate.equals("")))
             urlTemplate = url;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);

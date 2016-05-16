@@ -264,7 +264,8 @@ public interface ITable extends IText {
      */
     void clear();
 
-    ITable useCache();
+    ITable useCache(boolean value);
+    default ITable useCache() { return useCache(true); }
 
     Table clone();
 

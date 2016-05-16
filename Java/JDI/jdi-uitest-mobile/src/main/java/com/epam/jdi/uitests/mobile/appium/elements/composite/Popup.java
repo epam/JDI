@@ -29,7 +29,7 @@ public class Popup extends Text implements IPopup {
 
     @Override
     protected String getTextAction() {
-        return getElement.getTextElement().getText();
+        return getWebElement().getText();
     }
 
     public void ok() {

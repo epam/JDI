@@ -27,7 +27,6 @@ import org.openqa.selenium.WebElement;
 import java.util.Collection;
 import java.util.List;
 
-import static com.epam.commons.LinqUtils.listCopy;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
@@ -109,11 +108,9 @@ public class Rows extends TableLine {
     public final MapArray<String, ICell> getRow(String rowName) {
         try {
             String[] headers = table.columns().headers();
-            List<WebElement> webRowLine = getLineAction(rowName);
-            List<WebElement> webRow = hasHeader ? listCopy(webRowLine, 1) : webRowLine;
             return new MapArray<>(table.columns().count(),
                     key -> table.columns().headers[key],
-                    value -> table.cell(webRow.get(value), new Column(headers[value]), new Row(rowName)));
+                    value -> table.cell(getLineAction(rowName).get(value), new Column(headers[value]), new Row(rowName)));
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());
         }

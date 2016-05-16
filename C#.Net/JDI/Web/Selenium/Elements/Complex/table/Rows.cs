@@ -16,7 +16,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex.table
             HasHeader = false;
             ElementIndex = ElementIndexType.Nums;
             HeadersLocator = By.XPath(".//tr/td[1]");
-            DefaultTemplate = By.XPath(".//tr[%s]/td");
+            DefaultTemplate = By.XPath(".//tr[{0}]/td");
         }
         
         protected override Func<TableLine, IList<IWebElement>> GetHeadersAction => 

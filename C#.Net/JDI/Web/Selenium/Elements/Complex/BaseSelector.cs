@@ -78,7 +78,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                 s.SelectFromList(s.AllLabels.WebElements, index);
                 return;
             }
-            if (s.Locator.ToString().Contains("%s"))
+            if (s.Locator.ToString().Contains("{0}"))
             {
                 new Clickable(s.Locator.FillByTemplate(index)).Click();
                 return;
@@ -167,9 +167,9 @@ namespace Epam.JDI.Web.Selenium.Elements.Complex
                         "Can't check is element displayed or not. No optionsNamesLocator and allLabelsLocator found");
                 if (AllLabels != null)
                     return AllLabels.WebElements;
-                if (Locator.ToString().Contains("%s"))
+                if (Locator.ToString().Contains("{0}"))
                     throw Exception(
-                        "Can't check is element displayed or not. Please specify allLabelsLocator or correct optionsNamesLocator (should not contain '%s')");
+                        "Can't check is element displayed or not. Please specify allLabelsLocator or correct optionsNamesLocator (should not contain '{0}')");
                 return GetElementsFromTag();
             }
         }

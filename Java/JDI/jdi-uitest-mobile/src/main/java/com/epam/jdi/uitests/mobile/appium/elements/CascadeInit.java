@@ -121,7 +121,7 @@ public abstract class CascadeInit implements IBaseElement {
             instance.setName(field);
             if (instance.getClass().getSimpleName().equals(""))
                 instance.setTypeName(type.getSimpleName());
-            instance.setParentName(parentType.getClass().getSimpleName());
+            instance.setParent(parentType);
             field.set(null, instance);
             if (isInterface(field, IComposite.class))
                 initElements(instance, driverName);
@@ -154,7 +154,7 @@ public abstract class CascadeInit implements IBaseElement {
             instance.avatar.setDriverName(driverName);
             if (instance.getClass().getSimpleName().equals(""))
                 instance.setTypeName(type.getSimpleName());
-            instance.setParentName(getClassName(parent));
+            instance.setParent(parent);
             field.set(parent, instance);
             if (isInterface(field, IComposite.class))
                 initElements(instance, driverName);

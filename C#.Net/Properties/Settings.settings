@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="driver" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ie</Value>
+      <Value Profile="(Default)">chrome</Value>
     </Setting>
     <Setting Name="remote_url" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.11.129.28:4444/wd/hub</Value>

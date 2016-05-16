@@ -102,7 +102,9 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     protected String getTextAction() {
-        return getWebElement().getAttribute("value");
+        String getValue = getWebElement().getAttribute("value");
+        String getText = getWebElement().getText();
+        return getText.equals("") && getValue != null ? getValue : getText;
     }
 
     @Override

@@ -42,11 +42,6 @@ public class TextField extends Text implements ITextField {
         super(webElement);
     }
 
-    @Override
-    protected String getTextAction() {
-        return getWebElement().getAttribute("value");
-    }
-
     protected void setValueAction(String value) {
         newInput(value);
     }

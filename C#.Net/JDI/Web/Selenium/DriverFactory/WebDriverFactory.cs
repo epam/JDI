@@ -90,7 +90,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
 
         public string RegisterDriver(Func<IWebDriver> driver)
         {
-            return RegisterDriver("Driver" + Drivers.Count + 1, driver);
+            return RegisterDriver("Driver" + (Drivers.Count + 1), driver);
         }
 
         public IWebDriver GetDriver()
@@ -126,7 +126,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             {
                 if (RunDrivers.ContainsKey(driverName))
                     return RunDrivers[driverName];
-                var resultDriver = Drivers[driverName].Invoke();
+                var resultDriver = Drivers[driverName]();
                 RunDrivers.Add(driverName, resultDriver);
                 if (resultDriver == null)
                     throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
