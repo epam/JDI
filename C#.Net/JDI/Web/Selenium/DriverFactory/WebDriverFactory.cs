@@ -42,9 +42,9 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         };
         private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary<DriverTypes, Func<string, IWebDriver>>
         {
-            {DriverTypes.Chrome, path => path == null || path.Equals(Empty) ? new ChromeDriver() : new ChromeDriver(path)},
+            {DriverTypes.Chrome, path => IsNullOrEmpty(path) ? new ChromeDriver() : new ChromeDriver(path)},
             {DriverTypes.Firefox, path => new FirefoxDriver()},
-            {DriverTypes.IE, path => path == null || path.Equals(Empty) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
+            {DriverTypes.IE, path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
         };
 
         //TODO 
