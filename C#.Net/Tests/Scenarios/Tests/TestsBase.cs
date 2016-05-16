@@ -25,7 +25,7 @@ namespace Epam.Tests.Scenarios.Tests
         protected static Timer Timer;
         public static TimeSpan TestRunTime => Timer.TimePassed;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             InitFromProperties();
@@ -43,7 +43,7 @@ namespace Epam.Tests.Scenarios.Tests
             Logger.Info("Run Tests");
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TestCleanup()
         {
             Logger.Info($@"

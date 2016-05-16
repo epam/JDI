@@ -5,7 +5,7 @@ using static Epam.Tests.Scenarios.Page_Objects.EpamSite;
 namespace Epam.Tests.Scenarios.Tests
 {
     [TestFixture]
-    public class ElementsCheckTests : TestsBase
+    public class ElementsCheckTests
     {
         [Test]
         public void ElementsTest_Textbox_Text()
