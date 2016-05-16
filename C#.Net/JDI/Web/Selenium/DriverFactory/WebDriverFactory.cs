@@ -132,7 +132,6 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
 
         public string RegisterDriver(DriverTypes driverType)
         {
-            Console.WriteLine("DP: " + DriverPath);
             switch (RunType)
             {
                 case Local:
