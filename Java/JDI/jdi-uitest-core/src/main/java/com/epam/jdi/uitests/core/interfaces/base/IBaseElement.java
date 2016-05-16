@@ -31,7 +31,8 @@ public interface IBaseElement {
     String getName();
     void setName(Field field);
     void setTypeName(String typeName);
-    void setParentName(String parrentName);
+    void setParent(Object parent);
+    Object getParent();
     void setFunction(Functions function);
     IAvatar getAvatar();
 }

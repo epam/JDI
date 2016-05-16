@@ -26,6 +26,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
@@ -62,7 +63,7 @@ public class WebCascadeInit extends CascadeInit {
             if (parent != null)
                 instance.getAvatar().setDriverName(driverName);
             instance.setTypeName(type.getSimpleName());
-            instance.setParentName(parentName);
+            instance.setParent(parent);
             field.set(parent, instance);
             if (isInterface(field, IComposite.class))
                 initElements(instance, driverName);
@@ -171,7 +172,7 @@ public class WebCascadeInit extends CascadeInit {
     }
     private void fillFromAttribute(BaseElement instance, Field field) {
         JTable jTable = field.getAnnotation(JTable.class);
-        if (jTable == null || !isClass(field, Table.class))
+        if (jTable == null || !isInterface(field, ITable.class))
             return;
         ((Table) instance).setUp(jTable);
     }

@@ -29,6 +29,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITabl
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,9 +43,12 @@ import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByFromString;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType.Locator;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.equals;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -127,9 +131,10 @@ public class Table extends Text implements ITable, Cloneable {
         this();
         setTableSettings(settings);
     }
-    private void fillLocator(String value, Consumer<By> action) {
-        if (!value.equals(""))
-            action.accept(getByFromString(value));
+    private void fillLocator(FindBy value, Consumer<By> action) {
+        By by = getFindByLocator(value);
+        if (by != null)
+            action.accept(by);
     }
 
     public void setUp(JTable jTable) {

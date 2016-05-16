@@ -25,6 +25,7 @@ import com.epam.commons.pairs.Pairs;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
+import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +37,7 @@ import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.PrintUtils.print;
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
 import static java.lang.String.format;
@@ -52,6 +54,7 @@ public class GetElementModule implements IAvatar {
     public WebElement rootElement;
     private String driverName = "";
     private IBaseElement element;
+    private List<WebElement> webElements;
 
     public GetElementModule(IBaseElement element) {
         this.element = element;
@@ -100,13 +103,15 @@ public class GetElementModule implements IAvatar {
     }
 
     private List<WebElement> getElementsAction() {
+        if (webElements != null)
+            return webElements;
         List<WebElement> result = timer().getResultByCondition(
                 this::searchElements,
-                els -> where(els, getSearchCriteria()::apply).size() > 0);
+                els -> where(els, getSearchCriteria()).size() > 0);
         timeouts.dropTimeouts();
         if (result == null)
             throw exception("Can't get Web Elements");
-        return where(result, getSearchCriteria()::apply);
+        return where(result, el -> getSearchCriteria().apply(el));
     }
 
     private Function<WebElement, Boolean> getSearchCriteria() {
@@ -131,37 +136,24 @@ public class GetElementModule implements IAvatar {
         }
     }
 
-    private List<WebElement> searchElements() {
-        if (this.context == null || this.context.isEmpty())
-            return getDriver().findElements(byLocator);
-        /*SearchContext context = (rootElement != null)
-                ? rootElement
-                : getSearchContext(correctXPaths(this.context));*/
-        return getSearchContext(correctXPaths(this.context)).findElements(correctXPaths(byLocator));
+    private SearchContext getSearchContext(BaseElement element) {
+        SearchContext searchContext = isClass(element.getParent().getClass(), BaseElement.class)
+                ? getSearchContext((BaseElement) element.getParent())
+                : getDriver().switchTo().defaultContent();
+        return element.getLocator() != null
+                ? searchContext.findElement(correctXPaths(element.getLocator()))
+                : searchContext;
     }
-
-    private SearchContext getSearchContext(Pairs<ContextType, By> context) {
-        SearchContext searchContext = getDriver().switchTo().defaultContent();
-        for (Pair<ContextType, By> locator : context) {
-            WebElement element = searchContext.findElement(locator.value);
-            if (locator.key == ContextType.Locator)
-                searchContext = element;
-            else {
-                getDriver().switchTo().frame(element);
-                searchContext = getDriver();
-            }
-        }
-        return searchContext;
-    }
-
-    private Pairs<ContextType, By> correctXPaths(Pairs<ContextType, By> context) {
-        if (context.size() == 1) return context;
-        for (Pair<ContextType, By> pair : context.subList(1)) {
-            By byValue = pair.value;
-            if (byValue.toString().contains("By.xpath: //"))
-                pair.value = correctXPaths(byValue);
-        }
-        return context;
+    private List<WebElement> searchElements()
+    {
+        Object p = element.getParent();
+        BaseElement parent = p != null && isClass(p.getClass(), BaseElement.class)
+            ? (BaseElement) p
+            : null;
+        SearchContext context = parent != null
+                ? getSearchContext(parent)
+                : getDriver().switchTo().defaultContent();
+        return context.findElements(correctXPaths(byLocator));
     }
 
     private By correctXPaths(By byValue) {

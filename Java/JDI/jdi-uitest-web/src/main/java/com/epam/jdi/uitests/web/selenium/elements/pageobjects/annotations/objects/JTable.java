@@ -18,6 +18,9 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  */
 
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.FindBy;
+
 import java.lang.annotation.*;
 
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMN_HEADERS;
@@ -28,14 +31,14 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JTable {
-    String root() default "";
+    FindBy root() default @FindBy();
     String[] header() default {};
     String[] rowsHeader() default {};
 
-    String cell() default "";
-    String row() default "";
-    String column() default "";
-    String footer() default "";
+    FindBy cell() default @FindBy();
+    FindBy row() default @FindBy();
+    FindBy column() default @FindBy();
+    FindBy footer() default @FindBy();
 
     int height() default -1;
     int width() default -1;

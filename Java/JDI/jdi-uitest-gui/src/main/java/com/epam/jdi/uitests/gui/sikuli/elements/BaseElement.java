@@ -39,7 +39,7 @@ public abstract class BaseElement implements IBaseElement {
     public static boolean createFreeInstance = false;
     public Functions function = Functions.NONE;
     public void setFunction(Functions function) { this.function = function; }
-    protected String parentTypeName = "";
+    private Object parent;
     private String name;
     private String varName;
     private String typeName;
@@ -67,13 +67,14 @@ public abstract class BaseElement implements IBaseElement {
     public GetElementModule getAvatar() {
         return avatar;
     }
+    protected String getParentName() {
+        return parent == null ? "" : parent.getClass().getSimpleName();
+    }
+    public Object getParent() { return parent; }
+    public void setParent(Object parent) { this.parent = parent; }
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
-    }
-
-    public void setParentName(String parentName) {
-        parentTypeName = parentName;
     }
 
     public String getName() {
@@ -94,17 +95,12 @@ public abstract class BaseElement implements IBaseElement {
         return avatar.pattern;
     }
 
-    public Element getParent() {
-        //todo to have link to the parent
-        return new Element();
-    }
-
     public Rectangle getRectangle() {
         return this.avatar.getRectangle();
     }
 
     public Region getParentRegion() {
-        Rectangle parentRectangle = this.getParent().getRectangle();
+        Rectangle parentRectangle = ((BaseElement)this.parent).getRectangle();
 
         if (parentRectangle == null || parentRectangle.getHeight() == 0 || parentRectangle.getWidth() == 0)
             return new Screen();

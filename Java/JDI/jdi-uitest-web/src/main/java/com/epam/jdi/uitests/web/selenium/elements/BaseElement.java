@@ -62,12 +62,12 @@ public abstract class BaseElement implements IBaseElement {
     public void setFunction(Functions function) { this.function = function; }
     public GetElementModule avatar;
     public ActionInvoker invoker = new ActionInvoker(this);
-    protected String parentTypeName = "";
     protected GetElement getElementClass = new GetElement(this);
     protected ElementsActions actions = new ElementsActions(this);
     private String name;
     private String varName;
     private String typeName;
+    private Object parent;
 
     public BaseElement() {
         this(By.id("EMPTY"));
@@ -164,12 +164,10 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     protected String getParentName() {
-        return parentTypeName;
+        return parent == null ? "" : parent.getClass().getSimpleName();
     }
-
-    public void setParentName(String parrentName) {
-        parentTypeName = parrentName;
-    }
+    public Object getParent() { return parent; }
+    public void setParent(Object parent) { this.parent = parent; }
 
     public void logAction(String actionName, LogLevels level) {
         toLog(format(shortLogMessagesFormat
