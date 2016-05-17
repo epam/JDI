@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  */
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.*;

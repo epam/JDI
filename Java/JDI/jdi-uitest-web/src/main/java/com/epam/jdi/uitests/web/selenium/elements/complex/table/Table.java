@@ -26,15 +26,12 @@ import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
@@ -42,12 +39,8 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByFromString;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType.Locator;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
 import static java.lang.Integer.parseInt;
-import static java.util.Arrays.asList;
 import static java.util.Arrays.equals;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -59,10 +52,10 @@ public class Table extends Text implements ITable, Cloneable {
     public boolean cache = true;
     protected List<String> footer;
     protected By cellLocatorTemplate;
-    private List<ICell> allCells = new ArrayList<>();
-    private Columns columns = new Columns();
-    private Rows rows = new Rows();
-    private By footerLocator = By.xpath(".//tfoot/tr/th");
+    protected List<ICell> allCells = new ArrayList<>();
+    protected Columns columns = new Columns();
+    protected Rows rows = new Rows();
+    protected By footerLocator = By.xpath(".//tfoot/tr/th");
 
     // ------------------------------------------ //
 
@@ -131,53 +124,6 @@ public class Table extends Text implements ITable, Cloneable {
         this();
         setTableSettings(settings);
     }
-    private void fillLocator(FindBy value, Consumer<By> action) {
-        By by = getFindByLocator(value);
-        if (by != null)
-            action.accept(by);
-    }
-
-    public void setUp(JTable jTable) {
-        fillLocator(jTable.root(), value -> avatar.byLocator = value);
-        fillLocator(jTable.cell(), value -> cellLocatorTemplate = value);
-        fillLocator(jTable.row(), value -> rows.lineTemplate = value);
-        fillLocator(jTable.column(), value -> columns.lineTemplate = value);
-        fillLocator(jTable.footer(), value -> footerLocator = value);
-
-        if (jTable.header().length > 0)
-            hasColumnHeaders(asList(jTable.header()));
-        if (jTable.rowsHeader().length > 0)
-            hasRowHeaders(asList(jTable.rowsHeader()));
-
-
-        if (jTable.height() > 0)
-            setColumnsCount(jTable.height());
-        if (jTable.width() > 0)
-            setRowsCount(jTable.width());
-        if (!jTable.size().equals("")) {
-            String[] split;
-            split = jTable.size().split("x");
-            if (split.length == 1)
-                split = jTable.size().split("X");
-            if (split.length != 2)
-                throw exception("Can't setup Table from attribute. Bad size: " + jTable.size());
-            setColumnsCount(parseInt(split[0]));
-            setRowsCount(parseInt(split[1]));
-        }
-
-        if (jTable.colStartIndex() > 0)
-            columns.startIndex = jTable.colStartIndex();
-        if (jTable.rowStartIndex() > 0)
-            rows.startIndex = jTable.rowStartIndex();
-
-        switch (jTable.headerType()) {
-            case COLUMN_HEADERS: hasOnlyColumnHeaders();
-            case ROWS_HEADERS: hasOnlyRowHeaders();
-            case ALL_HEADERS: hasAllHeaders();
-            case NO_HEADERS: hasNoHeaders();
-        }
-        cache = jTable.useCache();
-    }
 
     public Table copy() {
         return clone();
@@ -199,6 +145,16 @@ public class Table extends Text implements ITable, Cloneable {
         if (cache)
             allCells = result;
         return result;
+    }
+
+    public void setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
+        avatar.byLocator = root;
+        cellLocatorTemplate = cell;
+        rows.lineTemplate = row;
+        columns.lineTemplate = column;
+        footerLocator = footer;
+        columns.startIndex = colStartIndex;
+        rows.startIndex = rowStartIndex;
     }
 
     public ITable useCache(boolean value) {
@@ -236,8 +192,8 @@ public class Table extends Text implements ITable, Cloneable {
         return columns().getColumnValue(colName);
     }
 
-    private MapArray<String, ICell> column(Column column) {
-        return column.get((colName) -> column(colName), this::column);
+    protected MapArray<String, ICell> column(Column column) {
+        return column.get(this::column, this::column);
     }
 
     public void setColumns(Columns value) {

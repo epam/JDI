@@ -159,7 +159,7 @@ public class WebCascadeInit extends CascadeInit {
             }
             return byLocator != null
                 ? byLocator
-                : getFindByLocator(field.getAnnotation(FindBy.class));
+                : WebAnnotationsUtil.findByToBy(field.getAnnotation(FindBy.class));
         } catch (Exception ex) {
             throw exception("Error in get locator for type '%s'", field.getType().getName()
                     + LINE_BREAK + ex.getMessage());

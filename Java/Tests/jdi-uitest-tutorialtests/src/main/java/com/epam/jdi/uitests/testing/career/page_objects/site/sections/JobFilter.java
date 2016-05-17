@@ -19,6 +19,7 @@ public class JobFilter extends Form<JobSearchFilter> {
     public ITextField keywords;
     public IDropDown<JobCategories> category =
             new Dropdown<>(By.className("multi-select-filter"), By.className("blue-checkbox-label"));
+
     @FindBy(className = "career-location-box")
     public IDropDown<Locations> city;
 

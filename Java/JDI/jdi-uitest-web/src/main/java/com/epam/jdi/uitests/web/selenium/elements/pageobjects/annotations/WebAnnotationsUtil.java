@@ -24,6 +24,8 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.function.Consumer;
+
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.*;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getMatchFromDomain;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
@@ -80,7 +82,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return null;
     }
 
-    public static By getFindByLocator(FindBy locator) {
+    public static By findByToBy(FindBy locator) {
         if (locator == null) return null;
         if (!"".equals(locator.id()))
             return By.id(locator.id());
@@ -99,6 +101,13 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         if (!"".equals(locator.tagName()))
             return By.tagName(locator.tagName());
         return null;
+    }
+
+
+    public static void fillLocator(FindBy value, Consumer<By> action) {
+        By by = findByToBy(value);
+        if (by != null)
+            action.accept(by);
     }
 
     public static By getFindByLocator(JFindBy locator) {
