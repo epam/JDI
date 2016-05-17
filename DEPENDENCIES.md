@@ -1,36 +1,30 @@
 ## Third-party modules used in core ##
 ### Selenium ###
-Selenium is an umbrella project for various tools and libraries that enable automation of web browsers.
-[http://http://docs.seleniumhq.org/]()
+[Selenium](http://docs.seleniumhq.org/) is an umbrella project for various tools and libraries that enable automation of web browsers.
 
 License: Apache Software Licence, Version 2.0.
 
 ### Testng ###
-TestNG testing framework.
-[http://testng.org]()
+[TestNG](http://testng.org) testing framework.
 
 License: Apache Software Licence, Version 2.0.
 
 ### Allure Framework  ###
-Allure Test Report Framework.
-[ http://allure.qatools.ru]()
+[Allure Test Report Framework](http://allure.qatools.ru).
 
 License: Apache Software Licence, Version 2.0.
 
 ### JNA ###
-For Java bindings JNA library is used.
-[http://jna.java.net/]()
+For Java bindings [JNA library](http://jna.java.net/) is used.
 
 License: GNU LGPL Version 2.1
 
 ### Cucumber-JVM ###
-Cucumber-JVM is a pure Java implementation of Cucumber that supports the most popular programming languages for the JVM..
-[http://cukes.info/]()
+[Cucumber-JVM](http://cukes.info/) is a pure Java implementation of Cucumber that supports the most popular programming languages for the JVM.
 
 ## Third-party modules used in reportng ##
 ### Reportng ###
-ReportNG is a simple HTML reporting plug-in for the TestNG unit-testing framework.
-[http://reportng.uncommons.org]()
+[ReportNG](http://reportng.uncommons.org) is a simple HTML reporting plug-in for the TestNG unit-testing framework.
 
 With modification:
 * add application version to report.

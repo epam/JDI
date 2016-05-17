@@ -15,6 +15,7 @@ namespace Epam.Tests.Scenarios.Tests
             Assert.IsTrue(CareerPage.CopyRight.Text.Contains("2016 EPAM"),
                 "Invalid Data in copyright string on the footer");
         }
+
         [Test]
         public void ElementsTest_TextFiled_NewInput()
         {
@@ -25,6 +26,7 @@ namespace Epam.Tests.Scenarios.Tests
             CareerPage.AutocompleteSuggestList.WaitDisplayed();
             Assert.IsTrue(CareerPage.AutocompleteSuggestList.Displayed, "suggestlist not displayed");
         }
+
         [Test]
         public void ElementsTest_Button_Click()
         {
@@ -35,6 +37,7 @@ namespace Epam.Tests.Scenarios.Tests
             CareerPage.SearchResultHeader.WaitDisplayed();
             Assert.IsTrue(CareerPage.SearchResultHeader.Displayed, "Search results not displayed - click action on button not performed");
         }
+
         [Test]
         public void ElementsTest_Link_Displayed()
         {
@@ -45,6 +48,7 @@ namespace Epam.Tests.Scenarios.Tests
             Assert.IsTrue(CareerPage.BestMatchIcon.Displayed, "icon 'Best Match' not displayed");
 
         }
+
         [Test]
         public void ElementsTest_Link_GetTooltip()
         {
@@ -72,8 +76,8 @@ namespace Epam.Tests.Scenarios.Tests
             Assert.IsTrue(CareerPage.HeaderMenuCrumbs2.Displayed, "breadcrumb 2 level");
             Assert.IsTrue(CareerPage.HeaderMenuCrumbs2.GetReference().Equals("https://www.epam.com/careers"),
                 "incorrect href value for bredcrumb link of second level");
-
         }
+
         [Test]
         public void ElementsTest_Link_Click()
         {

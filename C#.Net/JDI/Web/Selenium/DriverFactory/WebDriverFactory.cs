@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Settings;
@@ -31,7 +33,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         public RunTypes RunType { get; set; } = Local;
         public HighlightSettings HighlightSettings = new HighlightSettings();
         public Func<IWebElement, bool> ElementSearchCriteria = el => el.Displayed;
-        
+
         private readonly Dictionary<DriverTypes, string> _driverNamesDictionary = new Dictionary<DriverTypes, string>
         {
             {DriverTypes.Chrome, "chrome"},
@@ -40,9 +42,9 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         };
         private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary<DriverTypes, Func<string, IWebDriver>>
         {
-            {DriverTypes.Chrome, path => new ChromeDriver(path)},
+            {DriverTypes.Chrome, path => IsNullOrEmpty(path) ? new ChromeDriver() : new ChromeDriver(path)},
             {DriverTypes.Firefox, path => new FirefoxDriver()},
-            {DriverTypes.IE, path => new InternetExplorerDriver(path)}
+            {DriverTypes.IE, path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
         };
 
         //TODO 
@@ -96,7 +98,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             return driver;
         };
 
-    public IWebDriver GetDriver(string driverName)
+        public IWebDriver GetDriver(string driverName)
         {
             if (!Drivers.ContainsKey(driverName))
                 throw new Exception($"Can't find driver with name {driverName}");
@@ -203,7 +205,6 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
         {
             return RunDrivers.Any();
         }
-        
         
         public void Highlight(IElement element)
         {

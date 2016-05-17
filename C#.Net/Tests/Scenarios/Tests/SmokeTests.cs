@@ -1,5 +1,4 @@
-﻿using Epam.JDI.Web.Selenium.Elements.Common;
-using Epam.Tests.Scenarios.Entities;
+﻿using Epam.Tests.Scenarios.Entities;
 using NUnit.Framework;
 using static Epam.Tests.Scenarios.Enums.HeaderMenuValues;
 using static Epam.Tests.Scenarios.Page_Objects.EpamSite;

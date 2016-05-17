@@ -1,5 +1,13 @@
 #JDI UI Test Automation Framework
 
+||C#.Net|Java|
+|---|---|---|
+|CI|[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/jdi?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/jdi/branch/master)|[![Build Status](https://travis-ci.org/elv1s42/JDI.svg?branch=master)](https://travis-ci.org/elv1s42/JDI)|
+|Package|[![NuGet Version and Downloads count](https://buildstats.info/nuget/JDI.UITestFramework)](https://www.nuget.org/packages/JDI.UITestFramework)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons)|
+
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
+
 Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
@@ -61,20 +69,27 @@ public class CareerPage extends WebPage {
 ### Form
 ```Java
 public class AddCVForm extends Form<Attendee> {  
-    @FindBy(css = "[placeholder='First Name']") private ITextField name;
-    @FindBy(css = "[placeholder='Last Name']")  private ITextField lastName;
-    @FindBy(css = "[placeholder='Email']")      private ITextField email;
+    @FindBy(css = "[placeholder='First Name']") 
+    private ITextField name;
+    @FindBy(css = "[placeholder='Last Name']")  
+    private ITextField lastName;
+    @FindBy(css = "[placeholder='Email']")      
+    private ITextField email;
     private IDropDown country = new Dropdown<>(
         By.cssSelector(".country-wrapper .arrow"), 
         By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
     private IDropDown city = new Dropdown<>(
         By.cssSelector(".city-wrapper .arrow"), 
         By.xpath("//*[contains(@id,'select-box-applicantCity')]//li"));
-    @FindBy(css = ".file-upload")               private RFileInput cv;
-    @FindBy(css = ".comment-input")             private ITextArea comment;
+    @FindBy(css = ".file-upload")               
+    private RFileInput cv;
+    @FindBy(css = ".comment-input")             
+    private ITextArea comment;
 
-    @FindBy(xpath = "//*[.='Submit']")          private IButton submit;
-    @FindBy(xpath = "//*[.='Cancel']")          private IButton cancel;
+    @FindBy(xpath = "//*[.='Submit']")          
+    private IButton submit;
+    @FindBy(xpath = "//*[.='Cancel']")          
+    private IButton cancel;
 
 }
 ```

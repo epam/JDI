@@ -56,7 +56,7 @@ namespace Epam.Tests
         public void TestMethod1()
         {
             var l = new List<int> {1, 2 ,3};
-            var a = l[-1];
+            //var a = l[-1];
             var b = l[0];
             example1(null);
             example1("5");
@@ -64,10 +64,8 @@ namespace Epam.Tests
             example2(5);
             example2(new List<String> { "test", "data", "example" });
             var list = new List<String> {"test", "data", "example"};
-            String third = list[3];
+            //String third = list[3];
         }
-
-
 
         private Boolean example1(String value)
         {
@@ -75,13 +73,12 @@ namespace Epam.Tests
             String value3 = value ?? "5";
             return value2 == value3;
         }
+
         private Boolean example2(Object value)
         {
             var value2 = value != null ? value.ToString() : null;
             var value3 = value?.ToString();
             return value2 == value3;
         }
-
-
     }
 }

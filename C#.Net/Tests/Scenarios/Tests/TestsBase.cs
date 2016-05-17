@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Base;
@@ -22,7 +20,6 @@ using static Epam.JDI.Web.Settings.WebSettings;
 
 namespace Epam.Tests.Scenarios.Tests
 {
-    [SetUpFixture]
     public class TestsBase
     {
         protected static Timer Timer;
@@ -36,7 +33,9 @@ namespace Epam.Tests.Scenarios.Tests
             KillAllRunWebDrivers();
 
             if (!DriverFactory.HasDrivers())
+            {
                 UseDriver(Chrome);
+            }
             Timer = new Timer();
             
             WebSite.Init(typeof(EpamSite));
@@ -53,4 +52,5 @@ Total test run time: {TestRunTime.ToString(@"hh\:mm\:ss\.fff")}");
             KillAllRunWebDrivers();
         }
     }
+    
 }
