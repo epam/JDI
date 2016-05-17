@@ -102,13 +102,15 @@ namespace Epam.JDI.Web.Selenium.Elements.APIInteract
 
         }
 
-        private ISearchContext SearchContext(WebBaseElement element)
+        private ISearchContext SearchContext(Object element)
         {
-            var searchContext = element.Parent is WebBaseElement
-                ? SearchContext((WebBaseElement) element.Parent)
-                : WebDriver.SwitchTo().DefaultContent();
-            return element.Locator != null
-                ? searchContext.FindElement(CorrectXPath(element.Locator))
+            object p;
+            WebBaseElement el;
+            if (element == null || (el = element as WebBaseElement) == null || (p = el.Parent) == null)
+                return WebDriver.SwitchTo().DefaultContent();
+            var searchContext = SearchContext(p);
+            return el.Locator != null
+                ? searchContext.FindElement(CorrectXPath(el.Locator))
                 : searchContext;
         }
 
@@ -119,11 +121,7 @@ namespace Epam.JDI.Web.Selenium.Elements.APIInteract
         }
         private List<IWebElement> SearchElements()
         {
-            var parent = Element.Parent as WebBaseElement;
-            var context = parent != null
-                ? SearchContext(parent)
-                : WebDriver.SwitchTo().DefaultContent();
-            return context.FindElements(CorrectXPath(ByLocator)).ToList();
+            return SearchContext(Element.Parent).FindElements(CorrectXPath(ByLocator)).ToList();
         }
         private By CorrectXPath(By byValue)
         {

@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.*;
+import org.openqa.selenium.By;
 
 import java.util.List;
 
@@ -270,4 +271,27 @@ public interface ITable extends IText {
     Table clone();
 
     Table copy();
+
+    ITable setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex);
+
+    ITable hasAllHeaders();
+
+    ITable hasNoHeaders();
+
+    ITable hasOnlyColumnHeaders();
+
+    ITable hasOnlyRowHeaders();
+
+
+    ITable hasColumnHeaders(List<String> value);
+
+    <THeaders extends Enum> ITable hasColumnHeaders(Class<THeaders> headers);
+
+    ITable hasRowHeaders(List<String> value);
+
+    <THeaders extends Enum> ITable hasRowHeaders(Class<THeaders> headers);
+
+    ITable setColumnsCount(int value);
+
+    ITable setRowsCount(int value);
 }

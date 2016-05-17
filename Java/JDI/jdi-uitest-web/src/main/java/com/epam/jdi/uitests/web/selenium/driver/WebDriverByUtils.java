@@ -59,6 +59,14 @@ public final class WebDriverByUtils {
         return getByFunc(by).apply(byLocator);
     }
 
+    public static boolean containsRoot(By by) {
+        return by != null && by.toString().contains(": *root*");
+    }
+    public static By trimRoot(By by) {
+        String byLocator = getByLocator(by).replace("*root*", " ").trim();
+        return getByFunc(by).apply(byLocator);
+    }
+
     public static By fillByMsgTemplate(By by, Object... args) {
         String byLocator = getByLocator(by);
         try {

@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.JdiPaginator;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.TableSettings;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
@@ -42,7 +41,7 @@ public class SimpleTablePage extends WebPage {
         simpleTable = new Table();
         simpleTable.avatar.byLocator = By.xpath("*//table");
 
-        simpleTable.setTableSettings(new TableSettings(hasColumnHeaders, hasRowHeaders));
+        simpleTable.hasAllHeaders();
         return simpleTable;
     }
 
@@ -52,8 +51,7 @@ public class SimpleTablePage extends WebPage {
 
         simpleTable.avatar.byLocator = By.xpath("*//table");
 
-        simpleTable.setTableSettings(new TableSettings(hasColumnHeaders, hasRowHeaders));
-
+        simpleTable.hasAllHeaders();
 
         return simpleTable;
     }

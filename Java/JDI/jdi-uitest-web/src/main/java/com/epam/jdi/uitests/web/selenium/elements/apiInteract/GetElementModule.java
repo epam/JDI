@@ -20,11 +20,9 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
-import com.epam.commons.pairs.Pair;
 import com.epam.commons.pairs.Pairs;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
@@ -39,6 +37,7 @@ import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
 import static java.lang.String.format;
 
@@ -136,29 +135,37 @@ public class GetElementModule implements IAvatar {
         }
     }
 
-    private SearchContext getSearchContext(BaseElement element) {
-        SearchContext searchContext = isClass(element.getParent().getClass(), BaseElement.class)
-                ? getSearchContext((BaseElement) element.getParent())
-                : getDriver().switchTo().defaultContent();
-        return element.getLocator() != null
-                ? searchContext.findElement(correctXPaths(element.getLocator()))
+    private SearchContext getSearchContext(Object element) {
+        Object p;
+        BaseElement el;
+        if (element == null || !isClass(element.getClass(), BaseElement.class) || (p = (el = (BaseElement) element).getParent()) == null)
+            return getDriver().switchTo().defaultContent();
+        By locator = el.getLocator();
+        SearchContext searchContext = containsRoot(locator)
+                ? getDriver().switchTo().defaultContent()
+                : getSearchContext(p);
+        locator = containsRoot(locator)
+                ? trimRoot(locator)
+                : locator;
+        return locator != null
+                ? searchContext.findElement(correctXPaths(locator))
                 : searchContext;
     }
+
     private List<WebElement> searchElements()
     {
-        Object p = element.getParent();
-        BaseElement parent = p != null && isClass(p.getClass(), BaseElement.class)
-            ? (BaseElement) p
-            : null;
-        SearchContext context = parent != null
-                ? getSearchContext(parent)
-                : getDriver().switchTo().defaultContent();
-        return context.findElements(correctXPaths(byLocator));
+        SearchContext searchContext = containsRoot(byLocator)
+                ? getDriver().switchTo().defaultContent()
+                : getSearchContext(element.getParent());
+        By locator = containsRoot(byLocator)
+                ? trimRoot(byLocator)
+                : byLocator;
+        return searchContext.findElements(correctXPaths(locator));
     }
 
     private By correctXPaths(By byValue) {
         return byValue.toString().contains("By.xpath: //")
-                ? WebDriverByUtils.getByFunc(byValue).apply(WebDriverByUtils.getByLocator(byValue)
+                ? getByFunc(byValue).apply(getByLocator(byValue)
                 .replaceFirst("/", "./"))
                 : byValue;
     }
@@ -188,6 +195,6 @@ public class GetElementModule implements IAvatar {
     }
 
     private String printShortBy(By by) {
-        return String.format("%s='%s'", WebDriverByUtils.getByName(by), WebDriverByUtils.getByLocator(by));
+        return String.format("%s='%s'", getByName(by), getByLocator(by));
     }
 }

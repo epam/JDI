@@ -1,8 +1,7 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
@@ -14,7 +13,7 @@ import static java.util.Arrays.asList;
  */
 public class FillFromAnnotationRules {
 
-    public static void setUpTable(Table table, JTable jTable) {
+    public static void setUpTable(ITable table, JTable jTable) {
         table.setUp(findByToBy(jTable.root()), findByToBy(jTable.cell()),
                 findByToBy(jTable.row()), findByToBy(jTable.column()), findByToBy(jTable.footer()),
                 jTable.colStartIndex(), jTable.rowStartIndex());
@@ -49,12 +48,12 @@ public class FillFromAnnotationRules {
             case NO_HEADERS:
                 table.hasNoHeaders();
         }
-        table.cache = jTable.useCache();
+        table.useCache(jTable.useCache());
     }
 
     public static void setUpDropdown(Dropdown dropdown, JDropdown jDropdown) {
         dropdown.setUp(findByToBy(jDropdown.root()), findByToBy(jDropdown.value()),
                 findByToBy(jDropdown.list()), findByToBy(jDropdown.expand()),
-                findByToBy(jDropdown.elementByName()), findByToBy(jDropdown.elementByIndex()));
+                findByToBy(jDropdown.elementByName()));
     }
 }

@@ -185,7 +185,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         element().waitAttribute(name, value);
     }
 
-    public void setUp(By root, By value, By list, By expand, By elementByName, By elementByIndex) {
+    public void setUp(By root, By value, By list, By expand, By elementByName) {
         avatar.byLocator = root;
 
     }

@@ -26,7 +26,7 @@ public class AddCVForm extends Form<Attendee> {
             By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
     @FindBy(css = ".city-selection")
     private IDropDown city = new Dropdown<>(By.cssSelector(".city-wrapper .arrow"),
-            By.xpath("//*[contains(@id,'select-box-applicantCity')]//li"));
+            By.xpath("*root*//*[contains(@id,'select-box-applicantCity')]//li"));
     @FindBy(css = ".file-upload")
     private RFileInput cv;
     @FindBy(css = ".comment-input")

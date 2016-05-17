@@ -40,8 +40,6 @@ import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType.Locator;
-import static java.lang.Integer.parseInt;
-import static java.util.Arrays.equals;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -103,9 +101,10 @@ public class Table extends Text implements ITable, Cloneable {
         this.cellLocatorTemplate = cellLocatorTemplate;
     }
 
-    public Table(By columnHeader, By rowHeader, By row, By column, By footer, TableSettings settings,
+    public Table(By columnHeader, By rowHeader, By row, By column, By footer,
                  int columnStartIndex, int rowStartIndex) {
         this();
+
         columns.lineTemplate = column;
         if (columnHeader != null)
             columns.headersLocator = columnHeader;
@@ -117,12 +116,6 @@ public class Table extends Text implements ITable, Cloneable {
         columns.startIndex = columnStartIndex;
         rows.startIndex = rowStartIndex;
 
-        setTableSettings(settings);
-    }
-
-    public Table(TableSettings settings) {
-        this();
-        setTableSettings(settings);
     }
 
     public Table copy() {
@@ -147,7 +140,7 @@ public class Table extends Text implements ITable, Cloneable {
         return result;
     }
 
-    public void setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
+    public ITable setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
         avatar.byLocator = root;
         cellLocatorTemplate = cell;
         rows.lineTemplate = row;
@@ -155,6 +148,7 @@ public class Table extends Text implements ITable, Cloneable {
         footerLocator = footer;
         columns.startIndex = colStartIndex;
         rows.startIndex = rowStartIndex;
+        return this;
     }
 
     public ITable useCache(boolean value) {
@@ -218,15 +212,6 @@ public class Table extends Text implements ITable, Cloneable {
 
     public List<String> rowValue(String rowName) {
         return rows().getRowValue(rowName);
-    }
-
-    public void setTableSettings(TableSettings settings) {
-        rows().hasHeader = settings.rowHasHeaders;
-        rows().headers = settings.rowHeaders;
-        rows().count = settings.rowsCount;
-        columns().hasHeader = settings.columnHasHeaders;
-        columns().headers = settings.columnHeaders;
-        columns().count = settings.columnsCount;
     }
 
     private MapArray<String, ICell> row(Row row) {

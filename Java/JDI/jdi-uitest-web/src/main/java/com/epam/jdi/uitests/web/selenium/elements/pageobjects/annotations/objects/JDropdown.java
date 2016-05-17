@@ -20,6 +20,5 @@ public @interface JDropdown {
     FindBy list() default @FindBy();
     FindBy expand() default @FindBy();
     FindBy elementByName() default @FindBy();
-    FindBy elementByIndex() default @FindBy();
 
 }

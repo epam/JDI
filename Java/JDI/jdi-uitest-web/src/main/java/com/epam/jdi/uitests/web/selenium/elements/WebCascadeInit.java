@@ -25,7 +25,6 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
@@ -40,11 +39,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import static com.epam.commons.ReflectionUtils.*;
+import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpTable;
 import static java.lang.String.format;
 
 /**
@@ -174,7 +175,7 @@ public class WebCascadeInit extends CascadeInit {
         JTable jTable = field.getAnnotation(JTable.class);
         if (jTable == null || !isInterface(field, ITable.class))
             return;
-        ((Table) instance).setUp(jTable);
+        setUpTable((ITable) instance, jTable);
     }
 
 }
