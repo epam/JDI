@@ -8,7 +8,10 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
@@ -32,14 +35,35 @@ public class LinkTests extends InitTests {
         supportPage.checkOpened();
     }
 
-    // reference
-
     @Test
     public void getReferenceTest() {
         areEquals(link().getReference(), supportPage.url);
     }
 
+    public static String isLinkBroken(URL url) throws Exception
+    {
+        String response = "";
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try
+        {
+            connection.connect();
+            response = connection.getResponseMessage();
+            connection.disconnect();
+            return response;
+
+        }
+        catch(Exception exp)
+        {
+            return exp.getMessage();
+        }
+    }
+
     @Test
+    public void getURLTest() throws Exception {
+        logger.info("Response code from server: " + isLinkBroken(link().getURL()));
+    }
+
+        @Test
     public void waitReferenceTest() {
         isInState(SUPPORT_PAGE);
         runParallel(homePage::open);
