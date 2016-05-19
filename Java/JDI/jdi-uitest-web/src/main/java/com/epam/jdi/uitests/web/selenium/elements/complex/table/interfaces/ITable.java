@@ -282,7 +282,6 @@ public interface ITable extends IText {
 
     ITable hasOnlyRowHeaders();
 
-
     ITable hasColumnHeaders(List<String> value);
 
     <THeaders extends Enum> ITable hasColumnHeaders(Class<THeaders> headers);

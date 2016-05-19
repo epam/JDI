@@ -21,11 +21,14 @@ public class AddCVForm extends Form<Attendee> {
     private ITextField lastName;
     @FindBy(css = "[placeholder='Email']")
     private ITextField email;
+
     @FindBy(css = ".country-selection")
-    private IDropDown country = new Dropdown<>(By.cssSelector(".country-wrapper .arrow"),
+    private IDropDown country = new Dropdown<>(
+            By.cssSelector(".country-wrapper .arrow"),
             By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
     @FindBy(css = ".city-selection")
-    private IDropDown city = new Dropdown<>(By.cssSelector(".city-wrapper .arrow"),
+    private IDropDown city = new Dropdown<>(
+            By.cssSelector(".city-wrapper .arrow"),
             By.xpath("*root*//*[contains(@id,'select-box-applicantCity')]//li"));
     @FindBy(css = ".file-upload")
     private RFileInput cv;

@@ -1,7 +1,10 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
 using Epam.JDI.Web.Attributes;
+using Epam.JDI.Web.Selenium.Elements.Complex;
 using Epam.JDI.Web.Selenium.Elements.Composite;
 using Epam.Tests.Scenarios.Entities;
+using OpenQA.Selenium;
 
 namespace Epam.Tests.Scenarios.Page_Objects.Sections
 {
@@ -13,12 +16,12 @@ namespace Epam.Tests.Scenarios.Page_Objects.Sections
         private ITextField _lastName;
         [FindBy(Css = "[placeholder='Email']")]
         private ITextField _email;
-        /*[FindBy(Css = ".country-selection")]
+        [FindBy(Css = ".country-selection")]
         private IDropDown country = new Dropdown(By.CssSelector(".country-wrapper .arrow"),
-                By.XPath("//*[contains(@id,'select-box-applicantCountry')]//li"));
+                By.XPath("*root*//*[contains(@id,'select-box-applicantCountry')]//li"));
         [FindBy(Css = ".city-selection")]
         private IDropDown city = new Dropdown(By.CssSelector(".city-wrapper .arrow"),
-                By.XPath("//*[contains(@id,'select-box-applicantCity')]//li"));*/
+                By.XPath("*root*//*[contains(@id,'select-box-applicantCity')]//li"));
         [FindBy(Css = ".comment-input")]
         private ITextArea _comment;
 

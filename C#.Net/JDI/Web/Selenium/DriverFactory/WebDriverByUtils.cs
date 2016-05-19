@@ -41,6 +41,16 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             return GetByFunc(by)(byLocator);
         }
 
+        public static bool ContainsRoot(this By by)
+        {
+            return by != null && by.ToString().Contains(": *root*");
+        }
+        public static By TrimRoot(this By by)
+        {
+            var byLocator = by.GetByLocator().Replace("*root*", " ").Trim();
+            return GetByFunc(by)(byLocator);
+        }
+
         public static By copyBy(By by)
         {
             var byLocator = GetByLocator(by);

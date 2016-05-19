@@ -6,12 +6,13 @@ using static Epam.Tests.Scenarios.Page_Objects.EpamSite;
 namespace Epam.Tests.Scenarios.Tests
 {
     [TestFixture]
-    public class SmokeTests
+    public class SmokeTests : TestsBase
     {
         [Test]
         public void CareerTest()
         {
             var attendee = new Attendee();
+            var e = HeaderMenu;
             HeaderMenu.Select(CAREERS);
             CareerPage.CheckOpened();
             CareerPage.JobFilter.Search(attendee.Filter);

@@ -102,15 +102,20 @@ namespace Epam.JDI.Web.Selenium.Elements.APIInteract
 
         }
 
-        private ISearchContext SearchContext(Object element)
+        private ISearchContext SearchContext(object element)
         {
-            object p;
             WebBaseElement el;
-            if (element == null || (el = element as WebBaseElement) == null || (p = el.Parent) == null)
+            if (element == null || (el = element as WebBaseElement) == null || el.Parent == null)
                 return WebDriver.SwitchTo().DefaultContent();
-            var searchContext = SearchContext(p);
-            return el.Locator != null
-                ? searchContext.FindElement(CorrectXPath(el.Locator))
+            var locator = el.Locator;
+            var searchContext = locator.ContainsRoot()
+                ? WebDriver.SwitchTo().DefaultContent()
+                : SearchContext(el.Parent);
+            locator = locator.ContainsRoot()
+                    ? locator.TrimRoot()
+                    : locator;
+            return locator != null
+                ? searchContext.FindElement(CorrectXPath(locator))
                 : searchContext;
         }
 
@@ -119,10 +124,18 @@ namespace Epam.JDI.Web.Selenium.Elements.APIInteract
             LocalElementSearchCriteria = el => el != null;
             return this;
         }
+
         private List<IWebElement> SearchElements()
         {
-            return SearchContext(Element.Parent).FindElements(CorrectXPath(ByLocator)).ToList();
+            var searchContext = ByLocator.ContainsRoot()
+                ? WebDriver.SwitchTo().DefaultContent()
+                : SearchContext(Element.Parent);
+            var locator = ByLocator.ContainsRoot()
+                    ? ByLocator.TrimRoot()
+                    : ByLocator;
+            return searchContext.FindElements(CorrectXPath(locator)).ToList();
         }
+
         private By CorrectXPath(By byValue)
         {
             return byValue.ToString().Contains("By.xpath: //")
