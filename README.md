@@ -101,7 +101,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 ####Mobile:
@@ -109,7 +109,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 ####Desktop:
@@ -117,12 +117,10 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
-
-For using SNAPSHOT versions you need to add Sonatype repository in pom see [example](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml)
 
 ###.Net 
 Add Nuget package "JDI.UITestFramework"
