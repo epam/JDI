@@ -24,10 +24,14 @@ namespace Epam.Tests.Scenarios.Tests
     {
         protected static Timer Timer;
         public static TimeSpan TestRunTime => Timer.TimePassed;
+        static bool _alreadyInitialized;
 
         [OneTimeSetUp]
-        public void Init()
+        public static void Init()
         {
+            if (_alreadyInitialized)
+                return;
+
             InitFromProperties();
             Logger.Info("Init test run");
             KillAllRunWebDrivers();
@@ -41,6 +45,8 @@ namespace Epam.Tests.Scenarios.Tests
             WebSite.Init(typeof(EpamSite));
             EpamSite.HomePage.Open();
             Logger.Info("Run Tests");
+
+            _alreadyInitialized = true;
         }
 
         [OneTimeTearDown]

@@ -7,6 +7,12 @@ namespace Epam.Tests.Scenarios.Tests
     [TestFixture]
     public class ElementsCheckTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Init();
+        }
+
         [Test]
         public void ElementsTest_Textbox_Text()
         {

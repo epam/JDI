@@ -8,6 +8,12 @@ namespace Epam.Tests.Scenarios.Tests
     [TestFixture]
     public class SmokeTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            Init();
+        }
+
         [Test]
         public void CareerTest()
         {

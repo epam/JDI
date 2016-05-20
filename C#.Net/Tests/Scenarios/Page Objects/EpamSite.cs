@@ -8,9 +8,16 @@ using static Epam.JDI.Web.Selenium.Elements.Composite.CheckPageTypes;
 
 namespace Epam.Tests.Scenarios.Page_Objects
 {
+    using Tests;
+
     [Site(Domain = "https://www.epam.com")]
     public class EpamSite
     {
+        public static void Init()
+        {
+            TestsBase.Init();
+        }
+
         [Page(Url = "/", Title = "EPAM | Software Product Development Services")]
         public static HomePage HomePage;
 
