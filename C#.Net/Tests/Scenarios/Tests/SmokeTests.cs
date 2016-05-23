@@ -1,6 +1,6 @@
 ﻿using Epam.Tests.Scenarios.Entities;
 using NUnit.Framework;
-using static Epam.Tests.Scenarios.Enums.HeaderMenuValues;
+using static Epam.Tests.Scenarios.Enums.Headers;
 using static Epam.Tests.Scenarios.Page_Objects.EpamSite;
 
 namespace Epam.Tests.Scenarios.Tests

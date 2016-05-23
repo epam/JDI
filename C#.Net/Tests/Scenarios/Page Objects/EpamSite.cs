@@ -40,7 +40,7 @@ namespace Epam.Tests.Scenarios.Page_Objects
         public static JobDescriptionPage JobDescriptionPage;
 
         [FindBy(Css = ".tile-menu>li>a")]
-        public static Menu<HeaderMenuValues> HeaderMenu;
+        public static Menu<Headers> HeaderMenu;
 
         [FindBy(Css = ".tile-menu>li>a")]
         public static IList<Label> ListMenu;

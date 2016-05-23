@@ -232,22 +232,24 @@
     <Compile Include="Tests\Scenarios\Entities\Attendee.cs" />
     <Compile Include="Tests\Scenarios\Entities\JobSearchFilter.cs" />
     <Compile Include="Tests\Scenarios\Entities\User.cs" />
-    <Compile Include="Tests\Scenarios\Enums\HeaderMenuvalues.cs" />
+    <Compile Include="Tests\Scenarios\Enums\Headers.cs" />
     <Compile Include="Tests\Scenarios\Enums\HeaderSolutionsMenu.cs" />
     <Compile Include="Tests\Scenarios\Enums\JobCategories.cs" />
     <Compile Include="Tests\Scenarios\Enums\JobListHeaders.cs" />
     <Compile Include="Tests\Scenarios\Enums\Locations.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\EpamSite.cs" />
+    <Compile Include="Tests\Scenarios\Page Objects\Pages\AboutCompanyPage.cs" />
+    <Compile Include="Tests\Scenarios\Page Objects\Pages\ContactPage.cs" />
+    <Compile Include="Tests\Scenarios\Page Objects\Pages\RequestInformationPage.cs" />
+    <Compile Include="Tests\Scenarios\Page Objects\Pages\AboutPage.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Pages\CareerPage.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Pages\HomePage.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Pages\JobDescriptionPage.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Pages\JobListingPage.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Sections\AddCVform.cs" />
     <Compile Include="Tests\Scenarios\Page Objects\Sections\JobFilter.cs" />
-    <Compile Include="Tests\Scenarios\Tests\ElementsCheckTests.cs" />
     <Compile Include="Tests\Scenarios\Tests\SmokeTests.cs" />
     <Compile Include="Tests\Scenarios\Tests\TestsBase.cs" />
-    <Compile Include="Tests\TableTest.cs" />
     <!--<Compile Include="Tests\TutorialTests\.Dummies\.Aliases.cs" />
     <Compile Include="Tests\TutorialTests\.Dummies\JDI\Dropdown.cs" />
     <Compile Include="Tests\TutorialTests\.Dummies\JDI\HeaderSolutionsMenu.cs" />
@@ -284,7 +286,6 @@
     <Compile Include="Tests\TutorialTests\Career\PageObjects\Sections\JobFilter.cs" />
     <Compile Include="Tests\TutorialTests\Career\Tests\CareerTests.cs" />
     <Compile Include="Tests\TutorialTests\Career\Tests\TestsBase.cs" />-->
-    <Compile Include="Tests\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -293,9 +294,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Tests\TutorialTests\README.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

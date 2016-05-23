@@ -1,6 +1,6 @@
 ﻿namespace Epam.Tests.Scenarios.Enums
 {
-    public enum HeaderMenuValues
+    public enum Headers
     {
         SOLUTIONS,
         INDUSTRIES,
