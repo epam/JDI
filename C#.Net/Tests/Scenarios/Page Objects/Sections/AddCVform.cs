@@ -17,10 +17,10 @@ namespace Epam.Tests.Scenarios.Page_Objects.Sections
         [FindBy(Css = "[placeholder='Email']")]
         private ITextField _email;
         [FindBy(Css = ".country-selection")]
-        private IDropDown country = new Dropdown(By.CssSelector(".country-wrapper .arrow"),
+        private IDropDown _country = new Dropdown(By.CssSelector(".country-wrapper .arrow"),
                 By.XPath("*root*//*[contains(@id,'select-box-applicantCountry')]//li"));
         [FindBy(Css = ".city-selection")]
-        private IDropDown city = new Dropdown(By.CssSelector(".city-wrapper .arrow"),
+        private IDropDown _city = new Dropdown(By.CssSelector(".city-wrapper .arrow"),
                 By.XPath("*root*//*[contains(@id,'select-box-applicantCity')]//li"));
         [FindBy(Css = ".comment-input")]
         private ITextArea _comment;

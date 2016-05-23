@@ -12,7 +12,6 @@ namespace Epam.Tests.Scenarios.Tests
         public void CareerTest()
         {
             var attendee = new Attendee();
-            var e = HeaderMenu;
             HeaderMenu.Select(CAREERS);
             CareerPage.CheckOpened();
             CareerPage.JobFilter.Search(attendee.Filter);
