@@ -2,7 +2,7 @@
 
 ||C#.Net|Java|
 |---|---|---|
-|CI|[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/jdi?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/jdi/branch/master)|[![Build Status](https://travis-ci.org/elv1s42/JDI.svg?branch=master)](https://travis-ci.org/elv1s42/JDI)|
+|CI|[![Windows Build status](https://ci.appveyor.com/api/projects/status/0tqpq0g45urdhg2m/branch/master?svg=true)](https://ci.appveyor.com/project/elv1s42/jdi-yqifx/branch/master)|[![Build Status](https://travis-ci.org/epam/JDI.svg?branch=master)](https://travis-ci.org/epam/JDI)|
 |Package|[![NuGet Version and Downloads count](https://buildstats.info/nuget/JDI.UITestFramework)](https://www.nuget.org/packages/JDI.UITestFramework)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons)|
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
@@ -101,7 +101,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 ####Mobile:
@@ -109,7 +109,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 ####Desktop:
@@ -117,12 +117,10 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
-
-For using SNAPSHOT versions you need to add Sonatype repository in pom see [example](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml)
 
 ###.Net 
 Add Nuget package "JDI.UITestFramework"

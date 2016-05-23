@@ -23,7 +23,10 @@ import com.epam.jdi.uitests.web.selenium.elements.base.ClickableText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.net.URL;
+
 import static com.epam.commons.Timer.getByCondition;
+import static com.epam.commons.TryCatchUtil.tryGetResult;
 import static java.lang.String.format;
 
 /**
@@ -46,6 +49,8 @@ public class Link extends ClickableText implements ILink {
     protected String getReferenceAction() {
         return getWebElement().getAttribute("href");
     }
+
+    public final URL getURL(){ return tryGetResult(() -> new URL(getReference())); }
 
     public final String getReference() {
         return invoker.doJActionResult("Get link reference", this::getReferenceAction, href -> "Get href of link '" + href + "'");

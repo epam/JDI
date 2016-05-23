@@ -20,6 +20,8 @@ package com.epam.jdi.uitests.core.interfaces.common;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 
+import java.net.URL;
+
 /**
  * Created by Roman_Iovlev on 6/10/2015.
  */
@@ -29,6 +31,12 @@ public interface ILink extends IClickable, IText {
      */
     @JDIAction
     String getReference();
+
+    /**
+     * @return Get URL
+     */
+    @JDIAction
+    URL getURL();
 
     /**
      * @param text Specify expected text

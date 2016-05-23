@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Policy;
 using Epam.JDI.Web.Attributes;
 using Epam.JDI.Web.Selenium.Elements.Common;
 using Epam.JDI.Web.Selenium.Elements.Complex;
@@ -14,8 +15,21 @@ namespace Epam.Tests.Scenarios.Page_Objects
         [Page(Url = "/", Title = "EPAM | Software Product Development Services")]
         public static HomePage HomePage;
 
+        [Page(Url = "/about", Title = "About")]
+        public static AboutPage AboutPage;
+
+        [Page(Url = "/contact", Title = "Contact")]
+        public static ContactPage ContactPage;
+
+        [Page(Url = "/request-information", Title = "Request Information")]
+        public static RequestInformationPage RequestInformationPage;
+
+        [Page(Url = "/about/company", Title = "Company")]
+        public static AboutCompanyPage AboutCompanyPage;
+
         [Page(Url = "/careers", Title = "Careers")]
         public static CareerPage CareerPage;
+
         [Page(Title = "EPAM Software Product Development Services", UrlCheckType = None)]
         public static CareerPage CareerPageTest;
 
