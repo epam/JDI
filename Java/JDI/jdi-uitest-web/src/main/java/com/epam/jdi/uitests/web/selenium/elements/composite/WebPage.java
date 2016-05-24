@@ -119,7 +119,7 @@ public class WebPage extends BaseElement implements IPage {
     }
 
     public <T extends IPage> T open() {
-        invoker.doJAction(format("Open page %s by url %s", getName(), url),
+        invoker.doJAction(format("Open page '%s' by url %s", getName(), url),
                 () -> getDriver().navigate().to(url));
         if (checkAfterOpen)
             checkOpened();
@@ -129,11 +129,11 @@ public class WebPage extends BaseElement implements IPage {
 
     public void isOpened() {
         try {
-            logger.info("Page %s is opened", getName());
+            logger.info(format("Page '%s' should be opened", getName()));
             if (getDriver().getCurrentUrl().equals(url)) return;
             open();
         } catch (Exception ex) {
-            throw exception(format("Can't open page %s. Reason: %s", getName(), ex.getMessage()));
+            throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
         }
     }
 
@@ -142,7 +142,7 @@ public class WebPage extends BaseElement implements IPage {
      */
     @JDIAction
     public void refresh() {
-        invoker.doJAction("Refresh page " + getName(),
+        invoker.doJAction(format("Refresh page '%s", getName()),
                 () -> getDriver().navigate().refresh());
     }
 
@@ -204,8 +204,8 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void check() {
-            logger.info(format("Page %s equals to '%s'", what, equals));
-            asserter.isTrue(timer.wait(() -> actual.get().equals(equals)));
+            asserter.check(format("page %s equals to '%s'", what, equals))
+                    .isTrue(timer.wait(() -> actual.get().equals(equals)));
         }
 
         /**
@@ -213,8 +213,8 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void match() {
-            logger.info(format("Page %s matches to '%s'", what, template));
-            asserter.isTrue(timer.wait(() -> actual.get().matches(template)));
+            asserter.check(format("page %s matches to '%s'", what, template))
+                    .isTrue(timer.wait(() -> actual.get().matches(template)));
         }
 
         /**
@@ -222,8 +222,8 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void contains() {
-            logger.info(format("Page %s contains to '%s'", what, template));
-            asserter.isTrue(timer.wait(() -> actual.get().contains(template)));
+            asserter.check(format("page %s contains '%s'", what, equals))
+                    .isTrue(timer.wait(() -> actual.get().contains(template)));
         }
     }
 }

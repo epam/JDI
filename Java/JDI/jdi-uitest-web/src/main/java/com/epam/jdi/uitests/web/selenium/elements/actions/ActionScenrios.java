@@ -50,7 +50,7 @@ public class ActionScenrios {
             jAction.invoke();
             return true;
         });
-        logger.info(actionName + " done");
+        logger.info("Done");
         addStatistic(timer.timePassedInMSec());
     }
 

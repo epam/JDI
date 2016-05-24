@@ -67,6 +67,11 @@ public abstract class BaseMatcher implements IAsserter, IChecker {
     public BaseMatcher(String checkMessage) {
         this.checkMessage = getCheckMessage(checkMessage);
     }
+    public BaseMatcher check(String checkMessage) {
+        this.checkMessage = getCheckMessage(checkMessage);
+        return this;
+    }
+
 
     public static void setDefaultTimeout(long timeout) {
         waitTimeout = timeout;
@@ -102,7 +107,7 @@ public abstract class BaseMatcher implements IAsserter, IChecker {
             return "";
         String firstWord = checkMessage.split(" ")[0];
         return (!firstWord.equalsIgnoreCase("check") || firstWord.equalsIgnoreCase("verify"))
-                ? "Check " + checkMessage
+                ? "Check that " + checkMessage
                 : checkMessage;
     }
 
