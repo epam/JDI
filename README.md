@@ -12,6 +12,10 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
+##Try
+First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+No special actions required
+
 ##Introduction
 
 JDI – is the test Framework for UI test automation. It extends the Page Objects design pattern and introduces many additional elements along with implementation of its common usages.
