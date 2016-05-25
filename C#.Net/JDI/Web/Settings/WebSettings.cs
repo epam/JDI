@@ -42,7 +42,7 @@ namespace Epam.JDI.Web.Settings
             DriverFactory = new WebDriverFactory();
             Asserter = new NUnitMatcher();
             Timeouts = new WebTimeoutSettings();
-            Logger = new JDILogger();
+            Logger = new Log4Net();
             MapInterfaceToElement.Init(DefaultInterfacesMap);
         }
 

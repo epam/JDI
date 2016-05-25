@@ -6,7 +6,7 @@ using System.Threading;
 using Epam.JDI.Commons;
 using Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces;
 using OpenQA.Selenium;
-using static Epam.JDI.Commons.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex.table

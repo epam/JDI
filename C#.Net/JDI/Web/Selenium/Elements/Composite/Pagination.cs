@@ -5,6 +5,7 @@ using Epam.JDI.Core;
 using Epam.JDI.Core.Attributes;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Complex;
+using Epam.JDI.Web.Selenium.Base;
 using Epam.JDI.Web.Selenium.DriverFactory;
 using Epam.JDI.Web.Selenium.Elements.Base;
 using OpenQA.Selenium;

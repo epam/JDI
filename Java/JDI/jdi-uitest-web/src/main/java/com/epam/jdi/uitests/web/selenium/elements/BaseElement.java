@@ -139,7 +139,7 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement setAvatar(By byLocator, GetElementModule avatar) {
-        this.avatar = new GetElementModule(byLocator, avatar.context, this);
+        this.avatar = new GetElementModule(byLocator, this);
         this.avatar.localElementSearchCriteria = avatar.localElementSearchCriteria;
         this.avatar.setDriverName(avatar.getDriverName());
         return this;

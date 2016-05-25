@@ -4,6 +4,7 @@ using Epam.JDI.Web.Selenium.Elements.Base;
 using OpenQA.Selenium;
 using Epam.JDI.Core;
 using Epam.JDI.Commons;
+using Epam.JDI.Web.Selenium.Base;
 using RestSharp.Extensions;
 
 namespace Epam.JDI.Web.Selenium.Elements.Common

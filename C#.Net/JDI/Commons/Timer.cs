@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using Epam.JDI.Core;
 using OpenQA.Selenium;
 
 namespace Epam.JDI.Commons

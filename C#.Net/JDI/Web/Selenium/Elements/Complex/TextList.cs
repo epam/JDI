@@ -3,6 +3,7 @@ using System.Linq;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Interfaces.Complex;
+using Epam.JDI.Web.Selenium.Base;
 using Epam.JDI.Web.Selenium.Elements.Common;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;

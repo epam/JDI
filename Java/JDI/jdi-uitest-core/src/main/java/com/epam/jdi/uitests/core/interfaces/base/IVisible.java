@@ -46,4 +46,5 @@ public interface IVisible {
      */
     @JDIAction
     void waitVanished();
+
 }

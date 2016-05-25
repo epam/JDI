@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Epam.JDI.Commons;
+using Epam.JDI.Core;
 using OpenQA.Selenium;
 using static System.String;
 
@@ -22,9 +23,10 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             var byLocator = by.GetByLocator();
             if (!byLocator.Contains("{0}"))
                 throw new Exception(GetBadLocatorMsg(byLocator, args));
+            var locator = byLocator;
             byLocator = ExceptionUtils.ActionWithException(
-                () => Format(byLocator, args),
-                ex => GetBadLocatorMsg(byLocator, args));
+                () => Format(locator, args),
+                ex => GetBadLocatorMsg(locator, args));
             return by.GetByFunc().Invoke(byLocator);
         }
         public static By FillByMsgTemplate(this By by, params object[] args)
@@ -51,7 +53,7 @@ namespace Epam.JDI.Web.Selenium.DriverFactory
             return GetByFunc(by)(byLocator);
         }
 
-        public static By copyBy(By by)
+        public static By CopyBy(By by)
         {
             var byLocator = GetByLocator(by);
             return GetByFunc(by)(byLocator);

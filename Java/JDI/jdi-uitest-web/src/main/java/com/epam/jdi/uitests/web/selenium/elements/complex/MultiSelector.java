@@ -81,7 +81,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
-            return new GetElementModule(WebDriverByUtils.fillByTemplate(getLocator(), name), getAvatar().context, this).getElements().get(0);
+            return new GetElementModule(WebDriverByUtils.fillByTemplate(getLocator(), name), this).getElements().get(0);
         if (allLabels() != null)
             return getElement(allLabels().getWebElements(), name);
         return getElement(getElementsFromTag(), name);

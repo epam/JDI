@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
+using Epam.JDI.Web.Selenium.Base;
 using RestSharp.Extensions;
 using static System.String;
 using static System.Text.RegularExpressions.Regex;

@@ -4,9 +4,10 @@ using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Settings;
+using Epam.JDI.Web.Selenium.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using static Epam.JDI.Commons.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 using static Epam.JDI.Core.Logging.LogLevels;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static Epam.JDI.Web.Settings.WebSettings;
@@ -54,7 +55,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Base
         public void SetAttribute(string attributeName, string value)
         {
             Invoker.DoJAction($"Set Attribute '{attributeName}'='{value}'",
-                            el => el.JSExecutor.ExecuteScript($"arguments[0].setAttribute('{attributeName}',arguments[1]);",
+                            el => el.JsExecutor.ExecuteScript($"arguments[0].setAttribute('{attributeName}',arguments[1]);",
                                         WebElement, value));
         }
 

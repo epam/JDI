@@ -1,11 +1,9 @@
 ﻿using System;
-using Epam.JDI.Commons;
 using Epam.JDI.Core.Interfaces.Settings;
 using Epam.JDI.Core.Logging;
 using static System.Int32;
 using static Epam.JDI.Core.Logging.LogLevels;
 using static Epam.Properties.Settings;
-using ExceptionUtils = Epam.JDI.Commons.ExceptionUtils;
 
 namespace Epam.JDI.Core.Settings
 {

@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
-using Epam.JDI.Commons;
 using static System.String;
 
 namespace Epam.JDI.Core.Logging

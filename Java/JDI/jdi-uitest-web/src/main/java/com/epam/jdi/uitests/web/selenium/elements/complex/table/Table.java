@@ -126,7 +126,7 @@ public class Table extends Text implements ITable, Cloneable {
         Table newTable = new Table();
         newTable.rows = rows().clone(new Rows(), newTable);
         newTable.columns = columns().clone(new Columns(), newTable);
-        newTable.avatar = new GetElementModule(getLocator(), getAvatar().context, newTable);
+        newTable.avatar = new GetElementModule(getLocator(), newTable);
         return newTable;
     }
 

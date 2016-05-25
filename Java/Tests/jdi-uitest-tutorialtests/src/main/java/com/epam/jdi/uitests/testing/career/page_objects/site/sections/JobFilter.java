@@ -16,14 +16,14 @@ import org.openqa.selenium.support.FindBy;
  */
 public class JobFilter extends Form<JobSearchFilter> {
     @FindBy(className = "job-search-input")
-    public ITextField keywords;
-    public IDropDown<JobCategories> category =
+    ITextField keywords;
+    IDropDown<JobCategories> category =
             new Dropdown<>(By.className("multi-select-filter"), By.className("blue-checkbox-label"));
 
     @FindBy(className = "career-location-box")
-    public IDropDown<Locations> city;
+    IDropDown<Locations> city;
 
     @FindBy(className = "job-search-button")
-    public IButton selectButton;
+    IButton selectButton;
 
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Settings;
+using Epam.JDI.Web.Selenium.Base;
 using OpenQA.Selenium;
 
 namespace Epam.JDI.Web.Selenium.Elements.Complex

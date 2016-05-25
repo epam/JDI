@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Epam.JDI.Core;
+using Epam.JDI.Web.Selenium.Base;
 using Epam.JDI.Web.Selenium.DriverFactory;
 using Epam.JDI.Web.Selenium.Elements.Base;
 using Epam.JDI.Web.Selenium.Elements.Complex.table.interfaces;

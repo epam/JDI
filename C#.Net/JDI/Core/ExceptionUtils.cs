@@ -1,7 +1,7 @@
 ﻿using System;
-using static Epam.JDI.Core.Settings.JDISettings;
+using Epam.JDI.Core.Settings;
 
-namespace Epam.JDI.Commons
+namespace Epam.JDI.Core
 {
     public static class ExceptionUtils
     {
@@ -13,7 +13,7 @@ namespace Epam.JDI.Commons
             }
             catch (Exception ex)
             {
-                throw Exception(exception.Invoke(ex.Message));
+                throw JDISettings.Exception(exception.Invoke(ex.Message));
             }
         }
         public static T ActionWithException<T>(Func<T> func, Func<string, string> exception)
@@ -24,7 +24,7 @@ namespace Epam.JDI.Commons
             }
             catch (Exception ex)
             {
-                throw Exception(exception.Invoke(ex.Message));
+                throw JDISettings.Exception(exception.Invoke(ex.Message));
             }
         }
 

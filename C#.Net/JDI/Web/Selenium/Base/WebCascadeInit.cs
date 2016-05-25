@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Reflection;
 using Epam.JDI.Commons;
-using Epam.JDI.Core;
 using Epam.JDI.Core.Base;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Complex;
@@ -13,7 +12,7 @@ using Epam.JDI.Web.Settings;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
-using static Epam.JDI.Commons.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 using static Epam.JDI.Core.Attributes.AttributesUtil;
 using static Epam.JDI.Core.Settings.JDIData;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -29,7 +28,7 @@ namespace Epam.JDI.Web.Selenium.Base
                 var type = field.FieldType;
                 var instance = typeof(IPage).IsAssignableFrom(type)
                     ? GetInstancePage(parent, field, type, parentType)
-                    : GetInstanceElement(parent, type, parentType, field, driverName);
+                    : GetInstanceElement(parent, parentType, field, driverName);
                 instance.SetName(field);
                 instance.Avatar.DriverName = driverName;
                 instance.TypeName = type.Name;
@@ -48,15 +47,15 @@ namespace Epam.JDI.Web.Selenium.Base
             return instance;
         }
 
-        private IBaseElement GetInstanceElement(object parent, Type type, Type parentType, FieldInfo field,
+        private IBaseElement GetInstanceElement(object parent, Type parentType, FieldInfo field,
             string driverName)
         {
-            var instance = CreateChildFromFieldStatic(parent, parentType, field, type, driverName);
+            var instance = CreateChildFromFieldStatic(parent, parentType, field, driverName);
             instance.SetFunction(GetFunction(field));
             return instance;
         }
 
-        private IBaseElement CreateChildFromFieldStatic(object parent, Type parentClass, FieldInfo field, Type type,
+        private IBaseElement CreateChildFromFieldStatic(object parent, Type parentClass, FieldInfo field,
             string driverName)
         {
             var instance = (WebBaseElement) field.GetValue(parent);

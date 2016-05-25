@@ -48,8 +48,8 @@ public class GetElementModule implements IAvatar {
     private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
     private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds";
     public By byLocator;
-    public Pairs<ContextType, By> context = new Pairs<>();
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
+    public Pairs<ContextType, By> context = new Pairs<>();
     public WebElement rootElement;
     private String driverName = "";
     private IBaseElement element;
@@ -63,12 +63,6 @@ public class GetElementModule implements IAvatar {
     public GetElementModule(By byLocator, IBaseElement element) {
         this(element);
         this.byLocator = byLocator;
-    }
-
-    public GetElementModule(By byLocator, Pairs<ContextType, By> context, IBaseElement element) {
-        this(element);
-        this.byLocator = byLocator;
-        this.context = context;
     }
 
     public boolean hasLocator() {
@@ -179,7 +173,7 @@ public class GetElementModule implements IAvatar {
         return shortLogMessagesFormat
                 ? printFullLocator()
                 : format("Locator: '%s'", byLocator)
-                + ((context.size() > 0)
+                + ((element.getParent() != null)
                         ? format(", Context: '%s'", context)
                         : "");
     }
@@ -188,7 +182,7 @@ public class GetElementModule implements IAvatar {
         if (byLocator == null)
             return "No Locators";
         List<String> result = new ArrayList<>();
-        if (context.size() != 0)
+        if (element.getParent() != null)
             result = LinqUtils.select(context, el -> printShortBy(el.value));
         result.add(printShortBy(byLocator));
         return print(result);

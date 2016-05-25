@@ -4,12 +4,12 @@ namespace Epam.JDI.Core.Logging
 {
     public interface ILogger
     {
-        void Trace(String message);
-        void Debug(String message);
-        void Info(String message);
-        void Error(String message);
-        void Step(String message);
-        void TestDescription(String message);
-        void TestSuit(String message);
+        void Trace(string message);
+        void Debug(string message);
+        void Info(string message);
+        void Error(string message);
+        void Step(string message);
+        void TestDescription(string message);
+        void TestSuit(string message);
     }
 }

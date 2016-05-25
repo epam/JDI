@@ -15,7 +15,7 @@ namespace Epam.JDI.Web.Attributes
         public string Url           = "";
         public string UrlTemplate   = "";
         public string Title         = "";
-        public Dictionary<String, String> UrlParams; 
+        public Dictionary<string, string> UrlParams; 
         public CheckPageTypes CheckType        = Equal;
         public CheckPageTypes UrlCheckType     = Equal;
         public CheckPageTypes TitleCheckType   = Equal;

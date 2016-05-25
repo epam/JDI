@@ -3,6 +3,7 @@ using Epam.JDI.Commons;
 using Epam.JDI.Core;
 using Epam.JDI.Core.Logging;
 using Epam.JDI.Core.Settings;
+using Epam.JDI.Web.Selenium.Base;
 using Epam.JDI.Web.Selenium.Elements.Base;
 
 namespace Epam.JDI.Web.Selenium.Elements.WebActions

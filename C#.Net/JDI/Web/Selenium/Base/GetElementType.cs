@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Epam.JDI.Core;
-using Epam.JDI.Web.Selenium.Elements.APIInteract;
+﻿using Epam.JDI.Web.Selenium.Elements.APIInteract;
 using OpenQA.Selenium;
 
 namespace Epam.JDI.Web.Selenium.Base

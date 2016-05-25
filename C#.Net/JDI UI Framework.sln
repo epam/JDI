@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI UI Framework", "JDI UI Framework.csproj", "{7BD00CED-9754-457A-BA67-50914088E1CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Core", "JDI\Core\UnitTestProject1\JDI Core.csproj", "{99EE5894-9F49-43E2-A129-7916D924D49C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Commons", "JDI\Commons\JDI Commons\JDI Commons.csproj", "{C749644D-5901-4FD6-9ADD-06209BDC1CD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Web", "JDI\Web\JDI Web\JDI Web.csproj", "{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Matchers", "JDI\Matchers\JDI Matchers\JDI Matchers.csproj", "{822C29A7-C835-40EF-9E83-AE5388BE9A1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Tests", "Tests\JDI Tests\JDI Tests.csproj", "{B60B8A5E-8336-4D4B-A04B-E62878C75373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7BD00CED-9754-457A-BA67-50914088E1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BD00CED-9754-457A-BA67-50914088E1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BD00CED-9754-457A-BA67-50914088E1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BD00CED-9754-457A-BA67-50914088E1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EE5894-9F49-43E2-A129-7916D924D49C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EE5894-9F49-43E2-A129-7916D924D49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EE5894-9F49-43E2-A129-7916D924D49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EE5894-9F49-43E2-A129-7916D924D49C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C749644D-5901-4FD6-9ADD-06209BDC1CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C749644D-5901-4FD6-9ADD-06209BDC1CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C749644D-5901-4FD6-9ADD-06209BDC1CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C749644D-5901-4FD6-9ADD-06209BDC1CD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{822C29A7-C835-40EF-9E83-AE5388BE9A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{822C29A7-C835-40EF-9E83-AE5388BE9A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{822C29A7-C835-40EF-9E83-AE5388BE9A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{822C29A7-C835-40EF-9E83-AE5388BE9A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60B8A5E-8336-4D4B-A04B-E62878C75373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60B8A5E-8336-4D4B-A04B-E62878C75373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60B8A5E-8336-4D4B-A04B-E62878C75373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60B8A5E-8336-4D4B-A04B-E62878C75373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

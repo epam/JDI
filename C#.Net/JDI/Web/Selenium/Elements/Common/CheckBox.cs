@@ -2,6 +2,7 @@
 using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Web.Selenium.Elements.Base;
 using Epam.JDI.Core;
+using Epam.JDI.Web.Selenium.Base;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace Epam.JDI.Web.Selenium.Elements.Common

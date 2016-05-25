@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Epam.JDI.Commons;
+using Epam.JDI.Core;
 using Epam.JDI.Core.Attributes;
 using RestSharp.Extensions;
 using static System.Int32;

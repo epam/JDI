@@ -3,6 +3,7 @@ using Epam.JDI.Core.Interfaces.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System;
+using Epam.JDI.Web.Selenium.Base;
 
 namespace Epam.JDI.Web.Selenium.Elements.Base
 {
@@ -19,7 +20,7 @@ namespace Epam.JDI.Web.Selenium.Elements.Base
             Actions.Click(ClickAction);
         }
 
-        protected Action<WebBaseElement> ClickJsAction = cl => cl.JSExecutor.ExecuteScript("arguments[0].click();", cl.WebElement);
+        protected Action<WebBaseElement> ClickJsAction = cl => cl.JsExecutor.ExecuteScript("arguments[0].click();", cl.WebElement);
 
         public void ClickByXY(int x, int y)
         {
