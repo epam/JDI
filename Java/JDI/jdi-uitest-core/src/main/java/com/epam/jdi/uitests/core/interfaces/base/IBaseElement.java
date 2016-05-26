@@ -33,6 +33,7 @@ public interface IBaseElement {
     void setTypeName(String typeName);
     void setParent(Object parent);
     Object getParent();
+    String printContext();
     void setFunction(Functions function);
     IAvatar getAvatar();
 }

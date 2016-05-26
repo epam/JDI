@@ -37,6 +37,7 @@ import java.text.MessageFormat;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
@@ -167,6 +168,14 @@ public abstract class BaseElement implements IBaseElement {
         return parent == null ? "" : parent.getClass().getSimpleName();
     }
     public Object getParent() { return parent; }
+    public String printContext() {
+        String result = (getLocator() != null)
+            ? getLocator().toString()
+            : "";
+        if (getParent() != null && isClass(getParent().getClass(), IBaseElement.class))
+            result += "; " + ((BaseElement)getParent()).printContext();
+        return result;
+    }
     public void setParent(Object parent) { this.parent = parent; }
 
     public void logAction(String actionName, LogLevels level) {

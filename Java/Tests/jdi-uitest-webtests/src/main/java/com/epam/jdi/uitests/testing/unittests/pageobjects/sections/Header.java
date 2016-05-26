@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class Header extends Section {
 
-    @FindBy(xpath = "//img[@src=\"images/Logo_Epam_Color.svg\"]")
+    @FindBy(xpath = "//img[@src=\"label/Logo_Epam_Color.svg\"]")
     public IImage image;
 
     public JdiSearch search;

@@ -94,6 +94,9 @@ public abstract class BaseElement implements IBaseElement {
     public Pattern getPattern() {
         return avatar.pattern;
     }
+    public String printContext() {
+        return "NOT IMPLEMENTED";
+    }
 
     public Rectangle getRectangle() {
         return this.avatar.getRectangle();

@@ -18,9 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
  */
 
 
-import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
-import com.epam.commons.pairs.Pairs;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
@@ -29,12 +27,10 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.where;
-import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
@@ -48,8 +44,8 @@ public class GetElementModule implements IAvatar {
     private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
     private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds";
     public By byLocator;
+    public By frameLocator;
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
-    public Pairs<ContextType, By> context = new Pairs<>();
     public WebElement rootElement;
     private String driverName = "";
     private IBaseElement element;
@@ -132,15 +128,18 @@ public class GetElementModule implements IAvatar {
     private SearchContext getSearchContext(Object element) {
         Object p;
         BaseElement el;
-        if (element == null || !isClass(element.getClass(), BaseElement.class) || (p = (el = (BaseElement) element).getParent()) == null)
+        if (element == null || !isClass(element.getClass(), BaseElement.class) || ((p = (el = (BaseElement) element).getParent()) == null && el.avatar.frameLocator == null))
             return getDriver().switchTo().defaultContent();
         By locator = el.getLocator();
         SearchContext searchContext = containsRoot(locator)
-                ? getDriver().switchTo().defaultContent()
+                ? getDriver()
                 : getSearchContext(p);
         locator = containsRoot(locator)
                 ? trimRoot(locator)
                 : locator;
+        By frame = el.avatar.frameLocator;
+        if (frame != null)
+            getDriver().switchTo().frame(getDriver().findElement(frame));
         return locator != null
                 ? searchContext.findElement(correctXPaths(locator))
                 : searchContext;
@@ -149,11 +148,13 @@ public class GetElementModule implements IAvatar {
     private List<WebElement> searchElements()
     {
         SearchContext searchContext = containsRoot(byLocator)
-                ? getDriver().switchTo().defaultContent()
+                ? getDriver()
                 : getSearchContext(element.getParent());
         By locator = containsRoot(byLocator)
                 ? trimRoot(byLocator)
                 : byLocator;
+        if (frameLocator != null)
+            getDriver().switchTo().frame(getDriver().findElement(frameLocator));
         return searchContext.findElements(correctXPaths(locator));
     }
 
@@ -173,19 +174,15 @@ public class GetElementModule implements IAvatar {
         return shortLogMessagesFormat
                 ? printFullLocator()
                 : format("Locator: '%s'", byLocator)
-                + ((element.getParent() != null)
-                        ? format(", Context: '%s'", context)
+                + (element.getParent() != null && isClass(element.getParent().getClass(), IBaseElement.class)
+                        ? format(", Context: '%s'", element.printContext())
                         : "");
     }
 
     private String printFullLocator() {
         if (byLocator == null)
             return "No Locators";
-        List<String> result = new ArrayList<>();
-        if (element.getParent() != null)
-            result = LinqUtils.select(context, el -> printShortBy(el.value));
-        result.add(printShortBy(byLocator));
-        return print(result);
+        return element.printContext() + "; " + printShortBy(byLocator);
     }
 
     private String printShortBy(By by) {

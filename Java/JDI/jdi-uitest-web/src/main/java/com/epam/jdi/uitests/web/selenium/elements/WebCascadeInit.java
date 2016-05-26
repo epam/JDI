@@ -18,12 +18,10 @@ package com.epam.jdi.uitests.web.selenium.elements;
  */
 
 
-import com.epam.commons.pairs.Pairs;
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
-import com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
@@ -102,18 +100,11 @@ public class WebCascadeInit extends CascadeInit {
             instance.avatar.byLocator = getNewLocator(field);
         if (hasJDIAttribute(field))
             fillFromAttribute(instance, field);
-        instance.avatar.context = (parent != null && isBaseElement(parent))
-                ? ((BaseElement) parent).avatar.context.copy()
-                : new Pairs<>();
+        instance.setParent(parent);
         if (parent == null || type != null) {
             By frameBy = WebAnnotationsUtil.getFrame(field.getDeclaredAnnotation(Frame.class));
             if (frameBy != null)
-                instance.avatar.context.add(ContextType.Frame, frameBy);
-        }
-        if (parent != null && isBaseElement(parent)) {
-            By parentLocator = ((BaseElement) parent).getLocator();
-            if (parentLocator != null)
-                instance.avatar.context.add(ContextType.Locator, parentLocator);
+                instance.avatar.frameLocator =  frameBy;
         }
         return instance;
     }

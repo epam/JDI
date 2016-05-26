@@ -208,6 +208,7 @@ public abstract class BaseElement implements IBaseElement {
         return parent == null ? "" : parent.getClass().getSimpleName();
     }
     public Object getParent() { return parent; }
+    public String printContext() { return "NOT IMPLEMENTED"; }
     public void setParent(Object parent) { this.parent = parent; }
 
     public void logAction(String actionName, LogLevels level) {

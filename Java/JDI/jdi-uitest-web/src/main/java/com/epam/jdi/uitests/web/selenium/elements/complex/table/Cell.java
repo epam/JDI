@@ -22,7 +22,6 @@ import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.MapInterfaceToElement;
-import com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import org.openqa.selenium.By;
@@ -143,7 +142,7 @@ class Cell extends SelectElement implements ISelect, ICell {
             throw exception("Can't create cell with locator template " + cell.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
         cell.getAvatar().byLocator = WebDriverByUtils.fillByMsgTemplate(locator, rowIndex, columnIndex);
-        cell.getAvatar().context.add(ContextType.Locator, table.getLocator());
+        cell.setParent(this);
         return cell;
     }
 

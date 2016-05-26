@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import org.openqa.selenium.By;
@@ -68,6 +69,8 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
                 try {
                     T element = classType.newInstance();
                     element.setWebElement(el);
+                    element.setParent(this);
+                    new WebCascadeInit().initElements(element, avatar.getDriverName());
                     return element;
                 } catch (Exception ex) {
                     throw exception("Can't instantiate list element");

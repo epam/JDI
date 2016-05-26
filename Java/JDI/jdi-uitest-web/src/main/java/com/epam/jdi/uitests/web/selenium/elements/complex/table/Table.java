@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
-import com.epam.commons.pairs.Pairs;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
@@ -39,7 +39,6 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
-import static com.epam.jdi.uitests.web.selenium.elements.apiInteract.ContextType.Locator;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -495,8 +494,8 @@ public class Table extends Text implements ITable, Cloneable {
         if (cell != null)
             return cell.updateData(colName, rowName);
         cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
-        cell.getAvatar().context = new Pairs<>(getAvatar().context);
-        cell.getAvatar().context.add(new Pair<>(Locator, getLocator()));
+        cell.setParent(this);
+        new WebCascadeInit().initElements(cell, avatar.getDriverName());
         if (cache)
             allCells.add(cell);
         return cell;
