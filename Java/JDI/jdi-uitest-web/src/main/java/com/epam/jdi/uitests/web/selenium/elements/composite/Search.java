@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
-import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import org.openqa.selenium.By;
@@ -32,14 +32,13 @@ import java.util.List;
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static java.lang.String.format;
 
 /**
  * Created by Roman_Iovlev on 7/29/2015.
  */
 public class Search extends TextField implements ISearch {
-    protected Clickable select;
+    protected IButton searchButton;
     protected TextList<Enum> suggestions;
 
     public Search() {
@@ -56,7 +55,7 @@ public class Search extends TextField implements ISearch {
 
     public Search(By byLocator, By selectLocator, By suggestionsListLocator) {
         super(byLocator);
-        this.select = new Clickable(selectLocator);
+        this.searchButton = new Button(selectLocator);
         this.suggestions = new TextList(suggestionsListLocator);
     }
 
@@ -67,7 +66,10 @@ public class Search extends TextField implements ISearch {
 
     protected void chooseSuggestionAction(String text, String selectValue) {
         getSearchField().input(text);
-        getElement(selectValue).click();
+        if (suggestions != null)
+            getSuggestionsList().getElement(selectValue).click();
+        else
+            throw exception("Select locator not specified for search. Use accordance constructor");
     }
 
     protected void chooseSuggestionAction(String text, int selectIndex) {
@@ -101,17 +103,27 @@ public class Search extends TextField implements ISearch {
 
     private TextList<Enum> getSuggestions() {
         if (suggestions != null)
-            return suggestions;
+            return getSuggestionsList();
         throw exception("Suggestions list locator not specified for search. Use accordance constructor");
     }
 
-    private Clickable getElement(String name) {
-        if (select != null)
-            return copy(select, fillByTemplate(getLocator(), name));
-        throw exception("Select locator not specified for search. Use accordance constructor");
+    private TextList<Enum> getSuggestionsList() {
+        suggestions.setParent(getParent());
+        return suggestions;
+    }
+    private TextField getTextField() {
+        TextField textField = new TextField(getLocator());
+        textField.setParent(getParent());
+        return textField;
+    }
+    private IButton getFindButton() {
+        searchButton.setParent(getParent());
+        return searchButton;
     }
 
     private ITextField getSearchField() {
+        if (getLocator() != null)
+            return getTextField();
         List<Field> fields = getFields(this, ITextField.class);
         switch (fields.size()) {
             case 0:
@@ -124,6 +136,8 @@ public class Search extends TextField implements ISearch {
     }
 
     protected IButton getSearchButton() {
+        if (searchButton != null)
+            return getFindButton();
         List<Field> fields = getFields(this, IButton.class);
         switch (fields.size()) {
             case 0:

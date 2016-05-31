@@ -75,7 +75,7 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement(By byLocator) {
-        avatar = new GetElementModule(!getByLocator(byLocator).equals("EMPTY") ? byLocator : null, this);
+        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY") ? null : byLocator, this);
         //initElements(this, avatar.getDriverName());
     }
 
@@ -169,12 +169,15 @@ public abstract class BaseElement implements IBaseElement {
     }
     public Object getParent() { return parent; }
     public String printContext() {
-        String result = (getLocator() != null)
-            ? getLocator().toString()
-            : "";
-        if (getParent() != null && isClass(getParent().getClass(), IBaseElement.class))
-            result += "; " + ((BaseElement)getParent()).printContext();
-        return result;
+        By locator;
+        BaseElement parent;
+        String parentContext;
+        return getParent() == null || !isClass(getParent().getClass(), BaseElement.class)
+                || (locator = (parent = (BaseElement)getParent()).getLocator()) == null
+            ? ""
+            : ((parentContext = parent.printContext()).equals(""))
+                ? locator.toString()
+                : locator + "; " + parentContext;
     }
     public void setParent(Object parent) { this.parent = parent; }
 

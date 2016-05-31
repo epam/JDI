@@ -19,9 +19,9 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.MapInterfaceToElement;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import org.openqa.selenium.By;
@@ -29,6 +29,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.epam.commons.LinqUtils.last;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByMsgTemplate;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -117,9 +118,11 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     public SelectElement get() {
-        return (webElement != null)
+        SelectElement cell = webElement != null
                 ? new SelectElement(webElement)
-                : new SelectElement(WebDriverByUtils.fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+                : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+        cell.setParent(getParent());
+        return cell;
     }
 
     public <T extends BaseElement> T get(Class<T> clazz) {
@@ -141,8 +144,9 @@ class Cell extends SelectElement implements ISelect, ICell {
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
             throw exception("Can't create cell with locator template " + cell.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-        cell.getAvatar().byLocator = WebDriverByUtils.fillByMsgTemplate(locator, rowIndex, columnIndex);
+        cell.getAvatar().byLocator = fillByMsgTemplate(locator, columnIndex, rowIndex);
         cell.setParent(this);
+        new WebCascadeInit().initElements(cell, avatar.getDriverName());
         return cell;
     }
 

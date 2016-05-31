@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
-import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
@@ -490,12 +489,13 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     private Cell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {
-        Cell cell = (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum);
+        Cell cell = (allCells.size() != 0)
+            ? (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum)
+            : null;
         if (cell != null)
             return cell.updateData(colName, rowName);
         cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
         cell.setParent(this);
-        new WebCascadeInit().initElements(cell, avatar.getDriverName());
         if (cache)
             allCells.add(cell);
         return cell;

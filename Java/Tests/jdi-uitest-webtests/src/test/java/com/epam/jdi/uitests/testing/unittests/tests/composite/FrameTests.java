@@ -10,7 +10,7 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.w3cSite.W3cSite
  * Created by Dmitry_Lebedev1 on 10/15/2015.
  */
 public class FrameTests extends W3CInit {
-    @Test
+    @Test(enabled = false)
     public void fillTest() {
         framePage.tryIt.click();
         Assert.areEquals(() -> framePage.frame.label.getText(), "Click Me!");
