@@ -59,7 +59,7 @@ import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public RunTypes runType = LOCAL;
-    private String currentDriverName = "";
+    private String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public HighlightSettings highlightSettings = new HighlightSettings();
     private String driversPath = "src\\main\\resources";

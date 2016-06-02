@@ -26,6 +26,7 @@ import com.epam.jdi.uitests.core.interfaces.IAsserter;
 import org.slf4j.Logger;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -206,6 +207,10 @@ public abstract class BaseMatcher implements IAsserter, IChecker {
     }
 
     public void contains(String actual, String expected) { contains(actual, expected, null); }
+    public void contains(String actual, List<String> expected) {
+        for (String value : expected)
+            contains(actual, value, null);
+    }
 
     public void isTrue(Boolean condition, String failMessage) {
         assertAction(format("Check that condition '%s' is True", condition), condition, failMessage);

@@ -30,7 +30,9 @@ public enum Preconditions implements WebPreconditions {
     SORTING_TABLE_PAGE("page7.htm"),
     DYNAMIC_TABLE_PAGE("page5.htm"),
     SIMPLE_PAGE("page6.htm"),
-    DATES_PAGE_FILLED(() -> WebPreconditions.checkUrl("page4.htm"), () -> {
+    DATES_PAGE_FILLED(
+        () -> WebPreconditions.checkUrl("page4.htm"),
+        () -> {
         WebPreconditions.openUri("page4.htm");
         WebElement datePicker = getDriver().findElement(dates.datepicker.getLocator());
         datePicker.clear();

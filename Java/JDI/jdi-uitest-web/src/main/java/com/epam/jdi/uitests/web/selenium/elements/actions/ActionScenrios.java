@@ -62,10 +62,10 @@ public class ActionScenrios {
             result = new Timer(timeouts.currentTimeoutSec)
                     .getResultByCondition(jAction::get, res -> true);
         } catch (Exception | Error ex) {
-            throw asserter.exception("Do action %s failed. Can't got result. Reason: %s", actionName, ex.getMessage());
+            throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
         }
         if (result == null)
-            throw asserter.exception("Do action %s failed. Can't got result", actionName);
+            throw asserter.exception("Do action %s failed. Can't get result", actionName);
         String stringResult = logResult == null
                 ? result.toString()
                 : JDISettings.asserter.silent(() -> logResult.apply(result));
