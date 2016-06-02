@@ -121,7 +121,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         SelectElement cell = webElement != null
                 ? new SelectElement(webElement)
                 : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
-        cell.setParent(getParent());
+        cell.setParent(table);
         return cell;
     }
 
@@ -145,7 +145,7 @@ class Cell extends SelectElement implements ISelect, ICell {
             throw exception("Can't create cell with locator template " + cell.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
         cell.getAvatar().byLocator = fillByMsgTemplate(locator, columnIndex, rowIndex);
-        cell.setParent(this);
+        cell.setParent(table);
         new WebCascadeInit().initElements(cell, avatar.getDriverName());
         return cell;
     }
