@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.settings;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.*;
@@ -26,7 +27,6 @@ import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
-import com.epam.jdi.uitests.web.selenium.elements.MapInterfaceToElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;

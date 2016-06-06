@@ -47,7 +47,6 @@ import static java.lang.String.format;
  * @author Zharov Alexandr
  */
 public class Element extends BaseElement implements IElement {
-    private WebElement webElement;
 
     public Element() {
         super();
@@ -58,7 +57,7 @@ public class Element extends BaseElement implements IElement {
     }
 
     public Element(WebElement webElement) {
-        this.webElement = webElement;
+        avatar.setWebElement(webElement);
     }
 
     public static <T extends Element> T copy(T element, By newLocator) {
@@ -77,10 +76,10 @@ public class Element extends BaseElement implements IElement {
     @JDIAction
     public WebElement getWebElement() {
         return invoker.doJActionResult("Get web element",
-                () -> webElement != null ? webElement : avatar.getElement(), DEBUG);
+                () -> avatar.getElement(), DEBUG);
     }
     public void setWebElement(WebElement webElement) {
-        this.webElement = webElement;
+        avatar.setWebElement(webElement);
     }
     public String getAttribute(String name) {
         return getWebElement().getAttribute(name);

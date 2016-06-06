@@ -18,9 +18,9 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.MapInterfaceToElement;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;

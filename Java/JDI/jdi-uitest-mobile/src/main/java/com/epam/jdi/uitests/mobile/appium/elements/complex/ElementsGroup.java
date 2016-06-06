@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.IGroup;
 import com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
-import com.epam.jdi.uitests.mobile.appium.elements.CascadeInit;
+import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import org.openqa.selenium.By;
 
@@ -64,7 +64,7 @@ public class ElementsGroup<TEnum extends Enum, TType extends Element> extends Ba
             throw exception("Can't get instance of '%s' Element from Elements Group '%s'", name, toString());
         }
         instance.setAvatar(WebDriverByUtils.fillByTemplate(getLocator(), name), getAvatar());
-        CascadeInit.initElements(instance, avatar.getDriverName());
+        new AppiumCascadeInit().initElements(instance, avatar.getDriverName());
         return instance;
     }
 }

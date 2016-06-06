@@ -47,6 +47,7 @@ public class GetElementModule implements IAvatar {
     private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
     private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds";
     public By byLocator;
+    public By frameLocator;
     public Pairs<ContextType, By> context = new Pairs<>();
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
     public WebElement rootElement;

@@ -22,6 +22,7 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +50,7 @@ public class GetElementModule implements IAvatar {
     public WebElement rootElement;
     private String driverName = "";
     private IBaseElement element;
+    private WebElement webElement;
     private List<WebElement> webElements;
 
     public GetElementModule(IBaseElement element) {
@@ -64,6 +66,8 @@ public class GetElementModule implements IAvatar {
     public boolean hasLocator() {
         return byLocator != null;
     }
+    public void setWebElement(WebElement webElement) { this.webElement = webElement; }
+    public boolean hasWebElement() { return webElement != null; }
 
     public WebDriver getDriver() {
         return (WebDriver) driverFactory.getDriver(driverName);
@@ -75,7 +79,7 @@ public class GetElementModule implements IAvatar {
 
     public WebElement getElement() {
         logger.debug("Get Web Element: " + element);
-        WebElement element = timer().getResultByCondition(this::getElementAction, el -> el != null);
+        WebElement element = webElement != null ? webElement : timer().getResultByCondition(this::getElementAction, el -> el != null);
         logger.debug("One Element found");
         return element;
     }
@@ -127,17 +131,20 @@ public class GetElementModule implements IAvatar {
 
     private SearchContext getSearchContext(Object element) {
         Object p;
-        BaseElement el;
-        if (element == null || !isClass(element.getClass(), BaseElement.class) || ((p = (el = (BaseElement) element).getParent()) == null && el.avatar.frameLocator == null))
+        BaseElement bElement;
+        Element el;
+        if (element == null || !isClass(element.getClass(), BaseElement.class) || ((p = (bElement = (BaseElement) element).getParent()) == null && bElement.avatar.frameLocator == null))
             return getDriver().switchTo().defaultContent();
-        By locator = el.getLocator();
+        if (isClass(bElement.getClass(), Element.class) && (el = (Element) bElement).avatar.hasWebElement())
+            return el.getWebElement();
+        By locator = bElement.getLocator();
         SearchContext searchContext = containsRoot(locator)
                 ? getDriver()
                 : getSearchContext(p);
         locator = containsRoot(locator)
                 ? trimRoot(locator)
                 : locator;
-        By frame = el.avatar.frameLocator;
+        By frame = bElement.avatar.frameLocator;
         if (frame != null)
             getDriver().switchTo().frame(getDriver().findElement(frame));
         return locator != null

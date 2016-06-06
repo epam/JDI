@@ -49,7 +49,6 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 public abstract class BaseElement implements IBaseElement {
 
-    public static boolean createFreeInstance = false;
     public static ActionScenrios actionScenrios = new ActionScenrios();
     public static BiConsumer<String, Consumer<String>> doActionRule = (text, action) -> {
         if (text == null) return;
@@ -76,7 +75,6 @@ public abstract class BaseElement implements IBaseElement {
 
     public BaseElement(By byLocator) {
         avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY") ? null : byLocator, this);
-        //initElements(this, avatar.getDriverName());
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {

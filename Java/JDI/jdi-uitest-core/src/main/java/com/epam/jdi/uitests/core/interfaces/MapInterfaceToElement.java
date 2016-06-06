@@ -1,4 +1,5 @@
-package com.epam.jdi.uitests.web.selenium.elements;
+package com.epam.jdi.uitests.core.interfaces;
+
 /*
  * Copyright 2004-2016 EPAM Systems
  *

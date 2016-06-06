@@ -18,43 +18,21 @@ package com.epam.jdi.uitests.mobile.appium.elements.composite;
  */
 
 
-import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.mobile.appium.driver.DriverTypes;
-import com.epam.jdi.uitests.mobile.appium.elements.CascadeInit;
-import com.epam.jdi.uitests.mobile.appium.preconditions.IPreconditions;
-import com.epam.jdi.uitests.mobile.appium.preconditions.PreconditionsState;
-import org.openqa.selenium.WebDriver;
-
-import java.util.function.Supplier;
+import com.epam.jdi.uitests.core.interfaces.Application;
+import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
 
 import static com.epam.jdi.uitests.mobile.WebSettings.getDriverFactory;
-import static com.epam.jdi.uitests.mobile.WebSettings.useDriver;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-public class Site {
+public class Site extends Application {
     public static <T> void init(Class<T> site) {
-        CascadeInit.initPages(site, getDriverFactory().currentDriverName);
+        new AppiumCascadeInit().initStaticPages(site, getDriverFactory().currentDriverName());
+        currentSite = site;
     }
-    protected String driverName;
-
-    public Site() { CascadeInit.initPages(this, getDriverFactory().currentDriverName); }
-    public Site(DriverTypes driver) {
-        driverName = useDriver(driver);
-        CascadeInit.initPages(this, driverName);
-    }
-    public Site(String driver) {
-        driverName = JDISettings.useDriver(driver);
-        CascadeInit.initPages(this, driverName);
-    }
-    public Site(Supplier<WebDriver> driver) {
-        driverName = useDriver(driver);
-        CascadeInit.initPages(this, driverName);
-    }
-
-    public void isInState(IPreconditions precondition) {
-        PreconditionsState.isInState(precondition, getDriverFactory().getDriver(driverName));
+    public static <T extends Site> T init(Class<T> site, String driverName) {
+        return new AppiumCascadeInit().initPages(site, driverName);
     }
 
 }

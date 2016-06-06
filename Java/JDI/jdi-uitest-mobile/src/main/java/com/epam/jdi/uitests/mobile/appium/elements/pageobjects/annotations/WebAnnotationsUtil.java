@@ -83,7 +83,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return null;
     }
 
-    public static By getFindByLocator(FindBy locator) {
+    public static By findByToBy(FindBy locator) {
         if (locator == null) return null;
         if (!"".equals(locator.id()))
             return By.id(locator.id());
@@ -104,7 +104,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return null;
     }
 
-    public static By getFindByLocator(JFindBy locator) {
+    public static By findByToBy(JFindBy locator) {
         if (locator == null) return null;
         if (!"".equals(locator.id()))
             return By.id(locator.id());

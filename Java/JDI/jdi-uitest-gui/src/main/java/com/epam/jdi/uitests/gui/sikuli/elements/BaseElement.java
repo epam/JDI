@@ -3,7 +3,6 @@ package com.epam.jdi.uitests.gui.sikuli.elements;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionInvoker;
@@ -16,12 +15,10 @@ import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
 
+import java.awt.*;
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
 
-import java.awt.Rectangle;
-
-import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
 import static com.epam.jdi.uitests.core.settings.JDISettings.toLog;
@@ -47,11 +44,9 @@ public abstract class BaseElement implements IBaseElement {
     public BaseElement() {
         this(null);
     }
+
     public BaseElement(Pattern pattern) {
-        avatar = new GetElementModule(pattern, this);
-        if (isInterface(getClass(), IComposite.class) && !createFreeInstance && CascadeInit.firstInstance)
-            CascadeInit.initElements(this, avatar.getDriverName());
-        MapInterfaceToElement.init(seleniumDefaultMap());
+        avatar = new GetElementModule(pattern == null ? null : pattern, this);
     }
 
     private static Object[][] seleniumDefaultMap() {
