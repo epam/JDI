@@ -1,13 +1,11 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
 import com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite;
-import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
-import org.openqa.selenium.By;
 import org.testng.annotations.BeforeSuite;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.homePage;
 
 /**
@@ -17,9 +15,6 @@ public abstract class TestsBase extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void setUp() throws Exception {
-        Search s = new Search(
-                By.cssSelector("[id*='gene_name_searched']"),
-                By.cssSelector("input[value=Search][type=button]"));
         WebSite.init(EpamSite.class);
         homePage.open();
         logger.info("Run Tests");

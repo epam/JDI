@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.core.interfaces;
  */
 
 
-import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 
 import java.lang.reflect.Field;
@@ -27,8 +26,6 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.TryCatchUtil.tryGetResult;
-import static java.lang.reflect.Modifier.isStatic;
-import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -36,19 +33,14 @@ import static java.util.Arrays.asList;
 public abstract class CascadeInit {
 
     protected abstract void setElement(Object parent, Class<?> parentType, Field field, String driverName);
-    //protected abstract void setElement(Class<?> parentType, Field field, String driverName);
 
     public synchronized void initElements(Object parent, String driverName) {
-        foreach(getFieldsForInit(parent, decorators()),
+        foreach(getFields(parent, decorators(), stopTypes()),
                 field -> setElement(parent, parent.getClass(), field, driverName));
     }
 
     protected Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
-
-    private List<Field> getFieldsForInit(Object obj, Class<?>... types) {
-        List<Field> allFields = asList(obj.getClass().getDeclaredFields());
-        return LinqUtils.where(allFields, field -> !isStatic(field.getModifiers()) && isExpectedClass(field, types));
-    }
+    protected abstract Class<?>[] stopTypes();
 
     public synchronized void initStaticPages(Class<?> parentType, String driverName) {
         foreach(getStaticFields(parentType, decorators()),

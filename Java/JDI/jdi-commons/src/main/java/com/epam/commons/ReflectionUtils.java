@@ -18,6 +18,7 @@ package com.epam.commons;
  */
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.any;
@@ -68,12 +69,28 @@ public final class ReflectionUtils {
         return any(interfaces, i -> isInterface(i, expected)) || isInterface(type.getSuperclass(), expected);
     }
 
-    public static List<Field> getFields(Object obj, Class<?> type) {
-        return LinqUtils.where(obj.getClass().getDeclaredFields(), field -> !isStatic(field.getModifiers()) && (isClass(field, type) || isInterface(field, type)));
+    public static List<Field> getFields(Object obj, Class<?>... types) {
+        return getFields(obj, types, Object.class);
+    }
+    public static List<Field> getFields(Object obj, Class<?>[] types, Class<?>... stopTypes) {
+        return LinqUtils.where(getFieldsDeep(obj.getClass(), stopTypes), field -> !isStatic(field.getModifiers()) && isExpectedClass(field, types));
+        //return LinqUtils.where(obj.getClass().getDeclaredFields(), field -> !isStatic(field.getModifiers()) && (isClass(field, type) || isInterface(field, type)));
     }
 
-    public static List<Field> getStaticFields(Class<?> parent, Class<?>... types) {
-        return LinqUtils.where(parent.getDeclaredFields(), field -> isStatic(field.getModifiers()) && (isExpectedClass(field, types)));
+    private static List<Field> getFieldsDeep(Class<?> typr) {
+        return getFieldsDeep(typr, Object.class);
+    }
+    private static List<Field> getFieldsDeep(Class<?> type, Class<?>... types) {
+        if (asList(types).contains(type))
+            return new ArrayList<>();
+        List<Field> result = new ArrayList<>(asList(type.getDeclaredFields()));
+        result.addAll(getFieldsDeep(type.getSuperclass(), types));
+        return result;
+    }
+
+    public static List<Field> getStaticFields(Class<?> obj, Class<?>[] types) {
+        //return LinqUtils.where(getFieldsDeep(obj.getClass(), stopTypes), field -> isStatic(field.getModifiers()) && (isExpectedClass(field, types)));
+        return LinqUtils.where(obj.getDeclaredFields(), field -> isStatic(field.getModifiers()) && (isExpectedClass(field, types)));
     }
 
     public static <T> T getFirstField(Object obj, Class<?>... types) {

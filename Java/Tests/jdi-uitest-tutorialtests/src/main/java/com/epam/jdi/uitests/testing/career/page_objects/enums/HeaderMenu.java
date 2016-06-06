@@ -6,5 +6,4 @@ package com.epam.jdi.uitests.testing.career.page_objects.enums;
 public enum HeaderMenu {
     SOLUTIONS, INDUSTRIES, ABOUT, IDEAS, CAREERS, CONTACT
 
-
 }

@@ -22,8 +22,10 @@ import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
@@ -50,6 +52,8 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public class WebCascadeInit extends CascadeInit {
+
+    protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, WebPage.class, Section.class, Element.class}; }
 
     protected void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
         String parentName = parentType == null ? "NULL Class" : parentType.getSimpleName();
