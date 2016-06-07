@@ -139,6 +139,18 @@
             android:layout_gravity="right"
             android:text="@string/text_calculate" />
 
+
+        <TextView
+            android:text="Result:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"/>
     </LinearLayout>
 
 </ScrollView>
