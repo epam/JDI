@@ -39,6 +39,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         List<MainItem> list = new ArrayList<>();
         list.add(new MainItem(R.string.menu_contact_form, R.id.contact_form));
         list.add(new MainItem(R.string.date_form, R.id.date_form));
+        list.add(new MainItem(R.string.picker_form, R.id.picker_form));
 
 
         mList = (ListView) view.findViewById(android.R.id.list);
@@ -56,6 +57,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             ft.replace(R.id.conatiner, ContactFormFragment.newInstance());
         } else if (id == R.id.date_form) {
             ft.replace(R.id.conatiner, ServiceDatesFragment.newInstance());
+        }else if(id == R.id.picker_form){
+            ft.replace(R.id.conatiner,ServicePickerFragment.newInsance());
         }
 
         ft.commit();

@@ -9,4 +9,6 @@
     <string name="text_submit">Submit</string>
     <string name="contact_form_result_format" translatable="false">%s %s %s sum = %d</string>
     <string name="date_form">Date form</string>
+    <string name="picker_form">Picker form</string>
+    <string name="pick_mask"  translatable="false">Preference: %s\nSeek bar: %d\nRate: %s</string>
 </resources>

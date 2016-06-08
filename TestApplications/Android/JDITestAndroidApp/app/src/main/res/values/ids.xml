@@ -2,4 +2,5 @@
 <resources>
     <item name="contact_form" type="id" />
     <item name="date_form" type="id" />
+    <item name="picker_form" type="id" />
 </resources>
