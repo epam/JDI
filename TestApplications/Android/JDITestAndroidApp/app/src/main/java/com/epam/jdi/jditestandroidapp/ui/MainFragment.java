@@ -38,6 +38,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onViewCreated(view, savedInstanceState);
         List<MainItem> list = new ArrayList<>();
         list.add(new MainItem(R.string.menu_contact_form, R.id.contact_form));
+        list.add(new MainItem(R.string.date_form, R.id.date_form));
+
 
         mList = (ListView) view.findViewById(android.R.id.list);
 
@@ -52,6 +54,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         ft.addToBackStack(null);
         if (id == R.id.contact_form) {
             ft.replace(R.id.conatiner, ContactFormFragment.newInstance());
+        } else if (id == R.id.date_form) {
+            ft.replace(R.id.conatiner, ServiceDatesFragment.newInstance());
         }
 
         ft.commit();
