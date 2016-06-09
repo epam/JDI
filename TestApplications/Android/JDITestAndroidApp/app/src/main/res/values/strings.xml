@@ -11,4 +11,13 @@
     <string name="date_form">Date form</string>
     <string name="picker_form">Picker form</string>
     <string name="pick_mask"  translatable="false">Preference: %s\nSeek bar: %d\nRate: %s</string>
+    <string name="six">six</string>
+    <string name="five">five</string>
+    <string name="four">four</string>
+    <string name="three">three</string>
+    <string name="two">two</string>
+    <string name="one">one</string>
+    <string name="list_form">List form</string>
+    <string name="grid_form">Grid form</string>
+    <string name="card_form">Card form</string>
 </resources>
