@@ -1,0 +1,205 @@
+﻿<Window x:Class="JDI_AUT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JDI_AUT"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024">
+    <Window.Resources>
+        <XmlDataProvider x:Key="MockSimpleTableDataList" XPath="/MockObjects/*">
+            <x:XData>
+                <MockObjects xmlns="">
+                    <MockObject Type="Drivers"     Now="Selenium, Custom"          Plans="JavaScript, Appium, WinAPI, Sikuli" />
+                    <MockObject Type="Test Runner" Now="TestNG, JUnit, Custom"     Plans="MSTest, NUnit, Epam" />
+                    <MockObject Type="Asserter"    Now="TestNG, JUnit, Custom"     Plans="MSTest, NUnit, Epam" />
+                    <MockObject Type="Logger"      Now="Log4J, TestNG log, Custom" Plans="Epam, XML/Json logging, Hyper logging" />
+                    <MockObject Type="Reportet"    Now="Jenkins, Allure, Custom"   Plans="Epam Report portal, Serenity, TeamCity, Hudson" />
+                    <MockObject Type="BDD/DSL"     Now="Custom"                    Plans="Cucumber, Jbehave, Thucydicles, Specflow" />
+                </MockObjects>
+            </x:XData>
+        </XmlDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid x:Name="LayoutRoot">            
+            <TextBlock FontSize="36"
+    			FontWeight="Bold"
+    			Foreground="Purple"
+    			Text="{Binding WelcomeTitle}"
+    			VerticalAlignment="Center"
+    			HorizontalAlignment="Center"
+    			TextWrapping="Wrap" Margin="284,334" />
+            <TabControl x:Name="tabControl" Margin="10,28,319,10" TabStripPlacement="Left" SelectionChanged="tabControl_SelectionChanged" Focusable="True">
+                <TabItem x:Name="homeTab" Header="Home">
+                    <Grid Background="#FFE5E5E5" Margin="0,0,0,-2"/>
+                </TabItem>
+                <TabItem x:Name="contactFormTab" Header="Contact form">
+                    <Grid Background="#FFE5E5E5">
+                        <Label Content="Name" HorizontalAlignment="Left" Height="28" Margin="26,34,0,0" VerticalAlignment="Top" Width="43"/>
+                        <Label Content="Last Name" HorizontalAlignment="Left" Height="28" Margin="275,34,0,0" VerticalAlignment="Top" Width="70"/>
+                        <TextBox x:Name="nameCFTextBox" Tag="Name" HorizontalAlignment="Left" Height="23" Margin="26,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" LostFocus="commonTextBox_LostFocus"/>
+                        <TextBox x:Name="lastNameCFTextBox" Tag="Last Name" HorizontalAlignment="Left" Height="23" Margin="275,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" LostFocus="commonTextBox_LostFocus"/>
+                        <Label Content="Description" HorizontalAlignment="Left" Height="28" Margin="26,107,0,0" VerticalAlignment="Top" Width="69"/>
+                        <TextBox x:Name="descriptionCFTextBox" Tag="Description" HorizontalAlignment="Left" Height="141" Margin="26,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" LostFocus="commonTextBox_LostFocus"/>
+                        <Button x:Name="submitCFButton" Content="Submit" HorizontalAlignment="Left" Margin="444,301,0,0" VerticalAlignment="Top" Width="75" Click="submitCFButton_Click"/>
+                        <Grid x:Name="summaryCFGrid">
+                            <Label Content="Summary" HorizontalAlignment="Left" Height="28" Margin="26,301,0,0" VerticalAlignment="Top" Width="69"/>
+                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="26,329,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+                            <Grid>
+                                <RadioButton x:Name="oneCFRadioButton" GroupName="Summary (Odd)" Content="1" HorizontalAlignment="Left" Margin="35,342,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="3" HorizontalAlignment="Left" Margin="92,342,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="5" HorizontalAlignment="Left" Margin="148,342,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="7" HorizontalAlignment="Left" Margin="197,342,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                            </Grid>
+                            <Grid>
+                                <RadioButton x:Name="twoCFRadioButton" GroupName="Summary (Even)" Content="2" HorizontalAlignment="Left" Margin="35,362,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="4" HorizontalAlignment="Left" Margin="92,362,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="6" HorizontalAlignment="Left" Margin="148,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="8" HorizontalAlignment="Left" Margin="197,362,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                            </Grid>
+                            <Button x:Name="calculateCFButton" Content="Calculate" HorizontalAlignment="Left" Margin="170,396,0,0" VerticalAlignment="Top" Width="75" Click="commonCalculateButton_Click" Tag="summaryCFGrid" />
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="supportTab" Header="Support">
+                    <Grid Background="#FFE5E5E5" DataContext="{Binding Source={StaticResource MockSimpleTableDataList}}">
+                        <DataGrid Height="285" Margin="10,10,10,0" VerticalAlignment="Top" ColumnWidth="*" 
+                                  ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="Cell">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Type"  Binding="{Binding XPath=@Type}" />
+                                <DataGridTextColumn Header="Now"   Binding="{Binding XPath=@Now}" />
+                                <DataGridTextColumn Header="Plans" Binding="{Binding XPath=@Plans}"  />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="datesTab" Header="Dates">
+                    <Grid Background="#FFE5E5E5">
+                        <Label Content="Name" HorizontalAlignment="Left" Height="28" Margin="26,34,0,0" VerticalAlignment="Top" Width="43"/>
+                        <Label Content="Last Name" HorizontalAlignment="Left" Height="28" Margin="275,34,0,0" VerticalAlignment="Top" Width="70"/>
+                        <TextBox x:Name="nameDTextBox" Tag="Name" HorizontalAlignment="Left" Height="23" Margin="26,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" LostFocus="commonTextBox_LostFocus"/>
+                        <TextBox x:Name="lastNameDTextBox" Tag="Last Name" HorizontalAlignment="Left" Height="23" Margin="275,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" LostFocus="commonTextBox_LostFocus"/>
+                        <Label Content="Description" HorizontalAlignment="Left" Height="28" Margin="26,107,0,0" VerticalAlignment="Top" Width="69"/>
+                        <TextBox x:Name="descriptionDTextBox" Tag="Description" HorizontalAlignment="Left" Height="141" Margin="26,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493" LostFocus="commonTextBox_LostFocus"/>
+                        <Label Content="Period" HorizontalAlignment="Left" Height="28" Margin="26,297,0,0" VerticalAlignment="Top" Width="69"/>
+                        <DatePicker Name="dateDDatePicker" HorizontalAlignment="Left" Margin="100,297,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Time" HorizontalAlignment="Left" Height="28" Margin="275,297,0,0" VerticalAlignment="Top" Width="37"/>
+                        <TextBox x:Name="timeDTextBox" Tag="Time" HorizontalAlignment="Left" Height="23" Margin="317,300,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" LostFocus="commonTextBox_LostFocus"/>
+                        <Label Content="Range 1" HorizontalAlignment="Left" Height="28" Margin="26,408,0,0" VerticalAlignment="Top" Width="52"/>
+                        <Label Content="From" HorizontalAlignment="Left" Height="28" Margin="26,436,0,0" VerticalAlignment="Top" Width="40"/>
+                        <TextBox x:Name="rangeFromDTextBox" Tag="Range 1(From)" HorizontalAlignment="Left" Height="23" Margin="66,440,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" LostFocus="commonTextBox_LostFocus"/>
+                        <Label Content="to" HorizontalAlignment="Left" Height="28" Margin="92,435,0,0" VerticalAlignment="Top" Width="20"/>
+                        <TextBox x:Name="rangeToDTextBox" Tag="Range 1(To)" HorizontalAlignment="Left" Height="23" Margin="112,440,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="26" LostFocus="commonTextBox_LostFocus"/>
+                        <Slider x:Name="sliderDSlider" HorizontalAlignment="Left" Margin="275,440,0,0" VerticalAlignment="Top" Width="191" Thumb.DragCompleted="Slider_DragCompleted" Maximum="100"/>
+                        <Button x:Name="submitDButton" Content="Submit" HorizontalAlignment="Left" Margin="375,488,0,0" VerticalAlignment="Top" Width="75"/>
+                        <Label Content="Range 2 (slider)" HorizontalAlignment="Left" Height="28" Margin="275,412,0,0" VerticalAlignment="Top" Width="136"/>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="complexTab" Header="Complex Table">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem x:Name="simpleTab" Header="Simple Table">
+                    <Grid Background="#FFE5E5E5" DataContext="{Binding Source={StaticResource MockSimpleTableDataList}}" DataGridCell.Selected="DataGrid_GotFocus">
+                        <DataGrid Height="285" Margin="10,10,10,0" VerticalAlignment="Top" ColumnWidth="*" 
+                                  ItemsSource="{Binding Mode=Default, XPath=/MockObjects/MockObject}" AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="Cell" HeadersVisibility="None">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Type"  Binding="{Binding XPath=@Type}" />
+                                <DataGridTextColumn Header="Now"   Binding="{Binding XPath=@Now}" />
+                                <DataGridTextColumn Header="Plans" Binding="{Binding XPath=@Plans}"  />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="pagedTab" Header="Table with pages">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem x:Name="differentTab" Header="Different elements">
+                    <Grid Background="#FFE5E5E5">
+                        <CheckBox x:Name="waterDiffCheckBox" Content="Water" HorizontalAlignment="Left" Height="16" Margin="29,45,0,0" VerticalAlignment="Top" Width="58"/>
+                        <CheckBox x:Name="earthDiffCheckBox" Content="Earth" HorizontalAlignment="Left" Height="16" Margin="92,45,0,0" VerticalAlignment="Top" Width="55"/>
+                        <CheckBox x:Name="windDiffCheckBox" Content="Wind" HorizontalAlignment="Left" Height="16" Margin="152,45,0,0" VerticalAlignment="Top" Width="55"/>
+                        <CheckBox x:Name="fireDiffCheckBox" Content="Fire" HorizontalAlignment="Left" Height="16" Margin="219,45,0,0" VerticalAlignment="Top" Width="48"/>
+                        <RadioButton x:Name="goldDiffRadioButton" Content="Gold" GroupName="metals" HorizontalAlignment="Left" Margin="29,66,0,0" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="silverDiffRadioButton" Content="Silver" GroupName="metals" HorizontalAlignment="Left" Margin="92,66,0,0" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="bronzeDiffRadioButton" Content="Bronze" GroupName="metals" HorizontalAlignment="Left" Margin="152,66,0,0" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="selenDiffRadioButton" Content="Selen" GroupName="metals" HorizontalAlignment="Left" Margin="219,66,0,0" VerticalAlignment="Top"/>
+                        <ComboBox x:Name="colorsDiffComboBox" HorizontalAlignment="Left" Margin="29,86,0,0" VerticalAlignment="Top" Width="238" SelectedIndex="0" Tag="Colors" SelectionChanged="commonComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Red"/>
+                            <ComboBoxItem Content="Green"/>
+                            <ComboBoxItem Content="Blue"/>
+                            <ComboBoxItem Content="Gold"/>
+                        </ComboBox>
+                        <Label Content="Buttons:" HorizontalAlignment="Left" Margin="29,113,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="defaultDiffButton" Content="DEFAULT BUTTON" HorizontalAlignment="Left" Margin="29,139,0,0" VerticalAlignment="Top" Width="110"/>
+                        <Button x:Name="simpleDiffButton" Content="BUTTON" HorizontalAlignment="Left" Margin="144,139,0,0" VerticalAlignment="Top" Width="51"/>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="metalsTab" Header="Metals &amp; Colors">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid x:Name="summaryMGrid">
+                            <Label Content="Summary" HorizontalAlignment="Left" Height="28" Margin="26,21,0,0" VerticalAlignment="Top" Width="69"/>
+                            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="26,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+                            <Grid>
+                                <RadioButton x:Name="oneMRadioButton" GroupName="Summary (Odd)" Content="1" HorizontalAlignment="Left" Margin="35,62,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="3" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="5" HorizontalAlignment="Left" Margin="148,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Odd)" Content="7" HorizontalAlignment="Left" Margin="197,62,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                            </Grid>
+                            <Grid>
+                                <RadioButton x:Name="twoMRadioButton" GroupName="Summary (Even)" Content="2" HorizontalAlignment="Left" Margin="35,82,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="4" HorizontalAlignment="Left" Margin="92,82,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="6" HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578" Checked="commonRadioButton_Checked"/>
+                                <RadioButton GroupName="Summary (Even)" Content="8" HorizontalAlignment="Left" Margin="197,82,0,0" VerticalAlignment="Top" Checked="commonRadioButton_Checked"/>
+                            </Grid>
+                            <Button x:Name="calculateMButton" Content="Calculate" HorizontalAlignment="Left" Margin="167,114,0,0" VerticalAlignment="Top" Width="75" Tag="summaryMGrid" Click="commonCalculateButton_Click"/>
+                        </Grid>
+                        <Label Content="Elements" HorizontalAlignment="Left" Height="28" Margin="282,21,0,0" VerticalAlignment="Top" Width="69"/>
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="282,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+                        <CheckBox x:Name="waterMCheckBox" Content="Water" HorizontalAlignment="Left" Height="16" Margin="294,61,0,0" VerticalAlignment="Top" Width="58" Click="commonCheckBox_Click"/>
+                        <CheckBox x:Name="earthMCheckBox" Content="Earth" HorizontalAlignment="Left" Height="16" Margin="294,77,0,0" VerticalAlignment="Top" Width="55" Click="commonCheckBox_Click"/>
+                        <CheckBox x:Name="windMCheckBox" Content="Wind" HorizontalAlignment="Left" Height="16" Margin="294,93,0,0" VerticalAlignment="Top" Width="55" Click="commonCheckBox_Click"/>
+                        <CheckBox x:Name="fireMCheckBox" Content="Fire" HorizontalAlignment="Left" Height="16" Margin="294,109,0,0" VerticalAlignment="Top" Width="48" Click="commonCheckBox_Click"/>
+                        <ComboBox x:Name="colorsMComboBox" HorizontalAlignment="Left" Margin="26,165,0,0" VerticalAlignment="Top" Width="235" SelectedIndex="0" Tag="Colors" SelectionChanged="commonComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Colors"/>
+                            <ComboBoxItem Content="Red"/>
+                            <ComboBoxItem Content="Green"/>
+                            <ComboBoxItem Content="Blue"/>
+                            <ComboBoxItem Content="Yellow"/>
+                        </ComboBox>
+                        <ComboBox x:Name="metalsMComboBox" HorizontalAlignment="Left" Margin="282,165,0,0" VerticalAlignment="Top" Width="235" SelectedIndex="0" Tag="Metals" SelectionChanged="commonComboBox_SelectionChanged">
+                            <ComboBoxItem Content="Col"/>
+                            <ComboBoxItem Content="Gold"/>
+                            <ComboBoxItem Content="Silver"/>
+                            <ComboBoxItem Content="Bronze"/>
+                            <ComboBoxItem Content="Selen"/>
+                        </ComboBox>
+                        <ComboBox x:Name="vegetablesMComboBox" HorizontalAlignment="Left" Margin="26,200,0,0" VerticalAlignment="Top" Width="235">
+                            <CheckBox x:Name="cucumberMCheckBox" Content="Cucumber"/>
+                            <CheckBox x:Name="tomatoMCheckBox" Content="Tomato"/>
+                            <CheckBox x:Name="saladMCheckBox" Content="Salad" IsChecked="True"/>
+                            <CheckBox x:Name="onionMCheckBox" Content="Onion"/>
+                        </ComboBox>
+                        <Button x:Name="sumbitMButton" Content="Submit" HorizontalAlignment="Left" Margin="442,254,0,0" VerticalAlignment="Top" Width="75"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <Menu x:Name="menu" Height="23" VerticalAlignment="Top">
+                <MenuItem Header="Home" Tag="homeTab" Click="MenuItem_Click"/>
+                <MenuItem Header="Contact form" Tag="contactFormTab" Click="MenuItem_Click"/>
+                <MenuItem Header="Service">
+                    <MenuItem Header="Support" Tag="supportTab" Click="MenuItem_Click"/>
+                    <MenuItem Header="Dates" Tag="datesTab" Click="MenuItem_Click"/>
+                    <MenuItem Header="Complex Table" Tag="complexTab" Click="MenuItem_Click"/>
+                    <MenuItem Header="Simple Table" Tag="simpleTab" Click="MenuItem_Click"/>
+                    <MenuItem Header="Table with pages" Tag="pagedTab" Click="MenuItem_Click"/>
+                    <MenuItem Header="Different elements" Tag="differentTab" Click="MenuItem_Click"/>
+                </MenuItem>
+                <MenuItem Header="Metals &amp; Colors" Tag="metalsTab" Click="MenuItem_Click"/>
+            </Menu>
+            <Label x:Name="logLabel" Content="Log" Height="27" Margin="0,31,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="267"/>
+            <TextBox x:Name="logTextBox" HorizontalAlignment="Right" Height="200" Margin="0,58,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+            <Label x:Name="resultLabel" Content="Result" Height="27" Margin="0,342,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="267"/>
+            <TextBox x:Name="resultTextBox" HorizontalAlignment="Right" Height="200" Margin="0,369,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+    </Grid>
+</Window>

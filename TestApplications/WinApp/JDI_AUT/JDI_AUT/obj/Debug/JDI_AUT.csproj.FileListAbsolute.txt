@@ -1,0 +1,14 @@
+c:\users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.exe.config
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.exe
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.pdb
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.csprojResolveAssemblyReference.cache
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\MainWindow.g.cs
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\App.g.cs
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT_MarkupCompile.cache
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT_MarkupCompile.lref
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\MainWindow.baml
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.g.resources
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.Properties.Resources.resources
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.csproj.GenerateResource.Cache
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.exe
+c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.pdb
