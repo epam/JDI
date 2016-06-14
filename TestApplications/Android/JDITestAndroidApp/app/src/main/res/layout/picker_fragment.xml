@@ -39,9 +39,15 @@
     android:text="Rate us:"/>
     <RatingBar
         android:id="@+id/ratingBar"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <Switch
+        android:id="@+id/switchBtn"
+        android:text="Switch button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"/>
 
     <TextView
         android:text="Result:"

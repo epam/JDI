@@ -7,4 +7,5 @@
     <item name="card_form" type="id" />
     <item name="grid_form" type="id" />
     <item name="card_horiziontal" type="id" />
+    <item name="swipe_collection" type="id" />
 </resources>

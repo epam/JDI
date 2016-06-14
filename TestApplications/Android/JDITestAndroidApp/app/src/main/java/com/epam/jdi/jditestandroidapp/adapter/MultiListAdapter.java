@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.epam.jdi.jditestandroidapp.ListItem;
 import com.epam.jdi.jditestandroidapp.R;
@@ -34,10 +36,10 @@ public class MultiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         RecyclerView.ViewHolder viewHolder = null;
         View view;
         if (mItemType == ListFragment.ITEM) {
-            view = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent,false);
+            view = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
             viewHolder = new ItemViewHolder(view);
         } else {
-            view = LayoutInflater.from(mContext).inflate(R.layout.card_view, parent,false);
+            view = LayoutInflater.from(mContext).inflate(R.layout.card_view, parent, false);
             viewHolder = new CardViewHolder(view);
         }
         view.setOnClickListener(this);
@@ -88,25 +90,40 @@ public class MultiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         @Override
-        void bind(ListItem item) {
+        void bind(final ListItem item) {
 
             mtext.setText(mContext.getString(item.text));
             mCheckBox.setChecked(item.checked);
+            mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    item.checked = isChecked;
+                }
+            });
 
         }
     }
 
     class CardViewHolder extends BaseViewHolder {
         TextView mText;
+        ToggleButton mToggleBtn;
 
         public CardViewHolder(View itemView) {
             super(itemView);
             mText = (TextView) itemView.findViewById(android.R.id.text1);
+            mToggleBtn = (ToggleButton) itemView.findViewById(R.id.toggleButton);
         }
 
         @Override
-        void bind(ListItem item) {
+        void bind(final ListItem item) {
             mText.setText(mContext.getString(item.text));
+            mToggleBtn.setChecked(item.checked);
+            mToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    item.checked = isChecked;
+                }
+            });
 
         }
     }

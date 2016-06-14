@@ -1,5 +1,6 @@
 package com.epam.jdi.jditestandroidapp.ui;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -40,9 +41,10 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         list.add(new MainItem(R.string.menu_contact_form, R.id.contact_form));
         list.add(new MainItem(R.string.date_form, R.id.date_form));
         list.add(new MainItem(R.string.picker_form, R.id.picker_form));
-        list.add(new MainItem(R.string.list_form,R.id.list_form));
+        list.add(new MainItem(R.string.list_form, R.id.list_form));
         list.add(new MainItem(R.string.card_form, R.id.card_form));
-        list.add(new MainItem(R.string.grid_form,R.id.grid_form));
+        list.add(new MainItem(R.string.grid_form, R.id.grid_form));
+        list.add(new MainItem(R.string.swipe_form,R.id.swipe_collection));
 
 
         mList = (ListView) view.findViewById(android.R.id.list);
@@ -54,22 +56,26 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         if (id == R.id.swipe_collection) {
+            startActivity(new Intent(getContext(), CollectionActivity.class));
+             return;
+        }
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.addToBackStack(null);
         if (id == R.id.contact_form) {
             ft.replace(R.id.conatiner, ContactFormFragment.newInstance());
         } else if (id == R.id.date_form) {
             ft.replace(R.id.conatiner, ServiceDatesFragment.newInstance());
-        }else if(id == R.id.picker_form){
-            ft.replace(R.id.conatiner,ServicePickerFragment.newInsance());
-        }else if(id == R.id.list_form){
-            ft.replace(R.id.conatiner,ListFragment.newInstance(ListFragment.ITEM, ListFragment.VERTICAL));
-        }else if(id==R.id.card_form){
-            ft.replace(R.id.conatiner,ListFragment.newInstance(ListFragment.CARD,ListFragment.VERTICAL));
-        }else if(id==R.id.grid_form){
-            ft.replace(R.id.conatiner,ListFragment.newInstance(ListFragment.CARD,ListFragment.GRID));
-        }else if(id==R.id.card_horiziontal){
-            ft.replace(R.id.conatiner,ListFragment.newInstance(ListFragment.CARD,ListFragment.HORIZONTAL));
+        } else if (id == R.id.picker_form) {
+            ft.replace(R.id.conatiner, ServicePickerFragment.newInsance());
+        } else if (id == R.id.list_form) {
+            ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.ITEM, ListFragment.VERTICAL));
+        } else if (id == R.id.card_form) {
+            ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.CARD, ListFragment.VERTICAL));
+        } else if (id == R.id.grid_form) {
+            ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.CARD, ListFragment.GRID));
+        } else if (id == R.id.card_horiziontal) {
+            ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.CARD, ListFragment.HORIZONTAL));
         }
 
         ft.commit();
