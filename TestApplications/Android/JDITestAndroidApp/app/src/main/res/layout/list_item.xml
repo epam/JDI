@@ -10,7 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@android:id/text1"
@@ -18,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="56dp"
-        android:layout_marginRight="56dp" />
+        android:layout_marginRight="56dp"
+        android:textSize="16sp"/>
 
     <CheckBox
         android:id="@+id/checkbox"

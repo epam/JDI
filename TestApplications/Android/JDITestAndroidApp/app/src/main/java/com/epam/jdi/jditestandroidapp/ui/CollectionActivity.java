@@ -1,8 +1,8 @@
 package com.epam.jdi.jditestandroidapp.ui;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,11 +19,18 @@ import android.widget.TextView;
 
 import com.epam.jdi.jditestandroidapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by vitalii_sokolov on 14.06.16.
  */
 public class CollectionActivity extends AppCompatActivity {
     Toolbar mToolbar;
+    private static List<Integer> layouts= new ArrayList<Integer>();
+    static{
+
+    }
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments representing
      * each object in a collection. We use a {@link android.support.v4.app.FragmentStatePagerAdapter}
@@ -37,12 +44,13 @@ public class CollectionActivity extends AppCompatActivity {
      * The {@link android.support.v4.view.ViewPager} that will display the object collection.
      */
     ViewPager mViewPager;
+    TabLayout mTabLayout;
     View mLeft;
     View mRight;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_colletion);
+        setContentView(R.layout.fragment_tabs);
 
         // Create an adapter that when requested, will return a fragment representing an object in
         // the collection.
@@ -51,6 +59,8 @@ public class CollectionActivity extends AppCompatActivity {
         // getSupportFragmentManager.
         mDemoCollectionPagerAdapter = new DemoCollectionPagerAdapter(getSupportFragmentManager());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //mTabLayout = (TabLayout) findViewById(R.id.tabs);
+
         mLeft = findViewById(R.id.left);
         mRight = findViewById(R.id.right);
         // Set up action bar.
@@ -63,6 +73,7 @@ public class CollectionActivity extends AppCompatActivity {
         // Set up the ViewPager, attaching the adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+        //mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -71,7 +82,7 @@ public class CollectionActivity extends AppCompatActivity {
                 }else{
                     mLeft.setVisibility(View.VISIBLE);
                 }
-                if(position==9){
+                if(position==layouts.size()-1){
                     mRight.setVisibility(View.INVISIBLE);
                 }else{
                     mRight.setVisibility(View.VISIBLE);
@@ -131,6 +142,7 @@ public class CollectionActivity extends AppCompatActivity {
             Fragment fragment = new DemoObjectFragment();
             Bundle args = new Bundle();
             args.putInt(DemoObjectFragment.ARG_OBJECT, i + 1); // Our object is just an integer :-P
+            args.putInt(DemoObjectFragment.ARG_LAYOUT,layouts.get(i));
             fragment.setArguments(args);
             return fragment;
         }
@@ -138,7 +150,7 @@ public class CollectionActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // For this contrived example, we have a 100-object collection.
-            return 10;
+            return layouts.size();
         }
 
         @Override
@@ -153,15 +165,18 @@ public class CollectionActivity extends AppCompatActivity {
     public static class DemoObjectFragment extends Fragment {
 
         public static final String ARG_OBJECT = "object";
+        private static final String ARG_LAYOUT = "layout";
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_collection_object, container, false);
             Bundle args = getArguments();
+            View rootView = inflater.inflate(args.getInt(ARG_LAYOUT), container, false);
             ((TextView) rootView.findViewById(android.R.id.text1)).setText(
                     Integer.toString(args.getInt(ARG_OBJECT)));
             return rootView;
         }
     }
+
 }

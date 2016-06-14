@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.epam.jdi.jditestandroidapp.ListItem;
 import com.epam.jdi.jditestandroidapp.R;
@@ -39,9 +40,14 @@ public class ListFragment extends BackFragment {
         list.add(new ListItem(R.string.four, false));
         list.add(new ListItem(R.string.five, false));
         list.add(new ListItem(R.string.six, false));
+        list.add(new ListItem(R.string.seven, false));
+        list.add(new ListItem(R.string.eight, false));
+        list.add(new ListItem(R.string.nine, false));
+        list.add(new ListItem(R.string.ten, false));
     }
 
     RecyclerView mList;
+    private Toast toast;
 
     @Nullable
     @Override
@@ -69,7 +75,16 @@ public class ListFragment extends BackFragment {
         }
 
         int itemType = getArguments().getInt(ITEM_TYPE);
-        mList.setAdapter(new MultiListAdapter(getContext(), list, itemType));
+        MultiListAdapter multiListAdapter = new MultiListAdapter(getContext(), list, itemType);
+        multiListAdapter.setOnItemClickListener(new MultiListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, long id, int position) {
+                if(toast !=null) toast.cancel();
+                toast = Toast.makeText(getContext(), "Click on " + (position + 1) + " item", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+        mList.setAdapter(multiListAdapter);
 
     }
 

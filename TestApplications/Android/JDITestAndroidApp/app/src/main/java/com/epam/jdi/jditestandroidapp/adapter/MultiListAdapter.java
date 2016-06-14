@@ -127,8 +127,10 @@ public class MultiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         }
     }
-
-    interface OnItemClickListener {
+public void setOnItemClickListener(OnItemClickListener listener){
+    this.mOnItemClickListener = listener;
+}
+    public interface OnItemClickListener {
         void onItemClick(View view, long id, int position);
     }
 }

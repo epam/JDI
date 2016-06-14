@@ -23,4 +23,10 @@
     <string name="swipe_form">Swipe form</string>
     <string name="demo_collection">Swipe collection</string>
     <string name="demo_external_activity">swipe activity</string>
+    <string name="dummy_section_text">text</string>
+    <string name="tab_form">Tab form</string>
+    <string name="seven">seven</string>
+    <string name="eight">eight</string>
+    <string name="nine">nine</string>
+    <string name="ten">ten</string>
 </resources>

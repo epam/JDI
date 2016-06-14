@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.epam.jdi.jditestandroidapp.MainItem;
 import com.epam.jdi.jditestandroidapp.R;
 import com.epam.jdi.jditestandroidapp.adapter.ItemAdapter;
+import com.epam.jdi.jditestandroidapp.base.BackFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class MainFragment extends BackFragment implements AdapterView.OnItemClickListener {
 
     ListView mList;
 
@@ -44,7 +45,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
         list.add(new MainItem(R.string.list_form, R.id.list_form));
         list.add(new MainItem(R.string.card_form, R.id.card_form));
         list.add(new MainItem(R.string.grid_form, R.id.grid_form));
-        list.add(new MainItem(R.string.swipe_form,R.id.swipe_collection));
+        list.add(new MainItem(R.string.swipe_form, R.id.swipe_collection));
 
 
         mList = (ListView) view.findViewById(android.R.id.list);
@@ -56,10 +57,6 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         if (id == R.id.swipe_collection) {
-            startActivity(new Intent(getContext(), CollectionActivity.class));
-             return;
-        }
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.addToBackStack(null);
         if (id == R.id.contact_form) {
@@ -76,6 +73,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.CARD, ListFragment.GRID));
         } else if (id == R.id.card_horiziontal) {
             ft.replace(R.id.conatiner, ListFragment.newInstance(ListFragment.CARD, ListFragment.HORIZONTAL));
+        }else if(id == R.id.swipe_collection){
+            ft.replace(R.id.conatiner,TabFragment.newInstance());
         }
 
         ft.commit();
