@@ -52,6 +52,7 @@ import static java.lang.System.setProperty;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -62,7 +63,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     private String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public HighlightSettings highlightSettings = new HighlightSettings();
-    private String driversPath = "src\\main\\resources";
+    private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
     private MapArray<String, WebDriver> runDrivers = new MapArray<>();
     public SeleniumDriverFactory() {
@@ -165,6 +166,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return registerDriver(driverType,
                         () -> {
                             setProperty("webdriver.chrome.driver", getDriversPath() + "chromedriver.exe");
+                            downloadChromeDriver();
                             return webDriverSettings.apply(new ChromeDriver());
                         });
             case FIREFOX:
