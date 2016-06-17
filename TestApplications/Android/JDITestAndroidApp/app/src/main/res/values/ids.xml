@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="contact_form" type="id" />
+    <item name="date_form" type="id" />
+    <item name="picker_form" type="id" />
+    <item name="list_form" type="id" />
+    <item name="card_form" type="id" />
+    <item name="grid_form" type="id" />
+    <item name="card_horiziontal" type="id" />
+    <item name="swipe_collection" type="id" />
+    <item name="tab_form" type="id" />
+</resources>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">JDITestAndroidApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_contact_form">Contact form</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="hint_descr">Description</string>
+    <string name="text_calculate">Calculate</string>
+    <string name="text_submit">Submit</string>
+    <string name="contact_form_result_format" translatable="false">%s %s %s sum = %d</string>
+    <string name="date_form">Date form</string>
+    <string name="picker_form">Picker form</string>
+    <string name="pick_mask"  translatable="false">Preference: %s\nSeek bar: %d\nRate: %s\nSwitch: %s</string>
+    <string name="six">six</string>
+    <string name="five">five</string>
+    <string name="four">four</string>
+    <string name="three">three</string>
+    <string name="two">two</string>
+    <string name="one">one</string>
+    <string name="list_form">List form</string>
+    <string name="grid_form">Grid form</string>
+    <string name="card_form">Card form</string>
+    <string name="swipe_form">Swipe form</string>
+    <string name="demo_collection">Swipe collection</string>
+    <string name="demo_external_activity">swipe activity</string>
+    <string name="dummy_section_text">text</string>
+    <string name="tab_form">Tab form</string>
+    <string name="seven">seven</string>
+    <string name="eight">eight</string>
+    <string name="nine">nine</string>
+    <string name="ten">ten</string>
+</resources>
