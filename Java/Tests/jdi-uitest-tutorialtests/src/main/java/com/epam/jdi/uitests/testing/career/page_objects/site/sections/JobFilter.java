@@ -8,6 +8,7 @@ import com.epam.jdi.uitests.testing.career.page_objects.enums.JobCategories;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.Locations;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -17,6 +18,11 @@ import org.openqa.selenium.support.FindBy;
 public class JobFilter extends Form<JobSearchFilter> {
     @FindBy(className = "job-search-input")
     ITextField keywords;
+    @JDropdown(
+        root = @FindBy(css = "dropdown"),
+        value = @FindBy(id = "dropdownMenu1"),
+        list = @FindBy(tagName = "li")
+    )
     IDropDown<JobCategories> category =
             new Dropdown<>(By.className("multi-select-filter"), By.className("blue-checkbox-label"));
 

@@ -40,6 +40,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 /**
  * Created by Roman_Iovlev on 7/9/2015.
  */
+
 abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements IVisible {
     protected boolean isSelector;
     private GetElementType allLabels = new GetElementType();

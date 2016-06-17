@@ -18,8 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
-import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
@@ -32,12 +30,13 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
 
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
-public class Elements<T extends Element> extends BaseElement implements List<T> {
+public class Elements<T extends Element> extends BaseSelector<Enum> implements List<T> {
     private Class<T> classType;
 
     public Elements() {
@@ -50,6 +49,19 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     public Elements(By byLocator) {
         this(byLocator, null);
     }
+
+    protected boolean isSelectedAction(String name) {
+        return false;
+    }
+
+    protected boolean isSelectedAction(int index) {
+        return false;
+    }
+
+    protected String getValueAction() {
+        return "UNDEFINED";
+    }
+
     public Elements(By byLocator, Class<T> classType) {
         super(byLocator);
         this.classType = classType != null ? classType : (Class<T>) Button.class;
@@ -63,9 +75,9 @@ public class Elements<T extends Element> extends BaseElement implements List<T> 
     private List<T> elements;
 
     public List<T> listOfElements() {
-        return JDISettings.useCache && !elements.isEmpty()
+        return useCache && !elements.isEmpty()
             ? elements
-            : (elements = select(getAvatar().searchAll().getElements(), el -> {
+            : (elements = select(getElements(), el -> {
                 try {
                     T element = classType.newInstance();
                     element.setWebElement(el);
