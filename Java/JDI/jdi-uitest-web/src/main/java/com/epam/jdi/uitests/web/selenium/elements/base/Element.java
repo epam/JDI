@@ -23,14 +23,15 @@ import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
@@ -77,6 +78,12 @@ public class Element extends BaseElement implements IElement {
     public WebElement getWebElement() {
         return invoker.doJActionResult("Get web element",
                 () -> avatar.getElement(), DEBUG);
+    }
+    public WebElement get(By locator) {
+        return getWebElement().findElement(locator);
+    }
+    public List<WebElement> getList(By locator) {
+        return getWebElement().findElements(locator);
     }
     public void setWebElement(WebElement webElement) {
         avatar.setWebElement(webElement);
