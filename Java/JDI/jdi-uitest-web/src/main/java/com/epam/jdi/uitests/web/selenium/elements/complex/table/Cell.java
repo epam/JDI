@@ -126,9 +126,7 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     public WebElement get(By subLocator) {
-        SelectElement cell = new SelectElement(subLocator);
-        cell.setParent(get());
-        return cell.getWebElement();
+        return get().get(subLocator);
     }
 
     public <T extends BaseElement> T get(Class<T> clazz) {
