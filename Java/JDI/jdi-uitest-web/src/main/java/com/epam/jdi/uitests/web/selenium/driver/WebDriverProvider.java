@@ -15,7 +15,7 @@ public class WebDriverProvider {
     public static final String FOLDER_PATH = new File("").getAbsolutePath() + "/Java/build/driver/";
     public static final String CHROME_DRIVER_PATH = checkOS().equals("win") ? FOLDER_PATH + "chromedriver.exe" : FOLDER_PATH + "chromedriver";
     public static final String IE_DRIVER_PATH = FOLDER_PATH + "IEDriverServer.exe";
-            
+
     private static final String CHROME_MAC_DRIVER_URL = "http://chromedriver.storage.googleapis.com/2.22/chromedriver_mac32.zip";
     private static final String CHROME_NIX_DRIVER_URL = "http://chromedriver.storage.googleapis.com/2.22/chromedriver_linux64.zip";
     private static final String CHROME_WIN_DRIVER_URL = "http://chromedriver.storage.googleapis.com/2.22/chromedriver_win32.zip";
