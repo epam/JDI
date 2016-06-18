@@ -35,7 +35,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -66,6 +65,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
     private MapArray<String, WebDriver> runDrivers = new MapArray<>();
+
     public SeleniumDriverFactory() {
         this(false, new HighlightSettings(), WebElement::isDisplayed);
     }
@@ -127,12 +127,6 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
     }
 
-    private String getDriversPath() {
-        return ((driversPath.contains(":\\"))
-                ? driversPath
-                : asserter.silent(() -> new File(driversPath).getCanonicalPath())).replaceAll("/*$", "") + "\\";
-    }
-
     public String registerDriver(String driverName) {
         switch (driverName.toLowerCase()) {
             case "chrome":
@@ -165,8 +159,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             case CHROME:
                 return registerDriver(driverType,
                         () -> {
-                            setProperty("webdriver.chrome.driver", getDriversPath() + "chromedriver.exe");
                             downloadChromeDriver();
+                            setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
                             return webDriverSettings.apply(new ChromeDriver());
                         });
             case FIREFOX:
@@ -176,7 +170,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return registerDriver(driverType, () -> {
                     DesiredCapabilities capabilities = internetExplorer();
                     capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-                    setProperty("webdriver.ie.driver", getDriversPath() + "IEDriverServer.exe");
+                    downloadIEDriver();
+                    setProperty("webdriver.ie.driver", IE_DRIVER_PATH);
                     return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
                 });
         }
