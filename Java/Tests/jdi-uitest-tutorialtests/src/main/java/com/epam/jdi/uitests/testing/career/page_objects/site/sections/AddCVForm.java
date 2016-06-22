@@ -23,7 +23,7 @@ public class AddCVForm extends Form<Attendee> {
 
     @JDropdown(
         root = @FindBy(className = "country-selection"),
-        expand = @FindBy(css = ".country-wrapper .arrow"),
+        value = @FindBy(css = ".country-wrapper .arrow"),
         list = @FindBy(css = "*root*//*[contains(@id,'select-box-applicantCountry')]//li")
     )
     IDropDown country;
