@@ -116,8 +116,8 @@ public abstract class CascadeInit {
                                 parentClass.getSimpleName(), field.getType().getSimpleName(), ex.getMessage()));
             }
         else instance = fillInstance(instance, field);
-        instance = fillFromJDIAttribute(instance, field);
         instance.setParent(parent);
+        instance = fillFromJDIAttribute(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;
     }

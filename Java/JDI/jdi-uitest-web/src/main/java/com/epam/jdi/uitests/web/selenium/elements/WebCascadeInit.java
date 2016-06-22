@@ -35,7 +35,6 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
@@ -49,8 +48,7 @@ import java.util.List;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.fillPageFromAnnotaiton;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.*;
 
 /**
@@ -81,7 +79,7 @@ public class WebCascadeInit extends CascadeInit {
     protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent, Class<?> type) {
         BaseElement element = (BaseElement) instance;
         if (parent == null || type != null) {
-            By frameBy = WebAnnotationsUtil.getFrame(field.getDeclaredAnnotation(Frame.class));
+            By frameBy = getFrame(field.getDeclaredAnnotation(Frame.class));
             if (frameBy != null)
                 element.avatar.frameLocator =  frameBy;
         }
@@ -121,7 +119,7 @@ public class WebCascadeInit extends CascadeInit {
         }
         return byLocator != null
             ? byLocator
-            : WebAnnotationsUtil.findByToBy(field.getAnnotation(FindBy.class));
+            : findByToBy(field.getAnnotation(FindBy.class));
     }
 
     private void fillFromAttribute(BaseElement instance, Field field) {

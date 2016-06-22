@@ -39,7 +39,6 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
  */
 public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum> {
     protected GetElementType element;
-    protected By root;
     protected GetElementType expander;
 
     public Dropdown() {
@@ -61,30 +60,29 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     public void setUp(By root, By value, By list, By expand, By elementByName) {
         if (root != null) {
-            this.root = root;
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
         }
-        if (value != null)
+        if (value != null) {
             setAvatar(value);
-        if (value != null)
-            this.element = new GetElementType(value);
+            element = new GetElementType(value);
+        }
         if (list != null)
-            this.allLabels = new GetElementType(list);
+            allLabels = new GetElementType(list);
         if (expand != null)
-            this.expander = new GetElementType(expand);
+            expander = new GetElementType(expand);
     }
 
     protected Label element() {
-        if (element == null)
-            throw exception("Value element for dropdown not defined");
-        return element.get(new Label(), getAvatar());
+        if (element == null && expander == null)
+            throw exception("'Value' element for dropdown not defined");
+        return (element == null ? expander : element).get(new Label(), getAvatar());
     }
     protected Clickable expander() {
-        return expander != null
-            ? expander.get(new Clickable(), getAvatar())
-            : element();
+        if (element == null && expander == null)
+            throw exception("'Value' element for dropdown not defined");
+        return (expander == null ? element : expander).get(new Clickable(), getAvatar());
     }
 
     protected void expandAction(String name) {
