@@ -125,7 +125,7 @@ public abstract class BaseElement implements IBaseElement {
      * @return Get Element’s locator
      */
     public By getLocator() {
-        return avatar.byLocator;
+        return avatar.getLocator();
     }
 
     public GetElementModule getAvatar() {
@@ -136,11 +136,13 @@ public abstract class BaseElement implements IBaseElement {
         this.avatar = avatar;
         return this;
     }
+    public BaseElement setAvatar(By byLocator) {
+        this.avatar = new GetElementModule(byLocator, this);
+        return this;
+    }
 
     public BaseElement setAvatar(By byLocator, GetElementModule avatar) {
-        this.avatar = new GetElementModule(byLocator, this);
-        this.avatar.localElementSearchCriteria = avatar.localElementSearchCriteria;
-        this.avatar.setDriverName(avatar.getDriverName());
+        this.avatar = avatar.copy(byLocator);
         return this;
     }
 

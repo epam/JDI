@@ -27,6 +27,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static java.lang.String.*;
 import static java.util.Arrays.asList;
 
 /**
@@ -298,15 +299,25 @@ public final class LinqUtils {
         return -1;
     }
 
-    public static <T> List<T> listCopy(List<T> array, int from) {
-        return listCopy(array, from, array.size() - 1);
+    public static <T> List<T> listCopy(List<T> list, int from) {
+        return listCopy(list, from, list.size() - 1);
     }
 
     public static <T> List<T> listCopy(List<T> list, int from, int to) {
         List<T> result = new ArrayList<>();
+        if (from*to < 0)
+            throw new RuntimeException(format("from and to should have same sign (%s, %s)", from, to));
+        if (from < 0)
+            from = list.size() + from - 1;
+        if (to < 0)
+            to = list.size() + to - 1;
         for (int i = from; i <= to; i++)
             result.add(list.get(i));
         return result;
+    }
+
+    public static <T> List<T> listCopyUntil(List<T> list, int to) {
+        return listCopy(list, 0, to);
     }
 
     public static <T> List<T> selectMany(List<T> list, Function<T, List<T>> func) {

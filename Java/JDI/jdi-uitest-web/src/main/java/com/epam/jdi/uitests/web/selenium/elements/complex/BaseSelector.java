@@ -43,7 +43,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements IVisible {
     protected boolean isSelector;
-    private GetElementType allLabels = new GetElementType();
+    protected GetElementType allLabels = new GetElementType();
 
     BaseSelector() {
         super();
@@ -185,7 +185,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't check is element displayed or not. No optionsNamesLocator and allLabelsLocator found");
         if (allLabels() != null)
-            return allLabels().getWebElements();
+            return allLabels().avatar.searchAll().getElements();
         if (getLocator().toString().contains("%s"))
             throw exception("Can't check is element displayed or not. Please specify allLabelsLocator or correct optionsNamesLocator (should not contain '%s')");
         return getElementsFromTag();

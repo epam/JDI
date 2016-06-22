@@ -145,6 +145,14 @@ public class WebPage extends BaseElement implements IPage {
         invoker.doJAction(format("Refresh page '%s", getName()),
                 () -> getDriver().navigate().refresh());
     }
+    /**
+     * Reload current page
+     */
+    @JDIAction
+    public void reload() {
+        invoker.doJAction(format("Reload page '%s", getName()),
+                () -> getDriver().navigate().refresh());
+    }
 
     /**
      * Go back to previous page
@@ -204,6 +212,7 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void check() {
+            if (equals == null || equals.equals("")) return;
             asserter.check(format("page %s equals to '%s'", what, equals))
                     .isTrue(timer.wait(() -> actual.get().equals(equals)));
         }
@@ -213,6 +222,7 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void match() {
+            if (template == null || template.equals("")) return;
             asserter.check(format("page %s matches to '%s'", what, template))
                     .isTrue(timer.wait(() -> actual.get().matches(template)));
         }
@@ -222,6 +232,7 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void contains() {
+            if (equals == null || equals.equals("")) return;
             asserter.check(format("page %s contains '%s'", what, equals))
                     .isTrue(timer.wait(() -> actual.get().contains(template)));
         }

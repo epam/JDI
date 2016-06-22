@@ -153,6 +153,9 @@ public class ElementsActions {
     public void select(int index, Consumer<Integer> selectByIndexAction) {
         invoker().doJAction(format("Select '%s'", index), () -> selectByIndexAction.accept(index));
     }
+    public void hover(String name, Consumer<String> hoverAction) {
+        invoker().doJAction(format("Hover '%s'", name), () -> hoverAction.accept(name));
+    }
 
     public boolean isSelected(String name, Function<String, Boolean> isSelectedAction) {
         return invoker().doJActionResult(format("Wait is '%s' selected", name), () -> isSelectedAction.apply(name));

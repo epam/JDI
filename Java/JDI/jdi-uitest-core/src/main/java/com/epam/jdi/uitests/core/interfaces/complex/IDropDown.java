@@ -36,4 +36,5 @@ public interface IDropDown<TEnum extends Enum> extends ISelector<TEnum>, IText, 
      */
     @JDIAction
     void close();
+
 }

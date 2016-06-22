@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
@@ -29,7 +28,6 @@ import com.epam.jdi.uitests.core.utils.common.PrintUtils;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -40,8 +38,10 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.utils.common.PrintUtils.objToSetValue;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement.namesEqual;
 import static java.lang.String.format;
 
 /**
@@ -59,7 +59,7 @@ public class Form<T> extends Element implements IForm<T> {
     public void fill(MapArray<String, String> map) {
         foreach(getFields(this, ISetValue.class), element -> {
             String fieldValue = map.first((name, value) ->
-                    GetElement.namesEqual(name, AnnotationsUtil.getElementName(element)));
+                namesEqual(name, getElementName(element)));
             if (fieldValue == null)
                 return;
             ISetValue setValueElement = (ISetValue) getValueField(element, this);
@@ -114,7 +114,7 @@ public class Form<T> extends Element implements IForm<T> {
         List<String> compareFalse = new ArrayList<>();
         foreach(getFields(this, IHasValue.class), field -> {
             String fieldValue = objStrings.first((name, value) ->
-                    GetElement.namesEqual(name, AnnotationsUtil.getElementName(field)));
+                    namesEqual(name, getElementName(field)));
             if (fieldValue == null)
                 return;
             IHasValue valueField = (IHasValue) getValueField(field, this);

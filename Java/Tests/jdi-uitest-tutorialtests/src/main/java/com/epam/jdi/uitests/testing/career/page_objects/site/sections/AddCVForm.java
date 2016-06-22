@@ -25,7 +25,7 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(css = ".country-selection")
     IDropDown country = new Dropdown<>(
             By.cssSelector(".country-wrapper .arrow"),
-            By.xpath("//*[contains(@id,'select-box-applicantCountry')]//li"));
+            By.xpath("*root*//*[contains(@id,'select-box-applicantCountry')]//li"));
     @FindBy(css = ".city-selection")
     IDropDown city = new Dropdown<>(
             By.cssSelector(".city-wrapper .arrow"),
