@@ -54,12 +54,14 @@
         <module>JDI/jdi-uitest-mobile</module>
         <module>JDI/jdi-uitest-gui</module>
         <module>JDI/jdi-uitest-cucumber</module>
+		<module>JDI/jdi-uitest-win</module>		
 
         <module>Tests/jdi-uitest-tutorialtests</module>
         <module>Tests/jdi-uitest-webtests</module>
         <module>Tests/jdi-uitest-mobiletests</module>
         <module>Tests/jdi-uitest-guitests</module>
         <module>Tests/jdi-uitest-cucumbertests</module>
+		<module>Tests/jdi-uitest-winiumtests</module>
     </modules>
 
     <!--<dependencies>

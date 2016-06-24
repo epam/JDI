@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <groupId>com.epam.jdi</groupId>
+        <version>1.0.8</version>
+        <relativePath>../..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdi.version>1.0.8</jdi.version>
+        <selenium.version>2.45.0</selenium.version>
+        <allure.version>1.4.5</allure.version>
+    </properties>
+
+    <artifactId>jdi-uitest-mobiletests</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.2gis.winium</groupId>
+            <artifactId>winium-elements-desktop</artifactId>
+            <version>0.2.0-1</version>
+        </dependency><!--
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-uitest-win</artifactId>
+            <version>1.0.8</version>
+        </dependency>-->
+    </dependencies>
+</project>
