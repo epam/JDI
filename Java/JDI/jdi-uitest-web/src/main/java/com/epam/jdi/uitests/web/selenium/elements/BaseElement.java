@@ -133,11 +133,11 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement setAvatar(GetElementModule avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar.copy();
         return this;
     }
     public BaseElement setAvatar(By byLocator) {
-        this.avatar = new GetElementModule(byLocator, this);
+        this.avatar = this.avatar.copy(byLocator);
         return this;
     }
 

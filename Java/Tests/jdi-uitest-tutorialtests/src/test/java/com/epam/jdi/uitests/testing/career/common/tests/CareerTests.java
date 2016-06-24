@@ -23,7 +23,7 @@ public class CareerTests extends TestsBase {
     @Test(dataProvider = "attendees", dataProviderClass = AttendeeProvider.class)
     public void sendCVTest(Attendee attendee) {
         homePage.checkOpened();
-        multipleHeaderMenu.hoverAndClick(SOLUTIONS + ".Product Development");
+        multipleHeaderMenu.hoverAndClick(SOLUTIONS + "." + "Product Development");
         productDevelopmentPage.checkOpened();
         headerMenu.select(CAREERS);
         careerPage.checkOpened();
@@ -31,7 +31,6 @@ public class CareerTests extends TestsBase {
         jobListingPage.checkOpened();
         new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.getJobRowByName("Senior QA Automation Engineer");
-
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha").contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }

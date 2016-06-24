@@ -28,9 +28,11 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
@@ -61,6 +63,10 @@ public class GetElementModule implements IAvatar {
     public GetElementModule(By byLocator, IBaseElement element) {
         this(element);
         this.byLocator = byLocator;
+    }
+
+    public GetElementModule copy() {
+        return copy(byLocator);
     }
 
     public GetElementModule copy(By byLocator) {
@@ -107,17 +113,23 @@ public class GetElementModule implements IAvatar {
     public Timer timer() {
         return new Timer(timeouts.currentTimeoutSec * 1000);
     }
+    private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
+        List<WebElement> elements = timer().getResultByCondition(
+                this::searchElements,
+                els -> any(els, getSearchCriteria()));
+        if (elements == null || elements.size() == 0)
+            return new ArrayList<>();
+        return elements.size() < 10 ? where(elements, condition) : elements;
+    }
 
     private List<WebElement> getElementsAction() {
         if (webElements != null)
             return webElements;
-        List<WebElement> result = timer().getResultByCondition(
-                this::searchElements,
-                els -> where(els, getSearchCriteria()).size() > 0);
+        List<WebElement> result = getElementsByCondition(getSearchCriteria());
         timeouts.dropTimeouts();
         if (result == null)
             throw exception("Can't get Web Elements");
-        return where(result, el -> getSearchCriteria().apply(el));
+        return result;
     }
 
     private Function<WebElement, Boolean> getSearchCriteria() {

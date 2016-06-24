@@ -24,14 +24,13 @@ public class AddCVForm extends Form<Attendee> {
     @JDropdown(
         root = @FindBy(className = "country-selection"),
         value = @FindBy(css = ".country-wrapper .arrow"),
-        list = @FindBy(css = "*root*//*[contains(@id,'select-box-applicantCountry')]//li")
-    )
+        elementByName = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
     IDropDown country;
 
     @JDropdown(
             root = @FindBy(className = "city-selection"),
             expand = @FindBy(css = ".city-wrapper .arrow"),
-            list = @FindBy(css = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+            list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
     )
     IDropDown city;
 

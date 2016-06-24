@@ -25,7 +25,6 @@ import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import com.epam.jdi.uitests.core.utils.common.PrintUtils;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 
@@ -56,14 +55,14 @@ public class Form<T> extends Element implements IForm<T> {
         return element.getValue();
     }
 
-    public void fill(MapArray<String, String> map) {
+    public final void fill(MapArray<String, String> map) {
         foreach(getFields(this, ISetValue.class), element -> {
             String fieldValue = map.first((name, value) ->
                 namesEqual(name, getElementName(element)));
             if (fieldValue == null)
                 return;
             ISetValue setValueElement = (ISetValue) getValueField(element, this);
-            BaseElement.doActionRule.accept(fieldValue, val -> setValueAction(val, setValueElement));
+            doActionRule.accept(fieldValue, val -> setValueAction(val, setValueElement));
         });
     }
 
@@ -87,7 +86,7 @@ public class Form<T> extends Element implements IForm<T> {
     private void setText(String text) {
         Field field = getFields(this, ISetValue.class).get(0);
         ISetValue setValueElement = (ISetValue) getValueField(field, this);
-        BaseElement.doActionRule.accept(text, val -> setValueAction(val, setValueElement));
+        doActionRule.accept(text, val -> setValueAction(val, setValueElement));
     }
 
     public void submit(String text) {
@@ -118,7 +117,7 @@ public class Form<T> extends Element implements IForm<T> {
             if (fieldValue == null)
                 return;
             IHasValue valueField = (IHasValue) getValueField(field, this);
-            BaseElement.doActionRule.accept(fieldValue, expected -> {
+            doActionRule.accept(fieldValue, expected -> {
                 String actual = getValueAction(valueField).trim();
                 if (actual.equals(expected))
                     return;

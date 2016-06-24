@@ -180,6 +180,10 @@ public class ElementsActions {
             listIndexes.add(Integer.toString(i));
         invoker().doJAction(String.format("Select '%s'", print(listIndexes)), () -> selectListAction.accept(indexes));
     }
+    // Expand Action
+    public void expand(JAction expandAction) {
+        invoker().doJAction("Expand Element", expandAction);
+    }
 
     public List<String> areSelected(Supplier<List<String>> getNames, Function<String, Boolean> waitSelectedAction) {
         return invoker().doJActionResult("Are selected", () ->
