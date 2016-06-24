@@ -27,7 +27,7 @@ public class WebDriverProvider {
     private static final String CHROME_MAC_DRIVER = "chromedriver_mac32.zip";
     private static final String CHROME_NIX_DRIVER = "chromedriver_linux64.zip";
     private static final String CHROME_WIN_DRIVER = "chromedriver_win32.zip";
-    private static final String CHROME_VERSION = "2.22";
+    private static final String CHROME_VERSION = "";
     private static final String IE_WIN_DRIVER_URL     = "http://selenium-release.storage.googleapis.com/2.53/IEDriverServer_x64_2.53.1.zip";
 
     private static Boolean isInStock(String driver) {
@@ -57,14 +57,20 @@ public class WebDriverProvider {
         bf.close();
         return version;
     }
+    private static String getVersion() throws IOException {
+        return !CHROME_VERSION.equals("")
+                ? CHROME_VERSION
+                : getLatestVersion();
+    }
     private static File recreateTempFollder() {
         File temp = new File(TEMP_FOLDER);
         temp.delete();
         temp.mkdirs();
         return temp;
     }
+
     private static String chromeDriverDownloadUrl() throws IOException {
-        String url = CHROME_STORAGE + getLatestVersion() + "/";
+        String url = CHROME_STORAGE + getVersion() + "/";
         switch (checkOS()) {
             case "mac":
                 return url + CHROME_MAC_DRIVER;
@@ -74,36 +80,31 @@ public class WebDriverProvider {
                 return url + CHROME_NIX_DRIVER;
         }
     }
-
-    public static void downloadChromeDriver() {
-        if (!isInStock(CHROME_DRIVER_PATH)) {
+    private static void downloadDriver(String driverName, String driverPath, String zipName, String downloadUrl) {
+        if (!isInStock(driverPath)) {
             try {
                 File temp = recreateTempFollder();
-                File zip = new File(TEMP_FOLDER + "chromedriver.zip");
-                FileUtils.copyURLToFile(new URL(chromeDriverDownloadUrl()), zip);
+                File zip = new File(TEMP_FOLDER + zipName);
+                FileUtils.copyURLToFile(new URL(downloadUrl), zip);
                 new ZipFile(zip).extractAll(FOLDER_PATH);
                 deleteDirectory(temp);
-                if (checkOS().equals("mac") || checkOS().equals("nix")) {
-                    Runtime.getRuntime().exec("chmod u+x " + CHROME_DRIVER_PATH);
-                }
             } catch (Exception e) {
-                exception("Can't get ChromeDriver. Exception: " + e.getMessage());
+                throw exception("Can't get %s. Exception: " + e.getMessage(), driverName);
             }
         }
     }
 
-    public static void downloadIEDriver() {
-        if (!isInStock(IE_DRIVER_PATH)) {
-            try {
-                File zip = new File(FOLDER_PATH + "IEDriverServer_x64_2.53.1.zip");
-                FileUtils.copyURLToFile(new URL(IE_WIN_DRIVER_URL), zip);
-                ZipFile zipFile = new ZipFile(zip);
-                zipFile.extractAll(FOLDER_PATH);
-                zip.delete();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public static void downloadChromeDriver() {
+        try {
+            downloadDriver("ChromeDriver", CHROME_DRIVER_PATH, "chromedriver.zip", chromeDriverDownloadUrl());
+            if (checkOS().equals("mac") || checkOS().equals("nix"))
+                Runtime.getRuntime().exec("chmod u+x " + CHROME_DRIVER_PATH);
+        } catch (IOException e) {
+            throw exception("Can't get %s. Exception: " + e.getMessage(), "ChromeDriver");
         }
+    }
 
+    public static void downloadIEDriver() {
+        downloadDriver("IEDriver", IE_DRIVER_PATH, "IEDriverServer_x64_2.53.1.zip", IE_WIN_DRIVER_URL);
     }
 }
