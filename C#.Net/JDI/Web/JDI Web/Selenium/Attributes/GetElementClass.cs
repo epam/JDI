@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using JDI_Commons;
-using JDI_Core.Attributes.Functions;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Attributes.Functions;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Attributes
 {

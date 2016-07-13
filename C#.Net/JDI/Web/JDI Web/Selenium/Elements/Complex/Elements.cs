@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
-using static JDI_Core.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.Elements.Complex
 {

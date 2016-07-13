@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Epam.JDI.Core.Interfaces.Complex
 {
     public interface IRadioButtons : IRadioButtons<IConvertible> { }

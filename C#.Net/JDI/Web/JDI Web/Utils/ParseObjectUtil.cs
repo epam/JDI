@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JDI_Commons;
-using JDI_Core.Attributes;
+using Epam.JDI.Core.Attributes;
 using RestSharp.Extensions;
-using static JDI_Core.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Utils
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using static System.String;
 
 namespace Epam.JDI.Core.Attributes
 {
@@ -27,7 +26,7 @@ namespace Epam.JDI.Core.Attributes
         public static string GetElementName(FieldInfo field)
         {
             var name = GetName(field);
-            return IsNullOrEmpty(name) ? SplitCamelCase(field.Name) : name;
+            return string.IsNullOrEmpty(name) ? SplitCamelCase(field.Name) : name;
         }
 
         private static string SplitCamelCase(string camel)

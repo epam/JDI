@@ -1,5 +1,5 @@
 ﻿using System;
-using JDI_Core.Base;
+using Epam.JDI.Core.Base;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Settings;
 

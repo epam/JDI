@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Common;
-using JDI_Core.Interfaces.Complex;
-using JDI_Core.Logging;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
+using Epam.JDI.Core.Logging;
+using Epam.JDI.Core.Settings;
 using JDI_Matchers;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;

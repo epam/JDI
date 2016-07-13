@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Elements.Base;
 
 namespace JDI_Web.Selenium.Elements.Complex.table.interfaces

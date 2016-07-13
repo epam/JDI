@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Core", "JDI\Core\UnitTestProject1\JDI Core.csproj", "{99EE5894-9F49-43E2-A129-7916D924D49C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Core", "JDI\Core\JDI Core.csproj", "{99EE5894-9F49-43E2-A129-7916D924D49C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Commons", "JDI\Commons\JDI Commons\JDI Commons.csproj", "{C749644D-5901-4FD6-9ADD-06209BDC1CD2}"
 EndProject

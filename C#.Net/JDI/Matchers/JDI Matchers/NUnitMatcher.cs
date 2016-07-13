@@ -1,6 +1,6 @@
 ﻿using System;
 using JDI_Commons;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Settings;
 using NUnit.Framework;
 using RestSharp.Extensions;
 

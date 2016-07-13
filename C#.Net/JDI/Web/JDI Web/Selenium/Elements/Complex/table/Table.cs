@@ -9,7 +9,7 @@ using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex.table.interfaces;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex.table
 {

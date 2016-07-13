@@ -1,4 +1,5 @@
 ﻿using Epam.JDI.Core.Interfaces.Base;
+
 namespace Epam.JDI.Core.Interfaces.Complex
 {
     public interface IPage : IComposite

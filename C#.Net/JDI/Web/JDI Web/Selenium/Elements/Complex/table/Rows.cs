@@ -4,8 +4,8 @@ using System.Linq;
 using JDI_Commons;
 using JDI_Web.Selenium.Elements.Complex.table.interfaces;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
-using static JDI_Core.ExceptionUtils;
+using static Epam.JDI.Core.Settings.JDISettings;
+using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.Elements.Complex.table
 {

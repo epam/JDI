@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
-using static System.String;
 
 namespace Epam.JDI.Core.Logging
 {
@@ -16,13 +15,13 @@ namespace Epam.JDI.Core.Logging
 
         private static string GetLogRecord(string typeName, string msg)
         {
-            return Format(LogRecordTemplate, typeName, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), msg);
+            return string.Format(LogRecordTemplate, typeName, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"), msg);
         }
 
         public JDILogger()
         {
-            var logRoot = GetValidUrl(ExceptionUtils.AvoidExceptions(() => Properties.Settings.Default["log.path"].ToString()));
-            if (!IsNullOrEmpty(logRoot))
+            var logRoot = GetValidUrl(JDI_Commons.ExceptionUtils.AvoidExceptions(() => Properties.Settings.Default["log.path"].ToString()));
+            if (!string.IsNullOrEmpty(logRoot))
                 LogDirectoryRoot = () => logRoot;
         }
 
@@ -33,7 +32,7 @@ namespace Epam.JDI.Core.Logging
 
         public static string GetValidUrl(string logPath)
         {
-            if (IsNullOrEmpty(logPath))
+            if (string.IsNullOrEmpty(logPath))
                 return "";
             var result = logPath.Replace("/", "\\");
             if (result[1] != ':' && result.Substring(0, 3) != "..\\")
@@ -50,7 +49,7 @@ namespace Epam.JDI.Core.Logging
             System.Diagnostics.Debug.WriteLine("TEST: " + msg);
             var logDirectory = GetValidUrl(LogDirectoryRoot()) + (CreateFoldersForLogTypes ? fileName + "s\\" : "");
             CreateDirectory(logDirectory);
-            var logFileName = logDirectory + Format(LogFileFormat(), fileName);
+            var logFileName = logDirectory + string.Format(LogFileFormat(), fileName);
 
             var logFileSyncRoot = LogFileSyncRoots.GetOrAdd(logFileName, s => s);
             lock (logFileSyncRoot)

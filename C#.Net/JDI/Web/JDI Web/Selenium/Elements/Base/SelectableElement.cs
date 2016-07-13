@@ -1,5 +1,5 @@
 ﻿using System;
-using JDI_Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Base;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Base

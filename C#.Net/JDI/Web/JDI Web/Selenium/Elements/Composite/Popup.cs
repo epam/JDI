@@ -1,5 +1,5 @@
-﻿using JDI_Core.Attributes.Functions;
-using JDI_Core.Interfaces.Complex;
+﻿using Epam.JDI.Core.Attributes.Functions;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Elements.Common;
 
 namespace JDI_Web.Selenium.Elements.Composite

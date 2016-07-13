@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using JDI_Commons;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
-using static JDI_Core.ExceptionUtils;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.ExceptionUtils;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {

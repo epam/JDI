@@ -1,4 +1,4 @@
-﻿using JDI_Core.Interfaces.Common;
+﻿using Epam.JDI.Core.Interfaces.Common;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Common

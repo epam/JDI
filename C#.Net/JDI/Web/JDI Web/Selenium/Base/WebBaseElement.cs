@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Reflection;
 using JDI_Commons;
-using JDI_Core.Attributes;
-using JDI_Core.Attributes.Functions;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Logging;
+using Epam.JDI.Core.Attributes;
+using Epam.JDI.Core.Attributes.Functions;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Logging;
 using JDI_Web.Selenium.Attributes;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.WebActions;
 using OpenQA.Selenium;
-using static JDI_Core.Logging.LogLevels;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Logging.LogLevels;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Base
 {

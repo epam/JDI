@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
-using static Epam.JDI.Commons.ReflectionUtils;
 
 namespace Epam.JDI.Core.Base
 {
@@ -17,7 +17,7 @@ namespace Epam.JDI.Core.Base
 
         public void InitElements(object parent, string driverName)
         {
-            SetFieldsForInit(parent, GetFields(parent.GetType()), parent.GetType(), driverName);
+            SetFieldsForInit(parent, parent.GetType().GetFieldsList(), parent.GetType(), driverName);
         }
 
         private void SetFieldsForInit(object parent, List<FieldInfo> fields, Type parentType, string driverName)
@@ -29,7 +29,7 @@ namespace Epam.JDI.Core.Base
 
         public void InitStaticPages(Type parentType, string driverName)
         {
-            SetFieldsForInit(null, StaticFields(parentType), parentType, driverName);
+            SetFieldsForInit(null, parentType.StaticFields(), parentType, driverName);
         }
 
         public T InitPages<T>(Type site, string driverName) where T : Application

@@ -1,6 +1,6 @@
 ﻿using System;
 using JDI_Commons;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
 using OpenQA.Selenium;

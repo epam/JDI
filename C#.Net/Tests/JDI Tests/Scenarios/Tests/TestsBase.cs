@@ -4,7 +4,7 @@ using JDI_Tests.Scenarios.Page_Objects;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Composite;
 using NUnit.Framework;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Selenium.DriverFactory.WinProcUtils;
 using static JDI_Web.Settings.WebSettings;
 

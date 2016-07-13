@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using JDI_Commons;
 using JDI_Web.Selenium.Base;
 using RestSharp.Extensions;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.WebActions
 {

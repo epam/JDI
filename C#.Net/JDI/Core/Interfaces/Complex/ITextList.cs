@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Epam.JDI.Core.Interfaces.Base;
 
 namespace Epam.JDI.Core.Interfaces.Complex

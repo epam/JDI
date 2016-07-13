@@ -1,13 +1,12 @@
-﻿using System;
-using log4net;
+﻿using NLog;
 
-namespace JDI_Core.Logging
+namespace Epam.JDI.Core.Logging
 {
-    public class Log4Net : ILogger
+    public class NLogger : ILogger
     {
-        private ILog _log;
+        private NLog.ILogger _log;
         private readonly object _locker = new object();
-        public ILog Log
+        public NLog.ILogger Log
         {
             get
             {
@@ -17,7 +16,7 @@ namespace JDI_Core.Logging
                 lock (_locker)
                 {
                     if (_log == null)
-                        _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+                        _log = LogManager.GetCurrentClassLogger();
                 }
                 return _log;
             }
@@ -25,7 +24,7 @@ namespace JDI_Core.Logging
 
         public void Trace(string message)
         {
-            Log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, log4net.Core.Level.Trace, message, null);
+            Log.Trace(message);
         }
 
         public void Debug(string message)
@@ -45,17 +44,17 @@ namespace JDI_Core.Logging
 
         public void Step(string message)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public void TestDescription(string message)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
         public void TestSuit(string message)
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

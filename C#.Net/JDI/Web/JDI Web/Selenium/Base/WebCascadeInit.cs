@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using JDI_Commons;
-using JDI_Core.Base;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Base;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
-using static JDI_Core.Attributes.AttributesUtil;
-using static JDI_Core.ExceptionUtils;
-using static JDI_Core.Settings.JDIData;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Attributes.AttributesUtil;
+using static Epam.JDI.Core.ExceptionUtils;
+using static Epam.JDI.Core.Settings.JDIData;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Base
 {

@@ -1,5 +1,5 @@
-﻿using JDI_Core.Interfaces.Common;
-using JDI_Core.Interfaces.Complex;
+﻿using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Tests.Scenarios.Entities;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Complex;
