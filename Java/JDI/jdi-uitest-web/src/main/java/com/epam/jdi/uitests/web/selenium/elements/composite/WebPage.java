@@ -192,7 +192,7 @@ public class WebPage extends BaseElement implements IPage {
                 () -> getDriver().manage().deleteAllCookies());
     }
 
-    private class StringCheckType {
+    public class StringCheckType {
         private Supplier<String> actual;
         private String equals;
         private String template;
