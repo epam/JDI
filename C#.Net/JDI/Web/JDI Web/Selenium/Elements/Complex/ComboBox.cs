@@ -20,7 +20,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             : base(selectorLocator, optionsNamesLocatorTemplate)
         {
             SetValueAction = (c, value) => NewInput(value);
-            GetTextAction = c => TextField.Text;
+            GetTextAction = c => TextField.GetText;
             _textField = new GetElementType(selectorLocator);
         }
 

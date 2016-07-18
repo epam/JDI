@@ -62,12 +62,12 @@ namespace JDI_Web.Selenium.Attributes
             return button;
         }
 
-        public Textbox GetTextElement()
+        public Text GetTextElement()
         {
-            var textField = this.GetFirstField(typeof(Textbox), typeof(IText));
+            var textField = this.GetFirstField(typeof(Text), typeof(IText));
             if (textField == null)
                 throw Exception($"Can't find Text Element '{ToString()}'");
-            return (Textbox) textField.GetValue(_element);
+            return (Text) textField.GetValue(_element);
         }
     }
 }

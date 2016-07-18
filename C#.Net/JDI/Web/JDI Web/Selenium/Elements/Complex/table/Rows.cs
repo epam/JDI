@@ -42,7 +42,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public Dictionary<string, string> GetRowAsText(string rowName)
         {
-            return GetRow(rowName).ToDictionary(pair => pair.Key, pair => pair.Value.Text);
+            return GetRow(rowName).ToDictionary(pair => pair.Key, pair => pair.Value.GetText);
         }
 
         public Dictionary<string, ICell> CellsToRow(ICollection<ICell> cells)
@@ -77,7 +77,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public Dictionary<string, string> GetRowAsText(int rowNum)
         {
-            return GetRow(rowNum).ToDictionary(pair => pair.Key, pair => pair.Value.Text);
+            return GetRow(rowNum).ToDictionary(pair => pair.Key, pair => pair.Value.GetText);
         }
 
         public Dictionary<string, ICell> GetRow(string rowName)

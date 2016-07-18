@@ -37,7 +37,7 @@ import static com.epam.web.matcher.base.DoScreen.DO_SCREEN_ALWAYS;
 public final class ScreenAssert {
     private ScreenAssert() { }
     private static BaseMatcher getAssert() {
-        return new Check().doScreenshot(DO_SCREEN_ALWAYS);
+        return new Check().setScreenshot(DO_SCREEN_ALWAYS);
     }
 
     public static BaseMatcher ignoreCase() {

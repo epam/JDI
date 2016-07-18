@@ -31,8 +31,7 @@ public class FillFromAnnotationRules {
         if (jTable.width() > 0)
             table.setRowsCount(jTable.width());
         if (!jTable.size().equals("")) {
-            String[] split;
-            split = jTable.size().split("x");
+            String[] split = jTable.size().split("x");
             if (split.length == 1)
                 split = jTable.size().split("X");
             if (split.length != 2)
@@ -42,7 +41,7 @@ public class FillFromAnnotationRules {
         }
 
         switch (jTable.headerType()) {
-            case COLUMN_HEADERS:
+            case COLUMNS_HEADERS:
                 table.hasOnlyColumnHeaders();
             case ROWS_HEADERS:
                 table.hasOnlyRowHeaders();

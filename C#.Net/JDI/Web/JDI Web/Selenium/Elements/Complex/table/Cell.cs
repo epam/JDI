@@ -49,7 +49,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         public string RowName => _rowName != null && !_rowName.Equals("")
                     ? _rowName
                     : Table.Rows.Headers[RowNum - 1];
-        protected Func<Cell, string> TextAction => c => Get().Text;
+        protected Func<Cell, string> TextAction => c => Get().GetText;
 
 
         protected new Func<Cell, bool> SelectedAction => c => Get().Selected;

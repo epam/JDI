@@ -6,6 +6,7 @@ using Epam.JDI.Core.Interfaces.Complex;
 using Epam.JDI.Core.Logging;
 using Epam.JDI.Core.Settings;
 using JDI_Matchers;
+using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
@@ -40,9 +41,9 @@ namespace JDI_Web.Settings
         public static void Init()
         {
             DriverFactory = new WebDriverFactory();
-            Asserter = new NUnitMatcher();
+            Asserter = new WebAssert();
             Timeouts = new WebTimeoutSettings();
-            Logger = new JDILogger();
+            Logger = new NUnitLogger();
             MapInterfaceToElement.Init(DefaultInterfacesMap);
         }
 
@@ -65,7 +66,7 @@ namespace JDI_Web.Settings
             { typeof(IClickable), typeof(Clickable)},
             { typeof(IComboBox), typeof(ComboBox)},
             { typeof(ISelector), typeof(Selector)},
-            { typeof(IText), typeof(Textbox)},
+            { typeof(IText), typeof(Text)},
             { typeof(IImage), typeof(Image)},
             { typeof(ITextArea), typeof(TextArea)},
             { typeof(ITextField), typeof(TextField)},

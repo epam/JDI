@@ -57,7 +57,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public Dictionary<string, string> GetColumnAsText(string colName)
         {
-            return GetColumn(colName).ToDictionary(pair => pair.Key, pair => pair.Value.Text);
+            return GetColumn(colName).ToDictionary(pair => pair.Key, pair => pair.Value.GetText);
         }
 
         public Dictionary<string, ICell> CellsToColumn(Collection<ICell> cells)
@@ -92,7 +92,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public Dictionary<string, string> GetColumnAsText(int colNum)
         {
-            return GetColumn(colNum).ToDictionary(pair => pair.Key, pair => pair.Value.Text);
+            return GetColumn(colNum).ToDictionary(pair => pair.Key, pair => pair.Value.GetText);
         }
 
         public override Dictionary<string, Dictionary<string, ICell>> Get()

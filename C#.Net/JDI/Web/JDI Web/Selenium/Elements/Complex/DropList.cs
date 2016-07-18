@@ -124,7 +124,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             Button.SetAttribute(attributeName, value);
         }
 
-        public string Text => Actions.GetText(d => GetTextAction(this));
+        public string GetText => Actions.GetText(d => GetTextAction(this));
 
         public string WaitText(string text)
         {

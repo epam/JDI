@@ -6,18 +6,25 @@ using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Common
 {
-    public class Textbox : WebElement, IText
+    public class Text : WebElement, IText
     {
-        public Textbox() : this (null) { }
-        public Textbox(By byLocator = null, IWebElement webElement = null)
+        public Text() : this(null) { }
+        public Text(By byLocator = null, IWebElement webElement = null)
             : base(byLocator, webElement) { }
 
         protected Func<WebBaseElement, string> GetTextAction =
-            el => el.WebAvatar.FindImmediately(() => el.WebElement.Text, "");
+            el =>
+            {
+                var getText = el.WebElement.Text ?? "";
+                if (!getText.Equals(""))
+                    return getText;
+                var getValue = el.WebElement.GetAttribute("value");
+                return getValue ?? getText;
+            };
 
-        public string Text => Actions.GetText(GetTextAction);
+        public string GetText => Actions.GetText(GetTextAction);
         
-        protected Func<WebBaseElement, string> GetValueFunc = el => ((Textbox)el).GetTextAction(el);
+        protected Func<WebBaseElement, string> GetValueFunc = el => ((Text)el).GetTextAction(el);
         
         public string Value => Actions.GetValue(GetValueFunc);
 

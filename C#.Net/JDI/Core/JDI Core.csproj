@@ -43,6 +43,10 @@
       <HintPath>..\..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -102,9 +106,11 @@
     <Compile Include="Interfaces\Complex\ITabs.cs" />
     <Compile Include="Interfaces\Complex\ITextList.cs" />
     <Compile Include="Interfaces\IComplex.cs" />
+    <Compile Include="Interfaces\Settings\DefaultDriver.cs" />
     <Compile Include="Interfaces\Settings\IDriver.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\JDILogger.cs" />
+    <Compile Include="Logging\NUnitLogger.cs" />
     <Compile Include="Logging\Log4Net.cs" />
     <Compile Include="Logging\LogLevels.cs" />
     <Compile Include="Logging\NLogger.cs" />
@@ -122,17 +128,17 @@
     <Compile Include="Settings\TimeoutSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Commons\JDI Commons\JDI Commons.csproj">
-      <Project>{c749644d-5901-4fd6-9add-06209bdc1cd2}</Project>
-      <Name>JDI Commons</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\JDI Commons\JDI Commons.csproj">
+      <Project>{c749644d-5901-4fd6-9add-06209bdc1cd2}</Project>
+      <Name>JDI Commons</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

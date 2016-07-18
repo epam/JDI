@@ -195,7 +195,8 @@ namespace JDI_Web.Selenium.Elements.Composite
              * Check that current page url/title equals to expected url/title
              */
             public void Equal()
-            {   
+            {
+                if (_equals == null || _equals.Equals("")) return;
                 Logger.Info($"Page {_what} equals to '{_equals}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Equals(_equals)));
             }
@@ -205,6 +206,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Match()
             {
+                if (_template == null || _template.Equals("")) return;
                 Logger.Info($"Page {_what} matches to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Matches(_template)));
             }
@@ -214,6 +216,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Contains()
             {
+                if (_template == null || _template.Equals("")) return;
                 Logger.Info($"Page {_what} contains to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Contains(_template)));
             }

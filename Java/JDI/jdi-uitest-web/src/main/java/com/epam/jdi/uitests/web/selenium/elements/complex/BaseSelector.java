@@ -29,6 +29,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
@@ -108,7 +109,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         WebElement element = elements.get(0);
         if (elements.size() == 1 && element.getTagName().equals("select"))
             if (getSelector().getOptions().size() > 0) {
-                getSelector().selectByIndex(index);
+                getSelector().selectByIndex(index - 1);
                 return;
             }
             else throw exception("<select> tag has no <option> tags. Please Clarify element locator (%s)", this);
@@ -210,13 +211,13 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
             }
         return elements;
     }
-    public WebElement getWebElement(String name) {
-        return hasLocator() && getLocator().toString().contains("%s")
+    public Function<String, WebElement> getWebElementAction = name ->
+            hasLocator() && getLocator().toString().contains("%s")
                 ? new Element(fillByTemplate(getLocator(), name)).getWebElement()
                 : first(getElements(), el -> el.getText().equals(name));
-    }
-    public WebElement getWebElement(int index) {
-        return getElements().get(index);
+
+    public WebElement getWebElement(String name) {
+        return getWebElementAction.apply(name);
     }
 
     protected boolean isDisplayedAction(String name) {
@@ -224,13 +225,8 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         return element != null && element.isDisplayed();
     }
 
-    private boolean isDisplayedInList(List<WebElement> els, String name) {
-        WebElement element = first(els, el -> el.getText().equals(name));
-        return element != null && element.isDisplayed();
-    }
-
     protected boolean isDisplayedAction(int index) {
-        return getWebElement(index).isDisplayed();
+        return isDisplayedInList(getElements(), index);
     }
 
     private boolean isDisplayedInList(List<WebElement> els, int index) {
@@ -244,7 +240,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction() {
-        List<WebElement> els = actions.findImmediately(this::getElements, null);
+        List<WebElement> els = avatar.findImmediately(this::getElements, null);
         return els != null && !els.isEmpty() && els.get(0).isDisplayed();
     }
 

@@ -4,11 +4,11 @@ using JDI_Web.Selenium.Elements.Common;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {
-    public class Popup : Textbox, IPopup
+    public class Popup : Text, IPopup
     {
         public Popup()
         {
-            GetTextAction = p => GetElementClass.GetTextElement().Text;
+            GetTextAction = p => GetElementClass.GetTextElement().GetText;
         }
 
         public void Ok()

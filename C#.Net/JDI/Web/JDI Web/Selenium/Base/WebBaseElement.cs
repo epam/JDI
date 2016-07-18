@@ -23,7 +23,6 @@ namespace JDI_Web.Selenium.Base
 
         public object Parent { get; set; }
         
-
         public static ActionScenrios ActionScenrios
         {
             set { ActionInvoker.ActionScenrios = value; }
@@ -57,22 +56,14 @@ namespace JDI_Web.Selenium.Base
             set { _typeName = value;  }
         }
         protected Timer Timer => WebAvatar.Timer;
-
-        public WebBaseElement() : this(null)
-        {
-        }
         
-        public WebBaseElement(By byLocator = null, IWebElement webElement = null)
+        public WebBaseElement(By byLocator = null, IWebElement webElement = null, 
+            List<IWebElement> webElements = null)
         {
             Invoker = new ActionInvoker(this);
             GetElementClass = new GetElementClass(this);
             Actions = new ElementsActions(this);
-            _webElement = webElement;
-            Avatar = new GetElementModule
-            {
-                Element = this,
-                ByLocator = byLocator
-            };
+            WebAvatar = new GetElementModule(byLocator, this) { WebElement = webElement, WebElements = webElements };
         }
 
         public IWebDriver WebDriver => WebAvatar.WebDriver;
@@ -96,17 +87,9 @@ namespace JDI_Web.Selenium.Base
             _varName = field.Name;
 
         }
-        public WebBaseElement SetAvatar(GetElementModule avatar, By byLocator = null)
+        public WebBaseElement SetAvatar(GetElementModule avatar = null, By byLocator = null)
         {
-            Avatar = byLocator != null
-                ? new GetElementModule
-                {
-                    Element = this,
-                    ByLocator = byLocator,
-                    LocalElementSearchCriteria = avatar.LocalElementSearchCriteria,
-                    DriverName = avatar.DriverName
-                }
-                : avatar;
+            WebAvatar = (avatar ?? WebAvatar).Copy(byLocator);
             return this;
         }
         public void SetWaitTimeout(long mSeconds)

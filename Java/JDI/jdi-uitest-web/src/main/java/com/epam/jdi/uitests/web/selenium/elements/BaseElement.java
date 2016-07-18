@@ -74,7 +74,9 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement(By byLocator) {
-        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY") ? null : byLocator, this);
+        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY")
+            ? null
+            : byLocator, this);
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {

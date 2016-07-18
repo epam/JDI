@@ -83,11 +83,16 @@ namespace JDI_Commons
         {
             return s.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
         }
-        public static IList<T> ListCopy<T>(this IList<T> list, int from, int to = -1)
+        public static IList<T> ListCopy<T>(this IList<T> list, int from = 0, int to = 0)
         {
+            if (from * to < 0)
+                throw new Exception($"from and to should have same sign ({from}, {to})");
+            if (from < 0)
+                from = list.Count + from - 1;
+            if (to <= 0)
+                to = list.Count + to - 1;
             var result = new List<T>();
-            var bound = to > 0 ? to : list.Count - 1;
-            for (var i = from; i <= bound; i++)
+            for (var i = from; i <= to; i++)
                 result.Add(list[i]);
             return result;
         }

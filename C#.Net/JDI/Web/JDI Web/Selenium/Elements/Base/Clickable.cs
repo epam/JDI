@@ -8,7 +8,7 @@ namespace JDI_Web.Selenium.Elements.Base
 {
     public class Clickable : WebElement, IClickable
     {
-        public Clickable() : this (null) { }
+        public Clickable() : this(null) { }
         public Clickable(By byLocator = null, IWebElement webElement = null) 
             : base(byLocator, webElement) { }
         

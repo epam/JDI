@@ -6,6 +6,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
 public enum TableHeaderTypes {
     ALL_HEADERS,
     NO_HEADERS,
-    COLUMN_HEADERS,
+    COLUMNS_HEADERS,
     ROWS_HEADERS;
 }

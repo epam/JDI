@@ -98,13 +98,14 @@ namespace JDI_Web.Selenium.DriverFactory
                 throw new Exception($"Can't find driver with name {driverName}");
             try
             {
-                if (RunDrivers.ContainsKey(driverName))
-                    return RunDrivers[driverName];
-                var resultDriver = Drivers[driverName]();
-                RunDrivers.Add(driverName, resultDriver);
-                if (resultDriver == null)
-                    throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
-                return resultDriver;
+                if (!RunDrivers.ContainsKey(driverName))
+                {
+                    var resultDriver = Drivers[driverName]();
+                    if (resultDriver == null)
+                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
+                    RunDrivers.Add(driverName, resultDriver);
+                }
+                return RunDrivers[driverName];
             }
             catch
             {

@@ -13,7 +13,7 @@ using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex.table
 {
-    public class Table : Textbox, ITable
+    public class Table : Text, ITable
     {
         private IList<ICell> _allCells = new List<ICell>();
         private readonly Columns _columns = new Columns();
@@ -129,7 +129,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             var newTable = new Table();
             newTable.Rows = Rows.Clone(new Rows(), newTable);
             newTable.Columns = Columns.Clone(new Columns(), newTable);
-            newTable.Avatar = new GetElementModule {ByLocator = Locator, Element = newTable};
+            newTable.WebAvatar = new GetElementModule(Locator, newTable);
             newTable.Parent = Parent;
             return newTable;
         }
@@ -144,9 +144,25 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             Columns.Count = settings.ColumnsCount;
         }
 
+        public ITable SetUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex)
+        {
+            SetAvatar(byLocator:root);
+            CellLocatorTemplate = cell;
+            Rows.LineTemplate = row;
+            Columns.LineTemplate = column;
+            FooterLocator = footer;
+            Columns.StartIndex = colStartIndex;
+            Rows.StartIndex = rowStartIndex;
+            return this;
+        }
         public ITable UseCache()
         {
             Cache = true;
+            return this;
+        }
+        public ITable UseCache(bool value)
+        {
+            Cache = value;
             return this;
         }
 
@@ -394,7 +410,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             return
                 Rows.Get()
-                    .Select(row => row.Value.FirstOrDefault(pair => pair.Value.Text.Equals(value)).Value)
+                    .Select(row => row.Value.FirstOrDefault(pair => pair.Value.GetText.Equals(value)).Value)
                     .FirstOrDefault(result => result != null);
         }
 
@@ -510,7 +526,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         }
         public ICell CellMatch(string regex)
         {
-            return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.Text.Matches(regex)).Value).FirstOrDefault(result => result != null);
+            return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.GetText.Matches(regex)).Value).FirstOrDefault(result => result != null);
         }
         
         public IList<ICell> CellsMatch(string regex, Column column)

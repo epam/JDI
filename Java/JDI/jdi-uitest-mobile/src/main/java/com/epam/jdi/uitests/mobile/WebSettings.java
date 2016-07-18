@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.mobile;
 
 
 import com.epam.jdi.uitests.core.settings.JDISettings;
+import com.epam.jdi.uitests.mobile.appium.TestNGCheck;
 import com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory;
 import com.epam.jdi.uitests.mobile.appium.driver.DriverTypes;
 import com.epam.jdi.uitests.mobile.appium.driver.ScreenshotMaker;
@@ -66,12 +67,13 @@ public class WebSettings extends JDISettings {
 
     public static void init() {
         driverFactory = new AppiumDriverFactory();
-        asserter = new Check() {
+        asserter = new TestNGCheck() {
             @Override
             protected String doScreenshotGetMessage() {
                 return ScreenshotMaker.doScreenshotGetMessage();
             }
-        }.doScreenshot(SCREEN_ON_FAIL);
+        };
+        asserter.doScreenshot("screen_on_fail");
         logger = getLogger("JDI Logger");
         timeouts = new WebTimeoutSettings();
     }

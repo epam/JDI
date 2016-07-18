@@ -215,19 +215,4 @@ public class ElementsActions {
         });
         asserter.isTrue(result);
     }
-
-    public <T> T findImmediately(Supplier<T> func, T ifError) {
-        element.setWaitTimeout(0);
-        Function<WebElement, Boolean> temp = element.avatar.localElementSearchCriteria;
-        element.avatar.localElementSearchCriteria = el -> true;
-        T result;
-        try {
-            result = func.get();
-        } catch (Exception | Error ex) {
-            result = ifError;
-        }
-        element.avatar.localElementSearchCriteria = temp;
-        element.restoreWaitTimeout();
-        return result;
-    }
 }

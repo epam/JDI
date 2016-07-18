@@ -32,23 +32,28 @@ import static com.epam.commons.TryCatchUtil.tryGetResult;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getFunction;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
+import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public abstract class CascadeInit {
+    private Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
 
     public synchronized void initElements(Object parent, String driverName) {
-        foreach(getFields(parent, decorators(), stopTypes()),
-                field -> setElement(parent, parent.getClass(), field, driverName));
+        setFieldsForInit(parent, getFields(parent, decorators(), stopTypes()), parent.getClass(), driverName);
     }
 
-    protected Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
     protected abstract Class<?>[] stopTypes();
 
     public synchronized void initStaticPages(Class<?> parentType, String driverName) {
-        foreach(getStaticFields(parentType, decorators()),
-                field -> setElement(null, parentType, field, driverName));
+        setFieldsForInit(null,
+                getFields(asList(parentType.getDeclaredFields()), decorators(), f -> isStatic(f.getModifiers())),
+                parentType, driverName);
+    }
+    private void setFieldsForInit(Object parent, List<Field> fields, Class<?> parentType, String driverName) {
+        foreach(fields, field -> setElement(parent, parentType, field, driverName));
     }
 
     public synchronized <T extends Application> T initPages(Class<T>  site, String driverName) {
@@ -60,8 +65,7 @@ public abstract class CascadeInit {
 
     protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType);
 
-    protected void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
-        String parentName = parentType == null ? "NULL Class" : parentType.getSimpleName();
+    private void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
         try {
             Class<?> type = field.getType();
             IBaseElement instance = isInterface(type, IPage.class)
@@ -77,12 +81,11 @@ public abstract class CascadeInit {
                 initElements(instance, driverName);
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
-                    parentName + LINE_BREAK + ex.getMessage());
+                    parentType == null ? "NULL Class" : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
 
-
-    protected IBaseElement getInstancePage(Object parent, Field field, Class<?> type, Class<?> parentType) throws IllegalAccessException, InstantiationException {
+    private IBaseElement getInstancePage(Object parent, Field field, Class<?> type, Class<?> parentType) throws IllegalAccessException, InstantiationException {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
         if (instance == null)
             instance = (IBaseElement) type.newInstance();
@@ -90,7 +93,7 @@ public abstract class CascadeInit {
         return instance;
     }
 
-    protected IBaseElement getInstanceElement(Object parent, Class<?> type, Class<?> parentType, Field field, String driverName) {
+    private IBaseElement getInstanceElement(Object parent, Class<?> type, Class<?> parentType, Field field, String driverName) {
         IBaseElement instance = createChildFromFieldStatic(parent, parentType, field, type, driverName);
         instance.setFunction(getFunction(field));
         return instance;
@@ -102,7 +105,7 @@ public abstract class CascadeInit {
     protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent, Class<?> type) {
         return instance;
     }
-    protected IBaseElement fillFromJDIAttribute(IBaseElement instance, Field field) {
+    protected IBaseElement fillFromJDIAnnotation(IBaseElement instance, Field field) {
         return instance;
     }
     private IBaseElement createChildFromFieldStatic(Object parent, Class<?> parentClass, Field field, Class<?> type, String driverName) {
@@ -117,12 +120,12 @@ public abstract class CascadeInit {
             }
         else instance = fillInstance(instance, field);
         instance.setParent(parent);
-        instance = fillFromJDIAttribute(instance, field);
+        instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;
     }
 
-    protected IBaseElement getElementInstance(Field field, String driverName) {
+    private IBaseElement getElementInstance(Field field, String driverName) {
         Class<?> type = field.getType();
         String fieldName = field.getName();
         try { return getElementsRules(field, driverName, type, fieldName);

@@ -17,6 +17,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
     {
         public WebBaseElement Element { get; set; }
         public By ByLocator;
+        public By FrameLocator;
         public WebBaseElement RootElement;
         public string DriverName { get; set; }
 
@@ -24,9 +25,14 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             => WebSettings.WebDriverFactory.GetDriver(DriverName);
         public Func<IWebElement, bool> LocalElementSearchCriteria;
 
-        public GetElementModule()
+        public GetElementModule(WebBaseElement element)
         {
+            Element = element;
             DriverName = JDISettings.DriverFactory.CurrentDriverName;
+        }
+        public GetElementModule(By byLocator, WebBaseElement element) : this(element)
+        {
+            ByLocator = byLocator;
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
@@ -34,6 +40,26 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         private IWebElement _webElement;
         private List<IWebElement> _webElements;
 
+        public GetElementModule Copy()
+        {
+            return Copy(ByLocator);
+        }
+
+        public GetElementModule Copy(By byLocator)
+        {
+            var clone = new GetElementModule(byLocator, Element)
+            {
+                LocalElementSearchCriteria = LocalElementSearchCriteria,
+                FrameLocator = FrameLocator,
+                RootElement = RootElement,
+                DriverName = DriverName,
+                Element = Element,
+                WebElement = _webElement,
+                WebElements = _webElements
+            };
+            return clone;
+        }
+        
         public IWebElement WebElement
         {
             get
@@ -60,12 +86,12 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         public T FindImmediately<T>(Func<T> func, T ifError)
         {
             Element.SetWaitTimeout(0);
-            var temp = Element.WebAvatar.LocalElementSearchCriteria;
-            Element.WebAvatar.LocalElementSearchCriteria = el => true;
+            var temp = LocalElementSearchCriteria;
+            LocalElementSearchCriteria = el => true;
             T result;
             try { result = func.Invoke(); }
             catch { result = ifError; }
-            Element.WebAvatar.LocalElementSearchCriteria = temp;
+            LocalElementSearchCriteria = temp;
             Element.RestoreWaitTimeout();
             return result;
         }

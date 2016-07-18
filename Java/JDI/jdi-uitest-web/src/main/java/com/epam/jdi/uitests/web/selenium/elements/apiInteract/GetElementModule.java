@@ -31,6 +31,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.where;
@@ -51,16 +52,16 @@ public class GetElementModule implements IAvatar {
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
     public WebElement rootElement;
     private String driverName = "";
-    private IBaseElement element;
+    private BaseElement element;
     private WebElement webElement;
     private List<WebElement> webElements;
 
-    public GetElementModule(IBaseElement element) {
+    public GetElementModule(BaseElement element) {
         this.element = element;
         driverName = driverFactory.currentDriverName();
     }
 
-    public GetElementModule(By byLocator, IBaseElement element) {
+    public GetElementModule(By byLocator, BaseElement element) {
         this(element);
         this.byLocator = byLocator;
     }
@@ -98,7 +99,9 @@ public class GetElementModule implements IAvatar {
 
     public WebElement getElement() {
         logger.debug("Get Web Element: " + element);
-        WebElement element = webElement != null ? webElement : timer().getResultByCondition(this::getElementAction, el -> el != null);
+        WebElement element = webElement != null
+                ? webElement
+                : timer().getResultByCondition(this::getElementAction, el -> el != null);
         logger.debug("One Element found");
         return element;
     }
@@ -108,6 +111,21 @@ public class GetElementModule implements IAvatar {
         List<WebElement> elements = getElementsAction();
         logger.debug("Found %s elements", elements.size());
         return elements;
+    }
+
+    public <T> T findImmediately(Supplier<T> func, T ifError) {
+        element.setWaitTimeout(0);
+        Function<WebElement, Boolean> temp = localElementSearchCriteria;
+        localElementSearchCriteria = el -> true;
+        T result;
+        try {
+            result = func.get();
+        } catch (Exception | Error ex) {
+            result = ifError;
+        }
+        localElementSearchCriteria = temp;
+        element.restoreWaitTimeout();
+        return result;
     }
 
     public Timer timer() {

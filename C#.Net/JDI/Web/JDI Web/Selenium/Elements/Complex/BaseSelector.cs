@@ -16,7 +16,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         where TEnum : IConvertible
     {
         protected bool IsSelector;
-        private readonly GetElementType _allLabels;
+        protected GetElementType _allLabels;
         protected SelectElement Selector
         {
             get
@@ -25,12 +25,16 @@ namespace JDI_Web.Selenium.Elements.Complex
                 return new SelectElement(WebElement);
             }
         }
+
+        protected BaseSelector(By optionsNamesLocator, List<IWebElement> webElements = null) : 
+            base(optionsNamesLocator, webElements: webElements) { }
+
         protected BaseSelector(By optionsNamesLocator, By allLabelsLocator) : base(optionsNamesLocator)
         {
             _allLabels = new GetElementType(allLabelsLocator);
         }
 
-        public TextList AllLabels => _allLabels.Get(new TextList(), WebAvatar);
+        public TextList AllLabels => _allLabels?.Get(new TextList(), WebAvatar);
 
         public Action<BaseSelector<TEnum>, string> SelectNameAction = (s, name) =>
         {
@@ -86,7 +90,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             if (elements.Count == 1 && elements[0].TagName.Equals("select"))
                 if (s.Selector.Options.Any())
                 {
-                    s.Selector.SelectByIndex(index);
+                    s.Selector.SelectByIndex(index - 1);
                     return;
                 }
                 else
@@ -157,7 +161,7 @@ namespace JDI_Web.Selenium.Elements.Complex
 
         public string OptionsAsText => Options.Print();
 
-        protected IList<IWebElement> Elements
+        public IList<IWebElement> Elements
         {
             get
             {
@@ -189,15 +193,23 @@ namespace JDI_Web.Selenium.Elements.Complex
             return elements;
         }
 
-        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) => s.DisplayedInList(s.Elements, name);
-
-        private bool DisplayedInList(IList<IWebElement> els, string name)
+        public Func<BaseSelector<TEnum>, string, IWebElement> GetWebElementFunc = (s, name) =>
+            s.HasLocator && s.Locator.ToString().Contains("{0}")
+                ? new WebElement(s.Locator.FillByTemplate(name)).WebElement
+                : s.Elements.FirstOrDefault(el => el.Text.Equals(name)); 
+        public IWebElement GetWebElement(string name)
         {
-            var element = els.FirstOrDefault(el => el.Text.Equals(name));
-            return element != null && element.Displayed;
+            return GetWebElementFunc(this, name);
         }
 
-        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction = (s, index) => s.DisplayedInList(s.Elements, index);
+        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) =>
+        {
+            var el = s.GetWebElement(name);
+            return el != null && el.Displayed;
+        };
+
+        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction = 
+            (s, index) => s.DisplayedInList(s.Elements, index);
 
         private bool DisplayedInList(IList<IWebElement> els, int index)
         {

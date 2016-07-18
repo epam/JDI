@@ -154,7 +154,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     // GET DRIVER
 
-    private String registerLocalDriver(DriverTypes driverType) {
+    protected String registerLocalDriver(DriverTypes driverType) {
         switch (driverType) {
             case CHROME:
                 return registerDriver(driverType,
@@ -215,13 +215,13 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         if (!drivers.keys().contains(driverName))
             throw exception("Can't find driver with name '%s'", driverName);
         try {
-            if (runDrivers.keys().contains(driverName))
-                return runDrivers.get(driverName);
-            WebDriver resultDriver = drivers.get(driverName).get();
-            runDrivers.add(driverName, resultDriver);
-            if (resultDriver == null)
-                throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
-            return resultDriver;
+            if (!runDrivers.keys().contains(driverName)) {
+                WebDriver resultDriver = drivers.get(driverName).get();
+                if (resultDriver == null)
+                    throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
+                runDrivers.add(driverName, resultDriver);
+            }
+            return runDrivers.get(driverName);
         } catch (Exception ex) {
             logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
             throw exception("Can't get driver; Thread: " + Thread.currentThread().getId() + "Exception: " + ex.getMessage());

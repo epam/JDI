@@ -63,7 +63,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             get
             {
                 return Get().ToDictionary(line => line.Key, line 
-                    => line.Value.ToDictionary(el => el.Key, el => el.Value.Text));
+                    => line.Value.ToDictionary(el => el.Key, el => el.Value.GetText));
             }
         }
         public Dictionary<string, SelectableElement> Header()

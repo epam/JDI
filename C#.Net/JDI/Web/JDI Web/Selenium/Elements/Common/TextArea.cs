@@ -5,10 +5,9 @@ namespace JDI_Web.Selenium.Elements.Common
 {
     public class TextArea : TextField, ITextArea
     {
-        public TextArea() : this (null) { }
+        public TextArea() : this(null) { }
         public TextArea(By byLocator = null, IWebElement webElement = null)
-                : base(byLocator, webElement)
-        { }
+            : base(byLocator, webElement) { }
 
         public void InputLines(params string[] textLines)
         {

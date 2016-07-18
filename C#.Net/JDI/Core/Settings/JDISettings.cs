@@ -1,6 +1,7 @@
 ﻿using System;
 using Epam.JDI.Core.Interfaces.Settings;
 using Epam.JDI.Core.Logging;
+using JDI_Core.Interfaces.Settings;
 using static Epam.JDI.Core.Properties.Settings;
 
 namespace Epam.JDI.Core.Settings
@@ -15,7 +16,7 @@ namespace Epam.JDI.Core.Settings
         public static bool ShortLogMessagesFormat = true;
         public static string JDISettingsPath = "test.properties";
         public static bool ExceptionThrown;
-        public static IDriver<object> DriverFactory;
+        public static IDriver<object> DriverFactory = new DefaultDriver();
         public static bool UseCache = false;
         
         public static void ToLog(string message, LogLevels level)

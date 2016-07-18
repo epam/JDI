@@ -22,7 +22,6 @@ import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.IAsserter;
 import org.slf4j.Logger;
 
 import java.util.Collection;
@@ -36,7 +35,7 @@ import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.web.matcher.base.DoScreen.NO_SCREEN;
+import static com.epam.web.matcher.base.DoScreen.*;
 import static com.epam.web.matcher.base.PrintUtils.objToSetValue;
 import static com.epam.web.matcher.base.PrintUtils.printObjectAsArray;
 import static java.lang.String.format;
@@ -48,7 +47,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 /**
  * Created by Roman_Iovlev on 6/9/2015.
  */
-public abstract class BaseMatcher implements IAsserter, IChecker {
+public abstract class BaseMatcher implements IChecker {
     private static Logger logger = getLogger("JDI Logger");
     public void setLogger(Logger logger) { BaseMatcher.logger = logger; }
     private static long waitTimeout = 0;
@@ -72,7 +71,9 @@ public abstract class BaseMatcher implements IAsserter, IChecker {
         this.checkMessage = getCheckMessage(checkMessage);
         return this;
     }
-
+    public void checkMEssage(String checkMessage) {
+        this.checkMessage = getCheckMessage(checkMessage);
+    }
 
     public static void setDefaultTimeout(long timeout) {
         waitTimeout = timeout;
@@ -84,13 +85,29 @@ public abstract class BaseMatcher implements IAsserter, IChecker {
 
     protected abstract Consumer<String> throwFail();
 
-    public BaseMatcher doScreenshot(DoScreen doScreenshot) {
+    public void doScreenshot(DoScreen doScreenshot) {
+        this.doScreenshot = doScreenshot;
+    }
+    public void doScreenshot(String doScreenshot) {
+        switch (doScreenshot) {
+            case "no_screen":
+                this.doScreenshot = NO_SCREEN;
+                break;
+            case "screen_on_fail":
+                this.doScreenshot = SCREEN_ON_FAIL;
+                break;
+            case "do_screen_always":
+                this.doScreenshot = DO_SCREEN_ALWAYS;
+                break;
+        }
+    }
+    public BaseMatcher setScreenshot(DoScreen doScreenshot) {
         this.doScreenshot = doScreenshot;
         return this;
     }
 
-    public BaseMatcher doScreenshot() {
-        return doScreenshot(DoScreen.DO_SCREEN_ALWAYS);
+    public void doScreenshot() {
+        doScreenshot(DoScreen.DO_SCREEN_ALWAYS);
     }
 
     public BaseMatcher ignoreCase() {

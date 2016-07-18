@@ -35,6 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -42,12 +54,12 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Selenium.WebDriver.2.53.1\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Selenium.Support.2.53.1\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -64,6 +76,11 @@
     <Compile Include="Attributes\FindByAttribute.cs" />
     <Compile Include="Attributes\FrameAttribute.cs" />
     <Compile Include="Attributes\JFindByAttribute.cs" />
+    <Compile Include="Attributes\Objects\FillFromAnnotationRules.cs" />
+    <Compile Include="Attributes\Objects\JDropdownAttribute.cs" />
+    <Compile Include="Attributes\Objects\JMenuAttribute.cs" />
+    <Compile Include="Attributes\Objects\JTableAttribute.cs" />
+    <Compile Include="Attributes\Objects\TableHeaderTypes.cs" />
     <Compile Include="Attributes\PageAttribute.cs" />
     <Compile Include="Attributes\SiteAttribute.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -73,6 +90,7 @@
     </Compile>
     <Compile Include="Selenium\Attributes\GetElementClass.cs" />
     <Compile Include="Selenium\Base\GetElementType.cs" />
+    <Compile Include="Selenium\Base\WebAssert.cs" />
     <Compile Include="Selenium\Base\WebBaseElement.cs" />
     <Compile Include="Selenium\Base\WebCascadeInit.cs" />
     <Compile Include="Selenium\DriverFactory\WebDriverByUtils.cs" />
@@ -92,7 +110,7 @@
     <Compile Include="Selenium\Elements\Common\Label.cs" />
     <Compile Include="Selenium\Elements\Common\Link.cs" />
     <Compile Include="Selenium\Elements\Common\TextArea.cs" />
-    <Compile Include="Selenium\Elements\Common\Textbox.cs" />
+    <Compile Include="Selenium\Elements\Common\Text.cs" />
     <Compile Include="Selenium\Elements\Common\TextField.cs" />
     <Compile Include="Selenium\Elements\Complex\BaseSelector.cs" />
     <Compile Include="Selenium\Elements\Complex\CheckList.cs" />
@@ -157,7 +175,7 @@
       <Name>JDI Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Matchers\JDI Matchers\JDI Matchers.csproj">
-      <Project>{822C29A7-C835-40EF-9E83-AE5388BE9A1C}</Project>
+      <Project>{822c29a7-c835-40ef-9e83-ae5388be9a1c}</Project>
       <Name>JDI Matchers</Name>
     </ProjectReference>
   </ItemGroup>

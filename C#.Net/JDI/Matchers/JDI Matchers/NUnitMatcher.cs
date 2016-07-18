@@ -1,12 +1,11 @@
 ﻿using System;
 using JDI_Commons;
-using Epam.JDI.Core.Settings;
 using NUnit.Framework;
 using RestSharp.Extensions;
 
 namespace JDI_Matchers
 {
-    public class NUnitMatcher : IAssert
+    public class NUnitMatcher
     {
         public Exception Exception(string message)
         {

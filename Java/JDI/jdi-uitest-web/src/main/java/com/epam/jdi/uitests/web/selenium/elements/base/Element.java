@@ -105,7 +105,7 @@ public class Element extends BaseElement implements IElement {
 
 
     protected boolean isDisplayedAction() {
-        return actions.findImmediately(() -> getWebElement().isDisplayed(), false);
+        return avatar.findImmediately(() -> getWebElement().isDisplayed(), false);
     }
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);

@@ -15,10 +15,8 @@ namespace JDI_Web.Selenium.Elements.Base
 {
     public class WebElement : WebBaseElement, IElement
     {
-
-        public WebElement() : this (null) { }
-
-        public WebElement(By byLocator = null, IWebElement webElement = null) 
+        public WebElement() : this(null) { }
+        public WebElement(By byLocator = null, IWebElement webElement = null)
             : base(byLocator, webElement) { }
         
         public static T Copy<T>(T element, By newLocator) where T : WebElement

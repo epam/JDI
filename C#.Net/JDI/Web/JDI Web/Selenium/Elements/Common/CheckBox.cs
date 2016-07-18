@@ -2,12 +2,16 @@
 using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
+using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Common
 {
     public class CheckBox : Clickable, ICheckBox
     {
+        public CheckBox() : this(null) { }
+        public CheckBox(By byLocator = null, IWebElement webElement = null)
+            : base(byLocator, webElement) { }
         protected void CheckAction(WebBaseElement el)
         {
             if (!IsCheckedAction(el))

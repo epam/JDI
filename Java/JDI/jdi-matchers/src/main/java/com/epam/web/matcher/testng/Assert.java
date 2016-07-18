@@ -38,7 +38,7 @@ public final class Assert {
     private Assert() { }
     private static DoScreen doScreen = SCREEN_ON_FAIL;
 
-    private static BaseMatcher matcher = new Check().doScreenshot(doScreen);
+    private static BaseMatcher matcher = new Check().setScreenshot(doScreen);
     public static void setMatcher(BaseMatcher matcher) {
         Assert.matcher = matcher;
     }

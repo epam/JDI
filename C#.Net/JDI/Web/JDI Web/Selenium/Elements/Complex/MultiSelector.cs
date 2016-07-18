@@ -60,9 +60,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
             if (Locator.ToString().Contains("{0}"))
-                return new GetElementModule {
-                    ByLocator = Locator.FillByTemplate(name),
-                    Element = this }
+                return new GetElementModule(Locator.FillByTemplate(name), this)
                 .WebElements[0];
             if (AllLabels != null)
                 return GetWebElement(AllLabels.WebElements, name);

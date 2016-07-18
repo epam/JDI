@@ -92,7 +92,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
         hoverAndClick(getEnumValue(name));
     }
     public final void hoverAndSelect(String name) {
-        actions.select(name, this::hoverAndClickAction);
+        hoverAndClick(name);
     }
     public final void hoverAndSelect(TEnum name) {
         hoverAndClick(getEnumValue(name));
@@ -100,20 +100,20 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
 
     @Override
     protected void selectAction(String name) {
-        chooseItemAction(name, WebElement::click);
+        chooseItemAction(name, (webElement) -> webElement.click());
     }
 
     protected void chooseItemAction(String name,  Consumer<WebElement> action) {
         String[] nodes = name.split(separator);
         if (menuLevelsLocators.size() == 0 && hasLocator())
             menuLevelsLocators.add(getLocator());
-        if (menuLevelsLocators.size() >= nodes.length)
-            for(int i=0; i < nodes.length; i++) {
-                String value = nodes[i];
-                List<WebElement> elements = new Selector<>(menuLevelsLocators.get(i)).getElements();
-                WebElement element = first(elements, el -> el.getText().equals(value));
-                action.accept(element);
-            }
+        if (menuLevelsLocators.size() < nodes.length) return;
+        for(int i = 0; i < nodes.length; i++) {
+            String value = nodes[i];
+            List<WebElement> elements = new Selector<>(menuLevelsLocators.get(i)).getElements();
+            WebElement element = first(elements, el -> el.getText().equals(value));
+            action.accept(element);
+        }
     }
 
     public void setUp(List<By> menuLevelsLocators) {

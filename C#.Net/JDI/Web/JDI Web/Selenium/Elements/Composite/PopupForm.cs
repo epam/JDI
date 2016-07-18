@@ -31,7 +31,7 @@ namespace JDI_Web.Selenium.Elements.Composite
         }
         
 
-        public string Text => Invoker.DoJActionResult("Get text", pf => ((PopupForm<T>)pf).GetTextAction(this));
+        public string GetText => Invoker.DoJActionResult("Get text", pf => ((PopupForm<T>)pf).GetTextAction(this));
 
         public string WaitText(string text)
         {

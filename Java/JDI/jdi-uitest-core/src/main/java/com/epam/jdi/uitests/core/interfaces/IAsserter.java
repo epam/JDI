@@ -27,7 +27,8 @@ import java.util.function.BooleanSupplier;
 public interface IAsserter {
     RuntimeException exception(String message, Object... args);
     <TResult> TResult silent(JFuncREx<TResult> func);
-    IAsserter check(String checkMessage);
     void isTrue(Boolean actual);
     void isTrue(BooleanSupplier actual);
+    void checkMEssage(String checkMessage);
+    void doScreenshot(String doScreenshot);
 }
