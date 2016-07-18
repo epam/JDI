@@ -38,9 +38,9 @@ public class WebPage extends BaseElement implements IPage {
     public static boolean checkAfterOpen = false;
     public String url;
     public String title;
-    private CheckPageTypes checkUrlType = CheckPageTypes.EQUAL;
-    private CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
-    private String urlTemplate;
+    public CheckPageTypes checkUrlType = CheckPageTypes.EQUAL;
+    public CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
+    public String urlTemplate;
     public static WebPage currentPage;
 
     public WebPage() {
