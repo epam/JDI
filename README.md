@@ -3,7 +3,7 @@
 ||C#.Net|Java|
 |---|---|---|
 |CI|[![Windows Build status](https://ci.appveyor.com/api/projects/status/0tqpq0g45urdhg2m/branch/master?svg=true)](https://ci.appveyor.com/project/elv1s42/jdi-yqifx/branch/master)|[![Build Status](https://travis-ci.org/epam/JDI.svg?branch=master)](https://travis-ci.org/epam/JDI)|
-|Package|[![NuGet Version and Downloads count](https://buildstats.info/nuget/JDI.UITestFramework)](https://www.nuget.org/packages/JDI.UITestFramework)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons)|
+|Package|[![NuGet Version and Downloads count](https://buildstats.info/nuget/JDI.UICore)](https://www.nuget.org/packages/JDI.UICore)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons)|
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
