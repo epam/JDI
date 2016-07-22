@@ -18,10 +18,14 @@ import static org.apache.commons.io.FileUtils.deleteDirectory;
 
 public class WebDriverProvider {
 
-    public static final String FOLDER_PATH = new File("").getAbsolutePath() + "/src/main/resources/driver/";
+    static final String FOLDER_PATH = new File("").getAbsolutePath() + "/src/main/resources/driver/";
     private static final String TEMP_FOLDER = FOLDER_PATH + "temp/";
-    public static final String CHROME_DRIVER_PATH = checkOS().equals("win") ? FOLDER_PATH + "chromedriver.exe" : FOLDER_PATH + "chromedriver";
-    public static final String IE_DRIVER_PATH = FOLDER_PATH + "IEDriverServer.exe";
+    static final String getChromeDriverPath (String folderPath) {
+        return checkOS().equals("win") ? folderPath + "/chromedriver.exe" : folderPath + "/chromedriver";
+    }
+    static final String getIEDriverPath (String folderPath) {
+        return folderPath + "/IEDriverServer.exe";
+    }
 
     private static final String CHROME_STORAGE = "http://chromedriver.storage.googleapis.com/";
     private static final String CHROME_MAC_DRIVER = "chromedriver_mac32.zip";
@@ -94,17 +98,17 @@ public class WebDriverProvider {
         }
     }
 
-    public static void downloadChromeDriver() {
+    public static void downloadChromeDriver(String folderPath) {
         try {
-            downloadDriver("ChromeDriver", CHROME_DRIVER_PATH, "chromedriver.zip", chromeDriverDownloadUrl());
+            downloadDriver("ChromeDriver", getChromeDriverPath(folderPath), "chromedriver.zip", chromeDriverDownloadUrl());
             if (checkOS().equals("mac") || checkOS().equals("nix"))
-                Runtime.getRuntime().exec("chmod u+x " + CHROME_DRIVER_PATH);
+                Runtime.getRuntime().exec("chmod u+x " + getChromeDriverPath(folderPath));
         } catch (IOException e) {
             throw exception("Can't get %s. Exception: " + e.getMessage(), "ChromeDriver");
         }
     }
 
-    public static void downloadIEDriver() {
-        downloadDriver("IEDriver", IE_DRIVER_PATH, "IEDriverServer_x64_2.53.1.zip", IE_WIN_DRIVER_URL);
+    public static void downloadIEDriver(String folderPath) {
+        downloadDriver("IEDriver", getIEDriverPath(folderPath), "IEDriverServer_x64_2.53.1.zip", IE_WIN_DRIVER_URL);
     }
 }

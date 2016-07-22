@@ -24,7 +24,7 @@ public class baseCucumberScenario {
         try {
             TestNGBase.jdiSetUp();
 
-            getDriverFactory().setDriverPath("C:\\Selenium");
+            getDriverFactory().setDriverPath("C:/Selenium");
             initFromProperties();
             //Assert.noScreenOnFail();
             WebSite.init(EpamJDISite.class);

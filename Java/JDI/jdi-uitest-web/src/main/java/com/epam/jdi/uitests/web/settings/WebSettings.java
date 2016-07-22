@@ -99,6 +99,8 @@ public class WebSettings extends JDISettings {
         JDISettings.initFromProperties();
         fillAction(p -> domain = p, "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
+        fillAction(p -> getDriverFactory().getLatestDriver =
+                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         String isMultithread = getProperty("multithread");
         logger = isMultithread != null && (isMultithread.equals("true") || isMultithread.equals("1"))
             ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))

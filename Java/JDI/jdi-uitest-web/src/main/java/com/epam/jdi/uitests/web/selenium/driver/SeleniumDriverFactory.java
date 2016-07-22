@@ -59,6 +59,7 @@ import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public RunTypes runType = LOCAL;
+    public Boolean getLatestDriver = false;
     private String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public HighlightSettings highlightSettings = new HighlightSettings();
@@ -159,8 +160,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             case CHROME:
                 return registerDriver(driverType,
                         () -> {
-                            downloadChromeDriver();
-                            setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);
+                            if (getLatestDriver)
+                                downloadChromeDriver(driversPath);
+                            setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
                             return webDriverSettings.apply(new ChromeDriver());
                         });
             case FIREFOX:
@@ -170,8 +172,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return registerDriver(driverType, () -> {
                     DesiredCapabilities capabilities = internetExplorer();
                     capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-                    downloadIEDriver();
-                    setProperty("webdriver.ie.driver", IE_DRIVER_PATH);
+                    if (getLatestDriver)
+                        downloadIEDriver(driversPath);
+                    setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
                     return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
                 });
         }

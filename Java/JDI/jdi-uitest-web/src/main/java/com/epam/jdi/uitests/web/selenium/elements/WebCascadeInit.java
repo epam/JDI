@@ -99,7 +99,10 @@ public class WebCascadeInit extends CascadeInit {
                 type = getClassFromInterface(type);
             if (type != null) {
                 instance = (BaseElement) type.newInstance();
-                instance.setAvatar(new GetElementModule(newLocator, instance));
+                if (instance.getAvatar() != null && newLocator == null)
+                    instance.setAvatar(new GetElementModule(instance));
+                else
+                    instance.setAvatar(new GetElementModule(newLocator, instance));
             }
         }
         if (instance == null)
