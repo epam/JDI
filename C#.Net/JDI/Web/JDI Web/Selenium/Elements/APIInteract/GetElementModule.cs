@@ -7,6 +7,7 @@ using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Base;
+using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -25,13 +26,10 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             => WebSettings.WebDriverFactory.GetDriver(DriverName);
         public Func<IWebElement, bool> LocalElementSearchCriteria;
 
-        public GetElementModule(WebBaseElement element)
+        public GetElementModule(WebBaseElement element, By byLocator = null)
         {
             Element = element;
             DriverName = JDISettings.DriverFactory.CurrentDriverName;
-        }
-        public GetElementModule(By byLocator, WebBaseElement element) : this(element)
-        {
             ByLocator = byLocator;
         }
 
@@ -47,7 +45,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
 
         public GetElementModule Copy(By byLocator)
         {
-            var clone = new GetElementModule(byLocator, Element)
+            var clone = new GetElementModule(Element, byLocator)
             {
                 LocalElementSearchCriteria = LocalElementSearchCriteria,
                 FrameLocator = FrameLocator,
@@ -131,8 +129,12 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         private ISearchContext SearchContext(object element)
         {
             WebBaseElement el;
-            if (element == null || (el = element as WebBaseElement) == null || el.Parent == null)
+            if (element == null || (el = element as WebBaseElement) == null 
+                || (el.Parent == null && el.FrameLocator == null))
                 return WebDriver.SwitchTo().DefaultContent();
+            var elem = element as WebElement;
+            if (elem?.WebAvatar._webElement != null)
+                return elem.WebElement;
             var locator = el.Locator;
             var searchContext = locator.ContainsRoot()
                 ? WebDriver.SwitchTo().DefaultContent()
@@ -140,6 +142,9 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             locator = locator.ContainsRoot()
                     ? locator.TrimRoot()
                     : locator;
+            var frame = el.WebAvatar.FrameLocator;
+            if (frame != null)
+                WebDriver.SwitchTo().Frame(WebDriver.FindElement(frame));
             return locator != null
                 ? searchContext.FindElement(CorrectXPath(locator))
                 : searchContext;

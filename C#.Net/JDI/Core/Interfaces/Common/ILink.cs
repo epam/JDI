@@ -1,6 +1,8 @@
-﻿namespace Epam.JDI.Core.Interfaces.Common
+﻿using Epam.JDI.Core.Interfaces.Base;
+
+namespace Epam.JDI.Core.Interfaces.Common
 {
-    public interface ILink
+    public interface ILink : IClickable, IText
     {
         /**
          * @return Get link destination

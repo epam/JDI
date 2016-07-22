@@ -20,7 +20,8 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         public int Count
         {
             get { return GetCount(false); }
-            set { if (Table.Cache) _count = value; }
+            set { if (Table.Cache)
+                    _count = value; }
         }
         
         private IList<string> _headers;
@@ -29,7 +30,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             _headers = new List<string>(headers);
         }
-
+        
         public IList<string> Headers
         {
             set
@@ -41,7 +42,9 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             {
                 if (_headers != null)
                     return new List<string>(_headers);
-                var localHeaders = HasHeader ? Timer.GetResult(GetHeadersTextAction) : GetNumList(Count);
+                var localHeaders = HasHeader 
+                    ? Timer.GetResult(GetHeadersTextAction) 
+                    : GetNumList(Count);
                 if (localHeaders == null || localHeaders.Count == 0)
                     return new List<string>();
                 if (Count > 0 && localHeaders.Count > Count)

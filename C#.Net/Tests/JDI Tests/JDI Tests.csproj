@@ -60,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Scenarios\Entities\Attendee.cs" />
+    <Compile Include="Scenarios\Entities\Job.cs" />
     <Compile Include="Scenarios\Entities\JobSearchFilter.cs" />
     <Compile Include="Scenarios\Entities\User.cs" />
     <Compile Include="Scenarios\Enums\Headers.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Scenarios\Enums\JobCategories.cs" />
     <Compile Include="Scenarios\Enums\JobListHeaders.cs" />
     <Compile Include="Scenarios\Enums\Locations.cs" />
+    <Compile Include="Scenarios\Page Objects\Elements\JobColumn.cs" />
+    <Compile Include="Scenarios\Page Objects\Elements\JobTable.cs" />
     <Compile Include="Scenarios\Page Objects\EpamSite.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\AboutCompanyPage.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\AboutPage.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Scenarios\Page Objects\Pages\RequestInformationPage.cs" />
     <Compile Include="Scenarios\Page Objects\Sections\AddCVform.cs" />
     <Compile Include="Scenarios\Page Objects\Sections\JobFilter.cs" />
+    <Compile Include="Scenarios\Tests\FrameTests.cs" />
     <Compile Include="Scenarios\Tests\SmokeTests.cs" />
     <Compile Include="Scenarios\Tests\TestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

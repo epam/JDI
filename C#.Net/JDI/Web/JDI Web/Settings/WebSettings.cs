@@ -82,6 +82,8 @@ namespace JDI_Web.Settings
             { typeof(IMenu), typeof(Menu)},
             { typeof(IFileInput), typeof(FileInput)},
             { typeof(IDatePicker), typeof(DatePicker)},
+            { typeof(ILink), typeof(Link)}
+
         };
     }
 }

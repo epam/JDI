@@ -1,4 +1,6 @@
-﻿namespace JDI_Web.Selenium.Elements.Complex.table
+﻿using System;
+
+namespace JDI_Web.Selenium.Elements.Complex.table
 {
     public class Column : RowColumn
     {
@@ -12,6 +14,10 @@
         public static Column column(string name)
         {
             return new Column(name: name);
+        }
+        public static Column column(Enum name)
+        {
+            return column(name.ToString());
         }
     }
 }

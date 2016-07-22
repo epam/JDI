@@ -48,7 +48,7 @@ namespace Epam.JDI.Core.Settings
 
         protected static void FillFromSettings(Action<string> action, string name)
         {
-            JDI_Commons.ExceptionUtils.AvoidExceptions(() => action.Invoke(Default[name].ToString()));
+            ExceptionUtils.AvoidExceptions(() => action.Invoke(Default[name].ToString()));
         }
         
         public static void InitFromProperties(string propertyPath)

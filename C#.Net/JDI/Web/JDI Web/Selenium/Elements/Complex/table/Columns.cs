@@ -51,7 +51,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             return
                 ActionWithException(
-                    () => Table.Columns.GetLineAction(colName).Select(el => el.Text).ToList(), 
+                    () => GetLineAction(colName).Select(el => el.Text).ToList(), 
                     ex => $"Can't Get Column '{colName}'. Reason: {ex}");
         }
 
@@ -67,7 +67,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public Dictionary<string, ICell> GetColumn(int colNum)
         {
-            if (Count < 0 || Table.Columns.Count < colNum || colNum <= 0)
+            if (Count < 0 || Count < colNum || colNum <= 0)
                 throw Exception($"Can't Get Column '{colNum}'. [num] > RowsCount({Count}).");
             return ActionWithException(() =>
             {
@@ -86,7 +86,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             if (Count < 0 || Count < colNum || colNum <= 0)
                 throw Exception($"Can't Get Column '{colNum}'. [num] > RowsCount({Count}).");
-            return ActionWithException(() => Table.Columns.GetLineAction(colNum).Select(el => el.Text).ToList(),
+            return ActionWithException(() => GetLineAction(colNum).Select(el => el.Text).ToList(),
                 ex => $"Can't Get Column '{colNum}'. Reason: {ex}");
         }
 

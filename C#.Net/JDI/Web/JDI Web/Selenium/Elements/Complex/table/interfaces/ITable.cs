@@ -121,9 +121,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table.interfaces
          * Each Column is map: rowName:cell
          */
         Dictionary<string, ICell> Column(string value, Row row);
-
-        Rows Rows();
-
+        
         /**
          * Get Row with index <br>
          * Each Row is map: columnName:cell

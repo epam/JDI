@@ -10,6 +10,7 @@ namespace Epam.JDI.Core.Logging
         public void Trace(string message)
         {
             WriteLine($"[Trace] {message}");
+            System.Diagnostics.Debug.WriteLine("");
         }
 
         public void Debug(string message)

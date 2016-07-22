@@ -26,6 +26,7 @@ namespace JDI_Tests.Scenarios.Tests
             _timer = new Timer();
             
             WebSite.Init(typeof(EpamSite));
+            WebSite.Init(typeof(W3CSite));
             EpamSite.HomePage.Open();
             Logger.Info("Run Tests");
         }

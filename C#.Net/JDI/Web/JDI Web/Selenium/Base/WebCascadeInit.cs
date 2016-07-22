@@ -16,6 +16,7 @@ using JDI_Web.Selenium.Elements.Complex.table.interfaces;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using RestSharp.Extensions;
 using static Epam.JDI.Core.Settings.JDIData;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -26,7 +27,7 @@ namespace JDI_Web.Selenium.Base
 {
     public class WebCascadeInit : CascadeInit
     {
-        protected override Type[] StopTypes => new Type[]
+        protected override Type[] StopTypes => new []
             {
                 typeof(object),
                 typeof(WebPage),
@@ -44,17 +45,17 @@ namespace JDI_Web.Selenium.Base
         {
             var element = (WebBaseElement) instance;
             if (!element.HasLocator)
-                element.Avatar = new GetElementModule(GetNewLocator(field), element);
+                element.Avatar = new GetElementModule(element, GetNewLocator(field));
             return element;
         }
-        protected IBaseElement FillFromJDIAnnotation(IBaseElement instance, FieldInfo field)
+        protected override IBaseElement FillFromJDIAttribute(IBaseElement instance, FieldInfo field)
         {
             var element = (WebBaseElement) instance;
             FillFromAnnotation(element, field);
             return element;
         }
 
-        protected new IBaseElement SpecificAction(IBaseElement instance, FieldInfo field, object parent, Type type)
+        protected override IBaseElement SpecificAction(IBaseElement instance, FieldInfo field, object parent, Type type)
         {
             var element = (WebBaseElement) instance;
             if (parent != null && type == null) return element;
@@ -83,7 +84,8 @@ namespace JDI_Web.Selenium.Base
                 if (type != null)
                 {
                     instance = (WebBaseElement)Activator.CreateInstance(type);
-                    instance.WebAvatar.ByLocator = newLocator;
+                    if (newLocator != null)
+                        instance.WebAvatar.ByLocator = newLocator;
                 }
             }
             if (instance == null)
@@ -103,11 +105,11 @@ namespace JDI_Web.Selenium.Base
             By byLocator = null;
             var locatorGroup = AppVersion;
             if (locatorGroup == null)
-                return FindByAttribute.Locator(field);
+                return FindByAttribute.Locator(field) ?? field.GetFindsBy();
             var jFindBy = field.GetAttribute<JFindByAttribute>();
             if (jFindBy != null && locatorGroup.Equals(jFindBy.Group))
                 byLocator = jFindBy.ByLocator;
-            return byLocator ?? FindByAttribute.Locator(field);
+            return byLocator ?? (FindByAttribute.Locator(field) ?? field.GetFindsBy());
         }
 
         private static void FillFromAnnotation(WebBaseElement instance, FieldInfo field)

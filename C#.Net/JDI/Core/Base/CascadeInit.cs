@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Complex;
@@ -56,11 +55,11 @@ namespace Epam.JDI.Core.Base
             instance.SetFunction(GetFunction(field));
             return instance;
         }
-        protected IBaseElement SpecificAction(IBaseElement instance, FieldInfo field, object parent, Type type)
+        protected virtual IBaseElement SpecificAction(IBaseElement instance, FieldInfo field, object parent, Type type)
         {
             return instance;
         }
-        protected IBaseElement FillFromJDIAttribute(IBaseElement instance, FieldInfo field)
+        protected virtual IBaseElement FillFromJDIAttribute(IBaseElement instance, FieldInfo field)
         {
             return instance;
         }
@@ -90,8 +89,6 @@ namespace Epam.JDI.Core.Base
                     : GetInstanceElement(parent, type, parentType, field, driverName);
 
                 instance.SetName(field);
-                if (field.Name.Equals("HeaderMenu"))
-                    instance.Avatar.DriverName = driverName;
 
                 if (parent != null)
                     instance.Avatar.DriverName = driverName;

@@ -20,9 +20,9 @@ namespace JDI_Web.Attributes.Objects
                     jTable.ColStartIndex, jTable.RowStartIndex);
 
             if (jTable.Header != null)
-                table.HasColumnHeaders(jTable.Header);
+                table.ColumnHeaders = jTable.Header;
             if (jTable.RowsHeader != null)
-                table.HasRowHeaders(jTable.RowsHeader);
+                table.RowHeaders = jTable.RowsHeader;
 
             if (jTable.Height > 0)
                 table.SetColumnsCount(jTable.Height);
@@ -38,22 +38,7 @@ namespace JDI_Web.Attributes.Objects
                 table.SetColumnsCount(Parse(split[0]));
                 table.SetRowsCount(Parse(split[1]));
             }
-
-            switch (jTable.HeaderType)
-            {
-                case ColumnsHeaders:
-                    table.HasOnlyColumnHeaders();
-                    break;
-                case RowsHeaders:
-                    table.HasOnlyRowHeaders();
-                    break;
-                case AllHeaders:
-                    table.HasAllHeaders();
-                    break;
-                case NoHeaders:
-                    table.HasNoHeaders();
-                    break;
-            }
+            table.HeaderType = jTable.HeaderType;
             table.UseCache(jTable.UseCache);
         }
 

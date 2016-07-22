@@ -22,6 +22,18 @@ namespace JDI_Web.Selenium.Elements.Complex
             SelectedNumAction = (m, index) => SelectedElementAction(this, GetWebElement(index));
             GetValueAction = m => AreSelected().Print();
             SetValueAction = (m, value) => SelectListNamesAction(this, value.Split(_separator));
+            GetWebElementFunc = (s, name) =>
+            {
+                var ms = (MultiSelector<TEnum>) s;
+                if (!ms.HasLocator && ms.AllLabels == null)
+                    throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
+                if (ms.Locator.ToString().Contains("{0}"))
+                    return new GetElementModule(ms, ms.Locator.FillByTemplate(name))
+                        .WebElements[0];
+                if (ms.AllLabels != null)
+                    return ms.GetWebElement(AllLabels.WebElements, name);
+                return ms.GetWebElement(GetElementsFromTag(), name);
+            };
         }
 
         public Action<MultiSelector<TEnum>> ClearAction = m =>
@@ -54,19 +66,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             els.Where(el => SelectedNameAction(this, el.Text)).ForEach(el => el.Click());
         }
-
-        protected IWebElement GetWebElement(string name)
-        {
-            if (!HasLocator && AllLabels == null)
-                throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            if (Locator.ToString().Contains("{0}"))
-                return new GetElementModule(Locator.FillByTemplate(name), this)
-                .WebElements[0];
-            if (AllLabels != null)
-                return GetWebElement(AllLabels.WebElements, name);
-            return GetWebElement(GetElementsFromTag(), name);
-        }
-
+        
         private IWebElement GetWebElement(IList<IWebElement> els, string name)
         {
             if (els == null)

@@ -18,7 +18,7 @@ namespace JDI_Web.Selenium.Base
     public class WebBaseElement : IBaseElement
     {
         public By Locator => WebAvatar.ByLocator;
-        public By Frame;
+        public By FrameLocator => WebAvatar.FrameLocator;
         private readonly IWebElement _webElement;
 
         public object Parent { get; set; }
@@ -63,7 +63,7 @@ namespace JDI_Web.Selenium.Base
             Invoker = new ActionInvoker(this);
             GetElementClass = new GetElementClass(this);
             Actions = new ElementsActions(this);
-            WebAvatar = new GetElementModule(byLocator, this) { WebElement = webElement, WebElements = webElements };
+            WebAvatar = new GetElementModule(this, byLocator) { WebElement = webElement, WebElements = webElements };
         }
 
         public IWebDriver WebDriver => WebAvatar.WebDriver;

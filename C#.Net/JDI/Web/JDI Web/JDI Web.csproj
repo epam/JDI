@@ -75,6 +75,7 @@
     <Compile Include="Attributes\DemoSettingsAttribute.cs" />
     <Compile Include="Attributes\FindByAttribute.cs" />
     <Compile Include="Attributes\FrameAttribute.cs" />
+    <Compile Include="Attributes\FindsByExtension.cs" />
     <Compile Include="Attributes\JFindByAttribute.cs" />
     <Compile Include="Attributes\Objects\FillFromAnnotationRules.cs" />
     <Compile Include="Attributes\Objects\JDropdownAttribute.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Selenium\Elements\Complex\table\Cell.cs" />
     <Compile Include="Selenium\Elements\Complex\table\Column.cs" />
     <Compile Include="Selenium\Elements\Complex\table\Columns.cs" />
+    <Compile Include="Selenium\Elements\Complex\table\EntityTable.cs" />
     <Compile Include="Selenium\Elements\Complex\table\interfaces\ICell.cs" />
     <Compile Include="Selenium\Elements\Complex\table\interfaces\ITable.cs" />
     <Compile Include="Selenium\Elements\Complex\table\interfaces\ITableLine.cs" />

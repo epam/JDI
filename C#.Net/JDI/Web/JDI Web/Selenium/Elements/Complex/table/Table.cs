@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JDI_Commons;
+using JDI_Web.Attributes.Objects;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
@@ -49,73 +50,68 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         }
 
         public bool Cache { set; get; }
-        protected By CellLocatorTemplate { set; get; }
-        public By FooterLocator { get; set; } = By.XPath(".//tfoot/tr/th");
+
+        public By RootBy { set { WebAvatar.ByLocator = value;  } }
+        protected By CellLocatorBy { set; get; }
+        public By ColumnBy { set { Columns.LineTemplate = value; } }
+        public By RowBy { set { Rows.LineTemplate = value; } }
+        public By FooterBy { get; set; } = By.XPath(".//tfoot/tr/th");
+        public By ColumnHeaderBy { set { Columns.HeadersLocator = value; } }
+        public By RowHeaderBy { set { Rows.HeadersLocator = value; } }
+
+        public string[] ColumnHeaders
+        {
+            set
+            {
+                Columns.AddHeaders(value);
+                Columns.HasHeader = true;
+            }
+        }
+
+        public string[] RowHeaders
+        {
+            set
+            {
+                Rows.AddHeaders(value);
+                Rows.HasHeader = true;
+            }
+        }
+
+        public int ColumnFrom { set { Columns.StartIndex = value; } }
+        public int RowFrom { set { Rows.StartIndex = value; } }
+
+        public TableHeaderTypes HeaderType
+        {
+            set
+            {
+                switch (value)
+                {
+                    case TableHeaderTypes.AllHeaders:
+                        Columns.HasHeader = true;
+                        Rows.HasHeader = true;
+                        break;
+                    case TableHeaderTypes.NoHeaders:
+                        Columns.HasHeader = false;
+                        Rows.HasHeader = false;
+                        break;
+                    case TableHeaderTypes.ColumnsHeaders:
+                        Columns.HasHeader = true;
+                        Rows.HasHeader = false;
+                        break;
+                    case TableHeaderTypes.RowsHeaders:
+                        Columns.HasHeader = false;
+                        Rows.HasHeader = true;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
+                }
+            }
+        }
 
         public Table()
         {
             Columns.Table = this;
             Rows.Table = this;
-        }
-
-        public Table(By locator) : base(locator)
-        {
-            Columns.Table = this;
-            Rows.Table = this;
-        }
-
-        public Table(By columnHeader, By row, By column) : this()
-        {
-            if (column != null)
-                Columns.LineTemplate = column;
-            if (columnHeader != null)
-                Columns.HeadersLocator = columnHeader;
-            if (row != null)
-                Rows.LineTemplate = row;
-        }
-
-        public Table(By rowHeader, By columnHeader, By row, By column, int rowStartIndex, int columnStartIndex) : this()
-        {
-            if (column != null)
-                Columns.LineTemplate = column;
-            if (columnHeader != null)
-                Columns.HeadersLocator = columnHeader;
-            if (row != null)
-                Rows.LineTemplate = row;
-            if (rowHeader != null)
-                Rows.HeadersLocator = rowHeader;
-
-            if (columnStartIndex > -1)
-                Columns.StartIndex = columnStartIndex;
-            if (rowStartIndex > -1)
-                Rows.StartIndex = rowStartIndex;
-        }
-
-        public Table(By tableLocator, By cellLocatorTemplate) : this(tableLocator)
-        {
-            CellLocatorTemplate = cellLocatorTemplate;
-        }
-
-        public Table(By columnHeader, By rowHeader, By row, By column, By footer, TableSettings settings,
-            int columnStartIndex, int rowStartIndex) : this()
-        {
-            Columns.LineTemplate = column;
-            if (columnHeader != null)
-                Columns.HeadersLocator = columnHeader;
-            Rows.LineTemplate = row;
-            if (rowHeader != null)
-                Rows.HeadersLocator = rowHeader;
-            FooterLocator = footer;
-
-            Columns.StartIndex = columnStartIndex;
-            Rows.StartIndex = rowStartIndex;
-
-            SetTableSettings(settings);
-        }
-
-        public Table(TableSettings settings) : this()
-        {
-            SetTableSettings(settings);
         }
 
 
@@ -129,7 +125,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             var newTable = new Table();
             newTable.Rows = Rows.Clone(new Rows(), newTable);
             newTable.Columns = Columns.Clone(new Columns(), newTable);
-            newTable.WebAvatar = new GetElementModule(Locator, newTable);
+            newTable.WebAvatar = new GetElementModule(newTable, Locator);
             newTable.Parent = Parent;
             return newTable;
         }
@@ -146,20 +142,22 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public ITable SetUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex)
         {
-            SetAvatar(byLocator:root);
-            CellLocatorTemplate = cell;
+            SetAvatar(byLocator: root);
+            CellLocatorBy = cell;
             Rows.LineTemplate = row;
             Columns.LineTemplate = column;
-            FooterLocator = footer;
+            FooterBy = footer;
             Columns.StartIndex = colStartIndex;
             Rows.StartIndex = rowStartIndex;
             return this;
         }
+
         public ITable UseCache()
         {
             Cache = true;
             return this;
         }
+
         public ITable UseCache(bool value)
         {
             Cache = value;
@@ -199,11 +197,6 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             return columnCell != null ? Columns.GetColumn(columnCell.ColumnNum) : null;
         }
 
-        Rows ITable.Rows()
-        {
-            throw new NotImplementedException();
-        }
-
         public Dictionary<string, ICell> Row(string value, Column column)
         {
             var rowCell = Cell(value, column);
@@ -222,7 +215,6 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         private Dictionary<string, ICell> Column(Column column)
         {
-
             return column.Get(Column, Column);
         }
 
@@ -251,62 +243,10 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             return row.Get(Row, Row);
         }
 
-        public ITable HasAllHeaders()
-        {
-            Columns.HasHeader = true;
-            Rows.HasHeader = true;
-            return this;
-        }
-
-        public ITable HasNoHeaders()
-        {
-            Columns.HasHeader = false;
-            Rows.HasHeader = false;
-            return this;
-        }
-
-        public ITable HasOnlyColumnHeaders()
-        {
-            Columns.HasHeader = true;
-            Rows.HasHeader = false;
-            return this;
-        }
-
-        public ITable HasOnlyRowHeaders()
-        {
-            Rows.HasHeader = true;
-            return this;
-        }
-
-
-        public ITable HasColumnHeaders(IList<string> value)
-        {
-            Columns.HasHeader = true;
-            Columns.AddHeaders(value);
-            return this;
-        }
-
-        public ITable HasColumnHeaders(Type headers)
-        {
-            return HasColumnHeaders(GetAllEnumNames(headers));
-        }
-
-        public ITable HasRowHeaders(IList<string> value)
-        {
-            Rows.HasHeader = true;
-            Rows.AddHeaders(value);
-            return this;
-        }
-
-        public ITable HasRowHeaders(Type headers)
-        {
-            return HasRowHeaders(GetAllEnumNames(headers));
-        }
-
         private IList<string> GetAllEnumNames(Type headers)
         {
-            return typeof (Enum).IsAssignableFrom(headers)
-                ? Enum.GetNames(headers).ToList()
+            return typeof(Enum).IsAssignableFrom(headers) 
+                ? Enum.GetNames(headers).ToList() 
                 : headers.GetFields().ToList().Select(el => el.GetValue(null).ToString()).ToList();
         }
 
@@ -324,7 +264,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         protected IList<string> GetFooterAction()
         {
-            return WebElement.FindElements(FooterLocator).Select(e => e.Text).ToList();
+            return WebElement.FindElements(FooterBy).Select(e => e.Text).ToList();
         }
 
 
@@ -369,11 +309,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             int colIndex = column.Get(GetColumnIndex, num => num + Columns.StartIndex - 1);
             int rowIndex = (int) row.Get(GetRowIndex, num => num + Rows.StartIndex - 1);
-            return AddCell(colIndex, rowIndex,
-                column.Get(name => Columns.Headers.IndexOf(name) + 1, num => num),
-                row.Get(name => Rows.Headers.IndexOf(name) + 1, num => num),
-                column.Get(name => name, num => ""),
-                row.Get(name => name, num => ""));
+            return AddCell(colIndex, rowIndex, column.Get(name => Columns.Headers.IndexOf(name) + 1, num => num), row.Get(name => Rows.Headers.IndexOf(name) + 1, num => num), column.Get(name => name, num => ""), row.Get(name => name, num => ""));
         }
 
         public ICell Cell(string columnName, string rowName)
@@ -388,11 +324,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public ICell Cell(IWebElement webElement, Column column, Row row)
         {
-            return AddCell(webElement,
-                column.Get(name => Columns.Headers.IndexOf(name) + 1, num => num),
-                row.Get(name => Rows.Headers.IndexOf(name) + 1, num => num),
-                column.Get(name => name, num => ""),
-                row.Get(name => name, num => ""));
+            return AddCell(webElement, column.Get(name => Columns.Headers.IndexOf(name) + 1, num => num), row.Get(name => Rows.Headers.IndexOf(name) + 1, num => num), column.Get(name => name, num => ""), row.Get(name => name, num => ""));
         }
 
         private IList<ICell> Matches(Collection<ICell> list, string regex)
@@ -408,18 +340,13 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public ICell Cell(string value)
         {
-            return
-                Rows.Get()
-                    .Select(row => row.Value.FirstOrDefault(pair => pair.Value.GetText.Equals(value)).Value)
-                    .FirstOrDefault(result => result != null);
+            return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.GetText.Equals(value)).Value).FirstOrDefault(result => result != null);
         }
 
         public IList<ICell> GetCells()
         {
             var rows = Rows.Get();
-            var result =
-                (from columnName in Columns.Headers from rowName in Rows.Headers select rows[rowName][columnName])
-                    .ToList();
+            var result = (from columnName in Columns.Headers from rowName in Rows.Headers select rows[rowName][columnName]).ToList();
             if (Cache)
                 AllCells = result;
             return result;
@@ -490,7 +417,8 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public bool Empty
         {
-            get {
+            get
+            {
                 WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.Zero);
                 var rowsCount = Rows.GetCount(true);
                 WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.CurrentTimeoutSec));
@@ -498,7 +426,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             }
         }
 
-    public bool WaitHaveRows()
+        public bool WaitHaveRows()
         {
             return WaitRows(1);
         }
@@ -524,21 +452,22 @@ namespace JDI_Web.Selenium.Elements.Complex.table
         {
             return Matches(new Collection<ICell>(GetCells()), regex);
         }
+
         public ICell CellMatch(string regex)
         {
             return Rows.Get().Select(row => row.Value.FirstOrDefault(pair => pair.Value.GetText.Matches(regex)).Value).FirstOrDefault(result => result != null);
         }
-        
+
         public IList<ICell> CellsMatch(string regex, Column column)
         {
             var columnLine = Column(column);
-            return new List<ICell>(((Dictionary<string, ICell>)columnLine.Where(v => v.Key.Matches(regex))).Values);
+            return new List<ICell>(((Dictionary<string, ICell>) columnLine.Where(v => v.Key.Matches(regex))).Values);
         }
 
         public IList<ICell> CellsMatch(string regex, Row row)
         {
             var columnLine = Row(row);
-            return new List<ICell>(((Dictionary<string, ICell>)columnLine.Where(v => v.Key.Matches(regex))).Values);
+            return new List<ICell>(((Dictionary<string, ICell>) columnLine.Where(v => v.Key.Matches(regex))).Values);
         }
 
         private int GetColumnIndex(string name)
@@ -548,9 +477,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             if (headers != null && headers.Contains(name))
                 nameIndex = headers.IndexOf(name);
             else
-            throw Exception("Can't Get Column: '" + name + "'. " + ((headers == null)
-                    ? "ColumnHeaders is Null"
-                    : "Available ColumnHeaders: " + headers.Print(", ", "'{0}'") + ")"));
+                throw Exception("Can't Get Column: '" + name + "'. " + ((headers == null) ? "ColumnHeaders is Null" : "Available ColumnHeaders: " + headers.Print(", ", "'{0}'") + ")"));
             return nameIndex + Columns.StartIndex;
         }
 
@@ -561,18 +488,13 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             if (headers != null && headers.Contains(name))
                 nameIndex = headers.IndexOf(name);
             else
-                throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers().Print(", ", "'{0}'")}"); 
+                throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers().Print(", ", "'{0}'")}");
             return nameIndex + Rows.StartIndex;
         }
 
         protected new string GetTextAction()
         {
-            return "||X||" + Columns.Headers.Print("|") + "||\n" +
-                    Rows.Headers.Select(rowName => 
-                        "||" + rowName + "||" + GetCells().Where(cell => 
-                            cell.RowName.Equals(rowName)).Select(cell => cell.Value)
-                            .Print("|") + "||")
-                                .Print("\n");
+            return "||X||" + Columns.Headers.Print("|") + "||\n" + Rows.Headers.Select(rowName => "||" + rowName + "||" + GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") + "||").Print("\n");
         }
 
         private ICell AddCell(int colIndex, int rowIndex, int colNum, int rowNum, string colName, string rowName)
@@ -580,7 +502,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             var cell = (Cell) AllCells.FirstOrDefault(c => c.ColumnNum == colNum && c.RowNum == rowNum);
             if (cell != null)
                 return cell.UpdateData(colName, rowName);
-            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorTemplate, this, colIndex, rowIndex);
+            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorBy, this, colIndex, rowIndex);
             cell.SetAvatar((GetElementModule) cell.Get().Avatar);
 
             if (Cache)
@@ -596,7 +518,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
                 cell.WebElement = webElement;
                 return cell.UpdateData(colName, rowName);
             }
-            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorTemplate, this, -1, webElement: webElement);
+            cell = new Cell(colNum, rowNum, colName, rowName, CellLocatorBy, this, -1, webElement: webElement);
 
             if (Cache)
                 AllCells.Add(cell);
