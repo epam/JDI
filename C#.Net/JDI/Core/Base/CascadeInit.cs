@@ -69,7 +69,7 @@ namespace Epam.JDI.Core.Base
             var instance = (IBaseElement)field.GetValue(parent);
             if (instance == null)
                 instance = ActionWithException(
-                    () => GetElementInstance(field, driverName),
+                    () => GetElementInstance(field, driverName, parent),
                     ex =>
                         $"Can't create child for parent '{parentClass.Name}' with type '{field.FieldType.Name}'. Exception: {ex}");
             else FillInstance(instance, field);
@@ -102,12 +102,12 @@ namespace Epam.JDI.Core.Base
 
         protected abstract IBaseElement GetElementsRules(FieldInfo field, string driverName, Type type, string fieldName);
 
-        protected IBaseElement GetElementInstance(FieldInfo field, string driverName)
+        protected IBaseElement GetElementInstance(FieldInfo field, string driverName, object parent)
         {
             var type = field.FieldType;
             var fieldName = field.Name;
             return ActionWithException(() => GetElementsRules(field, driverName, type, fieldName), 
-                ex => $"Error in GetElementInstance for field {fieldName}' with type '{type.Name + ex.FromNewLine()}'");
+                ex => $"Error in GetElementInstance for field '{fieldName}'{(parent != null ? "in " + parent.GetClassName() : "")} with type '{type.Name + ex.FromNewLine()}'");
         }
 
     }

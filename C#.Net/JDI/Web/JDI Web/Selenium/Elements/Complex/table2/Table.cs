@@ -284,10 +284,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             return Columns.Header(name);
         }
 
-        public IList<string> Headers()
-        {
-            return Columns.Headers;
-        }
+        public IList<string> Headers => Columns.Headers;
 
         IList<string> ITable.Footer()
         {
@@ -488,7 +485,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             if (headers != null && headers.Contains(name))
                 nameIndex = headers.IndexOf(name);
             else
-                throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers().Print(", ", "'{0}'")}");
+                throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers.Print(", ", "'{0}'")}");
             return nameIndex + Rows.StartIndex;
         }
 

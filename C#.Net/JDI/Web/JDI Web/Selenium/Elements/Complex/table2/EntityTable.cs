@@ -55,6 +55,11 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
     public class Table<TEntity> : Table
     {
+        public Table() : base()
+        {
+            ColumnHeaders = typeof(TEntity).GetFieldsList().Select(f => f.Name).ToArray();
+        }
+
         private TEntity NewEntity => Activator.CreateInstance<TEntity>();
         
         private TEntity RowToEntity(Dictionary<string, ICell> row)

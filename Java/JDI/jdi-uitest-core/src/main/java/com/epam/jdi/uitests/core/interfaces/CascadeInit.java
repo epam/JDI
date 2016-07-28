@@ -112,7 +112,7 @@ public abstract class CascadeInit {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
         if (instance == null)
             try {
-                instance = getElementInstance(field, driverName);
+                instance = getElementInstance(field, driverName, parent);
             } catch (Exception ex) {
                 throw exception(
                         format("Can't create child for parent '%s' with type '%s'. Exception: %s",
@@ -125,13 +125,15 @@ public abstract class CascadeInit {
         return instance;
     }
 
-    private IBaseElement getElementInstance(Field field, String driverName) {
+    private IBaseElement getElementInstance(Field field, String driverName, Object parent) {
         Class<?> type = field.getType();
         String fieldName = field.getName();
         try { return getElementsRules(field, driverName, type, fieldName);
         } catch (Exception ex) {
-            throw exception("Error in getElementInstance for field '%s' with type '%s'", fieldName, type.getSimpleName()
-                    + LINE_BREAK + ex.getMessage());
+            throw exception("Error in getElementInstance for field '%s'%s with type '%s'",
+                    fieldName,
+                    parent != null ? "in " + parent.getClass().getSimpleName() : "",
+                    type.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
 

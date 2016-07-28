@@ -178,7 +178,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table.interfaces
         /**
          * Get Header
          */
-        IList<string> Headers();
+        IList<string> Headers { get; }
 
         /**
          * Get Footer
