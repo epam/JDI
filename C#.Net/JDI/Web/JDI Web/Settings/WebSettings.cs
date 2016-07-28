@@ -11,8 +11,8 @@ using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex;
-using JDI_Web.Selenium.Elements.Complex.table;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Settings

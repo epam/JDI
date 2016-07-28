@@ -54,8 +54,8 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
         select(getEnumValue(name));
     }
 
-    public final void select(int index) {
-        actions.select(index, this::selectAction);
+    public final void select(int num) {
+        actions.select(num, this::selectAction);
     }
 
     public final String getSelected() {
@@ -70,8 +70,8 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
         return getSelectedAction().equals(name);
     }
 
-    protected final boolean isSelectedAction(int index) {
-        return getSelectedIndexAction() == index;
+    protected final boolean isSelectedAction(int num) {
+        return getSelectedIndexAction() == num;
     }
 
     protected String getValueAction() {
@@ -94,9 +94,9 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
     }
 
     private int getSelectedIndex(List<WebElement> els) {
-        int index = firstIndex(els, this::isSelectedAction) + 1;
-        if (index == 0)
+        int num = firstIndex(els, this::isSelectedAction) + 1;
+        if (num == 0)
             throw exception("No elements selected. Override getSelectedAction or place locator to <select> tag");
-        return index;
+        return num;
     }
 }

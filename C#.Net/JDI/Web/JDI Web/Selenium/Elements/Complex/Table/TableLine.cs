@@ -4,10 +4,10 @@ using System.Linq;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 
-namespace JDI_Web.Selenium.Elements.Complex.table
+namespace JDI_Web.Selenium.Elements.Complex.Table
 {
     public enum ElementIndexType { Nums, Names }
     public abstract class TableLine : WebBaseElement, ITableLine

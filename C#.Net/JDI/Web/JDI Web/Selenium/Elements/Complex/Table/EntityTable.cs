@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 using JDI_Commons;
 using JDI_Web.Selenium.Base;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using JDI_Web.Settings;
 using static JDI_Web.Selenium.Attributes.GetElementClass;
 
-namespace JDI_Web.Selenium.Elements.Complex.table
+namespace JDI_Web.Selenium.Elements.Complex.Table
 {
     public class Table<TEntity, TRow> : Table<TEntity>
     {
@@ -32,7 +32,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             field.SetValue(entity, element);
         }
 
-        public new List<TRow> Rows(params string[] colNameValues)
+        public new IList<TRow> Rows(params string[] colNameValues)
         {
             return GetRows(colNameValues).Select(r => CastToRow(r.Value)).ToList();
         }
@@ -76,7 +76,7 @@ namespace JDI_Web.Selenium.Elements.Complex.table
             field?.SetValue(entity, value);
         }
 
-        public List<TEntity> Entities(params string[] colNameValues)
+        public IList<TEntity> Entities(params string[] colNameValues)
         {
             return GetRows(colNameValues).Select(r => RowToEntity(r.Value)).ToList();
         }

@@ -7,12 +7,14 @@ using JDI_Web.Attributes.Objects;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
 using static Epam.JDI.Core.Settings.JDISettings;
+using static JDI_Web.Selenium.Elements.Complex.Table.Column;
+using static JDI_Web.Selenium.Elements.Complex.Table.Row;
 
-namespace JDI_Web.Selenium.Elements.Complex.table
+namespace JDI_Web.Selenium.Elements.Complex.Table
 {
     public class Table : Text, ITable
     {
@@ -311,12 +313,12 @@ namespace JDI_Web.Selenium.Elements.Complex.table
 
         public ICell Cell(string columnName, string rowName)
         {
-            return Cell(table.Column.column(columnName), table.Row.row(rowName));
+            return Cell(column(columnName), row(rowName));
         }
 
         public ICell Cell(int columnIndex, int rowIndex)
         {
-            return Cell(table.Column.column(columnIndex), table.Row.row(rowIndex));
+            return Cell(column(columnIndex), row(rowIndex));
         }
 
         public ICell Cell(IWebElement webElement, Column column, Row row)

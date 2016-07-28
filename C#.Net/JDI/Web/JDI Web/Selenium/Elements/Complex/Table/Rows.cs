@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static Epam.JDI.Core.ExceptionUtils;
 
-namespace JDI_Web.Selenium.Elements.Complex.table
+namespace JDI_Web.Selenium.Elements.Complex.Table
 {
     public class Rows : TableLine
     {

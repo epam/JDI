@@ -2,10 +2,10 @@
 using JDI_Tests.Scenarios.Enums;
 using JDI_Tests.Scenarios.Page_Objects.Elements;
 using JDI_Web.Attributes;
-using JDI_Web.Selenium.Elements.Complex.table;
+using JDI_Web.Selenium.Elements.Complex.Table;
 using JDI_Web.Selenium.Elements.Composite;
 using OpenQA.Selenium;
-using static JDI_Web.Selenium.Elements.Complex.table.Column;
+using static JDI_Web.Selenium.Elements.Complex.Table.Column;
 
 namespace JDI_Tests.Scenarios.Page_Objects.Pages
 {

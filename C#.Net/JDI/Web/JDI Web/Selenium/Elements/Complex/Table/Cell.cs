@@ -4,12 +4,12 @@ using JDI_Commons;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
 
-namespace JDI_Web.Selenium.Elements.Complex.table
+namespace JDI_Web.Selenium.Elements.Complex.Table
 {
     public class Cell : SelectableElement, ICell
     {

@@ -19,7 +19,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             : base(optionsNamesLocator, allLabelsLocator)
         {
             SelectedNameAction = (m, name) => SelectedElementAction(this, GetWebElement(name));
-            SelectedNumAction = (m, index) => SelectedElementAction(this, GetWebElement(index));
+            SelectedNumAction = (m, num) => SelectedElementAction(this, GetWebElement(num));
             GetValueAction = m => AreSelected().Print();
             SetValueAction = (m, value) => SelectListNamesAction(this, value.Split(_separator));
             GetWebElementFunc = (s, name) =>
@@ -77,31 +77,31 @@ namespace JDI_Web.Selenium.Elements.Complex
             throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         }
 
-        protected IWebElement GetWebElement(int index)
+        protected IWebElement GetWebElement(int num)
         {
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
             if (Locator.ToString().Contains("{0}"))
                 throw Exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '{0}')");
             if (AllLabels != null)
-                return GetWebElement(AllLabels.WebElements, index);
-            return GetWebElement(GetElementsFromTag(), index);
+                return GetWebElement(AllLabels.WebElements, num);
+            return GetWebElement(GetElementsFromTag(), num);
         }
 
-        private IWebElement GetWebElement(IList<IWebElement> els, int index)
+        private IWebElement GetWebElement(IList<IWebElement> els, int num)
         {
-            if (index <= 0)
-                throw Exception($"Can't get option with index '{index}'. Index should be 1 or more");
-            if (index > els.Count)
-                throw Exception($"Can't get option with index '{index}'. Found only {els.Count} options");
-            return els[index - 1];
+            if (num <= 0)
+                throw Exception($"Can't get option with num '{num}'. Number should be 1 or more");
+            if (num > els.Count)
+                throw Exception($"Can't get option with num '{num}'. Found only {els.Count} options");
+            return els[num - 1];
         }
 
 
         protected Action<MultiSelector<TEnum>, IList<string>> SelectListNamesAction = 
             (m, names) => names.ForEach(name => m.SelectNameAction(m, name));
         protected Action<MultiSelector<TEnum>, IList<int>> SelectListIndexesAction =
-            (m, indexes) => indexes.ForEach(index => m.SelectNumAction(m, index));
+            (m, nums) => nums.ForEach(num => m.SelectNumAction(m, num));
         
         
         public IMultiSelector<TEnum> SetValuesSeparator(string separator)
@@ -120,9 +120,9 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names.Select(name => name.ToString()).ToArray());
         }
 
-        public void Select(params int[] indexes)
+        public void Select(params int[] nums)
         {
-            Actions.Select((m, i) => SelectListIndexesAction(this, indexes), indexes);
+            Actions.Select((m, i) => SelectListIndexesAction(this, nums), nums);
         }
 
         public void Check(params string[] names)
@@ -137,10 +137,10 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names);
         }
 
-        public void Check(params int[] indexes)
+        public void Check(params int[] nums)
         {
             Clear();
-            Select(indexes);
+            Select(nums);
         }
 
         public void Uncheck(params string[] names)
@@ -155,10 +155,10 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names);
         }
 
-        public void Uncheck(params int[] indexes)
+        public void Uncheck(params int[] nums)
         {
             CheckAll();
-            Select(indexes);
+            Select(nums);
         }
 
         public IList<string> AreSelected()

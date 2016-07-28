@@ -3,7 +3,7 @@ using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Composite;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.PageObjects;
-using JDI_Web.Selenium.Elements.Complex.table;
+using JDI_Web.Selenium.Elements.Complex.Table;
 using JDI_Tests.Scenarios.Entities;
 
 namespace JDI_Tests.Scenarios.Tests

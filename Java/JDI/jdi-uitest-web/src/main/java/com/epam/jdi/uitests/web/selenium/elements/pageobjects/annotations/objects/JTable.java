@@ -43,8 +43,8 @@ public @interface JTable {
     int width() default -1;
     String size() default "";
 
-    int rowStartIndex() default -1;
-    int colStartIndex() default -1;
+    int rowStartIndex() default 1;
+    int colStartIndex() default 1;
 
     TableHeaderTypes headerType() default COLUMNS_HEADERS;
     boolean useCache() default true;

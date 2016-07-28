@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JDI_Web.Selenium.Elements.Complex;
-using JDI_Web.Selenium.Elements.Complex.table;
+using JDI_Web.Selenium.Elements.Complex.Table;
 using static System.Int32;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Attributes.Objects.TableHeaderTypes;

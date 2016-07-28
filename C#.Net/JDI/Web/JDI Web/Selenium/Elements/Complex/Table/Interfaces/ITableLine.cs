@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using JDI_Web.Selenium.Elements.Base;
 
-namespace JDI_Web.Selenium.Elements.Complex.table.interfaces
+namespace JDI_Web.Selenium.Elements.Complex.Table.Interfaces
 {
     public interface ITableLine
     {

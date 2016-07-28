@@ -96,38 +96,38 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
     }
 
-    protected WebElement getElement(int index) {
+    protected WebElement getElement(int num) {
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
         if (allLabels() != null)
-            return getElement(allLabels().getWebElements(), index);
-        return getElement(getElementsFromTag(), index);
+            return getElement(allLabels().getWebElements(), num);
+        return getElement(getElementsFromTag(), num);
     }
 
-    private WebElement getElement(List<WebElement> els, int index) {
-        if (index <= 0)
-            throw exception("Can't get option with index '%s'. Index should be 1 or more", index);
-        if (index > els.size())
-            throw exception("Can't get option with index '%s'. Found only %s options", index, els.size());
-        return els.get(index - 1);
+    private WebElement getElement(List<WebElement> els, int num) {
+        if (num <= 0)
+            throw exception("Can't get option with num '%s'. Number should be 1 or more", num);
+        if (num > els.size())
+            throw exception("Can't get option with num '%s'. Found only %s options", num, els.size());
+        return els.get(num - 1);
     }
 
     protected boolean isSelectedAction(String name) {
         return isSelectedAction(getElement(name));
     }
 
-    protected boolean isSelectedAction(int index) {
-        return isSelectedAction(getElement(index));
+    protected boolean isSelectedAction(int num) {
+        return isSelectedAction(getElement(num));
     }
 
     protected void selectListAction(String... names) {
         foreach(names, this::selectAction);
     }
 
-    protected void selectListAction(int... indexes) {
-        for (int i : indexes) selectAction(i);
+    protected void selectListAction(int... nums) {
+        for (int i : nums) selectAction(i);
     }
 
     protected String getValueAction() {
@@ -152,8 +152,8 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         select(toStringArray(LinqUtils.select(names, EnumUtils::getEnumValue)));
     }
 
-    public final void select(int... indexes) {
-        actions.select(this::selectListAction, indexes);
+    public final void select(int... nums) {
+        actions.select(this::selectListAction, nums);
     }
 
     public final void check(String... names) {
@@ -166,9 +166,9 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         select(names);
     }
 
-    public final void check(int... indexes) {
+    public final void check(int... nums) {
         clear();
-        select(indexes);
+        select(nums);
     }
 
     public final void uncheck(String... names) {
@@ -181,9 +181,9 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         select(names);
     }
 
-    public final void uncheck(int... indexes) {
+    public final void uncheck(int... nums) {
         checkAll();
-        select(indexes);
+        select(nums);
     }
 
     public final List<String> areSelected() {

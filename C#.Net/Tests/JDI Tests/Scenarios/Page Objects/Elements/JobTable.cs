@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Epam.JDI.Core.Interfaces.Common;
 using JDI_Tests.Scenarios.Entities;
-using JDI_Web.Selenium.Elements.Complex.table;
+using JDI_Web.Selenium.Elements.Complex.Table;
 using OpenQA.Selenium;
 
 namespace JDI_Tests.Scenarios.Page_Objects.Elements
