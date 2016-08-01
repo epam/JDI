@@ -17,7 +17,7 @@
         <allure.version>1.4.5</allure.version>
     </properties>
 
-    <artifactId>jdi-uitest-mobiletests</artifactId>
+    <artifactId>jdi-uitest-wintests</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -28,6 +28,11 @@
             <groupId>com.github.2gis.winium</groupId>
             <artifactId>winium-elements-desktop</artifactId>
             <version>0.2.0-1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-uitest-win</artifactId>
+            <version>1.0.8</version>
         </dependency><!--
         <dependency>
             <groupId>com.epam.jdi</groupId>

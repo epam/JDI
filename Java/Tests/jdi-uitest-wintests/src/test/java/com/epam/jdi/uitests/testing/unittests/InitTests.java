@@ -61,7 +61,7 @@ public class InitTests extends TestNGBase {
         EpamJDIApplication.homePage.headerMenu.clickCenter();
         EpamJDIApplication.homePage.headerMenu.contactForm.click();
 
-        EpamJDIApplication.contactFormPage.
+      //  EpamJDIApplication.contactFormPage.
 
 
         //EpamJDIApplication.homePage.headerMenu.select(CONTACT);
