@@ -8,7 +8,7 @@ namespace Epam.JDI.Core.Interfaces.Common
      * return: Get WebElement’s text
      */
         //TODO[JDIAction]
-        string Text { get; }
+        string GetText { get; }
 
         /**
          * param: text Specify expected text

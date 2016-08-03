@@ -139,7 +139,7 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ITable setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
-        avatar.byLocator = root;
+        setAvatar(root);
         cellLocatorTemplate = cell;
         rows.lineTemplate = row;
         columns.lineTemplate = column;

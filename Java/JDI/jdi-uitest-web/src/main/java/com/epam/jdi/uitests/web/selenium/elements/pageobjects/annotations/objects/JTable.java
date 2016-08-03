@@ -22,7 +22,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.*;
 
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMN_HEADERS;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMNS_HEADERS;
 
 /**
  * Created by roman.i on 06.10.2014.
@@ -43,10 +43,10 @@ public @interface JTable {
     int width() default -1;
     String size() default "";
 
-    int rowStartIndex() default -1;
-    int colStartIndex() default -1;
+    int rowStartIndex() default 1;
+    int colStartIndex() default 1;
 
-    TableHeaderTypes headerType() default COLUMN_HEADERS;
+    TableHeaderTypes headerType() default COLUMNS_HEADERS;
     boolean useCache() default true;
 
 

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using JDI_Commons;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
-using static JDI_Core.ExceptionUtils;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.ExceptionUtils;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {
@@ -195,7 +195,8 @@ namespace JDI_Web.Selenium.Elements.Composite
              * Check that current page url/title equals to expected url/title
              */
             public void Equal()
-            {   
+            {
+                if (_equals == null || _equals.Equals("")) return;
                 Logger.Info($"Page {_what} equals to '{_equals}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Equals(_equals)));
             }
@@ -205,6 +206,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Match()
             {
+                if (_template == null || _template.Equals("")) return;
                 Logger.Info($"Page {_what} matches to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Matches(_template)));
             }
@@ -214,6 +216,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Contains()
             {
+                if (_template == null || _template.Equals("")) return;
                 Logger.Info($"Page {_what} contains to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Contains(_template)));
             }

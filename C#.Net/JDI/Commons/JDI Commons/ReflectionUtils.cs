@@ -25,12 +25,29 @@ namespace JDI_Commons
         {
             return types.Any(type => type.IsAssignableFrom(field.FieldType));
         }
+        public static List<FieldInfo> GetFieldsDeep(this Type type, params Type[] types)
+        {
+            if (types.Contains(type))
+                return new List<FieldInfo>();
+            var result = type.GetFieldsList();
+            result.AddRange(GetFieldsDeep(type.BaseType, types));
+            return result;
+        }
+
         public static List<FieldInfo> GetFields(this object obj, params Type[] types)
         {
-            var fields = obj.GetType().GetFieldsList();
-            return types.Length == 0
+            return GetFields(obj, types, typeof(object));
+        }
+        public static List<FieldInfo> GetFields(this object obj, Type[] types, params Type[] stopTypes)
+        {
+            return GetFields(GetFieldsDeep(obj.GetType(), stopTypes), types);
+        }
+
+        public static List<FieldInfo> GetFields(this List<FieldInfo> fields, Type[] types)
+        {
+            return types == null || types.Length == 0
                 ? fields
-                : fields.Where(types.ContainsFieldType).ToList();
+                : fields.Where(field => types.Any(t => t.IsAssignableFrom(field.FieldType))).ToList();
         }
         public static FieldInfo GetFirstField(this object obj, params Type[] types)
         {

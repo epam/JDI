@@ -1,16 +1,14 @@
 ﻿using System;
-using JDI_Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Base;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Base
 {
     public class SelectableElement : ClickableText, ISelect
     {
-        public SelectableElement()
-        {
-        }
-
-        public SelectableElement(By byLocator = null, IWebElement webElement = null) : base(byLocator, webElement)
+        public SelectableElement() : this(null) { }
+        public SelectableElement(By byLocator = null, IWebElement webElement = null) 
+            : base(byLocator, webElement)
         {
         }
 

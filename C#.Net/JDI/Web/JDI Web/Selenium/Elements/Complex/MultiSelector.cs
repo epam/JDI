@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.APIInteract;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex
 {
@@ -19,9 +19,21 @@ namespace JDI_Web.Selenium.Elements.Complex
             : base(optionsNamesLocator, allLabelsLocator)
         {
             SelectedNameAction = (m, name) => SelectedElementAction(this, GetWebElement(name));
-            SelectedNumAction = (m, index) => SelectedElementAction(this, GetWebElement(index));
+            SelectedNumAction = (m, num) => SelectedElementAction(this, GetWebElement(num));
             GetValueAction = m => AreSelected().Print();
             SetValueAction = (m, value) => SelectListNamesAction(this, value.Split(_separator));
+            GetWebElementFunc = (s, name) =>
+            {
+                var ms = (MultiSelector<TEnum>) s;
+                if (!ms.HasLocator && ms.AllLabels == null)
+                    throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
+                if (ms.Locator.ToString().Contains("{0}"))
+                    return new GetElementModule(ms, ms.Locator.FillByTemplate(name))
+                        .WebElements[0];
+                if (ms.AllLabels != null)
+                    return ms.GetWebElement(AllLabels.WebElements, name);
+                return ms.GetWebElement(GetElementsFromTag(), name);
+            };
         }
 
         public Action<MultiSelector<TEnum>> ClearAction = m =>
@@ -54,21 +66,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             els.Where(el => SelectedNameAction(this, el.Text)).ForEach(el => el.Click());
         }
-
-        protected IWebElement GetWebElement(string name)
-        {
-            if (!HasLocator && AllLabels == null)
-                throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
-            if (Locator.ToString().Contains("{0}"))
-                return new GetElementModule {
-                    ByLocator = Locator.FillByTemplate(name),
-                    Element = this }
-                .WebElements[0];
-            if (AllLabels != null)
-                return GetWebElement(AllLabels.WebElements, name);
-            return GetWebElement(GetElementsFromTag(), name);
-        }
-
+        
         private IWebElement GetWebElement(IList<IWebElement> els, string name)
         {
             if (els == null)
@@ -79,31 +77,31 @@ namespace JDI_Web.Selenium.Elements.Complex
             throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         }
 
-        protected IWebElement GetWebElement(int index)
+        protected IWebElement GetWebElement(int num)
         {
             if (!HasLocator && AllLabels == null)
                 throw Exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
             if (Locator.ToString().Contains("{0}"))
                 throw Exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '{0}')");
             if (AllLabels != null)
-                return GetWebElement(AllLabels.WebElements, index);
-            return GetWebElement(GetElementsFromTag(), index);
+                return GetWebElement(AllLabels.WebElements, num);
+            return GetWebElement(GetElementsFromTag(), num);
         }
 
-        private IWebElement GetWebElement(IList<IWebElement> els, int index)
+        private IWebElement GetWebElement(IList<IWebElement> els, int num)
         {
-            if (index <= 0)
-                throw Exception($"Can't get option with index '{index}'. Index should be 1 or more");
-            if (index > els.Count)
-                throw Exception($"Can't get option with index '{index}'. Found only {els.Count} options");
-            return els[index - 1];
+            if (num <= 0)
+                throw Exception($"Can't get option with num '{num}'. Number should be 1 or more");
+            if (num > els.Count)
+                throw Exception($"Can't get option with num '{num}'. Found only {els.Count} options");
+            return els[num - 1];
         }
 
 
         protected Action<MultiSelector<TEnum>, IList<string>> SelectListNamesAction = 
             (m, names) => names.ForEach(name => m.SelectNameAction(m, name));
         protected Action<MultiSelector<TEnum>, IList<int>> SelectListIndexesAction =
-            (m, indexes) => indexes.ForEach(index => m.SelectNumAction(m, index));
+            (m, nums) => nums.ForEach(num => m.SelectNumAction(m, num));
         
         
         public IMultiSelector<TEnum> SetValuesSeparator(string separator)
@@ -122,9 +120,9 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names.Select(name => name.ToString()).ToArray());
         }
 
-        public void Select(params int[] indexes)
+        public void Select(params int[] nums)
         {
-            Actions.Select((m, i) => SelectListIndexesAction(this, indexes), indexes);
+            Actions.Select((m, i) => SelectListIndexesAction(this, nums), nums);
         }
 
         public void Check(params string[] names)
@@ -139,10 +137,10 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names);
         }
 
-        public void Check(params int[] indexes)
+        public void Check(params int[] nums)
         {
             Clear();
-            Select(indexes);
+            Select(nums);
         }
 
         public void Uncheck(params string[] names)
@@ -157,10 +155,10 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(names);
         }
 
-        public void Uncheck(params int[] indexes)
+        public void Uncheck(params int[] nums)
         {
             CheckAll();
-            Select(indexes);
+            Select(nums);
         }
 
         public IList<string> AreSelected()

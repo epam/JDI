@@ -17,13 +17,13 @@ namespace JDI_Tests.Scenarios.Page_Objects.Pages
         public IList<Label> ListMenu;
 
         [FindBy(Css = ".job-search-title")]
-        public Textbox JobSearchTitle;
+        public Text JobSearchTitle;
 
         [FindBy(XPath = "//div[@class='footer - content']/div/a[@href='/about/investors']")]
         public Link InvestorLinkFooter;
 
         [FindBy(Css = ".copyright>p")]
-        public Textbox CopyRight;
+        public Text CopyRight;
 
         [FindBy(XPath = "//ul[contains(@class,'header-menu-crumb')]/*[1]/a")]
         public Link HeaderMenuCrumbs;
@@ -44,7 +44,7 @@ namespace JDI_Tests.Scenarios.Page_Objects.Pages
         public Link BestMatchIcon;
 
         [FindBy(Css = ".search-result-header")]
-        public Textbox SearchResultHeader;
+        public Text SearchResultHeader;
 
     }
 }

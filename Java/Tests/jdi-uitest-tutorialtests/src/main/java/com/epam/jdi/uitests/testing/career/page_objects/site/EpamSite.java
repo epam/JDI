@@ -2,16 +2,14 @@ package com.epam.jdi.uitests.testing.career.page_objects.site;
 
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderSolutionsMenu;
-import com.epam.jdi.uitests.testing.career.page_objects.site.pages.CareerPage;
-import com.epam.jdi.uitests.testing.career.page_objects.site.pages.HomePage;
-import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobDescriptionPage;
-import com.epam.jdi.uitests.testing.career.page_objects.site.pages.JobListingPage;
+import com.epam.jdi.uitests.testing.career.page_objects.site.pages.*;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -30,6 +28,8 @@ public class EpamSite extends WebSite {
     public static HomePage homePage;
     @JPage(url = "/careers", title = "Careers")
     public static CareerPage careerPage;
+    @JPage(url = "/solutions/core-engineering/product-development")
+    public static ProductDevelopmentPage productDevelopmentPage;
     @JPage(url = "/careers/job-listings", title = "Job Listings", urlCheckType = CONTAIN, titleCheckType = CONTAIN)
     public static JobListingPage jobListingPage;
     @JPage(url = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
@@ -37,6 +37,11 @@ public class EpamSite extends WebSite {
 
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
+    @JMenu(levelLocators = {
+        @FindBy(css = ".tile-menu>li>a"),
+        @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
+    })
+    public static Menu<HeaderMenu> multipleHeaderMenu;
 
     @FindBy(css = ".tile-menu>li>a")
     public static Elements<Button> listMenu;

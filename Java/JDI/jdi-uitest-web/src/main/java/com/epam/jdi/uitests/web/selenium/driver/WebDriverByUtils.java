@@ -96,6 +96,15 @@ public final class WebDriverByUtils {
         throw new RuntimeException("Can't get By name for: " + by);
     }
 
+
+
+    public static By correctXPaths(By byValue) {
+        return byValue.toString().contains("By.xpath: //")
+                ? getByFunc(byValue).apply(getByLocator(byValue)
+                .replaceFirst("/", "./"))
+                : byValue;
+    }
+
     public static By getByFromString(String stringLocator) {
         if (stringLocator == null || stringLocator.equals(""))
             throw new RuntimeException("Can't get By locator from string empty or null string");

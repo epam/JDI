@@ -2,122 +2,145 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Epam.JDI.Core.Base;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Commons;
-using JDI_Core.Base;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Complex;
 using JDI_Web.Attributes;
+using JDI_Web.Attributes.Objects;
+using JDI_Web.Selenium.Elements.APIInteract;
+using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Complex;
+using JDI_Web.Selenium.Elements.Complex.Table;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using RestSharp.Extensions;
-using static JDI_Core.Attributes.AttributesUtil;
-using static JDI_Core.ExceptionUtils;
-using static JDI_Core.Settings.JDIData;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDIData;
+using static Epam.JDI.Core.Settings.JDISettings;
+using static JDI_Web.Attributes.Objects.FillFromAnnotationRules;
+using EUtils = Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.Base
 {
     public class WebCascadeInit : CascadeInit
     {
-        protected override void SetElement(object parent, Type parentType, FieldInfo field, string driverName)
-        {
-            ActionWithException(() =>
+        protected override Type[] StopTypes => new []
             {
-                var type = field.FieldType;
-                var instance = typeof(IPage).IsAssignableFrom(type)
-                    ? GetInstancePage(parent, field, type, parentType)
-                    : GetInstanceElement(parent, parentType, field, driverName);
-                instance.SetName(field);
-                instance.Avatar.DriverName = driverName;
-                instance.TypeName = type.Name;
-                instance.Parent = parent;
-                field.SetValue(parent, instance);
-                if (typeof(IComposite).IsAssignableFrom(type))
-                    InitElements(instance, driverName);
-            }, ex => $"Error in setElement for field '{field.Name}' with parent '{parentType?.Name ?? "NULL Class" + ex.FromNewLine()}'");
-        }
-
-        private static IBaseElement GetInstancePage(object parent, FieldInfo field, Type type, Type parentType)
+                typeof(object),
+                typeof(WebPage),
+                typeof(Section),
+                typeof(WebElement)
+            };
+        
+        protected override void FillPageFromAnnotation(FieldInfo field, IBaseElement instance, Type parentType)
         {
-            var instance = (IBaseElement) field.GetValue(parent) ?? (IBaseElement) Activator.CreateInstance(type);
             var pageAttribute = field.GetAttribute<PageAttribute>();
-            pageAttribute?.FillPage((WebPage) instance, parentType);
-            return instance;
+            pageAttribute?.FillPage((WebPage)instance, parentType);
         }
 
-        private IBaseElement GetInstanceElement(object parent, Type parentType, FieldInfo field,
-            string driverName)
+        protected override IBaseElement FillInstance(IBaseElement instance, FieldInfo field)
         {
-            var instance = CreateChildFromFieldStatic(parent, parentType, field, driverName);
-            instance.SetFunction(GetFunction(field));
-            return instance;
+            var element = (WebBaseElement) instance;
+            if (!element.HasLocator)
+                element.Avatar = new GetElementModule(element, GetNewLocator(field));
+            return element;
+        }
+        protected override IBaseElement FillFromJDIAttribute(IBaseElement instance, FieldInfo field)
+        {
+            var element = (WebBaseElement) instance;
+            FillFromAnnotation(element, field);
+            return element;
         }
 
-        private IBaseElement CreateChildFromFieldStatic(object parent, Type parentClass, FieldInfo field, string driverName)
+        protected override IBaseElement SpecificAction(IBaseElement instance, FieldInfo field, object parent, Type type)
         {
-            var instance = (WebBaseElement) field.GetValue(parent);
-            if (instance == null)
-                instance = ActionWithException(
-                    () => GetElementInstance(field, driverName), 
-                    ex => $"Can't create child for parent '{parentClass.Name}' with type '{field.FieldType.Name}'. Exception: {ex}");
-            else if (instance.Locator == null)
-                instance.WebAvatar.ByLocator = GetNewLocator(field);
-            instance.Frame = FrameAttribute.GetFrame(field);
-            return instance;
+            var element = (WebBaseElement) instance;
+            if (parent != null && type == null) return element;
+            var frameBy = FrameAttribute.GetFrame(field);
+            if (frameBy != null)
+                element.WebAvatar.FrameLocator = frameBy;
+            return element;
         }
-
-        private WebBaseElement GetElementInstance(FieldInfo field, string driverName)
+        protected override IBaseElement GetElementsRules(FieldInfo field, string driverName, Type type, string fieldName)
         {
-            var type = field.FieldType;
-            var fieldName = field.Name;
             var newLocator = GetNewLocator(field);
-            return ActionWithException(() => 
+            WebBaseElement instance = null;
+            if (type == typeof(List<>))
+                throw Exception($"Can't init element {fieldName} with type 'List<>'. Please use 'IList<>' or 'Elements<>' instead");
+            if (typeof(IList).IsAssignableFrom(type))
             {
-                WebBaseElement instance = null;
-                if (type == typeof(List<>))
-                    throw Exception($"Can't init element {fieldName} with type 'List<>'. Please use 'IList<>' or 'Elements<>' instead");
-                if (typeof(IList).IsAssignableFrom(type))
+                var elementClass = type.GetGenericArguments()[0];
+                if (elementClass != null)
+                    instance = (WebBaseElement)Activator.CreateInstance(typeof(Elements<>)
+                        .MakeGenericType(elementClass));
+            }
+            else
+            {
+                if (type.IsInterface)
+                    type = MapInterfaceToElement.ClassFromInterface(type);
+                if (type != null)
                 {
-                    var elementClass = type.GetGenericArguments()[0];
-                    if (elementClass != null)
-                        instance = (WebBaseElement) Activator.CreateInstance(typeof(Elements<>)
-                            .MakeGenericType(elementClass));
-                }
-                else  {
-                    if (type.IsInterface)
-                        type = MapInterfaceToElement.ClassFromInterface(type);
-                    if (type != null)
-                    {
-                        instance = (WebBaseElement) Activator.CreateInstance(type);
+                    instance = (WebBaseElement)Activator.CreateInstance(type);
+                    if (newLocator != null)
                         instance.WebAvatar.ByLocator = newLocator;
-                    }
                 }
-                if (instance == null)
-                    throw Exception("Unknown interface: " + type +
-                                    ". Add relation interface -> class in VIElement.InterfaceTypeMap");
-                instance.Avatar.DriverName = driverName;
-                return instance;
-            }, ex => $"Error in getElementInstance for field {fieldName}' with type '{type.Name + ex.FromNewLine()}'");
+            }
+            if (instance == null)
+                throw Exception("Unknown interface: " + type +
+                                ". Add relation interface -> class in VIElement.InterfaceTypeMap");
+            instance.Avatar.DriverName = driverName;
+            return instance;
         }
 
-        private static By GetNewLocator(FieldInfo field)
+        protected By GetNewLocator(FieldInfo field)
         {
-            return ActionWithException(() => 
-            {
-                var locatorGroup = AppVersion;
-                if (locatorGroup != null)
-                {
-                    string groupName;
-                    By byLocator;
-                    JFindByAttribute.Get(field, out byLocator, out groupName);
-                    if (groupName != null && locatorGroup.Equals(groupName) && byLocator != null)
-                        return byLocator;
-                }
-                return FindByAttribute.FindsByLocator(field) ?? FindByAttribute.Locator(field);
-            }, ex => $"Error in get locator for type '{field.Name + ex.FromNewLine()}'");
+            return EUtils.ActionWithException(() => GetNewLocatorFromField(field),
+                ex => $"Error in get locator for type '{field.Name + ex.FromNewLine()}'");
+        }
+        protected By GetNewLocatorFromField(FieldInfo field)
+        {
+            By byLocator = null;
+            var locatorGroup = AppVersion;
+            if (locatorGroup == null)
+                return FindByAttribute.Locator(field) ?? field.GetFindsBy();
+            var jFindBy = field.GetAttribute<JFindByAttribute>();
+            if (jFindBy != null && locatorGroup.Equals(jFindBy.Group))
+                byLocator = jFindBy.ByLocator;
+            return byLocator ?? (FindByAttribute.Locator(field) ?? field.GetFindsBy());
         }
 
+        private static void FillFromAnnotation(WebBaseElement instance, FieldInfo field)
+        {
+            SetUpTableFromAnnotation(instance, field);
+            SetUpMenuFromAnnotation(instance, field);
+            SetUpDropdownFromAnnotation(instance, field);
+        }
+
+        private static void SetUpTableFromAnnotation(WebBaseElement instance, FieldInfo field)
+        {
+            var jTable = field.GetAttribute<JTableAttribute>();
+            if (jTable == null || !typeof(ITable).IsAssignableFrom(field.FieldType))
+                return;
+            SetUpTable((Table)instance, jTable);
+        }
+
+        private static void SetUpMenuFromAnnotation(WebBaseElement instance, FieldInfo field)
+        {
+            var jDropdown = field.GetAttribute<JDropdownAttribute>();
+            if (jDropdown == null || !typeof(IDropDown).IsAssignableFrom(field.FieldType))
+                return;
+            SetUpDropdown((Dropdown)instance, jDropdown);
+        }
+        private static void SetUpDropdownFromAnnotation(WebBaseElement instance, FieldInfo field)
+        {
+            var jMenu = field.GetAttribute<JMenuAttribute>();
+            if (jMenu == null || !typeof(IMenu).IsAssignableFrom(field.FieldType))
+                return;
+            SetUpMenu((Menu)instance, jMenu);
+        }
+        
     }
 }

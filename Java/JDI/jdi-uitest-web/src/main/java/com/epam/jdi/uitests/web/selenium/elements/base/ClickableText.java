@@ -42,9 +42,13 @@ public class ClickableText extends Clickable implements IHasValue, IClickable, I
     }
 
     protected String getTextAction() {
-        String getValue = getWebElement().getAttribute("value");
         String getText = getWebElement().getText();
-        return getText.equals("") && getValue != null ? getValue : getText;
+        if (!getText.equals(""))
+            return getText;
+        String getValue = getWebElement().getAttribute("value");
+        return getValue != null
+                ? getValue
+                : getText;
     }
 
     public final String getValue() {

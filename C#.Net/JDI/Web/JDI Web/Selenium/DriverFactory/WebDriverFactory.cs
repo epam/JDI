@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Settings;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Settings;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Elements.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Properties.Settings;
 
 namespace JDI_Web.Selenium.DriverFactory
@@ -98,13 +98,14 @@ namespace JDI_Web.Selenium.DriverFactory
                 throw new Exception($"Can't find driver with name {driverName}");
             try
             {
-                if (RunDrivers.ContainsKey(driverName))
-                    return RunDrivers[driverName];
-                var resultDriver = Drivers[driverName]();
-                RunDrivers.Add(driverName, resultDriver);
-                if (resultDriver == null)
-                    throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
-                return resultDriver;
+                if (!RunDrivers.ContainsKey(driverName))
+                {
+                    var resultDriver = Drivers[driverName]();
+                    if (resultDriver == null)
+                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
+                    RunDrivers.Add(driverName, resultDriver);
+                }
+                return RunDrivers[driverName];
             }
             catch
             {

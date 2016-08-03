@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using JDI_Commons;
-using JDI_Core.Attributes.Functions;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Attributes.Functions;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Attributes
 {
@@ -62,12 +62,12 @@ namespace JDI_Web.Selenium.Attributes
             return button;
         }
 
-        public Textbox GetTextElement()
+        public Text GetTextElement()
         {
-            var textField = this.GetFirstField(typeof(Textbox), typeof(IText));
+            var textField = this.GetFirstField(typeof(Text), typeof(IText));
             if (textField == null)
                 throw Exception($"Can't find Text Element '{ToString()}'");
-            return (Textbox) textField.GetValue(_element);
+            return (Text) textField.GetValue(_element);
         }
     }
 }

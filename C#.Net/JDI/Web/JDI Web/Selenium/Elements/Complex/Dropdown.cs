@@ -1,5 +1,5 @@
 ﻿using System;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
@@ -19,10 +19,12 @@ namespace JDI_Web.Selenium.Elements.Complex
     public class Dropdown<TEnum> : Selector<TEnum>, IDropDown<TEnum>
         where TEnum : IConvertible
     {
-        private readonly GetElementType _element = new GetElementType();
+        protected GetElementType _element;
+        protected GetElementType _expander;
+        protected GetElementType _elementByName;
 
         public Dropdown() : this(null) { }
-        public Dropdown(By selectLocator) : base(selectLocator, null) { }
+        public Dropdown(By selectLocator) : base(selectLocator, webElements: null) { }
 
         public Dropdown(By selectLocator, By optionsNamesLocator, By allOptionsNamesLocator = null) 
             : base(optionsNamesLocator, allOptionsNamesLocator)
@@ -59,6 +61,30 @@ namespace JDI_Web.Selenium.Elements.Complex
                 return result;
             };
             _element = new GetElementType(selectLocator);
+        }
+
+        public void SetUp(By root, By value, By list, By expand, By elementByName)
+        {
+            if (root != null)
+            {
+                var el = new WebElement(root);
+                el.Parent = Parent;
+                Parent = el;
+            }
+            if (value != null)
+            {
+                _element = new GetElementType(value, this);
+                if (_expander == null) _expander = _element;
+            }
+            if (list != null)
+                _allLabels = new GetElementType(list, this);
+            if (expand != null)
+            {
+                _expander = new GetElementType(expand, this);
+                if (_element == null) _element = _expander;
+            }
+            if (elementByName != null)
+                _elementByName = new GetElementType(elementByName, this);
         }
 
         protected Label Element => _element.Get(new Label(), WebAvatar);
@@ -111,7 +137,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         }
 
         public Action<Dropdown<TEnum>> ClickAction => d => Element.Click();
-        public Func<Dropdown<TEnum>, string> GetTextAction = d => d.Element.Text;
+        public Func<Dropdown<TEnum>, string> GetTextAction = d => d.Element.GetText;
 
         public void Expand()
         {
@@ -128,7 +154,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             Actions.Click(d => ClickAction(this));
         }
 
-        public string Text => Actions.GetText(d => GetTextAction(this)); 
+        public string GetText => Actions.GetText(d => GetTextAction(this)); 
 
         public string WaitText(string text)
         {
@@ -156,5 +182,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             Element.WaitAttribute(name, value);
         }
+
+
     }
 }

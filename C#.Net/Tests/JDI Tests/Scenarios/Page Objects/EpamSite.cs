@@ -4,6 +4,7 @@ using JDI_Tests.Scenarios.Page_Objects.Pages;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex;
+using OpenQA.Selenium;
 using static JDI_Web.Selenium.Elements.Composite.CheckPageTypes;
 
 namespace JDI_Tests.Scenarios.Page_Objects
@@ -29,6 +30,9 @@ namespace JDI_Tests.Scenarios.Page_Objects
         [Page(Url = "/careers", Title = "Careers")]
         public static CareerPage CareerPage;
 
+        [Page(Url = "/solutions/core-engineering/product-development")]
+        public static ProductDevelopmentPage ProductDevelopmentPage;
+
         [Page(Title = "EPAM Software Product Development Services", UrlCheckType = None)]
         public static CareerPage CareerPageTest;
 
@@ -40,6 +44,12 @@ namespace JDI_Tests.Scenarios.Page_Objects
 
         [FindBy(Css = ".tile-menu>li>a")]
         public static Menu<Headers> HeaderMenu;
+        public static Menu<Headers> HeaderMenu2D = new Menu<Headers>(
+            new List<By> {
+                By.CssSelector(".tile-menu>li>a"),
+                By.XPath("//*[@class='tile-menu']//*[@href='/solutions']//..//li")
+            }
+        );
 
         [FindBy(Css = ".tile-menu>li>a")]
         public static IList<Label> ListMenu;

@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import org.openqa.selenium.By;
@@ -29,13 +30,17 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+
 /**
  * RadioButtons control implementation
  *
  * @author Alexeenko Yan
  */
 public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum> {
-    private GetElementType element = new GetElementType();
+    protected GetElementType element;
+    protected GetElementType expander;
+    protected GetElementType elementByName;
 
     public Dropdown() {
         super();
@@ -51,18 +56,45 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     public Dropdown(By selectLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.element = new GetElementType(selectLocator);
+        this.element = new GetElementType(selectLocator, this);
+    }
+
+    public void setUp(By root, By value, By list, By expand, By elementByName) {
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+        }
+        if (value != null) {
+            element = new GetElementType(value, this);
+            if (expander == null) expander = element;
+        }
+        if (list != null)
+            allLabels = new GetElementType(list, this);
+        if (expand != null) {
+            expander = new GetElementType(expand, this);
+            if (element == null) element = expander;
+        }
+        if (elementByName != null)
+            this.elementByName = new GetElementType(elementByName, this);
     }
 
     protected Label element() {
-        return element.get(new Label(), getAvatar());
+        if (element == null)
+            throw exception("'Value' element for dropdown not defined");
+        return element.get(Label.class);
+    }
+    protected Clickable expander() {
+        if (expander == null)
+            throw exception("'Expand' element for dropdown not defined");
+        return expander.get(Label.class);
     }
 
     protected void expandAction(String name) {
         if (element().isDisplayed()) {
             setWaitTimeout(0);
             if (!isDisplayedAction(name))
-                element().click();
+                expander().click();
             restoreWaitTimeout();
         }
     }
@@ -76,7 +108,10 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void selectAction(String name) {
         if (element() != null) {
             expandAction(name);
-            super.selectAction(name);
+            if (elementByName != null)
+                elementByName.get(Selector.class).select(name);
+            else
+                super.selectAction(name);
         } else
             new Select(getWebElement()).selectByVisibleText(name);
     }
@@ -90,6 +125,18 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             new Select(getWebElement()).selectByIndex(index);
     }
 
+    @Override
+    protected boolean isDisplayedAction(String name) {
+        WebElement element;
+        try {
+            element = elementByName != null
+                    ? elementByName.get(Selector.class).getWebElement(name)
+                    : getWebElement(name);
+        } catch (Exception | Error ex) {
+            return false;
+        }
+        return element != null && element.isDisplayed();
+    }
     @Override
     protected String getValueAction() {
         return getTextAction();
@@ -144,7 +191,13 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     public final void expand() {
-        if (!isDisplayedAction(1)) element().click();
+        actions.expand(() -> expandAction(1));
+    }
+    public final void expand(String name) {
+        expand(1);
+    }
+    public final void expand(int index) {
+        expand(index);
     }
 
     public final void close() {
@@ -183,8 +236,4 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         element().waitAttribute(name, value);
     }
 
-    public void setUp(By root, By value, By list, By expand, By elementByName) {
-        avatar.byLocator = root;
-
-    }
 }

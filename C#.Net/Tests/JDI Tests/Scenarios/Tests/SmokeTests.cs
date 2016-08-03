@@ -6,12 +6,14 @@ using NUnit.Framework;
 namespace JDI_Tests.Scenarios.Tests
 {
     [TestFixture]
-    public class SmokeTests : TestsBase
+    public class SmokeTests 
     {
         [Test]
         public void CareerTest()
         {
             var attendee = new Attendee();
+            EpamSite.HeaderMenu2D.HoverAndClick(Headers.SOLUTIONS + "." + "Product Development");
+            EpamSite.ProductDevelopmentPage.CheckOpened();
             EpamSite.HeaderMenu.Select(Headers.CAREERS);
             EpamSite.CareerPage.CheckOpened();
             EpamSite.CareerPage.JobFilter.Search(attendee.Filter);
@@ -21,5 +23,6 @@ namespace JDI_Tests.Scenarios.Tests
             EpamSite.JobDescriptionPage.AddCvForm.Submit(attendee);
             //new Check("Captcha").Contains(()->jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
         }
+        
     }
 }

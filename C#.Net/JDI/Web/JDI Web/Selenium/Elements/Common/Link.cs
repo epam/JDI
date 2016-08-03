@@ -1,6 +1,6 @@
 ﻿using System;
 using JDI_Commons;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
 using OpenQA.Selenium;
@@ -10,9 +10,9 @@ namespace JDI_Web.Selenium.Elements.Common
 {
     public class Link : ClickableText, ILink
     {
-        public Link() : this (null) { }
+        public Link() : this(null) { }
         public Link(By byLocator = null, IWebElement webElement = null)
-           : base(byLocator, webElement) { }
+            : base(byLocator, webElement) { }
 
         protected Func<WebBaseElement, string> GetReferenceFunc =
           el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("href"), "");

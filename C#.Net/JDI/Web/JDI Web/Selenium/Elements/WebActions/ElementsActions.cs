@@ -5,7 +5,8 @@ using System.Text.RegularExpressions;
 using JDI_Commons;
 using JDI_Web.Selenium.Base;
 using RestSharp.Extensions;
-using static JDI_Core.Settings.JDISettings;
+using static System.String;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.WebActions
 {
@@ -108,7 +109,7 @@ namespace JDI_Web.Selenium.Elements.WebActions
                 el =>
                 {
                     clearAction(el);
-                    inputAction(el, string.Join("\n", textLines));
+                    inputAction(el, Join("\n", textLines));
                 });
         }
 
@@ -148,6 +149,10 @@ namespace JDI_Web.Selenium.Elements.WebActions
         public void Select(int index, Action<WebBaseElement, int> selectByIndexAction)
         {
             Invoker.DoJAction($"Select '{index}'", el => selectByIndexAction(el, index));
+        }
+        public void Hover(string name, Action<WebBaseElement, string> hoverAction)
+        {
+            Invoker.DoJAction($"Hover '{name}'", el => hoverAction(el, name));
         }
 
         public bool Selected(string name, Func<WebBaseElement, string, bool> isSelectedAction)

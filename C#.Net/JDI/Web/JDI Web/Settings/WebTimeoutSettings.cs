@@ -1,4 +1,4 @@
-﻿using JDI_Core.Settings;
+﻿using Epam.JDI.Core.Settings;
 
 namespace JDI_Web.Settings
 {

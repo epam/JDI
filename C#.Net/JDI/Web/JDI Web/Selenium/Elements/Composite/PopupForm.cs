@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using JDI_Core.Attributes.Functions;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Attributes.Functions;
+using Epam.JDI.Core.Interfaces.Complex;
 using RestSharp.Extensions;
 
 namespace JDI_Web.Selenium.Elements.Composite
@@ -31,7 +31,7 @@ namespace JDI_Web.Selenium.Elements.Composite
         }
         
 
-        public string Text => Invoker.DoJActionResult("Get text", pf => ((PopupForm<T>)pf).GetTextAction(this));
+        public string GetText => Invoker.DoJActionResult("Get text", pf => ((PopupForm<T>)pf).GetTextAction(this));
 
         public string WaitText(string text)
         {

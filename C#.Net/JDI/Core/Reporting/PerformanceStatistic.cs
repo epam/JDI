@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Epam.JDI.Commons;
+using JDI_Commons;
 
 namespace Epam.JDI.Core.Reporting
 {

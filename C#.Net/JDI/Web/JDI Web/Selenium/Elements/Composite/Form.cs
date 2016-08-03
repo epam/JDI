@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Core.Attributes;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Common;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Attributes;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Attributes;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Utils;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {

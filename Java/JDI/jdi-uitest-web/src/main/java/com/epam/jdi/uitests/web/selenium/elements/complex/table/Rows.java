@@ -57,7 +57,7 @@ public class Rows extends TableLine {
 
     public List<String> getRowValue(String rowName) {
         try {
-            return select(table.rows().getLineAction(rowName), WebElement::getText);
+            return select(getLineAction(rowName), WebElement::getText);
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());
         }
@@ -74,7 +74,7 @@ public class Rows extends TableLine {
     }
 
     public MapArray<String, ICell> getRow(int rowNum) {
-        if (count() < 0 || table.rows().count() < rowNum || rowNum <= 0)
+        if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
             int colsCount = table.columns().count();
@@ -92,7 +92,7 @@ public class Rows extends TableLine {
         if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
-            return select(table.rows().getLineAction(rowNum), WebElement::getText);
+            return select(getLineAction(rowNum), WebElement::getText);
         } catch (Exception | Error ex) {
             throw throwRowsException(Integer.toString(rowNum), ex.getMessage());
         }

@@ -22,6 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
+import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import org.openqa.selenium.By;
@@ -125,6 +126,10 @@ class Cell extends SelectElement implements ISelect, ICell {
         return cell;
     }
 
+    public WebElement get(By subLocator) {
+        return get().get(subLocator);
+    }
+
     public <T extends BaseElement> T get(Class<T> clazz) {
         T instance;
         try {
@@ -144,7 +149,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
             throw exception("Can't create cell with locator template " + cell.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-        cell.getAvatar().byLocator = fillByMsgTemplate(locator, columnIndex, rowIndex);
+        cell.setAvatar(new GetElementModule(fillByMsgTemplate(locator, columnIndex, rowIndex), cell));
         cell.setParent(table);
         new WebCascadeInit().initElements(cell, avatar.getDriverName());
         return cell;

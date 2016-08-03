@@ -35,18 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.WebDriver.2.53.1\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=2.53.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.Support.2.53.1\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -60,6 +60,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Scenarios\Entities\Attendee.cs" />
+    <Compile Include="Scenarios\Entities\Company.cs" />
+    <Compile Include="Scenarios\Entities\Job.cs" />
     <Compile Include="Scenarios\Entities\JobSearchFilter.cs" />
     <Compile Include="Scenarios\Entities\User.cs" />
     <Compile Include="Scenarios\Enums\Headers.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Scenarios\Enums\JobCategories.cs" />
     <Compile Include="Scenarios\Enums\JobListHeaders.cs" />
     <Compile Include="Scenarios\Enums\Locations.cs" />
+    <Compile Include="Scenarios\Page Objects\Elements\JobColumn.cs" />
+    <Compile Include="Scenarios\Page Objects\Elements\JobTable.cs" />
     <Compile Include="Scenarios\Page Objects\EpamSite.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\AboutCompanyPage.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\AboutPage.cs" />
@@ -75,9 +79,12 @@
     <Compile Include="Scenarios\Page Objects\Pages\HomePage.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\JobDescriptionPage.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\JobListingPage.cs" />
+    <Compile Include="Scenarios\Page Objects\Pages\ProductDevelopmentPage.cs" />
     <Compile Include="Scenarios\Page Objects\Pages\RequestInformationPage.cs" />
     <Compile Include="Scenarios\Page Objects\Sections\AddCVform.cs" />
     <Compile Include="Scenarios\Page Objects\Sections\JobFilter.cs" />
+    <Compile Include="Scenarios\Tests\FrameTests.cs" />
+    <Compile Include="Scenarios\Tests\TableTests.cs" />
     <Compile Include="Scenarios\Tests\SmokeTests.cs" />
     <Compile Include="Scenarios\Tests\TestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,9 +94,13 @@
       <Project>{c749644d-5901-4fd6-9add-06209bdc1cd2}</Project>
       <Name>JDI Commons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\JDI\Core\UnitTestProject1\JDI Core.csproj">
+    <ProjectReference Include="..\..\JDI\Core\JDI Core.csproj">
       <Project>{99ee5894-9f49-43e2-a129-7916d924d49c}</Project>
       <Name>JDI Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\JDI\Matchers\JDI Matchers\JDI Matchers.csproj">
+      <Project>{822c29a7-c835-40ef-9e83-ae5388be9a1c}</Project>
+      <Name>JDI Matchers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\JDI\Web\JDI Web\JDI Web.csproj">
       <Project>{48a9b353-cb6b-4a15-84b4-b062b1c9bacc}</Project>

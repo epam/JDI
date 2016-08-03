@@ -28,9 +28,12 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
+import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
@@ -44,28 +47,45 @@ import static java.lang.String.format;
 public class GetElementModule implements IAvatar {
     private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
     private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds";
-    public By byLocator;
+    private By byLocator;
     public By frameLocator;
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
     public WebElement rootElement;
     private String driverName = "";
-    private IBaseElement element;
+    private BaseElement element;
     private WebElement webElement;
     private List<WebElement> webElements;
 
-    public GetElementModule(IBaseElement element) {
+    public GetElementModule(BaseElement element) {
         this.element = element;
         driverName = driverFactory.currentDriverName();
     }
 
-    public GetElementModule(By byLocator, IBaseElement element) {
+    public GetElementModule(By byLocator, BaseElement element) {
         this(element);
         this.byLocator = byLocator;
+    }
+
+    public GetElementModule copy() {
+        return copy(byLocator);
+    }
+
+    public GetElementModule copy(By byLocator) {
+        GetElementModule clone = new GetElementModule(byLocator, element);
+        clone.localElementSearchCriteria = localElementSearchCriteria;
+        clone.frameLocator = frameLocator;
+        clone.rootElement = rootElement;
+        clone.driverName = driverName;
+        clone.element = element;
+        clone.webElement = webElement;
+        clone.webElements = webElements;
+        return clone;
     }
 
     public boolean hasLocator() {
         return byLocator != null;
     }
+    public By getLocator() { return byLocator; }
     public void setWebElement(WebElement webElement) { this.webElement = webElement; }
     public boolean hasWebElement() { return webElement != null; }
 
@@ -79,7 +99,9 @@ public class GetElementModule implements IAvatar {
 
     public WebElement getElement() {
         logger.debug("Get Web Element: " + element);
-        WebElement element = webElement != null ? webElement : timer().getResultByCondition(this::getElementAction, el -> el != null);
+        WebElement element = webElement != null
+                ? webElement
+                : timer().getResultByCondition(this::getElementAction, el -> el != null);
         logger.debug("One Element found");
         return element;
     }
@@ -91,20 +113,41 @@ public class GetElementModule implements IAvatar {
         return elements;
     }
 
+    public <T> T findImmediately(Supplier<T> func, T ifError) {
+        element.setWaitTimeout(0);
+        Function<WebElement, Boolean> temp = localElementSearchCriteria;
+        localElementSearchCriteria = el -> true;
+        T result;
+        try {
+            result = func.get();
+        } catch (Exception | Error ex) {
+            result = ifError;
+        }
+        localElementSearchCriteria = temp;
+        element.restoreWaitTimeout();
+        return result;
+    }
+
     public Timer timer() {
         return new Timer(timeouts.currentTimeoutSec * 1000);
+    }
+    private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
+        List<WebElement> elements = timer().getResultByCondition(
+                this::searchElements,
+                els -> any(els, getSearchCriteria()));
+        if (elements == null || elements.size() == 0)
+            return new ArrayList<>();
+        return elements.size() < 10 ? where(elements, condition) : elements;
     }
 
     private List<WebElement> getElementsAction() {
         if (webElements != null)
             return webElements;
-        List<WebElement> result = timer().getResultByCondition(
-                this::searchElements,
-                els -> where(els, getSearchCriteria()).size() > 0);
+        List<WebElement> result = getElementsByCondition(getSearchCriteria());
         timeouts.dropTimeouts();
         if (result == null)
             throw exception("Can't get Web Elements");
-        return where(result, el -> getSearchCriteria().apply(el));
+        return result;
     }
 
     private Function<WebElement, Boolean> getSearchCriteria() {
@@ -133,13 +176,15 @@ public class GetElementModule implements IAvatar {
         Object p;
         BaseElement bElement;
         Element el;
-        if (element == null || !isClass(element.getClass(), BaseElement.class) || ((p = (bElement = (BaseElement) element).getParent()) == null && bElement.avatar.frameLocator == null))
+        if (element == null || !isClass(element.getClass(), BaseElement.class)
+                || ((p = (bElement = (BaseElement) element).getParent()) == null
+                && bElement.avatar.frameLocator == null))
             return getDriver().switchTo().defaultContent();
         if (isClass(bElement.getClass(), Element.class) && (el = (Element) bElement).avatar.hasWebElement())
             return el.getWebElement();
         By locator = bElement.getLocator();
         SearchContext searchContext = containsRoot(locator)
-                ? getDriver()
+                ? getDriver().switchTo().defaultContent()
                 : getSearchContext(p);
         locator = containsRoot(locator)
                 ? trimRoot(locator)
@@ -154,22 +199,15 @@ public class GetElementModule implements IAvatar {
 
     private List<WebElement> searchElements()
     {
-        SearchContext searchContext = containsRoot(byLocator)
+        SearchContext searchContext = containsRoot(getLocator())
                 ? getDriver()
                 : getSearchContext(element.getParent());
-        By locator = containsRoot(byLocator)
-                ? trimRoot(byLocator)
-                : byLocator;
+        By locator = containsRoot(getLocator())
+                ? trimRoot(getLocator())
+                : getLocator();
         if (frameLocator != null)
             getDriver().switchTo().frame(getDriver().findElement(frameLocator));
         return searchContext.findElements(correctXPaths(locator));
-    }
-
-    private By correctXPaths(By byValue) {
-        return byValue.toString().contains("By.xpath: //")
-                ? getByFunc(byValue).apply(getByLocator(byValue)
-                .replaceFirst("/", "./"))
-                : byValue;
     }
 
     public void clearCookies() {
@@ -180,16 +218,16 @@ public class GetElementModule implements IAvatar {
     public String toString() {
         return shortLogMessagesFormat
                 ? printFullLocator()
-                : format("Locator: '%s'", byLocator)
+                : format("Locator: '%s'", getLocator())
                 + (element.getParent() != null && isClass(element.getParent().getClass(), IBaseElement.class)
                         ? format(", Context: '%s'", element.printContext())
                         : "");
     }
 
     private String printFullLocator() {
-        if (byLocator == null)
+        if (!hasLocator())
             return "No Locators";
-        return element.printContext() + "; " + printShortBy(byLocator);
+        return element.printContext() + "; " + printShortBy(getLocator());
     }
 
     private String printShortBy(By by) {

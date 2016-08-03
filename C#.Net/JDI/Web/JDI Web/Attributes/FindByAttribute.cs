@@ -42,6 +42,7 @@ namespace JDI_Web.Attributes
                     return By.Id("Undefined locator");
             }
         }
+        public By ByLocator => _locator;
 
         public static By Locator(FieldInfo field)
         {

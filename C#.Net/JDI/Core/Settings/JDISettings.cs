@@ -1,9 +1,8 @@
 ﻿using System;
 using Epam.JDI.Core.Interfaces.Settings;
 using Epam.JDI.Core.Logging;
-using static System.Int32;
-using static Epam.JDI.Core.Logging.LogLevels;
-using static Epam.Properties.Settings;
+using JDI_Core.Interfaces.Settings;
+using static Epam.JDI.Core.Properties.Settings;
 
 namespace Epam.JDI.Core.Settings
 {
@@ -17,17 +16,17 @@ namespace Epam.JDI.Core.Settings
         public static bool ShortLogMessagesFormat = true;
         public static string JDISettingsPath = "test.properties";
         public static bool ExceptionThrown;
-        public static IDriver<object> DriverFactory;
+        public static IDriver<object> DriverFactory = new DefaultDriver();
         public static bool UseCache = false;
         
         public static void ToLog(string message, LogLevels level)
         {
             switch (level)
             {
-                case Debug:
+                case LogLevels.Debug:
                     Logger.Debug(message);
                     return;
-                case Error:
+                case LogLevels.Error:
                     Logger.Error(message);
                     return;
             }
@@ -43,8 +42,8 @@ namespace Epam.JDI.Core.Settings
         {
             FillFromSettings(p => DriverFactory.RegisterDriver(p), "driver");
             FillFromSettings(p => DriverFactory.SetRunType(p), "run.type");
-            FillFromSettings(p => Timeouts.WaitElementSec = Parse(p), "timeout.wait.element");
-            FillFromSettings(p => Timeouts.WaitPageLoadSec = Parse(p), "timeout.wait.pageLoad");
+            FillFromSettings(p => Timeouts.WaitElementSec = int.Parse(p), "timeout.wait.element");
+            FillFromSettings(p => Timeouts.WaitPageLoadSec = int.Parse(p), "timeout.wait.pageLoad");
         }
 
         protected static void FillFromSettings(Action<string> action, string name)

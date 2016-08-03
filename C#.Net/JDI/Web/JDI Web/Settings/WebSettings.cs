@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Interfaces.Common;
-using JDI_Core.Interfaces.Complex;
-using JDI_Core.Logging;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
+using Epam.JDI.Core.Logging;
+using Epam.JDI.Core.Settings;
 using JDI_Matchers;
+using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex;
-using JDI_Web.Selenium.Elements.Complex.table;
-using JDI_Web.Selenium.Elements.Complex.table.interfaces;
+using JDI_Web.Selenium.Elements.Complex.Table;
+using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Settings
@@ -40,9 +41,9 @@ namespace JDI_Web.Settings
         public static void Init()
         {
             DriverFactory = new WebDriverFactory();
-            Asserter = new NUnitMatcher();
+            Asserter = new WebAssert();
             Timeouts = new WebTimeoutSettings();
-            Logger = new JDILogger();
+            Logger = new NUnitLogger();
             MapInterfaceToElement.Init(DefaultInterfacesMap);
         }
 
@@ -65,7 +66,7 @@ namespace JDI_Web.Settings
             { typeof(IClickable), typeof(Clickable)},
             { typeof(IComboBox), typeof(ComboBox)},
             { typeof(ISelector), typeof(Selector)},
-            { typeof(IText), typeof(Textbox)},
+            { typeof(IText), typeof(Text)},
             { typeof(IImage), typeof(Image)},
             { typeof(ITextArea), typeof(TextArea)},
             { typeof(ITextField), typeof(TextField)},
@@ -81,6 +82,8 @@ namespace JDI_Web.Settings
             { typeof(IMenu), typeof(Menu)},
             { typeof(IFileInput), typeof(FileInput)},
             { typeof(IDatePicker), typeof(DatePicker)},
+            { typeof(ILink), typeof(Link)}
+
         };
     }
 }

@@ -50,11 +50,11 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     public DropList(By valueLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.button = new GetElementType(valueLocator);
+        this.button = new GetElementType(valueLocator, this);
     }
 
     protected Clickable button() {
-        return button.get(new Clickable(), getAvatar());
+        return button.get(Clickable.class);
     }
 
     protected void expandAction(String name) {

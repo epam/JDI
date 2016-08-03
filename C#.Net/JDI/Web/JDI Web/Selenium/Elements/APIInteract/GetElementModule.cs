@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using JDI_Commons;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Base;
+using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
 {
@@ -17,6 +18,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
     {
         public WebBaseElement Element { get; set; }
         public By ByLocator;
+        public By FrameLocator;
         public WebBaseElement RootElement;
         public string DriverName { get; set; }
 
@@ -24,9 +26,11 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             => WebSettings.WebDriverFactory.GetDriver(DriverName);
         public Func<IWebElement, bool> LocalElementSearchCriteria;
 
-        public GetElementModule()
+        public GetElementModule(WebBaseElement element, By byLocator = null)
         {
+            Element = element;
             DriverName = JDISettings.DriverFactory.CurrentDriverName;
+            ByLocator = byLocator;
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
@@ -34,6 +38,26 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         private IWebElement _webElement;
         private List<IWebElement> _webElements;
 
+        public GetElementModule Copy()
+        {
+            return Copy(ByLocator);
+        }
+
+        public GetElementModule Copy(By byLocator)
+        {
+            var clone = new GetElementModule(Element, byLocator)
+            {
+                LocalElementSearchCriteria = LocalElementSearchCriteria,
+                FrameLocator = FrameLocator,
+                RootElement = RootElement,
+                DriverName = DriverName,
+                Element = Element,
+                WebElement = _webElement,
+                WebElements = _webElements
+            };
+            return clone;
+        }
+        
         public IWebElement WebElement
         {
             get
@@ -60,12 +84,12 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         public T FindImmediately<T>(Func<T> func, T ifError)
         {
             Element.SetWaitTimeout(0);
-            var temp = Element.WebAvatar.LocalElementSearchCriteria;
-            Element.WebAvatar.LocalElementSearchCriteria = el => true;
+            var temp = LocalElementSearchCriteria;
+            LocalElementSearchCriteria = el => true;
             T result;
             try { result = func.Invoke(); }
             catch { result = ifError; }
-            Element.WebAvatar.LocalElementSearchCriteria = temp;
+            LocalElementSearchCriteria = temp;
             Element.RestoreWaitTimeout();
             return result;
         }
@@ -105,8 +129,12 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         private ISearchContext SearchContext(object element)
         {
             WebBaseElement el;
-            if (element == null || (el = element as WebBaseElement) == null || el.Parent == null)
+            if (element == null || (el = element as WebBaseElement) == null 
+                || (el.Parent == null && el.FrameLocator == null))
                 return WebDriver.SwitchTo().DefaultContent();
+            var elem = element as WebElement;
+            if (elem?.WebAvatar._webElement != null)
+                return elem.WebElement;
             var locator = el.Locator;
             var searchContext = locator.ContainsRoot()
                 ? WebDriver.SwitchTo().DefaultContent()
@@ -114,6 +142,9 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             locator = locator.ContainsRoot()
                     ? locator.TrimRoot()
                     : locator;
+            var frame = el.WebAvatar.FrameLocator;
+            if (frame != null)
+                WebDriver.SwitchTo().Frame(WebDriver.FindElement(frame));
             return locator != null
                 ? searchContext.FindElement(CorrectXPath(locator))
                 : searchContext;

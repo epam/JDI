@@ -51,7 +51,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     public boolean waitVanishedAction() {
-        return actions.findImmediately(() ->
+        return avatar.findImmediately(() ->
                 timer().wait(() -> {
                     List<WebElement> elements = getWebElements();
                     if (elements == null || elements.size() == 0)
@@ -63,7 +63,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     protected boolean isDisplayedAction() {
-        return actions.findImmediately(() -> where(getWebElements(), WebElement::isDisplayed).size() > 0, false);
+        return avatar.findImmediately(() -> where(getWebElements(), WebElement::isDisplayed).size() > 0, false);
     }
 
     public boolean waitDisplayedAction() {

@@ -38,9 +38,9 @@ public class WebPage extends BaseElement implements IPage {
     public static boolean checkAfterOpen = false;
     public String url;
     public String title;
-    protected CheckPageTypes checkUrlType = CheckPageTypes.EQUAL;
-    protected CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
-    protected String urlTemplate;
+    public CheckPageTypes checkUrlType = CheckPageTypes.EQUAL;
+    public CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
+    public String urlTemplate;
     public static WebPage currentPage;
 
     public WebPage() {
@@ -145,6 +145,14 @@ public class WebPage extends BaseElement implements IPage {
         invoker.doJAction(format("Refresh page '%s", getName()),
                 () -> getDriver().navigate().refresh());
     }
+    /**
+     * Reload current page
+     */
+    @JDIAction
+    public void reload() {
+        invoker.doJAction(format("Reload page '%s", getName()),
+                () -> getDriver().navigate().refresh());
+    }
 
     /**
      * Go back to previous page
@@ -191,7 +199,7 @@ public class WebPage extends BaseElement implements IPage {
         private String what;
         private Timer timer;
 
-        public StringCheckType(Supplier<String> actual, String equals, String template, String what, Timer timer) {
+        StringCheckType(Supplier<String> actual, String equals, String template, String what, Timer timer) {
             this.actual = actual;
             this.equals = equals;
             this.template = template;
@@ -204,8 +212,10 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void check() {
-            asserter.check(format("page %s equals to '%s'", what, equals))
-                    .isTrue(timer.wait(() -> actual.get().equals(equals)));
+            if (equals == null || equals.equals("")) return;
+            asserter.checkMEssage(format("page %s equals to '%s'", what, equals));
+            asserter.isTrue(timer.wait(() -> actual.get().equals(equals)));
+            asserter.checkMEssage("");
         }
 
         /**
@@ -213,8 +223,10 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void match() {
-            asserter.check(format("page %s matches to '%s'", what, template))
-                    .isTrue(timer.wait(() -> actual.get().matches(template)));
+            if (template == null || template.equals("")) return;
+            asserter.checkMEssage(format("page %s matches to '%s'", what, template));
+            asserter.isTrue(timer.wait(() -> actual.get().matches(template)));
+            asserter.checkMEssage("");
         }
 
         /**
@@ -222,8 +234,10 @@ public class WebPage extends BaseElement implements IPage {
          */
         @JDIAction
         public void contains() {
-            asserter.check(format("page %s contains '%s'", what, equals))
-                    .isTrue(timer.wait(() -> actual.get().contains(template)));
+            if (template == null || template.equals("")) return;
+            asserter.checkMEssage(format("page %s contains '%s'", what, template));
+            asserter.isTrue(timer.wait(() -> actual.get().contains(template)));
+            asserter.checkMEssage("");
         }
     }
 }

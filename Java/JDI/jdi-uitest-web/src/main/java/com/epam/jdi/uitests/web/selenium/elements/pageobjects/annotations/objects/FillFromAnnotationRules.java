@@ -1,8 +1,11 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 
+import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
 import static java.lang.Integer.parseInt;
@@ -13,7 +16,7 @@ import static java.util.Arrays.asList;
  */
 public class FillFromAnnotationRules {
 
-    public static void setUpTable(ITable table, JTable jTable) {
+    public static void setUpTable(Table table, JTable jTable) {
         table.setUp(findByToBy(jTable.root()), findByToBy(jTable.cell()),
                 findByToBy(jTable.row()), findByToBy(jTable.column()), findByToBy(jTable.footer()),
                 jTable.colStartIndex(), jTable.rowStartIndex());
@@ -28,8 +31,7 @@ public class FillFromAnnotationRules {
         if (jTable.width() > 0)
             table.setRowsCount(jTable.width());
         if (!jTable.size().equals("")) {
-            String[] split;
-            split = jTable.size().split("x");
+            String[] split = jTable.size().split("x");
             if (split.length == 1)
                 split = jTable.size().split("X");
             if (split.length != 2)
@@ -39,7 +41,7 @@ public class FillFromAnnotationRules {
         }
 
         switch (jTable.headerType()) {
-            case COLUMN_HEADERS:
+            case COLUMNS_HEADERS:
                 table.hasOnlyColumnHeaders();
             case ROWS_HEADERS:
                 table.hasOnlyRowHeaders();
@@ -55,5 +57,10 @@ public class FillFromAnnotationRules {
         dropdown.setUp(findByToBy(jDropdown.root()), findByToBy(jDropdown.value()),
                 findByToBy(jDropdown.list()), findByToBy(jDropdown.expand()),
                 findByToBy(jDropdown.elementByName()));
+    }
+    public static void setUpMenu(Menu menu, JMenu jMenu) {
+        menu.setUp(select(asList(jMenu.levelLocators()), WebAnnotationsUtil::findByToBy));
+        if (!jMenu.separator().equals(""))
+            menu.useSeparator(jMenu.separator());
     }
 }

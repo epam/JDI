@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Epam.JDI.Core.Logging
+﻿namespace Epam.JDI.Core.Logging
 {
     public interface ILogger
     {

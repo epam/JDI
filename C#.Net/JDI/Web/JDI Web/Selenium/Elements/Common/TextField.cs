@@ -1,16 +1,15 @@
 ﻿using System;
-using JDI_Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Common
 {
-    public class TextField : Textbox, ITextField
+    public class TextField : Text, ITextField
     {
-        public TextField() : this (null) { }
+        public TextField() : this(null) { }
         public TextField(By byLocator = null, IWebElement webElement = null)
-                : base(byLocator, webElement)
-        { }
+            : base(byLocator, webElement) { }
 
         protected Func<WebBaseElement, string> GetTextFunc =
             el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("value"), "");

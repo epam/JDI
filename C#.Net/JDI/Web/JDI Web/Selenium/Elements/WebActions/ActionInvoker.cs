@@ -1,10 +1,10 @@
 ﻿using System;
 using JDI_Commons;
-using JDI_Core.Logging;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Logging;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
-using static JDI_Core.ExceptionUtils;
+using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.Elements.WebActions
 {

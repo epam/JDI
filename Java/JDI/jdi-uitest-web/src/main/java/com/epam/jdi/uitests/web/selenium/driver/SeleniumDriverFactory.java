@@ -35,7 +35,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -52,6 +51,7 @@ import static java.lang.System.setProperty;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -59,12 +59,14 @@ import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public RunTypes runType = LOCAL;
+    public Boolean getLatestDriver = false;
     private String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public HighlightSettings highlightSettings = new HighlightSettings();
-    private String driversPath = "src\\main\\resources";
+    private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
     private MapArray<String, WebDriver> runDrivers = new MapArray<>();
+
     public SeleniumDriverFactory() {
         this(false, new HighlightSettings(), WebElement::isDisplayed);
     }
@@ -126,12 +128,6 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
     }
 
-    private String getDriversPath() {
-        return ((driversPath.contains(":\\"))
-                ? driversPath
-                : asserter.silent(() -> new File(driversPath).getCanonicalPath())).replaceAll("/*$", "") + "\\";
-    }
-
     public String registerDriver(String driverName) {
         switch (driverName.toLowerCase()) {
             case "chrome":
@@ -159,12 +155,14 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     // GET DRIVER
 
-    private String registerLocalDriver(DriverTypes driverType) {
+    protected String registerLocalDriver(DriverTypes driverType) {
         switch (driverType) {
             case CHROME:
                 return registerDriver(driverType,
                         () -> {
-                            setProperty("webdriver.chrome.driver", getDriversPath() + "chromedriver.exe");
+                            if (getLatestDriver)
+                                downloadChromeDriver(driversPath);
+                            setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
                             return webDriverSettings.apply(new ChromeDriver());
                         });
             case FIREFOX:
@@ -174,7 +172,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return registerDriver(driverType, () -> {
                     DesiredCapabilities capabilities = internetExplorer();
                     capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-                    setProperty("webdriver.ie.driver", getDriversPath() + "IEDriverServer.exe");
+                    if (getLatestDriver)
+                        downloadIEDriver(driversPath);
+                    setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
                     return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
                 });
         }
@@ -218,13 +218,13 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         if (!drivers.keys().contains(driverName))
             throw exception("Can't find driver with name '%s'", driverName);
         try {
-            if (runDrivers.keys().contains(driverName))
-                return runDrivers.get(driverName);
-            WebDriver resultDriver = drivers.get(driverName).get();
-            runDrivers.add(driverName, resultDriver);
-            if (resultDriver == null)
-                throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
-            return resultDriver;
+            if (!runDrivers.keys().contains(driverName)) {
+                WebDriver resultDriver = drivers.get(driverName).get();
+                if (resultDriver == null)
+                    throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
+                runDrivers.add(driverName, resultDriver);
+            }
+            return runDrivers.get(driverName);
         } catch (Exception ex) {
             logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
             throw exception("Can't get driver; Thread: " + Thread.currentThread().getId() + "Exception: " + ex.getMessage());

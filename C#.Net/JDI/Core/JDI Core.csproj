@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99EE5894-9F49-43E2-A129-7916D924D49C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JDI_Core</RootNamespace>
+    <AssemblyName>JDI Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JDI Commons, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JDI.UICommons.1.0.15\lib\net452\JDI Commons.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Attributes\AttributesUtil.cs" />
+    <Compile Include="Attributes\ComplexAttribute.cs" />
+    <Compile Include="Attributes\FillFromFieldAttribute.cs" />
+    <Compile Include="Attributes\Functions\CancelButton.cs" />
+    <Compile Include="Attributes\Functions\CloseButton.cs" />
+    <Compile Include="Attributes\Functions\Functions.cs" />
+    <Compile Include="Attributes\Functions\OkButton.cs" />
+    <Compile Include="Attributes\MoveToAttribute.cs" />
+    <Compile Include="Attributes\NameAttribute.cs" />
+    <Compile Include="Base\Application.cs" />
+    <Compile Include="Base\CascadeInit.cs" />
+    <Compile Include="ExceptionUtils.cs" />
+    <Compile Include="Interfaces\Base\IAvatar.cs" />
+    <Compile Include="Interfaces\Base\IBaseElement.cs" />
+    <Compile Include="Interfaces\Base\IClickable.cs" />
+    <Compile Include="Interfaces\Base\IComposite.cs" />
+    <Compile Include="Interfaces\Base\IElement.cs" />
+    <Compile Include="Interfaces\Base\IHasValue.cs" />
+    <Compile Include="Interfaces\Base\IMultiSelector.cs" />
+    <Compile Include="Interfaces\Base\ISelect.cs" />
+    <Compile Include="Interfaces\Base\ISetValue.cs" />
+    <Compile Include="Interfaces\Base\IVisible.cs" />
+    <Compile Include="Interfaces\Common\IButton.cs" />
+    <Compile Include="Interfaces\Common\ICheckBox.cs" />
+    <Compile Include="Interfaces\Common\IDatePicker.cs" />
+    <Compile Include="Interfaces\Common\IFileInput.cs" />
+    <Compile Include="Interfaces\Common\IImage.cs" />
+    <Compile Include="Interfaces\Common\ILabel.cs" />
+    <Compile Include="Interfaces\Common\ILink.cs" />
+    <Compile Include="Interfaces\Common\IText.cs" />
+    <Compile Include="Interfaces\Common\ITextArea.cs" />
+    <Compile Include="Interfaces\Common\ITextField.cs" />
+    <Compile Include="Interfaces\Complex\ICheckList.cs" />
+    <Compile Include="Interfaces\Complex\IComboBox.cs" />
+    <Compile Include="Interfaces\Complex\IDropDown.cs" />
+    <Compile Include="Interfaces\Complex\IDropList.cs" />
+    <Compile Include="Interfaces\Complex\IForm.cs" />
+    <Compile Include="Interfaces\Complex\IGroup.cs" />
+    <Compile Include="Interfaces\Complex\IMenu.cs" />
+    <Compile Include="Interfaces\Complex\IPage.cs" />
+    <Compile Include="Interfaces\Complex\IPagination.cs" />
+    <Compile Include="Interfaces\Complex\IPopup.cs" />
+    <Compile Include="Interfaces\Complex\IRadioButtons.cs" />
+    <Compile Include="Interfaces\Complex\ISearch.cs" />
+    <Compile Include="Interfaces\Complex\ISelector.cs" />
+    <Compile Include="Interfaces\Complex\ITabs.cs" />
+    <Compile Include="Interfaces\Complex\ITextList.cs" />
+    <Compile Include="Interfaces\IComplex.cs" />
+    <Compile Include="Interfaces\Settings\DefaultDriver.cs" />
+    <Compile Include="Interfaces\Settings\IDriver.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\JDILogger.cs" />
+    <Compile Include="Logging\NUnitLogger.cs" />
+    <Compile Include="Logging\Log4Net.cs" />
+    <Compile Include="Logging\LogLevels.cs" />
+    <Compile Include="Logging\NLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\PerformanceStatistic.cs" />
+    <Compile Include="Settings\HighlightSettings.cs" />
+    <Compile Include="Settings\IAssert.cs" />
+    <Compile Include="Settings\JDIData.cs" />
+    <Compile Include="Settings\JDISettings.cs" />
+    <Compile Include="Settings\TimeoutSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

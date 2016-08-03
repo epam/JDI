@@ -24,6 +24,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.*;
 import com.epam.jdi.uitests.core.interfaces.complex.*;
 import com.epam.jdi.uitests.core.settings.JDISettings;
+import com.epam.jdi.uitests.web.selenium.TestNGCheck;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
@@ -36,7 +37,6 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITabl
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
 import com.epam.web.matcher.testng.Assert;
-import com.epam.web.matcher.testng.Check;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -50,7 +50,6 @@ import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
  * Created by Roman_Iovlev on 11/13/2015.
  */
 public class WebSettings extends JDISettings {
-
     public static String domain;
     public static boolean hasDomain() {
         return domain != null && domain.contains("://");
@@ -81,12 +80,13 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void init() throws IOException {
         driverFactory = new SeleniumDriverFactory();
-        asserter = new Check() {
+        asserter = new TestNGCheck() {
             @Override
             protected String doScreenshotGetMessage() {
                 return ScreenshotMaker.doScreenshotGetMessage();
             }
-        }.doScreenshot(SCREEN_ON_FAIL);
+        };
+        asserter.doScreenshot("screen_on_fail");
         Assert.setMatcher((BaseMatcher) asserter);
         timeouts = new WebTimeoutSettings();
         getProperties(jdiSettingsPath);
@@ -99,6 +99,8 @@ public class WebSettings extends JDISettings {
         JDISettings.initFromProperties();
         fillAction(p -> domain = p, "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
+        fillAction(p -> getDriverFactory().getLatestDriver =
+                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         String isMultithread = getProperty("multithread");
         logger = isMultithread != null && (isMultithread.equals("true") || isMultithread.equals("1"))
             ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))

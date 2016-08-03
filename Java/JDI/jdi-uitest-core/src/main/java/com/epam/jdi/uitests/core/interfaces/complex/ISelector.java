@@ -89,7 +89,9 @@ public interface ISelector<TEnum extends Enum> extends IBaseElement, ISetValue {
      */
     @JDIAction
     void waitSelected(TEnum name);
-
+/*
+    boolean isDisplayed(String name);
+    boolean isDisplayed(int index);*/
     /**
      * @return Get labels of all options
      */

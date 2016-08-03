@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Settings;
-using Epam.JDI.Core.Interfaces.Base;
 
 namespace Epam.JDI.Core.Interfaces.Settings
 {

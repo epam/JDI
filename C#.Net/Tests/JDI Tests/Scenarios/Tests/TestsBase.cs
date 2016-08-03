@@ -1,19 +1,18 @@
-﻿using System;
-using JDI_Commons;
+﻿using JDI_Commons;
 using JDI_Tests.Scenarios.Page_Objects;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Composite;
 using NUnit.Framework;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Selenium.DriverFactory.WinProcUtils;
 using static JDI_Web.Settings.WebSettings;
 
 namespace JDI_Tests.Scenarios.Tests
 {
+    [SetUpFixture]
     public class TestsBase
     {
-        protected static Timer Timer;
-        public static TimeSpan TestRunTime => Timer.TimePassed;
+        Timer _timer = new Timer();
 
         [OneTimeSetUp]
         public void Init()
@@ -24,9 +23,10 @@ namespace JDI_Tests.Scenarios.Tests
 
             if (!DriverFactory.HasDrivers())
                 UseDriver(DriverTypes.Chrome);
-            Timer = new Timer();
+            _timer = new Timer();
             
             WebSite.Init(typeof(EpamSite));
+            WebSite.Init(typeof(W3CSite));
             EpamSite.HomePage.Open();
             Logger.Info("Run Tests");
         }
@@ -36,7 +36,7 @@ namespace JDI_Tests.Scenarios.Tests
         {
             Logger.Info($@"
 Test run finished.
-Total test run time: {TestRunTime.ToString(@"hh\:mm\:ss\.fff")}");
+Total test run time: {_timer.TimePassed.ToString(@"hh\:mm\:ss\.fff")}");
             KillAllRunWebDrivers();
         }
     }

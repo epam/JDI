@@ -69,7 +69,8 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(int colNum) {
-        return table.getWebElement().findElements(fillByTemplate((lineTemplate != null) ? lineTemplate : defaultTemplate, colNum));
+        return table.getWebElement().findElements(fillByTemplate((lineTemplate != null)
+                ? lineTemplate : defaultTemplate, colNum + startIndex - 1));
     }
 
     protected List<WebElement> getLineAction(String lineName) {

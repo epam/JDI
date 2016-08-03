@@ -74,7 +74,9 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement(By byLocator) {
-        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY") ? null : byLocator, this);
+        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY")
+            ? null
+            : byLocator, this);
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {
@@ -125,7 +127,7 @@ public abstract class BaseElement implements IBaseElement {
      * @return Get Element’s locator
      */
     public By getLocator() {
-        return avatar.byLocator;
+        return avatar.getLocator();
     }
 
     public GetElementModule getAvatar() {
@@ -133,14 +135,16 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public BaseElement setAvatar(GetElementModule avatar) {
-        this.avatar = avatar;
+        this.avatar = avatar.copy();
+        return this;
+    }
+    public BaseElement setAvatar(By byLocator) {
+        this.avatar = this.avatar.copy(byLocator);
         return this;
     }
 
     public BaseElement setAvatar(By byLocator, GetElementModule avatar) {
-        this.avatar = new GetElementModule(byLocator, this);
-        this.avatar.localElementSearchCriteria = avatar.localElementSearchCriteria;
-        this.avatar.setDriverName(avatar.getDriverName());
+        this.avatar = avatar.copy(byLocator);
         return this;
     }
 

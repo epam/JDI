@@ -1,4 +1,4 @@
-﻿using JDI_Core.Interfaces.Base;
+﻿using Epam.JDI.Core.Interfaces.Base;
 using JDI_Tests.Scenarios.Page_Objects.Sections;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Composite;

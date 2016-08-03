@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
+using static System.Diagnostics.Debug;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex
 {
@@ -14,9 +16,10 @@ namespace JDI_Web.Selenium.Elements.Complex
         public new List<IWebElement> WebElements => base.WebElements;
         private readonly Elements<Label> _texts;
         
-        public TextList() { }
+        public TextList() : this(null) { }
 
-        public TextList(By locator) : base(locator)
+        public TextList(By locator, List<IWebElement> webElements = null) : 
+            base(locator, webElements: webElements)
         {
             _texts = new Elements<Label>(Locator);
         }
@@ -33,7 +36,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             throw Exception($"Wait Text '{expected}' Failed ({ToString()}");
         }
 
-        public IList<string> Texts => _texts.Select(el => el.Text).ToList();
+        public IList<string> Texts => _texts.Select(el => el.GetText).ToList();
         public IList<Label> TextElements => _texts;
 
         public string this[int index]

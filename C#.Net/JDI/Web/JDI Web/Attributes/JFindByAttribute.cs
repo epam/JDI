@@ -45,6 +45,8 @@ namespace JDI_Web.Attributes
             }
         }
 
+        public By ByLocator => _locator;
+
         public static By Locator(FieldInfo field)
         {
             var locator = field.GetCustomAttribute<JFindByAttribute>(false);

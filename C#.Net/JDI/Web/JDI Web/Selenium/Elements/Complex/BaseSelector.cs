@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Base;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex
 {
@@ -16,7 +16,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         where TEnum : IConvertible
     {
         protected bool IsSelector;
-        private readonly GetElementType _allLabels;
+        protected GetElementType _allLabels;
         protected SelectElement Selector
         {
             get
@@ -25,12 +25,16 @@ namespace JDI_Web.Selenium.Elements.Complex
                 return new SelectElement(WebElement);
             }
         }
+
+        protected BaseSelector(By optionsNamesLocator, List<IWebElement> webElements = null) : 
+            base(optionsNamesLocator, webElements: webElements) { }
+
         protected BaseSelector(By optionsNamesLocator, By allLabelsLocator) : base(optionsNamesLocator)
         {
             _allLabels = new GetElementType(allLabelsLocator);
         }
 
-        public TextList AllLabels => _allLabels.Get(new TextList(), WebAvatar);
+        public TextList AllLabels => _allLabels?.Get(new TextList(), WebAvatar);
 
         public Action<BaseSelector<TEnum>, string> SelectNameAction = (s, name) =>
         {
@@ -68,43 +72,43 @@ namespace JDI_Web.Selenium.Elements.Complex
             element.Click();
         }
 
-        public Action<BaseSelector<TEnum>, int> SelectNumAction = (s, index) =>
+        public Action<BaseSelector<TEnum>, int> SelectNumAction = (s, num) =>
         {
             if (!s.HasLocator && s.AllLabels == null)
-                throw Exception($"Can't find option '{index}'. No optionsNamesLocator and _allLabelsLocator found");
+                throw Exception($"Can't find option '{num}'. No optionsNamesLocator and _allLabelsLocator found");
             if (s.AllLabels != null)
             {
-                s.SelectFromList(s.AllLabels.WebElements, index);
+                s.SelectFromList(s.AllLabels.WebElements, num);
                 return;
             }
             if (s.Locator.ToString().Contains("{0}"))
             {
-                new Clickable(s.Locator.FillByTemplate(index)).Click();
+                new Clickable(s.Locator.FillByTemplate(num)).Click();
                 return;
             }
             var elements = s.WebAvatar.SearchAll().WebElements;
             if (elements.Count == 1 && elements[0].TagName.Equals("select"))
                 if (s.Selector.Options.Any())
                 {
-                    s.Selector.SelectByIndex(index);
+                    s.Selector.SelectByIndex(num - 1);
                     return;
                 }
                 else
                     throw Exception($"<select> tag has no <option> tags. Please Clarify element locator ({s})");
             if (elements.Count == 1 && elements[0].TagName.Equals("ul"))
                 elements = elements[0].FindElements(By.TagName("li")).ToList();
-            s.SelectFromList(elements, index);
+            s.SelectFromList(elements, num);
         };
 
-        private void SelectFromList(IList<IWebElement> els, int index)
+        private void SelectFromList(IList<IWebElement> els, int num)
         {
-            if (index <= 0)
-                throw Exception($"Can't get option with index '{index}'. Index should be 1 or more");
+            if (num <= 0)
+                throw Exception($"Can't get option with num '{num}'. num should be 1 or more");
             if (els == null)
-                throw Exception($"Can't find option with index '{index}'. Please fix _allLabelsLocator");
-            if (els.Count < index)
-                throw Exception($"Can't find option with index '{index}'. Find only '{els.Count}' options");
-            els[index - 1].Click();
+                throw Exception($"Can't find option with num '{num}'. Please fix _allLabelsLocator");
+            if (els.Count < num)
+                throw Exception($"Can't find option with num '{num}'. Find only '{els.Count}' options");
+            els[num - 1].Click();
         }
 
         public Func<BaseSelector<TEnum>, string, bool> SelectedNameAction;
@@ -157,7 +161,7 @@ namespace JDI_Web.Selenium.Elements.Complex
 
         public string OptionsAsText => Options.Print();
 
-        protected IList<IWebElement> Elements
+        public IList<IWebElement> Elements
         {
             get
             {
@@ -189,25 +193,33 @@ namespace JDI_Web.Selenium.Elements.Complex
             return elements;
         }
 
-        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) => s.DisplayedInList(s.Elements, name);
-
-        private bool DisplayedInList(IList<IWebElement> els, string name)
+        public Func<BaseSelector<TEnum>, string, IWebElement> GetWebElementFunc = (s, name) =>
+            s.HasLocator && s.Locator.ToString().Contains("{0}")
+                ? new WebElement(s.Locator.FillByTemplate(name)).WebElement
+                : s.Elements.FirstOrDefault(el => el.Text.Equals(name)); 
+        public IWebElement GetWebElement(string name)
         {
-            var element = els.FirstOrDefault(el => el.Text.Equals(name));
-            return element != null && element.Displayed;
+            return GetWebElementFunc(this, name);
         }
 
-        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction = (s, index) => s.DisplayedInList(s.Elements, index);
-
-        private bool DisplayedInList(IList<IWebElement> els, int index)
+        public Func<BaseSelector<TEnum>, string, bool> DisplayedNameAction = (s, name) =>
         {
-            if (index <= 0)
-                throw Exception($"Can't get option with index '{index}'. Index should be 1 or more");
+            var el = s.GetWebElement(name);
+            return el != null && el.Displayed;
+        };
+
+        public Func<BaseSelector<TEnum>, int, bool> DisplayedNumAction = 
+            (s, num) => s.DisplayedInList(s.Elements, num);
+
+        private bool DisplayedInList(IList<IWebElement> els, int num)
+        {
+            if (num <= 0)
+                throw Exception($"Can't get option with num '{num}'. num should be 1 or more");
             if (els == null)
-                throw Exception($"Can't find option with index '{index}'. Please fix _allLabelsLocator");
-            if (els.Count < index)
-                throw Exception($"Can't find option with index '{index}'. Find '{els.Count}' options");
-            return els[index - 1].Displayed;
+                throw Exception($"Can't find option with num '{num}'. Please fix _allLabelsLocator");
+            if (els.Count < num)
+                throw Exception($"Can't find option with num '{num}'. Find '{els.Count}' options");
+            return els[num - 1].Displayed;
         }
 
         public Func<BaseSelector<TEnum>, bool> DisplayedAction = s =>

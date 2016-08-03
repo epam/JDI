@@ -1,5 +1,5 @@
 ﻿using System;
-using JDI_Core.Interfaces.Base;
+using Epam.JDI.Core.Interfaces.Base;
 using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -8,7 +8,7 @@ namespace JDI_Web.Selenium.Elements.Base
 {
     public class Clickable : WebElement, IClickable
     {
-        public Clickable() : this (null) { }
+        public Clickable() : this(null) { }
         public Clickable(By byLocator = null, IWebElement webElement = null) 
             : base(byLocator, webElement) { }
         

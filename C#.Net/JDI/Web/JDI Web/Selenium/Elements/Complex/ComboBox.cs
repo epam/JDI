@@ -1,5 +1,5 @@
 ﻿using System;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
 using OpenQA.Selenium;
@@ -20,7 +20,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             : base(selectorLocator, optionsNamesLocatorTemplate)
         {
             SetValueAction = (c, value) => NewInput(value);
-            GetTextAction = c => TextField.Text;
+            GetTextAction = c => TextField.GetText;
             _textField = new GetElementType(selectorLocator);
         }
 

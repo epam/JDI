@@ -19,17 +19,23 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
-import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
@@ -39,11 +45,11 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import static com.epam.commons.ReflectionUtils.isInterface;
+import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.*;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.fillPageFromAnnotaiton;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.getFindByLocator;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpTable;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.*;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -59,25 +65,24 @@ public class WebCascadeInit extends CascadeInit {
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
         BaseElement element = (BaseElement) instance;
-        if (element.getLocator() == null)
-            element.avatar.byLocator = getNewLocator(field);
+        if (!element.hasLocator())
+            element.setAvatar(new GetElementModule(getNewLocator(field), element));
         return element;
     }
     @Override
-    protected IBaseElement fillFromJDIAttribute(IBaseElement instance, Field field) {
+    protected IBaseElement fillFromJDIAnnotation(IBaseElement instance, Field field) {
         BaseElement element = (BaseElement) instance;
-        if (hasJDIAttribute(field))
-            fillFromAttribute(element, field);
+        fillFromAnnotation(element, field);
         return element;
     }
     @Override
     protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent, Class<?> type) {
         BaseElement element = (BaseElement) instance;
-        if (parent == null || type != null) {
-            By frameBy = WebAnnotationsUtil.getFrame(field.getDeclaredAnnotation(Frame.class));
-            if (frameBy != null)
-                element.avatar.frameLocator =  frameBy;
-        }
+        if (parent != null && type == null)
+            return element;
+        By frameBy = getFrame(field.getDeclaredAnnotation(Frame.class));
+        if (frameBy != null)
+            element.avatar.frameLocator =  frameBy;
         return element;
     }
     protected IBaseElement getElementsRules(Field field, String driverName, Class<?> type, String fieldName) throws IllegalAccessException, InstantiationException {
@@ -86,15 +91,18 @@ public class WebCascadeInit extends CascadeInit {
         if (isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
             if (elementClass.isInterface())
-                elementClass = MapInterfaceToElement.getClassFromInterface(type);
+                elementClass = getClassFromInterface(type);
             if (elementClass != null)
                 instance = new Elements(newLocator, elementClass);
         } else {
             if (type.isInterface())
-                type = MapInterfaceToElement.getClassFromInterface(type);
+                type = getClassFromInterface(type);
             if (type != null) {
                 instance = (BaseElement) type.newInstance();
-                instance.avatar.byLocator = newLocator;
+                if (instance.getAvatar() != null && newLocator == null)
+                    instance.setAvatar(new GetElementModule(instance));
+                else
+                    instance.setAvatar(new GetElementModule(newLocator, instance));
             }
         }
         if (instance == null)
@@ -107,24 +115,39 @@ public class WebCascadeInit extends CascadeInit {
     protected By getNewLocatorFromField(Field field) {
         By byLocator = null;
         String locatorGroup = APP_VERSION;
-        if (locatorGroup != null) {
-            JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-            if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
+        if (locatorGroup == null)
+            return findByToBy(field.getAnnotation(FindBy.class));
+        JFindBy jFindBy = field.getAnnotation(JFindBy.class);
+        if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
                 byLocator = getFindByLocator(jFindBy);
-        }
         return byLocator != null
             ? byLocator
-            : WebAnnotationsUtil.findByToBy(field.getAnnotation(FindBy.class));
+            : findByToBy(field.getAnnotation(FindBy.class));
     }
-    protected boolean hasJDIAttribute(Field field) {
-        JTable jTable = field.getAnnotation(JTable.class);
-        return jTable != null;
+
+    private static void fillFromAnnotation(BaseElement instance, Field field) {
+        setUpTableFromAnnotation(instance, field);
+        setUpMenuFromAnnotation(instance, field);
+        setUpDropdownFromAnnotation(instance, field);
     }
-    private void fillFromAttribute(BaseElement instance, Field field) {
+
+    private static void setUpTableFromAnnotation(BaseElement instance, Field field) {
         JTable jTable = field.getAnnotation(JTable.class);
         if (jTable == null || !isInterface(field, ITable.class))
             return;
-        setUpTable((ITable) instance, jTable);
+        setUpTable((Table) instance, jTable);
+    }
+    private static void setUpDropdownFromAnnotation(BaseElement instance, Field field) {
+        JDropdown jDropdown = field.getAnnotation(JDropdown.class);
+        if (jDropdown == null || !isInterface(field, IDropDown.class))
+            return;
+        setUpDropdown((Dropdown) instance, jDropdown);
+    }
+    private static void setUpMenuFromAnnotation(BaseElement instance, Field field) {
+        JMenu jMenu = field.getAnnotation(JMenu.class);
+        if (jMenu == null || !isInterface(field, IMenu.class))
+            return;
+        setUpMenu((Menu) instance, jMenu);
     }
 
 }

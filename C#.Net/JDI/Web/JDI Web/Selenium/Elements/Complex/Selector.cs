@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Complex;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex
 {
     public class Selector : Selector<IConvertible>, ISelector
     {
         public Selector() { }
+        public Selector(By optionsNamesLocatorTemplate) : base(optionsNamesLocatorTemplate) { }
         public Selector(By optionsNamesLocatorTemplate, By allOptionsNamesLocator) 
             : base(optionsNamesLocatorTemplate, allOptionsNamesLocator) { }
     }
     public class Selector<TEnum> : BaseSelector<TEnum>, ISelector<TEnum>
         where TEnum : IConvertible
     {
-        protected Selector() : this(null, null) { }
+        protected Selector() : this(null, webElements: null) { }
+
+        public Selector(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null) : 
+            base(optionsNamesLocatorTemplate, webElements) { }
         public Selector(By optionsNamesLocatorTemplate, By allOptionsNamesLocator)
             : base(optionsNamesLocatorTemplate, allOptionsNamesLocator)
         {
@@ -32,8 +36,8 @@ namespace JDI_Web.Selenium.Elements.Complex
             Select(enumType.ToString());
         }
 
-        public void Select(int index) {
-            Actions.Select(index, (s, n) => SelectNumAction(this, index));
+        public void Select(int num) {
+            Actions.Select(num, (s, n) => SelectNumAction(this, num));
         }
 
         public string Selected() {
@@ -56,10 +60,10 @@ namespace JDI_Web.Selenium.Elements.Complex
         public Func<Selector<TEnum>, int> SelectedIndexAction = s => s.SelectedIndex(s.Elements);
 
         private int SelectedIndex(IList<IWebElement> els) {
-            var index = els.ToList().FindIndex(el => SelectedElementAction(this, el)) + 1;
-            if (index == 0)
+            var num = els.ToList().FindIndex(el => SelectedElementAction(this, el)) + 1;
+            if (num == 0)
                 throw Exception("No elements selected. Override getSelectedAction or place locator to <select> tag");
-            return index;
+            return num;
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using OpenQA.Selenium;
+using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.DriverFactory
 {
@@ -22,7 +23,7 @@ namespace JDI_Web.Selenium.DriverFactory
             if (!byLocator.Contains("{0}"))
                 throw new Exception(GetBadLocatorMsg(byLocator, args));
             var locator = byLocator;
-            byLocator = JDI_Core.ExceptionUtils.ActionWithException(
+            byLocator = ActionWithException(
                 () => string.Format(locator, args),
                 ex => GetBadLocatorMsg(locator, args));
             return by.GetByFunc().Invoke(byLocator);

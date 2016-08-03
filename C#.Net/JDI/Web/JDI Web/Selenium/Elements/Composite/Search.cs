@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using JDI_Commons;
-using JDI_Core.Interfaces.Common;
-using JDI_Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Common;
+using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex;
 using OpenQA.Selenium;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {

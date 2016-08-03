@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.*;
 import static java.lang.Integer.parseInt;
@@ -45,10 +46,10 @@ public final class PrintUtils {
             String strValue = null;
             if (value == null)
                 strValue = "#NULL#";
-            else if (isClass(value.getClass(), String.class))
-                strValue = (String) value;
-            else if (isClass(value.getClass(), Enum.class))
+            else if (isClass(value.getClass(), String.class, Integer.class, Boolean.class))
                 strValue = value.toString();
+            else if (isClass(value.getClass(), Enum.class))
+                strValue = getEnumValue((Enum) value);
             else if (field.isAnnotationPresent(Complex.class))
                 strValue = "#(#" + printObject(value) + "#)#";
             if (strValue != null)

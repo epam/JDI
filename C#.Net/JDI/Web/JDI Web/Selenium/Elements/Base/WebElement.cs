@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Linq;
 using JDI_Commons;
-using JDI_Core.Interfaces.Base;
-using JDI_Core.Logging;
-using JDI_Core.Settings;
+using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Logging;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using static JDI_Core.ExceptionUtils;
-using static JDI_Core.Settings.JDISettings;
+using static Epam.JDI.Core.ExceptionUtils;
+using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Settings.WebSettings;
 
 namespace JDI_Web.Selenium.Elements.Base
 {
     public class WebElement : WebBaseElement, IElement
     {
-
-        public WebElement() : this (null) { }
-
-        public WebElement(By byLocator = null, IWebElement webElement = null) 
+        public WebElement() : this(null) { }
+        public WebElement(By byLocator = null, IWebElement webElement = null)
             : base(byLocator, webElement) { }
         
         public static T Copy<T>(T element, By newLocator) where T : WebElement
