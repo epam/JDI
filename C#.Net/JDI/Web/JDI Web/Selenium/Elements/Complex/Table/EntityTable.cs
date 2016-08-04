@@ -25,11 +25,11 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             var field = fields.FirstOrDefault(f => NamesEqual(f.Name, fieldName));
             var clazz = field?.FieldType;
             if (clazz == null) return;
-            var element = (WebBaseElement) Activator.CreateInstance(clazz.IsInterface
+            var value = (WebBaseElement) Activator.CreateInstance(clazz.IsInterface
                 ? MapInterfaceToElement.ClassFromInterface(clazz)
                 : clazz);
-            element.WebAvatar = ((Cell)cell).WebAvatar;
-            field.SetValue(entity, element);
+            value.WebAvatar = ((Cell)cell).WebAvatar;
+            field.SetValue(entity, value);
         }
 
         public new IList<TRow> Rows(params string[] colNameValues)
@@ -73,7 +73,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         private static void SetEntityField(TEntity entity, List<FieldInfo> fields, string fieldName, string value)
         {
             var field = fields.FirstOrDefault(f => NamesEqual(f.Name, fieldName));
-            field?.SetValue(entity, value);
+            field?.SetValue(entity, value.ConvertStringToType(field));
         }
 
         public IList<TEntity> Entities(params string[] colNameValues)

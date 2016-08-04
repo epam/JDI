@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
@@ -194,9 +195,13 @@ namespace JDI_Web.Selenium.Elements.Complex
         }
 
         public Func<BaseSelector<TEnum>, string, IWebElement> GetWebElementFunc = (s, name) =>
-            s.HasLocator && s.Locator.ToString().Contains("{0}")
+        {
+            if (!s.HasLocator)
+                throw Exception("Element has no locators");
+            return s.Locator.ToString().Contains("{0}")
                 ? new WebElement(s.Locator.FillByTemplate(name)).WebElement
-                : s.Elements.FirstOrDefault(el => el.Text.Equals(name)); 
+                : s.Elements.FirstOrDefault(el => el.Text.Equals(name));
+        };
         public IWebElement GetWebElement(string name)
         {
             return GetWebElementFunc(this, name);

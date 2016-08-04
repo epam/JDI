@@ -33,7 +33,7 @@ import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.correctXPaths;
 
 public class TreeDropdown<T extends Enum> extends Dropdown<T> {
-    public List<By> treeLocators;
+    private List<By> treeLocators;
     public TreeDropdown() {
         super();
     }

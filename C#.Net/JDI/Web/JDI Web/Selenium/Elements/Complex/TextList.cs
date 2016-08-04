@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
 using OpenQA.Selenium;
-using static System.Diagnostics.Debug;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex

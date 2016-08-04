@@ -32,8 +32,10 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.getIndex;
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 
 /**
@@ -69,17 +71,22 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(int colNum) {
-        return table.getWebElement().findElements(fillByTemplate((lineTemplate != null)
-                ? lineTemplate : defaultTemplate, colNum + startIndex - 1));
+        return getElementByTemplate(colNum + startIndex - 1);
     }
 
     protected List<WebElement> getLineAction(String lineName) {
-        if (lineTemplate != null && WebDriverByUtils.getByLocator(lineTemplate).contains("%s"))
-            return table.getWebElement().findElements(fillByTemplate(lineTemplate, lineName));
+        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
+            return getElementByTemplate(lineName);
         int index = getIndex(headers(), lineName) + 1;
         return (lineTemplate == null)
                 ? getLineAction(index)
-                : table.getWebElement().findElements(fillByTemplate(lineTemplate, index));
+                : getElementByTemplate(index);
+    }
+    private List<WebElement> getElementByTemplate(Object value) {
+        By locator = fillByTemplate((lineTemplate != null)
+                ? lineTemplate
+                : defaultTemplate, value);
+        return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
     }
 
     protected int getCount(boolean acceptEmpty)

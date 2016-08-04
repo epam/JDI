@@ -36,7 +36,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<string> GetRowValue(string rowName)
         {
-            return ActionWithException(() => Table.Rows.GetLineAction(rowName).Select(el => el.Text).ToList(),
+            return ActionWithException(() => GetLineAction(rowName).Select(el => el.Text).ToList(),
                 ex => $"Can't Get Row '{rowName}'. Reason: {ex}");
         }
 
@@ -54,7 +54,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public Dictionary<string, ICell> GetRow(int rowNum)
         {
-            if (Count < 0 || Table.Rows.Count < rowNum || rowNum <= 0)
+            if (Count < 0 || Count < rowNum || rowNum <= 0)
                 throw Exception($"Can't Get Row '{rowNum}'. [num] > ColumnsCount({Count}).");
             return ActionWithException(() =>
             {
@@ -71,7 +71,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         {
             if (Count < 0 || Count < rowNum || rowNum <= 0)
                 throw Exception($"Can't Get Row '{rowNum}'. [num] > ColumnsCount({Count}).");
-            return ActionWithException(() => Table.Rows.GetLineAction(rowNum).Select(el => el.Text).ToList(),
+            return ActionWithException(() => GetLineAction(rowNum).Select(el => el.Text).ToList(),
                 ex => $"Can't Get Row '{rowNum}'. Reason: {ex}");
         }
 

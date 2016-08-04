@@ -68,6 +68,44 @@ namespace JDI_Commons
         {
             return obj?.GetType().Name ?? "NULL Class";
         }
-        
+
+        public static object ParseOrDefault(this string value, Func<string, object> parseAction, object defaultValue)
+        {
+            try { return parseAction(value); }
+            catch { return defaultValue; }
+        }
+
+        public static object ConvertStringToType(this string value, FieldInfo field)
+        {
+            var type = field.FieldType;
+            if (type == typeof(string) || value == null)
+                return value;
+            if (type == typeof(byte))
+                return value.ParseOrDefault(s => byte.Parse(s), 0);
+            if (type == typeof(int))
+                return value.ParseOrDefault(s => int.Parse(s), -1);
+            if (type == typeof(float))
+                return value.ParseOrDefault(s => float.Parse(s), -1f);
+            if (type == typeof(bool))
+                return value.ParseOrDefault(s => bool.Parse(s), false);
+            if (type == typeof(decimal))
+                return value.ParseOrDefault(s => decimal.Parse(s), -1m);
+            if (type == typeof(long))
+                return value.ParseOrDefault(s => long.Parse(s), -1);
+            if (type == typeof(byte?))
+                return value.ParseOrDefault(s => byte.Parse(s), null);
+            if (type == typeof(int?))
+                return value.ParseOrDefault(s => int.Parse(s), null);
+            if (type == typeof(float?))
+                return value.ParseOrDefault(s => float.Parse(s), null);
+            if (type == typeof(bool?))
+                return value.ParseOrDefault(s => bool.Parse(s), null);
+            if (type == typeof(decimal?))
+                return value.ParseOrDefault(s => decimal.Parse(s), null);
+            if (type == typeof(long?))
+                return value.ParseOrDefault(s => long.Parse(s), null);
+            throw new Exception($"Can't parse field {field.Name} type is unsupported");
+        }
+
     }
 }

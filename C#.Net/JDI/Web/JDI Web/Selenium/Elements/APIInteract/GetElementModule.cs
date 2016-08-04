@@ -146,7 +146,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             if (frame != null)
                 WebDriver.SwitchTo().Frame(WebDriver.FindElement(frame));
             return locator != null
-                ? searchContext.FindElement(CorrectXPath(locator))
+                ? searchContext.FindElement(locator.CorrectXPath())
                 : searchContext;
         }
 
@@ -164,14 +164,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             var locator = ByLocator.ContainsRoot()
                     ? ByLocator.TrimRoot()
                     : ByLocator;
-            return searchContext.FindElements(CorrectXPath(locator)).ToList();
-        }
-
-        private By CorrectXPath(By byValue)
-        {
-            return byValue.ToString().Contains("By.xpath: //")
-                    ? byValue.GetByFunc()(new Regex("//").Replace(byValue.GetByLocator(), "./", 1))
-                    : byValue;
+            return searchContext.FindElements(locator.CorrectXPath()).ToList();
         }
 
         private Func<IWebElement, bool> GetSearchCriteria 

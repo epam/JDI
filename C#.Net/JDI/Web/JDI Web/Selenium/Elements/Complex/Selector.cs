@@ -13,6 +13,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         public Selector(By optionsNamesLocatorTemplate) : base(optionsNamesLocatorTemplate) { }
         public Selector(By optionsNamesLocatorTemplate, By allOptionsNamesLocator) 
             : base(optionsNamesLocatorTemplate, allOptionsNamesLocator) { }
+        public Selector(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null) { }
     }
     public class Selector<TEnum> : BaseSelector<TEnum>, ISelector<TEnum>
         where TEnum : IConvertible

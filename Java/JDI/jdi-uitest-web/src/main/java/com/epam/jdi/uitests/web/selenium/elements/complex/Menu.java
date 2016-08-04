@@ -32,7 +32,9 @@ import java.util.function.Consumer;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
+import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static java.util.Arrays.asList;
 
 /**
  * RadioButtons control implementation
@@ -41,7 +43,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
  */
 public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum> {
     private List<By> menuLevelsLocators = new ArrayList<>();
-    private String separator = "\\.";
+    private String separator = "\\|";
     public <T extends IMenu<TEnum>> T useSeparator(String separator) {
         this.separator = separator;
         return (T)this;
@@ -61,24 +63,39 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
         this.menuLevelsLocators = menuLevelsLocators;
     }
 
-    protected void hoverAction(String name) {
+    protected void hoverAction(String... name) {
         chooseItemAction(name, el -> {
             Actions action = new Actions(getDriver());
             action.moveToElement(el).clickAndHold().build().perform();
         });
     }
 
-    public final void hover(String name) {
-        actions.hover(name, this::hoverAction);
+    public final void hover(String... names) {
+        if (names == null || names.length == 0)
+            return;
+        actions.hover(print(names, separator), (n) -> {
+            String[] split = SplitToList(names);
+            for (String name : split)
+                hoverAction(name);
+        });
     }
 
-    protected void hoverAndClickAction(String name) {
-        String[] split = name.split(separator);
+    private String[] SplitToList(String[] str)
+    {
+        return str.length == 1
+                ? str[0].split(separator)
+                : str;
+    }
+
+    protected void hoverAndClickAction(String... names) {
+        if (names == null || names.length == 0)
+            return;
+        String[] split = SplitToList(names);
         if (split.length > menuLevelsLocators.size())
             throw exception("Can't hover and click on element (%s) by value: %s. Amount of locators (%s) less than select path length (%s)",
-                this, name, menuLevelsLocators.size(), split.length);
+                this, print(names, separator), menuLevelsLocators.size(), split.length);
         if (split.length > 1)
-            hover(PrintUtils.print(LinqUtils.listCopyUntil(Arrays.asList(split), -1), ","));
+            hover(print(LinqUtils.listCopyUntil(asList(split), -1), separator));
         int lastIndex = split.length - 1;
         Selector selector = new Selector<>(menuLevelsLocators.get(lastIndex));
         selector.setParent(getParent());
@@ -87,24 +104,23 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void hover(TEnum name) {
         hover(getEnumValue(name));
     }
-    public final void hoverAndClick(String name) { actions.select(name, this::hoverAndClickAction); }
+    public final void hoverAndClick(String... names) { actions.select(print(names, separator), this::hoverAndClickAction); }
     public final void hoverAndClick(TEnum name) {
         hoverAndClick(getEnumValue(name));
     }
-    public final void hoverAndSelect(String name) {
-        hoverAndClick(name);
+    public final void hoverAndSelect(String... names) {
+        hoverAndClick(names);
     }
     public final void hoverAndSelect(TEnum name) {
         hoverAndClick(getEnumValue(name));
     }
 
-    @Override
-    protected void selectAction(String name) {
-        chooseItemAction(name, (webElement) -> webElement.click());
+    protected void selectAction(String... names) {
+        hoverAndClick(names);
     }
 
-    protected void chooseItemAction(String name,  Consumer<WebElement> action) {
-        String[] nodes = name.split(separator);
+    protected void chooseItemAction(String[] names,  Consumer<WebElement> action) {
+        String[] nodes = SplitToList(names);
         if (menuLevelsLocators.size() == 0 && hasLocator())
             menuLevelsLocators.add(getLocator());
         if (menuLevelsLocators.size() < nodes.length) return;

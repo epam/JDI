@@ -112,16 +112,22 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<IWebElement> GetLineAction(int colNum)
         {
-            return Table.GetWebElement().FindElements((LineTemplate ?? DefaultTemplate).FillByTemplate(colNum + StartIndex - 1)).ToList();
+            return GetElementsByTemplate(colNum + StartIndex - 1);
         }
         protected IList<IWebElement> GetLineAction(string lineName)
         {
             if (LineTemplate != null && LineTemplate.GetByLocator().Contains("{0}"))
-                return Table.WebElement.FindElements(LineTemplate.FillByTemplate(lineName));
+                return GetElementsByTemplate(lineName);
             var num = Headers.IndexOf(lineName) + 1; 
             return LineTemplate == null 
                 ? GetLineAction(num) 
-                : Table.GetWebElement().FindElements(LineTemplate.FillByTemplate(num));
+                : GetElementsByTemplate(num);
+        }
+
+        private IList<IWebElement> GetElementsByTemplate(object value)
+        {
+            var locator = (LineTemplate ?? DefaultTemplate).FillByTemplate(value);
+            return Table.WebElement.FindElements(locator).Where(el => el.Displayed).ToList();
         }
 
         protected abstract IList<IWebElement> GetFirstLine();

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Core.Interfaces.Complex;
+using Epam.JDI.Core.Interfaces.Settings;
 using Epam.JDI.Core.Logging;
 using Epam.JDI.Core.Settings;
-using JDI_Matchers;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
@@ -38,18 +38,28 @@ namespace JDI_Web.Settings
         public static IJavaScriptExecutor JSExecutor => DriverFactory.GetDriver() as IJavaScriptExecutor;
 
 
-        public static void Init()
+        public static void Init(ILogger logger = null, IAssert assert = null,
+            TimeoutSettings timeouts = null, IDriver<IWebDriver> driverFactory = null)
         {
-            DriverFactory = new WebDriverFactory();
-            Asserter = new WebAssert();
-            Timeouts = new WebTimeoutSettings();
-            Logger = new NUnitLogger();
+            DriverFactory = driverFactory ?? new WebDriverFactory();
+            Asserter = assert ?? new WebAssert();
+            Timeouts = timeouts ?? new WebTimeoutSettings();
+            Logger = logger ?? new LogAgregator(new NUnitLogger(), new Log4Net());
             MapInterfaceToElement.Init(DefaultInterfacesMap);
         }
 
-        public new static void InitFromProperties()
+        public static void InitNUnitDefault()
         {
             Init();
+        }
+        public static void InitMsTestDefault()
+        {
+            Init(new Log4Net());
+        }
+        public static void InitFromProperties(ILogger logger = null, IAssert assert = null,
+            TimeoutSettings timeouts = null, IDriver<IWebDriver> driverFactory = null)
+        {
+            Init(logger, assert, timeouts, driverFactory);
             JDISettings.InitFromProperties();
             FillFromSettings(p => Domain = p, "domain");
             FillFromSettings(p => DriverFactory.DriverPath = p, "drivers.folder");

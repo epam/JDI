@@ -16,7 +16,6 @@ using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using RestSharp.Extensions;
 using static Epam.JDI.Core.Settings.JDIData;
 using static Epam.JDI.Core.Settings.JDISettings;

@@ -96,8 +96,6 @@ public final class WebDriverByUtils {
         throw new RuntimeException("Can't get By name for: " + by);
     }
 
-
-
     public static By correctXPaths(By byValue) {
         return byValue.toString().contains("By.xpath: //")
                 ? getByFunc(byValue).apply(getByLocator(byValue)

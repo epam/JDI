@@ -7,7 +7,7 @@ namespace JDI_Commons
         public static T AvoidExceptions<T>(this Func<T> waitFunc)
         {
             try { return waitFunc(); }
-            catch (Exception ex) { return default(T); }
+            catch { return default(T); }
         }
 
         public static void AvoidExceptions(this Action action)

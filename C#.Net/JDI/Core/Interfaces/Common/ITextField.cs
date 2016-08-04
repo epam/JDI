@@ -1,5 +1,4 @@
-﻿using System;
-using Epam.JDI.Core.Interfaces.Base;
+﻿using Epam.JDI.Core.Interfaces.Base;
 
 //using System.IComparable instead of interface CharSequence
 

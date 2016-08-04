@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Commons;
+using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -15,14 +16,17 @@ namespace JDI_Web.Selenium.Elements.Complex
         where TEnum : IConvertible
     {
         public List<By> MenuLevelsLocators = new List<By>();
-        public string Separator = "\\.";
+        public string Separator = "\\|";
         public Menu<TEnum> UseSeparator(string separator)
         {
             Separator = separator;
             return this;
         }
 
-        public Menu() { }
+        public Menu()
+        {
+            SelectNameAction = (m, name) => ChooseItemAction(this, new [] {name}, el => el.Click());
+        }
 
         public Menu(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null) 
             : base(optionsNamesLocatorTemplate, webElements) { }
@@ -36,28 +40,44 @@ namespace JDI_Web.Selenium.Elements.Complex
             MenuLevelsLocators = menuLevelsLocators;
         }
 
-        protected Action<Menu<TEnum>, string> HoverAction = (m, name) =>
+        protected Action<WebBaseElement, string[]> HoverAction = (w, names) =>
         {
-            m.ChooseItemAction(m, name, el =>
+            var m = (Menu<TEnum>) w;
+            m.ChooseItemAction(m, names, el =>
             {
                 var action = new Actions(m.WebDriver);
                 action.MoveToElement(el).ClickAndHold().Build().Perform();
             });
         };
 
-        public void Hover(string name)
+        public void Hover(params string[] names)
         {
-            Actions.Hover(name, (m, n) => HoverAction(this, name));
+            if (names == null || names.Length == 0)
+                return;
+            Actions.Hover(names.Print(Separator), (w, n) =>
+            {
+                var split = SplitToList(names, Separator);
+                foreach (var name in split)
+                    HoverAction(this, new []{name});
+            });
         }
 
-        protected Action<Menu<TEnum>, string> HoverAndClickAction = (m, name) =>
+        private IList<string> SplitToList(string[] str, string separator)
         {
-            var split = Regex.Split(name, m.Separator).ToList();
+            return (str.Length == 1
+                ? Regex.Split(str[0], separator)
+                : str).ToList();
+        }
+
+        protected Action<Menu<TEnum>, string[]> HoverAndClickAction = (m, names) =>
+        {
+            if (names == null || names.Length == 0)
+                return;
+            var split = m.SplitToList(names, m.Separator);
             if (split.Count > m.MenuLevelsLocators.Count)
-                throw Exception(
-                    $"Can't hover and click on element ({m}) by value: {name}. Amount of locators ({m.MenuLevelsLocators.Count}) less than select path length ({split.Count})");
+                throw Exception($"Can't hover and click on element ({m}) by value: {names.Print(m.Separator)}. Amount of locators ({m.MenuLevelsLocators.Count}) less than select path length ({split.Count})");
             if (split.Count > 1)
-                m.Hover(split.ListCopy(to:-1).Print(","));
+                m.Hover(split.ListCopy(to:-1).Print(m.Separator));
             var lastIndex = split.Count - 1;
             var selector = new Selector(m.MenuLevelsLocators[lastIndex]) {Parent = m.Parent};
             selector.Select(split[lastIndex]);
@@ -67,15 +87,19 @@ namespace JDI_Web.Selenium.Elements.Complex
             Hover(name.ToString());
         }
 
-        public void HoverAndClick(string name)
+        public void Select(params string[] names)
         {
-            Actions.Select(name, (m, n) => HoverAndClickAction(this, name));
+            HoverAndClick(names);
+        }
+        public void HoverAndClick(params string[] names)
+        {
+            Actions.Select(names.Print(Separator), (m, n) => HoverAndClickAction(this, names));
         }
         public void HoverAndClick(TEnum name)
         {
             HoverAndClick(name.ToString());
         }
-        public void HoverAndSelect(string name)
+        public void HoverAndSelect(params string[] name)
         {
             HoverAndClick(name);
         }
@@ -83,14 +107,11 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             HoverAndSelect(name.ToString());
         }
-        
-        protected Action<Menu<TEnum>, string> SelectAction = 
-            (m, name) => m.ChooseItemAction(m, name, el => el.Click());
 
-        protected Action<Menu<TEnum>, string, Action<IWebElement>> ChooseItemAction =
-            (m, name, action) =>
+        protected Action<Menu<TEnum>, string[], Action<IWebElement>> ChooseItemAction =
+            (m, names, action) =>
             {
-                var nodes = Regex.Split(name, m.Separator).ToList();
+                var nodes = m.SplitToList(names, m.Separator);
                 if (m.MenuLevelsLocators.Count == 0 && m.HasLocator)
                     m.MenuLevelsLocators.Add(m.Locator);
                 if (m.MenuLevelsLocators.Count < nodes.Count) return;

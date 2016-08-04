@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JDI_Commons;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.ExceptionUtils;
@@ -40,6 +41,13 @@ namespace JDI_Web.Selenium.DriverFactory
                 throw new Exception(GetBadLocatorMsg(byLocator, args));
             }
             return GetByFunc(by)(byLocator);
+        }
+        
+        public static By CorrectXPath(this By byValue)
+        {
+            return byValue.ToString().Contains("By.xpath: //")
+                    ? byValue.GetByFunc()(new Regex("//").Replace(byValue.GetByLocator(), "./", 1))
+                    : byValue;
         }
 
         public static bool ContainsRoot(this By by)

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -59,34 +62,36 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Scenarios\Entities\Attendee.cs" />
-    <Compile Include="Scenarios\Entities\Company.cs" />
-    <Compile Include="Scenarios\Entities\Job.cs" />
-    <Compile Include="Scenarios\Entities\JobSearchFilter.cs" />
-    <Compile Include="Scenarios\Entities\User.cs" />
-    <Compile Include="Scenarios\Enums\Headers.cs" />
-    <Compile Include="Scenarios\Enums\HeaderSolutionsMenu.cs" />
-    <Compile Include="Scenarios\Enums\JobCategories.cs" />
-    <Compile Include="Scenarios\Enums\JobListHeaders.cs" />
-    <Compile Include="Scenarios\Enums\Locations.cs" />
-    <Compile Include="Scenarios\Page Objects\Elements\JobColumn.cs" />
-    <Compile Include="Scenarios\Page Objects\Elements\JobTable.cs" />
-    <Compile Include="Scenarios\Page Objects\EpamSite.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\AboutCompanyPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\AboutPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\CareerPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\ContactPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\HomePage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\JobDescriptionPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\JobListingPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\ProductDevelopmentPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Pages\RequestInformationPage.cs" />
-    <Compile Include="Scenarios\Page Objects\Sections\AddCVform.cs" />
-    <Compile Include="Scenarios\Page Objects\Sections\JobFilter.cs" />
-    <Compile Include="Scenarios\Tests\FrameTests.cs" />
-    <Compile Include="Scenarios\Tests\TableTests.cs" />
-    <Compile Include="Scenarios\Tests\SmokeTests.cs" />
-    <Compile Include="Scenarios\Tests\TestsBase.cs" />
+    <Compile Include="Entities\Attendee.cs" />
+    <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\Job.cs" />
+    <Compile Include="Entities\JobSearchFilter.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Enums\Headers.cs" />
+    <Compile Include="Enums\HeaderSolutionsMenu.cs" />
+    <Compile Include="Enums\JobCategories.cs" />
+    <Compile Include="Enums\JobListHeaders.cs" />
+    <Compile Include="Enums\Locations.cs" />
+    <Compile Include="Epam UIObjects\Elements\JobColumn.cs" />
+    <Compile Include="Epam UIObjects\Elements\TreeDropdown.cs" />
+    <Compile Include="Epam UIObjects\EpamSite.cs" />
+    <Compile Include="Epam UIObjects\Pages\AboutCompanyPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\AboutPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\CareerPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\ContactPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\HomePage.cs" />
+    <Compile Include="Epam UIObjects\Pages\JobDescriptionPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\JobListingPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\ProductDevelopmentPage.cs" />
+    <Compile Include="Epam UIObjects\Pages\RequestInformationPage.cs" />
+    <Compile Include="Epam UIObjects\Sections\AddCVform.cs" />
+    <Compile Include="Epam UIObjects\Sections\JobFilter.cs" />
+    <Compile Include="Tests\W3C\FrameTests.cs" />
+    <Compile Include="Tests\Epam\SmokeTests - MSTest.cs" />
+    <Compile Include="Tests\W3C\TableTests.cs" />
+    <Compile Include="Tests\Epam\SmokeTests - NUnit.cs" />
+    <Compile Include="TestBase\MSTestBase.cs" />
+    <Compile Include="TestBase\TestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
