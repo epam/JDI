@@ -9,6 +9,7 @@ namespace JDI_Tests.Tests
     [TestFixture]
     public class SmokeTestsNUnit 
     {
+
         [Test]
         public void CareerTest()
         {

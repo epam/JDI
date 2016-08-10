@@ -36,11 +36,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JDI Commons, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\JDI.UICommons.1.0.23\lib\net452\JDI Commons.dll</HintPath>
+      <HintPath>..\..\..\packages\JDI.UICommons.1.0.26\lib\net452\JDI Commons.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JDI Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\JDI.UICore.1.0.26\lib\net452\JDI Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JDI Matchers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\JDI.UIMatchers.1.0.23\lib\net452\JDI Matchers.dll</HintPath>
+      <HintPath>..\..\..\packages\JDI.UIMatchers.1.0.26\lib\net452\JDI Matchers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -48,7 +52,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NLog.4.3.6\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -175,12 +179,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\JDI Core.csproj">
-      <Project>{99ee5894-9f49-43e2-a129-7916d924d49c}</Project>
-      <Name>JDI Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

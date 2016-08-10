@@ -19,7 +19,16 @@ namespace JDI_Web.Selenium.Attributes
 
         public static bool NamesEqual(string name1, string name2)
         {
-            return name1.ToLower().Trim('_', ' ').Equals(name2.ToLower().Trim('_', ' '));
+            return Simplify(name1).Equals(Simplify(name2));
+        }
+
+        private static string Simplify(string s)
+        {
+            return s.ToLower().Replace(" ", "").Replace("_", "").Replace("-", "");
+        }
+        private static string ToButton(string buttonName)
+        {
+            return buttonName.ToLower().Contains("button") ? buttonName : buttonName + "Button";
         }
 
         public Button GetButton(string buttonName)
@@ -41,11 +50,6 @@ namespace JDI_Web.Selenium.Attributes
             }
         }
 
-        private string ToButton(string buttonName)
-        {
-            return buttonName.Contains("button") ? buttonName : buttonName + "button";
-        }
-
         public Button GetButton(Functions funcName)
         {
             var fields = _element.GetFields(typeof(IButton));
@@ -55,8 +59,7 @@ namespace JDI_Web.Selenium.Attributes
             var button = buttons.FirstOrDefault(b => b.Function.Equals(funcName));
             if (button != null) return button;
             var name = funcName.ToString();
-            var buttonName = name.ToLower().Contains("button") ? name : name + "button";
-            button = buttons.FirstOrDefault(b => NamesEqual(b.Name, buttonName));
+            button = buttons.FirstOrDefault(b => NamesEqual(ToButton(b.Name), ToButton(name)));
             if (button == null)
                 throw Exception($"Can't find button '{name}' for Element '{ToString()}'");
             return button;

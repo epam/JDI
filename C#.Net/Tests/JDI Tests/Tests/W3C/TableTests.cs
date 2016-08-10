@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
+using JDI_Web.Selenium.Elements.Composite;
 using NUnit.Framework;
 
 namespace JDI_Tests.Tests.W3C
@@ -11,8 +12,9 @@ namespace JDI_Tests.Tests.W3C
         [Test]
         public void TableTest()
         {
+            WebSite.Init(typeof(W3CSite));
             W3CSite.TablePage.IsOpened();
-            var headers = W3CSite.TablePage.Companies.Headers;
+            var headers = W3CSite.TablePage.Companies.Columns.AllHeaders;
             CheckHeaders(headers);
             var companies = W3CSite.TablePage.Companies.Entities();
             Assert.AreEqual(companies.Select(c => c.ToString()).Print(";"), 
@@ -22,15 +24,30 @@ namespace JDI_Tests.Tests.W3C
                 "Island Trading, Helen Bennett, UK;" +
                 "Laughing Bacchus Winecellars, Yoshi Tannamuri, Canada;" +
                 "Magazzini Alimentari Riuniti, Giovanni Rovelli, Italy"
-);
-
+            );
+        }
+        [Test]
+        public void TableTestShortInfo()
+        {
+            WebSite.Init(typeof(W3CSite));
+            W3CSite.TablePage.IsOpened();
+            var headers = W3CSite.TablePage.CompaniesShort.Columns.AllHeaders;
+            CheckHeaders(headers);
+            var companies = W3CSite.TablePage.CompaniesShort.Entities();
+            Assert.AreEqual(companies.Select(c => c.ToString()).Print(";"),
+                "Alfreds Futterkiste, Germany;" +
+                "Centro comercial Moctezuma, Mexico;" +
+                "Ernst Handel, Austria;" +
+                "Island Trading, UK;" +
+                "Laughing Bacchus Winecellars, Canada;" +
+                "Magazzini Alimentari Riuniti, Italy"
+            );
         }
 
         private void CheckHeaders(IList<string> headers)
         {
             var expectedHeaders = new List<string> {"Company", "Contact", "Country"};
-            for (var i = 0; i < headers.Count; i++)
-                Assert.AreEqual(headers[i], expectedHeaders[i]);
+            headers.ForEach(header => Assert.IsTrue(expectedHeaders.Contains(header)));
         }
     }
 }

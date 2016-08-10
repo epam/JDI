@@ -29,7 +29,10 @@ namespace JDI_Web.Selenium.Elements.Complex
         }
 
         public Menu(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null) 
-            : base(optionsNamesLocatorTemplate, webElements) { }
+            : base(optionsNamesLocatorTemplate, webElements)
+        {
+            MenuLevelsLocators.Add(optionsNamesLocatorTemplate);
+        }
 
         public Menu(By optionsNamesLocatorTemplate, By allOptionsNamesLocator) 
             : base(optionsNamesLocatorTemplate, allOptionsNamesLocator) {
@@ -69,18 +72,24 @@ namespace JDI_Web.Selenium.Elements.Complex
                 : str).ToList();
         }
 
+        private void Select(By locator, string name)
+        {
+            new Selector(locator) {Parent = Parent}.Select(name);
+        }
+
         protected Action<Menu<TEnum>, string[]> HoverAndClickAction = (m, names) =>
         {
             if (names == null || names.Length == 0)
                 return;
+            if (names.Length == 1)
+                m.Select(m.Locator, names[0]);
             var split = m.SplitToList(names, m.Separator);
             if (split.Count > m.MenuLevelsLocators.Count)
                 throw Exception($"Can't hover and click on element ({m}) by value: {names.Print(m.Separator)}. Amount of locators ({m.MenuLevelsLocators.Count}) less than select path length ({split.Count})");
             if (split.Count > 1)
                 m.Hover(split.ListCopy(to:-1).Print(m.Separator));
             var lastIndex = split.Count - 1;
-            var selector = new Selector(m.MenuLevelsLocators[lastIndex]) {Parent = m.Parent};
-            selector.Select(split[lastIndex]);
+            m.Select(m.MenuLevelsLocators[lastIndex], split[lastIndex]);
         };
         public void Hover(TEnum name)
         {

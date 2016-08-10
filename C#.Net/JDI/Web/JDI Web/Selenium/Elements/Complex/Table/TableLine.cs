@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
@@ -43,7 +42,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 if (_headers != null)
                     return new List<string>(_headers);
                 var localHeaders = HasHeader 
-                    ? Timer.GetResult(GetHeadersTextAction) 
+                    ? Timer.GetResult(() => AllHeaders) 
                     : GetNumList(Count);
                 if (localHeaders == null || localHeaders.Count == 0)
                     return new List<string>();
@@ -71,7 +70,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
         public Dictionary<string, SelectableElement> Header()
         {
-            return GetHeadersAction(this).ToDictionary(key => key.Text, value => new SelectableElement());
+            return GetHeadersAction.ToDictionary(key => key.Text, value => new SelectableElement());
         }
 
         public SelectableElement Header(string name)
@@ -130,7 +129,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             return Table.WebElement.FindElements(locator).Where(el => el.Displayed).ToList();
         }
 
-        protected abstract IList<IWebElement> GetFirstLine();
+        protected abstract IList<IWebElement> GetFirstLine { get; }
 
         public int GetCount(bool acceptEmpty)
         {
@@ -139,9 +138,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             if (_headers != null && _headers.Count > 0)
                 return _headers.Count;
             var elements = acceptEmpty 
-                ? GetFirstLine()
-                : Timer.GetResultByCondition(GetFirstLine, el => el != null && el.Count > 0);
-            return elements?.Count ?? 0;
+                ? GetFirstLine
+                : Timer.GetResultByCondition(() => GetFirstLine, el => el != null && el.Count > 0);
+            return elements?.Count(el => el.Displayed) ?? 0;
         }
         public void Clean()
         {
@@ -149,11 +148,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             Count = 0;
         }
 
-        protected IList<string> GetHeadersTextAction()
-        {
-            return GetHeadersAction(this).Select(el => el.Text).ToList();
-        }
-
+        public IList<string> AllHeaders => GetHeadersAction.Where(el => el.Displayed)
+            .Select(el => el.Text).ToList();
+        
         public void Update(TableLine tableLine)
         {
             if (tableLine.Count > 0)
@@ -170,6 +167,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 ElementIndex = tableLine.ElementIndex;
         }
 
-        protected abstract Func<TableLine, IList<IWebElement>> GetHeadersAction { get; }
+        protected IList<IWebElement> GetHeadersAction 
+            => Table.WebElement.FindElements(HeadersLocator);
     }
 }

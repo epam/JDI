@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JDI_Commons;
@@ -19,32 +18,34 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             HeadersLocator = By.XPath(".//th");
             DefaultTemplate = By.XPath(".//tr/td[{0}]");
         }
-
-        protected override Func<TableLine, IList<IWebElement>> GetHeadersAction =>
-            row =>
-            {
-                var headers = Table.WebElement.FindElements(HeadersLocator);
-                return Table.Rows.SkipFirstColumn() ? headers.ListCopy(1) : headers;
-            };
-
-        protected override IList<IWebElement> GetFirstLine()
-        {
-            var line = Table.Rows.GetLineAction(1);
-            return Table.Rows.SkipFirstColumn() ? line.ListCopy(1) : line;
-        }
+        
+        protected override IList<IWebElement> GetFirstLine => Table.Rows.GetLineAction(1);
         
         public Dictionary<string, ICell> GetColumn(string colName)
         {
             return ActionWithException(() =>
             {
                 var rowsCount = Table.Rows.Count;
-                var headers = Table.Rows.Headers;
-                var webColumn = Timer.GetResultByCondition(() => GetLineAction(colName), els => els.Count == rowsCount);
+                var webColumn = Timer.GetResultByCondition(() => GetLineAction(colName), els => els.Count >= rowsCount);
+                if (webColumn == null)
+                    throw Exception($"Table has only {GetLineAction(colName).Count} columns " +
+                                    $"but expected at least {rowsCount}");
+
                 var result = new Dictionary<string, ICell>();
-                for (var i = 0; i < rowsCount; i++)
-                    result.Add(Table.Rows.Headers[i], Table.Cell(webColumn[i], new Column(name: colName), new Row(name: headers[i])));
-                return result;
+                if (webColumn.Count == rowsCount)
+                {
+                    AddRows(result, Table.Rows.Headers, webColumn, colName);
+                    return result;
+                }
+                AddRows(result, Table.Rows.AllHeaders, webColumn, colName);
+                return result.Where(el => Table.Rows.Headers.Contains(el.Key)).ToDictionary();
             }, ex => $"Can't Get Column '{colName}'. Reason: {ex}");
+        }
+
+        private void AddRows(Dictionary<string, ICell> result, IList<string> headers, IList<IWebElement> webColumn, string colName)
+        {
+            for (var i = 0; i < headers.Count; i++)
+                result.Add(headers[i], Table.Cell(webColumn[i], new Column(name: colName), new Row(name: headers[i])));
         }
 
         public IList<string> GetColumnValue(string colName)
@@ -73,13 +74,24 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             {
                 var rowsCount = Table.Rows.Count;
                 var webColumn = Timer.GetResultByCondition(() => GetLineAction(colNum),
-                    els => els.Count == rowsCount);
+                    els => els.Count >= rowsCount);
+                if (webColumn == null)
+                    throw Exception($"Table has only {GetLineAction(colNum).Count} columns " +
+                                    $"but expected at least {rowsCount}");
                 var result = new Dictionary<string, ICell>();
-                for (var i = 0; i < rowsCount; i++)
-                    result.Add(Table.Rows.Headers[i],
-                        Table.Cell(webColumn[i], new Column(colNum), new Row(i + 1)));
-                return result;
+                if (webColumn.Count == rowsCount)
+                {
+                    AddRows(result, Table.Rows.Headers, webColumn, colNum);
+                    return result;
+                }
+                AddRows(result, Table.Rows.AllHeaders, webColumn, colNum);
+                return result.Where(el => Table.Rows.Headers.Contains(el.Key)).ToDictionary();
             }, ex => $"Can't Get Column '{colNum}'. Reason: {ex}");
+        }
+        private void AddRows(Dictionary<string, ICell> result, IList<string> headers, IList<IWebElement> webColumn, int colNum)
+        {
+            for (var i = 0; i < headers.Count; i++)
+                result.Add(headers[i], Table.Cell(webColumn[i], new Column(colNum), new Row(i + 1)));
         }
 
         public IList<string> GetColumnValue(int colNum)

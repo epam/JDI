@@ -352,7 +352,6 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
 
         public Dictionary<string, Dictionary<string, ICell>> GetRows(params string[] colNameValues)
-            // TODO method name conflict
         {
             var result = new Dictionary<string, Dictionary<string, ICell>>();
             foreach (var row in Rows.Get())

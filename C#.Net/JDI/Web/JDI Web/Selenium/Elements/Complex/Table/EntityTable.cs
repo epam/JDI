@@ -55,7 +55,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
     public class Table<TEntity> : Table
     {
-        public Table() : base()
+        public Table()
         {
             ColumnHeaders = typeof(TEntity).GetFieldsList().Select(f => f.Name).ToArray();
         }
@@ -65,8 +65,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         private TEntity RowToEntity(Dictionary<string, ICell> row)
         {
             var entity = NewEntity;
+            var fields = entity.GetFields();
             row.ForEach(pair => 
-                SetEntityField(entity, entity.GetFields(), pair.Key, pair.Value.GetText));
+                SetEntityField(entity, fields, pair.Key, pair.Value.GetText));
             return entity;
         }
 

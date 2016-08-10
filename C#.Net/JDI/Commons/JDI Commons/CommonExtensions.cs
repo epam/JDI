@@ -96,5 +96,10 @@ namespace JDI_Commons
                 result.Add(list[i]);
             return result;
         }
+
+        public static Dictionary<T, T1> ToDictionary<T, T1>(this IEnumerable<KeyValuePair<T, T1>> pairs)
+        {
+            return pairs.ToDictionary(el => el.Key, el => el.Value);
+        }
     }
 }

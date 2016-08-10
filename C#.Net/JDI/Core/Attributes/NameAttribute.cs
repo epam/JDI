@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using static System.Char;
 
 namespace Epam.JDI.Core.Attributes
 {
@@ -33,12 +34,8 @@ namespace Epam.JDI.Core.Attributes
         {
             var result = camel.ToUpper().FirstOrDefault().ToString();
             for (var i = 1; i < camel.Length - 1; i++)
-                result += (IsCapital(camel[i]) && !IsCapital(camel[i - 1]) ? " " : "") + camel[i];
+                result += (IsUpper(camel[i]) && !IsUpper(camel[i - 1]) ? " " : "") + camel[i];
             return result + camel[camel.Length - 1];
-        }
-        private static bool IsCapital(char ch)
-        {
-            return 'A' < ch && ch < 'Z';
         }
     }
 }
