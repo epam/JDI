@@ -58,11 +58,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             if (names == null || names.Length == 0)
                 return;
             Actions.Hover(names.Print(Separator), (w, n) =>
-            {
-                var split = SplitToList(names, Separator);
-                foreach (var name in split)
-                    HoverAction(this, new []{name});
-            });
+                HoverAction(this, names));
         }
 
         private IList<string> SplitToList(string[] str, string separator)
@@ -71,7 +67,7 @@ namespace JDI_Web.Selenium.Elements.Complex
                 ? Regex.Split(str[0], separator)
                 : str).ToList();
         }
-
+        
         private void Select(By locator, string name)
         {
             new Selector(locator) {Parent = Parent}.Select(name);
@@ -87,7 +83,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             if (split.Count > m.MenuLevelsLocators.Count)
                 throw Exception($"Can't hover and click on element ({m}) by value: {names.Print(m.Separator)}. Amount of locators ({m.MenuLevelsLocators.Count}) less than select path length ({split.Count})");
             if (split.Count > 1)
-                m.Hover(split.ListCopy(to:-1).Print(m.Separator));
+                m.Hover(split.ListCopy(to:-1).ToArray());
             var lastIndex = split.Count - 1;
             m.Select(m.MenuLevelsLocators[lastIndex], split[lastIndex]);
         };
@@ -129,6 +125,8 @@ namespace JDI_Web.Selenium.Elements.Complex
                     var value = nodes[i];
                     var elements = new Selector(m.MenuLevelsLocators[i]).Elements;
                     var element = elements.FirstOrDefault(el => el.Text.Equals(value));
+                    if (element == null)
+                        throw Exception("Can't choose element:" + value);
                     action(element);
                 }
             };

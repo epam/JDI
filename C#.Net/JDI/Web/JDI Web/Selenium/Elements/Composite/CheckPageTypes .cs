@@ -5,6 +5,6 @@
         None,
         Equal,
         Match,
-        Contain
+        Contains
     }
 }

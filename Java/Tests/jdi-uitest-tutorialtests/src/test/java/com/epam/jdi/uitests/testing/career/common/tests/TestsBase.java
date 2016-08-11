@@ -5,6 +5,8 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import org.testng.annotations.BeforeSuite;
 
+import java.util.Arrays;
+
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.homePage;
 

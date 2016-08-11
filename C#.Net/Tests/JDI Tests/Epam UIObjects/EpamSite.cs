@@ -36,7 +36,7 @@ namespace JDI_Tests.Epam_UIObjects
         [Page(Title = "EPAM Software Product Development Services", UrlCheckType = CheckPageTypes.None)]
         public static CareerPage CareerPageTest;
 
-        [Page(Url = "/careers/job-listings", Title = "Job Listings", UrlCheckType = CheckPageTypes.Contain, TitleCheckType = CheckPageTypes.Contain)]
+        [Page(Url = "/careers/job-listings", Title = "Job Listings", UrlCheckType = CheckPageTypes.Contains, TitleCheckType = CheckPageTypes.Contains)]
         public static JobListingPage JobListingPage;
 
         [Page(Url = ".*/careers/job-listings/job\\.\\d*#apply", UrlCheckType = CheckPageTypes.Match)]

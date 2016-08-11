@@ -35,6 +35,7 @@ import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.copyOfRange;
 
 /**
  * RadioButtons control implementation
@@ -73,11 +74,8 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void hover(String... names) {
         if (names == null || names.length == 0)
             return;
-        actions.hover(print(names, separator), (n) -> {
-            String[] split = SplitToList(names);
-            for (String name : split)
-                hoverAction(name);
-        });
+        actions.hover(print(names, separator), n ->
+            hoverAction(SplitToList(names)));
     }
 
     private String[] SplitToList(String[] str)
@@ -95,7 +93,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
             throw exception("Can't hover and click on element (%s) by value: %s. Amount of locators (%s) less than select path length (%s)",
                 this, print(names, separator), menuLevelsLocators.size(), split.length);
         if (split.length > 1)
-            hover(print(LinqUtils.listCopyUntil(asList(split), -1), separator));
+            hover(copyOfRange(split, 0, split.length-1));
         int lastIndex = split.length - 1;
         Selector selector = new Selector<>(menuLevelsLocators.get(lastIndex));
         selector.setParent(getParent());

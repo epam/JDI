@@ -13,9 +13,9 @@ namespace JDI_Web.Attributes
         public string UrlTemplate   = "";
         public string Title         = "";
         public Dictionary<string, string> UrlParams; 
-        public CheckPageTypes CheckType        = CheckPageTypes.Equal;
-        public CheckPageTypes UrlCheckType     = CheckPageTypes.Equal;
-        public CheckPageTypes TitleCheckType   = CheckPageTypes.Equal;
+        public CheckPageTypes CheckType        = CheckPageTypes.None;
+        public CheckPageTypes UrlCheckType     = CheckPageTypes.None;
+        public CheckPageTypes TitleCheckType   = CheckPageTypes.None;
         
         public static PageAttribute Handler(FieldInfo field)
         {
@@ -44,8 +44,6 @@ namespace JDI_Web.Attributes
                         : WebPage.GetMatchFromDomain(urlTemplate);
             var urlCheckType = UrlCheckType;
             var titleCheckType = TitleCheckType;
-            if (urlCheckType == CheckPageTypes.Match || urlCheckType == CheckPageTypes.Contain && string.IsNullOrEmpty(urlTemplate))
-                urlTemplate = url;
             page.UpdatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
         }
 

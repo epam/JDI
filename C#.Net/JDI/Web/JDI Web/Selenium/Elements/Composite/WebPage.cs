@@ -25,8 +25,8 @@ namespace JDI_Web.Selenium.Elements.Composite
             set { _url = value;  }
         }
         public string Title;
-        protected CheckPageTypes CheckUrlType = CheckPageTypes.Equal;
-        protected CheckPageTypes CheckTitleType = CheckPageTypes.Equal;
+        protected CheckPageTypes CheckUrlType = CheckPageTypes.None;
+        protected CheckPageTypes CheckTitleType = CheckPageTypes.None;
         protected string UrlTemplate;
         public static WebPage CurrentPage;
 
@@ -82,27 +82,37 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public void CheckOpened()
         {
-            switch (CheckUrlType)
-            {
-                case CheckPageTypes.Equal:
-                    CheckUrl().Equal();
-                    break;
-                case CheckPageTypes.Match:
-                    CheckUrl().Match();
-                    break;
-                case CheckPageTypes.Contain:
-                    CheckUrl().Contains();
-                    break;
-            }
+            if (UrlTemplate == null)
+                CheckUrl().Equal();
+            else 
+                switch (CheckUrlType)
+                {
+                    case CheckPageTypes.None:
+                        Asserter.IsTrue(GetUrl().Contains(UrlTemplate) 
+                            || GetUrl().Matches(UrlTemplate));
+                        break;
+                    case CheckPageTypes.Equal:
+                        CheckUrl().Equal();
+                        break;
+                    case CheckPageTypes.Match:
+                        CheckUrl().Match();
+                        break;
+                    case CheckPageTypes.Contains:
+                        CheckUrl().Contains();
+                        break;
+                }
             switch (CheckTitleType)
             {
+                case CheckPageTypes.None:
+                    CheckTitle().Equal();
+                    break;
                 case CheckPageTypes.Equal:
                     CheckTitle().Equal();
                     break;
                 case CheckPageTypes.Match:
                     CheckTitle().Match();
                     break;
-                case CheckPageTypes.Contain:
+                case CheckPageTypes.Contains:
                     CheckTitle().Contains();
                     break;
             }
@@ -117,12 +127,29 @@ namespace JDI_Web.Selenium.Elements.Composite
             CurrentPage = this;
         }
 
+        private bool IsOnPage()
+        {
+            if (UrlTemplate == null)
+                return GetUrl().Equals(Url);
+            switch (CheckUrlType)
+            {
+                case CheckPageTypes.None:
+                    return GetUrl().Contains(UrlTemplate) || GetUrl().Matches(UrlTemplate);
+                case CheckPageTypes.Equal:
+                    return GetUrl().Equals(Url);
+                case CheckPageTypes.Match:
+                    return GetUrl().Matches(UrlTemplate);
+                case CheckPageTypes.Contains:
+                    return GetUrl().Contains(UrlTemplate);
+            }
+            return false;
+        }
         public void IsOpened()
         {
             ActionWithException(() =>
             {
                 Logger.Info($"Page {Name} is opened");
-                if (GetUrl().Equals(Url)) return;
+                if (IsOnPage()) return;
                 Open();
             }, ex => $"Can't open page {Name}. Reason: {ex}");
         }
