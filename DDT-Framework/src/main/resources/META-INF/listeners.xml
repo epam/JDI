@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:soapui-listeners xmlns:tns="http://eviware.com/soapui/config">
+<!--
+    <tns:listener id="DdtfProjectRunListener" listenerClass="ddt.framework.listeners.DdtfProjectRunListener"
+                  listenerInterface="com.eviware.soapui.model.testsuite.ProjectRunListener"/>
+-->
+				  
+    <tns:listener id="DdtfTestRunLogListener" listenerClass="ddt.framework.listeners.DdtfTestRunLogListener"
+                  listenerInterface="com.eviware.soapui.model.testsuite.TestRunListener"/>
+
+    <tns:listener id="DdtfRequestListener" listenerClass="ddt.framework.listeners.DdtfRequestListener"
+                  listenerInterface="com.eviware.soapui.impl.wsdl.submit.RequestFilter" />
+</tns:soapui-listeners>

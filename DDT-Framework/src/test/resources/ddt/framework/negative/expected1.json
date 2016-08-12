@@ -1,0 +1,28 @@
+{
+    "productCode": "numberP",
+    "productNo": "No-2302-0",
+    "productName": "Goodyear Wrangler Radial",
+    "regularPrice": "134.99",
+    "features": [
+        "With superior pulling capacity and thrust power as well as improved flat-resistant quality, this tire is ideal for rugged cars, boasting of the most powerful and safest driving performance in normal or even the harshest road conditions"
+    ],
+    "onlineSell": true,
+    "onlineOrder": true,
+    "onlineExclusive": false,
+    "skuComponents": [
+        {
+            "id": "0052302",
+            "displaySkuCode": "No-2302-0",
+            "skuRegPrice": "134.99",
+            "skuInvNum": 0,
+            "parentId": "numberP",
+            "onlineSell": true,
+            "onlineOrder": true,
+            "onlineExclusive": false,
+            "Quantity": 92,
+            "minEta": 7,
+            "maxEta": 13,
+            "minOrderQty": 1
+        }
+    ]
+}

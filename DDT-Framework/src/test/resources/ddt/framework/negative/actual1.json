@@ -1,0 +1,34 @@
+{
+    "productCode": "numberP",
+    "productName": "Aurex 8-digit Calculator MKTG",
+    "features": [
+        "<ul><li>Handled calculator</li><li>Large, easy-to-read</li></ul>",
+        "<ul><li>With superior pulling capacity and thrust power as well as improved flat-resistant quality, this tire is ideal for rugged cars, boasting of the most powerful and safest driving performance in normal or even the harshest road conditions</li></ul>"
+    ],
+    "productNo": "No-2302-0",
+    "regularPrice": "134.99",
+    "onlineSell": true,
+    "onlineOrder": true,
+    "onlineExclusive": false,
+    "images": [
+        {
+            "imageUrl": "some link 3",
+            "parentId": "numberP"
+        }
+    ],
+    "skuComponents": [
+    {
+        "id": "0052302",
+        "displaySkuCode": "No-2302-0",
+        "skuRegPrice": "134.99",
+        "parentId": "numberP",
+        "skuInvNum": 0,
+        "onlineSell": true,
+        "onlineOrder": true,
+        "onlineExclusive": false,
+        "Quantity": 92,
+        "minEta": 7,
+        "maxEta": 13,
+        "minOrderQty": 1
+    }
+]}

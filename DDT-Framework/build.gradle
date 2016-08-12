@@ -1,0 +1,208 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '2.0'
+
+repositories {
+    maven {
+        // Look for POMs and artifacts, such as JARs, here
+        url "http://www.soapui.org/repository/maven2/"
+        // Look for artifacts here if not found at the above location
+        artifactUrls "http://repo1.maven.org/maven2"
+    }
+    mavenCentral()
+}
+
+def jsonUnit = [group: 'net.javacrumbs.json-unit', name: 'json-unit', version: '1.6.1']
+def jsonAssert = [group: 'org.skyscreamer', name: 'jsonassert', version: '1.2.3']
+def json = [group: 'org.json', name: 'json', version: '20090211']
+def lang3 = [group: 'org.apache.commons', name: 'commons-lang3', version: '3.4']
+def xmlunit = [group: 'xmlunit', name: 'xmlunit', version: '1.6']
+def apachePoi = [group: 'org.apache.poi', name: 'poi', version: '3.12']
+def apachePoiOOXML = [group: 'org.apache.poi', name: 'poi-ooxml', version: '3.12']
+def apachePoiOOXMLShemas = [group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.12']
+def slf4jSimple = [group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.12']
+def jacksonCore = [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.6.2']
+def jacksonAnnotations = [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.6.2']
+def jacksonDatabind = [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.2']
+def jtidy = [group: 'net.sf.jtidy', name: 'jtidy', version: 'r938']
+def jsoup = [group: 'org.jsoup', name: 'jsoup', version: '1.8.3']
+def mysql = [group: 'mysql', name: 'mysql-connector-java', version: '5.1.6']
+def jackrabbitCore = [group: 'org.apache.jackrabbit', name: 'jackrabbit-core', version: '2.11.3']
+def jackrabbitApi = [group: 'org.apache.jackrabbit', name: 'jackrabbit-api', version: '2.11.3']
+def jackrabbitData = [group: 'org.apache.jackrabbit', name: 'jackrabbit-data', version: '2.11.3']
+def jackrabbitJcr2Spi = [group: 'org.apache.jackrabbit', name: 'jackrabbit-jcr2spi', version: '2.11.3']
+def jackrabbitJcrCommons = [group: 'org.apache.jackrabbit', name: 'jackrabbit-jcr-commons', version: '2.11.3']
+def jackrabbitSpi2Dav = [group: 'org.apache.jackrabbit', name: 'jackrabbit-spi2dav', version: '2.11.3']
+def jackrabbitSpi = [group: 'org.apache.jackrabbit', name: 'jackrabbit-spi', version: '2.11.3']
+def jackrabbitSpiCommons = [group: 'org.apache.jackrabbit', name: 'jackrabbit-spi-commons', version: '2.11.3']
+def jackrabbitWebdav = [group: 'org.apache.jackrabbit', name: 'jackrabbit-webdav', version: '2.11.3']
+def jcr2dav = [group: 'org.apache.jackrabbit', name: 'jackrabbit-jcr2dav', version: '2.11.3']
+def jcr = [group: 'javax.jcr', name: 'jcr', version: '2.0']
+
+
+// use publishToMavenLocal task to publish compiled artifacts to maven local repo (allows reuse from other maven projects)
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'com.epam.jdi.ddtf'
+            from components.java
+        }
+    }
+}
+
+// Source sets for SoapUI plugin
+sourceSets {
+    plugin {
+        /*groovy {
+            srcDir 'src/main/groovy/ddt/framework/listeners'
+        }*/
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+// Configuration for SoapUI plugin
+dependencies {
+    pluginCompile 'org.codehaus.groovy:groovy-all:2.1.7'
+    pluginCompile('com.smartbear.soapui:soapui-maven-plugin:5.1.3') {
+        exclude(module: 'jtidy') //this jar contains bad version in soapui maven repository
+        exclude(module: 'cajo') //this jar contains bad group in soapui maven repository
+    }
+
+    pluginCompile sourceSets.main.output
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.1.7'
+
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.0'
+
+    // SoapUI Maven Plugin
+    compile('com.smartbear.soapui:soapui-maven-plugin:5.1.3') {
+        exclude(module: 'jtidy') //this jar contains bad version in soapui maven repository
+        exclude(module: 'cajo') //this jar contains bad group in soapui maven repository
+    }
+    // Add jTidy dependency excluded from SoapUI Maven Plugin
+    compile jtidy
+    compile jsoup
+
+    // JSON Compare Libraries
+    compile jsonAssert
+    compile jsonUnit
+    //required for jsonUnit
+    compile slf4jSimple
+    compile jacksonCore
+    compile jacksonAnnotations
+    compile jacksonDatabind
+
+    // XMLUnit
+    compile xmlunit
+
+    // Java library for reading/writing Excel apachePoi
+    compile apachePoi
+    compile apachePoiOOXML
+    compile apachePoiOOXMLShemas
+
+    // org.apache.commons.commons-lang3
+    compile lang3
+
+    // JDBC Driver
+    compile mysql
+
+    // jcr and jackrabbit core
+    compile jackrabbitCore
+    compile jcr2dav
+    compile jcr
+}
+
+// jar with SoapUI plugin
+task pluginJar(type: Jar) {
+    archiveName = "${project.name}-plugin-${version}.jar"
+    from sourceSets.plugin.output
+}
+
+// jar with dependencies
+jar {
+    def jarList = configurations.compile.findAll { File f ->
+        f.name in ["${jsonAssert.name}-${jsonAssert.version}.jar" as String,
+                   "${json.name}-${json.version}.jar" as String,
+                   "${lang3.name}-${lang3.version}.jar" as String,
+                   "${xmlunit.name}-${xmlunit.version}.jar" as String,
+                   "${apachePoi.name}-${apachePoi.version}.jar" as String,
+                   "${apachePoiOOXML.name}-${apachePoiOOXML.version}.jar" as String,
+                   "${apachePoiOOXMLShemas.name}-${apachePoiOOXMLShemas.version}.jar" as String,
+                   "${jsonUnit.name}-${jsonUnit.version}.jar" as String,
+                   "${jsonUnit.name}-core-${jsonUnit.version}.jar" as String,
+                   "${slf4jSimple.name}-${slf4jSimple.version}.jar" as String,
+                   "${jacksonCore.name}-${jacksonCore.version}.jar" as String,
+                   "${jacksonAnnotations.name}-${jacksonAnnotations.version}.jar" as String,
+                   "${jacksonDatabind.name}-${jacksonDatabind.version}.jar" as String,
+                   "${jsoup.name}-${jsoup.version}.jar" as String,
+                   "${mysql.name}-${mysql.version}.jar" as String,
+                   "${jackrabbitCore.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitApi.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitData.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitJcr2Spi.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitJcrCommons.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitSpi.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitSpi2Dav.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitSpiCommons.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jackrabbitWebdav.name}-${jackrabbitCore.version}.jar" as String,
+                   "${jcr2dav.name}-${jcr2dav.version}.jar" as String,
+                   "${jcr.name}-${jcr.version}.jar" as String]
+    }
+    dependsOn pluginJar
+
+    doFirst {
+        def serviceDir = file("$buildDir/META-INF/services")
+        serviceDir.deleteDir()
+        serviceDir.mkdirs()
+
+        // copy all service files from deps to buildDir
+        for(file in jarList) {
+            zipTree(file).matching { include 'META-INF/services/*' }.each { f ->
+                new File(serviceDir, f.name) << f.getText("UTF-8")
+            }
+        }
+    }
+
+    from {
+        jarList.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    from sourceSets.main.output
+    //from sourceSets.main.allSource
+    from fileTree(buildDir).matching{ include 'META-INF/services/*' }
+    //exclude 'dtf/framework/listeners'
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/listeners.xml'
+}
+
+def soapUIHome = project.hasProperty('soapui.home') ? project.property('soapui.home') : System.getenv('SOAPUI_HOME')
+
+task copyDdtFrameworkPlugin(type: Copy) {
+    dependsOn 'pluginJar'
+    onlyIf { soapUIHome }
+    description "Copy the DDT Framework Plugin to the directory to the '$soapUIHome/bin/plugins' directory"
+    from 'build/libs'
+    into "$soapUIHome/bin/plugins"
+
+    include "${project.name}-plugin-${version}.jar"
+}
+
+task copyLibs(type: Copy) {
+    dependsOn 'jar'
+    dependsOn 'copyDdtFrameworkPlugin'
+    onlyIf { soapUIHome }
+    description "Copy the DDT Framework library from the 'build/libs' directory to the '$soapUIHome/lib' directory"
+    from 'build/libs'
+    into "$soapUIHome/lib"
+    include "${project.name}-${version}.jar"
+    exclude "${project.name}-plugin-${version}.jar"
+}

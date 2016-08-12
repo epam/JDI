@@ -1,0 +1,7 @@
+{
+    "code": 400,
+    "messages": [
+        "lat should be less than or equal to 90",
+        "lat should be greater than or equal to -90"
+    ]
+}

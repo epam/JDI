@@ -1,0 +1,108 @@
+[
+    {
+      "id": 7044034,
+      "name": "Akbarābād",
+      "main": {
+        "temp": 310.755,
+        "temp_min": 310.755,
+        "temp_max": 310.755,
+        "pressure": 830.9,
+        "sea_level": 1010.52,
+        "grnd_level": 830.9,
+        "humidity": 16
+      },
+      "coord": {
+        "lon": 58.416851,
+        "lat": 29.084021
+      },	  
+      "dt": 1467793929,
+      "wind": {
+        "speed": 0.71,
+        "deg": 100.003
+      },
+      "sys": {
+        "country": ""
+      },
+      "clouds": {
+        "all": 8
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "Sky is Clear",
+          "icon": "02d"
+        }
+      ]
+    },
+    {
+      "id": 141736,
+      "name": "Bam",
+      "coord": {
+        "lon": 58.356998,
+        "lat": 29.106001
+      },
+      "main": {
+        "pressure": 877.03,
+        "sea_level": 1009.99,
+        "grnd_level": 877.03,
+        "temp": 312.955,
+        "temp_min": 312.955,
+        "temp_max": 312.955,		
+        "humidity": 13
+      },
+      "dt": 1467793929,
+      "wind": {
+        "speed": 2.71,
+        "deg": 39.5026
+      },
+      "sys": {
+        "country": ""
+      },
+      "clouds": {
+        "all": 0
+      },
+      "weather": [
+        {
+          "id": 800,
+          "description": "Sky is Clear",		  
+          "main": "Clear",
+          "icon": "01d"
+        }
+      ]
+    },
+    {
+      "name": "Ostān-e Kermān",
+      "id": 128231,	  
+      "coord": {
+        "lon": 57.25,
+        "lat": 29.75
+      },
+      "main": {
+        "temp": 310.15,
+        "pressure": 1013,
+        "humidity": 7,
+        "temp_min": 310.15,
+        "temp_max": 310.15
+      },
+      "dt": 1467792000,
+      "wind": {
+        "speed": 3.1,
+        "deg": 260
+      },
+      "sys": {
+        "country": ""
+      },
+      "clouds": {
+        "all": 40
+      },
+      "weather": [
+        {
+          "icon": "03d",          
+          "main": "Clouds",
+          "description": "scattered clouds",
+		  "id": 802
+        }
+      ]
+    }
+]
