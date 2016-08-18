@@ -25,7 +25,7 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public void Fill(Dictionary<string, string> map)
         {
-            GetType().GetFieldsDeep(typeof(ISetValue)).ForEach(element =>
+            this.GetFields(typeof(ISetValue)).ForEach(element =>
             {
                 var fieldValue = map.FirstOrDefault(pair =>
                     GetElementClass.NamesEqual(pair.Key, NameAttribute.GetElementName(element))).Value;
