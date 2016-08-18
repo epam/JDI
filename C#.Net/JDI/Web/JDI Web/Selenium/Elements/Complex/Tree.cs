@@ -57,7 +57,7 @@ namespace JDI_Web.Selenium.Elements.Complex
                 ISearchContext ctx = m.WebDriver;
                 nodes.ForEach(node =>
                 {
-                    var elements = ctx.FindElements(m.Locator.FillByMsgTemplate(node));
+                    var elements = ctx.FindElements(m.Locator.FillByTemplate(node));
                     if (elements == null || elements.Count != 0)
                         throw Exception($"Can't select element by path '{names.Print(m.Separator)}'");
                     var element = elements.First();

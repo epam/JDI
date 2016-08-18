@@ -4,7 +4,11 @@ using Epam.JDI.Core.Interfaces.Base;
 
 namespace Epam.JDI.Core.Interfaces.Complex
 {
-    public interface IForm<in T> : IComposite, ISetValue, IElement
+    public interface IForm : IComposite, ISetValue, IElement
+    {
+    }
+
+    public interface IForm<in T> : IForm
     {
         
         /**

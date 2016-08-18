@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using JDI_Commons;
 using Epam.JDI.Core.Attributes.Functions;
 using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Common;
 using static Epam.JDI.Core.Settings.JDISettings;
+using static JDI_Web.Utils.WebExtensions;
 
 namespace JDI_Web.Selenium.Attributes
 {
@@ -20,11 +22,6 @@ namespace JDI_Web.Selenium.Attributes
         public static bool NamesEqual(string name1, string name2)
         {
             return Simplify(name1).Equals(Simplify(name2));
-        }
-
-        private static string Simplify(string s)
-        {
-            return s.ToLower().Replace(" ", "").Replace("_", "").Replace("-", "");
         }
         private static string ToButton(string buttonName)
         {

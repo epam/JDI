@@ -7,6 +7,7 @@ using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
+using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.Complex.Table
@@ -42,11 +43,11 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             ClickAction = c => ((Cell)c).Get().Click();
     }
         
-        public string ColumnName => _columnName != null && !_columnName.Equals("")
+        public string ColumnName => !IsNullOrEmpty(_columnName)
                     ? _columnName
                     : Table.Columns.Headers[ColumnNum - 1];
 
-        public string RowName => _rowName != null && !_rowName.Equals("")
+        public string RowName => !IsNullOrEmpty(_rowName)
                     ? _rowName
                     : Table.Rows.Headers[RowNum - 1];
         protected Func<Cell, string> TextAction => c => Get().GetText;
@@ -58,7 +59,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         {
             return WebElement != null
                     ? new SelectableElement(webElement: WebElement)
-                    : new SelectableElement(_cellLocatorTemplate.FillByMsgTemplate(ColumnIndex, RowIndex));
+                    : new SelectableElement(_cellLocatorTemplate.FillByTemplate(ColumnIndex, RowIndex));
         }
 
         public T Get<T>(Type clazz) where T : WebBaseElement
@@ -85,16 +86,16 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             if (!locator.ToString().Contains("{0}") || !locator.ToString().Contains("{1}"))
                 throw Exception("Can't create cell with locator template " + cell.Locator
                         + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-            cell.WebAvatar.ByLocator = locator.FillByMsgTemplate(RowIndex, ColumnIndex);
+            cell.WebAvatar.ByLocator = locator.FillByTemplate(RowIndex, ColumnIndex);
             cell.Parent = Table;
             return cell;
         }
 
         public Cell UpdateData(string colName, string rowName)
         {
-            if (string.IsNullOrEmpty(_columnName) && !string.IsNullOrEmpty(colName))
+            if (IsNullOrEmpty(_columnName) && !IsNullOrEmpty(colName))
                 _columnName = colName;
-            if (string.IsNullOrEmpty(_rowName) && !string.IsNullOrEmpty(rowName))
+            if (IsNullOrEmpty(_rowName) && !IsNullOrEmpty(rowName))
                 _rowName = rowName;
             return this;
         }

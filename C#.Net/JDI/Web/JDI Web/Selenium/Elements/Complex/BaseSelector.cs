@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
-using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Base;
+using JDI_Web.Settings;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -52,18 +52,30 @@ namespace JDI_Web.Selenium.Elements.Complex
                 return;
             }
             var elements = s.WebAvatar.SearchAll().WebElements;
-            if (elements.Count == 1 && elements[0].TagName.Equals("select"))
-                if (s.Selector.Options.Any())
+            var selector = GetSelectElement(elements);
+            if (selector != null)
+                if (selector.Options.Any())
                 {
-                    s.Selector.SelectByText(name);
+                    selector.SelectByText(name);
                     return;
                 }
-                else
+                else                    
                     throw Exception($"<select> tag has no <option> tags. Please Clarify element locator ({s})");
             if (elements.Count == 1 && elements[0].TagName.Equals("ul"))
                 elements = elements[0].FindElements(By.TagName("li")).ToList();
             s.SelectFromList(elements, name);
         };
+
+        private static SelectElement GetSelectElement(List<IWebElement> elements)
+        {
+            var selector = elements.Count == 1 ? elements[0] : null;
+            if (selector == null 
+                && elements.Count(el => WebSettings.WebDriverFactory.ElementSearchCriteria(el) 
+                && el.TagName.Equals("select")) == 1)
+                selector = elements
+                    .First(el => WebSettings.WebDriverFactory.ElementSearchCriteria(el) && el.TagName.Equals("select"));
+            return selector != null ? new SelectElement(selector) : null;
+        }
 
         private void SelectFromList(IList<IWebElement> els, string name)
         {

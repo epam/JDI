@@ -1,4 +1,6 @@
-﻿using Epam.JDI.Core.Settings;
+﻿using System;
+using System.Text.RegularExpressions;
+using Epam.JDI.Core.Settings;
 using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
 using JDI_Web.Selenium.DriverFactory;
@@ -12,16 +14,10 @@ namespace JDI_Tests.Tests
     public class TestsBase
     {
         Timer _timer = new Timer();
-
-        [TestBase.PostSharpInterceptor]
-        private int TestPostSharp(string test)
-        {
-            return 3 + 2;
-        }
+        
         [OneTimeSetUp]
         public void Init()
         {
-            TestPostSharp("hi");
             WebSettings.InitNUnitDefault();
             JDISettings.Logger.Info("Init test run");
             WinProcUtils.KillAllRunWebDrivers();

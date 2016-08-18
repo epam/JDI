@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 using JDI_Commons;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static Epam.JDI.Core.ExceptionUtils;
+using static JDI_Web.Utils.WebExtensions;
 
 namespace JDI_Web.Selenium.Elements.Complex.Table
 {
@@ -63,7 +65,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                     return result;
                 }
                 AddCols(result, Table.Columns.AllHeaders, webRow, rowNum);
-                return result.Where(el => Table.Columns.Headers.Contains(el.Key)).ToDictionary();
+                var simplifiedHeaders = Table.Columns.Headers.Select(Simplify);
+                return result.Where(el => simplifiedHeaders.Contains(Simplify(el.Key))).ToDictionary();
             }, ex => $"Can't Get Row '{rowNum}'. Reason: {ex}");
         }
         private void AddCols(Dictionary<string, ICell> result, IList<string> headers, IList<IWebElement> webRow, int rowNum)

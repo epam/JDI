@@ -6,6 +6,7 @@ using JDI_Web.Selenium.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using RestSharp.Extensions;
+using static System.String;
 using static Epam.JDI.Core.ExceptionUtils;
 using static Epam.JDI.Core.Settings.JDISettings;
 
@@ -82,7 +83,7 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public void CheckOpened()
         {
-            if (UrlTemplate == null)
+            if (IsNullOrEmpty(UrlTemplate))
                 CheckUrl().Equal();
             else 
                 switch (CheckUrlType)
@@ -129,7 +130,7 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         private bool IsOnPage()
         {
-            if (UrlTemplate == null)
+            if (IsNullOrEmpty(UrlTemplate))
                 return GetUrl().Equals(Url);
             switch (CheckUrlType)
             {
@@ -223,7 +224,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Equal()
             {
-                if (_equals == null || _equals.Equals("")) return;
+                if (IsNullOrEmpty(_equals)) return;
                 Logger.Info($"Page {_what} equals to '{_equals}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Equals(_equals)));
             }
@@ -233,7 +234,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Match()
             {
-                if (_template == null || _template.Equals("")) return;
+                if (IsNullOrEmpty(_template)) return;
                 Logger.Info($"Page {_what} matches to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Matches(_template)));
             }
@@ -243,7 +244,7 @@ namespace JDI_Web.Selenium.Elements.Composite
              */
             public void Contains()
             {
-                if (_template == null || _template.Equals("")) return;
+                if (IsNullOrEmpty(_template)) return;
                 Logger.Info($"Page {_what} contains to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Contains(_template)));
             }

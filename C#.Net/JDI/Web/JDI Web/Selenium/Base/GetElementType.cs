@@ -1,5 +1,4 @@
-﻿using System;
-using JDI_Web.Selenium.Elements.APIInteract;
+﻿using JDI_Web.Selenium.Elements.APIInteract;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Base

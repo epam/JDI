@@ -10,6 +10,7 @@ using JDI_Web.Selenium.Attributes;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.WebActions;
 using OpenQA.Selenium;
+using static System.String;
 using static Epam.JDI.Core.Logging.LogLevels;
 using static Epam.JDI.Core.Settings.JDISettings;
 
@@ -33,7 +34,7 @@ namespace JDI_Web.Selenium.Base
             action.Invoke(text);
         };
         public static Action<string, Action<string>> SetValueEmptyAction = (text, action) => {
-            if (text == null || text.Equals("")) return;
+            if (IsNullOrEmpty(text)) return;
             action.Invoke(text.Equals("#CLEAR#") ? "" : text);
         };
         public Functions Function = Functions.None;
@@ -116,7 +117,7 @@ namespace JDI_Web.Selenium.Base
 
         public void LogAction(string actionName, LogLevels level)
         {
-            ToLog(string.Format(ShortLogMessagesFormat
+            ToLog(Format(ShortLogMessagesFormat
                     ? "{0} for {1}"
                     : "Perform action '{0}' with WebElement ({1})", actionName, ToString()), level);
         }

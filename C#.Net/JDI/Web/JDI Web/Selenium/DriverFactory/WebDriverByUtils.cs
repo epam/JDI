@@ -27,20 +27,7 @@ namespace JDI_Web.Selenium.DriverFactory
             byLocator = ActionWithException(
                 () => string.Format(locator, args),
                 ex => GetBadLocatorMsg(locator, args));
-            return by.GetByFunc().Invoke(byLocator);
-        }
-        public static By FillByMsgTemplate(this By by, params object[] args)
-        {
-            var byLocator = GetByLocator(by);
-            try
-            {
-                byLocator = string.Format(byLocator, args);
-            }
-            catch
-            {
-                throw new Exception(GetBadLocatorMsg(byLocator, args));
-            }
-            return GetByFunc(by)(byLocator);
+            return by.GetByFunc()(byLocator);
         }
         
         public static By CorrectXPath(this By byValue)

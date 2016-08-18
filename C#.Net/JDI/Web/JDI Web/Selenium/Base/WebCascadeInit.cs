@@ -8,6 +8,7 @@ using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Commons;
 using JDI_Web.Attributes;
 using JDI_Web.Attributes.Objects;
+using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Complex;
@@ -61,6 +62,11 @@ namespace JDI_Web.Selenium.Base
             var frameBy = FrameAttribute.GetFrame(field);
             if (frameBy != null)
                 element.WebAvatar.FrameLocator = frameBy;
+            By template;
+            var form = element.Parent as Form;
+            if (form != null && !element.HasLocator
+                && (template = form.LocatorTemplate) != null)
+                element.WebAvatar.ByLocator = template.FillByTemplate(field.Name);
             return element;
         }
         protected override IBaseElement GetElementsRules(FieldInfo field, string driverName, Type type, string fieldName)
