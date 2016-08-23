@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -53,7 +54,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
     }
 
-    public class Table<TEntity> : Table
+    public class Table<TEntity> : Table, IList<TEntity>
     {
         public Table()
         {
@@ -76,7 +77,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             var field = fields.FirstOrDefault(f => NamesEqual(f.Name, fieldName));
             field?.SetValue(entity, value.ConvertStringToType(field));
         }
-
+        
         public IList<TEntity> Entities(params string[] colNameValues)
         {
             return GetRows(colNameValues).Select(r => RowToEntity(r.Value)).ToList();
@@ -95,6 +96,61 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         public TEntity Entity(string rowName)
         {
             return RowToEntity(Row(rowName));
+        }
+
+        public IList<TEntity> All => Rows.Get().Select(r => RowToEntity(r.Value)).ToList();
+
+        public IEnumerator<TEntity> GetEnumerator()
+        {
+            return All.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return All.GetEnumerator();
+        }
+
+        public void Add(TEntity item)
+        {
+            throw new Exception("Not applicable");
+        }
+
+        public bool Contains(TEntity item)
+        {
+            return All.Contains(item);
+        }
+
+        public void CopyTo(TEntity[] array, int arrayIndex)
+        {
+            All.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(TEntity item)
+        {
+            throw new Exception("Not applicable");
+        }
+
+        public int Count => All.Count;
+        public bool IsReadOnly => true;
+        public int IndexOf(TEntity item)
+        {
+            return All.IndexOf(item);
+        }
+
+        public void Insert(int index, TEntity item)
+        {
+            Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new Exception("Not applicable");
+        }
+
+        public TEntity this[int index]
+        {
+            get { return All[index]; }
+            set { throw new Exception("Not applicable"); }
         }
     }
 }

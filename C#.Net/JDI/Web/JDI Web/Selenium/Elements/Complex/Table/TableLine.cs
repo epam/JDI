@@ -27,7 +27,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public void AddHeaders(IList<string> headers)
         {
-            _headers = new List<string>(headers);
+            _headers = headers;
         }
         
         public IList<string> Headers
@@ -40,7 +40,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             get
             {
                 if (_headers != null)
-                    return new List<string>(_headers);
+                    return _headers;
                 var localHeaders = HasHeader 
                     ? Timer.GetResult(() => AllHeaders) 
                     : GetNumList(Count);

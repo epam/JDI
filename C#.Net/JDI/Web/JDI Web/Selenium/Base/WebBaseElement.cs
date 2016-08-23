@@ -7,6 +7,7 @@ using Epam.JDI.Core.Attributes.Functions;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Logging;
 using JDI_Web.Selenium.Attributes;
+using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.WebActions;
 using OpenQA.Selenium;
@@ -57,7 +58,11 @@ namespace JDI_Web.Selenium.Base
             set { _typeName = value;  }
         }
         protected Timer Timer => WebAvatar.Timer;
-        
+
+        public void FillLocatorTemplate(string name)
+        {
+            WebAvatar.ByLocator = Locator.FillByTemplate(name);
+        }
         public WebBaseElement(By byLocator = null, IWebElement webElement = null, 
             List<IWebElement> webElements = null)
         {
