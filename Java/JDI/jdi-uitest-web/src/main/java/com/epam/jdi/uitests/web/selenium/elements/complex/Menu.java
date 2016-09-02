@@ -21,6 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.PrintUtils;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -44,6 +46,7 @@ import static java.util.Arrays.copyOfRange;
  */
 public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum> {
     private List<By> menuLevelsLocators = new ArrayList<>();
+    @JPage(urlTemplate = "/category/\\d[5]", checkType = CheckPageTypes.MATCH)
     private String separator = "\\|";
     public <T extends IMenu<TEnum>> T useSeparator(String separator) {
         this.separator = separator;

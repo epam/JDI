@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderSolutionsMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.*;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
@@ -42,6 +43,7 @@ public class EpamSite extends WebSite {
         @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
     })
     public static Menu<HeaderMenu> multipleHeaderMenu;
+    public static Elements<Dropdown<Enum>> els;
 
     @FindBy(css = ".tile-menu>li>a")
     public static Elements<Button> listMenu;

@@ -100,6 +100,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<TEntity> All => Rows.Get().Select(r => RowToEntity(r.Value)).ToList();
 
+        public TEntity First => Entity(1);
+        public TEntity Last => Entity(Count);
+
         public IEnumerator<TEntity> GetEnumerator()
         {
             return All.GetEnumerator();
@@ -130,7 +133,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             throw new Exception("Not applicable");
         }
 
-        public int Count => All.Count;
+        public int Count => Rows.Count;
         public bool IsReadOnly => true;
         public int IndexOf(TEntity item)
         {
@@ -149,7 +152,15 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public TEntity this[int index]
         {
-            get { return All[index]; }
+            get { return index > 0
+                    ? Entity(index)
+                    : Entity(Count + index + 1); }
+            set { throw new Exception("Not applicable"); }
+        }
+
+        public TEntity this[string name]
+        {
+            get { return Entity(name); }
             set { throw new Exception("Not applicable"); }
         }
     }

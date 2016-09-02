@@ -31,6 +31,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnn
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
@@ -38,6 +39,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static com.epam.commons.ReflectionUtils.isClass;
+import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;

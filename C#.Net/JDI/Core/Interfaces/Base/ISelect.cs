@@ -2,7 +2,7 @@
 
 namespace Epam.JDI.Core.Interfaces.Base
 {
-    public interface ISelect: IClickable, IText
+    public interface ISelect: IClickable, IText, ISetValue
     {
         /**
      * Selects WebElement. Similar to click()

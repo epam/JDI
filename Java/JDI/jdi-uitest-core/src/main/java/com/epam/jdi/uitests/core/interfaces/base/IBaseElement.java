@@ -24,15 +24,13 @@ import java.lang.reflect.Field;
 /**
  * Created by Roman_Iovlev on 6/10/2015.
  */
-public interface IBaseElement {
+public interface IBaseElement extends IHasParent {
     /**
      * @return Get Element’s name
      */
     String getName();
     void setName(Field field);
     void setTypeName(String typeName);
-    void setParent(Object parent);
-    Object getParent();
     String printContext();
     void setFunction(Functions function);
     IAvatar getAvatar();

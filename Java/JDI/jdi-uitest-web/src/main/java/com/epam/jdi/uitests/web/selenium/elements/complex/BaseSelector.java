@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -34,6 +35,7 @@ import java.util.function.Function;
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
@@ -42,7 +44,7 @@ import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTe
  * Created by Roman_Iovlev on 7/9/2015.
  */
 
-abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements IVisible {
+abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements IVisible, IHasElement {
     protected boolean isSelector;
     protected GetElementType allLabels = new GetElementType();
 
@@ -92,6 +94,20 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         if (element == null)
             throw exception("Can't find option '%s'. Please fix allLabelsLocator", name);
         element.click();
+    }
+    public WebElement getWebElement() {
+        if (avatar.hasWebElement())
+            return avatar.getElement();
+        Object parent = getParent();
+        return (parent != null && isInterface(parent.getClass(), IHasElement.class))
+                ? ((IHasElement)parent).getWebElement()
+                : null;
+    }
+    public void setWebElement(WebElement webElement) {
+        Element element = new Element();
+        element.setParent(getParent());
+        element.setWebElement(webElement);
+        setParent(element);
     }
 
     protected void selectAction(int num) {
