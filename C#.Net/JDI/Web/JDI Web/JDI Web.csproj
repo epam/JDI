@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="JDI Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\JDI.UICore.1.0.36\lib\net452\JDI Core.dll</HintPath>
+      <HintPath>..\..\..\packages\JDI.UICore.1.0.45\lib\net452\JDI Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JDI Matchers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

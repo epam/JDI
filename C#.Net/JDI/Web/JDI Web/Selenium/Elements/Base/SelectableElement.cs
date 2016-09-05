@@ -1,5 +1,7 @@
 ﻿using System;
 using Epam.JDI.Core.Interfaces.Base;
+using JDI_Web.Selenium.Base;
+using JDI_Web.Selenium.Elements.Common;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Base
@@ -21,6 +23,16 @@ namespace JDI_Web.Selenium.Elements.Base
         }
 
         public bool Selected => Actions.Selected(w => SelectedAction(this));
+        
+        protected Func<WebBaseElement, string> GetValueFunc = el 
+            => ((SelectableElement)el).Selected + "";
 
+        protected Action<WebBaseElement, string> SetValueAction = (el, value) 
+            => ((SelectableElement)el).Select();
+        public new string Value
+        {
+            get { return Actions.GetValue(GetValueFunc); }
+            set { Actions.SetValue(value, SetValueAction); }
+        }
     }
 }

@@ -50,24 +50,26 @@ namespace JDI_Web.Selenium.Elements.Common
         {
             return Actions.IsChecked(el => IsCheckedAction(this));
         }
-        protected void SetValueAction(WebBaseElement el, string value)
+
+        protected Action<WebBaseElement, string> SetValueAction = (el, value) =>
         {
             switch (value.ToLower())
             {
                 case "true":
                 case "1":
                 case "check":
-                    ((CheckBox)el).Check();
+                    ((CheckBox) el).Check();
                     break;
                 case "false":
                 case "0":
                 case "uncheck":
-                    ((CheckBox)el).Uncheck();
+                    ((CheckBox) el).Uncheck();
                     break;
                 default:
-                    throw Exception($"SetValue not specified correctly {value}, expected: 'true','false','0','1','check','uncheck'");
+                    throw Exception(
+                        $"SetValue not specified correctly {value}, expected: 'true','false','0','1','check','uncheck'");
             }
-        }
+        };
 
         public string Value
         {

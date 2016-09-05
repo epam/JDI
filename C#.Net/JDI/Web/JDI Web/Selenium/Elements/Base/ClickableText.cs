@@ -25,7 +25,6 @@ namespace JDI_Web.Selenium.Elements.Base
 
         public string Value => Actions.GetValue(GetTextFunc);
 
-
         public string GetText => Actions.GetText(GetTextFunc);
 
         public string WaitText(string text)
