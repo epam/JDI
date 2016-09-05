@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
@@ -31,11 +32,12 @@ public class EpamSite extends WebSite {
     public static CareerPage careerPage;
     @JPage(url = "/solutions/core-engineering/product-development")
     public static ProductDevelopmentPage productDevelopmentPage;
-    @JPage(url = "/careers/job-listings", title = "Job Listings", urlCheckType = CONTAIN, titleCheckType = CONTAIN)
+    @JPage(url = "/careers/job-listings?query=qa&department%5B%5D=all&city=St-Petersburg&country=Russia",
+            urlTemplate = "/careers/job-listings", title = "Job Listings",
+            urlCheckType = CONTAIN, titleCheckType = CONTAIN)
     public static JobListingPage jobListingPage;
-    @JPage(url = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
+    @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
-
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
     @JMenu(levelLocators = {
@@ -43,7 +45,7 @@ public class EpamSite extends WebSite {
         @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
     })
     public static Menu<HeaderMenu> multipleHeaderMenu;
-    public static Elements<Dropdown<Enum>> els;
+    //public static Elements<Dropdown<Enum>> els;
 
     @FindBy(css = ".tile-menu>li>a")
     public static Elements<Button> listMenu;

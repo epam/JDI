@@ -213,9 +213,9 @@ public class WebPage extends BaseElement implements IPage {
         @JDIAction
         public void check() {
             if (equals == null || equals.equals("")) return;
-            asserter.checkMEssage(format("page %s equals to '%s'", what, equals));
+            asserter.checkMessage(format("page %s equals to '%s'", what, equals));
             asserter.isTrue(timer.wait(() -> actual.get().equals(equals)));
-            asserter.checkMEssage("");
+            asserter.checkMessage("");
         }
 
         /**
@@ -224,9 +224,9 @@ public class WebPage extends BaseElement implements IPage {
         @JDIAction
         public void match() {
             if (template == null || template.equals("")) return;
-            asserter.checkMEssage(format("page %s matches to '%s'", what, template));
+            asserter.checkMessage(format("page %s matches to '%s'", what, template));
             asserter.isTrue(timer.wait(() -> actual.get().matches(template)));
-            asserter.checkMEssage("");
+            asserter.checkMessage("");
         }
 
         /**
@@ -235,9 +235,9 @@ public class WebPage extends BaseElement implements IPage {
         @JDIAction
         public void contains() {
             if (template == null || template.equals("")) return;
-            asserter.checkMEssage(format("page %s contains '%s'", what, template));
+            asserter.checkMessage(format("page %s contains '%s'", what, template));
             asserter.isTrue(timer.wait(() -> actual.get().contains(template)));
-            asserter.checkMEssage("");
+            asserter.checkMessage("");
         }
     }
 }

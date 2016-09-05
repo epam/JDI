@@ -37,4 +37,12 @@ public class Row extends RowColumn {
     public static Row row(String name) {
         return new Row(name);
     }
+
+    public static Row inRow(int num) {
+        return new Row(num);
+    }
+
+    public static Row inRow(String name) {
+        return new Row(name);
+    }
 }

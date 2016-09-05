@@ -29,6 +29,6 @@ public interface IAsserter {
     <TResult> TResult silent(JFuncREx<TResult> func);
     void isTrue(Boolean actual);
     void isTrue(BooleanSupplier actual);
-    void checkMEssage(String checkMessage);
+    void checkMessage(String checkMessage);
     void doScreenshot(String doScreenshot);
 }

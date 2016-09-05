@@ -71,7 +71,7 @@ public abstract class BaseMatcher implements IChecker {
         this.checkMessage = getCheckMessage(checkMessage);
         return this;
     }
-    public void checkMEssage(String checkMessage) {
+    public void checkMessage(String checkMessage) {
         this.checkMessage = getCheckMessage(checkMessage);
     }
 
