@@ -12,10 +12,9 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
-##Try
-First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+##First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
 
-No special actions required (Just put `chromedriver.exe` into `src\main\resources` [see example](http://pix.my/pGNrjbmD)) 
+\* No special actions required (Just put `chromedriver.exe` into `src\main\resources` [see example](http://pix.my/pGNrjbmD)) 
 
 ##Introduction
 
@@ -33,9 +32,118 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
+###Simple Examples
+Simple Login example with DataProvider using Business entity User
+```Java
+    @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
+    public void loginExample(User user) {
+        loginForm.loginAs(user);
+        homePage.checkOpened();
+    }    
+```
+Filling large form example with DataProvider using Business entity Attendee
+```Java
+    @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
+    public void fillFormExample(Attendee attendee) {
+        jobDescriptionPage.addCVForm.submit(attendee);
+        // Check
+        Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
+    }
+```
+Work with Table example
+```Java
+    @Test
+    public void getTableInfoExample() {
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
+        Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
+        Assert.areEquals(jobListingPage.jobsList.rows().count(), 2);
+        Assert.areEquals(jobListingPage.jobsList.getValue(),
+            "||X||JOB_NAME|JOB_CATEGORY|JOB_LOCATION|APPLY||\n" +
+            "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
+            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+    }
+```
+Simple example of complex Search in table 
 
-## How to use
-### Site
+0. Wait while table have some Rows
+
+1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
+
+2. For this row select cell in Column APPLY
+```Java
+@Test
+    public void searchInTableExample() {
+        jobListingPage.jobsList.row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
+            .get("APPLY").select();
+        // Check
+        jobDescriptionPage.checkOpened();
+    }
+```
+Simple example of complex Search with multiple criteria in table 
+
+1. Get first row where 
+    value in column "JOB_NAME" equals to "Senior QA Automation Engineer" AND 
+    value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
+
+2. For this row select cell in Column APPLY
+```Java    
+    @Test
+    public void searchByMultiCriteriaInTableExample() {
+        MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
+                "JOB_NAME=Senior QA Automation Engineer",
+                "JOB_CATEGORY=Software Test Engineering")
+                .first().value;
+
+        Assert.areEquals(firstRow.get("JOB_LOCATION").getText(), "St-Petersburg, Russia");
+    }
+```
+Some our matchers examples
+```Java    
+    @Test
+    public void matcherExamples() {
+        Assert.contains("Test Text", "Text");
+        Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
+    }
+```
+Wait some result from service or page loading
+```Java    
+    @Test
+    public void waitAssertsExample() {
+        Assert.areEquals(() -> getNext(), "Iphone 6");
+        Assert.contains(() -> getNext(), "Iphone 5");
+        Assert.matches(() -> getNext(), ".*S");
+    }
+```
+Match lists and arrays
+```Java    
+    @Test
+    public void listAssertsExample() {
+        Assert.assertEach(searchResults).contains("Iphone");
+        Assert.assertEach(searchResults).matches("Iphone \\d.*");
+        Assert.arrayEquals(searchResults,
+                new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" });
+        Assert.listEquals(asList(searchResults),
+                asList("Iphone 4", "Iphone 5S", "Iphone 6"));
+        Assert.assertEach(searchResults).areDifferent();
+        Assert.assertEach(sameList).areSame();
+        Assert.isSortedByAsc(sortedListAsc);
+        Assert.isSortedByDesc(sortedArrayDesc);
+    }
+
+```
+Or even verify exceptions
+```Java  
+    @Test
+    public void exceptionAssertsExample() {
+        Assert.throwException(this::throwException, "Test Exception");
+        Assert.throwException(this::throwException, RuntimeException.class, "Test Exception");
+        Assert.hasNoExceptions(this::getNext);
+    }
+```
+
+See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing/career/common/tests/simple/examples)
+
+###UI Objects
 ```Java
 @JSite(domain = "https://www.epam.com")
 public class EpamSite extends WebSite {
@@ -100,29 +208,44 @@ public class AddCVForm extends Form<Attendee> {
 ```
 
 ## How to add
-###Java (Maven):
+###Java:
 ####Web:
+####Maven
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.32</version>
 </dependency>
 ```
-####Mobile:
+####Gradle
+```xml
+dependencies {
+  testCompile 'com.codeborne:selenide:3.9.2'
+}
+```
+####IVY
+```xml
+<ivy-module>
+  <dependencies>
+    <dependency org="com.codeborne" name="selenide" rev="3.9.2"/>
+  </dependencies>
+</ivy-module>
+```
+####Mobile(Maven):
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.32</version>
 </dependency>
 ```
-####Desktop:
+####Desktop(Maven):
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.32</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
