@@ -140,22 +140,6 @@ public final class Assert {
         matcher.isNotEmpty(obj);
     }
 
-    public static <T> void areSame(T actual, T expected, String failMessage) {
-        matcher.areSame(actual, expected, failMessage);
-    }
-
-    public static <T> void areSame(T actual, T expected) {
-        matcher.areSame(actual, expected);
-    }
-
-    public static <T> void assertSame(T actual, T expected, String failMessage) {
-        matcher.areSame(actual, expected, failMessage);
-    }
-
-    public static <T> void assertSame(T actual, T expected) {
-        matcher.areSame(actual, expected);
-    }
-
     public static <T> void areDifferent(T actual, T expected, String failMessage) {
         matcher.areDifferent(actual, expected, failMessage);
     }
@@ -252,19 +236,19 @@ public final class Assert {
         matcher.isSortedByDesc(array);
     }
 
-    public static BaseMatcher.ListChecker eachElementOf(List<Object> list) {
+    public static <T> BaseMatcher.ListChecker eachElementOf(List<T> list) {
         return matcher.eachElementOf(list);
     }
 
-    public static BaseMatcher.ListChecker eachElementOf(Object[] array) {
+    public static <T> BaseMatcher.ListChecker eachElementOf(T[] array) {
         return matcher.eachElementOf(array);
     }
 
-    public static BaseMatcher.ListChecker assertEach(List<Object> list) {
+    public static <T> BaseMatcher.ListChecker assertEach(List<T> list) {
         return eachElementOf(list);
     }
 
-    public static BaseMatcher.ListChecker assertEach(Object[] array) {
+    public static <T> BaseMatcher.ListChecker assertEach(T[] array) {
         return eachElementOf(array);
     }
 
@@ -385,23 +369,23 @@ public final class Assert {
         areDifferent(obj, obj2);
     }
 
-    public static void throwException(String actionName, JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public static <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass, String exceptionText) {
         matcher.throwException(actionName, action, exceptionClass, exceptionText);
     }
 
     public static void throwException(String actionName, JAction action, String exceptionText) {
         matcher.throwException(actionName, action, exceptionText);
     }
-    public static void throwException(String actionName, JAction action, Class<Exception> exceptionClass) {
+    public static <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass) {
         matcher.throwException(actionName, action, exceptionClass);
     }
-    public static void throwException(JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public static <E extends Exception> void throwException(JAction action, Class<E> exceptionClass, String exceptionText) {
         matcher.throwException(action, exceptionClass, exceptionText);
     }
     public static void throwException(JAction action, String exceptionText) {
         matcher.throwException(action, exceptionText);
     }
-    public static void throwException(JAction action, Class<Exception> exceptionClass) {
+    public static <E extends Exception> void throwException(JAction action, Class<E> exceptionClass) {
         matcher.throwException(action, exceptionClass);
     }
     public static void hasNoExceptions(String actionName, JAction action) {

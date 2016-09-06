@@ -50,7 +50,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public abstract class BaseMatcher implements IChecker {
     private static Logger logger = getLogger("JDI Logger");
     public void setLogger(Logger logger) { BaseMatcher.logger = logger; }
-    private static long waitTimeout = 0;
+    private static long waitTimeout = 10000;
     private static DoScreen defaultDoScreenType = NO_SCREEN;
     //CHECKSTYLE OFF
     private static String FOUND = "FOUND";
@@ -240,7 +240,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(format("Check that condition '%s' is False", condition), !condition, failMessage);
     }
 
-    public void throwException(String actionName, JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass, String exceptionText) {
         try {
             action.invoke();
         } catch (Exception ex) {
@@ -248,10 +248,14 @@ public abstract class BaseMatcher implements IChecker {
                 areEquals(ex.getClass(), exceptionClass);
             if (exceptionText != null)
                 areEquals(ex.getMessage(), exceptionText);
+            return;
         }
-        throw exception("Action '%s' throws no exceptions. Expected (%s, %s)", exceptionClass == null ? "" : exceptionClass.getName(), exceptionText);
+        throw exception("Action '%s' throws no exceptions. Expected (%s, %s)",
+                actionName,
+                exceptionClass == null ? "" : exceptionClass.getName(),
+                exceptionText);
     }
-    public void throwException(JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public <E extends Exception> void throwException(JAction action, Class<E> exceptionClass, String exceptionText) {
         throwException(!checkMessage.equals("") ? checkMessage : "Action", action, exceptionClass, exceptionText);
     }
     public void hasNoExceptions(String actionName, JAction action) {
@@ -285,12 +289,8 @@ public abstract class BaseMatcher implements IChecker {
         assertAction("Check that Object is NOT empty", !isObjEmpty(obj), failMessage);
     }
 
-    public <T> void areSame(T actual, T expected, String failMessage) {
-        assertAction("Check that Objects are the same", actual == expected, failMessage);
-    }
-
     public <T> void areDifferent(T actual, T expected, String failMessage) {
-        assertAction("Check that Objects are different", actual != expected, failMessage);
+        assertAction("Check that Objects are different", !actual.equals(expected), failMessage);
     }
 
     public <T> void listEquals(Collection<T> actual, Collection<T> expected, String failMessage) {
@@ -302,7 +302,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(null, () -> {
             T notEqualElement = LinqUtils.first(actual, el -> !expected.contains(el));
             return (notEqualElement != null)
-                    ? String.format("Collections '%s' and '%s' not equals at element '%s'",
+                    ? format("Collections '%s' and '%s' not equals at element '%s'",
                     print(LinqUtils.select(actual, Object::toString)), print(LinqUtils.select(expected, Object::toString)), notEqualElement)
                     : FOUND;
         }, failMessage, false);
@@ -322,7 +322,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(null, () -> {
             String notEqualElement = expected.first((name, value) -> actual.get(name).equals(value));
             return (notEqualElement != null)
-                    ? String.format("Collections '%s' and '%s' not equals at element '%s'",
+                    ? format("Collections '%s' and '%s' not equals at element '%s'",
                     print(select(actual, Object::toString)), print(select(expected, Object::toString)), notEqualElement)
                     : FOUND;
         }, failMessage, false);
@@ -358,7 +358,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(null, () -> {
             for (int i = 0; i < getLength(actual); i++)
                 if (!get(actual, i).equals(get(expected, i)))
-                    return String.format("Arrays not equals at index '%s'. '%s' != '%s'. Arrays: '%s' and '%s'",
+                    return format("Arrays not equals at index '%s'. '%s' != '%s'. Arrays: '%s' and '%s'",
                             i, get(actual, i), get(expected, i), printObjectAsArray(actual), printObjectAsArray(expected));
             return FOUND;
         }, failMessage, false);
@@ -556,7 +556,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(null, () -> {
             T notEqualElement = first(actual.get(), el -> !expected.contains(el));
             return (notEqualElement != null)
-                    ? String.format("Collections '%s' and '%s' not equals at element '%s'",
+                    ? format("Collections '%s' and '%s' not equals at element '%s'",
                     print(select(actual.get(), Object::toString)), print(LinqUtils.select(expected, Object::toString)), notEqualElement)
                     : FOUND;
         }, failMessage, true);
@@ -583,7 +583,7 @@ public abstract class BaseMatcher implements IChecker {
             MapArray<String, String> actualMap = actual.get();
             String notEqualElement = expected.first((name, value) -> !actualMap.get(name).equals(value));
             return (notEqualElement != null)
-                    ? String.format("Collections '%s' and '%s' not equals at element '%s'",
+                    ? format("Collections '%s' and '%s' not equals at element '%s'",
                     print(select(actualMap, Object::toString)), print(select(expected, Object::toString)), notEqualElement)
                     : FOUND;
         }, failMessage, false);
@@ -615,7 +615,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(null, () -> {
             for (int i = 0; i <= getLength(actual.get()); i++)
                 if (!get(actual.get(), i).equals(get(expected, i)))
-                    return String.format("Arrays not equals at index '%s'. '%s' != '%s'. Arrays: '%s' and '%s'",
+                    return format("Arrays not equals at index '%s'. '%s' != '%s'. Arrays: '%s' and '%s'",
                             i, get(actual.get(), i), get(expected, i), printObjectAsArray(actual), printObjectAsArray(expected));
             return FOUND;
         }, failMessage, true);
@@ -629,12 +629,16 @@ public abstract class BaseMatcher implements IChecker {
         Collection<T> list;
 
         private ListChecker(Collection<T> list) {
+            if (list == null || list.size() == 0)
+                throwFail().accept(format("List %s is empty", print(select(list, Object::toString))));
             this.list = list;
         }
 
         private void beforeListCheck(String defaultMessage, String expected, String failMessage) {
-            assertAction(String.format(defaultMessage, print(LinqUtils.select(list, Object::toString)), expected),
-                    () -> list != null && !list.isEmpty()
+            String message = expected != null
+                    ? format(defaultMessage, print(LinqUtils.select(list, Object::toString)), expected)
+                    : format(defaultMessage, print(LinqUtils.select(list, Object::toString)));
+            assertAction(message, () -> list != null && !list.isEmpty()
                             ? FOUND
                             : "list check failed because list is null or empty",
                     failMessage, false);
@@ -671,24 +675,33 @@ public abstract class BaseMatcher implements IChecker {
             contains(expected, null);
         }
 
-        public void areSame(Object expected, String failMessage) {
-            beforeListCheck("Check that all items of list '%s' are same with '%s'", expected.toString(), failMessage);
+        public void areSame(String failMessage) {
+            beforeListCheck("Check that all items of list '%s' are the same", null, failMessage);
+            if (list.size() == 1)
+                return;
+            T first = list.iterator().next();
             for (Object el : list)
-                BaseMatcher.this.areSame(el, expected, failMessage);
+                BaseMatcher.this.areEquals(el, first, failMessage);
         }
 
-        public void areSame(Object expected) {
-            areSame(expected, null);
+        public void areSame() {
+            areSame(null);
         }
 
-        public void areDifferent(Object expected, String failMessage) {
-            beforeListCheck("Check that all items of list '%s' are different with '%s'", expected.toString(), failMessage);
-            for (Object el : list)
-                BaseMatcher.this.areDifferent(el, expected, failMessage);
+        public void areDifferent(String failMessage) {
+            beforeListCheck("Check that all items of list '%s' are different", null, failMessage);
+            if (list.size() == 1)
+                return;
+            T first = list.iterator().next();
+            boolean isFirst = true;
+            for (Object el : list) {
+                if (isFirst) { isFirst = false; continue; }
+                BaseMatcher.this.areDifferent(el, first, failMessage);
+            }
         }
 
-        public void areDifferent(Object expected) {
-            areDifferent(expected, null);
+        public void areDifferent() {
+            areDifferent(null);
         }
 
     }

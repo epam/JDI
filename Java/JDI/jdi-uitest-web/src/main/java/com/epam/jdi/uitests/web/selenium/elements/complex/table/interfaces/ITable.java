@@ -47,6 +47,15 @@ public interface ITable extends IText {
         return cell(Column.column(columnIndex), Row.row(rowIndex));
     }
 
+    @JDIAction
+    default ICell cell(int columnIndex, String rowName) {
+        return cell(Column.column(columnIndex), Row.row(rowName));
+    }
+
+    @JDIAction
+    default ICell cell(String columnName, int rowIndex) {
+        return cell(Column.column(columnName), Row.row(rowIndex));
+    }
     /**
      * Get all Cells with values equals to searched value
      */

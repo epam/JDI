@@ -51,20 +51,20 @@ public interface IChecker {
     void isFalse(Boolean condition, String failMessage);
 
     default void isFalse(Boolean condition) { isFalse(condition, null); }
-    void throwException(String actionName, JAction action, Class<Exception> exceptionClass, String exceptionText);
+    <E extends Exception> void  throwException(String actionName, JAction action, Class<E> exceptionClass, String exceptionText);
 
     default void throwException(String actionName, JAction action, String exceptionText) {
         throwException(action, null, exceptionText);
     }
-    default void throwException(String actionName, JAction action, Class<Exception> exceptionClass) {
+    default <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass) {
         throwException(action, exceptionClass, "");
     }
-    void throwException(JAction action, Class<Exception> exceptionClass, String exceptionText);
+    <E extends Exception> void throwException(JAction action, Class<E> exceptionClass, String exceptionText);
 
     default void throwException(JAction action, String exceptionText) {
         throwException(action, null, exceptionText);
     }
-    default void throwException(JAction action, Class<Exception> exceptionClass) {
+    default <E extends Exception> void throwException(JAction action, Class<E> exceptionClass) {
         throwException(action, exceptionClass, "");
     }
     void hasNoExceptions(String actionName, JAction action);
@@ -78,10 +78,6 @@ public interface IChecker {
     void isNotEmpty(Object obj, String failMessage);
 
     default void isNotEmpty(Object obj) { isNotEmpty(obj, null); }
-
-    <T> void areSame(T actual, T expected, String failMessage);
-
-    default <T> void areSame(T actual, T expected) { areSame(actual, expected, null); }
 
     <T> void areDifferent(T actual, T expected, String failMessage);
 

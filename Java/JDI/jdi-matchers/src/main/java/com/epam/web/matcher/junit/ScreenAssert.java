@@ -136,22 +136,6 @@ public final class ScreenAssert {
         getAssert().isNotEmpty(obj);
     }
 
-    public static <T> void areSame(T actual, T expected, String failMessage) {
-        getAssert().areSame(actual, expected, failMessage);
-    }
-
-    public static <T> void areSame(T actual, T expected) {
-        getAssert().areSame(actual, expected);
-    }
-
-    public static <T> void assertSame(T actual, T expected, String failMessage) {
-        getAssert().areSame(actual, expected, failMessage);
-    }
-
-    public static <T> void assertSame(T actual, T expected) {
-        getAssert().areSame(actual, expected);
-    }
-
     public static <T> void areDifferent(T actual, T expected, String failMessage) {
         getAssert().areDifferent(actual, expected, failMessage);
     }
@@ -248,19 +232,19 @@ public final class ScreenAssert {
         getAssert().isSortedByDesc(array);
     }
 
-    public static BaseMatcher.ListChecker eachElementOf(List<Object> list) {
+    public static <T> BaseMatcher.ListChecker eachElementOf(List<T> list) {
         return getAssert().eachElementOf(list);
     }
 
-    public static BaseMatcher.ListChecker eachElementOf(Object[] array) {
+    public static <T> BaseMatcher.ListChecker eachElementOf(T[] array) {
         return getAssert().eachElementOf(array);
     }
 
-    public static BaseMatcher.ListChecker assertEach(List<Object> list) {
+    public static <T> BaseMatcher.ListChecker assertEach(List<T> list) {
         return eachElementOf(list);
     }
 
-    public static BaseMatcher.ListChecker assertEach(Object[] array) {
+    public static <T> BaseMatcher.ListChecker assertEach(T[] array) {
         return eachElementOf(array);
     }
 
@@ -381,23 +365,23 @@ public final class ScreenAssert {
         areDifferent(obj, obj2);
     }
 
-    public static void throwException(String actionName, JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public static <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass, String exceptionText) {
         getAssert().throwException(actionName, action, exceptionClass, exceptionText);
     }
 
     public static void throwException(String actionName, JAction action, String exceptionText) {
         getAssert().throwException(actionName, action, exceptionText);
     }
-    public static void throwException(String actionName, JAction action, Class<Exception> exceptionClass) {
+    public static <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass) {
         getAssert().throwException(actionName, action, exceptionClass);
     }
-    public static void throwException(JAction action, Class<Exception> exceptionClass, String exceptionText) {
+    public static <E extends Exception> void throwException(JAction action, Class<E> exceptionClass, String exceptionText) {
         getAssert().throwException(action, exceptionClass, exceptionText);
     }
     public static void throwException(JAction action, String exceptionText) {
         getAssert().throwException(action, exceptionText);
     }
-    public static void throwException(JAction action, Class<Exception> exceptionClass) {
+    public static <E extends Exception> void throwException(JAction action, Class<E> exceptionClass) {
         getAssert().throwException(action, exceptionClass);
     }
     public static void hasNoExceptions(String actionName, JAction action) {

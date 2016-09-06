@@ -176,16 +176,16 @@ public class Table extends Text implements ITable, Cloneable {
         return columns().getColumn(colName);
     }
 
+    private MapArray<String, ICell> column(Column column) {
+        return column.get(this::column, this::column);
+    }
+
     public List<String> columnValue(int colNum) {
         return columns().getColumnValue(colNum);
     }
 
     public List<String> columnValue(String colName) {
         return columns().getColumnValue(colName);
-    }
-
-    protected MapArray<String, ICell> column(Column column) {
-        return column.get(this::column, this::column);
     }
 
     public void setColumns(Columns value) {
@@ -204,16 +204,16 @@ public class Table extends Text implements ITable, Cloneable {
         return rows().getRow(rowName);
     }
 
+    private MapArray<String, ICell> row(Row row) {
+        return row.get(this::row, this::row);
+    }
+
     public List<String> rowValue(int rowNum) {
         return rows().getRowValue(rowNum);
     }
 
     public List<String> rowValue(String rowName) {
         return rows().getRowValue(rowName);
-    }
-
-    private MapArray<String, ICell> row(Row row) {
-        return row.get(this::row, this::row);
     }
 
     public void setRows(Rows value) {

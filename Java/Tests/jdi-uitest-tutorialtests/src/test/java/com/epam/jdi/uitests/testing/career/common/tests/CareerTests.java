@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeeProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.web.matcher.testng.Check;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

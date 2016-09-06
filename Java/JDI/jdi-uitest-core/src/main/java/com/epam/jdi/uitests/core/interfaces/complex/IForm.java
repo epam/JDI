@@ -136,6 +136,10 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     default void login(String text) {
         submit(text, "login");
     }
+    @JDIAction
+    default void loginAs(String text) {
+        login(text);
+    }
 
     /**
      * @param text Specify text
@@ -265,6 +269,10 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     @JDIAction
     default void login(T entity) {
         submit(entity, "login");
+    }
+    @JDIAction
+    default void loginAs(T entity) {
+        login(entity);
     }
 
     /**
