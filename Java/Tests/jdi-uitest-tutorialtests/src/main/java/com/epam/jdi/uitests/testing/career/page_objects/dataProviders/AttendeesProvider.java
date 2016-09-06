@@ -7,8 +7,8 @@ import org.testng.annotations.DataProvider;
 /**
  * Created by Roman_Iovlev on 9/2/2015.
  */
-public final class AttendeeProvider {
-    private AttendeeProvider() { }
+public final class AttendeesProvider {
+    private AttendeesProvider() { }
 
     @DataProvider(name = "attendees")
     public static Object[][] attendees() {

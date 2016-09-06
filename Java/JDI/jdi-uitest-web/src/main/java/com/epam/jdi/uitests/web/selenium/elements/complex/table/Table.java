@@ -484,8 +484,7 @@ public class Table extends Text implements ITable, Cloneable {
     protected String getTextAction() {
         return "||X||" + print(columns().headers(), "|") + "||\n"
                 + print(select(rows().headers(),
-                        rowName -> "||" + rowName + "||" + print(select(where(getCells(),
-                                cell -> cell.rowName().equals(rowName)), ICell::getValue), "|") + "||"), "\n");
+                        rowName -> "||" + rowName + "||" + print(rowValue(rowName), "|") + "||"), "\n");
     }
 
     private Cell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {

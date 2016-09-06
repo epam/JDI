@@ -22,21 +22,22 @@ public class MatchersExamples {
     public void listAssertsExample() {
         String[] searchResults =
                 new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" };
-
         Assert.assertEach(searchResults).contains("Iphone");
-
         Assert.assertEach(searchResults).matches("Iphone \\d.*");
-
         Assert.arrayEquals(searchResults,
                 new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" });
-
         Assert.listEquals(asList(searchResults),
                 asList("Iphone 4", "Iphone 5S", "Iphone 6"));
-
         Assert.assertEach(searchResults).areDifferent();
 
         List<String> sameList = asList("test", "test", "test");
         Assert.assertEach(sameList).areSame();
+
+        List<Integer> sortedListAsc = asList(1, 2, 3);
+        Assert.isSortedByAsc(sortedListAsc);
+
+        int[] sortedArrayDesc = new int[] {1, 2, 3};
+        Assert.isSortedByDesc(sortedArrayDesc);
     }
 
     private int i = 0;

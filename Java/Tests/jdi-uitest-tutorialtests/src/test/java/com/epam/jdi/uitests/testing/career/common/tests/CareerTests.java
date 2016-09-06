@@ -1,9 +1,8 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
-import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeeProvider;
+import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.web.matcher.testng.Check;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,7 +20,7 @@ public class CareerTests extends TestsBase {
         homePage.isOpened();
     }
 
-    @Test(dataProvider = "attendees", dataProviderClass = AttendeeProvider.class)
+    @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
         homePage.checkOpened();
         multipleHeaderMenu.hoverAndClick(SOLUTIONS + "|" + "Product Development");

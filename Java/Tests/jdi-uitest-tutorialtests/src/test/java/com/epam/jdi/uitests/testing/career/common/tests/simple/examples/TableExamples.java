@@ -2,8 +2,6 @@ package com.epam.jdi.uitests.testing.career.common.tests.simple.examples;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
-import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeeProvider;
-import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -24,10 +22,20 @@ public class TableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
     }
+    @Test
+    public void getTableInfoExample() {
+        Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
+        Assert.areEquals(jobListingPage.jobsList.rows().count(), 2);
+        Assert.areEquals(jobListingPage.jobsList.getValue(),
+            "||X||JOB_NAME|JOB_CATEGORY|JOB_LOCATION|APPLY||\n" +
+            "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
+            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+    }
 
     @Test
     public void searchInTableExample() {
-        jobListingPage.jobsList.row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
+        jobListingPage.jobsList
+            .row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
             .get("APPLY").select();
 
         jobDescriptionPage.checkOpened();
@@ -39,8 +47,7 @@ public class TableExamples extends TestsBase {
                 "JOB_NAME=Senior QA Automation Engineer",
                 "JOB_CATEGORY=Software Test Engineering")
                 .first().value;
-        firstRow.get("APPLY").select();
 
-        jobDescriptionPage.checkOpened();
+        Assert.areEquals(firstRow.get("JOB_LOCATION").getText(), "St-Petersburg, Russia");
     }
 }

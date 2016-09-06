@@ -1,7 +1,7 @@
 package com.epam.jdi.uitests.testing.career.common.tests.simple.examples;
 
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
-import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeeProvider;
+import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +20,7 @@ public class FormExamples extends TestsBase {
         jobDescriptionPage.isOpened();
     }
 
-    @Test(dataProvider = "attendees", dataProviderClass = AttendeeProvider.class)
+    @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
         jobDescriptionPage.addCVForm.submit(attendee);
         Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
