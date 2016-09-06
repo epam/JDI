@@ -22,6 +22,7 @@ package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
  * Contacts:
  */
 
+import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
@@ -61,7 +62,7 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> {
             for(int i=0; i < nodes.length; i++) {
                 String value = nodes[i];
                 context = first(context.findElements(correctXPaths(treeLocators.get(i))), el -> el.getText().equals(value));
-                ((WebElement) context).click();
+                new Clickable((WebElement) context).click();
             }
     }
 }

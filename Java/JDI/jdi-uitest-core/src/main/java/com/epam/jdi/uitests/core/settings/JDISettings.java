@@ -68,7 +68,17 @@ public abstract class JDISettings {
         getProperties(jdiSettingsPath);
         fillAction(driverFactory::registerDriver, "driver");
         fillAction(driverFactory::setRunType, "run.type");
+        fillAction(p -> shortLogMessagesFormat = p.toLowerCase().equals("short"), "log.message.format");
         fillAction(p -> domain = p, "domain");
+        fillAction(p -> useCache =
+                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
+        fillAction(p -> isDemoMode =
+                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
+        fillAction(p -> {
+            try {
+                highlightSettings.setTimeoutInSec(parseInt(p));
+            } catch (Exception ignore) { } }, "demo.delay"
+        );
         fillAction(p -> timeouts.waitElementSec = parseInt(p), "timeout.wait.element");
         fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
     }

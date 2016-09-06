@@ -29,7 +29,6 @@ public class JobFilter extends Form<JobSearchFilter> {
             list = @FindBy(className = "blue-checkbox-label")
     )
     IDropDown<JobCategories> category;
-    //= new Dropdown<>(By.className("multi-select-filter"), By.className("blue-checkbox-label"));
 
     TreeDropdown<Locations> location = new TreeDropdown<>(
             By.className("career-location-box"),

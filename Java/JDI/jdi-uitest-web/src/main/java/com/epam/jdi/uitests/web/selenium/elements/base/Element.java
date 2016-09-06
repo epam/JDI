@@ -79,6 +79,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
         return invoker.doJActionResult("Get web element",
                 () -> avatar.getElement(), DEBUG);
     }
+    public WebElement getHighLightElement() {
+        return avatar.getElement();
+    }
     public void setWebElement(WebElement webElement) {
         avatar.setWebElement(webElement);
     }

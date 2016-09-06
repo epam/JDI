@@ -93,13 +93,13 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         WebElement element = first(els, el -> el.getText().equals(name));
         if (element == null)
             throw exception("Can't find option '%s'. Please fix allLabelsLocator", name);
-        element.click();
+        new Clickable(element).click();
     }
     public WebElement getWebElement() {
         if (avatar.hasWebElement())
             return avatar.getElement();
         Object parent = getParent();
-        return (parent != null && isInterface(parent.getClass(), IHasElement.class))
+        return parent != null && isInterface(parent.getClass(), IHasElement.class)
                 ? ((IHasElement)parent).getWebElement()
                 : null;
     }
@@ -141,7 +141,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
             throw exception("Can't find option with num '%s'. Please fix allLabelsLocator", num);
         if (els.size() < num)
             throw exception("Can't find option with num '%s'. Find only '%s' options", num, els.size());
-        els.get(num - 1).click();
+        new Clickable(els.get(num - 1)).click();
     }
 
     protected abstract boolean isSelectedAction(String name);

@@ -22,7 +22,6 @@ public class CareerTests extends TestsBase {
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
-        homePage.checkOpened();
         multipleHeaderMenu.hoverAndClick(SOLUTIONS + "|" + "Product Development");
         productDevelopmentPage.checkOpened();
         headerMenu.select(CAREERS);

@@ -97,7 +97,6 @@ public class WebSettings extends JDISettings {
     public static synchronized void initFromProperties() throws IOException {
         init();
         JDISettings.initFromProperties();
-        fillAction(p -> domain = p, "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");

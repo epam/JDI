@@ -46,6 +46,7 @@ import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
+import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
 import static java.lang.System.setProperty;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -264,11 +265,14 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         HighlightSettings highlightSettings = settings;
         if (highlightSettings == null)
             highlightSettings = new HighlightSettings();
-        String orig = ((Element) element).getWebElement().getAttribute("style");
-        element.setAttribute("style", format("border: 3px solid %s; background-color: %s;", highlightSettings.getFrameColor(),
-                highlightSettings.getBgColor()));
+        WebElement webElement = ((Element) element).getHighLightElement();
+        String orig = webElement.getAttribute("style");
+        getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
+                webElement, format("border: 3px solid %s; background-color: %s;", highlightSettings.getFrameColor(),
+                        highlightSettings.getBgColor()));
         sleep(highlightSettings.getTimeoutInSec() * 1000);
-        element.setAttribute("style", orig);
+        getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
+                webElement, orig);
     }
 
     public void runApplication() {

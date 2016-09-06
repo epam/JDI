@@ -54,7 +54,7 @@ public class WebDriverProvider {
         }
     }
     private static String getLatestVersion() throws IOException {
-        File latestVersionFile = new File(TEMP_FOLDER + "LATEST_RELEASE");
+        File latestVersionFile = new File(TEMP_FOLDER + "LATEST_RELEASE.txt");
         FileUtils.copyURLToFile(new URL(CHROME_STORAGE + "LATEST_RELEASE"), latestVersionFile);
         BufferedReader bf = new BufferedReader(new FileReader(latestVersionFile.getAbsolutePath()));
         String version = bf.readLine();

@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.ISelector;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -86,6 +87,7 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
         WebElement element = first(els, this::isSelectedAction);
         if (element == null)
             throw exception("No elements selected. Override getSelectedAction or place locator to <select> tag");
+        new Element(element).invoker.processDemoMode();
         return element.getText();
     }
 

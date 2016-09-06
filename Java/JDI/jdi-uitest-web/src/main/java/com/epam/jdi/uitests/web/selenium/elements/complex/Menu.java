@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.PrintUtils;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import org.openqa.selenium.By;
@@ -129,6 +130,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
             String value = nodes[i];
             List<WebElement> elements = new Selector<>(menuLevelsLocators.get(i)).getElements();
             WebElement element = first(elements, el -> el.getText().equals(value));
+            new Element(element).invoker.processDemoMode();
             action.accept(element);
         }
     }
