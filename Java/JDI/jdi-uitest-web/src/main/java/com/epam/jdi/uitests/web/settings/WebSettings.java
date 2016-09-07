@@ -28,6 +28,8 @@ import com.epam.jdi.uitests.web.selenium.TestNGCheck;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
+import com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider;
+import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;
@@ -38,14 +40,23 @@ import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
 import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.ScreenAssert;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.*;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
+import static java.lang.Integer.parseInt;
+import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 11/13/2015.
@@ -94,9 +105,41 @@ public class WebSettings extends JDISettings {
     public static synchronized void initFromProperties() throws IOException {
         init();
         JDISettings.initFromProperties();
+        fillAction(p -> DRIVER_VERSION = p, "drivers.version");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
+        fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
+        fillAction(p -> {
+            if (p.equals("soft")) {
+                p = "any, multiple";
+            }
+            if (p.equals("strict")) {
+                p = "visible, single";
+            }
+            if (p.split(",").length == 2) {
+                List<String> params = asList(p.split(","));
+                if (params.contains("visible") || params.contains("displayed"))
+                    elementSearchCriteria = WebElement::isDisplayed;
+                if (params.contains("single"))
+                    onlyOneElementAllowedInSearch = true;
+                if (params.contains("any") || params.contains("all"))
+                    elementSearchCriteria = el -> el != null;
+                if (params.contains("multiple"))
+                    onlyOneElementAllowedInSearch = false;
+            }
+        }, "search.element.strategy" );
+        fillAction(p -> {
+            String[] split = null;
+            if (p.split(",").length == 2)
+                split = p.split(",");
+            if (p.split("x").length == 2)
+                split = p.split("x");
+            if (p.split("X").length == 2)
+                split = p.split("X");
+            if (split != null)
+                browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
+        }, "browser.size");
         String isMultithread = getProperty("multithread");
         logger = isMultithread != null && (isMultithread.equals("true") || isMultithread.equals("1"))
             ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))

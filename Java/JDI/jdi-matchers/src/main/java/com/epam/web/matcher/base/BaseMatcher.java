@@ -89,17 +89,21 @@ public abstract class BaseMatcher implements IChecker {
         this.doScreenshot = doScreenshot;
     }
     public void doScreenshot(String doScreenshot) {
-        switch (doScreenshot) {
-            case "no_screen":
+        if (doScreenshot.equals("no_screen") ||
+            doScreenshot.equals("no screen") ||
+            doScreenshot.equals("no screenshot")||
+            doScreenshot.equals("off")) {
                 this.doScreenshot = NO_SCREEN;
-                break;
-            case "screen_on_fail":
-                this.doScreenshot = SCREEN_ON_FAIL;
-                break;
-            case "do_screen_always":
+                return;
+            }
+        if (doScreenshot.equals("do_screen_always") ||
+            doScreenshot.equals("always") ||
+            doScreenshot.equals("do screen always")||
+            doScreenshot.equals("on")) {
                 this.doScreenshot = DO_SCREEN_ALWAYS;
-                break;
-        }
+                return;
+            }
+        this.doScreenshot = SCREEN_ON_FAIL;
     }
     public BaseMatcher setScreenshot(DoScreen doScreenshot) {
         this.doScreenshot = doScreenshot;

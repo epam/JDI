@@ -8,8 +8,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.MessageFormat;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static java.text.MessageFormat.format;
 import static org.apache.commons.io.FileUtils.deleteDirectory;
 
 /**
@@ -31,8 +33,8 @@ public class WebDriverProvider {
     private static final String CHROME_MAC_DRIVER = "chromedriver_mac32.zip";
     private static final String CHROME_NIX_DRIVER = "chromedriver_linux64.zip";
     private static final String CHROME_WIN_DRIVER = "chromedriver_win32.zip";
-    private static final String CHROME_VERSION = "";
-    private static final String IE_WIN_DRIVER_URL     = "http://selenium-release.storage.googleapis.com/2.53/IEDriverServer_x64_2.53.1.zip";
+    public static String DRIVER_VERSION = "";
+    private static final String IE_WIN_DRIVER_URL = "http://selenium-release.storage.googleapis.com/{0}/IEDriverServer_x64_{0}.1.zip";
 
     private static Boolean isInStock(String driver) {
         File path = new File(FOLDER_PATH);
@@ -62,8 +64,8 @@ public class WebDriverProvider {
         return version;
     }
     private static String getVersion() throws IOException {
-        return !CHROME_VERSION.equals("")
-                ? CHROME_VERSION
+        return !DRIVER_VERSION.equals("")
+                ? DRIVER_VERSION
                 : getLatestVersion();
     }
     private static File recreateTempFollder() {
@@ -83,6 +85,9 @@ public class WebDriverProvider {
             default:
                 return url + CHROME_NIX_DRIVER;
         }
+    }
+    private static String ieDriverDownloadUrl() {
+        return format(IE_WIN_DRIVER_URL, DRIVER_VERSION.equals("") ? "2.53" : DRIVER_VERSION);
     }
     private static void downloadDriver(String driverName, String driverPath, String zipName, String downloadUrl) {
         if (!isInStock(driverPath)) {
@@ -109,6 +114,8 @@ public class WebDriverProvider {
     }
 
     public static void downloadIEDriver(String folderPath) {
-        downloadDriver("IEDriver", getIEDriverPath(folderPath), "IEDriverServer_x64_2.53.1.zip", IE_WIN_DRIVER_URL);
+        downloadDriver("IEDriver", getIEDriverPath(folderPath),
+                format("IEDriverServer_x64_%s.1.zip", DRIVER_VERSION.equals("") ? "2.53" : DRIVER_VERSION),
+                ieDriverDownloadUrl());
     }
 }

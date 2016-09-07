@@ -27,6 +27,7 @@ import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -49,6 +50,7 @@ import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
 import static java.lang.System.setProperty;
+import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
@@ -58,7 +60,8 @@ import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public class SeleniumDriverFactory implements IDriver<WebDriver> {
-    public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public static Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public Boolean getLatestDriver = false;
     private String currentDriverName = "CHROME";
@@ -208,9 +211,13 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             throw WebSettings.asserter.exception("Can't get WebDriver. " + LINE_BREAK + ex.getMessage());
         }
     }
+    public static Dimension browserSizes;
 
-    public Function<WebDriver, WebDriver> webDriverSettings = driver -> {
-        driver.manage().window().maximize();
+    public static Function<WebDriver, WebDriver> webDriverSettings = driver -> {
+        if (browserSizes == null)
+            driver.manage().window().maximize();
+        else
+            driver.manage().window().setSize(browserSizes);
         driver.manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
         return driver;
     };
@@ -228,7 +235,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             return runDrivers.get(driverName);
         } catch (Exception ex) {
             logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
-            throw exception("Can't get driver; Thread: " + Thread.currentThread().getId() + "Exception: " + ex.getMessage());
+            throw exception("Can't get driver; Thread: " + currentThread().getId() + "Exception: " + ex.getMessage());
         }
     }
 

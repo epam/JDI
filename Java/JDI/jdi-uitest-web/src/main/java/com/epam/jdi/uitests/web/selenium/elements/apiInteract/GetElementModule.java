@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
@@ -168,7 +169,10 @@ public class GetElementModule implements IAvatar {
             case 1:
                 return result.get(0);
             default:
-                throw exception(FIND_TO_MUCH_ELEMENTS_MESSAGE, result.size(), element, timeout);
+                if (SeleniumDriverFactory.onlyOneElementAllowedInSearch)
+                    throw exception(FIND_TO_MUCH_ELEMENTS_MESSAGE, result.size(), element, timeout);
+                else
+                    return result.get(0);
         }
     }
 
