@@ -257,6 +257,21 @@ dependencies {
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
 
+##JDI settings
+```Java
+driver=chrome
+timeout.wait.element=10
+domain=https://www.epam.com/
+driver.getLatest=true
+search.element.strategy=strict | soft
+browser.size=1800X1000
+demo.mode=false | true
+multithread=true
+run.type=local | remote
+screenshot.strategy=on fail | on | off
+```
+See [more settings examples](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/src/test/resources/test.properties)
+
 ###.Net 
 Add Nuget package "JDI.UIWeb" to your solution
 
