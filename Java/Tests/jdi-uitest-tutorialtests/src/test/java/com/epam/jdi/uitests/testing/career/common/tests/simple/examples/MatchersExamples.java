@@ -1,6 +1,8 @@
 package com.epam.jdi.uitests.testing.career.common.tests.simple.examples;
 
 import com.epam.web.matcher.testng.Assert;
+import com.epam.web.matcher.testng.Check;
+import com.epam.web.matcher.testng.ScreenAssert;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -16,6 +18,12 @@ public class MatchersExamples {
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
         Assert.isTrue(1 == 1);
         Assert.isFalse("test".contains("a"));
+        Assert.ignoreCase().areEquals("Test String", "test STRING");
+    }
+    @Test
+    public void differentAssertsExample() {
+        new Check("This important thing").contains("Test Text", "Text");
+        ScreenAssert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 
     @Test
@@ -36,7 +44,7 @@ public class MatchersExamples {
         List<Integer> sortedListAsc = asList(1, 2, 3);
         Assert.isSortedByAsc(sortedListAsc);
 
-        int[] sortedArrayDesc = new int[] {1, 2, 3};
+        int[] sortedArrayDesc = new int[] {8, 7, 6};
         Assert.isSortedByDesc(sortedArrayDesc);
     }
 

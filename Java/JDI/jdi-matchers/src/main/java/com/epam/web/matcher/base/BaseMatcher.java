@@ -136,8 +136,8 @@ public abstract class BaseMatcher implements IChecker {
     private void waitAction(String defaultMessage, BooleanSupplier result, String failMessage) {
         assertAction(defaultMessage, () -> result.getAsBoolean() ? FOUND : "Check failed", failMessage, true);
     }
-
-    protected String doScreenshotGetMessage() { return "Screenshots switched off"; }
+    public static Supplier<String> screenshotAction = () -> "Screenshots switched off";
+    protected String doScreenshotGetMessage() { return screenshotAction.get(); }
 
     private void assertAction(String defaultMessage, Supplier<String> result, String failMessage, boolean wait) {
         if (!isListCheck && defaultMessage != null)

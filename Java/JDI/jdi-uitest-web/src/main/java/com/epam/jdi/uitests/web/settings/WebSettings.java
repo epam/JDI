@@ -37,6 +37,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITabl
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
 import com.epam.web.matcher.testng.Assert;
+import com.epam.web.matcher.testng.ScreenAssert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -80,12 +81,8 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void init() throws IOException {
         driverFactory = new SeleniumDriverFactory();
-        asserter = new TestNGCheck() {
-            @Override
-            protected String doScreenshotGetMessage() {
-                return ScreenshotMaker.doScreenshotGetMessage();
-            }
-        };
+        asserter = new TestNGCheck();
+        BaseMatcher.screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
         asserter.doScreenshot("screen_on_fail");
         Assert.setMatcher((BaseMatcher) asserter);
         timeouts = new WebTimeoutSettings();
