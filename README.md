@@ -41,23 +41,23 @@ Simple Login example with DataProvider using Business entity User
         homePage.checkOpened();
     }    
 ```
-Filling large form example with DataProvider using Business entity Attendee
+Filling large form in one row example with DataProvider using Business entity Attendee
 ```Java
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
-        jobDescriptionPage.addCVForm.submit(attendee);
+        addCVForm.submit(attendee);
         // Check
         Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }
 ```
-Work with Table example
+Work with Table (jobList) example
 ```Java
     @Test
     public void getTableInfoExample() {
-        Assert.isFalse(jobListingPage.jobsList::isEmpty);
-        Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
-        Assert.areEquals(jobListingPage.jobsList.rows().count(), 2);
-        Assert.areEquals(jobListingPage.jobsList.getValue(),
+        Assert.isFalse(jobsList::isEmpty);
+        Assert.areEquals(jobsList.columns().count(), 4);
+        Assert.areEquals(jobsList.rows().count(), 2);
+        Assert.areEquals(jobsList.getValue(),
             "||X||JOB_NAME|JOB_CATEGORY|JOB_LOCATION|APPLY||\n" +
             "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
             "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
@@ -73,7 +73,7 @@ Simple example of complex Search in table
 ```Java
 @Test
     public void searchInTableExample() {
-        jobListingPage.jobsList.row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
+        jobsList.row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
             .get("APPLY").select();
         // Check
         jobDescriptionPage.checkOpened();
@@ -89,7 +89,7 @@ Simple example of complex Search with multiple criteria in table
 ```Java    
     @Test
     public void searchByMultiCriteriaInTableExample() {
-        MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
+        MapArray<String, ICell> firstRow = jobsList.rows(
                 "JOB_NAME=Senior QA Automation Engineer",
                 "JOB_CATEGORY=Software Test Engineering")
                 .first().value;
@@ -105,8 +105,14 @@ Some our matchers examples
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 ```
-Wait some result from service or page loading
-```Java    
+Just add '() -> ' to your Assert and wait some result from service or page loading (example fails if you remove '() ->' operator)
+```Java   
+    private int i = 0;
+    private String[] searchResults = new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" };
+    private String getNext() {
+        if (i == 3) i = 0;
+        return searchResults[i++];
+    }
     @Test
     public void waitAssertsExample() {
         Assert.areEquals(() -> getNext(), "Iphone 6");
