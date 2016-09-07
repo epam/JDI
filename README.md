@@ -15,6 +15,7 @@ License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 ##First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
 
 \* No special actions required (Just put `chromedriver.exe` into `src\main\resources` [see example](http://pix.my/pGNrjbmD)) 
+or switch on auto driver update in test.properties (driver.getLatest=true) [see example](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/src/test/resources/test.properties)
 
 ##Introduction
 
