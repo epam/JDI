@@ -401,9 +401,15 @@ public abstract class BaseMatcher implements IChecker {
     public <T> ListChecker eachElementOf(Collection<T> list) {
         return new ListChecker<>(list);
     }
+    public <T> ListChecker each(Collection<T> list) {
+        return eachElementOf(list);
+    }
 
     public <T> ListChecker eachElementOf(T[] array) {
         return new ListChecker<>(asList(array));
+    }
+    public <T> ListChecker each(T[] array) {
+        return eachElementOf(array);
     }
 
     // Asserts Wait

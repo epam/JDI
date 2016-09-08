@@ -58,7 +58,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     }
 
     /**
-     * @param map Specify entity as map
+     * @param map Specify entity as mapArray
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
     @JDIAction
@@ -75,7 +75,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
 
     /**
      * @param map Specify entity as map
-     *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
+     *            Verify that form filled correctly. If not returns list of keys where verification fails
      */
     @JDIAction
     default List<String> verify(Map<String, String> map) {
@@ -83,15 +83,15 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     }
 
     /**
-     * @param map Specify entity as map
-     *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
+     * @param map Specify entity as mapArray
+     *            Verify that form filled correctly. If not throws error
      */
     @JDIAction
     void check(MapArray<String, String> map);
 
     /**
      * @param entity Specify entity
-     *               Verify that form filled correctly. If not returns list of keys where verification fails
+     *               Verify that form filled correctly. If not throws error
      */
     @JDIAction
     default void check(T entity) {
@@ -100,7 +100,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
 
     /**
      * @param map Specify entity as map
-     *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
+     *               Verify that form filled correctly. If not throws error
      */
     @JDIAction
     default void check(Map<String, String> map) {

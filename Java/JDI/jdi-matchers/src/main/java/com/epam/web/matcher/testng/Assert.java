@@ -238,16 +238,17 @@ public final class Assert {
     public static <T> BaseMatcher.ListChecker eachElementOf(List<T> list) {
         return matcher.eachElementOf(list);
     }
-
     public static <T> BaseMatcher.ListChecker eachElementOf(T[] array) {
         return matcher.eachElementOf(array);
     }
-
     public static <T> BaseMatcher.ListChecker assertEach(List<T> list) {
         return eachElementOf(list);
     }
-
-    public static <T> BaseMatcher.ListChecker assertEach(T[] array) {
+    public static <T> BaseMatcher.ListChecker assertEach(T[] array) { return eachElementOf(array); }
+    public static <T> BaseMatcher.ListChecker each(List<T> list) {
+        return eachElementOf(list);
+    }
+    public static <T> BaseMatcher.ListChecker each(T[] array) {
         return eachElementOf(array);
     }
 

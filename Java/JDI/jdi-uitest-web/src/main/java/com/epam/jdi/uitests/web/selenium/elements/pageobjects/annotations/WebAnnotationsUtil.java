@@ -27,7 +27,6 @@ import org.openqa.selenium.support.FindBy;
 import java.util.function.Consumer;
 
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.*;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getMatchFromDomain;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
 
@@ -47,7 +46,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         String urlTemplate = pageAnnotation.urlTemplate();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
         CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
-        if (urlCheckType == MATCH || urlCheckType == CONTAIN && urlTemplate.equals(""))
+        if (urlCheckType == MATCH || urlCheckType == CONTAINS && urlTemplate.equals(""))
             urlTemplate = url;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
     }

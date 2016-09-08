@@ -101,7 +101,7 @@ public class WebPage extends BaseElement implements IPage {
             case MATCH:
                 url().match();
                 break;
-            case CONTAIN:
+            case CONTAINS:
                 url().contains();
                 break;
         }
@@ -112,7 +112,7 @@ public class WebPage extends BaseElement implements IPage {
             case MATCH:
                 title().match();
                 break;
-            case CONTAIN:
+            case CONTAINS:
                 title().contains();
                 break;
         }

@@ -11,7 +11,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAIN;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
 
 /**
@@ -23,7 +23,7 @@ public class EpamSiteParallel extends WebSite {
     public HomePage homePage;
     @JPage(url = "/careers", title = "Careers")
     public CareerPage careerPage;
-    @JPage(url = "/careers/job-listings", title = "Job Listings", urlCheckType = CONTAIN, titleCheckType = CONTAIN)
+    @JPage(url = "/careers/job-listings", title = "Job Listings", urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public JobListingPage jobListingPage;
     @JPage(url = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
     public JobDescriptionPage jobDescriptionPage;

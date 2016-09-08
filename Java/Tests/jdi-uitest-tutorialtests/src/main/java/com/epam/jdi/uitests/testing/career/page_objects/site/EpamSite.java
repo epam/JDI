@@ -4,10 +4,8 @@ import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderSolutionsMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.site.pages.*;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
@@ -17,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAIN;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
 
 /**
@@ -34,7 +32,7 @@ public class EpamSite extends WebSite {
     public static ProductDevelopmentPage productDevelopmentPage;
     @JPage(url = "/careers/job-listings?query=qa&department%5B%5D=all&city=St-Petersburg&country=Russia",
             urlTemplate = "/careers/job-listings", title = "Job Listings",
-            urlCheckType = CONTAIN, titleCheckType = CONTAIN)
+            urlCheckType = MATCH, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
     @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
