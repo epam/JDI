@@ -224,20 +224,20 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.32</version>
+    <version>1.0.33</version>
 </dependency>
 ```
 ####Gradle
 ```xml
 dependencies {
-  testCompile 'com.codeborne:selenide:3.9.2'
+  testCompile 'com.epam.jdi:jdi-uitest-web:1.0.33'
 }
 ```
 ####IVY
 ```xml
 <ivy-module>
   <dependencies>
-    <dependency org="com.codeborne" name="selenide" rev="3.9.2"/>
+    <dependency org="com.epam.jdi" name="jdi-uitest-web" rev="1.0.33"/>
   </dependencies>
 </ivy-module>
 ```
@@ -246,7 +246,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.32</version>
+    <version>1.0.33</version>
 </dependency>
 ```
 ####Desktop(Maven):
@@ -254,7 +254,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.32</version>
+    <version>1.0.33</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
