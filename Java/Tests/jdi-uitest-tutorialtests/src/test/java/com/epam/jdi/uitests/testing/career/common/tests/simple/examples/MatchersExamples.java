@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.career.common.tests.simple.examples;
 
+import com.epam.web.matcher.base.DoScreen;
 import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.Check;
 import com.epam.web.matcher.testng.ScreenAssert;
@@ -7,6 +8,9 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 
+import static com.epam.web.matcher.base.DoScreen.DO_SCREEN_ALWAYS;
+import static com.epam.web.matcher.base.DoScreen.NO_SCREEN;
+import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 import static java.util.Arrays.*;
 
 
@@ -24,22 +28,23 @@ public class MatchersExamples {
     public void differentAssertsExample() {
         new Check("This important thing").contains("Test Text", "Text");
         ScreenAssert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
+        new Check().doScreenshot(SCREEN_ON_FAIL).isTrue(1 == 1);
     }
 
     @Test
     public void listAssertsExample() {
         String[] searchResults =
-                new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" };
-        Assert.assertEach(searchResults).contains("Iphone");
-        Assert.assertEach(searchResults).matches("Iphone \\d.*");
+                new String[] { "IPhone 4", "IPhone 5S", "IPhone 6" };
+        Assert.each(searchResults).contains("IPhone");
+        Assert.each(searchResults).matches("IPhone \\d.*");
         Assert.arrayEquals(searchResults,
-                new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" });
+                new String[] { "IPhone 4", "IPhone 5S", "IPhone 6" });
         Assert.listEquals(asList(searchResults),
-                asList("Iphone 4", "Iphone 5S", "Iphone 6"));
-        Assert.assertEach(searchResults).areDifferent();
+                asList("IPhone 4", "IPhone 5S", "IPhone 6"));
+        Assert.each(searchResults).areDifferent();
 
         List<String> sameList = asList("test", "test", "test");
-        Assert.assertEach(sameList).areSame();
+        Assert.each(sameList).areSame();
 
         List<Integer> sortedListAsc = asList(1, 2, 3);
         Assert.isSortedByAsc(sortedListAsc);
@@ -50,7 +55,7 @@ public class MatchersExamples {
 
     private int i = 0;
     private String[] searchResults =
-            new String[] { "Iphone 4", "Iphone 5S", "Iphone 6" };
+            new String[] { "IPhone 4", "IPhone 5S", "IPhone 6" };
     private String getNext() {
         if (i == 3) i = 0;
         return searchResults[i++];
@@ -58,18 +63,22 @@ public class MatchersExamples {
 
     @Test
     public void waitAssertsExample() {
-        Assert.areEquals(() -> getNext(), "Iphone 6");
-        Assert.contains(() -> getNext(), "Iphone 5");
-        Assert.matches(() -> getNext(), ".*S");
+        Assert.areEquals(() -> getNext(), "IPhone 6");
+        Assert.contains(() -> getNext(), "IPhone 5");
+        Assert.waitTimeout(5).matches(() -> getNext(), ".*S");
     }
 
     private void throwException() {
         throw new RuntimeException("Test Exception");
     }
+    private void assertException() { throw Assert.exception("Assert Exception"); }
+    private void failException() { Assert.fail("Fail Exception"); }
+
     @Test
     public void exceptionAssertsExample() {
-        Assert.throwException(this::throwException, "Test Exception");
+        Assert.throwException(this::assertException, "Assert Exception");
         Assert.throwException(this::throwException, RuntimeException.class, "Test Exception");
+        Assert.throwException(this::failException, "Fail Exception");
         Assert.hasNoExceptions(this::getNext);
     }
 

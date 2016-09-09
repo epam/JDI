@@ -12,6 +12,6 @@ public class WebTimeoutSettings extends TimeoutSettings {
     @Override
     public void setCurrentTimeoutSec(int timeoutSec) {
         super.setCurrentTimeoutSec(timeoutSec);
-        setDefaultTimeout(timeoutSec * 1000L);
+        setDefaultTimeout(timeoutSec);
     }
 }

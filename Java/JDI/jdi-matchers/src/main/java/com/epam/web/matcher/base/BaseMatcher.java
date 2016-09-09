@@ -50,7 +50,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 public abstract class BaseMatcher implements IChecker {
     private static Logger logger = getLogger("JDI Logger");
     public void setLogger(Logger logger) { BaseMatcher.logger = logger; }
-    private static long waitTimeout = 10000;
+    private static long waitTimeout = 10;
+    private static long defaultTimeout = 10;
     private static DoScreen defaultDoScreenType = NO_SCREEN;
     //CHECKSTYLE OFF
     private static String FOUND = "FOUND";
@@ -78,6 +79,12 @@ public abstract class BaseMatcher implements IChecker {
     public static void setDefaultTimeout(long timeout) {
         waitTimeout = timeout;
     }
+    public BaseMatcher setTimeout(long timeout) {
+        defaultTimeout = waitTimeout;
+        waitTimeout = timeout;
+        return this;
+    }
+    public static void restoreTimeout() { waitTimeout = defaultTimeout; }
 
     public static void setDefaultDoScreenType(DoScreen doScreen) {
         defaultDoScreenType = doScreen;
@@ -85,8 +92,13 @@ public abstract class BaseMatcher implements IChecker {
 
     protected abstract Consumer<String> throwFail();
 
-    public void doScreenshot(DoScreen doScreenshot) {
+    public BaseMatcher doScreenshot(DoScreen doScreenshot) {
         this.doScreenshot = doScreenshot;
+        return this;
+    }
+    public BaseMatcher setScreenshot(DoScreen doScreenshot) {
+        this.doScreenshot = doScreenshot;
+        return this;
     }
     public void doScreenshot(String doScreenshot) {
         if (doScreenshot.equals("no_screen") ||
@@ -104,10 +116,6 @@ public abstract class BaseMatcher implements IChecker {
                 return;
             }
         this.doScreenshot = SCREEN_ON_FAIL;
-    }
-    public BaseMatcher setScreenshot(DoScreen doScreenshot) {
-        this.doScreenshot = doScreenshot;
-        return this;
     }
 
     public void doScreenshot() {
@@ -149,10 +157,10 @@ public abstract class BaseMatcher implements IChecker {
         if (!isListCheck && doScreenshot == DoScreen.DO_SCREEN_ALWAYS)
             logger.info(doScreenshotGetMessage());
         String resultMessage = wait
-                ? new Timer(timeout()).getResultByCondition(result::get, r -> r != null && r.equals(FOUND))
+                ? new Timer(timeout() * 1000).getResultByCondition(result::get, r -> r != null && r.equals(FOUND))
                 : result.get();
         if (resultMessage == null) {
-            assertException("Assert Failed by Timeout. Wait %s seconds", timeout() / 1000);
+            assertException("Assert Failed by Timeout. Wait %s seconds", timeout());
             return;
         }
         if (!resultMessage.equals(FOUND)) {
@@ -172,6 +180,9 @@ public abstract class BaseMatcher implements IChecker {
     public RuntimeException exception(String failMessage, Object... args) {
         assertException(failMessage, args);
         return new RuntimeException(failMessage);
+    }
+    public void fail(String failMessage, Object... args) {
+        throw exception(failMessage, args);
     }
 
     protected void assertException(String failMessage, Object... args) {
@@ -247,7 +258,7 @@ public abstract class BaseMatcher implements IChecker {
     public <E extends Exception> void throwException(String actionName, JAction action, Class<E> exceptionClass, String exceptionText) {
         try {
             action.invoke();
-        } catch (Exception ex) {
+        } catch (Exception | Error ex) {
             if (exceptionClass != null)
                 areEquals(ex.getClass(), exceptionClass);
             if (exceptionText != null)
@@ -265,7 +276,7 @@ public abstract class BaseMatcher implements IChecker {
     public void hasNoExceptions(String actionName, JAction action) {
         try {
             action.invoke();
-        } catch (Exception ex) {
+        } catch (Exception | Error ex) {
             throw exception(actionName + " throws exception: " + ex.getMessage());
         }
     }

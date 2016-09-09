@@ -42,13 +42,21 @@ public final class Assert {
     public static void setMatcher(BaseMatcher matcher) {
         Assert.matcher = matcher;
     }
+    public static BaseMatcher doScreen(DoScreen doScreen) {
+        return matcher.doScreenshot(doScreen);
+    }
 
     public static BaseMatcher ignoreCase() {
         return matcher.ignoreCase();
     }
+    public static BaseMatcher waitTimeout(long timeout) { return matcher.setTimeout(timeout);}
+    public static BaseMatcher setTimeout(long timeout) { return waitTimeout(timeout);}
 
     public static RuntimeException exception(String msg, Object... args) {
         return matcher.exception(msg, args);
+    }
+    public static void fail(String failMessage, Object... args) {
+        throw exception(failMessage, args);
     }
 
     public static <T> void areEquals(T actual, T expected, String failMessage) {

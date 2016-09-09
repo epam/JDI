@@ -42,9 +42,14 @@ public final class ScreenAssert {
     public static BaseMatcher ignoreCase() {
         return getAssert().ignoreCase();
     }
+    public static BaseMatcher waitTimeout(long timeout) { return getAssert().setTimeout(timeout);}
+    public static BaseMatcher setTimeout(long timeout) { return waitTimeout(timeout);}
 
     public static RuntimeException exception(String msg, Object... args) {
         return getAssert().exception(msg, args);
+    }
+    public static void fail(String failMessage, Object... args) {
+        throw exception(failMessage, args);
     }
 
     public static <T> void areEquals(T actual, T expected, String failMessage) {
