@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Epam.JDI.Core.Settings;
+﻿using Epam.JDI.Core.Settings;
 using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
 using JDI_Web.Selenium.DriverFactory;
@@ -13,7 +11,7 @@ namespace JDI_Tests.Tests
     [SetUpFixture]
     public class TestsBase
     {
-        Timer _timer = new Timer();
+        private Timer _timer = new Timer();
         
         [OneTimeSetUp]
         public void Init()

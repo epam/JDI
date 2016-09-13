@@ -57,7 +57,7 @@ namespace JDI_Web.Selenium.DriverFactory
             }
             catch
             {
-                throw new Exception($"Can't register WebDriver {driverName} . Driver with same name already registered");
+                throw new Exception($"Can't register WebDriver {driverName}. Driver with the same name already registered");
             }
             return driverName;
         }
@@ -72,7 +72,9 @@ namespace JDI_Web.Selenium.DriverFactory
             try
             {
                 if (!string.IsNullOrEmpty(CurrentDriverName))
+                {
                     return GetDriver(CurrentDriverName);
+                }
                 RegisterDriver(DriverTypes.Chrome);
                 return GetDriver(DriverTypes.Chrome);
             }
@@ -102,7 +104,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 {
                     var resultDriver = Drivers[driverName]();
                     if (resultDriver == null)
-                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
+                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name is not registered");
                     RunDrivers.Add(driverName, resultDriver);
                 }
                 return RunDrivers[driverName];
