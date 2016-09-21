@@ -40,7 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="JDI Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\JDI.UICore.1.0.45\lib\net452\JDI Core.dll</HintPath>
+      <HintPath>..\..\..\packages\JDI.UICore.1.0.47\lib\net452\JDI Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="JDI Matchers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -102,7 +102,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Selenium\Attributes\GetElementClass.cs" />
+    <Compile Include="Selenium\Base\BaseParallelTest.cs" />
     <Compile Include="Selenium\Base\GetElementType.cs" />
+    <Compile Include="Selenium\Base\SiteFactory.cs" />
+    <Compile Include="Selenium\Base\SiteInfo.cs" />
     <Compile Include="Selenium\Base\WebAssert.cs" />
     <Compile Include="Selenium\Base\WebBaseElement.cs" />
     <Compile Include="Selenium\Base\WebCascadeInit.cs" />

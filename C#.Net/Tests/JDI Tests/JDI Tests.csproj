@@ -84,6 +84,7 @@
     <Compile Include="Enums\Locations.cs" />
     <Compile Include="Epam UIObjects\Elements\JobColumn.cs" />
     <Compile Include="Epam UIObjects\Elements\TreeDropdown.cs" />
+    <Compile Include="Epam UIObjects\EpamSiteP.cs" />
     <Compile Include="Epam UIObjects\EpamSite.cs" />
     <Compile Include="Epam UIObjects\Pages\AboutCompanyPage.cs" />
     <Compile Include="Epam UIObjects\Pages\AboutPage.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Epam UIObjects\Sections\AddCVform.cs" />
     <Compile Include="Epam UIObjects\Sections\JobFilter.cs" />
     <Compile Include="TestBase\PostSharpInterceptor.cs" />
+    <Compile Include="Tests\Epam\SmokeTests - Parallel.cs" />
     <Compile Include="Tests\W3C\FrameTests.cs" />
     <Compile Include="Tests\Epam\SmokeTests - MSTest.cs" />
     <Compile Include="Tests\W3C\TableTests.cs" />

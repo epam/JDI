@@ -10,42 +10,42 @@ using OpenQA.Selenium;
 namespace JDI_Tests.Epam_UIObjects
 {
     [Site(Domain = "https://www.epam.com")]
-    public class EpamSite
+    public class EpamSiteP : WebSite
     {
         [Page(Url = "/", Title = "EPAM | Software Product Development Services")]
-        public static HomePage HomePage;
+        public HomePage HomePage;
 
         [Page(Url = "/about", Title = "About")]
-        public static AboutPage AboutPage;
+        public AboutPage AboutPage;
 
         [Page(Url = "/contact", Title = "Contact")]
-        public static ContactPage ContactPage;
+        public ContactPage ContactPage;
 
         [Page(Url = "/request-information", Title = "Request Information")]
-        public static RequestInformationPage RequestInformationPage;
+        public RequestInformationPage RequestInformationPage;
 
         [Page(Url = "/about/company", Title = "Company")]
-        public static AboutCompanyPage AboutCompanyPage;
+        public AboutCompanyPage AboutCompanyPage;
 
         [Page(Url = "/careers", Title = "Careers")]
-        public static CareerPage CareerPage;
+        public CareerPage CareerPage;
 
         [Page(Url = "/solutions/core-engineering/product-development")]
-        public static ProductDevelopmentPage ProductDevelopmentPage;
+        public ProductDevelopmentPage ProductDevelopmentPage;
 
         [Page(Title = "EPAM Software Product Development Services", UrlCheckType = CheckPageTypes.None)]
-        public static CareerPage CareerPageTest;
+        public CareerPage CareerPageTest;
 
-        [Page(Url = "/careers/job-listings", Title = "Job Listings",
+        [Page(Url = "/careers/job-listings", Title = "Job Listings", 
             UrlCheckType = CheckPageTypes.Contains, TitleCheckType = CheckPageTypes.Equal)]
-        public static JobListingPage JobListingPage;
+        public JobListingPage JobListingPage;
 
         [Page(Url = ".*/careers/job-listings/job\\.\\d*#apply", UrlCheckType = CheckPageTypes.Match)]
-        public static JobDescriptionPage JobDescriptionPage;
+        public JobDescriptionPage JobDescriptionPage;
 
         [FindBy(Css = ".tile-menu>li>a")]
-        public static Menu<Headers> HeaderMenu;
-        public static Menu<Headers> HeaderMenu2D = new Menu<Headers>(
+        public Menu<Headers> HeaderMenu;
+        public Menu<Headers> HeaderMenu2D = new Menu<Headers>(
             new List<By> {
                 By.CssSelector(".tile-menu>li>a"),
                 By.XPath("//*[@class='tile-menu']//*[@href='/solutions']//..//li")
@@ -53,7 +53,7 @@ namespace JDI_Tests.Epam_UIObjects
         );
 
         [FindBy(Css = ".tile-menu>li>a")]
-        public static IList<Label> ListMenu;
+        public IList<Label> ListMenu;
         /*
         [FindBy(Css = ".tile-menu .submenu a")]
         public static Menu<HeaderSolutionsMenu> HeaderSolutionsMenu = new Menu<HeaderSolutionsMenu> {

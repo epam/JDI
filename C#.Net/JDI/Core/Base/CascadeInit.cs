@@ -89,9 +89,8 @@ namespace Epam.JDI.Core.Base
                     : GetInstanceElement(parent, type, parentType, field, driverName);
 
                 instance.SetName(field);
-
-                if (parent != null)
-                    instance.Avatar.DriverName = driverName;
+                
+                instance.Avatar.DriverName = driverName;
                 instance.TypeName = type.Name;
                 instance.Parent = parent;
                 field.SetValue(parent, instance);

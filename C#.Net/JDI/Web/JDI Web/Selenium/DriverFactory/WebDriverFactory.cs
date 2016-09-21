@@ -11,6 +11,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
+using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Properties.Settings;
 
@@ -22,7 +23,23 @@ namespace JDI_Web.Selenium.DriverFactory
     {
         private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
         private Dictionary<string, IWebDriver> RunDrivers { get; } = new Dictionary<string, IWebDriver>();
-        public string CurrentDriverName { get; set; }
+
+        private string _currentDriverName;
+
+        public string CurrentDriverName
+        {
+            get
+            {
+                if (IsNullOrEmpty(_currentDriverName))
+                {
+                    _currentDriverName = _driverNamesDictionary[DriverTypes.Chrome];
+                    RegisterLocalDriver(DriverTypes.Chrome);
+                }
+                return _currentDriverName;
+            }
+            set { _currentDriverName = value; }
+        }
+
         public string DriverPath { get; set; } = "C:/Selenium";
         public RunTypes RunType { get; set; } = RunTypes.Local;
         public HighlightSettings HighlightSettings = new HighlightSettings();
@@ -36,9 +53,9 @@ namespace JDI_Web.Selenium.DriverFactory
         };
         private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary<DriverTypes, Func<string, IWebDriver>>
         {
-            {DriverTypes.Chrome, path => string.IsNullOrEmpty(path) ? new ChromeDriver() : new ChromeDriver(path)},
+            {DriverTypes.Chrome, path => IsNullOrEmpty(path) ? new ChromeDriver() : new ChromeDriver(path)},
             {DriverTypes.Firefox, path => new FirefoxDriver()},
-            {DriverTypes.IE, path => string.IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
+            {DriverTypes.IE, path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
         };
 
         //TODO 
@@ -52,8 +69,14 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             try
             {
-                Drivers.Add(driverName, driver);
-                CurrentDriverName = driverName;
+                string newName = driverName;
+                if (Drivers.ContainsKey(driverName))
+                {
+                    var i = 1;
+                    while (Drivers.ContainsKey(newName = driverName + i++));
+                }
+                Drivers.Add(newName, driver);
+                CurrentDriverName = newName;
             }
             catch
             {
@@ -71,7 +94,7 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             try
             {
-                if (!string.IsNullOrEmpty(CurrentDriverName))
+                if (!IsNullOrEmpty(CurrentDriverName))
                     return GetDriver(CurrentDriverName);
                 RegisterDriver(DriverTypes.Chrome);
                 return GetDriver(DriverTypes.Chrome);
@@ -142,7 +165,7 @@ namespace JDI_Web.Selenium.DriverFactory
             var capabilities = new DesiredCapabilities(new Dictionary<string, object>
             {
                 {"browserName", _driverNamesDictionary[driverType]},
-                {"version", string.Empty},
+                {"version", Empty},
                 {"javaScript", true}
             });
 

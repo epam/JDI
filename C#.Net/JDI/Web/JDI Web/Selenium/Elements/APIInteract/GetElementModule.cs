@@ -28,7 +28,6 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         public GetElementModule(WebBaseElement element, By byLocator = null)
         {
             Element = element;
-            DriverName = JDISettings.DriverFactory.CurrentDriverName;
             ByLocator = byLocator;
         }
 

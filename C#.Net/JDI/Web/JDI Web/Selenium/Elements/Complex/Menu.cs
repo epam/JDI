@@ -71,25 +71,27 @@ namespace JDI_Web.Selenium.Elements.Complex
         
         private void Select(By locator, string name)
         {
-            new Selector(locator) {Parent = Parent}.Select(name);
+            new Selector(locator)
+            {
+                WebAvatar = { DriverName = WebAvatar.DriverName },
+                Parent = Parent
+            }.Select(name);
         }
 
         protected Action<Menu<TEnum>, string[]> HoverAndClickAction = (m, names) =>
         {
             if (names == null || names.Length == 0)
                 return;
-            if (names.Length == 1)
+            var split = m.SplitToList(names, m.Separator);
+            if (split.Count == 1)
             {
                 if (m.Delay > 0) Thread.Sleep(m.Delay);
-                m.Select(m.Locator, names[0]);
+                m.Select(m.Locator, split[0]);
+                return;
             }
-            var split = m.SplitToList(names, m.Separator);
             if (split.Count > m.MenuLevelsLocators.Count)
                 throw Exception($"Can't hover and click on element ({m}) by value: {names.Print(m.Separator)}. Amount of locators ({m.MenuLevelsLocators.Count}) less than select path length ({split.Count})");
-            if (split.Count > 1)
-            {
-                m.Hover(split.ListCopy(to: -1).ToArray());
-            }
+            m.Hover(split.ListCopy(to: -1).ToArray());
             var lastIndex = split.Count - 1;
             if (m.Delay > 0) Thread.Sleep(m.Delay);
             m.Select(m.MenuLevelsLocators[lastIndex], split[lastIndex]);
@@ -130,7 +132,11 @@ namespace JDI_Web.Selenium.Elements.Complex
                 for (var i = 0; i < nodes.Count; i++)
                 {
                     var value = nodes[i];
-                    var elements = new Selector(m.MenuLevelsLocators[i]).Elements;
+                    var elements = new Selector(m.MenuLevelsLocators[i])
+                    {
+                        WebAvatar = {DriverName = m.WebAvatar.DriverName},
+                        Parent = m.Parent
+                    }.Elements;
                     var element = elements.FirstOrDefault(el => el.Text.Equals(value));
                     if (element == null)
                         throw Exception("Can't choose element:" + value);

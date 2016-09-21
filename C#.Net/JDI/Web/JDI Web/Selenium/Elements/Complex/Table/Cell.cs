@@ -41,7 +41,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 _cellLocatorTemplate = cellLocatorTemplate;
             Table = table;
             ClickAction = c => ((Cell)c).Get().Click();
-    }
+            GetValueFunc = w => TextAction(this);
+        }
         
         public string ColumnName => !IsNullOrEmpty(_columnName)
                     ? _columnName
@@ -51,8 +52,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                     ? _rowName
                     : Table.Rows.Headers[RowNum - 1];
         protected Func<Cell, string> TextAction => c => Get().GetText;
-
-
+        
         protected new Func<Cell, bool> SelectedAction => c => Get().Selected;
 
         public SelectableElement Get()

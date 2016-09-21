@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Epam.JDI.Core.Settings;
+﻿using Epam.JDI.Core.Settings;
 using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
 using JDI_Web.Selenium.DriverFactory;
@@ -21,9 +19,6 @@ namespace JDI_Tests.Tests
             WebSettings.InitNUnitDefault();
             JDISettings.Logger.Info("Init test run");
             WinProcUtils.KillAllRunWebDrivers();
-
-            if (!JDISettings.DriverFactory.HasDrivers())
-                WebSettings.UseDriver(DriverTypes.Chrome);
             _timer = new Timer();
             
             WebSite.Init(typeof(EpamSite));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Complex;
@@ -83,7 +84,7 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public void CheckOpened()
         {
-            if (IsNullOrEmpty(UrlTemplate))
+            if (IsNullOrEmpty(UrlTemplate) && new [] { CheckPageTypes.None, CheckPageTypes.Equal }.Contains(CheckUrlType))
                 CheckUrl().Equal();
             else 
                 switch (CheckUrlType)
@@ -130,18 +131,20 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         private bool IsOnPage()
         {
-            if (IsNullOrEmpty(UrlTemplate))
-                return GetUrl().Equals(Url);
+            var url = WebDriver.Url;
+            if (IsNullOrEmpty(UrlTemplate) 
+                && new[] { CheckPageTypes.None, CheckPageTypes.Equal }.Contains(CheckUrlType))
+                return url.Equals(Url);
             switch (CheckUrlType)
             {
                 case CheckPageTypes.None:
-                    return GetUrl().Contains(UrlTemplate) || GetUrl().Matches(UrlTemplate);
+                    return url.Contains(UrlTemplate) || url.Matches(UrlTemplate);
                 case CheckPageTypes.Equal:
-                    return GetUrl().Equals(Url);
+                    return url.Equals(Url);
                 case CheckPageTypes.Match:
-                    return GetUrl().Matches(UrlTemplate);
+                    return url.Matches(UrlTemplate);
                 case CheckPageTypes.Contains:
-                    return GetUrl().Contains(UrlTemplate);
+                    return url.Contains(IsNullOrEmpty(UrlTemplate) ? Url : UrlTemplate);
             }
             return false;
         }
@@ -243,10 +246,12 @@ namespace JDI_Web.Selenium.Elements.Composite
              * Check that current page url/title contains expected url/title-matcher
              */
             public void Contains()
-            {
-                if (IsNullOrEmpty(_template)) return;
-                Logger.Info($"Page {_what} contains to '{_template}'");
-                Asserter.IsTrue(_timer().Wait(() => _actual().Contains(_template)));
+            {            
+                var url = IsNullOrEmpty(_template)
+                    ? _equals
+                    : _template;
+                Logger.Info($"Page {_what} contains to '{url}'");
+                Asserter.IsTrue(_timer().Wait(() => _actual().Contains(url)));
             }
         }
     }
