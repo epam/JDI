@@ -71,7 +71,11 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         private void AddCols(Dictionary<string, ICell> result, IList<string> headers, IList<IWebElement> webRow, int rowNum)
         {
             for (var i = 0; i < headers.Count; i++)
-                result.Add(headers[i], Table.Cell(webRow[i], new Column(i + 1), new Row(rowNum)));
+            {
+                var label = headers[i];
+                if (!result.ContainsKey(label))
+                    result.Add(label, Table.Cell(webRow[i], new Column(i + 1), new Row(rowNum)));
+            }
         }
 
         public IList<string> GetRowValue(int rowNum)
