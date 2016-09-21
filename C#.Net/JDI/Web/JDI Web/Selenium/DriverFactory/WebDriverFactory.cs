@@ -80,7 +80,7 @@ namespace JDI_Web.Selenium.DriverFactory
             }
             catch
             {
-                throw new Exception($"Can't register WebDriver {driverName} . Driver with same name already registered");
+                throw new Exception($"Can't register WebDriver {driverName}. Driver with the same name already registered");
             }
             return driverName;
         }
@@ -125,7 +125,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 {
                     var resultDriver = Drivers[driverName]();
                     if (resultDriver == null)
-                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name not registered");
+                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name is not registered");
                     RunDrivers.Add(driverName, resultDriver);
                 }
                 return RunDrivers[driverName];
@@ -233,7 +233,7 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             if (highlightSettings == null)
                 highlightSettings = new HighlightSettings();
-            string orig = ((WebElement) element).GetWebElement().GetAttribute("style");
+            var orig = ((WebElement) element).GetWebElement().GetAttribute("style");
             element.SetAttribute("style",
                 $"border: 3px solid {highlightSettings.FrameColor}; background-color: {highlightSettings.BgColor};");
             Thread.Sleep(highlightSettings.TimeoutInSec * 1000);

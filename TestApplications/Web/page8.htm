@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Different Element </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/uui-all.css"/>
+    <link rel="stylesheet" href="css/custom-styles.css"/>
+    <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/lib/components/awesome-bootstrap-checkbox.css"/>
+    <link rel="stylesheet" href="css/lib/components/datepicker3.css"/>
+    <link rel="stylesheet" href="css/lib/components/bootstrap-timepicker.css"/>
+    <link rel="stylesheet" href="css/lib/components/bootstrap-select.min.css"/>
+    <link rel="stylesheet" href="css/lib/components/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" href="jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.min.css"/>
+    <link rel="stylesheet" href="js/lib/components/DataTables-1.10.2/css/jquery.dataTables.min.css"/>
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/components/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/lib/jquery.cookie.js"></script>
+    <script src="jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/uui-core.min.js" type="text/javascript"></script>
+    <script src="js/lib/components/bootstrap-datepicker.js"></script>
+    <script src="js/lib/components/bootstrap-timepicker.min.js"></script>
+    <script src="js/lib/components/bootstrap-select.min.js"></script>
+    <script src="js/lib/components/DataTables-1.10.2/js/jquery.dataTables.min.js"></script>
+    <script src="js/utils.js" type="text/javascript"></script>
+    <!-- IE9- support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="js/lib/html5shiv.js"></script>
+    <script src="js/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div class="uui-header dark-gray">
+            <nav role="navigation">
+                <div class="sidebar-toggle-box blue" style="display: none;">
+                    <div data-toggle="tooltip" data-placement="right" title="Toggle Navigation" class="sidebar-tooltip">
+                        <span class="fa fa-reorder"></span>
+                    </div>
+                </div>
+                <div class="epam-logo">
+                    <span>Information<br>Framework</span>
+                    <img src="images/Logo_Epam_Color.svg" alt="" width="86" />
+                </div>
+                <ul class="uui-navigation nav navbar-nav m-l8">
+					<li>
+						<a href="index.htm">Home</a>
+					</li>
+					<li>
+						<a href="page1.htm">Contact form</a>
+					</li>
+					<li class="dropdown">
+						<a href="page1.htm" class="dropdown-toggle" data-toggle="dropdown">
+							Service
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="page3.htm">Support</a></li>
+							<li><a href="page4.htm">Dates</a></li>
+							<li><a href="page5.htm">Complex Table </a></li>
+							<li><a href="page6.htm">Simple Table </a></li>
+							<li><a href="page7.htm">Table with pages</a></li>
+							<li><a href="page8.htm">Different elements</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="page2.htm">Metals & Colors</a>
+					</li>
+                </ul>
+                <ul class="uui-navigation nav navbar-nav navbar-right">
+                    <li class="dropdown uui-profile-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <div class="profile-photo">
+                                <i class="fa fa-user"></i>
+                                <img src="images/icons/no_photo.png" alt="" style="display: none;">
+                                <span>Piter Chailovskii</span>
+                            </div>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-login" role="menu">
+                            <form class="form-horizontal login hidden">
+                                <div class="form-horizontal-pad">
+                                    <div class="form-group form-group10">
+                                        <label for="Login" class="col-sm-3">Login</label>
+                                        <div class="col-sm-9">
+                                            <input id="Login" type="text" class="uui-form-element">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group10">
+                                        <label for="Password" class="col-sm-3">Password</label>
+                                        <div class="col-sm-9">
+                                            <input id="Password" type="password" class="uui-form-element">
+                                        </div>
+                                    </div>
+                                    <span class="login-txt hidden">* Login Faild</span>
+                                </div>
+                                <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-in"></i><span>Enter</span></button>
+                            </form>
+                            <div class="logout">
+                                <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-out"></i><span>Logout</span></button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="search">
+                    <span class="icon-search"></span>
+                    <div class="search-active hidden">
+                        <span class="search-title">Search this Site</span>
+                        <span class="icon-search active"></span>
+                        <div class="search-field">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <aside>
+        <div class="uui-side-bar">
+			<ul class="sidebar-menu">
+				<li>
+					<a href="index.htm">
+						<span>Home</span>
+					</a>
+				</li>
+				<li>
+					<a href="page1.htm">
+						<span>Contact form</span>
+					</a>
+				</li>
+				<li class="sub-menu">
+					<a href="page1.htm">
+						<span>Service</span>
+
+						<div class="fa fa-caret-down arrow"></div>
+					</a>
+					<ul class="sub">
+						<li>
+							<a href="page3.htm">
+								<p>
+									<span>Support</span>
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="page4.htm">
+								<p>
+									<span>Dates</span>
+								</p>
+							</a>
+						</li>
+						<li><a href="page5.htm"><p>
+							<span>Complex Table </span>
+						</p></a></li>
+						<li><a href="page6.htm"><p>
+							<span>Simple Table</span>
+						</p></a></li>
+						<li><a href="page7.htm"><p>
+							<span>Table with pages</span>
+						</p></a></li>
+						<li><a href="page8.htm"><p>
+							<span>Different elements</span>
+						</p></a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="page2.htm">
+						<span>Metals & Colors</span>
+					</a>
+				</li>
+			</ul>
+
+        </div>
+    </aside>
+    <aside>
+        <div class="uui-side-bar right-fix-panel">
+            <section class="uui-info-panel-horizontal">
+                <div class="info-panel-header">
+                    Log
+                </div>
+                <div class="info-panel-body info-panel-body-log">
+                    <div class="info-panel-section">
+                        <ul class="panel-body-list logs">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="uui-info-panel-horizontal">
+                <div class="info-panel-header">
+                    Result
+                </div>
+                <div class="info-panel-body info-panel-body-result">
+                    <div class="info-panel-section">
+                        <ul class="panel-body-list results">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </aside>
+    <div class="uui-main-container page-inside">
+        <main>
+            <div class="pattern-top"></div>
+            <div class="main-content">
+                <div class="main-content-hg">
+                    <div class="support-title"><i class="fa fa-comments-o"></i>Support</div>
+
+
+                    <div class="checkbox-row">
+                        <label class="label-checkbox">
+                            <input type="checkbox">
+                            Water
+                        </label>
+                        <label class="label-checkbox">
+                            <input type="checkbox">
+                            Earth
+                        </label>
+                        <label class="label-checkbox">
+                            <input type="checkbox">
+                            Wind
+                        </label>
+                        <label class="label-checkbox">
+                            <input type="checkbox">
+                            Fire
+                        </label>
+                    </div>
+                    <div class="checkbox-row">
+                        <label class="label-radio">
+                            <input type="radio" name="metal">
+                            Gold
+                        </label>
+                        <label class="label-radio">
+                            <input type="radio" name="metal">
+                            Silver
+                        </label>
+                        <label class="label-radio">
+                            <input type="radio" name="metal">
+                            Bronze
+                        </label>
+                        <label class="label-radio">
+                            <input type="radio" name="metal">
+                            Selen
+                        </label>
+                    </div>
+                    <div class="colors">
+                        <select class="uui-form-element">
+                            <option>Red</option>
+                            <option>Green</option>
+                            <option>Blue</option>
+                            <option>Yellow</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    <p>Buttons:</p>
+                    <button class="uui-button" name="Default Button" value="Default Button">Default Button</button>
+                    <input type="button" class="uui-button" value="Button">
+
+
+                </div>
+                <ul class="uui-pagination">
+                    <li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+                    <li class="first"><a href="#">First</a></li>
+                    <li class="last"><a href="#">Last</a></li>
+                    <li class="next"><a href="#"><i class="fa fa-long-arrow-right"></i></a></li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</div>
+<footer>
+    <div class="footer-bg">
+        <div class="footer-content overflow">
+            <div>Powered by EPAM System</div>
+            <ul class="footer-menu">
+                <li><a href="">About</a></li>
+                <li>|</li>
+                <li><a href="">Report a bug</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<Script language="JavaScript">
+    UUI.Vertical_Menu.init({"open": true});
+</script>
+<script>
+    $('.selectpicker').selectpicker();
+</script>
+
+</body>
+</html>

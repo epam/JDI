@@ -152,9 +152,9 @@ namespace JDI_Web.Selenium.Elements.Composite
         {
             ActionWithException(() =>
             {
+                if (!IsOnPage())
+                    Open();
                 Logger.Info($"Page {Name} is opened");
-                if (IsOnPage()) return;
-                Open();
             }, ex => $"Can't open page {Name}. Reason: {ex}");
         }
 
