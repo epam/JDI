@@ -8,8 +8,8 @@ namespace JDI_Web.Selenium.Elements.Common
     public class TextField : Text, ITextField
     {
         public TextField() : this(null) { }
-        public TextField(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement) { }
+        public TextField(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element:element) { }
 
         protected Func<WebBaseElement, string> GetTextFunc =
             el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("value"), "");

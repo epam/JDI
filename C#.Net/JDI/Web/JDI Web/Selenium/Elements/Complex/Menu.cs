@@ -16,7 +16,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         where TEnum : IConvertible
     {
         public List<By> MenuLevelsLocators = new List<By>();
-        public string Separator = "\\|";
+        public string Separator = "\\>";
         public Menu<TEnum> UseSeparator(string separator)
         {
             Separator = separator;
@@ -71,11 +71,7 @@ namespace JDI_Web.Selenium.Elements.Complex
         
         private void Select(By locator, string name)
         {
-            new Selector(locator)
-            {
-                WebAvatar = { DriverName = WebAvatar.DriverName },
-                Parent = Parent
-            }.Select(name);
+            new Selector(locator, element:this).Select(name);
         }
 
         protected Action<Menu<TEnum>, string[]> HoverAndClickAction = (m, names) =>
@@ -132,11 +128,7 @@ namespace JDI_Web.Selenium.Elements.Complex
                 for (var i = 0; i < nodes.Count; i++)
                 {
                     var value = nodes[i];
-                    var elements = new Selector(m.MenuLevelsLocators[i])
-                    {
-                        WebAvatar = {DriverName = m.WebAvatar.DriverName},
-                        Parent = m.Parent
-                    }.Elements;
+                    var elements = new Selector(m.MenuLevelsLocators[i], element: m).Elements;
                     var element = elements.FirstOrDefault(el => el.Text.Equals(value));
                     if (element == null)
                         throw Exception("Can't choose element:" + value);

@@ -8,8 +8,8 @@ namespace JDI_Web.Selenium.Elements.Base
     public class ClickableText : Clickable, IText
     {
         public ClickableText() : this(null) { }
-        public ClickableText(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement)
+        public ClickableText(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element)
         {
         }
 

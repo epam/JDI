@@ -33,7 +33,7 @@ namespace JDI_Tests.ParallelTests
         {
             var attendee = new Attendee();
             Site.HomePage.IsOpened();
-            Site.HeaderMenu2D.HoverAndClick("SOLUTIONS|Product Development");
+            Site.HeaderMenu2D.HoverAndClick("SOLUTIONS>Product Development");
             Site.ProductDevelopmentPage.CheckOpened();
             Site.HeaderMenu.Select(Headers.CAREERS);
             Site.CareerPage.CheckOpened();

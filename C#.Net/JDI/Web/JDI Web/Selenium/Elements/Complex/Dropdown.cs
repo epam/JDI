@@ -29,9 +29,9 @@ namespace JDI_Web.Selenium.Elements.Complex
         public Dropdown(By selectLocator, By optionsNamesLocator, By allOptionsNamesLocator = null) 
             : base(optionsNamesLocator, allOptionsNamesLocator)
         {
-            var selector = new Selector(optionsNamesLocator, allOptionsNamesLocator);
             SelectNameAction = (s, name) =>
             {
+                var selector = new Selector(optionsNamesLocator, allOptionsNamesLocator, element: s);
                 if (Element != null)
                 {
                     ExpandNameAction(this, name);
@@ -42,6 +42,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             };
             SelectNumAction = (s, index) =>
             {
+                var selector = new Selector(optionsNamesLocator, allOptionsNamesLocator, element: s);
                 if (Element != null)
                 {
                     ExpandNumAction(this, index);
@@ -54,6 +55,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             SelectedAction = s => GetTextAction(this);
             GetOptionsAction = d =>
             {
+                var selector = new Selector(optionsNamesLocator, allOptionsNamesLocator, element: d);
                 var isExpanded = DisplayedNumAction(this, 1);
                 if (!isExpanded) Element.Click();
                 var result = selector.GetOptionsAction(selector);
@@ -67,8 +69,11 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             if (root != null)
             {
-                var el = new WebElement(root);
-                el.Parent = Parent;
+                var el = new WebElement(root)
+                {
+                    WebAvatar = { DriverName = WebAvatar.DriverName },
+                    Parent = Parent
+                };
                 Parent = el;
             }
             if (value != null)
@@ -171,7 +176,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             Element.SetAttribute(attributeName, value);
         }
 
-        public new IWebElement WebElement => new WebElement(Locator).WebElement;
+        public new IWebElement WebElement => new WebElement(Locator, element:this).WebElement;
 
         public string GetAttribute(string name)
         {

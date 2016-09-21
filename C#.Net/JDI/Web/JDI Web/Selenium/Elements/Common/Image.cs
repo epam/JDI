@@ -9,8 +9,8 @@ namespace JDI_Web.Selenium.Elements.Common
     public class Image : Clickable, IImage
     {
         public Image() : this(null) { }
-        public Image(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement) { }
+        public Image(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element:element) { }
 
         protected Func<WebBaseElement, string> GetSourceFunc = 
             el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("src"), "");

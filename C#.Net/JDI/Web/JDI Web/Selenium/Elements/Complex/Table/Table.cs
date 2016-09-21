@@ -104,8 +104,6 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                         Columns.HasHeader = false;
                         Rows.HasHeader = true;
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
             }
         }
@@ -176,11 +174,6 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         public void Clear()
         {
             Clean();
-        }
-
-        Columns ITable.Columns()
-        {
-            throw new NotImplementedException();
         }
 
         public Dictionary<string, ICell> Column(int colNum)
@@ -287,11 +280,6 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
 
         public IList<string> Headers => Columns.Headers;
-
-        IList<string> ITable.Footer()
-        {
-            throw new NotImplementedException();
-        }
 
         public IList<string> FooterInstance() // TODO method name conflict
         {

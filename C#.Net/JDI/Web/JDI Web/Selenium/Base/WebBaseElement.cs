@@ -64,12 +64,17 @@ namespace JDI_Web.Selenium.Base
             WebAvatar.ByLocator = Locator.FillByTemplate(name);
         }
         public WebBaseElement(By byLocator = null, IWebElement webElement = null, 
-            List<IWebElement> webElements = null)
+            List<IWebElement> webElements = null, WebBaseElement element = null)
         {
             Invoker = new ActionInvoker(this);
             GetElementClass = new GetElementClass(this);
             Actions = new ElementsActions(this);
-            WebAvatar = new GetElementModule(this, byLocator) { WebElement = webElement, WebElements = webElements };
+            WebAvatar = new GetElementModule(this, byLocator) { WebElement = webElement, WebElements = webElements };          
+            if (element != null)
+            {
+                WebAvatar.DriverName = element.WebAvatar.DriverName;
+                Parent = element.Parent;
+            }
         }
 
         public IWebDriver WebDriver => WebAvatar.WebDriver;

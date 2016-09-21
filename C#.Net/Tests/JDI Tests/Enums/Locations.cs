@@ -2,6 +2,7 @@
 {
     public static class Locations
     {
-        public static string SaintPetersburg = "Saint-Petersburg";
+        public static string SaintPetersburg = "Russian Federation > Saint-Petersburg";
+        public static string Hyderabad = "India > Hyderabad";
     }
 }

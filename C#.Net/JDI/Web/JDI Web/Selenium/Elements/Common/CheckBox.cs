@@ -10,8 +10,8 @@ namespace JDI_Web.Selenium.Elements.Common
     public class CheckBox : Clickable, ICheckBox
     {
         public CheckBox() : this(null) { }
-        public CheckBox(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement) { }
+        public CheckBox(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element:element) { }
 
         public Action<CheckBox> CheckAction = el =>
         {

@@ -136,7 +136,11 @@ namespace JDI_Web.Selenium.Elements.Complex
             return Actions.WaitMatchText(regEx, d => GetTextAction(this));
         }
 
-        public new IWebElement WebElement => new WebElement(Locator).WebElement;
+        public new IWebElement WebElement => new WebElement(Locator)
+        {
+            WebAvatar = { DriverName = WebAvatar.DriverName },
+            Parent = Parent
+        }.WebElement;
 
         public string GetAttribute(string name)
         {

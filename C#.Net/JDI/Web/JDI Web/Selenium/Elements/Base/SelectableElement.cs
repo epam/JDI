@@ -8,8 +8,8 @@ namespace JDI_Web.Selenium.Elements.Base
     public class SelectableElement : ClickableText, ISelect
     {
         public SelectableElement() : this(null) { }
-        public SelectableElement(By byLocator = null, IWebElement webElement = null) 
-            : base(byLocator, webElement)
+        public SelectableElement(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null) 
+            : base(byLocator, webElement, element:element)
         {
         }
 

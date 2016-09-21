@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Complex;
 using OpenQA.Selenium;
@@ -32,27 +32,34 @@ namespace JDI_Tests.Epam_UIObjects.Elements
             : base(selectLocator, selectLocator, null)
         {
             _treeLocators = treeLocators;
-        }
-
-        protected void ExpandAction()
-        {
-            if (WebDriver.FindElements(_treeLocators[0]).Count == 0)
-                Element.Click();
-        }
-
-        protected void SelectAction(string name)
-        {
-            ExpandAction();
-            var nodes = Regex.Split(name, " \\> ");
-            ISearchContext ctx = WebDriver;
-            if (_treeLocators.Count < nodes.Length) return;
-            for (var i = 0; i < nodes.Length; i++)
+            SelectNameAction = (s, name) =>
             {
-                var value = nodes[i];
-                ctx = ctx.FindElements(_treeLocators[i].CorrectXPath())
-                    .First(el => el.Text.Equals(value));
-                ((IWebElement) ctx).Click();
-            }
+                ExpandNameAction(this, name);
+                var nodes = Regex.Split(name, " \\> ");
+                ISearchContext ctx = WebDriver;
+                if (_treeLocators.Count < nodes.Length) return;
+                for (var i = 0; i < nodes.Length; i++)
+                {
+                    var value = nodes[i];
+                    var els = ctx.FindElements(_treeLocators[i].CorrectXPath());
+                    if (!els.Any())
+                        throw JDISettings.Exception("No elements foun for locator: " + _treeLocators[i] + "in TreeDropdown " + this);
+                    ctx = els.FirstOrDefault(el => el.Text.Equals(value));
+                    if (ctx == null)
+                        throw JDISettings.Exception("Can't find: " + value + "in TreeDropdown " + this);
+                    if (i < nodes.Length - 1) {
+                        var nextValue =
+                            ctx.FindElements(_treeLocators[i + 1].CorrectXPath()).Any(el => el.Text.Equals(nodes[i + 1]));
+                        if (nextValue) continue;
+                    }
+                    ((IWebElement) ctx).Click();
+                }
+            };
+            ExpandNameAction = (d, name) =>
+            {
+                if (WebDriver.FindElements(_treeLocators[0]).Count == 0)
+                    Element.Click();
+            };
         }
     }
 }

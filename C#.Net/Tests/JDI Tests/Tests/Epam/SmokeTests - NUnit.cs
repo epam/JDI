@@ -14,7 +14,7 @@ namespace JDI_Tests.Tests
         {
             var attendee = new Attendee();
             HomePage.IsOpened();
-            HeaderMenu2D.HoverAndClick("SOLUTIONS|Product Development");
+            HeaderMenu2D.HoverAndClick("SOLUTIONS>Product Development");
             ProductDevelopmentPage.CheckOpened();
             HeaderMenu.Select(Headers.CAREERS);
             CareerPage.CheckOpened();

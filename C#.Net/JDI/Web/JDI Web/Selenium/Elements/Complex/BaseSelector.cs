@@ -27,12 +27,13 @@ namespace JDI_Web.Selenium.Elements.Complex
             }
         }
 
-        protected BaseSelector(By optionsNamesLocator, List<IWebElement> webElements = null) : 
-            base(optionsNamesLocator, webElements: webElements) { }
+        protected BaseSelector(By optionsNamesLocator, List<IWebElement> webElements = null, WebBaseElement element = null) : 
+            base(optionsNamesLocator, webElements: webElements, element:element) { }
 
-        protected BaseSelector(By optionsNamesLocator, By allLabelsLocator) : base(optionsNamesLocator)
+        protected BaseSelector(By optionsNamesLocator, By allLabelsLocator, List<IWebElement> webElements = null, WebBaseElement element = null) 
+            : base(optionsNamesLocator, webElements:webElements, element:element)
         {
-            _allLabels = new GetElementType(allLabelsLocator);
+            _allLabels = new GetElementType(allLabelsLocator, this);
         }
 
         public TextList AllLabels => _allLabels?.Get(new TextList(), WebAvatar);
@@ -43,7 +44,7 @@ namespace JDI_Web.Selenium.Elements.Complex
                 throw Exception($"Can't find option '{name}'. No optionsNamesLocator and _allLabelsLocator found");
             if (s.Locator.ToString().Contains("{0}"))
             {
-                new Clickable(s.Locator.FillByTemplate(name)).Click();
+                new Clickable(s.Locator.FillByTemplate(name), element:s).Click();
                 return;
             }
             if (s.AllLabels != null)
@@ -211,7 +212,11 @@ namespace JDI_Web.Selenium.Elements.Complex
             if (!s.HasLocator)
                 throw Exception("Element has no locators");
             return s.Locator.ToString().Contains("{0}")
-                ? new WebElement(s.Locator.FillByTemplate(name)).WebElement
+                ? new WebElement(s.Locator.FillByTemplate(name))
+                {
+                    WebAvatar = { DriverName = s.WebAvatar.DriverName },
+                    Parent = s.Parent
+                }.WebElement
                 : s.Elements.FirstOrDefault(el => el.Text.Equals(name));
         };
         public IWebElement GetWebElement(string name)

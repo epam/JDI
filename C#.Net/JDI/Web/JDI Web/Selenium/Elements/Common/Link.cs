@@ -11,8 +11,8 @@ namespace JDI_Web.Selenium.Elements.Common
     public class Link : ClickableText, ILink
     {
         public Link() : this(null) { }
-        public Link(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement) { }
+        public Link(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element:element) { }
 
         protected Func<WebBaseElement, string> GetReferenceFunc =
           el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("href"), "");

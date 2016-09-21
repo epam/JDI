@@ -9,8 +9,8 @@ namespace JDI_Web.Selenium.Elements.Common
     public class Text : WebElement, IText
     {
         public Text() : this(null) { }
-        public Text(By byLocator = null, IWebElement webElement = null)
-            : base(byLocator, webElement) { }
+        public Text(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
+            : base(byLocator, webElement, element:element) { }
 
         protected Func<WebBaseElement, string> GetTextAction =
             el =>

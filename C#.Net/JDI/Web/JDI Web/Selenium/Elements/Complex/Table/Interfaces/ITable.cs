@@ -144,7 +144,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table.Interfaces
          */
         IList<string> RowValue(string colName);
 
-        Columns Columns();
+        Columns Columns { get; }
 
         /**
          * Get Column with index <br>
@@ -183,7 +183,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table.Interfaces
         /**
          * Get Footer
          */
-        IList<string> Footer();
+        IList<string> Footer { get; }
 
         /**
          * Get All Cells
