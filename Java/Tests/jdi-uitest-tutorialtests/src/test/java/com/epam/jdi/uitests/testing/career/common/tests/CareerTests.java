@@ -1,7 +1,10 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
+import com.epam.commons.Timer;
+import com.epam.jdi.uitests.core.preconditions.PreconditionsState;
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,5 +35,6 @@ public class CareerTests extends TestsBase {
         jobListingPage.getJobRowByName("Senior QA Automation Engineer");
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha").contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
+        Timer.waitCondition(() -> new Elements().get(2) != null);
     }
 }

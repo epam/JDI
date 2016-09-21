@@ -1,16 +1,12 @@
 package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
 
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.testing.career.page_objects.enums.JobListHeaders;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.jdi.uitests.testing.career.page_objects.enums.JobListHeaders.APPLY;
 import static com.epam.jdi.uitests.testing.career.page_objects.enums.JobListHeaders.JOB_NAME;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;

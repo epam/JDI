@@ -20,15 +20,13 @@ package com.epam.jdi.uitests.web.selenium.elements.actions;
 
 
 import com.epam.commons.Timer;
-import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.*;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.core.reporting.PerformanceStatistic.addStatistic;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
 
@@ -42,22 +40,26 @@ public class ActionScenrios {
         this.element = element;
         return this;
     }
-
-    public void actionScenario(String actionName, JAction jAction, LogLevels logSettings) {
-        element.logAction(actionName, logSettings);
-        Timer timer = new Timer();
+    public static JActionTTTT<BaseElement, String, JAction, LogLevels> actionScenario =
+            (element, actionName, jAction, level) -> {
+        element.logAction(actionName, level);
         new Timer(timeouts.currentTimeoutSec).wait(() -> {
             jAction.invoke();
             return true;
         });
         logger.info("Done");
-        addStatistic(timer.timePassedInMSec());
+    };
+
+    public void actionScenario(String actionName, JAction jAction, LogLevels level) {
+        actionScenario.invoke(element, actionName,
+                jAction, level);
     }
 
-    public <TResult> TResult resultScenario(String actionName, Supplier<TResult> jAction, Function<TResult, String> logResult, LogLevels level) {
+    public static JFuncTTTTTR<BaseElement, String, Supplier<Object>, Function<Object, String>,
+                LogLevels, Object> resultScenario = (element, actionName, jAction, logResult, level) -> {
         element.logAction(actionName);
         Timer timer = new Timer();
-        TResult result;
+        Object result;
         try {
             result = new Timer(timeouts.currentTimeoutSec)
                     .getResultByCondition(jAction::get, res -> true);
@@ -68,11 +70,18 @@ public class ActionScenrios {
             throw asserter.exception("Do action %s failed. Can't get result", actionName);
         String stringResult = logResult == null
                 ? result.toString()
-                : JDISettings.asserter.silent(() -> logResult.apply(result));
-        Long timePassed = timer.timePassedInMSec();
-        addStatistic(timer.timePassedInMSec());
+                : asserter.silent(() -> logResult.apply(result));
         toLog(format("Get result '%s' in %s seconds", stringResult,
-                format("%.2f", (double) timePassed / 1000)), level);
+                format("%.2f", (double) timer.timePassedInMSec() / 1000)), level);
         return result;
+    };
+
+    public <TResult> TResult resultScenario(String actionName, Supplier<TResult> jAction,
+                     Function<TResult, String> logResult, LogLevels level) {
+        Function<Object, String> lr = logResult != null
+                ? r -> logResult.apply((TResult) r)
+                : null;
+        return (TResult) resultScenario.invoke(element, actionName,
+                jAction::get, lr, level);
     }
 }

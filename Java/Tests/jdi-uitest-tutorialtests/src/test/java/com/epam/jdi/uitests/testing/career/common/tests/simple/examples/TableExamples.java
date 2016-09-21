@@ -18,7 +18,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.complex.table.WithValue
 
 public class TableExamples extends TestsBase {
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
     }

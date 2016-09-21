@@ -5,15 +5,12 @@ import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.CAREERS;
-import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.SOLUTIONS;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.*;
 
 

@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.testing.career.common.tests.simple.examples;
 
-import com.epam.web.matcher.base.DoScreen;
 import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.Check;
 import com.epam.web.matcher.testng.ScreenAssert;
@@ -8,8 +7,6 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 
-import static com.epam.web.matcher.base.DoScreen.DO_SCREEN_ALWAYS;
-import static com.epam.web.matcher.base.DoScreen.NO_SCREEN;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 import static java.util.Arrays.*;
 

@@ -23,13 +23,11 @@ import com.epam.jdi.uitests.mobile.appium.TestNGCheck;
 import com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory;
 import com.epam.jdi.uitests.mobile.appium.driver.DriverTypes;
 import com.epam.jdi.uitests.mobile.appium.driver.ScreenshotMaker;
-import com.epam.web.matcher.testng.Check;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.util.function.Supplier;
 
-import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**

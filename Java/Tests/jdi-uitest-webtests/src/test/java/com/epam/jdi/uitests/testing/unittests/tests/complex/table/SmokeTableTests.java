@@ -1,10 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
-import com.epam.jdi.uitests.testing.unittests.pageobjects.pages.SupportPage;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 

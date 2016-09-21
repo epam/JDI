@@ -14,7 +14,7 @@ import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.hom
 public abstract class TestsBase extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         WebSite.init(EpamSite.class);
         homePage.open();
         logger.info("Run Tests");

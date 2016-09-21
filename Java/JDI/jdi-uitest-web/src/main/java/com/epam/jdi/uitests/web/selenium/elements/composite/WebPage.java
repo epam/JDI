@@ -93,29 +93,31 @@ public class WebPage extends BaseElement implements IPage {
         return new StringCheckType(getDriver()::getTitle, title, title, "title", timer());
     }
 
+
     public void checkOpened() {
+        asserter.isTrue(verifyOpened());
+    }
+    public boolean verifyOpened() {
+        boolean result = false;
         switch (checkUrlType) {
             case EQUAL:
-                url().check();
-                break;
+                result = url().check(); break;
             case MATCH:
-                url().match();
-                break;
+                result = url().match(); break;
             case CONTAINS:
-                url().contains();
-                break;
+                result = url().contains(); break;
         }
+        if (!result)
+            return false;
         switch (checkTitleType) {
             case EQUAL:
-                title().check();
-                break;
+                return title().check();
             case MATCH:
-                title().match();
-                break;
+                return title().match();
             case CONTAINS:
-                title().contains();
-                break;
+                return title().contains();
         }
+        return false;
     }
 
     public <T extends IPage> T open() {
@@ -126,11 +128,10 @@ public class WebPage extends BaseElement implements IPage {
         currentPage = this;
         return (T) this;
     }
-
     public void isOpened() {
         try {
             logger.info(format("Page '%s' should be opened", getName()));
-            if (getDriver().getCurrentUrl().equals(url)) return;
+            if (verifyOpened()) return;
             open();
         } catch (Exception ex) {
             throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
@@ -211,33 +212,33 @@ public class WebPage extends BaseElement implements IPage {
          * Check that current page url/title equals to expected url/title
          */
         @JDIAction
-        public void check() {
-            if (equals == null || equals.equals("")) return;
-            asserter.checkMessage(format("page %s equals to '%s'", what, equals));
-            asserter.isTrue(timer.wait(() -> actual.get().equals(equals)));
-            asserter.checkMessage("");
+        public boolean check() {
+            logger.info(format("Check that page %s equals to '%s'", what, equals));
+            return equals == null
+                || equals.equals("")
+                || timer.wait(() -> actual.get().equals(equals));
         }
 
         /**
          * Check that current page url/title matches to expected url/title-matcher
          */
         @JDIAction
-        public void match() {
-            if (template == null || template.equals("")) return;
-            asserter.checkMessage(format("page %s matches to '%s'", what, template));
-            asserter.isTrue(timer.wait(() -> actual.get().matches(template)));
-            asserter.checkMessage("");
+        public boolean match() {
+            logger.info(format("Check that page %s matches to '%s'", what, template));
+            return template == null
+                || template.equals("")
+                || actual.get().matches(template);
         }
 
         /**
          * Check that current page url/title contains expected url/title-matcher
          */
         @JDIAction
-        public void contains() {
-            if (template == null || template.equals("")) return;
-            asserter.checkMessage(format("page %s contains '%s'", what, template));
-            asserter.isTrue(timer.wait(() -> actual.get().contains(template)));
-            asserter.checkMessage("");
+        public boolean contains() {
+            logger.info(format("Check that page %s contains to '%s'", what, template));
+            return template == null
+                    || template.equals("")
+                    || actual.get().contains(template);
         }
     }
 }

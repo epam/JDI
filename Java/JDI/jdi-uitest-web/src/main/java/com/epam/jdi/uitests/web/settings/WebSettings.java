@@ -28,8 +28,6 @@ import com.epam.jdi.uitests.web.selenium.TestNGCheck;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;
@@ -39,22 +37,18 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITabl
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
 import com.epam.web.matcher.testng.Assert;
-import com.epam.web.matcher.testng.ScreenAssert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.*;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
-import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
