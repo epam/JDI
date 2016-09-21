@@ -57,30 +57,36 @@ namespace JDI_Web.Selenium.DriverFactory
             {DriverTypes.Firefox, path => new FirefoxDriver()},
             {DriverTypes.IE, path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
         };
-
-        //TODO 
+        
         private string RegisterLocalDriver(DriverTypes driverType)
         {
-            return RegisterDriver(_driverNamesDictionary[driverType], 
+            return RegisterDriver(GetDriverName(_driverNamesDictionary[driverType]), 
                 () => WebDriverSettings(_driversDictionary[driverType](DriverPath)));
+        }
+
+        private string GetDriverName(string driverName)
+        {
+            if (!Drivers.ContainsKey(driverName))
+                return driverName;
+            string newName;
+            var i = 1;
+            do { newName = driverName + i++;
+            } while (Drivers.ContainsKey(newName));
+            return newName;
         }
 
         public string RegisterDriver(string driverName, Func<IWebDriver> driver)
         {
+            if (Drivers.ContainsKey(driverName))
+                throw Exception($"Can't register WebDriver {driverName}. Driver with the same name already registered");
             try
             {
-                string newName = driverName;
-                if (Drivers.ContainsKey(driverName))
-                {
-                    var i = 1;
-                    while (Drivers.ContainsKey(newName = driverName + i++));
-                }
-                Drivers.Add(newName, driver);
-                CurrentDriverName = newName;
+                Drivers.Add(driverName, driver);
+                CurrentDriverName = driverName;
             }
             catch
             {
-                throw new Exception($"Can't register WebDriver {driverName}. Driver with the same name already registered");
+                throw Exception($"Can't register WebDriver {driverName}.");
             }
             return driverName;
         }
