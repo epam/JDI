@@ -41,6 +41,10 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public IWebDriver WebDriver => WebSettings.WebDriverFactory.GetDriver(DriverName);
         public void OpenUrl(string url) { WebDriver.Navigate().GoToUrl(url); }
-        public static void OpenURL(string url) { WebSettings.WebDriverFactory.GetDriver().Navigate().GoToUrl(url); }
+        public string Url => WebDriver.Url;
+        public string Title => WebDriver.Title;
+        public void Refresh() { WebDriver.Navigate().Refresh(); }
+        public void Forward() { WebDriver.Navigate().Forward(); }
+        public void Back() { WebDriver.Navigate().Back(); }
     }
 }
