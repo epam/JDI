@@ -7,7 +7,6 @@ import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobDescriptionPage;

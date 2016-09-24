@@ -1,7 +1,6 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
 import com.epam.commons.Timer;
-import com.epam.jdi.uitests.core.preconditions.PreconditionsState;
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;

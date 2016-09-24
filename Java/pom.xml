@@ -54,6 +54,7 @@
         <module>JDI/jdi-uitest-mobile</module>
         <module>JDI/jdi-uitest-gui</module>
         <module>JDI/jdi-uitest-cucumber</module>
+        <module>JDI/jdi-http</module>
 
         <module>Tests/jdi-uitest-tutorialtests</module>
         <module>Tests/jdi-uitest-webtests</module>

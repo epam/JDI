@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.career.page_objects.site;
 
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.core.preconditions.IPreconditions;
-import com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions;
 import com.epam.web.matcher.testng.Assert;
 import com.google.common.base.Supplier;
 
