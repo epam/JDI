@@ -12,6 +12,7 @@
 
     <artifactId>jdi-http</artifactId>
     <version>1.0.32</version>
+
     <dependencies>
         <dependency>
         <groupId>org.apache.httpcomponents</groupId>

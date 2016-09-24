@@ -15,8 +15,12 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static java.lang.String.join;
 
 /**
  * Created by Roman_Iovlev on 9/24/2016.
@@ -76,5 +80,23 @@ public class HttpResponse {
             InputSource source = new InputSource(new StringReader(Body));
             return builder.parse(source);
         } catch (Exception ex) { return null; }
+    }
+
+    @Override
+    public String toString() {
+        return "Status: " + Status + "; Protocol: " + Protocol
+                + "; Headers: " + print(Headers) + "; Body: " + Body;
+    }
+
+    public String shortResult() {
+        return "Status:" + Status + ";Body: " + Body;
+    }
+
+    private String print(Map<String, String> map) {
+        if (map == null || map.size() == 0) return "";
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String, String> pair : map.entrySet())
+            result.add(pair.getKey() + ":" + pair.getValue());
+        return join(";", result);
     }
 }

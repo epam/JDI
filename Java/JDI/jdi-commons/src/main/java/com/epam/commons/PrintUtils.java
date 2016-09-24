@@ -46,11 +46,11 @@ public final class PrintUtils {
     }
 
     public static <T extends Enum> String printEnum(List<T> enums) {
-        return (enums != null) ? String.join(", ", select(enums, el -> format("%s", el))) : "";
+        return enums != null ? String.join(", ", select(enums, el -> format("%s", el))) : "";
     }
 
     public static String print(Collection<String> list, String separator, String format) {
-        return (list != null) ? String.join(separator, select(list, el -> format(format, el))) : "";
+        return list != null ? String.join(separator, select(list, el -> format(format, el))) : "";
     }
 
     public static String print(String[] list) {

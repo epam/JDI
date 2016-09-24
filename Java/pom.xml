@@ -61,6 +61,7 @@
         <module>Tests/jdi-uitest-mobiletests</module>
         <module>Tests/jdi-uitest-guitests</module>
         <module>Tests/jdi-uitest-cucumbertests</module>
+        <module>Tests/jdi-httptests</module>
     </modules>
 
     <!--<dependencies>
