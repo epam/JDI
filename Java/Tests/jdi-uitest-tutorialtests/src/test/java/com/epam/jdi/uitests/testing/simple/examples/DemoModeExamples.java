@@ -1,4 +1,4 @@
-package com.epam.jdi.httptests.simple.examples;
+package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.jdi.uitests.testing.career.common.tests.CareerTests;
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;

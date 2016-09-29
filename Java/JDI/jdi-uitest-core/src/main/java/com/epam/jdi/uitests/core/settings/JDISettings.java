@@ -39,7 +39,6 @@ public abstract class JDISettings {
     public static HighlightSettings highlightSettings = new HighlightSettings();
     public static boolean shortLogMessagesFormat = true;
     public static String jdiSettingsPath = "test.properties";
-    public static String domain;
     public static boolean exceptionThrown;
     public static IDriver driverFactory;
     public static boolean useCache = false;
@@ -69,7 +68,6 @@ public abstract class JDISettings {
         fillAction(driverFactory::registerDriver, "driver");
         fillAction(driverFactory::setRunType, "run.type");
         fillAction(p -> shortLogMessagesFormat = p.toLowerCase().equals("short"), "log.message.format");
-        fillAction(p -> domain = p, "domain");
         fillAction(p -> useCache =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
         fillAction(p -> isDemoMode =
@@ -86,10 +84,6 @@ public abstract class JDISettings {
     public static void initFromProperties(String propertyPath) throws IOException {
         jdiSettingsPath = propertyPath;
         initFromProperties();
-    }
-
-    public static boolean hasDomain() {
-        return domain != null && domain.contains("://");
     }
 
     public static void newTest() {
