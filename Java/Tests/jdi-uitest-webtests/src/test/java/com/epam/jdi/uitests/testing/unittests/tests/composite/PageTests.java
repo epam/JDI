@@ -75,7 +75,7 @@ public class PageTests extends InitTests {
 
     @AfterMethod
     public void restoreLoginCookies(){
-        Cookie loginCookie = new Cookie("authUser", "true", "ecse00100176.epam.com", "/", null, false);
+        Cookie loginCookie = new Cookie("authUser", "true", "jdi-framework.github.io/tests", "/", null, false);
         getDriver().manage().addCookie(loginCookie);
     }
 

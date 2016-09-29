@@ -19,7 +19,7 @@ import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInSta
  */
 public class ImageTests extends InitTests {
     private static final String ALT = "ALT";
-    private static final String SRC = "http://ecse00100176.epam.com/label/Logo_Epam_Color.svg";
+    private static final String SRC = "https://jdi-framework.github.io/tests/label/Logo_Epam_Color.svg";
     private IImage clickableItem() { return homePage.logoImage; }
 
     @BeforeMethod

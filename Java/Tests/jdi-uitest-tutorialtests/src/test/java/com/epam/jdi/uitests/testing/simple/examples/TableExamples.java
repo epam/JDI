@@ -1,4 +1,4 @@
-package com.epam.jdi.httptests.simple.examples;
+package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;

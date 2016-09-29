@@ -1,4 +1,4 @@
-package com.epam.jdi.httptests.simple.examples;
+package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.Check;
