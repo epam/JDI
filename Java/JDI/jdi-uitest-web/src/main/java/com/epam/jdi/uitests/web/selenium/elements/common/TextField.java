@@ -58,23 +58,41 @@ public class TextField extends Text implements ITextField {
         getWebElement().click();
     }
 
+    /**
+     * @param value Specify element value
+     *              Set value to Element
+     */
     public final void setValue(String value) {
         actions.setValue(value, this::setValueAction);
     }
 
+    /**
+     * @param text Specify text to input to TextField
+     *             Input text in textfield
+     */
     public final void input(CharSequence text) {
         actions.input(text, this::inputAction);
     }
 
+    /**
+     * @param text Specify text to input to TextField
+     *             Clear and input text in textfield
+     */
     public void newInput(CharSequence text) {
         clear();
         input(text);
     }
 
+    /**
+     * Clear textfield
+     */
     public final void clear() {
         actions.clear(this::clearAction);
     }
 
+    /**
+     * Focus(click) on textfield
+     */
     public final void focus() {
         actions.focus(this::focusAction);
     }

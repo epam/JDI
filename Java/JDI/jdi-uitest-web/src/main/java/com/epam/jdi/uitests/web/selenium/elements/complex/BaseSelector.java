@@ -155,18 +155,34 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         return attr != null && attr.equals("true");
     }
 
+    /**
+     * @param name Specify name using string
+     * Wait while option (from text) is selected. Return false if this not happens
+     */
     public final void waitSelected(String name) {
         actions.isSelected(name, n -> waitCondition(() -> isSelectedAction(n)));
     }
 
+    /**
+     * @param name Specify name using enum
+     * Wait while option (from enum) is selected. Return false if this not happens
+     */
     public final void waitSelected(TEnum name) {
         waitSelected(getEnumValue(name));
     }
 
+    /**
+     * @param name Specify name using string
+     * @return Is option selected?
+     */
     public final boolean isSelected(String name) {
         return actions.isSelected(name, this::isSelectedAction);
     }
 
+    /**
+     * @param name Specify name using enum
+     * @return Is option selected?
+     */
     public final boolean isSelected(TEnum name) {
         return isSelected(getEnumValue(name));
     }
@@ -181,14 +197,24 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         selectAction(value);
     }
 
+    /**
+     * @return Get value of Element
+     */
     public final String getValue() {
         return actions.getValue(this::getValueAction);
     }
 
+    /**
+     * @param value Specify element value
+     *              Set value to Element
+     */
     public final void setValue(String value) {
         actions.setValue(value, this::setValueAction);
     }
 
+    /**
+     * @return Get labels of all options
+     */
     public final List<String> getOptions() {
         return getOptionsAction();
     }
@@ -271,6 +297,9 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         return timer().wait(() -> !isDisplayedAction());
     }
 
+    /**
+     * @return Check is Element visible
+     */
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
     }
@@ -281,14 +310,23 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         return actions.isDisplayed(() -> isDisplayedAction(num));
     }
 
+    /**
+     * @return Check is Element hidden
+     */
     public boolean isHidden() {
         return actions.isDisplayed(() -> !isDisplayedAction());
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     public void waitDisplayed() {
         actions.waitDisplayed(this::waitDisplayedAction);
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     public void waitVanished() {
         actions.waitVanished(() -> timer().wait(() -> !isDisplayedAction()));
     }

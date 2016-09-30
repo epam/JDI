@@ -72,6 +72,9 @@ public abstract class BaseElement implements IBaseElement {
         this.typeName = typeName;
     }
 
+    /**
+     * @return Get Element’s name
+     */
     public String getName() {
         return  this.name;
     }

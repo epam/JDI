@@ -101,11 +101,17 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         return getTextAction();
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     @Override
     public void waitDisplayed() {
         element().waitDisplayed();
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     @Override
     public void waitVanished() {
         element().waitVanished();
@@ -144,30 +150,55 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         return element().getText();
     }
 
+    /**
+     * Expanding DropDown
+     */
     public final void expand() {
         if (!isDisplayedAction(1)) element().click();
     }
 
+    /**
+     * Closing DropDown
+     */
     public final void close() {
         if (isDisplayedAction(1)) element().click();
     }
 
+    /**
+     * Click on Element
+     */
     public final void click() {
         actions.click(this::clickAction);
     }
 
+    /**
+     * @return Get Element’s text
+     */
     public final String getText() {
         return actions.getText(this::getTextAction);
     }
 
+    /**
+     * @param text Specify expected text
+     * @return Wait while Element’s text contains expected text. Returns Element’s text
+     */
     public final String waitText(String text) {
         return actions.waitText(text, this::getTextAction);
     }
 
+    /**
+     * @param regEx Specify expected regular expression Text
+     * @return Wait while Element’s text matches regEx. Returns Element’s text
+     */
     public final String waitMatchText(String regEx) {
         return actions.waitMatchText(regEx, this::getTextAction);
     }
 
+    /**
+     * @param attributeName Specify attribute name
+     * @param value         Specify attribute value
+     *                      Sets attribute value for Element
+     */
     public void setAttribute(String attributeName, String value) {
         element().setAttribute(attributeName, value);
     }
@@ -176,10 +207,21 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         return new Element(getLocator()).getWebElement();
     }
 
+    /**
+     * Get element attribute
+     *
+     * @param name Specify name for attribute
+     * @return Returns chosen attribute
+     */
     public String getAttribute(String name) {
         return element().getAttribute(name);
     }
 
+    /**
+     * @param name  Specify attribute name
+     * @param value Specify attribute value
+     * Waits while attribute gets expected value. Return false if this not happens
+     */
     public void waitAttribute(String name, String value) {
         element().waitAttribute(name, value);
     }

@@ -70,22 +70,38 @@ public class Pagination extends BaseElement implements IPagination {
         this.lastLocator = lastLocator;
     }
 
+    /**
+     * Choose Next page
+     */
     public void next() {
         invoker.doJAction("Choose Next page", () -> nextAction().click());
     }
 
+    /**
+     * Choose Previous page
+     */
     public void previous() {
         invoker.doJAction("Choose Previous page", () -> previousAction().click());
     }
 
+    /**
+     * hoose First page
+     */
     public void first() {
         invoker.doJAction("Choose First page", () -> firstAction().click());
     }
 
+    /**
+     * Choose Last page
+     */
     public void last() {
         invoker.doJAction("Choose Last page", () -> lastAction().click());
     }
 
+    /**
+     * @param index Specify page index
+     *              Choose page by index
+     */
     public void selectPage(int index) {
         invoker.doJAction(format("Choose '%s' page", index), () -> pageAction(index).click());
     }

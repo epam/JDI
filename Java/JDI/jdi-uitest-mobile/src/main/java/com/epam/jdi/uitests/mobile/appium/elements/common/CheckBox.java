@@ -96,22 +96,38 @@ public class CheckBox extends Clickable implements ICheckBox {
         return isCheckedFunc.apply(getWebElement());
     }
 
+    /**
+     * Set checkbox checked
+     */
     public final void check() {
         actions.check(this::checkAction);
     }
 
+    /**
+     * Set checkbox unchecked
+     */
     public final void uncheck() {
         actions.uncheck(this::uncheckAction);
     }
 
+    /**
+     * @return Verify is checkbox checked
+     */
     public final boolean isChecked() {
         return actions.isChecked(this::isCheckedAction);
     }
 
+    /**
+     * @return Get value of Element
+     */
     public final String getValue() {
         return actions.getValue(this::getValueAction);
     }
 
+    /**
+     * @param value Specify element value
+     *              Set value to Element
+     */
     public final void setValue(String value) {
         actions.setValue(value, this::setValueAction);
     }

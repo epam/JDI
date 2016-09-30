@@ -41,14 +41,25 @@ public class TextArea extends TextField implements ITextArea {
         super(webElement);
     }
 
+    /**
+     * @param textLines Specify text lines (clear textArea before
+     *                  Clear textarea and Input several lines of text in textarea
+     */
     public final void inputLines(String... textLines) {
         actions.inputLines(this::clearAction, this::inputAction, textLines);
     }
 
+    /**
+     * @param textLine Specify text to add new line (without clearing previous)
+     *                 Add text in textarea from new line
+     */
     public final void addNewLine(String textLine) {
         actions.addNewLine(textLine, this::inputAction);
     }
 
+    /**
+     * @return Get lines of text in textarea
+     */
     public final String[] getLines() {
         return actions.getLines(this::getTextAction);
     }

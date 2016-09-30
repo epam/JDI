@@ -81,23 +81,41 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         textField().focus();
     }
 
+    /**
+     * @param text Specify text to input to TextField
+     *             Input text in textfield
+     */
     public final void input(CharSequence text) {
         actions.input(text, this::inputAction);
     }
 
+    /**
+     * @param text Specify text to send keys to TextField
+     *             Input text in textfield
+     */
     public void sendKeys(CharSequence text) {
         input(text);
     }
 
+    /**
+     * @param text Specify text to input to TextField
+     *             Clear and input text in textfield
+     */
     public void newInput(CharSequence text) {
         clear();
         input(text);
     }
 
+    /**
+     * Clear textfield
+     */
     public final void clear() {
         actions.clear(this::clearAction);
     }
 
+    /**
+     * Focus(click) on textfield
+     */
     public final void focus() {
         actions.focus(this::focusAction);
     }

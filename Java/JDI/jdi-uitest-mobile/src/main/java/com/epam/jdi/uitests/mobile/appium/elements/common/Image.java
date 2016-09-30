@@ -40,11 +40,17 @@ public class Image extends Clickable implements IImage {
         super(webElement);
     }
 
+    /**
+     * @return Get image source
+     */
     public String getSource() {
         return invoker.doJActionResult("Get image source for Element " + this,
                 () -> getWebElement().getAttribute("src"));
     }
 
+    /**
+     * @return Get image alt/hint text
+     */
     public String getAlt() {
         return invoker.doJActionResult("Get image title for Element " + this,
                 () -> getWebElement().getAttribute("alt"));
