@@ -22,8 +22,12 @@ package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
  * Contacts:
  */
 
+import com.epam.commons.LinqUtils;
+import com.epam.commons.ReflectionUtils;
+import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
@@ -31,6 +35,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.correctXPaths;
 
 public class TreeDropdown<T extends Enum> extends Dropdown<T> {
@@ -58,11 +63,22 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> {
         expandAction();
         String[] nodes = name.split(" > ");
         SearchContext context = getDriver();
-        if (treeLocators.size() >= nodes.length)
-            for(int i=0; i < nodes.length; i++) {
-                String value = nodes[i];
-                context = first(context.findElements(correctXPaths(treeLocators.get(i))), el -> el.getText().equals(value));
-                new Clickable((WebElement) context).click();
+        if (treeLocators.size() < nodes.length) return;
+        for(int i=0; i < nodes.length; i++) {
+            String value = nodes[i];
+            List<WebElement> els = context.findElements(correctXPaths(treeLocators.get(i)));
+            if (els.size() == 0)
+                throw exception("No elements found for locator: " + treeLocators.get(i) + "in TreeDropdown " + this);
+            context = first(els, el -> el.getText().equals(value));
+            if (context == null)
+                throw exception("Can't find: " + value + "in TreeDropdown " + this);
+            if (i < nodes.length - 1) {
+                int next = i + 1;
+                boolean nextValue =
+                        LinqUtils.any(context.findElements(correctXPaths(treeLocators.get(next))), el -> el.getText().equals(nodes[next]));
+                if (nextValue) continue;
             }
+            ((WebElement) context).click();
+        }
     }
 }

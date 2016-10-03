@@ -28,7 +28,7 @@ public class TEST {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        driver.get("http://ecse00100176.epam.com");
+        driver.get("https://jdi-framework.github.io/tests");
         js.executeScript("document.body.style.zoom='100%'");
 
 
