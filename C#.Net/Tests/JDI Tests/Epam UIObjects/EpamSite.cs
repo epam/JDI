@@ -40,7 +40,7 @@ namespace JDI_Tests.Epam_UIObjects
             UrlCheckType = CheckPageTypes.Contains, TitleCheckType = CheckPageTypes.Equal)]
         public static JobListingPage JobListingPage;
 
-        [Page(Url = ".*/careers/job-listings/job\\.\\d*#apply", UrlCheckType = CheckPageTypes.Match)]
+        [Page(Url = "/careers/job-listings/job.10190#apply", UrlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", UrlCheckType = CheckPageTypes.Match)]
         public static JobDescriptionPage JobDescriptionPage;
 
         [FindBy(Css = ".tile-menu>li>a")]
