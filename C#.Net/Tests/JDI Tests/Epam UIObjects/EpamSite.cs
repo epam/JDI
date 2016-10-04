@@ -36,11 +36,12 @@ namespace JDI_Tests.Epam_UIObjects
         [Page(Title = "EPAM Software Product Development Services", UrlCheckType = CheckPageTypes.None)]
         public static CareerPage CareerPageTest;
 
-        [Page(Url = "/careers/job-listings", Title = "Job Listings",
+        [Page(Url = "/careers/job-listings?query=qa&department%5B%5D=all&city=St-Petersburg&country=Russia", 
+            UrlTemplate = "/careers/job-listings", Title = "Job Listings",
             UrlCheckType = CheckPageTypes.Contains, TitleCheckType = CheckPageTypes.Equal)]
         public static JobListingPage JobListingPage;
 
-        [Page(Url = "/careers/job-listings/job.10190#apply", UrlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", UrlCheckType = CheckPageTypes.Match)]
+        [Page(Url = "/careers/job-listings/job.10190#apply", UrlTemplate = @"careers/job-listings/job\.\d*#apply", UrlCheckType = CheckPageTypes.Match)]
         public static JobDescriptionPage JobDescriptionPage;
 
         [FindBy(Css = ".tile-menu>li>a")]
