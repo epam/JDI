@@ -137,9 +137,15 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 return _count;
             if (_headers != null && _headers.Count > 0)
                 return _headers.Count;
-            var elements = acceptEmpty 
-                ? GetFirstLine
-                : Timer.GetResultByCondition(() => GetFirstLine, el => el != null && el.Count > 0);
+
+            var elements = GetHeadersAction;
+            if (elements.Count == 0)
+                elements = GetFirstLine;
+            if (!acceptEmpty)
+            {
+                var tempElements = elements;
+                elements = Timer.GetResultByCondition(() => tempElements, el => el != null && el.Count > 0);
+            }
             return elements?.Count(el => el.Displayed) ?? 0;
         }
         public void Clean()

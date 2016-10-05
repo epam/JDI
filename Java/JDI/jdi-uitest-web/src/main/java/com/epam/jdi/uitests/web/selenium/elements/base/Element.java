@@ -86,7 +86,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
         avatar.setWebElement(webElement);
     }
     public WebElement get(By locator) {
-        return getWebElement().findElement(locator);
+        Element el = new Element(locator);
+        el.setParent(this);
+        return el.getWebElement();
     }
     public List<WebElement> getList(By locator) {
         return getWebElement().findElements(locator);
