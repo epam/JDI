@@ -9,17 +9,19 @@ namespace JDI_Web.Selenium.DriverFactory
     {
         public static void KillAllRunWebDrivers()
         {
-            foreach (var proc in Process.GetProcessesByName("chromedriver"))
-                KillProcessTree(proc.Id);
-            foreach (var proc in from proc in Process.GetProcessesByName("firefox")
-                                 let cmd = GetProcessCommandLine(proc.Id)
-                                 where cmd.EndsWith("-foreground")
-                                 select proc)
-                proc.Kill();
+            try
+            {
+                foreach (var proc in Process.GetProcessesByName("chromedriver"))
+                    KillProcessTree(proc.Id);
+                foreach (var proc in from proc in Process.GetProcessesByName("firefox")
+                    let cmd = GetProcessCommandLine(proc.Id)
+                    where cmd.EndsWith("-foreground")
+                    select proc)
+                    proc.Kill();
 
-            foreach (var proc in Process.GetProcessesByName("IEDriverServer"))
-                KillProcessTree(proc.Id);
-
+                foreach (var proc in Process.GetProcessesByName("IEDriverServer"))
+                    KillProcessTree(proc.Id);
+            } catch (Exception) { }
         }
 
         private static string GetProcessCommandLine(int pid)
