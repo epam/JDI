@@ -18,8 +18,7 @@ namespace JDI_UIWebTests.Tests.Common
             MetalsColorsPage.CheckTitle();
             MetalsColorsPage.IsOpened();
             Logger.Info("Setup method finished");
-            Logger.Info("Start test: " + TestContext.CurrentContext.Test.Name);
-            
+            Logger.Info("Start test: " + TestContext.CurrentContext.Test.Name);            
         }
 
         [Test]

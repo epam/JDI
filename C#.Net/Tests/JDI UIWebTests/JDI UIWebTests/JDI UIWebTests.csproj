@@ -71,6 +71,7 @@
     <Compile Include="Tests\Common\ImagesTests.cs" />
     <Compile Include="Tests\Common\LabelsTests.cs" />
     <Compile Include="Tests\Common\LinkTests.cs" />
+    <Compile Include="Tests\Common\TextFieldsTests.cs" />
     <Compile Include="Tests\Common\TextTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
     <Compile Include="Tests\TestBase.cs" />
@@ -106,6 +107,9 @@
       <Project>{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}</Project>
       <Name>JDI Web</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UIObjects\Forms\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
