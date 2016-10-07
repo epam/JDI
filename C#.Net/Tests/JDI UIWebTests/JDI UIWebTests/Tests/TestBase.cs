@@ -5,21 +5,16 @@ using NUnit.Framework;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_UIWebTests.UIObjects;
 using JDI_UIWebTests.Entities;
-using OpenQA.Selenium;
 
 namespace JDI_UIWebTests.Tests
 {
     [SetUpFixture]
     public class TestBase
     {
-        public IWebDriver Driver;
-
         [OneTimeSetUp]
         protected void SetUp()
-        {
-            // Initialize logger (NLog)
-            WebSettings.InitNUnitDefault();
-            this.Driver = WebSettings.WebDriver;
+        {            
+            WebSettings.InitNUnitDefault();     
             ILogger logger = WebSettings.Logger;
             logger.Info("Init test run...");
             WinProcUtils.KillAllRunWebDrivers();

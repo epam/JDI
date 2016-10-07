@@ -68,6 +68,7 @@
     <Compile Include="Tests\Common\ButtonTests.cs" />
     <Compile Include="Tests\Common\CheckBoxTests.cs" />
     <Compile Include="Tests\Common\DatePickerTests.cs" />
+    <Compile Include="Tests\Common\ImagesTests.cs" />
     <Compile Include="Tests\Common\LabelsTests.cs" />
     <Compile Include="Tests\Common\TextTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
