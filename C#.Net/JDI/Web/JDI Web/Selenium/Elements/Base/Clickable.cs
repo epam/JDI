@@ -12,7 +12,7 @@ namespace JDI_Web.Selenium.Elements.Base
         public Clickable(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null) 
             : base(byLocator, webElement, element) { }
         
-        protected Action<WebBaseElement> ClickAction = cl => cl.WebElement.Click();
+        public Action<WebBaseElement> ClickAction = cl => cl.WebElement.Click();
  
         public void Click()
         {
