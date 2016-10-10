@@ -63,6 +63,10 @@ public class Form<T> extends Element implements IForm<T> {
         return element.getValue();
     }
 
+    /**
+     * @param map Specify entity as map
+     *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
+     */
     public void fill(MapArray<String, String> map) {
         foreach(getFields(this, ISetValue.class), element -> {
             String fieldValue = map.first((name, value) ->
@@ -86,6 +90,12 @@ public class Form<T> extends Element implements IForm<T> {
         }
     }
 
+    /**
+     * @param objStrings Fill all SetValue elements and click on Button specified button e.g. "Publish" or "Save" <br>
+     * @apiNote To use this option Form pageObject should have button names in specific format <br>
+     * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
+     * * Letters case in button name  no matters
+     */
     public void submit(MapArray<String, String> objStrings) {
         fill(objStrings);
         getElement.getButton("submit").click();
@@ -97,26 +107,58 @@ public class Form<T> extends Element implements IForm<T> {
         BaseElement.doActionRule.accept(text, val -> setValueAction(val, setValueElement));
     }
 
+    /**
+     * @param text Specify text
+     *             Fill first setable field with value and click on Button “submit” <br>
+     * @apiNote To use this option Form pageObject should have at least one ISetValue element and only one IButton Element
+     */
     public void submit(String text) {
         setText(text);
         getElement.getButton("submit").click();
     }
 
+    /**
+     * @param buttonName Specify Button Name
+     * @param entity     Specify entity
+     *                   Fill all SetValue elements and click on Button specified button e.g. "Publish" or "Save" <br>
+     * @apiNote To use this option Form pageObject should have button names in specific format <br>
+     * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
+     * * Letters case in button name  no matters
+     */
     public void submit(T entity, String buttonName) {
         fill(objToSetValue(entity));
         getElement.getButton(buttonName).click();
     }
 
+    /**
+     * @param text       Specify text
+     * @param buttonName button name for form submiting
+     *                   Fill first setable field with value and click on Button “buttonName” <br>
+     * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
+     * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
+     */
     public void submit(String text, String buttonName) {
         setText(text);
         getElement.getButton(buttonName).click();
     }
 
+    /**
+     * @param buttonName Specify Button Name
+     * @param entity     Specify entity
+     *                   Fill all SetValue elements and click on Button specified button e.g. "Publish" or "Save" <br>
+     * @apiNote To use this option Form pageObject should have button names in specific format <br>
+     * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
+     * * Letters case in button name  no matters
+     */
     public void submit(T entity, Enum buttonName) {
         fill(objToSetValue(entity));
         getElement.getButton(buttonName.toString().toLowerCase()).click();
     }
 
+    /**
+     * @param objStrings Specify entity as mapArray
+     *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
+     */
     public List<String> verify(MapArray<String, String> objStrings) {
         List<String> compareFalse = new ArrayList<>();
         foreach(getFields(this, IHasValue.class), field -> {
@@ -134,6 +176,10 @@ public class Form<T> extends Element implements IForm<T> {
         return compareFalse;
     }
 
+    /**
+     * @param objStrings Specify entity as mapArray
+     *            Verify that form filled correctly. If not throws error
+     */
     public void check(MapArray<String, String> objStrings) {
         List<String> result = verify(objStrings);
         if (result.size() > 0)
@@ -149,10 +195,17 @@ public class Form<T> extends Element implements IForm<T> {
         submit(PrintUtils.parseObjectAsString(value));
     }
 
+    /**
+     * @return Get value of Element
+     */
     public final String getValue() {
         return actions.getValue(this::getValueAction);
     }
 
+    /**
+     * @param value Specify element value
+     *              Set value to Element
+     */
     public final void setValue(String value) {
         actions.setValue(value, this::setValueAction);
     }

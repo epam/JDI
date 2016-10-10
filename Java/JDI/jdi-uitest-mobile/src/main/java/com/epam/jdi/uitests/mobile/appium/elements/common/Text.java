@@ -48,18 +48,32 @@ public class Text extends Element implements IText {
         return getTextAction();
     }
 
+    /**
+     * @return Get value of Element
+     */
     public final String getValue() {
         return actions.getValue(this::getValueAction);
     }
 
+    /**
+     * @return Get Element’s text
+     */
     public final String getText() {
         return actions.getText(this::getTextAction);
     }
 
+    /**
+     * @param text Specify expected text
+     * @return Wait while Element’s text contains expected text. Returns Element’s text
+     */
     public final String waitText(String text) {
         return actions.waitText(text, this::getTextAction);
     }
 
+    /**
+     * @param regEx Specify expected regular expression Text
+     * @return Wait while Element’s text matches regEx. Returns Element’s text
+     */
     public final String waitMatchText(String regEx) {
         return actions.waitMatchText(regEx, this::getTextAction);
     }

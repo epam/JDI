@@ -41,10 +41,16 @@ public class SelectElement extends ClickableText implements ISelect {
         return getWebElement().isSelected();
     }
 
+    /**
+     * Selects Element. Similar to click()
+     */
     public void select() {
         click();
     }
 
+    /**
+     * Selects Element. Similar to click()
+     */
     public boolean isSelected() {
         return actions.isSelected(this::isSelectedAction);
     }

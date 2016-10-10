@@ -70,18 +70,30 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
         return timer().wait(() -> any(getWebElements(), el -> !el.isDisplayed()));
     }
 
+    /**
+     * @return Check is Element visible
+     */
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
     }
 
+    /**
+     * @return Check is Element hidden
+     */
     public boolean isHidden() {
         return actions.isDisplayed(() -> !isDisplayedAction());
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     public void waitDisplayed() {
         actions.waitDisplayed(this::waitDisplayedAction);
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     public void waitVanished() {
         actions.waitVanished(this::waitVanishedAction);
     }
@@ -122,20 +134,35 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
         return element.getText();
     }
 
+    /**
+     * @param name Specify string by String mechanic
+     * @return Get textList’s text by specified param
+     */
     public final String getText(String name) {
         return invoker.doJActionResult(format("Get text for Element '%s' with name '%s'", this.toString(), name),
                 () -> getTextAction(getElement(name)));
     }
 
+    /**
+     * @param index Specify string by Integer mechanic
+     * @return Get textList’s text by specified param
+     */
     public final String getText(int index) {
         return invoker.doJActionResult(format("Get text for Element '%s' with index '%s'", this.toString(), index),
                 () -> getTextAction(getElement(index)));
     }
 
+    /**
+     * @param enumName Specify string by Enum mechanic
+     * @return Get textList’s text by specified param
+     */
     public final String getText(TEnum enumName) {
         return getText(getEnumValue(enumName));
     }
 
+    /**
+     * @return Returns strings count
+     */
     public final int count() {
         return getElements().size();
     }
@@ -144,10 +171,16 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
         return print(select(getWebElements(), WebElement::getText));
     }
 
+    /**
+     * @return Get value of Element
+     */
     public final String getValue() {
         return invoker.doJActionResult("Get value", this::getValueAction);
     }
 
+    /**
+     * @return Wait while TextList’s text contains expected text. Returns Element’s text
+     */
     public final List<String> waitText(String str) {
         if (timer().wait(() -> select(getWebElements(), WebElement::getText).contains(str)))
             return getLabels();
@@ -156,11 +189,17 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
         }
     }
 
+    /**
+     * @return Return list of strings of TextList
+     */
     public List<String> getTextList() {
         return invoker.doJActionResult("Get list of texts", () -> select(getWebElements(), WebElement::getText),
                 PrintUtils::print);
     }
 
+    /**
+     * @return Return first String in list
+     */
     public String getFirstText() {
         List<String> results = getTextList();
         return (results != null && results.size() > 0)
@@ -168,6 +207,9 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
                 : null;
     }
 
+    /**
+     * @return Return last String in list
+     */
     public String getLastText() {
         List<String> results = getTextList();
         return (results != null && results.size() > 0)

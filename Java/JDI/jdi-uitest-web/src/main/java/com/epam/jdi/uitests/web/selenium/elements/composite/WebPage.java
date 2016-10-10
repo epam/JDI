@@ -94,6 +94,9 @@ public class WebPage extends BaseElement implements IPage {
     }
 
 
+    /**
+     * Check that page opened
+     */
     public void checkOpened() {
         asserter.isTrue(verifyOpened());
     }
@@ -120,6 +123,9 @@ public class WebPage extends BaseElement implements IPage {
         return false;
     }
 
+    /**
+     * Opens url specified for page
+     */
     public <T extends IPage> T open() {
         invoker.doJAction(format("Open page '%s' by url %s", getName(), url),
                 () -> getDriver().navigate().to(url));

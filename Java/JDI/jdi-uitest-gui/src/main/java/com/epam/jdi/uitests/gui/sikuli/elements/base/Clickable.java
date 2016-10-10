@@ -16,6 +16,9 @@ public class Clickable extends Element implements IClickable {
         super(pattern);
     }
 
+    /**
+     * Click on Element
+     */
     public final void click() {
         actions.click(this::clickAction);
     }

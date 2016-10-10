@@ -108,11 +108,17 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         return getText.equals("") && getValue != null ? getValue : getText;
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     @Override
     public void waitDisplayed() {
         button().waitDisplayed();
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     @Override
     public void waitVanished() {
         button().waitVanished();
@@ -134,18 +140,34 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         return button().wait(resultFunc, condition, timeoutSec);
     }
 
+    /**
+     * @param attributeName Specify attribute name
+     * @param value         Specify attribute value
+     *                      Sets attribute value for Element
+     */
     public void setAttribute(String attributeName, String value) {
         button().setAttribute(attributeName, value);
     }
 
+    /**
+     * @return Get Element’s text
+     */
     public final String getText() {
         return actions.getText(this::getTextAction);
     }
 
+    /**
+     * @param text Specify expected text
+     * @return Wait while Element’s text contains expected text. Returns Element’s text
+     */
     public final String waitText(String text) {
         return actions.waitText(text, this::getTextAction);
     }
 
+    /**
+     * @param regEx Specify expected regular expression Text
+     * @return Wait while Element’s text matches regEx. Returns Element’s text
+     */
     public final String waitMatchText(String regEx) {
         return actions.waitMatchText(regEx, this::getTextAction);
     }
@@ -154,10 +176,21 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         return new Element(getLocator()).getWebElement();
     }
 
+    /**
+     * Get element attribute
+     *
+     * @param name Specify name for attribute
+     * @return Returns chosen attribute
+     */
     public String getAttribute(String name) {
         return button().getAttribute(name);
     }
 
+    /**
+     * @param name  Specify attribute name
+     * @param value Specify attribute value
+     * Waits while attribute gets expected value. Return false if this not happens
+     */
     public void waitAttribute(String name, String value) {
         button().waitAttribute(name, value);
     }
