@@ -110,6 +110,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public Table()
         {
+            GetTextAction = p => "||X||" + Columns.Headers.Print("|") + "||\n" + Rows.Headers.Select(rowName => "||" + rowName + "||" + GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") + "||").Print("\n");
             Columns.Table = this;
             Rows.Table = this;
         }
@@ -476,11 +477,6 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             else
                 throw Exception($"Can't Get Row: {name}. Available RowHeaders: {Headers.Print(", ", "'{0}'")}");
             return nameIndex + Rows.StartIndex;
-        }
-
-        protected new string GetTextAction()
-        {
-            return "||X||" + Columns.Headers.Print("|") + "||\n" + Rows.Headers.Select(rowName => "||" + rowName + "||" + GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") + "||").Print("\n");
         }
 
         private ICell AddCell(int colIndex, int rowIndex, int colNum, int rowNum, string colName, string rowName)
