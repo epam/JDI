@@ -8,7 +8,7 @@ namespace JDI_UIWebTests.Entities
 {
     public class Contact
     {
-        public static Contact DefaultContact = new Contact("Test", "Testov", "Test description", 3, 4);
+        public static readonly Contact DEFAULT_CONTACT = new Contact("Test", "Testov", "Test description", 3, 4);
 
         private string _firstName;
         private string _lastName;
@@ -30,5 +30,20 @@ namespace JDI_UIWebTests.Entities
             _firstSummary = firstSummary;
             _secondSummary = secondSummary;
         }
+
+        public List<string> ToList()
+        {
+            return new List<string> { FirstName, LastName, Description};
+        }
+
+        public override string ToString() {
+            return string.Format(
+                    "Summary: 3\r\n"
+                        + "Name: {0}\r\n"
+                        + "Last Name: {1}\r\n"
+                        + "Description: {2}",
+                    FirstName, LastName, Description);
+        }
+
     }
 }
