@@ -19,6 +19,6 @@ public class DatesPage extends WebPage {
     public RFileInput rImageInput;
     @FindBy(css = "[class=filename] span")
     public ILabel uploadedFileName;
-
-
+    @FindBy(css = "main form")
+    public ContactForm contactForm;
 }

@@ -5,19 +5,19 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.0</version>
+        <version>1.0.32</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-http</artifactId>
-    <version>1.0.32</version>
+    <version>1.0.1</version>
 
     <dependencies>
         <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.2</version>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

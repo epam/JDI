@@ -30,6 +30,7 @@ public class HttpResponse {
     public int Status;
     public String Protocol;
     public Map<String, String> Headers;
+    public long ResponseTIme;
     public HttpStatus getResultStatus() {
         if (Status / 100 == 2)
             return HttpStatus.OK;
@@ -46,7 +47,7 @@ public class HttpResponse {
         Headers = new HashMap<>();
     }
 
-    public HttpResponse(org.apache.http.HttpResponse response) {
+    public HttpResponse(org.apache.http.HttpResponse response, long responseTime) {
         HttpEntity entity = response.getEntity();
         try {
             Body = entity != null ? EntityUtils.toString(entity) : "";
@@ -54,6 +55,7 @@ public class HttpResponse {
         Status = response.getStatusLine().getStatusCode();
         Protocol = response.getStatusLine().getProtocolVersion().toString();
         Headers = new HashMap<>();
+        ResponseTIme = responseTime;
         for (Header header : response.getAllHeaders()) {
             if (!Headers.containsKey(header.getName()))
                 Headers.put(header.getName(), header.getValue());

@@ -12,7 +12,7 @@ namespace JDI_Tests.Tests
         public void CareerTest()
         {
             var attendee = new Attendee();
-            HeaderMenu2D.HoverAndClick("SOLUTIONS|Product Development");
+            HeaderMenu2D.HoverAndClick("SOLUTIONS>Product Development");
             ProductDevelopmentPage.CheckOpened();
             HeaderMenu.Select(Headers.CAREERS);
             CareerPage.CheckOpened();
