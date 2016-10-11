@@ -111,7 +111,7 @@
     <Compile Include="Selenium\Base\WebCascadeInit.cs" />
     <Compile Include="Selenium\DriverFactory\WebDriverByUtils.cs" />
     <Compile Include="Selenium\DriverFactory\WebDriverFactory.cs" />
-    <Compile Include="Selenium\DriverFactory\WebDriverUtil.cs" />
+    <Compile Include="Selenium\DriverFactory\WinProcUtils.cs" />
     <Compile Include="Selenium\Elements\APIInteract\ContextType.cs" />
     <Compile Include="Selenium\Elements\APIInteract\GetElementModule.cs" />
     <Compile Include="Selenium\Elements\Base\Clickable.cs" />

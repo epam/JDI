@@ -87,6 +87,9 @@ public abstract class BaseElement implements IBaseElement {
         doActionRule.accept(text, action);
     }
 
+    /**
+     * @return Get Element’s name
+     */
     public String getName() {
         return name != null ? name : getTypeName();
     }

@@ -63,5 +63,22 @@ namespace JDI_UIWebTests.Tests.Composite
             checkResult(s);
         }
 
+        [Test]
+        public void VerifyTest()
+        {
+            _contactForm.Fill(Contact.DEFAULT_CONTACT);
+            //TO_DO use is empty matcher            
+            Assert.True(_contactForm.Verify(Contact.DEFAULT_CONTACT).Count == 0);           
+        }
+
+        /*
+        [Test]
+        public void checkTest()
+        {
+            _contactForm.Fill(Contact.DEFAULT_CONTACT);
+            HasNoExceptions(()->_contactForm.Check(Contact.DEFAULT_CONTACT));
+        }
+        */
+
     }
 }

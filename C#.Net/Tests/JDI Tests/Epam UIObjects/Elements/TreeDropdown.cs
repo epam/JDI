@@ -43,7 +43,7 @@ namespace JDI_Tests.Epam_UIObjects.Elements
                     var value = nodes[i];
                     var els = ctx.FindElements(_treeLocators[i].CorrectXPath());
                     if (!els.Any())
-                        throw JDISettings.Exception("No elements foun for locator: " + _treeLocators[i] + "in TreeDropdown " + this);
+                        throw JDISettings.Exception("No elements found for locator: " + _treeLocators[i] + "in TreeDropdown " + this);
                     ctx = els.FirstOrDefault(el => el.Text.Equals(value));
                     if (ctx == null)
                         throw JDISettings.Exception("Can't find: " + value + "in TreeDropdown " + this);

@@ -52,22 +52,34 @@ public class Element extends BaseElement implements IElement {
         return this.getParentRegion().exists(this.getPattern()) != null;
     }
 
+    /**
+     * @return Check is Element visible
+     */
     @Override
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
     }
 
+    /**
+     * @return Check is Element hidden
+     */
     @Override
     public boolean isHidden() {
         return actions.isDisplayed(() -> !isDisplayedAction());
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     @Override
     public void waitVanished() {
         if (timer().wait(() -> isDisplayed()))
             throw new RuntimeException(String.format("Element '%s' not vanished after timeout", this.getName()));
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     @Override
     public void waitDisplayed() {
         if (timer().wait(() -> isHidden()))
@@ -132,14 +144,30 @@ public class Element extends BaseElement implements IElement {
     }
 
     //To  Move to diff place
+    /**
+     * Get element attribute
+     *
+     * @param name Specify name for attribute
+     * @return Returns chosen attribute
+     */
     public String getAttribute(String name) {
         return null;
     }
 
+    /**
+     * @param name  Specify attribute name
+     * @param value Specify attribute value
+     * Waits while attribute gets expected value. Return false if this not happens
+     */
     public void waitAttribute(String name, String value) {
 
     }
 
+    /**
+     * @param attributeName Specify attribute name
+     * @param value         Specify attribute value
+     *                      Sets attribute value for Element
+     */
     public void setAttribute(String attributeName, String value) {
 
     }
