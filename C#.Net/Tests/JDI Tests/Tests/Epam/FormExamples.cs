@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JDI_Tests.Entities;
+﻿using JDI_Tests.Entities;
 using JDI_Tests.Epam_UIObjects;
 using JDI_Tests.Epam_UIObjects.DataProviders;
 using NUnit.Framework;
@@ -19,8 +14,8 @@ namespace JDI_Tests.Tests.Epam
             EpamSite.JobDescriptionPage.IsOpened();
         }
 
-        [Test, TestCaseSource(typeof(AttendeesProvider), "Attendees")]
-        public void FillFormExample(Attendee attendee)
+        [Test]
+        public void FillFormExample([ValueSource(typeof(AttendeesProvider), "Attendees")] Attendee attendee)
         {
             EpamSite.JobDescriptionPage.AddCvForm.Submit(attendee);
             // It's not stable, GetAttribute() sometimes returnes all classes and sometimes only a part 'required '

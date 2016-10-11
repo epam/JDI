@@ -5,10 +5,10 @@ import com.epam.web.matcher.testng.Check;
 import com.epam.web.matcher.testng.ScreenAssert;
 import org.testng.annotations.Test;
 
-import java.util.*;
+import java.util.List;
 
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
-import static java.util.Arrays.*;
+import static java.util.Arrays.asList;
 
 
 public class MatchersExamples {

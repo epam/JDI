@@ -8,11 +8,11 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.web.matcher.testng.Assert.*;
 
 /**

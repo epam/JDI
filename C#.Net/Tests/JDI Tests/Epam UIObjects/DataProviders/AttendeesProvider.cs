@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using JDI_Tests.Entities;
 
 namespace JDI_Tests.Epam_UIObjects.DataProviders
@@ -13,7 +9,7 @@ namespace JDI_Tests.Epam_UIObjects.DataProviders
         {
             get
             {
-                yield return new Attendee()
+                yield return new Attendee
                 {
                     City = "Saint-Petersburg",
                     Comment = "I WANT TO WORK IN EPAM!!!",
@@ -24,7 +20,7 @@ namespace JDI_Tests.Epam_UIObjects.DataProviders
                     LastName = "Iovlev",
                     Name = "Roman"
                 };
-                yield return new Attendee()
+                yield return new Attendee
                 {
                     City = "Mumbai",
                     Comment = "I also want to work in Epam",

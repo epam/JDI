@@ -91,7 +91,6 @@
     <Compile Include="UIObjects\Sections\LoginForm.cs" />
     <Compile Include="UIObjects\Sections\SummaryForm.cs" />
     <Compile Include="UIObjects\TestSite.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -43,7 +43,7 @@ import static java.util.Arrays.copyOfRange;
  */
 public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum> {
     private List<By> menuLevelsLocators = new ArrayList<>();
-    @JPage(urlTemplate = "/category/\\d[5]", checkType = CheckPageTypes.MATCH)
+    @JPage(urlTemplate = "/category/\\d[5]", urlCheckType = CheckPageTypes.MATCH)
     private String separator = "\\|";
     public <T extends IMenu<TEnum>> T useSeparator(String separator) {
         this.separator = separator;
