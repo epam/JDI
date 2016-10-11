@@ -85,7 +85,7 @@ namespace JDI_Web.Selenium.Base
             set { WebAvatar.WebElement = value; }
         }
 
-        protected List<IWebElement> WebElements
+        public List<IWebElement> WebElements
         {
             get { return WebAvatar.WebElements; }
             set { WebAvatar.WebElements = value; }

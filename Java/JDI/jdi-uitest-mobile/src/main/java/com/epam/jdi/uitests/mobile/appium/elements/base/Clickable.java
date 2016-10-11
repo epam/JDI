@@ -48,6 +48,9 @@ public class Clickable extends Element implements IClickable {
         getWebElement().click();
     }
 
+    /**
+     * Click on Element
+     */
     public final void click() {
         actions.click(this::clickAction);
     }

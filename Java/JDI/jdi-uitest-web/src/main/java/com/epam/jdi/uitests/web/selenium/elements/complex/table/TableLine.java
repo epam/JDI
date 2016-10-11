@@ -89,9 +89,11 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     protected int getCount(boolean acceptEmpty)
     {
-        List<WebElement> elements = acceptEmpty
-                ? getFirstLine()
-                : timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
+        List<WebElement> elements = getHeadersAction();
+        if (elements.size() == 0)
+            elements = getFirstLine();
+        if (!acceptEmpty)
+            elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0
             ? elements.size()
             : 0;
@@ -109,11 +111,9 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected int count(boolean acceptEmpty) {
         if (count > 0)
             return count;
-        else {
-            if (headers != null && headers.size() > 0)
-                return headers.size();
-            return getCount(acceptEmpty);
-        }
+        if (headers != null && headers.size() > 0)
+            return headers.size();
+        return getCount(acceptEmpty);
     }
 
     public void clean() {

@@ -80,20 +80,38 @@ public class Search extends TextField implements ISearch {
         return getSuggestions().getLabels();
     }
 
+    /**
+     * @param text Specify Text to search
+     *             Input text in search field and press search button
+     */
     public final void find(String text) {
         invoker.doJAction(format("Search text '%s'", text), () -> findAction(text));
     }
 
+    /**
+     * @param text        Specify Text to search
+     * @param selectValue Specify value to choose from suggested search result
+     *                    Input text in search and then select value from suggestions
+     */
     public final void chooseSuggestion(String text, String selectValue) {
         invoker.doJAction(format("Search for text '%s' and choose suggestion '%s'", text, selectValue),
                 () -> chooseSuggestionAction(text, selectValue));
     }
 
+    /**
+     * @param text        Specify Text to search
+     * @param selectIndex Specify index to choose from suggested search result
+     *                    Input text in search and then select suggestions by index
+     */
     public final void chooseSuggestion(String text, int selectIndex) {
         invoker.doJAction(format("Search for text '%s' and choose suggestion '%s'", text, selectIndex),
                 () -> chooseSuggestionAction(text, selectIndex));
     }
 
+    /**
+     * @param text Specify Text to search
+     * @return Select all suggestions for text
+     */
     public final List<String> getSuggesions(String text) {
         return invoker.doJActionResult(format("Get all suggestions for input '%s'", text),
                 () -> getSuggesionsAction(text));

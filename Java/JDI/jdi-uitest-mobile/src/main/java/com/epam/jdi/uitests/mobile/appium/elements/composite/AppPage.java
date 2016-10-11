@@ -92,6 +92,9 @@ public class AppPage extends BaseElement implements IPage {
         return new StringCheckType(getDriver()::getTitle, title, title, "title");
     }
 
+    /**
+     * Check that page opened
+     */
     public void checkOpened() {
         switch (checkUrlType) {
             case EQUAL:
@@ -117,6 +120,9 @@ public class AppPage extends BaseElement implements IPage {
         }
     }
 
+    /**
+     * Opens url specified for page
+     */
     public <T extends IPage> T open() {
         invoker.doJAction(format("Open page %s by url %s", getName(), url),
                 () -> getDriver().navigate().to(url));

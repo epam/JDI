@@ -28,20 +28,35 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 7/8/2015.
  */
 public class PopupForm<T> extends Form<T> implements IPopup {
+    /**
+     * @param objStrings Fill all SetValue elements and click on Button specified button e.g. "Publish" or "Save" <br>
+     * @apiNote To use this option Form pageObject should have button names in specific format <br>
+     * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
+     * * Letters case in button name  no matters
+     */
     @Override
     public void submit(MapArray<String, String> objStrings) {
         fill(objStrings);
         ok();
     }
 
+    /**
+     * Click on Button marked with annotation @OkButton or named "okButton"
+     */
     public void ok() {
         getElementClass.getButton(OK_BUTTON).click();
     }
 
+    /**
+     * Click on Button marked with annotation @CancelButton or named "cancelButton"
+     */
     public void cancel() {
         getElementClass.getButton(CANCEL_BUTTON).click();
     }
 
+    /**
+     * Click on Button marked with annotation @CloseButton or named "closeButton"
+     */
     public void close() {
         getElementClass.getButton(CLOSE_BUTTON).click();
     }
@@ -50,15 +65,26 @@ public class PopupForm<T> extends Form<T> implements IPopup {
         return getWebElement().getText();
     }
 
+    /**
+     * @return Get Element’s text
+     */
     public final String getText() {
         return invoker.doJActionResult("Get text", this::getTextAction);
     }
 
+    /**
+     * @param text Specify expected text
+     * @return Wait while Element’s text contains expected text. Returns Element’s text
+     */
     public final String waitText(String text) {
         return invoker.doJActionResult(format("Wait text contains '%s'", text),
                 () -> timer().getResultByCondition(this::getTextAction, t -> t.contains(text)));
     }
 
+    /**
+     * @param regEx Specify expected regular expression Text
+     * @return Wait while Element’s text matches regEx. Returns Element’s text
+     */
     public final String waitMatchText(String regEx) {
         return invoker.doJActionResult(format("Wait text match regex '%s'", regEx),
                 () -> timer().getResultByCondition(this::getTextAction, t -> t.matches(regEx)));

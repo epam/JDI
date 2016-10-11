@@ -86,19 +86,38 @@ public class Element extends BaseElement implements IElement, IHasElement {
         avatar.setWebElement(webElement);
     }
     public WebElement get(By locator) {
-        return getWebElement().findElement(locator);
+        Element el = new Element(locator);
+        el.setParent(this);
+        return el.getWebElement();
     }
     public List<WebElement> getList(By locator) {
         return getWebElement().findElements(locator);
     }
+
+    /**
+     * Get element attribute
+     *
+     * @param name Specify name for attribute
+     * @return Returns chosen attribute
+     */
     public String getAttribute(String name) {
         return getWebElement().getAttribute(name);
     }
 
+    /**
+     * @param name  Specify attribute name
+     * @param value Specify attribute value
+     * Waits while attribute gets expected value. Return false if this not happens
+     */
     public void waitAttribute(String name, String value) {
         wait(el -> el.getAttribute(name).equals(value));
     }
 
+    /**
+     * @param attributeName Specify attribute name
+     * @param value         Specify attribute value
+     *                      Sets attribute value for Element
+     */
     public void setAttribute(String attributeName, String value) {
         invoker.doJAction(format("Set Attribute '%s'='%s'", attributeName, value),
                 () -> jsExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", attributeName),
@@ -110,6 +129,10 @@ public class Element extends BaseElement implements IElement, IHasElement {
     protected boolean isDisplayedAction() {
         return avatar.findImmediately(() -> getWebElement().isDisplayed(), false);
     }
+
+    /**
+     * @return Check is Element visible
+     */
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
     }
@@ -118,14 +141,23 @@ public class Element extends BaseElement implements IElement, IHasElement {
         wait(WebElement::isDisplayed);
     }
 
+    /**
+     * @return Check is Element hidden
+     */
     public boolean isHidden() {
         return actions.isDisplayed(() -> !isDisplayedAction());
     }
 
+    /**
+     * Waits while Element becomes visible
+     */
     public void waitDisplayed() {
         actions.waitDisplayed(getWebElement()::isDisplayed);
     }
 
+    /**
+     * Waits while Element becomes invisible
+     */
     public void waitVanished() {
         actions.waitVanished(() -> timer().wait(() -> !isDisplayedAction()));
     }

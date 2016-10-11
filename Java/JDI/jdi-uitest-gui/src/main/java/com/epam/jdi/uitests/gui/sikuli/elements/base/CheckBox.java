@@ -25,26 +25,42 @@ public class CheckBox extends Clickable implements ICheckBox {
     public CheckBox(Pattern pattern) {
         super(pattern);
     }
+    /**
+     * Set checkbox checked
+     */
     @Override
     public void check() {
 
     }
 
+    /**
+     * Set checkbox unchecked
+     */
     @Override
     public void uncheck() {
 
     }
 
+    /**
+     * @return Verify is checkbox checked
+     */
     @Override
     public boolean isChecked() {
         return false;
     }
 
+    /**
+     * @param value Specify element value
+     *              Set value to Element
+     */
     @Override
     public void setValue(String value) {
 
     }
 
+    /**
+     * @return Get value of Element
+     */
     @Override
     public String getValue() {
         return null;
