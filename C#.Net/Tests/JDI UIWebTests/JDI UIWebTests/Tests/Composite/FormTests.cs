@@ -67,16 +67,17 @@ namespace JDI_UIWebTests.Tests.Composite
         public void VerifyTest()
         {
             _contactForm.Fill(Contact.DEFAULT_CONTACT);
-            //TO_DO use is empty matcher            
+            //TO_DO use is empty JDI matcher            
             Assert.True(_contactForm.Verify(Contact.DEFAULT_CONTACT).Count == 0);           
         }
 
+        //TO_DO
         /*
         [Test]
         public void checkTest()
         {
             _contactForm.Fill(Contact.DEFAULT_CONTACT);
-            HasNoExceptions(()->_contactForm.Check(Contact.DEFAULT_CONTACT));
+            HasNoExceptions(_contactForm.Check(Contact.DEFAULT_CONTACT));
         }
         */
 

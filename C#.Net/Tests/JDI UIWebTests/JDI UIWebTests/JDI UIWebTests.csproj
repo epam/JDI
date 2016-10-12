@@ -77,7 +77,6 @@
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
     <Compile Include="Tests\Composite\FormTwoButtonsTests.cs" />
-    <Compile Include="Tests\Composite\FrameTests.cs" />
     <Compile Include="Tests\Composite\PageTests.cs" />
     <Compile Include="Tests\Composite\PaginationTests.cs" />
     <Compile Include="Tests\Composite\SearchTests.cs" />
@@ -95,6 +94,8 @@
     <Compile Include="UIObjects\Sections\ContactFormTwoButtons.cs" />
     <Compile Include="UIObjects\Sections\Footer.cs" />
     <Compile Include="UIObjects\Sections\Header.cs" />
+    <Compile Include="UIObjects\Sections\JdiPaginator.cs" />
+    <Compile Include="UIObjects\Sections\JdiSearch.cs" />
     <Compile Include="UIObjects\Sections\Log.cs" />
     <Compile Include="UIObjects\Sections\LoginForm.cs" />
     <Compile Include="UIObjects\Sections\SummaryForm.cs" />

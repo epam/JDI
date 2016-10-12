@@ -116,7 +116,7 @@ or override {action}() in class";
 
         public Func<Pagination, Clickable> LastAction = p =>
         {
-            const string shortName = "first";
+            const string shortName = "last";
             if (p.LastLocator != null)
                 return new Clickable(p.LastLocator);
 
