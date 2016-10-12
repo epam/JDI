@@ -12,3 +12,6 @@ obj/
 packages/
 *.nupkg
 *.nuspec
+
+# ReSharper files
+*.DotSettings.user
