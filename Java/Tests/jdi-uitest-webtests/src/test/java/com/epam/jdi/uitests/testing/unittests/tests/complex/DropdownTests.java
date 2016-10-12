@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Colors.Blue;
 import static com.epam.jdi.uitests.testing.unittests.enums.Colors.Colors;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 import static com.epam.web.matcher.testng.Assert.listEquals;
 import static java.util.Arrays.asList;

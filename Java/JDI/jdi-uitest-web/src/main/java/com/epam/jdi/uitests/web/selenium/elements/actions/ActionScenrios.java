@@ -18,9 +18,10 @@ package com.epam.jdi.uitests.web.selenium.elements.actions;
  */
 
 
-
 import com.epam.commons.Timer;
-import com.epam.commons.linqinterfaces.*;
+import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.JActionTTTT;
+import com.epam.commons.linqinterfaces.JFuncTTTTTR;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 

@@ -48,7 +48,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.*;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 

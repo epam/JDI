@@ -7,10 +7,10 @@ import com.epam.jdi.uitests.gui.sikuli.elements.composite.Page;
 import com.epam.jdi.uitests.gui.sikuli.elements.pageobjects.annotations.elements.JPage;
 import org.sikuli.script.Pattern;
 
-
 import java.awt.*;
 
-import static com.epam.jdi.uitests.gui.sikuli.elements.CheckPageTypes.*;
+import static com.epam.jdi.uitests.gui.sikuli.elements.CheckPageTypes.EQUAL;
+import static com.epam.jdi.uitests.gui.sikuli.elements.CheckPageTypes.NONE;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/14/2016.

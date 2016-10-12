@@ -1,5 +1,4 @@
-﻿using JDI_UIWebTests.Entities;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using JDI_UIWebTests.Tests.Complex;
 using static JDI_UIWebTests.UIObjects.TestSite;

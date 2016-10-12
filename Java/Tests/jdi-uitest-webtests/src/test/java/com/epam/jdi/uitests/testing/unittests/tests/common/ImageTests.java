@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.checkText;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 
 /**
  * Created by Dmitry_Lebedev1 on 15/12/2015.

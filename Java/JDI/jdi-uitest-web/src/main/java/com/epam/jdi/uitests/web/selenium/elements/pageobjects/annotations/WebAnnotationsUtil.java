@@ -26,9 +26,11 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.function.Consumer;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.*;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
-import static com.epam.jdi.uitests.web.settings.WebSettings.*;
+import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
+import static com.epam.jdi.uitests.web.settings.WebSettings.hasDomain;
 
 /**
  * Created by roman.i on 25.09.2014.
