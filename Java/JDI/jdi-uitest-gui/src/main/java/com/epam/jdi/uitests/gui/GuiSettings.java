@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.gui;
 
 import com.epam.jdi.uitests.core.settings.JDISettings;
 
-
 import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;

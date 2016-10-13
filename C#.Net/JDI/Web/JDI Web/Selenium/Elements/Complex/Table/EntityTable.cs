@@ -33,9 +33,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             field.SetValue(entity, value);
         }
 
-        public new IList<TRow> Rows(params string[] colNameValues)
+        public new IList<TRow> GetRows(params string[] colNameValues)
         {
-            return GetRows(colNameValues).Select(r => CastToRow(r.Value)).ToList();
+            return base.GetRows(colNameValues).Select(r => CastToRow(r.Value)).ToList();
         }
 
         public new TRow Row(string value, Column column)

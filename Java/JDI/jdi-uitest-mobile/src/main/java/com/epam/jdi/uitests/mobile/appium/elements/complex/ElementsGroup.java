@@ -20,8 +20,8 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IGroup;
 import com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils;
-import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
+import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import org.openqa.selenium.By;
 

@@ -17,9 +17,9 @@ package com.epam.jdi.uitests.core.settings;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.jdi.uitests.core.interfaces.IAsserter;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.core.interfaces.IAsserter;
 import org.slf4j.Logger;
 
 import java.io.IOException;

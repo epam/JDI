@@ -23,9 +23,9 @@ import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +47,7 @@ import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
 import static java.lang.System.setProperty;
@@ -54,7 +55,6 @@ import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.

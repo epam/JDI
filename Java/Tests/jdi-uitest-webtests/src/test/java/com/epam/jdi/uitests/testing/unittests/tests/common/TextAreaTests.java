@@ -8,12 +8,12 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static org.testng.Assert.assertEquals;
 
 /**

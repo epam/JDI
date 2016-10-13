@@ -7,9 +7,9 @@ import org.testng.annotations.BeforeMethod;
 
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.supportPage;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 
 /**
  * Created by Roman_Iovlev on 11/20/2015.

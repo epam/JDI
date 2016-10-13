@@ -18,7 +18,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.actions;
  */
 
 
-import com.epam.commons.linqinterfaces.JAction;;
+import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import org.openqa.selenium.WebElement;
 
@@ -34,6 +34,8 @@ import static com.epam.commons.Timer.getByCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static java.lang.String.format;
 import static java.lang.String.join;
+
+;
 
 /**
  * Created by Roman_Iovlev on 9/3/2015.

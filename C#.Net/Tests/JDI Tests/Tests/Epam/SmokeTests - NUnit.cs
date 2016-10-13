@@ -1,4 +1,5 @@
-﻿using JDI_Tests.Entities;
+﻿using JDI_Commons;
+using JDI_Tests.Entities;
 using JDI_Tests.Enums;
 using NUnit.Framework;
 using static JDI_Tests.Epam_UIObjects.EpamSite;
@@ -21,6 +22,7 @@ namespace JDI_Tests.Tests
             CareerPage.JobFilter.Search(attendee.Filter);
             JobListingPage.CheckOpened();
             //new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
+            //new Timer().Wait(() => !JobListingPage.JobsList.Empty);
             JobListingPage.GetJobRowByName("Senior QA Automation Engineer");
             JobDescriptionPage.AddCvForm.Submit(attendee);
             //new Check("Captcha").Contains(()->jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
