@@ -6,10 +6,11 @@ import com.epam.web.matcher.testng.Check;
 import com.epam.web.matcher.verify.Verify;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SIMPLE_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.actionsLog;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.simpleTablePage;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 /**
  * Created by Natalia_Grebenshchikova on 12/17/2015.
  */

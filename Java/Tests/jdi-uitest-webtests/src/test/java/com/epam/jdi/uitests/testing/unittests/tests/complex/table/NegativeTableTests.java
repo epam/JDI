@@ -5,9 +5,9 @@ import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTa
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import org.testng.annotations.Test;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SORTING_TABLE_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.sortingTablePage;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 
 /**
  * Created by Natalia_Grebenshchik on 10/28/2015.

@@ -5,7 +5,7 @@ import com.epam.http.PerformanceResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static com.epam.jdi.httptests.EpamService.*;
+import static com.epam.jdi.httptests.EpamService.main;
 
 
 public class HttpTests {

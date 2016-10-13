@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
+import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
 import static java.lang.Thread.currentThread;
 
 /**

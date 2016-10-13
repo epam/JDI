@@ -11,13 +11,13 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.runParallel;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.waitTimeOut;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 import static com.epam.web.matcher.testng.Assert.isTrue;
 
