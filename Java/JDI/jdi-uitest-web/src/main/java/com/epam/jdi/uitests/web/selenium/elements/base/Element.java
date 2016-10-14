@@ -281,4 +281,8 @@ public class Element extends BaseElement implements IElement, IHasElement {
                 new Actions(getDriver()).dragAndDropBy(getWebElement(), x, y).build().perform());
     }
 
+    public void dragAndDrop(Element target) {
+        invoker.doJAction(format("Drag and drop to Target Element: %s", target.toString()), () ->
+                new Actions(getDriver()).dragAndDrop(getWebElement(), target.getWebElement()).build().perform());
+    }
 }
