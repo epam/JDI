@@ -79,6 +79,7 @@ public abstract class BaseMatcher implements IChecker {
     public static void setDefaultTimeout(long timeout) {
         waitTimeout = timeout;
     }
+
     public BaseMatcher setTimeout(long timeout) {
         defaultTimeout = waitTimeout;
         waitTimeout = timeout;
@@ -426,8 +427,8 @@ public abstract class BaseMatcher implements IChecker {
     // Asserts Wait
     public <T> void areEquals(Supplier<T> actual, T expected, String failMessage) {
         BooleanSupplier resultAction = (ignoreCase && expected.getClass() == String.class)
-                ? () -> toUtf8(actual.get().toString()).equals(expected)
-                : () -> toUtf8(actual.get().toString()).equalsIgnoreCase((String) expected);
+                ? () -> toUtf8(actual.get().toString()).equalsIgnoreCase((String) expected)
+                : () -> toUtf8(actual.get().toString()).equals(expected);
         waitAction(format("Check that '%s' equals to '%s'", "result", expected), resultAction, failMessage);
     }
 /*
@@ -500,8 +501,8 @@ public abstract class BaseMatcher implements IChecker {
 
     public void matches(Supplier<String> actual, String regEx, String failMessage) {
         BooleanSupplier resultAction = ignoreCase
-                ? () -> toUtf8(actual.get()).matches(regEx)
-                : () -> toUtf8(actual.get()).toLowerCase().matches(regEx.toLowerCase());
+                ? () -> toUtf8(actual.get()).toLowerCase().matches(regEx.toLowerCase())
+                : () -> toUtf8(actual.get()).matches(regEx);
         waitAction(format("Check that '%s' matches to regEx '%s", "result", regEx), resultAction, failMessage);
     }
 
@@ -511,8 +512,8 @@ public abstract class BaseMatcher implements IChecker {
 
     public void contains(Supplier<String> actual, String expected, String failMessage) {
         BooleanSupplier resultAction = (ignoreCase && expected.getClass() == String.class)
-                ? () -> toUtf8(actual.get()).contains(expected)
-                : () -> toUtf8(actual.get()).toLowerCase().contains(expected.toLowerCase());
+                ? () -> toUtf8(actual.get()).toLowerCase().contains(expected.toLowerCase())
+                : () -> toUtf8(actual.get()).contains(expected);
         waitAction(format("Check that '%s' contains '%s'", "result", expected), resultAction, failMessage);
     }
 
