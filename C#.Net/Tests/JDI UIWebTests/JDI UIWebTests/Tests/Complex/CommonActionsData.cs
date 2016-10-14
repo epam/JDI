@@ -25,6 +25,10 @@ namespace JDI_UIWebTests.Tests.Complex
             Assert.True(logOutput[0].Contains(text));
         }
 
+        public static void checkResult(string text)
+        {         
+            Assert.True(ContactFormPage.Result.GetText.Contains(text));
+        }
 
     }
 }
