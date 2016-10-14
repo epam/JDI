@@ -38,12 +38,13 @@ namespace JDI_Web.Attributes
                     : WebPage.GetUrlFromUri(url);
             var title = Title;
             var urlTemplate = UrlTemplate;
-            if (!string.IsNullOrEmpty(urlTemplate))
-                urlTemplate = urlTemplate.Contains("://") || parentClass == null || !WebSettings.HasDomain
-                        ? urlTemplate
-                        : WebPage.GetMatchFromDomain(urlTemplate);
             var urlCheckType = UrlCheckType;
             var titleCheckType = TitleCheckType;
+            if (!string.IsNullOrEmpty(urlTemplate))
+                urlTemplate = urlTemplate.Contains("://") || parentClass == null || !WebSettings.HasDomain ||
+                              urlCheckType != CheckPageTypes.Match
+                    ? urlTemplate
+                    : WebPage.GetMatchFromDomain(urlTemplate);
             page.UpdatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
         }
 

@@ -2,7 +2,9 @@ package com.epam.jdi.androidtests.tests;
 
 import com.epam.jdi.androidtestind.page_objects.pages.ContactDetails;
 import org.testng.annotations.Test;
-import static com.epam.jdi.androidtestind.page_objects.EpamJDIAndroidApp.*;
+
+import static com.epam.jdi.androidtestind.page_objects.EpamJDIAndroidApp.addContactForm;
+import static com.epam.jdi.androidtestind.page_objects.EpamJDIAndroidApp.startPage;
 /**
  * Created by Natalia_Grebenshchik on 12/25/2015.
  */

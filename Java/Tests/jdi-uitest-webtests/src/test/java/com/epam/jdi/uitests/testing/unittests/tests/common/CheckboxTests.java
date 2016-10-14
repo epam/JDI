@@ -9,10 +9,10 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.checkAction;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 

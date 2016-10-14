@@ -64,7 +64,7 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
     }
 
     /**
-     * @param index Specify digit to select
+     * @param num Specify digit to select
      *              Select Element with name (use index) from list
      */
     public final void select(int num) {

@@ -23,11 +23,7 @@ package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
  */
 
 import com.epam.commons.LinqUtils;
-import com.epam.commons.ReflectionUtils;
-import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
@@ -35,7 +31,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
-import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.correctXPaths;
 
 public class TreeDropdown<T extends Enum> extends Dropdown<T> {
