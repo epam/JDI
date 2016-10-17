@@ -75,6 +75,8 @@
     <Compile Include="Tests\Common\TextFieldsTests.cs" />
     <Compile Include="Tests\Common\TextTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
+    <Compile Include="Tests\Complex\Table\Base\SupportTableTestBase.cs" />
+    <Compile Include="Tests\Complex\Table\SearchCellsTests.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
     <Compile Include="Tests\Composite\FormTwoButtonsTests.cs" />
     <Compile Include="Tests\Composite\PageTests.cs" />
@@ -110,6 +112,10 @@
     <ProjectReference Include="..\..\..\JDI\Core\JDI Core.csproj">
       <Project>{99EE5894-9F49-43E2-A129-7916D924D49C}</Project>
       <Name>JDI Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\JDI\Matchers\JDI Matchers\JDI Matchers.csproj">
+      <Project>{822c29a7-c835-40ef-9e83-ae5388be9a1c}</Project>
+      <Name>JDI Matchers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\JDI\Web\JDI Web\JDI Web.csproj">
       <Project>{48A9B353-CB6B-4A15-84B4-B062B1C9BACC}</Project>

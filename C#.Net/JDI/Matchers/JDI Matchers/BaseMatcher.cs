@@ -18,7 +18,7 @@ namespace JDI_Matchers
 
         protected abstract void ThrowFail(string message);
 
-        protected BaseMatcher(string checkMessage)
+        protected BaseMatcher(string checkMessage) : this() // TODO: Fix it! (setting logger)
         {
             _chekMessage = getCheckMessage(checkMessage);
         }
@@ -26,7 +26,7 @@ namespace JDI_Matchers
         public BaseMatcher()
         {
             // TODO: Fix it!
-            _logger = new Log4Net();
+            _logger = new NUnitLogger();
         }
 
         private string getCheckMessage(string checkMessage)
@@ -72,7 +72,7 @@ namespace JDI_Matchers
         {
             if (!logOnlyFail)
             {
-                _logger.Info(message);
+                _logger.Info(GetBeforeMessage(message));
             }
             // TODO: Take screenshot
             //TakeScreenshot();
@@ -81,6 +81,11 @@ namespace JDI_Matchers
                 //TakeScreenshot();
                 AssertException(failMessage ?? message + " failed");
             }
+        }
+
+        private string GetBeforeMessage(string message)
+        {
+            return !string.IsNullOrEmpty(_chekMessage) ? _chekMessage : message;
         }
 
         private void AssertAction(string message, Func<bool> resultFunc)
