@@ -65,7 +65,8 @@
     <Compile Include="Enums\Buttons.cs" />
     <Compile Include="Enums\Colors.cs" />
     <Compile Include="Enums\Metals.cs" />
-    <Compile Include="Enums\Nature.cs" />
+    <Compile Include="Enums\Elements.cs" />
+    <Compile Include="Enums\Odds.cs" />
     <Compile Include="Tests\Common\ButtonTests.cs" />
     <Compile Include="Tests\Common\CheckBoxTests.cs" />
     <Compile Include="Tests\Common\DatePickerTests.cs" />
@@ -74,7 +75,11 @@
     <Compile Include="Tests\Common\LinkTests.cs" />
     <Compile Include="Tests\Common\TextFieldsTests.cs" />
     <Compile Include="Tests\Common\TextTests.cs" />
+    <Compile Include="Tests\Complex\CheckListTests.cs" />
+    <Compile Include="Tests\Complex\ComboBoxTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
+    <Compile Include="Tests\Complex\DropdownExpandedTests.cs" />
+    <Compile Include="Tests\Complex\RadioButtonsTests.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
     <Compile Include="Tests\Composite\FormTwoButtonsTests.cs" />
     <Compile Include="Tests\Composite\PageTests.cs" />
@@ -98,7 +103,7 @@
     <Compile Include="UIObjects\Sections\JdiSearch.cs" />
     <Compile Include="UIObjects\Sections\Log.cs" />
     <Compile Include="UIObjects\Sections\LoginForm.cs" />
-    <Compile Include="UIObjects\Sections\SummaryForm.cs" />
+    <Compile Include="UIObjects\Sections\Summary.cs" />
     <Compile Include="UIObjects\TestSite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
