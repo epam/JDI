@@ -53,4 +53,21 @@ public final class PreconditionsState {
     public static void isInState(IPreconditions condition) {
         isInState(condition, null);
     }
+
+    public static void moveToState(IPreconditions condition, Method method) {
+        try {
+            out.println(format("=== Start precondition. Thread id : %s", currentThread().getId()));
+            logger.info("Move to condition: " + condition);
+            if (method != null) testName = method.getName();
+            condition.moveToAction();
+            out.println(format("=== Move to done precondition. Thread id : %s", currentThread().getId()));
+            logger.info(condition + " condition achieved");
+        } catch (Exception ex) {
+            throw asserter.exception(format("Can't reach state: %s. Reason: %s", condition, ex.getMessage()));
+        }
+    }
+
+    public static void moveToState(IPreconditions condition) {
+        moveToState(condition, null);
+    }
 }

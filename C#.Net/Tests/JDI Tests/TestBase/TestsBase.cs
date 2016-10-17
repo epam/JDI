@@ -6,7 +6,7 @@ using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using NUnit.Framework;
 
-namespace JDI_Tests.Tests
+namespace JDI_Tests.Tests.Epam
 {
     [SetUpFixture]
     public class TestsBase

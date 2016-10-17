@@ -62,12 +62,22 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseMatcher.cs" />
     <Compile Include="NUnitMatcher.cs" />
+    <Compile Include="NUnit\Assert.cs" />
+    <Compile Include="BaseMatcher.cs" />
+    <Compile Include="NUnit\Check.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenshotState.cs" />
+    <Compile Include="StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\JDI Core.csproj">
+      <Project>{99EE5894-9F49-43E2-A129-7916D924D49C}</Project>
+      <Name>JDI Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
