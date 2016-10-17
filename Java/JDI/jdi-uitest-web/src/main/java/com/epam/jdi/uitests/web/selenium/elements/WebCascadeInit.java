@@ -45,7 +45,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.*;
+import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;

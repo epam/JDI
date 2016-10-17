@@ -29,9 +29,9 @@ import java.util.Date;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebDrivers;
 import static com.epam.jdi.uitests.web.settings.WebSettings.initFromProperties;
 import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebDrivers;
 
 /**
  * Created by Roman_Iovlev on 9/3/2015.

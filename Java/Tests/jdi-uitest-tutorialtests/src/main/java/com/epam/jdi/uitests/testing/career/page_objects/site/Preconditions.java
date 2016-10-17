@@ -7,7 +7,8 @@ import com.google.common.base.Supplier;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.alwaysMoveToCondition;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobListingPage;
-import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.*;
+import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.checkUrl;
+import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.openUri;
 
 /**
  * Created by Roman_Iovlev on 9/10/2016.

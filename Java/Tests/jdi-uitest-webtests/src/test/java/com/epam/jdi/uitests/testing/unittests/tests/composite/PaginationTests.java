@@ -1,16 +1,16 @@
 package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Pagination;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SIMPLE_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.simpleTablePage;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.web.matcher.testng.Assert.assertTrue;
 
 /**

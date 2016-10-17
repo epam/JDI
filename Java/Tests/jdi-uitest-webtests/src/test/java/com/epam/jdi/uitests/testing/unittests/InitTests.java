@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.login;
-import static com.epam.jdi.uitests.web.settings.WebSettings.*;
+import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 
 
 /**

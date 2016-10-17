@@ -37,8 +37,6 @@ public @interface JPage {
 
     String urlTemplate() default "";
 
-    CheckPageTypes checkType() default CheckPageTypes.EQUAL;
-
     CheckPageTypes urlCheckType() default CheckPageTypes.EQUAL;
 
     CheckPageTypes titleCheckType() default CheckPageTypes.EQUAL;

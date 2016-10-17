@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
-import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static org.testng.Assert.assertEquals;
 
 /**
