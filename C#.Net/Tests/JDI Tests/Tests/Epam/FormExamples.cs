@@ -18,7 +18,7 @@ namespace JDI_Tests.Tests.Epam
         public void FillFormExample([ValueSource(typeof(AttendeesProvider), "Attendees")] Attendee attendee)
         {
             EpamSite.JobDescriptionPage.AddCvForm.Submit(attendee);
-            // It's not stable, GetAttribute() sometimes returnes all classes and sometimes only a part 'required '
+            // It's not stable, GetAttribute() sometimes returnes all classes and sometimes only a first part 'required '
             Assert.That(EpamSite.JobDescriptionPage.Captcha.GetAttribute("class"), Does.Contain("form-field-error"));
         }
     }

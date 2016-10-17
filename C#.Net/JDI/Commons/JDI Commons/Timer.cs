@@ -58,7 +58,7 @@ namespace JDI_Commons
             } while (!TimeoutPassed);
                 if (exception != null)
                     throw new Exception(exception.Message);
-                return default(T);
+                throw new TimeoutException("The operation has timed-out");
         }
     }
 }

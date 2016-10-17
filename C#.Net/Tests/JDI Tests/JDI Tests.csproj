@@ -94,6 +94,7 @@
     <Compile Include="Epam UIObjects\Sections\AddCVform.cs" />
     <Compile Include="Epam UIObjects\Sections\JobFilter.cs" />
     <Compile Include="Tests\Epam\FormExamples.cs" />
+    <Compile Include="Tests\MatchersExamples.cs" />
     <Compile Include="Tests\Epam\SmokeTests - Parallel.cs" />
     <Compile Include="Tests\Epam\TableExamples.cs" />
     <Compile Include="Tests\W3C\FrameTests.cs" />
