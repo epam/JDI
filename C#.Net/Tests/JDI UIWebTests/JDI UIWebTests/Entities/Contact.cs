@@ -1,4 +1,6 @@
-﻿namespace JDI_UIWebTests.Entities
+﻿using System.Collections.Generic;
+
+namespace JDI_UIWebTests.Entities
 {
     public class Contact
     {
@@ -25,7 +27,7 @@
             _secondSummary = secondSummary;
         }
 
-        public List<string> ToList()
+        public IList<string> ToList()
         {
             return new List<string> { FirstName, LastName, Description};
         }

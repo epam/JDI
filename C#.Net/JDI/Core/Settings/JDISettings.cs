@@ -65,7 +65,7 @@ namespace Epam.JDI.Core.Settings
         public static Exception Exception(string msg)
         {
             ExceptionThrown = true;
-            return Asserter.Exception(msg);
+             return Asserter.Exception(msg);
         }
     }
 }

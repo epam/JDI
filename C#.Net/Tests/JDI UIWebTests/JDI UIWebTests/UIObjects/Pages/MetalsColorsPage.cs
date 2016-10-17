@@ -1,6 +1,7 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Core.Interfaces.Complex;
 using JDI_UIWebTests.Enums;
+using JDI_UIWebTests.UIObjects.Sections;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
@@ -13,9 +14,7 @@ using OpenQA.Selenium;
 namespace JDI_UIWebTests.UIObjects.Pages
 {
     public class MetalsColorsPage : WebPage
-    {
-        [FindBy(Id = "summary-block")]
-        public SummaryForm Summary;
+    {       
 
         [FindBy(Id = "calculate-button")]
         public Label Calculate;
@@ -24,9 +23,9 @@ namespace JDI_UIWebTests.UIObjects.Pages
         public Button CalculateButton;
 
         [FindBy(Id = "calculate-button")]
-        public ILabel calculateLabel;
+        public ILabel CalculateLabel;
         
-        public IDropDown<Colors> colors = new Dropdown<Colors>(By.CssSelector(".colors .filter-option"), By.CssSelector(".colors li span"));
+        public IDropDown<Colors> Colors = new Dropdown<Colors>(By.CssSelector(".colors .filter-option"), By.CssSelector(".colors li span"));
              
         [FindBy(Css = ".summ-res")]
         public IText CalculateText;
@@ -49,11 +48,14 @@ namespace JDI_UIWebTests.UIObjects.Pages
             }
         };      
 
-        public IComboBox<Metals> comboBox =
+        public IComboBox<Metals> ComboBox =
             new ComboBox<Metals>(By.CssSelector(".metals .caret"), By.CssSelector(".metals li span"), By.CssSelector(".metals input")) {
                 GetTextAction = c => {
                     return new Text(By.CssSelector(".metals .filter-option")).GetText;
                 }
         };
+
+        [FindBy(Id = "summary-block")]
+        public Summary Summary;
     }
 }
