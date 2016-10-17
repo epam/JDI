@@ -25,6 +25,9 @@ namespace JDI_UIWebTests.UIObjects
         [Page(Url = "/page4.htm", Title = "Dates")]
         public static DatesPage Dates;
 
+        [Page(Url = "page6.htm", Title = "Simple Table")]
+        public static SimpleTablePage SimpleTablePage;
+
         [FindBy(Css = ".uui-profile-menu")]
         public static Login Login;
 

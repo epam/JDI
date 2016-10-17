@@ -1,7 +1,9 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
+using JDI_UIWebTests.UIObjects.Sections;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Composite;
+using JDIWebTests.UIObjects.Sections;
 
 namespace JDI_UIWebTests.UIObjects.Pages
 {
@@ -24,7 +26,13 @@ namespace JDI_UIWebTests.UIObjects.Pages
 
         [FindBy(Css = ".results")]
         public IText Result;
-        
+
+        [FindBy(Css = "main form")]
+        public ContactForm ContactForm;
+
+        [FindBy(Css = "main form")]
+        public ContactFormTwoButtons ContactFormTwoButtons;
+
         public void FillFormWithoutSubmitting(string firstName, string secondName, string description)
         {
             FillForm(firstName, secondName, description);
