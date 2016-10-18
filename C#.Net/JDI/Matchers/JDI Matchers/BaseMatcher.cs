@@ -23,7 +23,7 @@ namespace JDI_Matchers
             _chekMessage = getCheckMessage(checkMessage);
         }
 
-        public BaseMatcher()
+        protected BaseMatcher()
         {
             // TODO: Fix it!
             _logger = new NUnitLogger();

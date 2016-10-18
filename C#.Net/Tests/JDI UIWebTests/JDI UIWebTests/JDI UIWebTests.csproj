@@ -77,6 +77,7 @@
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
     <Compile Include="Tests\Complex\Table\Base\SupportTableTestBase.cs" />
     <Compile Include="Tests\Complex\Table\SearchCellsTests.cs" />
+    <Compile Include="Tests\Complex\Table\SearchRowsColumnsTests.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
     <Compile Include="Tests\Composite\FormTwoButtonsTests.cs" />
     <Compile Include="Tests\Composite\PageTests.cs" />
@@ -109,6 +110,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\JDI\Commons\JDI Commons\JDI Commons.csproj">
+      <Project>{C749644D-5901-4FD6-9ADD-06209BDC1CD2}</Project>
+      <Name>JDI Commons</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\JDI\Core\JDI Core.csproj">
       <Project>{99EE5894-9F49-43E2-A129-7916D924D49C}</Project>
       <Name>JDI Core</Name>
