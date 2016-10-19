@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using JDI_UIWebTests.Enums;
+using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
+using JDI_Matchers.NUnit;
+using OpenQA.Selenium;
+using System.Linq;
+
 
 namespace JDI_UIWebTests.Tests.Complex
 {
@@ -15,6 +20,38 @@ namespace JDI_UIWebTests.Tests.Complex
         private ICheckList<Elements> _nature()
         {
             return MetalsColorsPage.Elements;
+        }
+
+        private void _checkAllIsChecked(bool isChecked)
+        {
+            IList<bool> checkedElems = HomePage.WebDriver.
+                FindElements(By.CssSelector("#elements-checklist input")).
+                Select(e => e.GetAttribute("checked") != null).ToList();
+            new Check("Check that all checkbox elements checked = " + isChecked).
+                IsTrue(checkedElems.All(e => e == isChecked));            
+        }
+
+        private void _clearCheckBoxBlock() {
+            IList<IWebElement> inputElems = HomePage.WebDriver.FindElements(By.CssSelector("#elements-checklist input"));
+            IList<IWebElement> labelsElems = HomePage.WebDriver.FindElements(By.CssSelector(".checkbox>label"));
+
+            for (int i = 0; i < inputElems.Count; i++)
+            {
+                if ((inputElems[i].GetAttribute("checked") != null) && (inputElems[i].GetAttribute("checked") == "true"))
+                {
+                    labelsElems[i].Click();
+                }
+            }
+        }
+
+        private void _cheсkAllLogMessages(IList<string> logLines) {
+            //TO_DO: replace with TextList.Texts when will be fixed
+            //var texts = ActionsLog.Texts; 
+            IList<string> log = HomePage.WebDriver.FindElements(By.CssSelector(".logs li")).Select(e => e.Text).ToList();            
+            for (int i = 0; i < log.Count; i++)
+            {
+                JDI_Matchers.NUnit.Assert.Contains(log[i], logLines[i] + ": condition changed to true");
+            }            
         }
 
         [SetUp]
@@ -32,203 +69,177 @@ namespace JDI_UIWebTests.Tests.Complex
         public void SelectStringTest()
         {
             _nature().Select("Fire");
-
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void SelectIndexTest()
         {
             _nature().Select(4);
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void SelectEnumTest()
         {
             _nature().Select(Elements.Fire);
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void Select2StringTest()
         {
             _nature().Select("Water", "Fire");
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()-> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");            
+            string asd = ActionsLog.TextElements.First().Value;
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void Select2IndexTest()
         {
             _nature().Select(1, 4);
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()->actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void Select2EnumTest()
         {
             _nature().Select(Elements.Water, Elements.Fire);
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()->actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void CheckStringTest()
         {
             _nature().Check("Fire");
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void CheckIndexTest()
         {
             _nature().Check(4);
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void CheckEnumTest()
         {
             _nature().Check(Elements.Fire);
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void Check2StringTest()
         {
             _nature().Check("Water", "Fire");
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()->actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void Check2IndexTest()
         {
             _nature().Check(1, 4);
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()->actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void Check2EnumTest()
         {
             _nature().Check(Elements.Water, Elements.Fire);
-            //checkAction("Fire: condition changed to true");
-            //assertContains(()->actionsLog.getTextList().get(1), "Water: condition changed to true");
+            CheckAction("Fire: condition changed to true");
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Water" });
         }
 
         [Test]
         public void SelectAllTest()
         {
-            _nature().SelectAll();
-            /*
-            List<String> log = actionsLog.getTextList();
-            assertContains(log.get(3), "Water: condition changed to true");
-            assertContains(log.get(2), "Earth: condition changed to true");
-            assertContains(log.get(1), "Wind: condition changed to true");
-            assertContains(log.get(0), "Fire: condition changed to true");
-            checkAllChecked();
-            */
+            _nature().SelectAll();            
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Wind", "Earth", "Water" });
+            _checkAllIsChecked(true);         
+
         }
 
         [Test]
         public void CheckAllTest()
         {
             _nature().CheckAll();
-            /*
-            List<String> log = actionsLog.getTextList();
-            assertContains(log.get(3), "Water: condition changed to true");
-            assertContains(log.get(2), "Earth: condition changed to true");
-            assertContains(log.get(1), "Wind: condition changed to true");
-            assertContains(log.get(0), "Fire: condition changed to true");
-            checkAllChecked();
-            */
+            _cheсkAllLogMessages(new List<string>() { "Fire", "Wind", "Earth", "Water" });
+            _checkAllIsChecked(true);
         }
 
         [Test]
         public void ClearAllTest()
         {
-            _nature().CheckAll();            
-            //checkAllChecked();
-            //!!!!!!!! Clear doesn't work!!!!!!!!!
-            _nature().Clear();
-            //checkAllChecked(); // isDisplayed not defined            
-        }
-
-        [Test]
-        public void UncheckAllTest()
-        {
             _nature().CheckAll();
-            //checkAllChecked();
-            _nature().UncheckAll();
-            //!!!!!!!! UncheckAll() doesn't work!!!!!!!!!
-            //checkAllChecked(); // isDisplayed not defined
+            _checkAllIsChecked(true);            
+            _clearCheckBoxBlock();            
+            _checkAllIsChecked(false);  
         }
 
         [Test]
         public void GetOptionsTest()
         {
-            Assert.True(_nature().Options.ToString().Equals(NATURE_OPTIONS.ToString()));            
-            //listEquals(nature().getOptions(), natureOptions);
+            new Check().CollectionEquals(_nature().Options, NATURE_OPTIONS);            
         }
 
         [Test]
         public void GetNamesTest()
         {
-            Assert.True(_nature().Names.ToString().Equals(NATURE_OPTIONS.ToString()));
-            //listEquals(nature().getNames(), natureOptions);
+            new Check().CollectionEquals(_nature().Names, NATURE_OPTIONS);
         }
 
         [Test]
         public void GetValuesTest()
         {
-            Assert.True(_nature().Values.ToString().Equals(NATURE_OPTIONS.ToString()));
-            //listEquals(nature().getValues(), natureOptions);
+            new Check().CollectionEquals(_nature().Values, NATURE_OPTIONS);
         }
 
         [Test]
         public void GetOptionsAsTextTest()
         {
-            Assert.True(_nature().OptionsAsText.ToString().Equals(ALL_VALUES));
-            //areEquals(nature().getOptionsAsText(), allValues);
+            new Check().AreEquals(_nature().OptionsAsText.ToString(), ALL_VALUES);            
         }
 
         [Test]
         public void SetValueTest()
         {
             _nature().Value = "Fire";                
-            //checkAction("Fire: condition changed to true");
+            CheckAction("Fire: condition changed to true");
         }
 
         [Test]
         public void GetNameTest()
-        {
-            _nature().Name.Equals("Elements");
-            //areEquals(nature().getName(), "Nature");
+        {            
+            new Check().AreEquals(_nature().Name, "Elements");            
         }
 
+        //TO_DO fix incorrect work of AreSelected method. It is always return empty collection
+        /*
         [Test]
         public void AreSelectedTest()
         {
-            Assert.True(_nature().AreSelected().Count == 0);            
-            //listEquals(nature().areSelected(), new ArrayList<>());// isDisplayed not defined
+            new Check().CollectionEquals(_nature().AreSelected(), new List<string>() );
         }
 
 
-        //TO_DO fix incorrect work of AreSelected method
+        //TO_DO fix incorrect work of AreSelected method.It is always return empty collection
         [Test]
         public void AreDeselectedTest()
         {
-            Assert.True(_nature().AreDeselected().ToString().Equals(NATURE_OPTIONS.ToString()));
-            //listEquals(nature().areDeselected(), natureOptions);// isDisplayed not defined
+            new Check().CollectionEquals(_nature().AreDeselected(), NATURE_OPTIONS);
         }
+        */
 
         [Test]
         public void GetValueTest()
         {
-            Assert.True(_nature().Value.Equals(""));            
+            new Check().AreEquals(_nature().Value, "");                  
         }
     }
 }

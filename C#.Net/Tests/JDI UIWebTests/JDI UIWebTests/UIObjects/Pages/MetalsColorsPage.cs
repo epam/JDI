@@ -7,7 +7,6 @@ using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Selenium.Elements.Composite;
-using JDIWebTests.UIObjects.Sections;
 using OpenQA.Selenium;
 
 
@@ -33,11 +32,6 @@ namespace JDI_UIWebTests.UIObjects.Pages
         [FindBy(Css = "#elements-checklist label")]
         public CheckList<Elements> Elements;
 
-        /*
-        [FindBy(XPath = "//*[@id='elements-checklist']//*[text()='Water']")]
-        public CheckBox CbWater;
-        */
-
         [FindBy(XPath = "//*[@id='elements-checklist']//*[text()='Water']")]
         public CheckBox CbWater = new CheckBox {
             IsCheckedAction = el =>
@@ -48,7 +42,7 @@ namespace JDI_UIWebTests.UIObjects.Pages
             }
         };      
 
-        public IComboBox<Metals> ComboBox =
+        public ComboBox<Metals> ComboBox =
             new ComboBox<Metals>(By.CssSelector(".metals .caret"), By.CssSelector(".metals li span"), By.CssSelector(".metals input")) {
                 GetTextAction = c => {
                     return new Text(By.CssSelector(".metals .filter-option")).GetText;
@@ -56,6 +50,6 @@ namespace JDI_UIWebTests.UIObjects.Pages
         };
 
         [FindBy(Id = "summary-block")]
-        public Summary Summary;
+        public Summary SummaryBlock;
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using JDI_UIWebTests.Enums;
+using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Complex
 {
@@ -32,15 +34,15 @@ namespace JDI_UIWebTests.Tests.Complex
         public void SelectStringTest()
         {
             _colors().Select("Blue");
-            //checkAction("Colors: value changed to Blue");
+            CheckAction("Colors: value changed to Blue");
         }
 
         
         [Test]
         public void SelectIndexTest()
         {
-            _colors().Select(4);
-            //checkAction("Colors: value changed to Blue");
+            _colors().Select(4);            
+            CheckAction("Colors: value changed to Blue");
         }
 
         
@@ -48,39 +50,35 @@ namespace JDI_UIWebTests.Tests.Complex
         public void SelectEnumTest()
         {
             _colors().Select(Colors.Blue);
-            //checkAction("Colors: value changed to Blue");
+            CheckAction("Colors: value changed to Blue");
         }
 
         
         [Test]
         public void GetOptionsTest()
         {
-            Assert.True(_colors().Options.ToString().Equals(COLORS_OPTIONS.ToString()));
-            //listEquals(colors().getOptions(), oddOptions);
+            new Check().CollectionEquals(_colors().Options, COLORS_OPTIONS);
         }
 
         
         [Test]
         public void GetNamesTest()
         {
-            Assert.True(_colors().Names.ToString().Equals(COLORS_OPTIONS.ToString()));
-            //listEquals(colors().getNames(), oddOptions);
+            new Check().CollectionEquals(_colors().Names, COLORS_OPTIONS);            
         }
 
         
         [Test]
         public void GetValuesTest()
         {
-            Assert.True(_colors().Values.ToString().Equals(COLORS_OPTIONS.ToString()));
-            //listEquals(colors().getValues(), oddOptions);
+            new Check().CollectionEquals(_colors().Values, COLORS_OPTIONS);                        
         }
 
         
         [Test]
         public void GetOptionsAsTextTest()
         {
-            Assert.True(_colors().OptionsAsText.Equals("Colors, Red, Green, Blue, Yellow"));
-            //areEquals(colors().getOptionsAsText(), "Colors, Red, Green, Blue, Yellow");
+            new Check().AreEquals(_colors().OptionsAsText, "Colors, Red, Green, Blue, Yellow");            
         }
 
         
@@ -88,23 +86,21 @@ namespace JDI_UIWebTests.Tests.Complex
         public void SetValueTest()
         {
             _colors().Value = "Blue";
-            //checkAction("Colors: value changed to Blue");
+            CheckAction("Colors: value changed to Blue");
         }
 
         
         [Test]
         public void GetNameTest()
         {
-            Assert.True(_colors().Name.Equals("Colors"));
-            //areEquals(colors().getName(), "Colors");
+            new Check().AreEquals(_colors().Name, "Colors");            
         }
 
                 
         [Test]
         public void GetSelectedTest()
         {
-            Assert.True(_colors().Selected().ToString().Equals("Colors"));
-            //areEquals(colors().getSelected(), "Colors");
+            new Check().AreEquals(_colors().Selected().ToString(), "Colors");            
         }
 
         //TO_DO
@@ -137,8 +133,7 @@ namespace JDI_UIWebTests.Tests.Complex
         [Test]
         public void GetValueTest()
         {
-            Assert.True(_colors().Value.Equals("Colors"));
-            //areEquals(colors().getValue(), "Colors");
+            new Check().AreEquals(_colors().Value, "Colors");            
         }
         
     }

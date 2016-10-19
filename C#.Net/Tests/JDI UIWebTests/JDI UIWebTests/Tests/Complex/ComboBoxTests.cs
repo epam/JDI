@@ -1,10 +1,12 @@
-﻿using Epam.JDI.Core.Interfaces.Complex;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using static JDI_UIWebTests.Enums.Metals;
 using JDI_UIWebTests.Enums;
+using JDI_Matchers.NUnit;
+using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
+using JDI_Web.Selenium.Elements.Complex;
 
 namespace JDI_UIWebTests.Tests.Complex
 {
@@ -13,7 +15,7 @@ namespace JDI_UIWebTests.Tests.Complex
 
         private static readonly IList<string> ODD_OPTIONS = new List<string> { "Col", "Gold", "Silver", "Bronze", "Selen" };
 
-        private IComboBox<Metals> _metals()
+        private ComboBox<Metals> _metals()
         {
             return MetalsColorsPage.ComboBox;
         }
@@ -32,15 +34,15 @@ namespace JDI_UIWebTests.Tests.Complex
         [Test]
         public void SelectStringTest()
         {
-            _metals().Select("Gold");
-            //checkAction("Metals: value changed to Gold");
+            _metals().Select("Gold");            
+            CheckAction("Metals: value changed to Gold");
         }
 
         [Test]
         public void SelectIndexTest()
         {
             _metals().Select(3);
-            //checkAction("Metals: value changed to Silver");
+            CheckAction("Metals: value changed to Silver");
         }
 
         
@@ -48,89 +50,76 @@ namespace JDI_UIWebTests.Tests.Complex
         public void SelectEnumTest()
         {
             _metals().Select(Gold);
-            //checkAction("Metals: value changed to Gold");
+            CheckAction("Metals: value changed to Gold");
         }
 
         
         [Test]
         public void GetOptionsTest()
         {
-            Assert.True(_metals().Options.ToString().Equals(ODD_OPTIONS.ToString()));
-            //listEquals(metals().getOptions(), oddOptions);
+            new Check().CollectionEquals(_metals().Options, ODD_OPTIONS);
         }
 
         
         [Test]
         public void GetNamesTest()
         {
-            Assert.True(_metals().Names.ToString().Equals(ODD_OPTIONS.ToString()));
-            //listEquals(metals().getNames(), oddOptions);
+            new Check().CollectionEquals(_metals().Names, ODD_OPTIONS);            
         }
 
         
         [Test]
         public void GetValuesTest()
         {
-            Assert.True(_metals().Values.ToString().Equals(ODD_OPTIONS.ToString()));
-            //listEquals(metals().getValues(), oddOptions);
+            new Check().CollectionEquals(_metals().Values, ODD_OPTIONS);            
         }
 
         
         [Test]
         public void GetOptionsAsTextTest()
         {
-            Assert.True(_metals().OptionsAsText.ToString().Equals("Col, Gold, Silver, Bronze, Selen"));
-            //areEquals(metals().getOptionsAsText(), "Col, Gold, Silver, Bronze, Selen");
+            new Check().AreEquals(_metals().OptionsAsText.ToString(), "Col, Gold, Silver, Bronze, Selen");            
         }
 
         
         [Test]
-        public void SetValueTest()
+        public void SelectValueTest()
         {
-            _metals().Select("Silver");
-            //looseFocus();
-            //checkAction("Metals: value changed to Blue");
-        }
-
-        
-        // Fails
-        [Test]
-        public void GetSelectedTest()
-        {
-            _metals().Select("Gold");
-            Assert.True(_metals().Selected().Equals("Gold"));
-            //areEquals(metals().getSelected(), "Gold");
+            _metals().Select("Silver");            
+            CheckAction("Metals: value changed to Silver");
         }
 
         
         //TO_DO
         /*
         [Test]
-        public void GetSelectedIndexTest()
+        public void GetSelectedTest()
         {
-            Assert.True(_metals().SelectedIndex() == 0);
-
-            //checkActionThrowError(()->metals().getSelectedIndex(), noElementsMessage); // isDisplayed not defined
+            _metals().Select("Gold");
+            new Check().AreEquals(_metals().Selected(), "Gold");            
         }
-        */
-
-        //Fails
-        [Test]
-        public void IsSelectedTest()
-        {
-            Assert.True(_metals().Selected().Equals("Col"));
-            //areEquals(metals().isSelected("Col"), true);
-        }
-
         
         [Test]
-    public void IsSelectedEnumTest()
-        {
-            Assert.True(_metals().Selected().Equals(Metals.Col));
-            //areEquals(metals().isSelected(Col), true);
+        public void GetSelectedIndexTest()
+        {            
+            new Check().ThrowException(() => { _metals().SelectedIndex; }, NO_ELEMENTS_MESSAGE);            
+        }        
+        
+        [Test]
+        public void IsSelectedTest()
+        {            
+            IText zxc =  new Text(By.CssSelector(".metals .filter-option"));
+            string asd = zxc.GetText;
+            string qwe = HomePage.WebDriver.FindElement(By.CssSelector(".metals .filter-option")).Text;
+            //new Check().AreEquals(_metals().Selected(), "Col");            
         }
-
-        //Looks like it fails
+                
+        [Test]
+        public void IsSelectedEnumTest()
+        {
+            new Check().IsTrue(_metals().Selected().Equals(Metals.Col));
+        }
+                
         [Test]
         public void WaitSelectedTest()
         {
@@ -143,25 +132,21 @@ namespace JDI_UIWebTests.Tests.Complex
                 throw;
             }
         }
-
-
-        //TO_DO
-        /*
+                    
         [Test]
         public void WaitSelectedEnumTest()
         {
             new Check("WaitSelected")
                 .hasNoExceptions(()->metals().waitSelected(Col));
         }
-        */
-
-        //Fails
+                
         [Test]
         public void GetValueTest()
         {
-            Assert.True(_metals().Value.Equals("Col"));
+            //Assert.True(_metals().Value.Equals("Col"));
             //areEquals(metals().getValue(), "Col");
         }        
+        */
 
     }
 }

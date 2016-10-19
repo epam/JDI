@@ -2,6 +2,7 @@
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using Epam.JDI.Core.Interfaces.Common;
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Common
 {
@@ -30,14 +31,14 @@ namespace JDI_UIWebTests.Tests.Common
         public void InputDatePickerTest()
         {
             _datePicker.Input(DEFAULT_DATE);
-            Assert.True(_datePicker.GetText.Equals(DEFAULT_DATE));
+            new Check().AreEquals(_datePicker.GetText, DEFAULT_DATE);            
         }
 
         [Test]
         public void SendKeysDatePickerTest()
         {
             _datePicker.SendKeys(DEFAULT_DATE);
-            Assert.True(_datePicker.GetText.Equals(DEFAULT_DATE));
+            new Check().AreEquals(_datePicker.GetText, DEFAULT_DATE);            
         }
 
         [Test]
@@ -45,7 +46,7 @@ namespace JDI_UIWebTests.Tests.Common
         {
             _datePicker.SendKeys(CHECK_DATE);
             _datePicker.NewInput(DEFAULT_DATE);
-            Assert.True(_datePicker.GetText.Equals(DEFAULT_DATE));
+            new Check().AreEquals(_datePicker.GetText, DEFAULT_DATE);            
         }
 
         [Test]
@@ -53,7 +54,7 @@ namespace JDI_UIWebTests.Tests.Common
         {
             _datePicker.SendKeys(DEFAULT_DATE);
             _datePicker.Clear();
-            Assert.True(_datePicker.GetText.Equals(""));
+            new Check().AreEquals(_datePicker.GetText, "");            
         }
 
         [Test]
@@ -63,7 +64,7 @@ namespace JDI_UIWebTests.Tests.Common
             {
                 _datePicker.SendKeys(ch.ToString());
             }
-            Assert.True(_datePicker.GetText.Equals(DEFAULT_DATE));
+            new Check().AreEquals(_datePicker.GetText, DEFAULT_DATE);            
         }
 
         //TO_DO

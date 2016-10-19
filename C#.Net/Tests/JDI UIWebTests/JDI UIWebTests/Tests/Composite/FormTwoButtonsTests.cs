@@ -29,7 +29,7 @@ namespace JDI_UIWebTests.Tests.Composite
         public void SubmitSpecButtonStringTest()
         {
             _contactForm.Submit(Contact.DEFAULT_CONTACT, "calculate");
-            checkResult("Summary: 3");
+            CheckResult("Summary: 3");
         }
     }
 }

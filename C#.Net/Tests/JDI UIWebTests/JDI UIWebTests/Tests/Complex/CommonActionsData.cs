@@ -1,35 +1,35 @@
 ﻿using Epam.JDI.Core.Interfaces.Base;
-using NUnit.Framework;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using System.Collections.Generic;
-using System;
+using JDI_Matchers.NUnit;
+using OpenQA.Selenium;
 
 namespace JDI_UIWebTests.Tests.Complex
 {
     public class CommonActionsData
     {
-
+        public static readonly string NO_ELEMENTS_MESSAGE = "No elements selected. Override getSelectedAction or place locator to <select> tag";
+        
         //to check result of calculation on metals and colors page
         public static void CheckCalculate(string text)
         {
-            StringAssert.Contains(MetalsColorsPage.CalculateText.GetText, text);
+            new Check().Contains(MetalsColorsPage.CalculateText.GetText, text);            
         }
 
         public static void CheckText(IElement element, string attrName, string expectedAttrValue)
         {
-            Assert.True(element.GetAttribute(attrName).Equals(expectedAttrValue));
+            new Check().AreEquals(element.GetAttribute(attrName), expectedAttrValue);            
         }
 
         public static void CheckAction(string text)            
+        {            
+            IList<IWebElement> logOutput = HomePage.WebDriver.FindElements(By.CssSelector(".logs li"));
+            new Check().Contains(logOutput[0].Text, text);            
+        }
+
+        public static void CheckResult(string text)
         {
-            IList<string> logOutput = ActionsLog.LogList.Texts;
-            Assert.True(logOutput[0].Contains(text));
+            new Check().Contains(ContactFormPage.Result.GetText, text);              
         }
-
-        public static void checkResult(string text)
-        {         
-            Assert.True(ContactFormPage.Result.GetText.Contains(text));
-        }
-
     }
 }

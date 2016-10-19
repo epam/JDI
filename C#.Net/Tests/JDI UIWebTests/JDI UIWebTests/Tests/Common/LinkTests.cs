@@ -1,4 +1,5 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
+using JDI_Matchers.NUnit;
 using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
@@ -30,7 +31,7 @@ namespace JDI_UIWebTests.Tests.Common
         [Test]
         public void GetReferenceTest()
         {
-            Assert.True(_link.GetReference().Equals(SupportPage.Url));            
+            new Check().AreEquals(_link.GetReference(), SupportPage.Url);            
         }
 
         /*

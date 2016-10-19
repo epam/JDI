@@ -2,7 +2,7 @@
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using Epam.JDI.Core.Interfaces.Common;
-
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Common
 {
@@ -37,19 +37,19 @@ namespace JDI_UIWebTests.Tests.Common
             string _attributeName = "testAttr";
             string _value = "testValue";
             _logoImage.SetAttribute(_attributeName, _value);
-            Assert.True(_logoImage.GetAttribute(_attributeName).Equals(_value));            
+            new Check().AreEquals(_logoImage.GetAttribute(_attributeName), _value);                
         }
 
         [Test]
         public void GetSourceTest()
         {
-            Assert.True(_logoImage.GetSource().Equals(SRC));            
+            new Check().AreEquals(_logoImage.GetSource(), SRC);            
         }
 
         [Test]
         public void GetTipTest()
         {
-            Assert.True(_logoImage.GetAlt().Equals(ALT));            
+            new Check().AreEquals(_logoImage.GetAlt(), ALT);            
         }
     }
 }
