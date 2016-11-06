@@ -437,6 +437,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<ICell> CellsMatch(string regex)
         {
+            // TODO: why Collection type is used here?
             return Matches(new Collection<ICell>(GetCells()), regex);
         }
 
@@ -448,13 +449,13 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         public IList<ICell> CellsMatch(string regex, Column column)
         {
             var columnLine = Column(column);
-            return new List<ICell>(((Dictionary<string, ICell>) columnLine.Where(v => v.Key.Matches(regex))).Values);
+            return columnLine.Where(v => v.Value.Value.Matches(regex)).Select(v => v.Value).ToList();
         }
 
         public IList<ICell> CellsMatch(string regex, Row row)
         {
             var columnLine = Row(row);
-            return new List<ICell>(((Dictionary<string, ICell>) columnLine.Where(v => v.Key.Matches(regex))).Values);
+            return columnLine.Where(v => v.Value.Value.Matches(regex)).Select(v => v.Value).ToList();
         }
 
         private int GetColumnIndex(string name)
