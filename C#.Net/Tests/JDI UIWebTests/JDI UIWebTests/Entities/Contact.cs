@@ -27,7 +27,7 @@ namespace JDI_UIWebTests.Entities
             _secondSummary = secondSummary;
         }
 
-        public List<string> ToList()
+        public IList<string> ToList()
         {
             return new List<string> { FirstName, LastName, Description};
         }

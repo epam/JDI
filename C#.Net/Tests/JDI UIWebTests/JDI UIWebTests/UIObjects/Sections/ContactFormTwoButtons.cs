@@ -3,6 +3,7 @@ using JDI_UIWebTests.Entities;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Composite;
+using JDI_Web.Settings;
 using OpenQA.Selenium;
 using System.Collections.Generic;
 

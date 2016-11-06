@@ -6,6 +6,7 @@ using JDIWebTests.UIObjects.Sections;
 using System.Collections.Generic;
 using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
 using static JDI_UIWebTests.Enums.Buttons;
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Composite
 {
@@ -29,29 +30,28 @@ namespace JDI_UIWebTests.Tests.Composite
         {
             _contactForm.Fill(Contact.DEFAULT_CONTACT);            
             IList<string> filledFilds = _contactForm.GetFormValue();            
-            //TO_DO replace widt JDI matcher
-            Assert.True(filledFilds.ToString().Equals(Contact.DEFAULT_CONTACT.ToList().ToString()));            
+            new Check().CollectionEquals(filledFilds, Contact.DEFAULT_CONTACT.ToList());            
         }
 
         [Test]
         public void SubmitTest()
         {
             _contactForm.Submit(Contact.DEFAULT_CONTACT);            
-            checkResult(Contact.DEFAULT_CONTACT.ToString());
+            CheckResult(Contact.DEFAULT_CONTACT.ToString());
         }
 
         [Test]
         public void SubmitSpecButtonStringTest()
         {
             _contactForm.Submit(Contact.DEFAULT_CONTACT, "submit");
-            checkResult(Contact.DEFAULT_CONTACT.ToString());
+            CheckResult(Contact.DEFAULT_CONTACT.ToString());
         }
 
         [Test]
         public void SubmitSpecButtonEnumTest()
         {
             _contactForm.Submit(Contact.DEFAULT_CONTACT, SUBMIT);
-            checkResult(Contact.DEFAULT_CONTACT.ToString());
+            CheckResult(Contact.DEFAULT_CONTACT.ToString());
         }
 
         [Test]
@@ -60,26 +60,24 @@ namespace JDI_UIWebTests.Tests.Composite
             _contactForm.Submit(Contact.DEFAULT_CONTACT.FirstName);
             string s = string.Format("Summary: 3\r\nName: {0}",
                          Contact.DEFAULT_CONTACT.FirstName);
-            checkResult(s);
+            CheckResult(s);
         }
 
         [Test]
         public void VerifyTest()
         {
-            _contactForm.Fill(Contact.DEFAULT_CONTACT);
-            //TO_DO use is empty JDI matcher            
-            Assert.True(_contactForm.Verify(Contact.DEFAULT_CONTACT).Count == 0);           
+            _contactForm.Fill(Contact.DEFAULT_CONTACT);            
+            new Check().IsTrue(_contactForm.Verify(Contact.DEFAULT_CONTACT).Count == 0);            
         }
 
-        //TO_DO
-        /*
+ 
         [Test]
         public void checkTest()
         {
             _contactForm.Fill(Contact.DEFAULT_CONTACT);
-            HasNoExceptions(_contactForm.Check(Contact.DEFAULT_CONTACT));
+            new Check().HasNoException(() => _contactForm.Check(Contact.DEFAULT_CONTACT));            
         }
-        */
+ 
 
     }
 }

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace JDI_UIWebTests.Enums
 {
-    public enum Buttons
+    public enum Odds
     {
-        SUBMIT,
-        CALCULATE
+        ONE = 1,
+        THREE = 3,
+        FIVE = 5,
+        SEVEN = 7
     }
 }

@@ -2,6 +2,7 @@
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using OpenQA.Selenium;
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Composite
 {
@@ -23,9 +24,9 @@ namespace JDI_UIWebTests.Tests.Composite
         public void RefreshTest()
         {
             ContactFormPage.ContactSubmit.Click();
-            Assert.True(ContactFormPage.Result.GetText.Equals("Summary: 3"));
+            new Check().AreEquals(ContactFormPage.Result.GetText, "Summary: 3");            
             ContactFormPage.Refresh();
-            Assert.True(ContactFormPage.Result.GetText.Equals(""));
+            new Check().AreEquals(ContactFormPage.Result.GetText, "");            
             ContactFormPage.CheckOpened();            
         }
 
@@ -53,11 +54,11 @@ namespace JDI_UIWebTests.Tests.Composite
         [Test]
         public void AddCookieTest()
         {
-            HomePage.WebDriver.Manage().Cookies.DeleteAllCookies();            
-            Assert.True(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);                        
+            HomePage.WebDriver.Manage().Cookies.DeleteAllCookies();
+            new Check().IsTrue(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);                                 
             Cookie cookie = new Cookie("key", "value");
             ContactFormPage.AddCookie(cookie);
-            Assert.True(HomePage.WebDriver.Manage().Cookies.GetCookieNamed(cookie.Name).Value.Equals(cookie.Value));            
+            new Check().AreEquals(HomePage.WebDriver.Manage().Cookies.GetCookieNamed(cookie.Name).Value, cookie.Value);            
         }
 
 
@@ -67,9 +68,9 @@ namespace JDI_UIWebTests.Tests.Composite
         {
             Cookie cookie = new Cookie("key", "value");
             HomePage.WebDriver.Manage().Cookies.AddCookie(cookie);
-            Assert.False(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);
+            new Check().IsFalse(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);            
             ContactFormPage.ClearCache();
-            Assert.True(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);                        
+            new Check().IsTrue(HomePage.WebDriver.Manage().Cookies.AllCookies.Count == 0);                                 
         }
         
         [Test]
