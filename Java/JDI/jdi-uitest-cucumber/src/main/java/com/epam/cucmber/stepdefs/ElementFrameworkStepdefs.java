@@ -16,7 +16,7 @@ public class ElementFrameworkStepdefs {
         ((IElement) Utils.getClassField(WebPage.currentPage, fieldName)).setAttribute(attributeName, attributeValue);
     }
 
-    @Then("^Element \"([^\"]*)\" has attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
+    @Then("^Element \"([^\"]*)\" has /attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
     public void elementHasAttributeWithValue(String fieldName, String attributeName, String attributeValue) throws Throwable {
         Assert.assertTrue(((IElement) Utils.getClassField(WebPage.currentPage, fieldName)).getAttribute(attributeName).equals(attributeValue));
     }
