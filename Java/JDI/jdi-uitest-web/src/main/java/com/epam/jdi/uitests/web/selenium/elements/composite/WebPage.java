@@ -186,7 +186,7 @@ public class WebPage extends BaseElement implements IPage {
      */
     @JDIAction
     public void addCookie(Cookie cookie) {
-        invoker.doJAction("Go forward to next page",
+        invoker.doJAction("Add cookie",
                 () -> getDriver().manage().addCookie(cookie));
     }
 
@@ -195,7 +195,7 @@ public class WebPage extends BaseElement implements IPage {
      */
     @JDIAction
     public void clearCache() {
-        invoker.doJAction("Go forward to next page",
+        invoker.doJAction("Delete all cookies",
                 () -> getDriver().manage().deleteAllCookies());
     }
 
