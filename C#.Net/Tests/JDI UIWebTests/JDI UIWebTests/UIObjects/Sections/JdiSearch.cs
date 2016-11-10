@@ -1,6 +1,9 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
 using JDI_Web.Attributes;
+using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Composite;
+using OpenQA.Selenium;
+using System;
 
 namespace JDI_UIWebTests.UIObjects.Sections
 {

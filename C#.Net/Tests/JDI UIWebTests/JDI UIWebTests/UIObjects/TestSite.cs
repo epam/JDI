@@ -1,6 +1,7 @@
 ﻿using JDI_UIWebTests.UIObjects.Pages;
 using JDI_UIWebTests.UIObjects.Sections;
 using JDI_Web.Attributes;
+using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Selenium.Elements.Composite;
 using JDIWebTests.UIObjects.Sections;
 
@@ -40,8 +41,7 @@ namespace JDI_UIWebTests.UIObjects
         [FindBy(Css = "form.form-horizontal")]
         public static LoginForm LoginForm;
 
-        [FindBy(Css = ".panel-body-list.logs")]
-        public static Log ActionsLog;
-
+        [FindBy(Css = ".logs li")]
+        public static TextList ActionsLog;
     }
 }

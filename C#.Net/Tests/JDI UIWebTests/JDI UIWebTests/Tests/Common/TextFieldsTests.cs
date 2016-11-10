@@ -3,6 +3,7 @@ using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using JDI_UIWebTests.Entities;
 using System;
+using JDI_Matchers.NUnit;
 
 namespace JDI_UIWebTests.Tests.Common
 {
@@ -32,7 +33,7 @@ namespace JDI_UIWebTests.Tests.Common
         public void InputTest()
         {
             ContactFormPage.NameField.Input(TO_ADD_TEXT);
-            Assert.True(ContactFormPage.NameField.GetText.Equals(DEFAULT_TEXT + TO_ADD_TEXT));
+            new Check().AreEquals(ContactFormPage.NameField.GetText, DEFAULT_TEXT + TO_ADD_TEXT);            
         }
 
 
@@ -40,21 +41,21 @@ namespace JDI_UIWebTests.Tests.Common
         public void SendKeyTest()
         {
             ContactFormPage.NameField.SendKeys(TO_ADD_TEXT);
-            Assert.True(ContactFormPage.NameField.GetText.Equals(DEFAULT_TEXT + TO_ADD_TEXT));
+            new Check().AreEquals(ContactFormPage.NameField.GetText, DEFAULT_TEXT + TO_ADD_TEXT);            
         }
 
         [Test]
         public void NewInputTest()
         {
             ContactFormPage.NameField.NewInput(TO_ADD_TEXT);
-            Assert.True(ContactFormPage.NameField.GetText.Equals(TO_ADD_TEXT));
+            new Check().AreEquals(ContactFormPage.NameField.GetText, TO_ADD_TEXT);            
         }
 
         [Test]
         public void ClearTest()
         {
             ContactFormPage.NameField.Clear();
-            Assert.True(ContactFormPage.NameField.GetText.Equals(""));
+            new Check().AreEquals(ContactFormPage.NameField.GetText, "");            
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace JDI_UIWebTests.Tests.Common
             {
                 ContactFormPage.NameField.SendKeys(letter.ToString());
             }
-            Assert.True(ContactFormPage.NameField.GetText.Equals(DEFAULT_TEXT + TO_ADD_TEXT));
+            new Check().AreEquals(ContactFormPage.NameField.GetText, DEFAULT_TEXT + TO_ADD_TEXT);            
         }
 
         //TO_DO

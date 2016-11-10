@@ -146,6 +146,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table.Interfaces
 
         Columns Columns { get; }
 
+        Rows Rows { get; }
+
         /**
          * Get Column with index <br>
          * Each Column is map: rowName:cell

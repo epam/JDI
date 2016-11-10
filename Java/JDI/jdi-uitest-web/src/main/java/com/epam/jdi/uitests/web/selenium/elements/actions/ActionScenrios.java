@@ -44,7 +44,7 @@ public class ActionScenrios {
     public static JActionTTTT<BaseElement, String, JAction, LogLevels> actionScenario =
             (element, actionName, jAction, level) -> {
         element.logAction(actionName, level);
-        new Timer(timeouts.currentTimeoutSec).wait(() -> {
+        new Timer(timeouts.currentTimeoutSec * 1000).wait(() -> {
             jAction.invoke();
             return true;
         });
@@ -62,7 +62,7 @@ public class ActionScenrios {
         Timer timer = new Timer();
         Object result;
         try {
-            result = new Timer(timeouts.currentTimeoutSec)
+            result = new Timer(timeouts.currentTimeoutSec * 1000)
                     .getResultByCondition(jAction::get, res -> true);
         } catch (Exception | Error ex) {
             throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());

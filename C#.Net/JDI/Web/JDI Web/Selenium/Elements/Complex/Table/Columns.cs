@@ -65,7 +65,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             return GetColumn(colName).ToDictionary(pair => pair.Key, pair => pair.Value.GetText);
         }
 
-        public Dictionary<string, ICell> CellsToColumn(Collection<ICell> cells)
+        public Dictionary<string, ICell> CellsToColumn(IEnumerable<ICell> cells)
         {
             return cells.ToDictionary(cell => Headers[cell.RowNum - 1], cell => cell);
         }

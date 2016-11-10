@@ -6,7 +6,7 @@ using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JDI_Tests.Tests
+namespace JDI_Tests.Tests.Epam
 {
     [TestClass]
     public class MSTestBase

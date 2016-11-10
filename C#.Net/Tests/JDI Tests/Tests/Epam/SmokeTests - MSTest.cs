@@ -3,7 +3,7 @@ using JDI_Tests.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static JDI_Tests.Epam_UIObjects.EpamSite;
 
-namespace JDI_Tests.Tests
+namespace JDI_Tests.Tests.Epam
 {
     [TestClass]
     public class SmokeTestsMSTest
