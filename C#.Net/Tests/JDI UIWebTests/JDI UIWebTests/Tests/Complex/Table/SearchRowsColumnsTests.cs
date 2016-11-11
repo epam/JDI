@@ -10,7 +10,7 @@ namespace JDI_UIWebTests.Tests.Complex.Table
     [TestFixture]
     public class SearchRowsColumnsTests : SupportTableTestBase
     {
-        private static string _expectedColumn2 =
+        private static readonly string _expectedColumn2 =
             "1:Selenium, Custom, " +
             "2:TestNG, JUnit, Custom, " +
             "3:TestNG, JUnit, Custom, " +
@@ -18,7 +18,7 @@ namespace JDI_UIWebTests.Tests.Complex.Table
             "5:Jenkins, Allure, Custom, " +
             "6:Custom";
 
-        private static string _expectedRow2 =
+        private static readonly string _expectedRow2 =
             "Type:Test Runner, " +
             "Now:TestNG, JUnit, Custom, " +
             "Plans:MSTest, NUnit, Epam";

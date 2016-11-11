@@ -79,6 +79,7 @@
     <Compile Include="Tests\Complex\ComboBoxTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
     <Compile Include="Tests\Complex\DropdownExpandedTests.cs" />
+    <Compile Include="Tests\Complex\DropdownTests.cs" />
     <Compile Include="Tests\Complex\RadioButtonsTests.cs" />
     <Compile Include="Tests\Complex\Table\Base\SupportTableTestBase.cs" />
     <Compile Include="Tests\Complex\Table\SearchCellsTests.cs" />
