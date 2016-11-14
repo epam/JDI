@@ -48,6 +48,10 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
     public ComboBox(By selectorLocator, By optionsNamesLocatorTemplate, By valueLocator) {
         super(selectorLocator, optionsNamesLocatorTemplate);
         textField = new GetElementType(valueLocator, this);
+        // need Roman's code reviews
+        if (expander == null) {
+            expander = new GetElementType(selectorLocator, this);
+        }
     }
 
     public ComboBox(By selectorLocator, By optionsNamesLocatorTemplate, By valueLocator, By allOptionsNamesLocator) {
