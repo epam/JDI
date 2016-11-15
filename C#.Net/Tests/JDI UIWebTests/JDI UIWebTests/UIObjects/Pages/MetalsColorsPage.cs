@@ -44,10 +44,8 @@ namespace JDI_UIWebTests.UIObjects.Pages
 
         public ComboBox<Metals> ComboBox =
             new ComboBox<Metals>(By.CssSelector(".metals .caret"), By.CssSelector(".metals li span"), By.CssSelector(".metals input")) {
-                GetTextAction = c => {
-                    return new Text(By.CssSelector(".metals .filter-option")).GetText;
-                }
-        };
+                GetTextAction = c => new Text(By.CssSelector(".metals .filter-option")).GetText
+            };
 
         [FindBy(Id = "summary-block")]
         public Summary SummaryBlock;
