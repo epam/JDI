@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JDI_UIWebTests.Tests.Complex.Table.Base;
+﻿using JDI_UIWebTests.Tests.Complex.Table.Base;
 using JDI_Web.Selenium.Elements.Complex.Table;
 using NUnit.Framework;
 using Assert = JDI_Matchers.NUnit.Assert;
 
 namespace JDI_UIWebTests.Tests.Complex.Table
 {
+    [TestFixture]
     class GetCellTests : SupportTableTestBase
     {
         private readonly string _cellValue = "Log4J, TestNG log, Custom";

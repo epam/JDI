@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataProviders\IndexesProvider.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Buttons.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Tests\Complex\SelectorTests.cs" />
     <Compile Include="Tests\Complex\Table\Base\SupportTableTestBase.cs" />
     <Compile Include="Tests\Complex\Table\GetCellTests.cs" />
+    <Compile Include="Tests\Complex\Table\NegativeTableTests.cs" />
     <Compile Include="Tests\Complex\Table\SearchCellsTests.cs" />
     <Compile Include="Tests\Complex\Table\SearchRowsColumnsTests.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
