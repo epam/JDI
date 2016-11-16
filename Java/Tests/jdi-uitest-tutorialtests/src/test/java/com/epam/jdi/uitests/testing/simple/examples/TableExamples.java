@@ -39,6 +39,32 @@ public class TableExamples extends TestsBase {
 
         jobDescriptionPage.checkOpened();
     }
+    @Test
+    public void searchContainsInTableExample() {
+        jobListingPage.jobsList
+                .rowContains("Automation Engineer", inColumn("JOB_NAME"))
+                .get("APPLY").select();
+
+        jobDescriptionPage.checkOpened();
+    }
+    @Test
+    public void searchMatchInTableExample() {
+        jobListingPage.jobsList
+                .rowMatch(".+ Automation Engineer", inColumn("JOB_NAME"))
+                .get("APPLY").select();
+
+        jobDescriptionPage.checkOpened();
+    }
+    @Test
+    public void searchContainsListInTableExample() {
+        MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
+                "JOB_NAME~=Automation Engineer",
+                "JOB_CATEGORY*=.*Test Engineering")
+                .first().value;
+
+        Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("JOB_CATEGORY").getText(), "Software Test Engineering");
+    }
 
     @Test
     public void searchByMultiCriteriaInTableExample() {
@@ -47,6 +73,7 @@ public class TableExamples extends TestsBase {
                 "JOB_CATEGORY=Software Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("JOB_LOCATION").getText(), "St-Petersburg, Russia");
+        Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("JOB_CATEGORY").getText(), "Software Test Engineering");
     }
 }

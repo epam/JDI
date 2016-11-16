@@ -16,7 +16,7 @@ public class CareerTests extends TestsBase {
     public void sendCVTest(Attendee attendee) {
         multipleHeaderMenu.hoverAndClick(SOLUTIONS + "|" + "Product Development");
         productDevelopmentPage.checkOpened();
-        headerMenu.select(CAREERS);
+        headerMenu.select("CAREERS");
         careerPage.checkOpened();
         careerPage.jobFilter.search(attendee.filter);
         jobListingPage.checkOpened();

@@ -25,12 +25,15 @@ import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import org.apache.xpath.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
@@ -38,6 +41,7 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -327,6 +331,9 @@ public class Table extends Text implements ITable, Cloneable {
                 row.get(name -> name, num -> ""));
     }
 
+    private List<ICell> contains(Collection<ICell> list, String value) {
+        return new ArrayList<>(where(list, cell -> cell.getValue().contains(value)));
+    }
     private List<ICell> matches(Collection<ICell> list, String regex) {
         return new ArrayList<>(where(list, cell -> cell.getValue().matches(regex)));
     }
@@ -335,6 +342,9 @@ public class Table extends Text implements ITable, Cloneable {
         return new ArrayList<>(where(getCells(), cell -> cell.getValue().equals(value)));
     }
 
+    public List<ICell> cellsContains(String value) {
+        return contains(getCells(), value);
+    }
     public List<ICell> cellsMatch(String regex) {
         return matches(getCells(), regex);
     }
@@ -358,28 +368,56 @@ public class Table extends Text implements ITable, Cloneable {
         }
         return null;
     }
+    public MapArray<String, MapArray<String, ICell>> rows(String value, Column column) {
+        return rows().withValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsContains(String value, Column column) {
+        return rows().containsValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column) {
+        return rows().matchesRegEx(regEx, column);
+    }
 
     public MapArray<String, MapArray<String, ICell>> rows(String... colNameValues) {
+        List<TableFilter> filters = new ArrayList<>();
+        for (String colNameValue : colNameValues)
+            filters.add(new TableFilter(colNameValue));
+
+        boolean matches = false;
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
-            boolean matches = true;
-            for (String colNameValue : colNameValues) {
-                if (!colNameValue.matches("[^=]+=[^=]*"))
-                    throw exception("Wrong searchCriteria for Cells: " + colNameValue);
-                String[] splitted = colNameValue.split("=");
-                String colName = splitted[0];
-                String colValue = splitted[1];
-                ICell cell = row.value.get(colName);
-                if (cell == null || !cell.getValue().equals(colValue)) {
-                    matches = false;
-                    break;
+            for (TableFilter filter : filters) {
+                ICell cell = row.value.get(filter.name);
+                if (cell == null)
+                    throw exception(format("Search rows for '%s' failed. Can't get cell for column named %s",
+                            print(colNameValues), filter.name));
+                switch (filter.type) {
+                    case EQUAL:
+                        matches = cell.getValue().equals(filter.value);
+                        break;
+                    case CONTAINS:
+                        matches = cell.getValue().contains(filter.value);
+                        break;
+                    default:
+                        matches = cell.getValue().matches(filter.value);
+                        break;
                 }
+                if (!matches) break;
             }
             if (matches) result.add(row);
         }
         return result;
     }
 
+    public MapArray<String, MapArray<String, ICell>> columns(String value, Row row) {
+        return columns().withValue(value, row);
+    }
+    public MapArray<String, MapArray<String, ICell>> columnsContains(String value, Row row) {
+        return columns().containsValue(value, row);
+    }
+    public MapArray<String, MapArray<String, ICell>> columnsMatches(String regEx, Row row) {
+        return columns().matchesRegEx(regEx, row);
+    }
     public MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues) {
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> column : columns().get()) {
@@ -425,10 +463,21 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ICell cell(String value, Row row) {
-        int rowNum = (row.hasName())
+        int rowNum = row.hasName()
                 ? rows().headers().indexOf(row.getName()) + 1
                 : row.getNum();
         return rows().getRow(rowNum).first((name, cell) -> cell.getValue().equals(value));
+    }
+    public ICell cellContains(String value, Row row) {
+        int rowNum = row.hasName()
+                ? rows().headers().indexOf(row.getName()) + 1
+                : row.getNum();
+        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Row row) {
+        MapArray<String, ICell> rowLine = row(row);
+        List<ICell> cells =  matches(rowLine.values(), regex);
+        return cells.size() > 0 ? cells.get(0) : null;
     }
 
     public ICell cell(String value, Column column) {
@@ -436,6 +485,17 @@ public class Table extends Text implements ITable, Cloneable {
                 name -> columns().headers().indexOf(name) + 1,
                 num -> num);
         return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().equals(value));
+    }
+    public ICell cellContains(String value, Column column) {
+        int colIndex = column.get(
+                name -> columns().headers().indexOf(name) + 1,
+                num -> num);
+        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Column column) {
+        MapArray<String, ICell> columnLine = column(column);
+        List<ICell> cells = matches(columnLine.values(), regex);
+        return cells.size() > 0 ? cells.get(0) : null;
     }
 
     public List<ICell> cellsMatch(String regex, Column column) {
@@ -452,9 +512,25 @@ public class Table extends Text implements ITable, Cloneable {
         ICell columnCell = cell(value, row);
         return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
     }
+    public MapArray<String, ICell> columnContains(String value, Row row) {
+        ICell columnCell = cellContains(value, row);
+        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+    }
+    public MapArray<String, ICell> columnMatch(String regEx, Row row) {
+        ICell columnCell = cellMatch(regEx, row);
+        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+    }
 
     public MapArray<String, ICell> row(String value, Column column) {
         ICell rowCell = cell(value, column);
+        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+    }
+    public MapArray<String, ICell> rowContains(String value, Column column) {
+        ICell rowCell = cellContains(value, column);
+        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+    }
+    public MapArray<String, ICell> rowMatch(String regEx, Column column) {
+        ICell rowCell = cellMatch(regEx, column);
         return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
     }
 

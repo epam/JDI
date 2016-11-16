@@ -56,7 +56,8 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     public Dropdown(By selectLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.element = new GetElementType(selectLocator, this);
+        element = new GetElementType(selectLocator, this);
+        expander = new GetElementType(selectLocator, this);
     }
 
     public void setUp(By root, By value, By list, By expand, By elementByName) {

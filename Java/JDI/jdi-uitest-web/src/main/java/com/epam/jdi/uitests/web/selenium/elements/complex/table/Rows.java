@@ -21,14 +21,20 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.settings.WebSettings.*;
+import static java.util.concurrent.TimeUnit.*;
 
 /**
  * Created by 12345 on 26.10.2014.
@@ -100,6 +106,23 @@ public class Rows extends TableLine {
 
     public final MapArray<String, String> getRowAsText(int rowNum) {
         return getRow(rowNum).toMapArray(IText::getText);
+    }
+
+    private MapArray<String, MapArray<String, ICell>> withValueByRule(Column column,
+           BiFunction<String, String, Boolean> func) {
+        Collection<String> rowNames = column.hasName()
+                ? table.columns().getColumnAsText(column.getName()).where(func).keys()
+                : table.columns().getColumnAsText(column.getNum()).where(func).keys();
+        return new MapArray<>(rowNames, key -> key, this::getRow);
+    }
+    public final MapArray<String, MapArray<String, ICell>> withValue(String value, Column column) {
+        return withValueByRule(column, (key, val) -> val.equals(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> containsValue(String value, Column column) {
+        return withValueByRule(column, (key, val) -> val.contains(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> matchesRegEx(String regEx, Column column) {
+        return withValueByRule(column, (key, val) -> val.matches(regEx));
     }
 
     public final MapArray<String, ICell> getRow(String rowName) {

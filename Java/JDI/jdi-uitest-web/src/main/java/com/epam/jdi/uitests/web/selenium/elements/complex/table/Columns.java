@@ -26,6 +26,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -79,6 +80,23 @@ public class Columns extends TableLine {
         return new MapArray<>(cells,
                 cell -> headers().get(cell.rowNum() - 1),
                 cell -> cell);
+    }
+
+    private MapArray<String, MapArray<String, ICell>> withValueByRule(Row row,
+        BiFunction<String, String, Boolean> func) {
+        Collection<String> rowNames = row.hasName()
+                ? table.rows().getRowAsText(row.getName()).where(func).keys()
+                : table.rows().getRowAsText(row.getNum()).where(func).keys();
+        return new MapArray<>(rowNames, key -> key, this::getColumn);
+    }
+    public final MapArray<String, MapArray<String, ICell>> withValue(String value, Row row) {
+        return withValueByRule(row, (key, val) -> val.equals(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> containsValue(String value, Row row) {
+        return withValueByRule(row, (key, val) -> val.contains(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> matchesRegEx(String regEx, Row row) {
+        return withValueByRule(row, (key, val) -> val.matches(regEx));
     }
 
     public final MapArray<String, ICell> getColumn(int colNum) {
