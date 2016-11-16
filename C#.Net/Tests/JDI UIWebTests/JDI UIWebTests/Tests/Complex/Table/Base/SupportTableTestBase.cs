@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
+﻿using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;

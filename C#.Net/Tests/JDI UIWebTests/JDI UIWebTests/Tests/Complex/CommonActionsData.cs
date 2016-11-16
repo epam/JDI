@@ -1,7 +1,8 @@
 ﻿using System;
-using Epam.JDI.Core.Interfaces.Base;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Epam.JDI.Core.Settings;
 using JDI_Matchers.NUnit;
 using OpenQA.Selenium;
@@ -10,8 +11,8 @@ namespace JDI_UIWebTests.Tests.Complex
 {
     public class CommonActionsData
     {
-        // TODO: ? change to readonly
         public static string NoElementsMessage => "No elements selected. Override getSelectedAction or place locator to <select> tag";
+        public static int WaitTimeout => 1000;
 
         /// <summary>
         /// Check result of calculation on "Metals and Colors" page
@@ -22,9 +23,9 @@ namespace JDI_UIWebTests.Tests.Complex
             new Check().Contains(MetalsColorsPage.CalculateText.GetText, text);            
         }
 
-        public static void CheckText(IElement element, string attrName, string expectedAttrValue)
+        public static void CheckText(Func<string> func, string expectedAttrValue)
         {
-            new Check().AreEquals(element.GetAttribute(attrName), expectedAttrValue);            
+            Assert.AreEquals(func(), expectedAttrValue);
         }
 
         public static void CheckAction(string text)            
@@ -50,6 +51,15 @@ namespace JDI_UIWebTests.Tests.Complex
                 return;
             }
             throw JDISettings.Exception("Exception not thrown");
+        }
+
+        public static void RunParallel(Action action)
+        {
+            Task.Run(() =>
+            {
+                Thread.Sleep(WaitTimeout);
+                action();
+            });
         }
     }
 }

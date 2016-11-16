@@ -1,8 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Epam.JDI.Core.Interfaces.Base;
+using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using Epam.JDI.Core.Interfaces.Common;
 using JDI_UIWebTests.Tests.Complex;
+using JDI_Web.Selenium.Base;
 
 namespace JDI_UIWebTests.Tests.Common
 {
@@ -56,7 +58,7 @@ namespace JDI_UIWebTests.Tests.Common
             string attributeName = "testAttr";
             string value = "testValue";
             _textItem.SetAttribute(attributeName, value);
-            CommonActionsData.CheckText(_textItem, attributeName, value);
+            CommonActionsData.CheckText(() => _textItem.GetAttribute(attributeName), value);
         }
     }
 }
