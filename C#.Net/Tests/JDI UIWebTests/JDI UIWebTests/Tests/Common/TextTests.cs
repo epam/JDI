@@ -1,17 +1,15 @@
-﻿using Epam.JDI.Core.Interfaces.Base;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using Epam.JDI.Core.Interfaces.Common;
-using JDI_UIWebTests.Tests.Complex;
-using JDI_Web.Selenium.Base;
+using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
+using Assert = JDI_Matchers.NUnit.Assert;
 
 namespace JDI_UIWebTests.Tests.Common
 {
     [TestFixture]
     public class TextTests
     {
-
         private IText _textItem = HomePage.Text;
         private string _expectedText = ("Lorem ipsum dolor sit amet, consectetur adipisicing elit,"
             + " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -31,25 +29,41 @@ namespace JDI_UIWebTests.Tests.Common
 
         [Test]
         public void GetTextTest() {
-            StringAssert.AreEqualIgnoringCase(HomePage.Text.GetText, _expectedText);            
+            Assert.AreEquals(_textItem.GetText, _expectedText);
         }
 
         [Test]
-        public void ValueTest()
+        public void GetValueTest()
         {
-            StringAssert.AreEqualIgnoringCase(HomePage.Text.Value, _expectedText);            
+            Assert.AreEquals(_textItem.Value, _expectedText);
         }
         
         [Test]
         public void WaitMatchTest()
         {
-            StringAssert.AreEqualIgnoringCase(HomePage.Text.WaitMatchText(_regEx), _expectedText);
+            Assert.AreEquals(_textItem.WaitMatchText(_regEx), _expectedText);
+        }
+
+        [Test]
+        public void WaitMatchTextParallelTest()
+        {
+            SupportPage.IsOpened();
+            RunParallel(() => HomePage.IsOpened());
+            Assert.AreEquals(_textItem.WaitMatchText(_regEx), _expectedText);
         }
 
         [Test]
         public void WaitText()
         {
-            StringAssert.AreEqualIgnoringCase(HomePage.Text.WaitText(_contains), _expectedText);
+            Assert.AreEquals(_textItem.WaitText(_contains), _expectedText);
+        }
+
+        [Test]
+        public void WaitTextParallelTest()
+        {
+            SupportPage.IsOpened();
+            RunParallel(() => HomePage.IsOpened());
+            Assert.AreEquals(_textItem.WaitText(_contains), _expectedText);
         }
 
         [Test]
@@ -58,7 +72,7 @@ namespace JDI_UIWebTests.Tests.Common
             string attributeName = "testAttr";
             string value = "testValue";
             _textItem.SetAttribute(attributeName, value);
-            CommonActionsData.CheckText(() => _textItem.GetAttribute(attributeName), value);
+            CheckText(() => _textItem.GetAttribute(attributeName), value);
         }
     }
 }

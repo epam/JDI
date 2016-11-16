@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JDI_Matchers.NUnit;
+﻿using JDI_Matchers.NUnit;
 using JDI_UIWebTests.Tests.Complex.Table.Base;
 using JDI_Web.Selenium.Elements.Complex.Table;
 using NUnit.Framework;
