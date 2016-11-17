@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.sections;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
+import com.epam.jdi.uitests.testing.unittests.enums.Even;
 import com.epam.jdi.uitests.testing.unittests.enums.Odds;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
@@ -32,7 +33,7 @@ public class Summary extends Section {
         }
     };
     @FindBy(css = "#even-selector p")
-    public Selector even;
+    public Selector<Even> even;
     @FindBy(id = "calculate-button")
     public IButton calculate;
 

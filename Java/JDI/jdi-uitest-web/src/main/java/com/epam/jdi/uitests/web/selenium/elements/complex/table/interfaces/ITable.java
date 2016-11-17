@@ -63,6 +63,35 @@ public interface ITable extends IText {
     List<ICell> cells(String value);
 
     /**
+     * Get first Cell in row with value contains expected value
+     */
+    @JDIAction
+    ICell cellContains(String value, Row row);
+
+    /**
+     * Get first Cell in row with value match expected regEx
+     */
+    @JDIAction
+    ICell cellMatch(String regex, Row row);
+
+    /**
+     * Get first Cell in column with value contains expected value
+     */
+    @JDIAction
+    ICell cellContains(String value, Column column);
+
+    /**
+     * Get first Cell in column with value match expected regEx
+     */
+    @JDIAction
+    ICell cellMatch(String regex, Column column);
+    /**
+     * Get all Cells with values contains expected value
+     */
+    @JDIAction
+    List<ICell> cellsContains(String value);
+
+    /**
      * Get all Cells with values matches to searched regex
      */
     @JDIAction
@@ -88,6 +117,9 @@ public interface ITable extends IText {
     @JDIAction
     MapArray<String, MapArray<String, ICell>> rows(String... colNameValues);
 
+    MapArray<String, MapArray<String, ICell>> rows(String value, Column column);
+    MapArray<String, MapArray<String, ICell>> rowsContains(String value, Column column);
+    MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column);
     /**
      * Searches Columns in table matches specified criteria rowNameValues - list of search criteria in format rowName=rowValue<br>
      * e.g. columns("Total=100", "Count=10") <br>
@@ -95,6 +127,10 @@ public interface ITable extends IText {
      */
     @JDIAction
     MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues);
+
+    MapArray<String, MapArray<String, ICell>> columns(String value, Row row);
+    MapArray<String, MapArray<String, ICell>> columnsContains(String value, Row row);
+    MapArray<String, MapArray<String, ICell>> columnsMatches(String regEx, Row row);
 
     /**
      * Waits while value appear in Row <br>
@@ -179,6 +215,38 @@ public interface ITable extends IText {
      */
     @JDIAction
     MapArray<String, ICell> column(String value, Row row);
+    /**
+     * Get Column cells for Cell with searched value contains in Row's values by index(Int) or name(String) <br>
+     * e.g. columnContains("Framewo", row("Total") <br>
+     * or   columnContains("mwork", row(5)) <br>
+     * Each Column is map: rowName:cell
+     */
+    @JDIAction
+    MapArray<String, ICell> columnContains(String value, Row row);
+    /**
+     * Get Column cells for Cell with Row's values match regEx by index(Int) or name(String) <br>
+     * e.g. columnContains(".*work", row("Total") <br>
+     * or   columnContains("Frame.+ork", row(5)) <br>
+     * Each Column is map: rowName:cell
+     */
+    @JDIAction
+    MapArray<String, ICell> columnMatch(String regEx, Row row);
+    /**
+     * Get Column cells for Cell with searched value contains in Column's values by index(Int) or name(String) <br>
+     * e.g. row("Framewo", column("Name")) <br>
+     * or   row("mwork", column(3)) <br>
+     * Each Row is map: columnName:cell
+     */
+    @JDIAction
+    MapArray<String, ICell> rowContains(String value, Column column);
+    /**
+     * Get Column cells for Cell with Column's values match regEx by index(Int) or name(String) <br>
+     * e.g. row(".*work", column("Name")) <br>
+     * or   row("Frame.+ork", column(3)) <br>
+     * Each Row is map: columnName:cell
+     */
+    @JDIAction
+    MapArray<String, ICell> rowMatch(String regEx, Column column);
 
     Rows rows();
 

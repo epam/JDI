@@ -32,8 +32,10 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -72,15 +74,15 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(String lineName) {
-        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
-            return getElementByTemplate(lineName);
         int index = getIndex(headers(), lineName) + 1;
+        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
+            return getElementByTemplate(index);
         return (lineTemplate == null)
                 ? getLineAction(index)
                 : getElementByTemplate(index);
     }
     private List<WebElement> getElementByTemplate(Object value) {
-        By locator = fillByTemplate((lineTemplate != null)
+        By locator = fillByTemplate(lineTemplate != null
                 ? lineTemplate
                 : defaultTemplate, value);
         return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
@@ -88,9 +90,11 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     protected int getCount(boolean acceptEmpty)
     {
+        table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
         List<WebElement> elements = getHeadersAction();
         if (elements.size() == 0)
             elements = getFirstLine();
+        table.getDriver().manage().timeouts().implicitlyWait(timeouts.currentTimeoutSec, SECONDS);
         if (!acceptEmpty)
             elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0

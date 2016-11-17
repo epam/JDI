@@ -34,15 +34,18 @@ public class EpamSite extends WebSite {
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
-    @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
+    @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
+            urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
+
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
+
     @JMenu(levelLocators = {
         @FindBy(css = ".tile-menu>li>a"),
         @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
     })
-    public static Menu<HeaderMenu> multipleHeaderMenu;
+    public static Menu multipleHeaderMenu;
     //public static Elements<Dropdown<Enum>> els;
 
     @FindBy(css = ".tile-menu>li>a")
