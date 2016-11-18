@@ -98,7 +98,6 @@ namespace JDI_UIWebTests.Tests.Complex
         }
 
         [Test]
-        [Ignore("There is an exception. Need to investigate.")]
         public void IsSelectedTest()
         {
             CheckActionThrowError(() => OddNumbersControl.Selected("7"), NoElementsMessage);
