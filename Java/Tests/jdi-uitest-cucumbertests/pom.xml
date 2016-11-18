@@ -28,7 +28,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fw.version>1.0.2</fw.version>
-        <selenium.version>2.45.0</selenium.version>
+        <selenium.version>2.53.1</selenium.version>
         <allure.version>1.4.5</allure.version>
         <java.version>1.7</java.version>
         <junit.version>4.12</junit.version>

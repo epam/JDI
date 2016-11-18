@@ -16,13 +16,15 @@ import static com.epam.jdi.uitests.web.selenium.elements.complex.table.WithValue
 
 
 public class TableExamples extends TestsBase {
-    @BeforeMethod
+    /*@BeforeMethod
     public void before(Method method) {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
-    }
+    }*/
     @Test
     public void getTableInfoExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
         Assert.areEquals(jobListingPage.jobsList.rows().count(), 2);
         Assert.areEquals(jobListingPage.jobsList.getValue(),
@@ -33,6 +35,8 @@ public class TableExamples extends TestsBase {
 
     @Test
     public void searchInTableExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
             .row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
             .get("APPLY").select();
@@ -41,6 +45,8 @@ public class TableExamples extends TestsBase {
     }
     @Test
     public void searchContainsInTableExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
                 .rowContains("Automation Engineer", inColumn("JOB_NAME"))
                 .get("APPLY").select();
@@ -49,6 +55,8 @@ public class TableExamples extends TestsBase {
     }
     @Test
     public void searchMatchInTableExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
                 .rowMatch(".+ Automation Engineer", inColumn("JOB_NAME"))
                 .get("APPLY").select();
@@ -57,6 +65,8 @@ public class TableExamples extends TestsBase {
     }
     @Test
     public void searchContainsListInTableExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "JOB_NAME~=Automation Engineer",
                 "JOB_CATEGORY*=.*Test Engineering")
@@ -68,6 +78,8 @@ public class TableExamples extends TestsBase {
 
     @Test
     public void searchByMultiCriteriaInTableExample() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "JOB_NAME=Senior QA Automation Engineer",
                 "JOB_CATEGORY=Software Test Engineering")

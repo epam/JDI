@@ -111,7 +111,11 @@ public interface ITable extends IText {
 
     /**
      * Searches Rows in table matches specified criteria colNameValues - list of search criteria in format columnName=columnValue<br>
+     * = - Equals
+     * ~= - Contains
+     * *= - Match RegEx
      * e.g. rows("Name=Roman", "Profession=QA") <br>
+     * e.g. rows("Name*=.* +*", "Profession~=Test") <br>
      * Each Row is map: columnName:cell
      */
     @JDIAction
@@ -122,7 +126,11 @@ public interface ITable extends IText {
     MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column);
     /**
      * Searches Columns in table matches specified criteria rowNameValues - list of search criteria in format rowName=rowValue<br>
+     * = - Equals
+     * ~= - Contains
+     * *= - Match RegEx
      * e.g. columns("Total=100", "Count=10") <br>
+     * e.g. columns("Total*=\\d+", "Profession~=QA") <br>
      * Each Column is map: rowName:cell
      */
     @JDIAction
