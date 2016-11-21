@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataProviders\IndexesProvider.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Buttons.cs" />
@@ -79,10 +80,16 @@
     <Compile Include="Tests\Complex\ComboBoxTests.cs" />
     <Compile Include="Tests\Complex\CommonActionsData.cs" />
     <Compile Include="Tests\Complex\DropdownExpandedTests.cs" />
+    <Compile Include="Tests\Complex\DropdownTests.cs" />
     <Compile Include="Tests\Complex\RadioButtonsTests.cs" />
+    <Compile Include="Tests\Complex\SelectorTests.cs" />
     <Compile Include="Tests\Complex\Table\Base\SupportTableTestBase.cs" />
+    <Compile Include="Tests\Complex\Table\GetCellTests.cs" />
+    <Compile Include="Tests\Complex\Table\NegativeTableTests.cs" />
     <Compile Include="Tests\Complex\Table\SearchCellsTests.cs" />
     <Compile Include="Tests\Complex\Table\SearchRowsColumnsTests.cs" />
+    <Compile Include="Tests\Complex\Table\SmokeTableTests.cs" />
+    <Compile Include="Tests\Complex\Table\WaiterTests.cs" />
     <Compile Include="Tests\Composite\FormTests.cs" />
     <Compile Include="Tests\Composite\FormTwoButtonsTests.cs" />
     <Compile Include="Tests\Composite\PageTests.cs" />

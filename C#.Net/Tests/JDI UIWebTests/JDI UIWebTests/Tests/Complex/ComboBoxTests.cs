@@ -1,5 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
+using Epam.JDI.Core.Interfaces.Complex;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
 using static JDI_UIWebTests.Enums.Metals;
@@ -7,18 +9,17 @@ using JDI_UIWebTests.Enums;
 using JDI_Matchers.NUnit;
 using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
 using JDI_Web.Selenium.Elements.Complex;
+using JDI_Web.Settings;
+using OpenQA.Selenium;
+using Assert = JDI_Matchers.NUnit.Assert;
 
 namespace JDI_UIWebTests.Tests.Complex
 {
     public class ComboBoxTests
     {
+        private static readonly IList<string> OddOptions = new List<string> { "Col", "Gold", "Silver", "Bronze", "Selen" };
 
-        private static readonly IList<string> ODD_OPTIONS = new List<string> { "Col", "Gold", "Silver", "Bronze", "Selen" };
-
-        private ComboBox<Metals> _metals()
-        {
-            return MetalsColorsPage.ComboBox;
-        }
+        private IComboBox<Metals> MetalsControl => MetalsColorsPage.ComboBox;
 
         [SetUp]
         public void SetUp()
@@ -34,119 +35,106 @@ namespace JDI_UIWebTests.Tests.Complex
         [Test]
         public void SelectStringTest()
         {
-            _metals().Select("Gold");            
+            MetalsControl.Select("Gold");
             CheckAction("Metals: value changed to Gold");
         }
 
         [Test]
         public void SelectIndexTest()
         {
-            _metals().Select(3);
+            MetalsControl.Select(3);
             CheckAction("Metals: value changed to Silver");
         }
 
-        
         [Test]
         public void SelectEnumTest()
         {
-            _metals().Select(Gold);
+            MetalsControl.Select(Gold);
             CheckAction("Metals: value changed to Gold");
         }
 
-        
         [Test]
         public void GetOptionsTest()
         {
-            new Check().CollectionEquals(_metals().Options, ODD_OPTIONS);
+            new Check().CollectionEquals(MetalsControl.Options, OddOptions);
         }
 
-        
         [Test]
         public void GetNamesTest()
         {
-            new Check().CollectionEquals(_metals().Names, ODD_OPTIONS);            
+            new Check().CollectionEquals(MetalsControl.Names, OddOptions);
         }
 
-        
         [Test]
         public void GetValuesTest()
         {
-            new Check().CollectionEquals(_metals().Values, ODD_OPTIONS);            
+            new Check().CollectionEquals(MetalsControl.Values, OddOptions);
         }
 
-        
         [Test]
         public void GetOptionsAsTextTest()
         {
-            new Check().AreEquals(_metals().OptionsAsText.ToString(), "Col, Gold, Silver, Bronze, Selen");            
+            new Check().AreEquals(MetalsControl.OptionsAsText, "Col, Gold, Silver, Bronze, Selen");
         }
 
-        
         [Test]
-        public void SelectValueTest()
+        [Ignore("")]
+        public void SetValueTest()
         {
-            _metals().Select("Silver");            
-            CheckAction("Metals: value changed to Silver");
+            MetalsControl.Value = "Blue";
+            WebSettings.WebDriver.FindElement(By.ClassName("footer-content")).Click();
+            CheckAction("Metals: value changed to Blue");
         }
 
-        
-        //TO_DO
-        /*
         [Test]
+        [Ignore("Fail in Selected method. Seems like it is in GetTextAction overrided in MetalsColosPage.cs")]
         public void GetSelectedTest()
         {
-            _metals().Select("Gold");
-            new Check().AreEquals(_metals().Selected(), "Gold");            
+            MetalsControl.Select("Gold");
+            new Check().AreEquals(MetalsControl.Selected(), "Gold");
         }
-        
+
         [Test]
         public void GetSelectedIndexTest()
-        {            
-            new Check().ThrowException(() => { _metals().SelectedIndex; }, NO_ELEMENTS_MESSAGE);            
-        }        
-        
+        {
+            CheckActionThrowError(() => MetalsControl.SelectedIndex(), NoElementsMessage);
+        }
+
         [Test]
         public void IsSelectedTest()
-        {            
-            IText zxc =  new Text(By.CssSelector(".metals .filter-option"));
-            string asd = zxc.GetText;
-            string qwe = HomePage.WebDriver.FindElement(By.CssSelector(".metals .filter-option")).Text;
-            //new Check().AreEquals(_metals().Selected(), "Col");            
+        {
+            Assert.AreEquals(MetalsControl.Selected("Col"), true);
         }
-                
+
         [Test]
         public void IsSelectedEnumTest()
         {
-            new Check().IsTrue(_metals().Selected().Equals(Metals.Col));
+            Assert.AreEquals(MetalsControl.Selected(Col), true);
         }
-                
+
         [Test]
         public void WaitSelectedTest()
         {
             try
             {
-                _metals().WaitSelected("Col");
+                MetalsControl.WaitSelected("Col");
             }
-            catch 
+            catch (Exception ex)
             {
-                throw;
+                throw Exception("WaitSelected throws exception");
             }
         }
-                    
+
         [Test]
         public void WaitSelectedEnumTest()
         {
-            new Check("WaitSelected")
-                .hasNoExceptions(()->metals().waitSelected(Col));
+            new Check("WaitSelected").HasNoException(() => MetalsControl.Value.ToString());
         }
-                
+         
         [Test]
         public void GetValueTest()
         {
-            //Assert.True(_metals().Value.Equals("Col"));
-            //areEquals(metals().getValue(), "Col");
+            Assert.AreEquals(MetalsControl.Value, "Col");
         }        
-        */
-
     }
 }
