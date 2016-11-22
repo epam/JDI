@@ -9,3 +9,8 @@ script:
   #- mvn test -f ./Java/pom.xml -X
 notifications:
   email: false
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer

@@ -219,7 +219,7 @@ namespace JDI_UIWebTests.Tests.Complex
             new Check().AreEquals(_nature().Name, "Elements");            
         }
 
-        //TO_DO fix incorrect work of AreSelected method. It is always return empty collection
+        // TODO: fix incorrect work of AreSelected method. It is always return empty collection
         /*
         [Test]
         public void AreSelectedTest()

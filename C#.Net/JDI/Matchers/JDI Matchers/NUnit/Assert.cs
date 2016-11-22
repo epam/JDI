@@ -59,6 +59,11 @@ namespace JDI_Matchers.NUnit
             matcher.AreEquals(actualFunc, expected);
         }
 
+        public static void AreEquals<T>(T actual, T expected)
+        {
+            matcher.AreEquals(actual, expected);
+        }
+
         public static void Contains(Func<string> actualFunc, string expected)
         {
             matcher.Contains(actualFunc, expected);

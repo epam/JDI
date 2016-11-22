@@ -222,7 +222,7 @@ public class WebPage extends BaseElement implements IPage {
             logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
                 || equals.equals("")
-                || timer.wait(() -> actual.get().equals(equals));
+                || actual.get().equals(equals);
         }
 
         /**

@@ -14,9 +14,10 @@ public class CareerTests extends TestsBase {
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
-        multipleHeaderMenu.hoverAndClick(SOLUTIONS + "|" + "Product Development");
+        homePage.isOpened();
+        multipleHeaderMenu.hoverAndClick("SOLUTIONS|Product Development");
         productDevelopmentPage.checkOpened();
-        headerMenu.select("CAREERS");
+        headerMenu.select(CAREERS);
         careerPage.checkOpened();
         careerPage.jobFilter.search(attendee.filter);
         jobListingPage.checkOpened();

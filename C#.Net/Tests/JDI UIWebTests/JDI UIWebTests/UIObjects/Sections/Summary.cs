@@ -9,16 +9,13 @@ namespace JDI_UIWebTests.UIObjects.Sections
 {
     public class Summary: Section
     {
-        /*
         [FindBy(Css = "#odds-selector p")]
-        public ISelector Odds;
-        
-        [FindBy(Css = "#odds-selector p")]
-        public RadioButtons<Odds> OddsR;
-        */        
-        [FindBy(Css = "#even-selector p")]
-        public Selector SimpleSelector;
-        
+        public RadioButtons<Odds> OddNumbers;
+
+        // Exception in CascadeInit
+        //[FindBy(Css = "#odds-selector p")]
+        //public Selector<Odds> OddNumbersSelector;
+                
         [FindBy(Id = "calculate-button")]
         public IButton Calculate;
     

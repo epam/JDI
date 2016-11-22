@@ -38,6 +38,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -69,7 +71,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public HighlightSettings highlightSettings = new HighlightSettings();
     private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
-    private MapArray<String, WebDriver> runDrivers = new MapArray<>();
+    private ThreadLocal<MapArray<String, WebDriver>> runDrivers = new ThreadLocal<>();
 
     public SeleniumDriverFactory() {
         this(false, new HighlightSettings(), WebElement::isDisplayed);
@@ -90,7 +92,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                                  Function<WebElement, Boolean> elementSearchCriteria) {
         this.isDemoMode = isDemoMode;
         this.highlightSettings = highlightSettings;
-        this.elementSearchCriteria = elementSearchCriteria;
+        SeleniumDriverFactory.elementSearchCriteria = elementSearchCriteria;
     }
 
     public String getDriverPath() {
@@ -112,7 +114,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         return drivers.any();
     }
     public boolean hasRunDrivers() {
-        return runDrivers.any();
+        return runDrivers.get() != null && runDrivers.get().any();
     }
 
     // REGISTER DRIVER
@@ -226,13 +228,21 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         if (!drivers.keys().contains(driverName))
             throw exception("Can't find driver with name '%s'", driverName);
         try {
-            if (!runDrivers.keys().contains(driverName)) {
+            Lock lock = new ReentrantLock();
+            lock.lock();
+            if (runDrivers.get() == null || !runDrivers.get().keys().contains(driverName)) {
+                MapArray<String, WebDriver> rDrivers = runDrivers.get();
+                if (rDrivers == null)
+                    rDrivers = new MapArray<>();
                 WebDriver resultDriver = drivers.get(driverName).get();
                 if (resultDriver == null)
                     throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
-                runDrivers.add(driverName, resultDriver);
+                rDrivers.add(driverName, resultDriver);
+                runDrivers.set(rDrivers);
             }
-            return runDrivers.get(driverName);
+            WebDriver result = runDrivers.get().get(driverName);
+            lock.unlock();
+            return result;
         } catch (Exception ex) {
             logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
             throw exception("Can't get driver; Thread: " + currentThread().getId() + "Exception: " + ex.getMessage());
@@ -244,9 +254,11 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public void reopenDriver(String driverName) {
-        if (runDrivers.keys().contains(driverName)) {
-            runDrivers.get(driverName).close();
-            runDrivers.removeByKey(driverName);
+        MapArray<String, WebDriver> rDriver = runDrivers.get();
+        if (rDriver.keys().contains(driverName)) {
+            rDriver.get(driverName).close();
+            rDriver.removeByKey(driverName);
+            runDrivers.set(rDriver);
         }
         if (drivers.keys().contains(driverName))
             getDriver();
@@ -314,9 +326,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public void close() {
-        for (Pair<String, WebDriver> driver : runDrivers)
+        for (Pair<String, WebDriver> driver : runDrivers.get())
             driver.value.quit();
-        runDrivers.clear();
+        runDrivers.get().clear();
     }
 
     public void quit() {
