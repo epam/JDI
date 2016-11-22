@@ -21,7 +21,6 @@ namespace JDI_Web.Selenium.Elements.Complex
             SelectedNameAction = (m, name) => SelectedElementAction(this, GetWebElement(name));
             SelectedNumAction = (m, num) => SelectedElementAction(this, GetWebElement(num));
             GetValueAction = m => AreSelected().Print();
-            SetValueAction = (m, value) => SelectListNamesAction(this, value.Split(_separator));
             GetWebElementFunc = (s, name) =>
             {
                 var ms = (MultiSelector<TEnum>) s;
@@ -35,6 +34,8 @@ namespace JDI_Web.Selenium.Elements.Complex
                 return ms.GetWebElement(GetElementsFromTag(), name);
             };
         }
+
+        public override Action<BaseSelector<TEnum>, string> SetValueAction => (c, value) => SelectListNamesAction(this, value.Split(_separator));
 
         public Action<MultiSelector<TEnum>> ClearAction = m =>
         {

@@ -78,7 +78,6 @@ namespace JDI_UIWebTests.Tests.Complex
         }
 
         [Test]
-        [Ignore("")]
         public void SetValueTest()
         {
             MetalsControl.Value = "Blue";
@@ -87,7 +86,6 @@ namespace JDI_UIWebTests.Tests.Complex
         }
 
         [Test]
-        [Ignore("Fail in Selected method. Seems like it is in GetTextAction overrided in MetalsColosPage.cs")]
         public void GetSelectedTest()
         {
             MetalsControl.Select("Gold");

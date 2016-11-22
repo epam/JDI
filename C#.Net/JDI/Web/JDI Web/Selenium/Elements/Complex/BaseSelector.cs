@@ -161,7 +161,7 @@ namespace JDI_Web.Selenium.Elements.Complex
             s => s.Elements.Select(el => el.Text).ToList();
 
 
-        public Action<BaseSelector<TEnum>, string> SetValueAction = (s, value) => s.SelectNameAction(s, value);
+        public virtual Action<BaseSelector<TEnum>, string> SetValueAction { get; set; } = (s, value) => s.SelectNameAction(s, value);
 
         public string Value
         {
