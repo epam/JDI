@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
@@ -28,6 +29,10 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             Element = element;
             ByLocator = byLocator;
+            if (String.IsNullOrEmpty(DriverName))
+            {
+                DriverName = JDISettings.DriverFactory.CurrentDriverName;
+            }
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
