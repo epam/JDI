@@ -107,4 +107,27 @@ public final class ReflectionUtils {
             throw new RuntimeException(format("Can't get field '%s' value", field.getName()));
         }
     }
+
+    public static Object convertStringToType(String value, Field field)
+    {
+        Class<?> clazz = field.getType();
+        if (clazz.isAssignableFrom(String.class)|| value == null)
+            return value;
+        if (clazz.isAssignableFrom(Byte.class))
+            return Byte.parseByte(value);
+        if (clazz.isAssignableFrom(Short.class))
+            return Short.parseShort(value);
+        if (clazz.isAssignableFrom(Integer.class))
+            return Integer.parseInt(value);
+        if (clazz.isAssignableFrom(Long.class))
+            return Long.parseLong(value);
+        if (clazz.isAssignableFrom(Float.class))
+            return Float.parseFloat(value);
+        if (clazz.isAssignableFrom(Double.class))
+            return Float.parseFloat(value);
+        if (clazz.isAssignableFrom(Boolean.class))
+            return Boolean.parseBoolean(value);
+
+        throw new IllegalArgumentException("Can't parse field " + field.getName() + ". Type [" + clazz + "] is unsupported");
+    }
 }
