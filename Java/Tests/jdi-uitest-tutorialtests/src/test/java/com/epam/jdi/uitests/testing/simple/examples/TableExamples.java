@@ -28,9 +28,9 @@ public class TableExamples extends TestsBase {
         Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
         Assert.areEquals(jobListingPage.jobsList.rows().count(), 2);
         Assert.areEquals(jobListingPage.jobsList.getValue(),
-            "||X||JOB_NAME|JOB_CATEGORY|JOB_LOCATION|APPLY||\n" +
-            "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+            "||X||JOB_NAME|category|location|APPLY||\n" +
+            "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|apply||\n" +
+            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|apply||");
     }
 
     @Test
@@ -69,11 +69,11 @@ public class TableExamples extends TestsBase {
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "JOB_NAME~=Automation Engineer",
-                "JOB_CATEGORY*=.*Test Engineering")
+                "category*=.*Test Engineering")
                 .first().value;
 
         Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
-        Assert.areEquals(firstRow.get("JOB_CATEGORY").getText(), "Software Test Engineering");
+        Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 
     @Test
@@ -82,10 +82,10 @@ public class TableExamples extends TestsBase {
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "JOB_NAME=Senior QA Automation Engineer",
-                "JOB_CATEGORY=Software Test Engineering")
+                "category=Software Test Engineering")
                 .first().value;
 
         Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
-        Assert.areEquals(firstRow.get("JOB_CATEGORY").getText(), "Software Test Engineering");
+        Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 }

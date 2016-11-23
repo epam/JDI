@@ -36,7 +36,6 @@ public class EntityTable<E, R> extends Table implements List<E>{
     private Class<E> entityClass;
     private Class<R> rowClass;
 
-
     public EntityTable(Class<E> entityClass){
         if (entityClass == null){
             throw new IllegalArgumentException("Entity type was not specified");
@@ -95,7 +94,7 @@ public class EntityTable<E, R> extends Table implements List<E>{
             throw new RuntimeException(e);
         }
 
-        value.avatar = ((Cell) cell).avatar;
+        value.setAvatar(cell.get().avatar);
         try {
             FieldUtils.writeField(field, entity, value);
         } catch (IllegalAccessException e) {
@@ -103,7 +102,7 @@ public class EntityTable<E, R> extends Table implements List<E>{
         }
     }
 
-    public List<R> getRows(String[] colNames)
+    public List<R> getRows(String... colNames)
     {
         List<R> rows = new ArrayList<>();
         for (int i=1; i<=size(); i++){
@@ -153,7 +152,7 @@ public class EntityTable<E, R> extends Table implements List<E>{
         return entity;
     }
 
-    public List<E> entities(String[] colNames){
+    public List<E> entities(String... colNames){
         List<E> entities = new ArrayList<>();
         for (int i=1; i<=size(); i++){
             MapArray<String, ICell> row = new MapArray<>();

@@ -6,7 +6,6 @@ import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.CAREERS;
-import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.SOLUTIONS;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.*;
 
 
