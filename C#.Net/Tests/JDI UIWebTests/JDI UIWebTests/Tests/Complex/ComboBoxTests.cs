@@ -8,7 +8,6 @@ using static JDI_UIWebTests.Enums.Metals;
 using JDI_UIWebTests.Enums;
 using JDI_Matchers.NUnit;
 using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
-using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using Assert = JDI_Matchers.NUnit.Assert;

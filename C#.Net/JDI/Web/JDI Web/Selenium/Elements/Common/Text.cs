@@ -12,15 +12,14 @@ namespace JDI_Web.Selenium.Elements.Common
         public Text(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
             : base(byLocator, webElement, element:element) { }
 
-        protected Func<WebBaseElement, string> GetTextAction =
-            el =>
-            {
-                var getText = el.WebElement.Text ?? "";
-                if (!getText.Equals(""))
-                    return getText;
-                var getValue = el.WebElement.GetAttribute("value");
-                return getValue ?? getText;
-            };
+        protected virtual Func<WebBaseElement, string> GetTextAction { get; set; } = el =>
+        {
+            var getText = el.WebElement.Text ?? "";
+            if (!getText.Equals(""))
+                return getText;
+            var getValue = el.WebElement.GetAttribute("value");
+            return getValue ?? getText;
+        };
 
         public string GetText => Actions.GetText(GetTextAction);
         

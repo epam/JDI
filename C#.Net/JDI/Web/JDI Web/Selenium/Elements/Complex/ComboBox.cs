@@ -20,7 +20,6 @@ namespace JDI_Web.Selenium.Elements.Complex
         public ComboBox(By selectorLocator = null, By optionsNamesLocatorTemplate = null) 
             : base(selectorLocator, optionsNamesLocatorTemplate)
         {
-            GetTextAction = c => TextField.GetText;
             _textField = new GetElementType(selectorLocator);
         }
 
@@ -29,6 +28,8 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             _textField = new GetElementType(valueLocator);
         }
+
+        public override Func<Dropdown<TEnum>, string> GetTextAction => c => TextField.GetText;
 
         public override Action<BaseSelector<TEnum>, string> SetValueAction => (c, value) => NewInput(value);
 
