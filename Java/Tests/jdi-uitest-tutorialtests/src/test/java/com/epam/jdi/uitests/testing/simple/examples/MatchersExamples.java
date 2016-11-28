@@ -14,7 +14,7 @@ import static java.util.Arrays.asList;
 public class MatchersExamples {
 
     @Test
-    public void commonAssertsExample() {
+    public void commonAsserts() {
         Assert.contains("Test Text", "Text");
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
         Assert.isTrue(1 == 1);
@@ -22,14 +22,14 @@ public class MatchersExamples {
         Assert.ignoreCase().areEquals("Test String", "test STRING");
     }
     @Test
-    public void differentAssertsExample() {
+    public void differentAsserts() {
         new Check("This important thing").contains("Test Text", "Text");
         ScreenAssert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
         new Check().doScreenshot(SCREEN_ON_FAIL).isTrue(1 == 1);
     }
 
     @Test
-    public void listAssertsExample() {
+    public void listAsserts() {
         String[] searchResults =
                 new String[] { "IPhone 4", "IPhone 5S", "IPhone 6" };
         Assert.each(searchResults).contains("IPhone");
@@ -59,7 +59,7 @@ public class MatchersExamples {
     }
 
     @Test
-    public void waitAssertsExample() {
+    public void waitAsserts() {
         Assert.areEquals(() -> getNext(), "IPhone 6");
         Assert.contains(() -> getNext(), "IPhone 5");
         Assert.waitTimeout(5).matches(() -> getNext(), ".*S");
@@ -72,7 +72,7 @@ public class MatchersExamples {
     private void failException() { Assert.fail("Fail Exception"); }
 
     @Test
-    public void exceptionAssertsExample() {
+    public void exceptionAsserts() {
         Assert.throwException(this::assertException, "Assert Exception");
         Assert.throwException(this::throwException, RuntimeException.class, "Test Exception");
         Assert.throwException(this::failException, "Fail Exception");

@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Job;
 import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.JobRecord;
 import com.epam.web.matcher.testng.Assert;
+import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -51,7 +52,7 @@ public class EntityTableExamples extends TestsBase {
         Job job = jobListingPage.jobsListEntity
                 .entity(withValue("Senior QA Automation Engineer"), inColumn("name"));
 
-        Assert.areEquals(job, new Job("Senior QA Automation Engineer", "Software Test Engineering", "St-Petersburg, Russia"));
+        Assert.entitiesAreEquals(job, new Job("Senior QA Automation Engineer", "Software Test Engineering", "St-Petersburg, Russia"));
     }
     @Test
     public void searchContainsInTable() {

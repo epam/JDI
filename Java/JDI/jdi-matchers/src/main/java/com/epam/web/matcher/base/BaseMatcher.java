@@ -18,6 +18,7 @@ package com.epam.web.matcher.base;
  */
 
 import com.epam.commons.LinqUtils;
+import com.epam.commons.ReflectionUtils;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JFuncREx;
@@ -34,6 +35,7 @@ import java.util.function.Supplier;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.PrintUtils.print;
+import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.web.matcher.base.DoScreen.*;
 import static com.epam.web.matcher.base.PrintUtils.objToSetValue;
@@ -219,7 +221,7 @@ public abstract class BaseMatcher implements IChecker {
         assertAction(format("Check that '%s' equals to '%s'", actual, expected), result, failMessage);
     }
 
-    public  <T> void areEquals(T actual, T expected) { areEquals(actual, expected, null); }
+    public <T> void areEquals(T actual, T expected) { areEquals(actual, expected, null); }
 
     public void matches(String actual, String regEx, String failMessage) {
         String actualString = toUtf8(actual);
@@ -344,20 +346,20 @@ public abstract class BaseMatcher implements IChecker {
         }, failMessage, false);
     }
 
-    public <T> void entityIncludeMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        entityIncludeMapArray(actual, entity, failMessage, false);
+    public <T> void entityIncludeMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        entityIncludeMapArray(expected, entity, failMessage, false);
     }
 
-    public <T> void entityEqualsToMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        entityIncludeMapArray(actual, entity, failMessage, true);
+    public <T> void entityEqualsToMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        entityIncludeMapArray(expected, entity, failMessage, true);
     }
 
-    public <T> void entityIncludeMap(Map<String, String> actual, T entity, String failMessage) {
-        entityIncludeMap(actual, entity, failMessage, false);
+    public <T> void entityIncludeMap(T entity, Map<String, String> expected, String failMessage) {
+        entityIncludeMap(expected, entity, failMessage, false);
     }
 
-    public <T> void entityEqualsToMap(Map<String, String> actual, T entity, String failMessage) {
-        entityIncludeMap(actual, entity, failMessage, true);
+    public <T> void entityEqualsToMap(T entity, Map<String, String> expected, String failMessage) {
+        entityIncludeMap(expected, entity, failMessage, true);
     }
 
     public <T> void arrayEquals(T actual, T expected, String failMessage) {
@@ -588,43 +590,43 @@ public abstract class BaseMatcher implements IChecker {
         listEquals(actual, expected, null);
     }
 
-    private <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity, String failMessage, boolean shouldEqual) {
-        entityIncludeMapArray(() -> MapArray.toMapArray(actual.get()), entity, failMessage, shouldEqual);
+    private <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected, String failMessage, boolean shouldEqual) {
+        entityIncludeMapArray(entity, () -> MapArray.toMapArray(expected.get()), failMessage, shouldEqual);
     }
-    private <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage, boolean shouldEqual) {
-        MapArray<String, String> expected = objToSetValue(entity).where((k, value) -> value != null);
+    private <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage, boolean shouldEqual) {
+        MapArray<String, String> actual = objToSetValue(entity).where((k, value) -> value != null);
         assertAction("Check that Collections are equal",
                 () -> {
-                    MapArray<String, String> actualMap = actual.get();
-                    return actualMap != null && expected != null && (!shouldEqual || actualMap.size() == expected.size())
+                    MapArray<String, String> actualMap = expected.get();
+                    return actualMap != null && actual != null && (!shouldEqual || actualMap.size() == actual.size())
                             ? FOUND
                             : "listEquals failed because one of the Collections is null or empty";
                 },
                 failMessage, false);
         assertAction(null, () -> {
-            MapArray<String, String> actualMap = actual.get();
-            String notEqualElement = expected.first((name, value) -> !actualMap.get(name).equals(value));
+            MapArray<String, String> actualMap = expected.get();
+            String notEqualElement = actual.first((name, value) -> !actualMap.get(name).equals(value));
             return (notEqualElement != null)
                     ? format("Collections '%s' and '%s' not equals at element '%s'",
-                    print(select(actualMap, Object::toString)), print(select(expected, Object::toString)), notEqualElement)
+                    print(select(actualMap, Object::toString)), print(select(actual, Object::toString)), notEqualElement)
                     : FOUND;
         }, failMessage, false);
     }
 
-    public <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        entityIncludeMapArray(actual, entity, failMessage, false);
+    public <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        entityIncludeMapArray(entity, expected, failMessage, false);
     }
 
-    public <T> void entityEqualsToMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        entityIncludeMapArray(actual, entity, failMessage, true);
+    public <T> void entityEqualsToMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        entityIncludeMapArray(entity, expected, failMessage, true);
     }
 
-    public <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        entityIncludeMap(actual, entity, failMessage, false);
+    public <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        entityIncludeMap(entity, expected, failMessage, false);
     }
 
-    public <T> void entityEqualsToMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        entityIncludeMap(actual, entity, failMessage, true);
+    public <T> void entityEqualsToMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        entityIncludeMap(entity, expected, failMessage, true);
     }
 
     public <T> void arrayEquals(Supplier<T> actual, T expected, String failMessage) {

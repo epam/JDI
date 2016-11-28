@@ -22,7 +22,7 @@ public class TableExamples extends TestsBase {
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
     }
     @Test
-    public void getTableInfoExample() {
+    public void getTableInfo() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         Assert.areEquals(jobListingPage.jobsList.columns().count(), 4);
@@ -34,7 +34,7 @@ public class TableExamples extends TestsBase {
     }
 
     @Test
-    public void searchInTableExample() {
+    public void searchInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
@@ -44,7 +44,7 @@ public class TableExamples extends TestsBase {
         jobDescriptionPage.checkOpened();
     }
     @Test
-    public void searchContainsInTableExample() {
+    public void searchContainsInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
@@ -54,7 +54,7 @@ public class TableExamples extends TestsBase {
         jobDescriptionPage.checkOpened();
     }
     @Test
-    public void searchMatchInTableExample() {
+    public void searchMatchInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
@@ -64,7 +64,7 @@ public class TableExamples extends TestsBase {
         jobDescriptionPage.checkOpened();
     }
     @Test
-    public void searchContainsListInTableExample() {
+    public void searchContainsListInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
@@ -77,7 +77,7 @@ public class TableExamples extends TestsBase {
     }
 
     @Test
-    public void searchByMultiCriteriaInTableExample() {
+    public void searchByMultiCriteriaInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(

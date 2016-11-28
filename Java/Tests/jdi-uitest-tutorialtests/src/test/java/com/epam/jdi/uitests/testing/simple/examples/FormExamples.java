@@ -21,7 +21,7 @@ public class FormExamples extends TestsBase {
     }
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
-    public void fillFormExample(Attendee attendee) {
+    public void fillForm(Attendee attendee) {
         jobDescriptionPage.addCVForm.submit(attendee);
         Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }

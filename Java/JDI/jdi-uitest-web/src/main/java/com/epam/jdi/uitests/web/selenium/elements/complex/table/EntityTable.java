@@ -31,6 +31,8 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+
 /**
  * Created by Sergey_Mishanin on 11/18/16.
  */
@@ -136,7 +138,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         try {
             return entityClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw exception("Can't instantiate %s. You must have empty constructor to do this", entityClass.getSimpleName());
         }
     }
 
