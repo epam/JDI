@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
+import com.epam.jdi.uitests.testing.career.page_objects.entities.Job;
 import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.JobRecord;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -21,11 +22,13 @@ public class EntityTableExamples extends TestsBase {
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
     }
     @Test
-    public void getTableInfoExample() {
+    public void getTableInfo() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
-        Assert.areEquals(jobListingPage.jobsListEntity.columns().count(), 4);
-        Assert.areEquals(jobListingPage.jobsListEntity.rows().count(), 2);
+        Assert.areEquals(jobListingPage.jobsListEntity.columns().size(), 4);
+        Assert.areEquals(jobListingPage.jobsListEntity.rows().size(), 2);
+        Assert.areEquals(jobListingPage.jobsListEntity.entities().size(), 2);
+        Assert.areEquals(jobListingPage.jobsListEntity.getRows().size(), 2);
         Assert.areEquals(jobListingPage.jobsListEntity.getValue(),
             "||X||name|category|location|apply||\n" +
             "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
@@ -33,7 +36,7 @@ public class EntityTableExamples extends TestsBase {
     }
 
     @Test
-    public void searchInTableExample() {
+    public void searchInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity
@@ -42,7 +45,16 @@ public class EntityTableExamples extends TestsBase {
         jobDescriptionPage.checkOpened();
     }
     @Test
-    public void searchContainsInTableExample() {
+    public void findEntity() {
+        jobListingPage.isOpened();
+        Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
+        Job job = jobListingPage.jobsListEntity
+                .entity(withValue("Senior QA Automation Engineer"), inColumn("name"));
+
+        Assert.areEquals(job, new Job("Senior QA Automation Engineer", "Software Test Engineering", "St-Petersburg, Russia"));
+    }
+    @Test
+    public void searchContainsInTable() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity

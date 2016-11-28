@@ -34,6 +34,7 @@ public interface ITableLine {
     @JDIAction
     int count();
     int count(boolean acceptEmpty);
+    default int size() { return count(); }
 
     /**
      * Get Columns/Rows headers

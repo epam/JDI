@@ -8,4 +8,10 @@ public class Job {
     public String category;
     public String location;
 
+    public Job(String name, String category, String location) {
+        this.name = name;
+        this.name = category;
+        this.name = location;
+    }
+
 }
