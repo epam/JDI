@@ -19,48 +19,15 @@ package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
 
 
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
-import com.epam.jdi.uitests.mobile.appium.elements.composite.AppPage;
-import com.epam.jdi.uitests.mobile.appium.elements.composite.CheckPageTypes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.mobile.WebSettings.hasDomain;
-import static com.epam.jdi.uitests.mobile.appium.elements.composite.AppPage.getMatchFromDomain;
-import static com.epam.jdi.uitests.mobile.appium.elements.composite.AppPage.getUrlFromUri;
-import static com.epam.jdi.uitests.mobile.appium.elements.composite.CheckPageTypes.*;
+import java.util.function.Consumer;
 
 /**
  * Created by roman.i on 25.09.2014.
  */
-public class WebAnnotationsUtil extends AnnotationsUtil {
-
-    public static void fillPageFromAnnotaiton(AppPage element, JPage pageAnnotation, Class<?> parentClass) {
-        String url = pageAnnotation.url();
-        url = (url.contains("://") || parentClass == null || !hasDomain())
-                ? url
-                : getUrlFromUri(url);
-        String title = pageAnnotation.title();
-        String urlTemplate = pageAnnotation.urlTemplate();
-        if (urlTemplate != null && !urlTemplate.equals(""))
-            urlTemplate = (urlTemplate.contains("://") || parentClass == null || !hasDomain())
-                    ? urlTemplate
-                    : getMatchFromDomain(urlTemplate);
-        CheckPageTypes checkType = pageAnnotation.checkType();
-        CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
-        CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
-        if (urlCheckType == NONE)
-            urlCheckType = (checkType != NONE) ? checkType : EQUAL;
-        if (titleCheckType == NONE)
-            titleCheckType = (checkType != NONE) ? checkType : EQUAL;
-        if (urlCheckType == MATCH || urlCheckType == CONTAIN && (urlTemplate == null || urlTemplate.equals("")))
-            urlTemplate = url;
-        element.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
-    }
-
-    /*private static String getUrlFromDomain(Object parent, String uri) {
-        domain = parent.getClass().getAnnotation(JApp.class).domain();
-        return getUrlFromUri(uri);
-    }*/
+public class AppiumAnnotationsUtil extends AnnotationsUtil {
 
     public static By getFrame(Frame frame) {
         if (frame == null) return null;
@@ -104,7 +71,14 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return null;
     }
 
-    public static By findByToBy(JFindBy locator) {
+
+    public static void fillLocator(FindBy value, Consumer<By> action) {
+        By by = findByToBy(value);
+        if (by != null)
+            action.accept(by);
+    }
+
+    public static By getFindByLocator(JFindBy locator) {
         if (locator == null) return null;
         if (!"".equals(locator.id()))
             return By.id(locator.id());

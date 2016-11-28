@@ -19,12 +19,13 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -68,7 +69,7 @@ class Cell extends SelectElement implements ISelect, ICell {
 
     Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
                 By cellLocatorTemplate, Table table) {
-        this.columnIndex = (table.rows().hasHeader && table.rows().lineTemplate == null) ? columnIndex + 1 : columnIndex;
+        this.columnIndex = (((Rows)table.rows()).hasHeader && ((Rows)table.rows()).lineTemplate == null) ? columnIndex + 1 : columnIndex;
         this.rowIndex = rowIndex;
         this.columnNum = columnNum;
         this.rowNum = rowNum;
@@ -130,7 +131,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get().get(subLocator);
     }
 
-    public <T extends BaseElement> T get(Class<T> clazz) {
+    public <T extends IClickable & IText> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -142,16 +143,17 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get(instance);
     }
 
-    public <T extends BaseElement> T get(T cell) {
-        By locator = cell.getLocator();
+    public <T extends IClickable & IText> T get(T cell) {
+        SelectElement cellSelect = (SelectElement) cell;
+        By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
             locator = cellLocatorTemplate;
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
-            throw exception("Can't create cell with locator template " + cell.getLocator()
+            throw exception("Can't create cell with locator template " + cellSelect.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-        cell.setAvatar(new GetElementModule(fillByMsgTemplate(locator, columnIndex, rowIndex), cell));
-        cell.setParent(table);
-        new WebCascadeInit().initElements(cell, avatar.getDriverName());
+        cellSelect.setAvatar(new GetElementModule(fillByMsgTemplate(locator, columnIndex, rowIndex), cellSelect));
+        cellSelect.setParent(table);
+        new WebCascadeInit().initElements(cellSelect, avatar.getDriverName());
         return cell;
     }
 

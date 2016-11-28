@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.mobile.appium.elements.composite.Site.init;
+import static com.epam.jdi.uitests.mobile.appium.elements.composite.Application.init;
 
 
 /**

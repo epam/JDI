@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
+package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,29 +18,39 @@ package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
  */
 
 
-import com.epam.jdi.uitests.mobile.appium.elements.composite.CheckPageTypes;
+import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.TableHeaderTypes.COLUMNS_HEADERS;
+
 /**
- * Created by Roman_Iovlev on 7/24/2015.
+ * Created by roman.i on 06.10.2014.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
-public @interface JPage {
-    String url() default "";
+public @interface JTable {
+    FindBy root() default @FindBy();
+    String[] header() default {};
+    String[] rowsHeader() default {};
 
-    String title() default "";
+    FindBy cell() default @FindBy();
+    FindBy row() default @FindBy();
+    FindBy column() default @FindBy();
+    FindBy footer() default @FindBy();
 
-    String urlTemplate() default "";
+    int height() default -1;
+    int width() default -1;
+    String size() default "";
 
-    CheckPageTypes checkType() default CheckPageTypes.NONE;
+    int rowStartIndex() default 1;
+    int colStartIndex() default 1;
 
-    CheckPageTypes urlCheckType() default CheckPageTypes.NONE;
+    TableHeaderTypes headerType() default COLUMNS_HEADERS;
+    boolean useCache() default true;
 
-    CheckPageTypes titleCheckType() default CheckPageTypes.NONE;
 
 }

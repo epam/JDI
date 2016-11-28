@@ -89,12 +89,12 @@ public class ElementsActions {
 
     public String waitText(String text, Supplier<String> getTextAction) {
         return invoker().doJActionResult(format("Wait text contains '%s'", text),
-                () -> getByCondition(getTextAction::get, t -> t.contains(text)));
+                () -> getByCondition(getTextAction, t -> t.contains(text)));
     }
 
     public String waitMatchText(String regEx, Supplier<String> getTextAction) {
         return invoker().doJActionResult(format("Wait text match regex '%s'", regEx),
-                () -> getByCondition(getTextAction::get, t -> t.matches(regEx)));
+                () -> getByCondition(getTextAction, t -> t.matches(regEx)));
     }
 
     // Check/Select Actions
@@ -155,17 +155,20 @@ public class ElementsActions {
     public void select(int index, Consumer<Integer> selectByIndexAction) {
         invoker().doJAction(format("Select '%s'", index), () -> selectByIndexAction.accept(index));
     }
+    public void hover(String name, Consumer<String> hoverAction) {
+        invoker().doJAction(format("Hover '%s'", name), () -> hoverAction.accept(name));
+    }
 
     public boolean isSelected(String name, Function<String, Boolean> isSelectedAction) {
         return invoker().doJActionResult(format("Wait is '%s' selected", name), () -> isSelectedAction.apply(name));
     }
 
     public String getSelected(Supplier<String> isSelectedAction) {
-        return invoker().doJActionResult("Get Selected element name", isSelectedAction::get);
+        return invoker().doJActionResult("Get Selected element name", isSelectedAction);
     }
 
     public int getSelectedIndex(Supplier<Integer> isSelectedAction) {
-        return invoker().doJActionResult("Get Selected element index", isSelectedAction::get);
+        return invoker().doJActionResult("Get Selected element index", isSelectedAction);
     }
 
     //MultiSelector
@@ -178,6 +181,10 @@ public class ElementsActions {
         for (int i : indexes)
             listIndexes.add(Integer.toString(i));
         invoker().doJAction(String.format("Select '%s'", print(listIndexes)), () -> selectListAction.accept(indexes));
+    }
+    // Expand Action
+    public void expand(JAction expandAction) {
+        invoker().doJAction("Expand Element", expandAction);
     }
 
     public List<String> areSelected(Supplier<List<String>> getNames, Function<String, Boolean> waitSelectedAction) {
@@ -209,20 +216,5 @@ public class ElementsActions {
             return true;
         });
         asserter.isTrue(result);
-    }
-
-    public <T> T findImmediately(Supplier<T> func, T ifError) {
-        element.setWaitTimeout(0);
-        Function<WebElement, Boolean> temp = element.avatar.localElementSearchCriteria;
-        element.avatar.localElementSearchCriteria = el -> true;
-        T result;
-        try {
-            result = func.get();
-        } catch (Exception | Error ex) {
-            result = ifError;
-        }
-        element.avatar.localElementSearchCriteria = temp;
-        element.restoreWaitTimeout();
-        return result;
     }
 }

@@ -1,8 +1,9 @@
 package com.epam.jdi.uitests.guitesting.unittests.pageobjects.pages;
 
-import com.epam.jdi.uitests.gui.sikuli.elements.base.CheckBox;
+import com.epam.jdi.uitests.core.interfaces.common.IButton;
+import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
+import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.gui.sikuli.elements.common.Button;
-import com.epam.jdi.uitests.gui.sikuli.elements.common.TextField;
 import com.epam.jdi.uitests.gui.sikuli.elements.composite.Page;
 import com.epam.jdi.uitests.gui.sikuli.elements.enums.OffsetUnits;
 import com.epam.jdi.uitests.gui.sikuli.elements.pageobjects.annotations.JLocation;
@@ -17,17 +18,17 @@ import static com.epam.jdi.uitests.guitesting.unittests.pageobjects.EpamJDIScree
 
 public class HomePage extends Page {
     @JCheckBox (checkImg = "HomePage/searchOrg.png", unCheckImg = "555", similarity = 0.9)
-    public CheckBox searchField;
+    public ICheckBox searchField;
     @JLocation(filePath = "HomePage/searchOrg.png")
     @JOffset(xOffset = 20, offsetUnit = OffsetUnits.PERCENTAGE)
-    public Button searchButton;
+    public IButton searchButton;
     @JLocation(filePath = "HomePage/contactLogo.png")
-    public Button contactLogo;
+    public IButton contactLogo;
 
     @JLocation(filePath = "HomePage/contactLogo.png")
-    public TextField userName;
+    public ITextField userName;
     @JLocation(filePath = "HomePage/password.png")
-    public TextField password;
+    public ITextField password;
     @JLocation(filePath = "HomePage/submit.png")
     public Button submit;
 

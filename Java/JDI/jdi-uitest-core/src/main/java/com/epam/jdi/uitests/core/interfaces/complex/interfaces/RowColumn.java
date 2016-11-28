@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,23 +18,40 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
  */
 
 
+import java.util.function.Function;
+
 /**
  * Created by Roman_Iovlev on 7/17/2015.
  */
-public class Column extends RowColumn {
-    public Column(int num) {
-        super(num);
+abstract class RowColumn {
+    private int num;
+    private String name;
+
+    RowColumn(int num) {
+        this.num = num;
     }
 
-    public Column(String name) {
-        super(name);
+    RowColumn(String name) {
+        this.name = name;
     }
 
-    public static Column column(int num) {
-        return new Column(num);
+    public boolean hasName() {
+        return name != null && !name.equals("");
     }
 
-    public static Column column(String name) {
-        return new Column(name);
+    public int getNum() {
+        return num;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public <T> T get(Function<RowColumn, T> action) {
+        return action.apply(this);
+    }
+
+    public <T> T get(Function<String, T> nameAction, Function<Integer, T> numAction) {
+        return hasName() ? nameAction.apply(name) : numAction.apply(num);
     }
 }

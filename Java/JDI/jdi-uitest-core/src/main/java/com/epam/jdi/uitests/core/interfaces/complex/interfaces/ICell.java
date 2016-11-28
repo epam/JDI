@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.composite;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,9 +18,25 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+
 /**
- * Created by Roman_Iovlev on 9/15/2015.
+ * Created by Roman_Iovlev on 7/28/2015.
  */
-public enum CheckPageTypes {
-    NONE, EQUAL, MATCH, CONTAINS
+public interface ICell extends ISelect {
+    ISelect get();
+
+    <T extends IClickable & IText> T get(Class<T> clazz);
+
+    <T extends IClickable & IText> T get(T element);
+
+    int columnNum();
+
+    int rowNum();
+
+    String columnName();
+
+    String rowName();
 }

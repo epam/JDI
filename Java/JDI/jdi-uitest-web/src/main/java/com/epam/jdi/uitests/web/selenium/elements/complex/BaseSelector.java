@@ -61,7 +61,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         this.allLabels = new GetElementType(allLabelsLocator, this);
     }
 
-    protected TextList<TEnum> allLabels() {
+    protected TextList allLabels() {
         return allLabels.get(TextList.class);
     }
 

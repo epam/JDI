@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -19,9 +19,29 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 
 /**
- * Created by 12345 on 25.10.2014.
+ * Created by Roman_Iovlev on 7/17/2015.
  */
-enum ElementIndexType {
-    Nums,
-    Names
+public class Column extends RowColumn {
+    public Column(int num) {
+        super(num);
+    }
+
+    public Column(String name) {
+        super(name);
+    }
+
+    public static Column column(int num) {
+        return new Column(num);
+    }
+
+    public static Column column(String name) {
+        return new Column(name);
+    }
+    public static Column inColumn(int num) {
+        return new Column(num);
+    }
+
+    public static Column inColumn(String name) {
+        return new Column(name);
+    }
 }

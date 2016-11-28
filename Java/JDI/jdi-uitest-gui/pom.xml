@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
-            <artifactId>jdi-commons</artifactId>
+            <artifactId>jdi-matchers</artifactId>
             <version>1.0.37</version>
         </dependency>
         <dependency>

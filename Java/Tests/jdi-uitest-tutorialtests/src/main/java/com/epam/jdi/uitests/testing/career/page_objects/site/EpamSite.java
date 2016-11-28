@@ -15,8 +15,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.

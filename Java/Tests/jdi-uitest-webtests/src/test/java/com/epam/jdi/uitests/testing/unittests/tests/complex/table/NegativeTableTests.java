@@ -1,8 +1,8 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.dataproviders.IndexesDP;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
@@ -37,12 +37,12 @@ public class NegativeTableTests extends SupportTableTestsBase {
 
     @Test(expectedExceptions = NullPointerException.class)
     public void illegalHeaderName(){
-        table().header("Column_illegal").getWebElement();
+        table().header("Column_illegal").select();
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void illegalHeaderIndex(){
-        table().rows().header("Row_illegal").getWebElement();
+        table().rows().header("Row_illegal").select();
     }
 
     @Test(expectedExceptions = AssertionError.class, expectedExceptionsMessageRegExp = "Can't Get Row 'No matching records found'. Reason: Index: 0, Size: 0")

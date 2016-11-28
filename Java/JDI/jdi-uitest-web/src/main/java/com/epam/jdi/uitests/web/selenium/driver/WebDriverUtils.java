@@ -21,10 +21,6 @@ package com.epam.jdi.uitests.web.selenium.driver;
 import org.openqa.selenium.os.CommandLine;
 import org.openqa.selenium.os.WindowsUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static com.epam.commons.LinqUtils.first;

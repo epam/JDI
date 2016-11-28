@@ -31,6 +31,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
@@ -46,8 +47,7 @@ import static java.lang.String.format;
  * @author Shubin Konstantin
  * @author Zharov Alexandr
  */
-public class Element extends BaseElement implements IElement {
-    private WebElement webElement;
+public class Element extends BaseElement implements IElement, IHasElement {
 
     public Element() {
         super();
@@ -58,7 +58,7 @@ public class Element extends BaseElement implements IElement {
     }
 
     public Element(WebElement webElement) {
-        this.webElement = webElement;
+        avatar.setWebElement(webElement);
     }
 
     public static <T extends Element> T copy(T element, By newLocator) {
@@ -77,7 +77,21 @@ public class Element extends BaseElement implements IElement {
     @JDIAction
     public WebElement getWebElement() {
         return invoker.doJActionResult("Get web element",
-                () -> webElement != null ? webElement : avatar.getElement(), DEBUG);
+                () -> avatar.getElement(), DEBUG);
+    }
+    public WebElement getHighLightElement() {
+        return avatar.getElement();
+    }
+    public void setWebElement(WebElement webElement) {
+        avatar.setWebElement(webElement);
+    }
+    public WebElement get(By locator) {
+        Element el = new Element(locator);
+        el.setParent(this);
+        return el.getWebElement();
+    }
+    public List<WebElement> getList(By locator) {
+        return getWebElement().findElements(locator);
     }
 
     /**
@@ -110,12 +124,10 @@ public class Element extends BaseElement implements IElement {
                         getWebElement(), value));
     }
 
-    protected boolean isDisplayedAction() {
-        return actions.findImmediately(() -> getWebElement().isDisplayed(), false);
-    }
 
-    protected void waitDisplayedAction() {
-        wait(WebElement::isDisplayed);
+
+    protected boolean isDisplayedAction() {
+        return avatar.findImmediately(() -> getWebElement().isDisplayed(), false);
     }
 
     /**
@@ -123,6 +135,10 @@ public class Element extends BaseElement implements IElement {
      */
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
+    }
+
+    protected void waitDisplayedAction() {
+        wait(WebElement::isDisplayed);
     }
 
     /**
@@ -153,7 +169,7 @@ public class Element extends BaseElement implements IElement {
 
     /**
      * @param resultFunc Specify expected function result
-     * @return Waits while condition with WebElement happens during specified timeout and returns result using resultFunc
+     * Waits while condition with WebElement happens during specified timeout and returns result using resultFunc
      */
     @JDIAction
     public void wait(Function<WebElement, Boolean> resultFunc) {
@@ -174,7 +190,7 @@ public class Element extends BaseElement implements IElement {
     /**
      * @param resultFunc Specify expected function result
      * @param timeoutSec Specify timeout
-     * @return Waits while condition with WebElement happens during specified timeout and returns wait result
+     * Waits while condition with WebElement happens during specified timeout and returns wait result
      */
     @JDIAction
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {
@@ -219,7 +235,6 @@ public class Element extends BaseElement implements IElement {
 
     public void doubleClick() {
         invoker.doJAction("Double click on Element", () -> {
-            getWebElement().getSize(); //for scroll to object
             Actions builder = new Actions(getDriver());
             builder.doubleClick(getWebElement()).perform();
         });
@@ -227,7 +242,6 @@ public class Element extends BaseElement implements IElement {
 
     public void rightClick() {
         invoker.doJAction("Right click on Element", () -> {
-            getWebElement().getSize(); //for scroll to object
             Actions builder = new Actions(getDriver());
             builder.contextClick(getWebElement()).perform();
         });
@@ -235,7 +249,6 @@ public class Element extends BaseElement implements IElement {
 
     public void clickCenter() {
         invoker.doJAction("Click in Center of Element", () -> {
-            getWebElement().getSize(); //for scroll to object
             Actions builder = new Actions(getDriver());
             builder.click(getWebElement()).perform();
         });
@@ -243,7 +256,6 @@ public class Element extends BaseElement implements IElement {
 
     public void mouseOver() {
         invoker.doJAction("Move mouse over Element", () -> {
-            getWebElement().getSize(); //for scroll to object
             Actions builder = new Actions(getDriver());
             builder.moveToElement(getWebElement()).build().perform();
         });
@@ -269,4 +281,8 @@ public class Element extends BaseElement implements IElement {
                 new Actions(getDriver()).dragAndDropBy(getWebElement(), x, y).build().perform());
     }
 
+    public void dragAndDrop(Element target) {
+        invoker.doJAction(format("Drag and drop to Target Element: %s", target.toString()), () ->
+                new Actions(getDriver()).dragAndDrop(getWebElement(), target.getWebElement()).build().perform());
+    }
 }

@@ -1,7 +1,7 @@
 package com.epam.jdi.uitests.gui.sikuli.elements.common;
 
-import com.epam.jdi.uitests.gui.sikuli.elements.base.Element;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.gui.sikuli.elements.base.Element;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/19/2016.

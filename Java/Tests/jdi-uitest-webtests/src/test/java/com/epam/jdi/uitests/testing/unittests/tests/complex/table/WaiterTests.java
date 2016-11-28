@@ -4,12 +4,12 @@ import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTa
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.*;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Row.row;
 import static com.epam.web.matcher.testng.Assert.isFalse;
 import static com.epam.web.matcher.testng.Assert.isTrue;
 

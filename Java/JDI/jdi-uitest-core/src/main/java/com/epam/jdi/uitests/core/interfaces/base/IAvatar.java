@@ -24,4 +24,5 @@ package com.epam.jdi.uitests.core.interfaces.base;
 
 public interface IAvatar {
     void setDriverName(String driverName);
+    IAvatar copy();
 }

@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
+import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
@@ -137,8 +138,8 @@ public abstract class BaseElement implements IBaseElement {
         return avatar;
     }
 
-    public BaseElement setAvatar(GetElementModule avatar) {
-        this.avatar = avatar.copy();
+    public BaseElement setAvatar(IAvatar avatar) {
+        this.avatar = (GetElementModule) avatar.copy();
         return this;
     }
     public BaseElement setAvatar(By byLocator) {

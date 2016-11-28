@@ -51,7 +51,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     public boolean waitVanishedAction() {
-        return actions.findImmediately(() ->
+        return avatar.findImmediately(() ->
                 timer().wait(() -> {
                     List<WebElement> elements = getWebElements();
                     if (elements == null || elements.size() == 0)
@@ -63,7 +63,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     protected boolean isDisplayedAction() {
-        return actions.findImmediately(() -> where(getWebElements(), WebElement::isDisplayed).size() > 0, false);
+        return avatar.findImmediately(() -> where(getWebElements(), WebElement::isDisplayed).size() > 0, false);
     }
 
     public boolean waitDisplayedAction() {
@@ -139,7 +139,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
      * @return Get textList’s text by specified param
      */
     public final String getText(String name) {
-        return invoker.doJActionResult(format("Get text for Element '%s' with name '%s'", this.toString(), name),
+        return invoker.doJActionResult(String.format("Get text for Element '%s' with name '%s'", this.toString(), name),
                 () -> getTextAction(getElement(name)));
     }
 
@@ -148,7 +148,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
      * @return Get textList’s text by specified param
      */
     public final String getText(int index) {
-        return invoker.doJActionResult(format("Get text for Element '%s' with index '%s'", this.toString(), index),
+        return invoker.doJActionResult(String.format("Get text for Element '%s' with index '%s'", this.toString(), index),
                 () -> getTextAction(getElement(index)));
     }
 
@@ -184,9 +184,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     public final List<String> waitText(String str) {
         if (timer().wait(() -> select(getWebElements(), WebElement::getText).contains(str)))
             return getLabels();
-        else {
-            throw exception("Wait Text Failed");
-        }
+        throw exception("Wait Text Failed (%s)", toString());
     }
 
     /**

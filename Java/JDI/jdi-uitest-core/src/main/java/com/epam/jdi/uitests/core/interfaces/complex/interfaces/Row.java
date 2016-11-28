@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.composite;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,21 +18,31 @@ package com.epam.jdi.uitests.mobile.appium.elements.composite;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.Application;
-import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
-
-import static com.epam.jdi.uitests.mobile.WebSettings.getDriverFactory;
-
 /**
- * Created by Roman_Iovlev on 8/30/2015.
+ * Created by Roman_Iovlev on 7/17/2015.
  */
-public class Site extends Application {
-    public static <T> void init(Class<T> site) {
-        new AppiumCascadeInit().initStaticPages(site, getDriverFactory().currentDriverName());
-        currentSite = site;
-    }
-    public static <T extends Site> T init(Class<T> site, String driverName) {
-        return new AppiumCascadeInit().initPages(site, driverName);
+public class Row extends RowColumn {
+    public Row(int num) {
+        super(num);
     }
 
+    public Row(String name) {
+        super(name);
+    }
+
+    public static Row row(int num) {
+        return new Row(num);
+    }
+
+    public static Row row(String name) {
+        return new Row(name);
+    }
+
+    public static Row inRow(int num) {
+        return new Row(num);
+    }
+
+    public static Row inRow(String name) {
+        return new Row(name);
+    }
 }

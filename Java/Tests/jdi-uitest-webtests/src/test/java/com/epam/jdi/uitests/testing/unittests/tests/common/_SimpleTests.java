@@ -4,18 +4,14 @@ import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.enums.Colors;
 import com.epam.jdi.uitests.testing.unittests.enums.Even;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.actionsLog;
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.resultsLog;
+import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
 import static com.epam.web.matcher.testng.Assert.assertContains;
 
 /**

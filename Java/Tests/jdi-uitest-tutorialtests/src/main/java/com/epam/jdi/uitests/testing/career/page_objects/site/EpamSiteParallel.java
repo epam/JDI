@@ -11,8 +11,8 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.

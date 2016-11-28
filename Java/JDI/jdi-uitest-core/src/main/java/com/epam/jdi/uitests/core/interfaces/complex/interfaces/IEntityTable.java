@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,25 +18,41 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
-import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
+import java.util.List;
 
 /**
- * Created by Roman_Iovlev on 7/28/2015.
+ * Created by roman.i on 20.10.2014.
  */
-public interface ICell extends ISelect {
-    SelectElement get();
 
-    <T extends BaseElement> T get(Class<T> clazz) throws Exception;
+public interface IEntityTable<E,R> extends ITable, List<E> {
 
-    <T extends BaseElement> T get(T element);
+    List<R> getRows(String... colNames);
 
-    int columnNum();
+    R getRow(String value, Column column);
 
-    int rowNum();
+    R getRow(int rowNum);
 
-    String columnName();
+    R getRow(String rowName);
 
-    String rowName();
+    List<E> entities(String... colNames);
+
+    default List<E> entities(){
+        return all();
+    }
+
+    E entity(int rowNum);
+
+    E entity(String value, Column column);
+
+    E entity(String rowName);
+
+    List<E> all();
+
+    default E first(){
+        return entity(1);
+    }
+
+    default E last(){
+        return entity(size());
+    }
 }

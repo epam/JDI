@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.gui.sikuli.elements.base;
 
 import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
 import org.sikuli.script.Pattern;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/21/2016.
@@ -61,8 +62,19 @@ public class CheckBox extends Clickable implements ICheckBox {
     /**
      * @return Get value of Element
      */
-    @Override
     public String getValue() {
-        return null;
+        throw new NotImplementedException();
+    }
+
+    public String getText() {
+        throw new NotImplementedException();
+    }
+
+    public String waitText(String text) {
+        throw new NotImplementedException();
+    }
+
+    public String waitMatchText(String regEx) {
+        throw new NotImplementedException();
     }
 }

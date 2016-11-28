@@ -18,9 +18,20 @@ package com.epam.jdi.uitests.mobile.appium.elements.composite;
  */
 
 
+import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
+
+import static com.epam.jdi.uitests.mobile.WebSettings.getDriverFactory;
+
 /**
- * Created by Roman_Iovlev on 9/15/2015.
+ * Created by Roman_Iovlev on 8/30/2015.
  */
-public enum CheckPageTypes {
-    NONE, EQUAL, MATCH, CONTAIN
+public class Application extends com.epam.jdi.uitests.core.interfaces.Application {
+    public static <T> void init(Class<T> site) {
+        new AppiumCascadeInit().initStaticPages(site, getDriverFactory().currentDriverName());
+        currentSite = site;
+    }
+    public static <T extends Application> T init(Class<T> site, String driverName) {
+        return new AppiumCascadeInit().initPages(site, driverName);
+    }
+
 }

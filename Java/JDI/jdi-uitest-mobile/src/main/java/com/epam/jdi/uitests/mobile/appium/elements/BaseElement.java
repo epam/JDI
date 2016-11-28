@@ -20,24 +20,15 @@ package com.epam.jdi.uitests.mobile.appium.elements;
 
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
+import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
-import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.core.interfaces.common.*;
-import com.epam.jdi.uitests.core.interfaces.complex.*;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ElementsActions;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
-import com.epam.jdi.uitests.mobile.appium.elements.base.Clickable;
-import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
-import com.epam.jdi.uitests.mobile.appium.elements.common.*;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.*;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.Table;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.GetElement;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -47,6 +38,7 @@ import java.text.MessageFormat;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.getByLocator;
@@ -58,7 +50,6 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  */
 public abstract class BaseElement implements IBaseElement {
 
-    public static boolean createFreeInstance = false;
     public static ActionScenrios actionScenrios = new ActionScenrios();
     public static BiConsumer<String, Consumer<String>> doActionRule = (text, action) -> {
         if (text == null) return;
@@ -72,19 +63,21 @@ public abstract class BaseElement implements IBaseElement {
     public void setFunction(Functions function) { this.function = function; }
     public GetElementModule avatar;
     public ActionInvoker invoker = new ActionInvoker(this);
-    private Object parent;
-    protected GetElement getElement = new GetElement(this);
+    protected GetElement getElementClass = new GetElement(this);
     protected ElementsActions actions = new ElementsActions(this);
     private String name;
     private String varName;
     private String typeName;
+    private Object parent;
 
     public BaseElement() {
         this(By.id("EMPTY"));
     }
 
     public BaseElement(By byLocator) {
-        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY") ? null : byLocator, this);
+        avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY")
+                ? null
+                : byLocator, this);
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {
@@ -95,34 +88,6 @@ public abstract class BaseElement implements IBaseElement {
         doActionRule.accept(text, action);
     }
 
-    private static Object[][] seleniumDefaultMap() {
-        return new Object[][]{
-                {IElement.class, Element.class},
-                {IButton.class, Button.class},
-                {IClickable.class, Clickable.class},
-                {IComboBox.class, ComboBox.class},
-                {ILink.class, Link.class},
-                {ISelector.class, Selector.class},
-                {IText.class, Text.class},
-                {IImage.class, Image.class},
-                {ITextArea.class, TextArea.class},
-                {ITextField.class, TextField.class},
-                {ILabel.class, Label.class},
-                {IDropDown.class, Dropdown.class},
-                {IDropList.class, DropList.class},
-                {IGroup.class, ElementsGroup.class},
-                {ITable.class, Table.class},
-                {ICheckBox.class, CheckBox.class},
-                {IRadioButtons.class, RadioButtons.class},
-                {ICheckList.class, CheckList.class},
-                {ITextList.class, TextList.class},
-                {ITabs.class, Tabs.class},
-                {IMenu.class, Menu.class},
-                {IFileInput.class, FileInput.class},
-                {IDatePicker.class, DatePicker.class},
-        };
-    }
-
     /**
      * @return Get Element’s name
      */
@@ -131,7 +96,7 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public void setName(Field field) {
-        this.name = WebAnnotationsUtil.getElementName(field);
+        this.name = AppiumAnnotationsUtil.getElementName(field);
         this.varName = field.getName();
     }
 
@@ -151,8 +116,8 @@ public abstract class BaseElement implements IBaseElement {
         return (JavascriptExecutor) getDriver();
     }
 
-    public boolean haveLocator() {
-        return avatar.haveLocator();
+    public boolean hasLocator() {
+        return avatar.hasLocator();
     }
 
     /**
@@ -166,22 +131,24 @@ public abstract class BaseElement implements IBaseElement {
      * @return Get Element’s locator
      */
     public By getLocator() {
-        return avatar.byLocator;
+        return avatar.getLocator();
     }
 
     public GetElementModule getAvatar() {
         return avatar;
     }
 
-    public BaseElement setAvatar(GetElementModule avatar) {
-        this.avatar = avatar;
+    public BaseElement setAvatar(IAvatar avatar) {
+        this.avatar = (GetElementModule) avatar.copy();
+        return this;
+    }
+    public BaseElement setAvatar(By byLocator) {
+        this.avatar = this.avatar.copy(byLocator);
         return this;
     }
 
     public BaseElement setAvatar(By byLocator, GetElementModule avatar) {
-        this.avatar = new GetElementModule(byLocator, avatar.context, this);
-        this.avatar.localElementSearchCriteria = avatar.localElementSearchCriteria;
-        this.avatar.setDriverName(avatar.getDriverName());
+        this.avatar = avatar.copy(byLocator);
         return this;
     }
 
@@ -207,7 +174,17 @@ public abstract class BaseElement implements IBaseElement {
         return parent == null ? "" : parent.getClass().getSimpleName();
     }
     public Object getParent() { return parent; }
-    public String printContext() { return "NOT IMPLEMENTED"; }
+    public String printContext() {
+        By locator;
+        BaseElement parent;
+        String parentContext;
+        return getParent() == null || !isClass(getParent().getClass(), BaseElement.class)
+                || (locator = (parent = (BaseElement)getParent()).getLocator()) == null
+                ? ""
+                : ((parentContext = parent.printContext()).equals(""))
+                ? locator.toString()
+                : locator + "; " + parentContext;
+    }
     public void setParent(Object parent) { this.parent = parent; }
 
     public void logAction(String actionName, LogLevels level) {

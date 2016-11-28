@@ -52,6 +52,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 public class AppiumDriverFactory implements IDriver<WebDriver> {
     public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public String currentDriverName = "";
     public boolean isDemoMode = false;

@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -19,22 +19,9 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 
 /**
- * Created by Roman_Iovlev on 7/17/2015.
+ * Created by 12345 on 25.10.2014.
  */
-public class Row extends RowColumn {
-    public Row(int num) {
-        super(num);
-    }
-
-    public Row(String name) {
-        super(name);
-    }
-
-    public static Row row(int num) {
-        return new Row(num);
-    }
-
-    public static Row row(String name) {
-        return new Row(name);
-    }
+public enum ElementIndexType {
+    Nums,
+    Names
 }

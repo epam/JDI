@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
+package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -17,6 +17,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,9 +25,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by Roman_Iovlev on 7/24/2015.
+ * Created by 12345 on 17.05.2016.
  */
+
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface JApp {
+@Target({ElementType.TYPE, ElementType.FIELD})
+public @interface JDropdown {
+    FindBy root() default @FindBy();
+    FindBy value() default @FindBy();
+    FindBy list() default @FindBy();
+    FindBy expand() default @FindBy();
+    FindBy elementByName() default @FindBy();
+
 }

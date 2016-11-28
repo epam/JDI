@@ -18,18 +18,20 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils;
-import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
-import com.epam.jdi.uitests.mobile.appium.elements.MapInterfaceToElement;
-import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.ContextType;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
+import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ICell;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static com.epam.commons.LinqUtils.last;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.fillByMsgTemplate;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -52,7 +54,6 @@ class Cell extends SelectElement implements ISelect, ICell {
     private String columnName;
     private String rowName;
     private By cellLocatorTemplate = By.xpath(".//tr[{1}]/td[{0}]");
-    private Class<?>[] columnsTemplate;
 
     Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
                 By cellLocatorTemplate, Table table) {
@@ -68,7 +69,7 @@ class Cell extends SelectElement implements ISelect, ICell {
 
     Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
                 By cellLocatorTemplate, Table table) {
-        this.columnIndex = (table.rows().hasHeader && table.rows().lineTemplate == null) ? columnIndex + 1 : columnIndex;
+        this.columnIndex = (((Rows)table.rows()).hasHeader && ((Rows)table.rows()).lineTemplate == null) ? columnIndex + 1 : columnIndex;
         this.rowIndex = rowIndex;
         this.columnNum = columnNum;
         this.rowNum = rowNum;
@@ -94,13 +95,13 @@ class Cell extends SelectElement implements ISelect, ICell {
     public String columnName() {
         return (columnName != null && !columnName.equals(""))
                 ? columnName
-                : table.columns().headers()[columnNum - 1];
+                : table.columns().headers().get(columnNum - 1);
     }
 
     public String rowName() {
         return (rowName != null && !rowName.equals(""))
                 ? rowName
-                : table.rows().headers()[rowNum - 1];
+                : table.rows().headers().get(rowNum - 1);
     }
 
     @Override
@@ -119,12 +120,18 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     public SelectElement get() {
-        return (webElement != null)
+        SelectElement cell = webElement != null
                 ? new SelectElement(webElement)
-                : new SelectElement(WebDriverByUtils.fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+                : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+        cell.setParent(table);
+        return cell;
     }
 
-    public <T extends BaseElement> T get(Class<T> clazz) {
+    public WebElement get(By subLocator) {
+        return get().get(subLocator);
+    }
+
+    public <T extends IClickable & IText> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -136,15 +143,17 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get(instance);
     }
 
-    public <T extends BaseElement> T get(T cell) {
-        By locator = cell.getLocator();
+    public <T extends IClickable & IText> T get(T cell) {
+        SelectElement cellSelect = (SelectElement) cell;
+        By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
             locator = cellLocatorTemplate;
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
-            throw exception("Can't create cell with locator template " + cell.getLocator()
+            throw exception("Can't create cell with locator template " + cellSelect.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-        cell.getAvatar().byLocator = WebDriverByUtils.fillByMsgTemplate(locator, rowIndex, columnIndex);
-        cell.getAvatar().context.add(ContextType.Locator, table.getLocator());
+        cellSelect.setAvatar(new GetElementModule(fillByMsgTemplate(locator, columnIndex, rowIndex), cellSelect));
+        cellSelect.setParent(table);
+        new AppiumCascadeInit().initElements(cellSelect, avatar.getDriverName());
         return cell;
     }
 

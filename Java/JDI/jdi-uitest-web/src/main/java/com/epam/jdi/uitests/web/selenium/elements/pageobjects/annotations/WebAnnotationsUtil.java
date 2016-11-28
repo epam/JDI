@@ -19,15 +19,15 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
-import com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.function.Consumer;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static com.epam.jdi.uitests.web.settings.WebSettings.hasDomain;

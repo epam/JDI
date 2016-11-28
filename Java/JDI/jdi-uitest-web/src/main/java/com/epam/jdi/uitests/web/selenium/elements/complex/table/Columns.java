@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -34,8 +34,9 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 /**
  * Created by 12345 on 26.10.2014.
  */
-public class Columns extends TableLine {
+public class Columns extends TableLine implements IColumn {
     public Columns() {
+        hasHeader = true;
         hasHeader = true;
         elementIndex = ElementIndexType.Nums;
         headersLocator = By.xpath(".//th");
@@ -47,7 +48,7 @@ public class Columns extends TableLine {
     }
 
     protected List<WebElement> getFirstLine() {
-        return table.rows().getLineAction(1);
+        return ((Rows)table.rows()).getLineAction(1);
     }
 
     public final MapArray<String, ICell> getColumn(String colName) {
@@ -57,7 +58,7 @@ public class Columns extends TableLine {
             List<WebElement> webColumn = timer().getResultByCondition(
                     () -> getLineAction(colName), els -> els.size() == rowsCount);
             return new MapArray<>(rowsCount,
-                    table.rows().headers::get,
+                    table.rows().headers()::get,
                     value -> table.cell(webColumn.get(value), new Column(colName), new Row(headers.get(value))));
         } catch (Exception | Error ex) {
             throw throwColumnException(colName, ex.getMessage());

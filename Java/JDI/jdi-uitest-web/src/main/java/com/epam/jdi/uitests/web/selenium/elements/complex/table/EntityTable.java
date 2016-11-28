@@ -21,8 +21,10 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.ReflectionUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
@@ -32,7 +34,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Sergey_Mishanin on 11/18/16.
  */
-public class EntityTable<E, R> extends Table implements List<E>{
+public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     private Class<E> entityClass;
     private Class<R> rowClass;
 
@@ -94,7 +96,7 @@ public class EntityTable<E, R> extends Table implements List<E>{
             throw new RuntimeException(e);
         }
 
-        value.setAvatar(cell.get().avatar);
+        value.setAvatar(cell.get().getAvatar());
         try {
             FieldUtils.writeField(field, entity, value);
         } catch (IllegalAccessException e) {
@@ -164,10 +166,6 @@ public class EntityTable<E, R> extends Table implements List<E>{
         return entities;
     }
 
-    public List<E> entities(){
-        return all();
-    }
-
     public E entity(int rowNum){
         return rowToEntity(rows.getRow(rowNum));
     }
@@ -183,14 +181,6 @@ public class EntityTable<E, R> extends Table implements List<E>{
     public List<E> all(){
         return rows.get().values().stream()
                 .map(this::rowToEntity).collect(Collectors.toList());
-    }
-
-    public E first(){
-        return entity(1);
-    }
-
-    public E last(){
-        return entity(size());
     }
 
     private void setEntityField(E entity, Field[] fields, String fieldName, String value)
@@ -211,107 +201,86 @@ public class EntityTable<E, R> extends Table implements List<E>{
         }
     }
 
-    @Override
     public int size() {
         return rows.count();
     }
 
-    @Override
     public boolean contains(Object o) {
         return allCells.contains(o);
     }
 
-    @Override
     public Iterator<E> iterator() {
         return all().iterator();
     }
 
-    @Override
     public Object[] toArray() {
         return all().toArray();
     }
 
-    @Override
     public <T1> T1[] toArray(T1[] a) {
         return all().toArray(a);
     }
 
-    @Override
     public boolean add(E t) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean remove(Object o) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean containsAll(Collection<?> c) {
         return all().containsAll(c);
     }
 
-    @Override
     public boolean addAll(Collection<? extends E> c) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean removeAll(Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public E get(int index) {
         return entity(index);
     }
 
-    @Override
     public E set(int index, E element) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void add(int index, E element) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public E remove(int index) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public int indexOf(Object o) {
         return all().indexOf(o);
     }
 
-    @Override
     public int lastIndexOf(Object o) {
         return all().lastIndexOf(o);
     }
 
-    @Override
     public ListIterator<E> listIterator() {
         return all().listIterator();
     }
 
-    @Override
     public ListIterator<E> listIterator(int index) {
         return all().listIterator(index);
     }
 
-    @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return all().subList(fromIndex, toIndex);
     }

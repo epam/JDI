@@ -50,7 +50,7 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> {
     }
 
     protected void expandAction() {
-        if (getDriver().findElements(treeLocators.get(0)).size() == 0)
+        if (treeLocators != null && getDriver().findElements(treeLocators.get(0)).size() == 0)
             element().click();
     }
 

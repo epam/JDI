@@ -19,10 +19,12 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ElementIndexType;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITableLine;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -51,7 +53,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected By defaultTemplate;
     protected By lineTemplate = null;
 
-    protected <T extends TableLine> T clone(T newTableLine, Table newTable) {
+    public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());
         newTableLine.hasHeader = hasHeader;
         newTableLine.elementIndex = elementIndex;
@@ -111,7 +113,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     public int count() {
         return count(false);
     }
-    protected int count(boolean acceptEmpty) {
+    public int count(boolean acceptEmpty) {
         if (count > 0)
             return count;
         if (headers != null && headers.size() > 0)
@@ -135,11 +137,11 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     protected abstract List<WebElement> getHeadersAction();
 
-    public final MapArray<String, SelectElement> header() {
+    public final MapArray<String, ISelect> header() {
         return new MapArray<>(getHeadersAction(), WebElement::getText, SelectElement::new);
     }
 
-    public final SelectElement header(String name) {
+    public final ISelect header(String name) {
         return header().get(name);
     }
 

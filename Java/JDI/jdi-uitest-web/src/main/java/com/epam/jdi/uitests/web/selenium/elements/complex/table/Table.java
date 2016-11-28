@@ -20,20 +20,16 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
-import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
-import org.apache.xpath.operations.Bool;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
@@ -126,8 +122,8 @@ public class Table extends Text implements ITable, Cloneable {
 
     public Table clone() {
         Table newTable = new Table();
-        newTable.rows = rows().clone(new Rows(), newTable);
-        newTable.columns = columns().clone(new Columns(), newTable);
+        newTable.rows = ((Rows)rows()).clone(new Rows(), newTable);
+        newTable.columns = ((Columns)columns()).clone(new Columns(), newTable);
         newTable.avatar = new GetElementModule(getLocator(), newTable);
         return newTable;
     }
@@ -135,8 +131,8 @@ public class Table extends Text implements ITable, Cloneable {
     public List<ICell> getCells() {
         List<ICell> result = new ArrayList<>();
         for (String columnName : columns().headers())
-            for (String rowName : rows().headers())
-                result.add(cell(columnName, rowName));
+            headers().forEach(rowName
+                -> result.add(cell(columnName, rowName)));
         if (cache)
             allCells = result;
         return result;
@@ -168,7 +164,7 @@ public class Table extends Text implements ITable, Cloneable {
         clean();
     }
 
-    public Columns columns() {
+    public IColumn columns() {
         return columns;
     }
 
@@ -196,7 +192,7 @@ public class Table extends Text implements ITable, Cloneable {
         columns.update(value);
     }
 
-    public Rows rows() {
+    public IRow rows() {
         return rows;
     }
 
@@ -225,33 +221,33 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ITable hasAllHeaders() {
-        columns().hasHeader = true;
-        rows().hasHeader = true;
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = true;
         return this;
     }
 
     public ITable hasNoHeaders() {
-        columns().hasHeader = false;
-        rows().hasHeader = false;
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = false;
         return this;
     }
 
     public ITable hasOnlyColumnHeaders() {
-        columns().hasHeader = true;
-        rows().hasHeader = false;
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = false;
         return this;
     }
 
     public ITable hasOnlyRowHeaders() {
-        columns().hasHeader = false;
-        rows().hasHeader = true;
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = true;
         return this;
     }
 
 
     public ITable hasColumnHeaders(List<String> value) {
-        columns().hasHeader = true;
-        columns().headers = new ArrayList<>(value);
+        ((Columns) columns()).hasHeader = true;
+        ((Columns) columns()).headers = new ArrayList<>(value);
         return this;
     }
 
@@ -260,8 +256,8 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ITable hasRowHeaders(List<String> value) {
-        rows().hasHeader = true;
-        rows().headers = new ArrayList<>(value);
+        ((Rows)rows()).hasHeader = true;
+        ((Rows)rows()).headers = new ArrayList<>(value);
         return this;
     }
 
@@ -291,11 +287,11 @@ public class Table extends Text implements ITable, Cloneable {
         footer = new ArrayList<>(value);
     }
 
-    public final MapArray<String, SelectElement> header() {
+    public final MapArray<String, ISelect> header() {
         return columns().header();
     }
 
-    public final SelectElement header(String name) {
+    public final ISelect header(String name) {
         return columns().header(name);
     }
 

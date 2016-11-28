@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -20,9 +20,8 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.*;
 
 import java.util.List;
 
@@ -256,7 +255,7 @@ public interface ITable extends IText {
     @JDIAction
     MapArray<String, ICell> rowMatch(String regEx, Column column);
 
-    Rows rows();
+    IRow rows();
 
     /**
      * Get Row with index <br>
@@ -284,7 +283,7 @@ public interface ITable extends IText {
     @JDIAction
     List<String> rowValue(String colName);
 
-    Columns columns();
+    IColumn columns();
 
     /**
      * Get Column with index <br>
@@ -316,10 +315,10 @@ public interface ITable extends IText {
      * Get Header
      */
     @JDIAction
-    MapArray<String, SelectElement> header();
+    MapArray<String, ISelect> header();
 
     @JDIAction
-    SelectElement header(String name);
+    ISelect header(String name);
 
     /**
      * Get Header
@@ -352,9 +351,9 @@ public interface ITable extends IText {
     ITable useCache(boolean value);
     default ITable useCache() { return useCache(true); }
 
-    Table clone();
+    ITable clone();
 
-    Table copy();
+    ITable copy();
 
     ITable hasAllHeaders();
 

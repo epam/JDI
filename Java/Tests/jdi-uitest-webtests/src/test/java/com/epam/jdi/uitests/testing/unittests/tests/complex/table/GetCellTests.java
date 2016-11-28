@@ -3,8 +3,8 @@ package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
 import org.testng.annotations.Test;
 
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Row.row;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 
 /**

@@ -1,16 +1,16 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Column.column;
-import static com.epam.jdi.uitests.web.selenium.elements.complex.table.Row.row;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 import static java.lang.String.format;
 
@@ -343,22 +343,6 @@ public class SearchRowsColumnsTests extends SupportTableTestsBase {
         MapArray<String, String> row = table().rows().getRowAsText("3");
         new Check("Row content").areEquals(print(row.select(
                 (rowK, rowV) -> format("%s:%s", rowK, rowV))), expectedRow);
-    }
-
-    @Test
-    public void cellsToColumnTest(){
-        MapArray<String, ICell> cellsToColumn = table().columns().cellsToColumn(Arrays.asList(table().cell(1, 1), table().cell(2, 2)));
-
-        new Check("Columns Headers").areEquals("Type, Now", cellsToColumn.key(0)+", "+cellsToColumn.key(1));
-        new Check("Cells Values").areEquals("Drivers, TestNG, JUnit, Custom", print(new String[]{cellsToColumn.value(0).getValue(), cellsToColumn.value(1).getValue()}));
-    }
-
-    @Test
-    public void cellsToRowTest(){
-        MapArray<String, ICell> cellsToRow = table().rows().cellsToRow(Arrays.asList(table().cell(1, 1), table().cell(2, 2)));
-
-        new Check("Rows Indexes").areEquals("1, 2", cellsToRow.key(0)+", "+cellsToRow.key(1));
-        new Check("Cells Values").areEquals("Drivers, TestNG, JUnit, Custom", print(new String[]{cellsToRow.value(0).getValue(), cellsToRow.value(1).getValue()}));
     }
 
     @Test

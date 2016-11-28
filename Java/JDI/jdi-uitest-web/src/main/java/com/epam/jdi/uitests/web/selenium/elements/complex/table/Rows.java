@@ -20,26 +20,21 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ICell;
-import com.epam.jdi.uitests.web.settings.WebSettings;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 
 import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.LinqUtils.where;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.web.settings.WebSettings.*;
-import static java.util.concurrent.TimeUnit.*;
 
 /**
  * Created by 12345 on 26.10.2014.
  */
-public class Rows extends TableLine {
+public class Rows extends TableLine implements IRow {
     public Rows() {
         hasHeader = false;
         elementIndex = ElementIndexType.Nums;
@@ -52,7 +47,7 @@ public class Rows extends TableLine {
     }
 
     protected List<WebElement> getFirstLine() {
-        return table.columns().getLineAction(1);
+        return ((Columns)table.columns()).getLineAction(1);
     }
 
     public MapArray<String, MapArray<String, ICell>> get() {
@@ -132,7 +127,7 @@ public class Rows extends TableLine {
                     () -> getLineAction(rowName), els -> els.size() == colsCount);
             List<String> headers = table.columns().headers();
             return new MapArray<>(colsCount,
-                    table.columns().headers::get,
+                    table.columns().headers()::get,
                     value -> table.cell(webRowLine.get(value), new Column(headers.get(value)), new Row(rowName)));
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());

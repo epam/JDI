@@ -109,7 +109,7 @@ public class Pagination extends BaseElement implements IPagination {
     private Clickable getClickable(String name) {
         List<Field> fields = getFields(this, IClickable.class);
         Field result = LinqUtils.first(fields,
-                cl -> AnnotationsUtil.getElementName(cl).toLowerCase().contains(name.toLowerCase()));
+                field -> AnnotationsUtil.getElementName(field).toLowerCase().contains(name.toLowerCase()));
         return (Clickable) getValueField(result, this);
     }
 
@@ -129,7 +129,7 @@ public class Pagination extends BaseElement implements IPagination {
         if (nextLink != null)
             return nextLink;
 
-        if (getLocator() != null && getLocator().toString().contains("'%s'"))
+        if (getLocator() != null && getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
         throw exception(cantChooseElementMsg("Next", shortName, "nextAction"));
     }
@@ -143,7 +143,7 @@ public class Pagination extends BaseElement implements IPagination {
         if (prevLink != null)
             return prevLink;
 
-        if (getLocator() != null && getLocator().toString().contains("'%s'"))
+        if (getLocator() != null && getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
         throw exception(cantChooseElementMsg("Previous", shortName, "previousAction"));
     }
@@ -157,7 +157,7 @@ public class Pagination extends BaseElement implements IPagination {
         if (firstLink != null)
             return firstLink;
 
-        if (getLocator() != null && getLocator().toString().contains("'%s'"))
+        if (getLocator() != null && getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
         throw exception(cantChooseElementMsg("First", shortName, "firstAction"));
     }
@@ -171,14 +171,14 @@ public class Pagination extends BaseElement implements IPagination {
         if (lastLink != null)
             return lastLink;
 
-        if (getLocator() != null && getLocator().toString().contains("'%s'"))
+        if (getLocator() != null && getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
         throw exception(cantChooseElementMsg("Last", shortName, "lastAction"));
     }
 
     private Clickable pageAction(int index) {
         String shortName = "page";
-        if (getLocator() != null && getLocator().toString().contains("'%s'"))
+        if (getLocator() != null && getLocator().toString().contains("%s"))
             return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), index));
 
         Clickable pageLink = getClickable(shortName);

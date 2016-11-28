@@ -44,21 +44,21 @@ public class PopupForm<T> extends Form<T> implements IPopup {
      * Click on Button marked with annotation @OkButton or named "okButton"
      */
     public void ok() {
-        getElement.getButton(OK_BUTTON).click();
+        getElementClass.getButton(OK_BUTTON).click();
     }
 
     /**
      * Click on Button marked with annotation @CancelButton or named "cancelButton"
      */
     public void cancel() {
-        getElement.getButton(CANCEL_BUTTON).click();
+        getElementClass.getButton(CANCEL_BUTTON).click();
     }
 
     /**
      * Click on Button marked with annotation @CloseButton or named "closeButton"
      */
     public void close() {
-        getElement.getButton(CLOSE_BUTTON).click();
+        getElementClass.getButton(CLOSE_BUTTON).click();
     }
 
     protected String getTextAction() {

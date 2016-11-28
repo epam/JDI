@@ -26,19 +26,19 @@ import org.openqa.selenium.By;
  */
 public class GetElementType {
     private By locator;
-    private By allLabelsLocator;
+    private GetElementModule avatar;
 
-    public GetElementType() {
-        this(null);
-    }
-
-    public GetElementType(By locator) {
+    public GetElementType() { }
+    public GetElementType(By locator, BaseElement element) {
         this.locator = locator;
+        this.avatar = element.getAvatar();
     }
 
-    public <T extends BaseElement> T get(T element, GetElementModule avatar) {
-        return locator == null
-                ? null
-                : (T) element.setAvatar(locator, avatar);
+    public <T extends BaseElement> T get(Class<T> clazz) {
+        try {
+            return locator == null
+                    ? null
+                    : (T) clazz.newInstance().setAvatar(locator, avatar);
+        } catch (Exception ignore) { return null; }
     }
 }

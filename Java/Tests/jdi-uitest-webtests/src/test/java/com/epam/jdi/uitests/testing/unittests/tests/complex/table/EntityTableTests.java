@@ -6,25 +6,23 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
 
 /**
  * Created by Sergey_Mishanin on 11/21/16.
  */
 public class EntityTableTests extends SupportTableTestsBase {
-    private static List<SupportEntity> expectedEntities = new ArrayList<>();
-
-    static {
-        expectedEntities.add(new SupportEntity("Drivers", "Selenium, Custom", "JavaScript, Appium, WinAPI, Sikuli"));
-        expectedEntities.add(new SupportEntity("Test Runner", "TestNG, JUnit, Custom", "MSTest, NUnit, Epam"));
-        expectedEntities.add(new SupportEntity("Asserter", "TestNG, JUnit, Custom", "MSTest, NUnit, Epam"));
-        expectedEntities.add(new SupportEntity("Logger", "Log4J, TestNG log, Custom", "Epam, XML/Json logging, Hyper logging"));
-        expectedEntities.add(new SupportEntity("Reporter", "Jenkins, Allure, Custom", "EPAM Report portal, Serenity, TimCity, Hudson"));
-        expectedEntities.add(new SupportEntity("BDD/DSL", "Custom", "Cucumber, Jbehave, Thucydides, SpecFlow"));
-    }
+    private static List<SupportEntity> expectedEntities = asList(
+        new SupportEntity("Drivers", "Selenium, Custom", "JavaScript, Appium, WinAPI, Sikuli"),
+        new SupportEntity("Test Runner", "TestNG, JUnit, Custom", "MSTest, NUnit, Epam"),
+        new SupportEntity("Asserter", "TestNG, JUnit, Custom", "MSTest, NUnit, Epam"),
+        new SupportEntity("Logger", "Log4J, TestNG log, Custom", "Epam, XML/Json logging, Hyper logging"),
+        new SupportEntity("Reporter", "Jenkins, Allure, Custom", "EPAM Report portal, Serenity, TimCity, Hudson"),
+        new SupportEntity("BDD/DSL", "Custom", "Cucumber, Jbehave, Thucydides, SpecFlow"));
 
     @Test
     public void getCellIntIntTests() {

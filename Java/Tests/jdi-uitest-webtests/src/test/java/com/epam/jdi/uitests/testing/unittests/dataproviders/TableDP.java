@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.dataproviders;
 
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 
@@ -19,7 +19,7 @@ public class TableDP {
         return new Object[][]{
                 {SUPPORT_PAGE,
                         new TableProvider("Table with all headers",
-                                Table::hasAllHeaders),
+                                ITable::hasAllHeaders),
                         "2/6", "Now, Plans", "Drivers, Test Runner, Asserter, Logger, Reporter, BDD/DSL",
                         "||X||Now|Plans||\n" +
                                 "||Drivers||Selenium, Custom|JavaScript, Appium, WinAPI, Sikuli||\n" +
@@ -30,7 +30,7 @@ public class TableDP {
                                 "||BDD/DSL||Custom|Cucumber, Jbehave, Thucydides, SpecFlow||", "null"},
                 {SUPPORT_PAGE,
                         new TableProvider("Table with no headers",
-                                Table::hasNoHeaders),
+                                ITable::hasNoHeaders),
                         "3/6", "1, 2, 3", "1, 2, 3, 4, 5, 6",
                         "||X||1|2|3||\n" +
                                 "||1||Drivers|Selenium, Custom|JavaScript, Appium, WinAPI, Sikuli||\n" +
@@ -41,7 +41,7 @@ public class TableDP {
                                 "||6||BDD/DSL|Custom|Cucumber, Jbehave, Thucydides, SpecFlow||", "null"},
                 {SUPPORT_PAGE,
                         new TableProvider("Table with only column headers",
-                                Table::hasOnlyColumnHeaders),
+                                ITable::hasOnlyColumnHeaders),
                         "3/6", "Type, Now, Plans", "1, 2, 3, 4, 5, 6",
                         "||X||Type|Now|Plans||\n" +
                                 "||1||Drivers|Selenium, Custom|JavaScript, Appium, WinAPI, Sikuli||\n" +
@@ -52,7 +52,7 @@ public class TableDP {
                                 "||6||BDD/DSL|Custom|Cucumber, Jbehave, Thucydides, SpecFlow||", "null"},
                 {SUPPORT_PAGE,
                         new TableProvider("Table with only row headers",
-                                Table::hasOnlyRowHeaders),
+                                ITable::hasOnlyRowHeaders),
                         "2/6", "1, 2", "Drivers, Test Runner, Asserter, Logger, Reporter, BDD/DSL",
                         "||X||1|2||\n" +
                                 "||Drivers||Selenium, Custom|JavaScript, Appium, WinAPI, Sikuli||\n" +
@@ -107,7 +107,8 @@ public class TableDP {
                                 simpleTablePage.getTable(By.xpath(".//tr[position() > 1]/td[1]"),
                                         By.xpath(".//tr[1]/td[position() > 1]"),
                                         By.xpath(".//tr[position() > 1][%s]/td[position() > 1]"),
-                                        By.xpath(".//tr[position() > 1]/td[position() > 1][%s]")), Table::hasAllHeaders),
+                                        By.xpath(".//tr[position() > 1]/td[position() > 1][%s]")),
+                                ITable::hasAllHeaders),
                         "2/5", "Selenium Custom, JavaScript, Appium, WinAPI, Sikuli", "Test Runner, Asserter, Logger, Reporter, BDD/DSL",
 
                         "||X||Selenium Custom|JavaScript, Appium, WinAPI, Sikuli||\n" +

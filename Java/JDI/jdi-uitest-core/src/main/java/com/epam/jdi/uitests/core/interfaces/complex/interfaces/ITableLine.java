@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces;
+package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -20,7 +20,9 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
-import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+
+import java.util.List;
 
 /**
  * Created by Roman_Iovlev on 7/28/2015.
@@ -31,12 +33,13 @@ public interface ITableLine {
      */
     @JDIAction
     int count();
+    int count(boolean acceptEmpty);
 
     /**
      * Get Columns/Rows headers
      */
     @JDIAction
-    String[] headers();
+    List<String> headers();
 
     /**
      * Get Columns/Rows in following format <br>
@@ -55,8 +58,14 @@ public interface ITableLine {
     MapArray<String, MapArray<String, String>> getAsText();
 
     @JDIAction
-    MapArray<String, SelectElement> header();
+    MapArray<String, ISelect> header();
 
     @JDIAction
-    SelectElement header(String name);
+    ISelect header(String name);
+
+    void clean();
+
+    void setCount(int value);
+
+    int getStartIndex();
 }
