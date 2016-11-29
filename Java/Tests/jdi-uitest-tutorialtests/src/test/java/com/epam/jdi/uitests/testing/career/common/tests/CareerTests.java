@@ -18,6 +18,7 @@ public class CareerTests extends TestsBase {
     public void before(Method method) {
         homePage.isOpened();
     }
+
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
         multipleHeaderMenu.hoverAndClick("SOLUTIONS|Product Development");

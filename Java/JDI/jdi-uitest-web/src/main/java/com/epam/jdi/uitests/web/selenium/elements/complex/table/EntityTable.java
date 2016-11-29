@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.commons.LinqUtils;
 import com.epam.commons.ReflectionUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
@@ -29,9 +30,15 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.ReflectionUtils.convertStringToType;
+import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
  * Created by Sergey_Mishanin on 11/18/16.
@@ -41,14 +48,11 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     private Class<R> rowClass;
 
     public EntityTable(Class<E> entityClass){
-        if (entityClass == null){
+        if (entityClass == null)
             throw new IllegalArgumentException("Entity type was not specified");
-        }
 
         this.entityClass = entityClass;
-        List<String> headers = Arrays.stream(entityClass.getFields())
-                .map(Field::getName).collect(Collectors.toList());
-        hasColumnHeaders(headers);
+        hasColumnHeaders(select(entityClass.getFields(), Field::getName));
     }
 
     public EntityTable(Class<E> entityClass, Class<R> rowClass){
@@ -57,13 +61,12 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     }
 
     private R newRow(){
-        if (rowClass == null){
-            throw new UnsupportedOperationException("Row class was not specified");
-        }
+        if (rowClass == null)
+            throw exception("Row class was not specified");
         try {
             return rowClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw exception("Can't Instantiate row: " + rowClass.getName());
         }
     }
 
@@ -75,48 +78,44 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return newRow;
     }
 
-    private void setRowField(R entity, Field[] fields, String fieldName, ICell cell)
+    private void setField(Object row, Field[] fields, String fieldName,
+                          Function<Field, Object> valueFunc)
     {
-        Optional<Field> opt = Arrays.stream(fields)
-                .filter(f -> f.getName().equalsIgnoreCase(fieldName)).findFirst();
+        Field field = LinqUtils.first(fields, f -> f.getName().equalsIgnoreCase(fieldName));
 
-        if (!opt.isPresent()){
-            return;
-        }
-
-        Field field = opt.get();
-
-        Class clazz = field.getType();
-        if (clazz == null)
-            return;
-
-        BaseElement value;
+        if (field == null) return;
         try {
-            clazz = clazz.isInterface() ? MapInterfaceToElement.getClassFromInterface(clazz) : clazz;
-            value = (BaseElement) clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        value.setAvatar(cell.get().getAvatar());
-        try {
-            FieldUtils.writeField(field, entity, value);
+            writeField(field, row, valueFunc.apply(field), true);
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw exception("Can't write field with name: " + fieldName);
         }
+    }
+
+
+    private void setRowField(R row, Field[] fields, String fieldName, ICell cell)
+    {
+        setField(row, fields, fieldName, field -> {
+            Class clazz = field.getType();
+            if (clazz == null) return null;
+            BaseElement value;
+            try {
+                if (clazz.isInterface())
+                    clazz = getClassFromInterface(clazz);
+                value = (BaseElement) clazz.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw exception("Can't Instantiate row element: " + fieldName);
+            }
+
+            value.setAvatar(cell.get().getAvatar());
+            return value;
+            });
     }
 
     public List<R> getRows(String... colNames)
     {
-        List<R> rows = new ArrayList<>();
-        for (int i=1; i<=size(); i++){
-            MapArray<String, ICell> row = new MapArray<>();
-            for (String colName: colNames){
-                row.add(columns.getColumn(colName).get(i));
-            }
-            rows.add(castToRow(row));
-        }
-        return rows;
+        return select(colNames,
+            colName -> castToRow(new MapArray<>(size(),
+                i -> columns.getColumn(colName).get(i))));
     }
 
     public R getRow(String value, Column column)
@@ -138,34 +137,27 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         try {
             return entityClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            throw exception("Can't instantiate %s. You must have empty constructor to do this", entityClass.getSimpleName());
+            throw exception("Can't instantiate %s. You must have empty constructor to do this",
+                    entityClass.getSimpleName());
         }
     }
 
     private E rowToEntity(MapArray<String, ICell> row) {
         E entity = newEntity();
-        if (row == null){
+        if (row == null)
             return entity;
-        }
 
         Field[] fields = entity.getClass().getFields();
 
-        row.pairs
-            .forEach(entry -> setEntityField(entity, fields, entry.key, entry.value.getText()));
-
+        row.pairs.forEach(entry
+            -> setEntityField(entity, fields, entry.key, entry.value.getText()));
         return entity;
     }
 
     public List<E> entities(String... colNames){
-        List<E> entities = new ArrayList<>();
-        for (int i=1; i<=size(); i++){
-            MapArray<String, ICell> row = new MapArray<>();
-            for (String colName: colNames){
-                row.add(columns.getColumn(colName).get(i));
-            }
-            entities.add(rowToEntity(row));
-        }
-        return entities;
+        return select(colNames,
+                colName -> rowToEntity(new MapArray<>(size(),
+                        i -> columns.getColumn(colName).get(i))));
     }
 
     public E entity(int rowNum){
@@ -181,26 +173,12 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     }
 
     public List<E> all(){
-        return rows.get().values().stream()
-                .map(this::rowToEntity).collect(Collectors.toList());
+        return select(rows.get().values(), this::rowToEntity);
     }
 
     private void setEntityField(E entity, Field[] fields, String fieldName, String value)
     {
-        Optional<Field> opt = Arrays.stream(fields)
-                .filter(f -> f.getName().equalsIgnoreCase(fieldName)).findFirst();
-
-        if (!opt.isPresent()){
-            return;
-        }
-
-        Field field = opt.get();
-
-        try {
-            FieldUtils.writeField(field, entity, ReflectionUtils.convertStringToType(value, field), true);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        setField(entity, fields, fieldName, field -> convertStringToType(value, field));
     }
 
     public int size() {

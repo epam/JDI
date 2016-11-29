@@ -75,6 +75,11 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         for (int i = 0; i < count; i++)
             add(key.apply(i), value.apply(i));
     }
+    public MapArray(int count, Function<Integer, Pair<K, V>> pairFunc) {
+        this();
+        for (int i = 0; i < count; i++)
+            add(pairFunc.apply(i));
+    }
 
     public MapArray(MapArray<K, V> mapArray) {
         this();

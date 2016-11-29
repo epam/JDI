@@ -59,7 +59,7 @@ public class GetElementModule implements IAvatar {
 
     public GetElementModule(BaseElement element) {
         this.element = element;
-        if (!driverName.equals(""))
+        if (driverName.equals(""))
             driverName = driverFactory.currentDriverName();
     }
 

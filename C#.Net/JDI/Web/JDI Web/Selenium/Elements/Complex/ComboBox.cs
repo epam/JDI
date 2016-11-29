@@ -16,11 +16,10 @@ namespace JDI_Web.Selenium.Elements.Complex
         private readonly GetElementType _textField;
 
         public ComboBox() : this(null) { }
+
         public ComboBox(By selectorLocator = null, By optionsNamesLocatorTemplate = null) 
             : base(selectorLocator, optionsNamesLocatorTemplate)
         {
-            SetValueAction = (c, value) => NewInput(value);
-            GetTextAction = c => TextField.GetText;
             _textField = new GetElementType(selectorLocator);
         }
 
@@ -29,6 +28,10 @@ namespace JDI_Web.Selenium.Elements.Complex
         {
             _textField = new GetElementType(valueLocator);
         }
+
+        public override Func<Dropdown<TEnum>, string> GetTextAction => c => TextField.GetText;
+
+        public override Action<BaseSelector<TEnum>, string> SetValueAction => (c, value) => NewInput(value);
 
         public TextField TextField =>_textField.Get(new TextField(), WebAvatar);
 
