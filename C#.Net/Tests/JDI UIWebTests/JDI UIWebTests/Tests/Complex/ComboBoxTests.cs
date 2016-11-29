@@ -8,7 +8,6 @@ using static JDI_UIWebTests.Enums.Metals;
 using JDI_UIWebTests.Enums;
 using JDI_Matchers.NUnit;
 using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
-using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
 using Assert = JDI_Matchers.NUnit.Assert;
@@ -78,7 +77,6 @@ namespace JDI_UIWebTests.Tests.Complex
         }
 
         [Test]
-        [Ignore("")]
         public void SetValueTest()
         {
             MetalsControl.Value = "Blue";
@@ -87,7 +85,6 @@ namespace JDI_UIWebTests.Tests.Complex
         }
 
         [Test]
-        [Ignore("Fail in Selected method. Seems like it is in GetTextAction overrided in MetalsColosPage.cs")]
         public void GetSelectedTest()
         {
             MetalsControl.Select("Gold");

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using JDI_Commons;
 using JDI_Web.Attributes.Objects;
+using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.APIInteract;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Common;
@@ -110,11 +111,19 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public Table()
         {
-            GetTextAction = p => "||X||" + Columns.Headers.Print("|") + "||\n" + Rows.Headers.Select(rowName => "||" + rowName + "||" + GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") + "||").Print("\n");
             Columns.Table = this;
             Rows.Table = this;
         }
 
+        protected override Func<WebBaseElement, string> GetTextAction => p =>
+        {
+            return "||X||" + Columns.Headers.Print("|") + "||\n"
+                   +
+                   Rows.Headers.Select(rowName =>
+                           "||" + rowName + "||" +
+                           GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") +
+                           "||").Print("\n");
+        };
 
         public Table Copy()
         {
