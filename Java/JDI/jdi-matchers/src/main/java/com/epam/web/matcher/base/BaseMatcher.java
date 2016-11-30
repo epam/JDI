@@ -18,7 +18,6 @@ package com.epam.web.matcher.base;
  */
 
 import com.epam.commons.LinqUtils;
-import com.epam.commons.ReflectionUtils;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JFuncREx;
@@ -35,7 +34,6 @@ import java.util.function.Supplier;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.web.matcher.base.DoScreen.*;
 import static com.epam.web.matcher.base.PrintUtils.objToSetValue;
@@ -122,7 +120,7 @@ public abstract class BaseMatcher implements IChecker {
     }
 
     public void doScreenshot() {
-        doScreenshot(DoScreen.DO_SCREEN_ALWAYS);
+        doScreenshot(DO_SCREEN_ALWAYS);
     }
 
     public BaseMatcher ignoreCase() {
@@ -131,7 +129,7 @@ public abstract class BaseMatcher implements IChecker {
     }
 
     public BaseMatcher setWait(int timeoutSec) {
-        waitTimeout = timeoutSec * 1000L;
+        waitTimeout = timeoutSec;
         return this;
     }
 
@@ -157,18 +155,18 @@ public abstract class BaseMatcher implements IChecker {
     private void assertAction(String defaultMessage, Supplier<String> result, String failMessage, boolean wait) {
         if (!isListCheck && defaultMessage != null)
             logger.info(getBeforeMessage(defaultMessage));
-        if (!isListCheck && doScreenshot == DoScreen.DO_SCREEN_ALWAYS)
-            logger.info(doScreenshotGetMessage());
+        if (!isListCheck && doScreenshot == DO_SCREEN_ALWAYS)
+            logger.debug(doScreenshotGetMessage());
         String resultMessage = wait
-                ? new Timer(timeout() * 1000).getResultByCondition(result::get, r -> r != null && r.equals(FOUND))
+                ? new Timer(timeout() * 1000).getResultByCondition(result, r -> r != null && r.equals(FOUND))
                 : result.get();
         if (resultMessage == null) {
             assertException("Assert Failed by Timeout. Wait %s seconds", timeout());
             return;
         }
         if (!resultMessage.equals(FOUND)) {
-            if (doScreenshot == DoScreen.SCREEN_ON_FAIL)
-                logger.info(doScreenshotGetMessage());
+            if (doScreenshot == SCREEN_ON_FAIL)
+                logger.debug(doScreenshotGetMessage());
             assertException(failMessage == null ? defaultMessage + " failed" : failMessage);
         }
     }
@@ -190,8 +188,8 @@ public abstract class BaseMatcher implements IChecker {
 
     protected void assertException(String failMessage, Object... args) {
         String failMsg = args.length > 0 ? format(failMessage, args) : failMessage;
-        if (doScreenshot == DoScreen.SCREEN_ON_FAIL)
-            logger.info(doScreenshotGetMessage());
+        if (doScreenshot == SCREEN_ON_FAIL)
+            logger.debug(doScreenshotGetMessage());
         logger.error(failMsg);
         throwFail().accept(failMsg);
     }
@@ -513,7 +511,7 @@ public abstract class BaseMatcher implements IChecker {
     }
 
     public void contains(Supplier<String> actual, String expected, String failMessage) {
-        BooleanSupplier resultAction = (ignoreCase && expected.getClass() == String.class)
+        BooleanSupplier resultAction = (expected.getClass() == String.class && ignoreCase)
                 ? () -> toUtf8(actual.get()).toLowerCase().contains(expected.toLowerCase())
                 : () -> toUtf8(actual.get()).contains(expected);
         waitAction(format("Check that '%s' contains '%s'", "result", expected), resultAction, failMessage);

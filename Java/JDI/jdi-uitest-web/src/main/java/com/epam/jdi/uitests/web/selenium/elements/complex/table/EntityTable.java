@@ -19,20 +19,15 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 import com.epam.commons.LinqUtils;
-import com.epam.commons.ReflectionUtils;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
-import org.apache.commons.lang3.reflect.FieldUtils;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.ReflectionUtils.convertStringToType;

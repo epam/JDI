@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.gui;
 
+import com.epam.jdi.uitests.core.logger.JDILogger;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 
 import java.io.IOException;
@@ -27,6 +28,6 @@ public abstract  class GuiSettings extends JDISettings {
         fillAction(p -> webDomain = p, "domain");
         fillAction(p -> applicationType = p, "applicationType");
 
-        logger = getLogger("JDI Logger");
+        logger = new JDILogger("JDI Logger");
     }
 }

@@ -22,7 +22,7 @@ import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 

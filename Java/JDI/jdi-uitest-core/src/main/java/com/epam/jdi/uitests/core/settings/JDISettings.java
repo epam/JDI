@@ -19,27 +19,25 @@ package com.epam.jdi.uitests.core.settings;
 
 import com.epam.jdi.uitests.core.interfaces.IAsserter;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
+import com.epam.jdi.uitests.core.logger.ILogger;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import org.slf4j.Logger;
 
 import java.io.IOException;
 
-import static com.epam.commons.PropertyReader.fillAction;
-import static com.epam.commons.PropertyReader.getProperties;
+import static com.epam.commons.PropertyReader.*;
 import static java.lang.Integer.parseInt;
 
 /**
  * Created by Roman_Iovlev on 6/9/2015.
  */
 public abstract class JDISettings {
-    public static Logger logger;
+    public static ILogger logger;
     public static IAsserter asserter;
     public static TimeoutSettings timeouts = new TimeoutSettings();
     public static boolean isDemoMode;
     public static HighlightSettings highlightSettings = new HighlightSettings();
     public static boolean shortLogMessagesFormat = true;
     public static String jdiSettingsPath = "test.properties";
-    public static boolean exceptionThrown;
     public static IDriver driverFactory;
     public static boolean useCache = false;
 
@@ -48,14 +46,14 @@ public abstract class JDISettings {
 
     public static void toLog(String message, LogLevels level) {
         switch (level) {
-            case DEBUG:
-                logger.debug(message);
+            case INFO:
+                logger.info(message);
                 break;
             case ERROR:
                 logger.error(message);
                 break;
             default:
-                logger.info(message);
+                logger.debug(message);
         }
     }
 
@@ -72,12 +70,8 @@ public abstract class JDISettings {
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
         fillAction(p -> isDemoMode =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
-        fillAction(p -> {
-            try {
-                highlightSettings.setTimeoutInSec(parseInt(p));
-            } catch (Exception ignore) { } }, "demo.delay"
-        );
-        fillAction(p -> timeouts.waitElementSec = parseInt(p), "timeout.wait.element");
+        fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
+        fillAction(p -> timeouts.setCurrentTimeoutSec(parseInt(p)), "timeout.wait.element");
         fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
     }
 
@@ -86,12 +80,7 @@ public abstract class JDISettings {
         initFromProperties();
     }
 
-    public static void newTest() {
-        exceptionThrown = false;
-    }
-
     public static RuntimeException exception(String msg, Object... args) {
-        exceptionThrown = true;
         return asserter.exception(msg, args);
     }
 }

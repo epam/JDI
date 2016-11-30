@@ -131,7 +131,7 @@ public class GetElementModule implements IAvatar {
     }
 
     public Timer timer() {
-        return new Timer(timeouts.currentTimeoutSec * 1000);
+        return new Timer(timeouts.getCurrentTimeoutSec() * 1000);
     }
     private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
         List<WebElement> elements = timer().getResultByCondition(
@@ -162,7 +162,7 @@ public class GetElementModule implements IAvatar {
     }
 
     private WebElement getElementAction() {
-        int timeout = timeouts.currentTimeoutSec;
+        int timeout = timeouts.getCurrentTimeoutSec();
         List<WebElement> result = getElementsAction();
         switch (result.size()) {
             case 0:

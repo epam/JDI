@@ -21,8 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
@@ -38,8 +37,9 @@ import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.onlyOneElementAllowedInSearch;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
-import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
 import static java.lang.String.format;
 
 /**
@@ -131,7 +131,7 @@ public class GetElementModule implements IAvatar {
     }
 
     public Timer timer() {
-        return new Timer(timeouts.currentTimeoutSec * 1000);
+        return new Timer(timeouts.getCurrentTimeoutSec() * 1000);
     }
     private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
         List<WebElement> elements = timer().getResultByCondition(
@@ -153,7 +153,7 @@ public class GetElementModule implements IAvatar {
     }
 
     private Function<WebElement, Boolean> getSearchCriteria() {
-        return localElementSearchCriteria != null ? localElementSearchCriteria : getDriverFactory().elementSearchCriteria;
+        return localElementSearchCriteria != null ? localElementSearchCriteria : elementSearchCriteria;
     }
 
     public GetElementModule searchAll() {
@@ -162,7 +162,7 @@ public class GetElementModule implements IAvatar {
     }
 
     private WebElement getElementAction() {
-        int timeout = timeouts.currentTimeoutSec;
+        int timeout = timeouts.getCurrentTimeoutSec();
         List<WebElement> result = getElementsAction();
         switch (result.size()) {
             case 0:
@@ -170,7 +170,7 @@ public class GetElementModule implements IAvatar {
             case 1:
                 return result.get(0);
             default:
-                if (SeleniumDriverFactory.onlyOneElementAllowedInSearch)
+                if (onlyOneElementAllowedInSearch)
                     throw exception(FIND_TO_MUCH_ELEMENTS_MESSAGE, result.size(), element, timeout);
                 else
                     return result.get(0);

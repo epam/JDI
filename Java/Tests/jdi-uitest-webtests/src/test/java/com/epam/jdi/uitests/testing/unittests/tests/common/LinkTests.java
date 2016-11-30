@@ -63,7 +63,7 @@ public class LinkTests extends InitTests {
         logger.info("Response code from server: " + isLinkBroken(link().getURL()));
     }
 
-        @Test
+    @Test
     public void waitReferenceTest() {
         isInState(SUPPORT_PAGE);
         runParallel(homePage::open);

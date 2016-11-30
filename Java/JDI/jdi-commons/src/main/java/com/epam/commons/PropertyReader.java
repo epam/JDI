@@ -66,7 +66,10 @@ public final class PropertyReader {
     }
 
     public static void fillAction(Consumer<String> action, String name) {
-        Object prop = properties.get(name);
+        Object prop = null;
+        try {
+            prop = properties.get(name);
+        } catch (Exception ignore) {}
         if (prop != null && !prop.equals(""))
             action.accept(prop.toString());
     }

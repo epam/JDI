@@ -96,7 +96,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         List<WebElement> elements = getHeadersAction();
         if (elements.size() == 0)
             elements = getFirstLine();
-        table.getDriver().manage().timeouts().implicitlyWait(timeouts.currentTimeoutSec, SECONDS);
+        table.getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         if (!acceptEmpty)
             elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0

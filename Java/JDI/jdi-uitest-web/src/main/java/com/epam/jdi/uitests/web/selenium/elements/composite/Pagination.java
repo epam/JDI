@@ -23,7 +23,7 @@ import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.complex.IPagination;
 import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import org.openqa.selenium.By;
 

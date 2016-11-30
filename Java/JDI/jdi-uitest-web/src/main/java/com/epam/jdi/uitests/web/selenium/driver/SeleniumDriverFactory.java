@@ -23,7 +23,7 @@ import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
@@ -220,7 +220,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             driver.manage().window().maximize();
         else
             driver.manage().window().setSize(browserSizes);
-        driver.manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
+        driver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return driver;
     };
 
@@ -236,7 +236,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                     rDrivers = new MapArray<>();
                 WebDriver resultDriver = drivers.get(driverName).get();
                 if (resultDriver == null)
-                    throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
+                    throw exception("Can't get WebDriver '%s'. This Driver name not registered", driverName);
                 rDrivers.add(driverName, resultDriver);
                 runDrivers.set(rDrivers);
             }
@@ -244,8 +244,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             lock.unlock();
             return result;
         } catch (Exception ex) {
-            logger.info(format("Drivers: %s; Run: %s", drivers, runDrivers));
-            throw exception("Can't get driver; Thread: " + currentThread().getId() + "Exception: " + ex.getMessage());
+            throw exception("Can't get driver; Thread: " + currentThread().getId() + LINE_BREAK +
+                    format("Drivers: %s; Run: %s", drivers, runDrivers) +
+                    "Exception: " + ex.getMessage());
         }
     }
 

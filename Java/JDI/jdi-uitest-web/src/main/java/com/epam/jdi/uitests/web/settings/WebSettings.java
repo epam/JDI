@@ -49,6 +49,8 @@ import java.util.function.Supplier;
 import static com.epam.commons.PropertyReader.*;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
+import static com.epam.web.matcher.base.BaseMatcher.*;
+import static com.epam.web.matcher.testng.Assert.*;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
@@ -86,13 +88,13 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void init() throws IOException {
         driverFactory = new SeleniumDriverFactory();
-        asserter = new TestNGCheck();
-        BaseMatcher.screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
+        logger = new TestNGLogger("JDI Logger");
+        asserter = new TestNGCheck().setUpLogger(logger);
+        screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
         asserter.doScreenshot("screen_on_fail");
-        Assert.setMatcher((BaseMatcher) asserter);
+        setMatcher((BaseMatcher) asserter);
         timeouts = new WebTimeoutSettings();
         getProperties(jdiSettingsPath);
-        logger = new TestNGLogger("JDI Logger");
         MapInterfaceToElement.init(defaultInterfacesMap);
     }
 
@@ -135,10 +137,6 @@ public class WebSettings extends JDISettings {
             if (split != null)
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
-        String isMultithread = getProperty("multithread");
-        logger = isMultithread != null && (isMultithread.equals("true") || isMultithread.equals("1"))
-            ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
-            : new TestNGLogger("JDI Logger");
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{

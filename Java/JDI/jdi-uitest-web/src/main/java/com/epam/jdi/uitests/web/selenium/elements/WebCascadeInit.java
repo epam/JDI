@@ -24,6 +24,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;

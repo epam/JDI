@@ -46,24 +46,24 @@ public class ActionScenarios {
     public void actionScenario(String actionName, JAction jAction, LogLevels logSettings) {
         element.logAction(actionName, logSettings);
         Timer timer = new Timer();
-        new Timer(timeouts.currentTimeoutSec * 1000).wait(() -> {
+        new Timer(timeouts.getCurrentTimeoutSec() * 1000).wait(() -> {
             jAction.invoke();
             return true;
         });
-        logger.info(actionName + " done");
+        logger.debug(actionName + " done");
         addStatistic(timer.timePassedInMSec());
     }
 
     public <TResult> TResult resultScenario(String actionName, Supplier<TResult> jAction, Function<TResult, String> logResult, LogLevels level) {
         element.logAction(actionName);
         Timer timer = new Timer();
-        TResult result = new Timer(timeouts.currentTimeoutSec * 1000)
-                .getResultByCondition(jAction::get, res -> true);
+        TResult result = new Timer(timeouts.getCurrentTimeoutSec() * 1000)
+                .getResultByCondition(jAction, res -> true);
         if (result == null)
             throw asserter.exception("Do action %s failed. Can't got result", actionName);
         String stringResult = (logResult == null)
                 ? result.toString()
-                : JDISettings.asserter.silent(() -> logResult.apply(result));
+                : asserter.silent(() -> logResult.apply(result));
         Long timePassed = timer.timePassedInMSec();
         addStatistic(timer.timePassedInMSec());
         toLog(format("Get result '%s' in %s seconds", stringResult,

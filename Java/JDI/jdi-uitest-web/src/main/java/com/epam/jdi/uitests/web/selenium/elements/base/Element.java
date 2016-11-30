@@ -23,7 +23,6 @@ import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;

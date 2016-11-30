@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.base.IVisible;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;

@@ -23,7 +23,7 @@ import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JActionTTTT;
 import com.epam.commons.linqinterfaces.JFuncTTTTTR;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -44,11 +44,18 @@ public class ActionScenrios {
     public static JActionTTTT<BaseElement, String, JAction, LogLevels> actionScenario =
             (element, actionName, jAction, level) -> {
         element.logAction(actionName, level);
-        new Timer(timeouts.currentTimeoutSec * 1000).wait(() -> {
-            jAction.invoke();
-            return true;
-        });
-        logger.info("Done");
+        logger.logDisabled();
+        try {
+            new Timer(timeouts.getCurrentTimeoutSec() * 1000).wait(() -> {
+                jAction.invoke();
+                return true;
+            });
+            logger.logEnabled();
+        } catch (Exception | Error ex) {
+            logger.logEnabled();
+            throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
+        }
+        logger.debug("Done");
     };
 
     public void actionScenario(String actionName, JAction jAction, LogLevels level) {
@@ -61,17 +68,21 @@ public class ActionScenrios {
         element.logAction(actionName);
         Timer timer = new Timer();
         Object result;
+        String stringResult;
+        logger.logDisabled();
         try {
-            result = new Timer(timeouts.currentTimeoutSec * 1000)
-                    .getResultByCondition(jAction::get, res -> true);
+            result = new Timer(timeouts.getCurrentTimeoutSec() * 1000)
+                    .getResultByCondition(jAction, res -> true);
+            if (result == null)
+                throw asserter.exception("Do action %s failed. Can't get result", actionName);
+             stringResult = logResult == null
+                    ? result.toString()
+                    : asserter.silent(() -> logResult.apply(result));
+            logger.logEnabled();
         } catch (Exception | Error ex) {
+            logger.logEnabled();
             throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
         }
-        if (result == null)
-            throw asserter.exception("Do action %s failed. Can't get result", actionName);
-        String stringResult = logResult == null
-                ? result.toString()
-                : asserter.silent(() -> logResult.apply(result));
         toLog(format("Get result '%s' in %s seconds", stringResult,
                 format("%.2f", (double) timer.timePassedInMSec() / 1000)), level);
         return result;

@@ -22,7 +22,7 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 

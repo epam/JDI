@@ -155,7 +155,7 @@ public abstract class BaseElement implements IBaseElement {
     public void setWaitTimeout(long mSeconds) {
         logger.debug("Set wait timeout to " + mSeconds);
         getDriver().manage().timeouts().implicitlyWait(mSeconds, MILLISECONDS);
-        timeouts.currentTimeoutSec = (int) (mSeconds / 1000);
+        timeouts.setCurrentTimeoutSec((int) (mSeconds / 1000));
     }
 
     public void restoreWaitTimeout() {

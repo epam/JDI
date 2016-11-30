@@ -118,6 +118,6 @@ public class GetElementModule implements IAvatar {
 
 
     public Timer timer() {
-        return new Timer(timeouts.currentTimeoutSec * 1000);
+        return new Timer(timeouts.getCurrentTimeoutSec() * 1000);
     }
 }

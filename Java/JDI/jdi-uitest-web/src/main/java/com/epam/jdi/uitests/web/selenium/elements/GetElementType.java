@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import org.openqa.selenium.By;
 
 /**

@@ -47,7 +47,6 @@ public class TestNGBase {
     public static void jdiSetUp() throws Exception {
         initFromProperties();
         logger.info("Init test run");
-
         killAllRunWebDrivers();
         if (!driverFactory.hasDrivers())
             useDriver(DriverTypes.CHROME);
