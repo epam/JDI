@@ -205,7 +205,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      */
     @JDIAction
     public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition, int timeoutSec) {
-        setWaitTimeout(timeoutSec);
+        setWaitTimeout(timeoutSec * 1000);
         T result = new Timer(timeoutSec * 1000).getResultByCondition(() -> resultFunc.apply(getWebElement()), condition::apply);
         restoreWaitTimeout();
         return result;

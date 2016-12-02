@@ -24,34 +24,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by 12345 on 07.11.2014.
+ * Created by Roman_Iovlev on 7/24/2015.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.FIELD})
-public @interface JFindBy {
-    // Selenium
-    String css() default "";
-    String tagName() default "";
-    String linkText() default "";
-    String partialLinkText() default "";
-    String xpath() default "";
-
-    // Text
-    String text() default "";
-
-    //Attributes
-    JAttribute attribute() default @JAttribute(name = "", value = "");
-    String id() default "";
-    String name() default "";
-    String className() default "";
-    String value() default "";
-    String title() default "";
-
-    // Angular
-    String model() default "";
-    String binding() default "";
-    String repeat() default "";
-
-    // Group
-    String group();
+@Target(ElementType.TYPE)
+public @interface JAttribute {
+    String name();
+    String value();
 }

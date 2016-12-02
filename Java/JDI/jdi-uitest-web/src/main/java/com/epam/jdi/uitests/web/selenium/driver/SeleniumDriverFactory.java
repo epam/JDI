@@ -120,7 +120,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     // REGISTER DRIVER
 
     public String registerDriver(Supplier<WebDriver> driver) {
-        return registerDriver("Driver" + drivers.size() + 1, driver);
+        return registerDriver("Driver" + (drivers.size() + 1), driver);
     }
 
     public void setRunType(String runType) {

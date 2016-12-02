@@ -71,8 +71,8 @@ public abstract class JDISettings {
         fillAction(p -> isDemoMode =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
         fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
-        fillAction(p -> timeouts.setCurrentTimeoutSec(parseInt(p)), "timeout.wait.element");
-        fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
+        fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
+        // fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
     }
 
     public static void initFromProperties(String propertyPath) throws IOException {

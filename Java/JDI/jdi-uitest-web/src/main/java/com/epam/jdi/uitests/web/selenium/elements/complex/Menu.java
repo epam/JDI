@@ -125,7 +125,6 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
             String value = nodes[i];
             List<WebElement> elements = new Selector<>(menuLevelsLocators.get(i)).getElements();
             WebElement element = first(elements, el -> el.getText().equals(value));
-            new Element(element).invoker.processDemoMode();
             action.accept(element);
         }
     }

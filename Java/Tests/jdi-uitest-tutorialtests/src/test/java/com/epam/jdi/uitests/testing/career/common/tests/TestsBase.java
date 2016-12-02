@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -21,7 +22,6 @@ public abstract class TestsBase extends TestNGBase {
     public static void setUp() {
         WebSite.init(EpamSite.class);
         logger.info("Run Tests");
-        WebSettings.useDriver(SafariDriver::new);
     }
 
     @AfterSuite(alwaysRun = true)

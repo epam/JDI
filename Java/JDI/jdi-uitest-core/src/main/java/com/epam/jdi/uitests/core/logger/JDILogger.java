@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.core.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.slf4j.impl.Log4jLoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;

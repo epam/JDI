@@ -159,7 +159,7 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public void restoreWaitTimeout() {
-        setWaitTimeout(timeouts.waitElementSec);
+        setWaitTimeout(timeouts.getDefaultTimeoutSec() * 1000);
     }
 
     protected String getTypeName() {

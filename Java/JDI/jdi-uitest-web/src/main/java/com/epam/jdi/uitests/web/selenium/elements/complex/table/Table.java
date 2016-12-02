@@ -446,7 +446,7 @@ public class Table extends Text implements ITable, Cloneable {
     public boolean isEmpty() {
         getDriver().manage().timeouts().implicitlyWait(0, MILLISECONDS);
         int rowsCount = rows().count(true);
-        getDriver().manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
+        getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return rowsCount == 0;
     }
 
