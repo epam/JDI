@@ -23,7 +23,7 @@ package com.epam.jdi.uitests.core.settings;
 public final class JDIData {
     public static final String FRAMEWORK_NAME = "Jedi";
     //CHECKSTYLE OFF
-    public static String APP_VERSION = "2.0.0";
+    public static final String APP_VERSION = "DEFAULT";
     //CHECKSTYLE ON
     public static String testName;
 

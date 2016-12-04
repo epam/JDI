@@ -41,9 +41,9 @@ import static java.util.Arrays.copyOfRange;
  */
 public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum> {
     private List<By> menuLevelsLocators = new ArrayList<>();
-    private String separator = "\\|";
+    private String delimeter = "\\|";
     public <T extends IMenu<TEnum>> T useSeparator(String separator) {
-        this.separator = separator;
+        this.delimeter = separator;
         return (T)this;
     }
 
@@ -71,14 +71,14 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void hover(String... names) {
         if (names == null || names.length == 0)
             return;
-        actions.hover(print(names, separator), n ->
+        actions.hover(print(names, delimeter), n ->
                 hoverAction(SplitToList(names)));
     }
 
     private String[] SplitToList(String[] str)
     {
         return str.length == 1
-                ? str[0].split(separator)
+                ? str[0].split(delimeter)
                 : str;
     }
 
@@ -88,7 +88,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
         String[] split = SplitToList(names);
         if (split.length > menuLevelsLocators.size())
             throw exception("Can't hover and click on element (%s) by value: %s. Amount of locators (%s) less than select path length (%s)",
-                    this, print(names, separator), menuLevelsLocators.size(), split.length);
+                    this, print(names, delimeter), menuLevelsLocators.size(), split.length);
         if (split.length > 1)
             hover(copyOfRange(split, 0, split.length-1));
         int lastIndex = split.length - 1;
@@ -99,7 +99,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void hover(TEnum name) {
         hover(getEnumValue(name));
     }
-    public final void hoverAndClick(String... names) { actions.select(print(names, separator), this::hoverAndClickAction); }
+    public final void hoverAndClick(String... names) { actions.select(print(names, delimeter), this::hoverAndClickAction); }
     public final void hoverAndClick(TEnum name) {
         hoverAndClick(getEnumValue(name));
     }
@@ -126,6 +126,9 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
             new Element(element).invoker.processDemoMode();
             action.accept(element);
         }
+    }
+    public void select(String... names) {
+        select(print(names, delimeter));
     }
 
     public void setUp(List<By> menuLevelsLocators) {

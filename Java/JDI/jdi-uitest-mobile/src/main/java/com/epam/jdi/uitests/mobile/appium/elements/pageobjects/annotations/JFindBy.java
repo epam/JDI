@@ -23,6 +23,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
+
 /**
  * Created by 12345 on 07.11.2014.
  */
@@ -45,5 +47,5 @@ public @interface JFindBy {
 
     String xpath() default "";
 
-    String group();
+    String group() default APP_VERSION;
 }
