@@ -12,7 +12,7 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
-##First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+##First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
 1. Click Link. Unpack zip
 2. Open project (Double click on pom.xml (if it is not setup to open with Idea by default setup this))
 3. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
