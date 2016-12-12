@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="JDITestDesktopApp.View.TableWithPagesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:JDITestDesktopApp.View"
+             xmlns:data="clr-namespace:JDITestDesktopApp.ViewModel"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="647" d:DesignWidth="831">
+    <Grid Height="392" Width="473">
+        <Grid.Resources>
+            <data:TableWithPagesData x:Key="database"/>
+            <Style TargetType="{x:Type local:PaggingControl}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:PaggingControl}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Name="PART_FirstPageButton" Content="&lt;&lt;" Grid.Column="0"/>
+                                <Button Name="PART_PreviousPageButton" Content="&lt;" Grid.Column="1"/>
+                                <TextBox Name="PART_PageTextBox" Grid.Column="2"/>
+                                <TextBlock Text="{Binding TotalPages, RelativeSource={RelativeSource TemplatedParent}}" Grid.Column="3"/>
+                                <Button Name="PART_NextPageButton" Content="&gt;" Grid.Column="4"/>
+                                <Button Name="PART_LastPageButton" Content="&gt;&gt;" Grid.Column="5"/>
+                                <ComboBox Name="PART_PageSizesCombobox" Grid.Column="6"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>        
+        
+        <DataGrid 
+            ItemsSource="{Binding ItemsSource, ElementName=pageControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+            AutoGenerateColumns="False" 
+            Margin="10,10,12,65" ColumnWidth="*"  
+                  IsReadOnly="True"  SelectionMode="Single" SelectionUnit="Cell" CurrentCell="{Binding CellInfo, Mode=OneWayToSource}"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Now" Binding="{Binding Now}"/>
+                <DataGridTextColumn Header="Plans" Binding="{Binding Plans}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--<local:PaggingControl x:Name="pageControl" Height="25"
+                              PageContract="{StaticResource database}" Margin="12,355,23,12">
+            <local:PaggingControl.PageSizes>
+                <sys:UInt32>10</sys:UInt32>
+                <sys:UInt32>20</sys:UInt32>
+                <sys:UInt32>50</sys:UInt32>
+                <sys:UInt32>100</sys:UInt32>
+            </local:PaggingControl.PageSizes>
+        </local:PaggingControl>-->
+    </Grid>    
+</UserControl>

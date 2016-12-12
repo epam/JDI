@@ -1,0 +1,69 @@
+﻿<Window x:Name="JDITestDesktopApp"
+        x:Class="JDITestDesktopApp.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JDITestDesktopApp.View"
+        xmlns:ViewModel="clr-namespace:JDITestDesktopApp.ViewModel"        
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="MainWindow" Width="1280" Height="768">
+
+    <Window.DataContext>
+        <ViewModel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <TabControl x:Name="tabControl" Margin="10,28,319,10" TabStripPlacement="Left" Focusable="True" SelectedValue="{Binding SelectedTabItem}"     >
+            <TabItem x:Name="homeTab" Header="Home">
+                <Grid Background="#FFE5E5E5" Margin="0,0,0,-2"/>
+            </TabItem>
+            <TabItem x:Name="ContactFormTab" Header="Contact form">
+                <local:ContactFormView DataContext="{Binding ContactFormViewModelProperty}">
+                </local:ContactFormView>
+            </TabItem>            
+            <TabItem x:Name="SupportView" Header="Support">
+                <local:SupportView>
+                </local:SupportView>                
+            </TabItem>
+            <TabItem x:Name="DatesView" Header="Dates">
+                <local:DatesView DataContext="{Binding DatesViewModelProperty}">
+                </local:DatesView>
+            </TabItem>
+            <TabItem x:Name="ComplexTableView" Header="Complex Table">
+                <local:ComplexTableView DataContext="{Binding ComplexTableViewModelProperty}">
+                </local:ComplexTableView>
+            </TabItem>            
+            <TabItem x:Name="SimpleTableView" Header="Simple Table">
+                <local:SimpleTableView DataContext="{Binding SimpleTableViewModelProperty}">
+                </local:SimpleTableView>
+            </TabItem>
+            <TabItem x:Name="TableWithPages" Header="Table with Pages">
+                <local:TableWithPagesView DataContext="{Binding TableWithPagesViewModelProperty}">
+                </local:TableWithPagesView>
+            </TabItem>
+            <TabItem x:Name="DifferentElements" Header="Different Elements">
+                <local:DifferentElementsView DataContext="{Binding DifferentElementsViewModelProperty}">
+                </local:DifferentElementsView>                
+            </TabItem>
+            <TabItem x:Name="MetalsAndColorsView" Header="Metals &amp; Colors" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown" >
+                        <i:InvokeCommandAction Command="{Binding TabPressedButtonCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <local:MetalsAndColorsView DataContext="{Binding MetalsAndColorsViewModelProperty}">
+                </local:MetalsAndColorsView>
+            </TabItem>
+        </TabControl>
+        <Label x:Name="logLabel" Content="Log" Height="27" Margin="0,31,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="267"/>
+        <TextBox x:Name="logTextBox" Text="{Binding LogText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" 
+                 Height="200" Margin="0,58,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" IsReadOnly="True" 
+                 VerticalScrollBarVisibility="Auto"/>
+        <Label x:Name="resultLabel" Content="Result" Height="27" Margin="0,342,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="267"/>
+        <TextBox x:Name="resultTextBox" HorizontalAlignment="Right" Height="200" Margin="0,369,10,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" Width="267" IsReadOnly="True" VerticalScrollBarVisibility="Auto" 
+                 Text="{Binding ResultText, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Window>

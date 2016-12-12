@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="JDITestDesktopApp.View.ComplexTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:bh ="clr-namespace:JDITestDesktopApp.View"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+
+        <DataGrid Height ="525" Margin="10,10,-86,0" VerticalAlignment="Top" ColumnWidth="*" AutoGenerateColumns="False" IsReadOnly="True"  
+                  SelectionMode="Single" SelectionUnit="Cell" CurrentCell="{Binding CellInfo, Mode=OneWayToSource}"
+                  Grid.Row="0" Grid.Column="1" ItemsSource="{Binding PersonsInfo}" bh:DataGridColumnsBehavior.BindableColumns="{Binding ColumnCollection}">            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <xctk:CheckComboBox x:Name="vegetablesComboBox" HorizontalAlignment="Left" Margin="26,545,0,0" VerticalAlignment="Top"                                                        
+                             ItemsSource="{Binding ColumnsListProperty}" SelectedItemsOverride="{Binding SelectedColumns, Mode=TwoWay}"
+                             Width="235" Height="22">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="ItemSelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectedItemsChanged}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </xctk:CheckComboBox>
+
+        <Button Content="Reestablish" HorizontalAlignment="Left" Margin="26,580,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ReestablishCommand}"/>
+
+        <Button Content="Apply" HorizontalAlignment="Left" Margin="126,580,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ApplyCommand}"/>
+
+    </Grid>
+</UserControl>

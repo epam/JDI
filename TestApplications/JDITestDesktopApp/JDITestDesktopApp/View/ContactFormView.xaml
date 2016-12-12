@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="JDITestDesktopApp.View.ContactFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"             
+             d:DesignHeight="453" d:DesignWidth="630">
+    <Grid>
+        <Label Content="Name" HorizontalAlignment="Left" Height="28" Margin="26,34,0,0" VerticalAlignment="Top" Width="43"/>
+        <Label Content="Last Name" HorizontalAlignment="Left" Height="28" Margin="275,34,0,0" VerticalAlignment="Top" Width="70"/>
+        <TextBox x:Name="nameCFTextBox" Tag="Name" HorizontalAlignment="Left" Height="23" Margin="26,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235"
+                 Text="{Binding NameProperty}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus" >
+                    <i:InvokeCommandAction Command="{Binding NameFocusLostCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBox x:Name="lastNameCFTextBox" Tag="Last Name" HorizontalAlignment="Left" Height="23" Margin="275,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"
+                 Text="{Binding LastNameProperty}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus" >
+                    <i:InvokeCommandAction Command="{Binding LastNameFocusLostCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Label Content="Description" HorizontalAlignment="Left" Height="28" Margin="26,107,0,0" VerticalAlignment="Top" Width="69"/>
+        <TextBox x:Name="descriptionCFTextBox" Tag="Description" HorizontalAlignment="Left" Height="141" Margin="26,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="493"
+                 Text="{Binding DescriptionProperty}" AcceptsReturn="True" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus" >
+                    <i:InvokeCommandAction Command="{Binding DescriptionFocusLostCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Button x:Name="submitCFButton" Content="Submit" HorizontalAlignment="Left" Margin="444,301,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SubmitCommand}"/>
+        <Grid x:Name="summaryCFGrid">
+            <Label Content="Summary" HorizontalAlignment="Left" Height="28" Margin="26,301,0,0" VerticalAlignment="Top" Width="69"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="26,329,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+            <Grid>
+                <RadioButton x:Name="oneCFRadioButton" GroupName="Summary (Odd)" Content="1" HorizontalAlignment="Left" Margin="35,342,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsOneProperty}"/>
+                <RadioButton GroupName="Summary (Odd)" Content="3" HorizontalAlignment="Left" Margin="92,342,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsThreeProperty}"/>
+                <RadioButton GroupName="Summary (Odd)" Content="5" HorizontalAlignment="Left" Margin="148,342,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578"
+                             IsChecked="{Binding IsFiveProperty}"/>
+                <RadioButton GroupName="Summary (Odd)" Content="7" HorizontalAlignment="Left" Margin="197,342,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsSevenProperty}"/>
+            </Grid>
+            <Grid>
+                <RadioButton x:Name="twoCFRadioButton" GroupName="Summary (Even)" Content="2" HorizontalAlignment="Left" Margin="35,362,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsTwoProperty}"/>
+                <RadioButton GroupName="Summary (Even)" Content="4" HorizontalAlignment="Left" Margin="92,362,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsFourProperty}"/>
+                <RadioButton GroupName="Summary (Even)" Content="6" HorizontalAlignment="Left" Margin="148,362,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578"
+                             IsChecked="{Binding IsSixProperty}"/>
+                <RadioButton GroupName="Summary (Even)" Content="8" HorizontalAlignment="Left" Margin="197,362,0,0" VerticalAlignment="Top"
+                             IsChecked="{Binding IsEightProperty}"/>
+            </Grid>
+            <Button x:Name="calculateCFButton" Content="Calculate" HorizontalAlignment="Left" Margin="170,396,0,0" VerticalAlignment="Top" Width="75" Tag="summaryCFGrid" 
+                    Command="{Binding CalculateCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>

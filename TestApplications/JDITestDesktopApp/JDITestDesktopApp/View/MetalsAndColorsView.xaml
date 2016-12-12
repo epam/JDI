@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="JDITestDesktopApp.View.MetalsAndColorsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="536">
+    <Grid>
+        <Label Content="Summary" HorizontalAlignment="Left" Height="28" Margin="26,21,0,0" VerticalAlignment="Top" Width="69"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="26,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+        <Grid>
+            <RadioButton GroupName="Summary (Odd)" Content="1" HorizontalAlignment="Left" Margin="35,62,0,0" VerticalAlignment="Top" 
+                         IsChecked="{Binding IsOneProperty}" Command="{Binding OddChangedCommand}"/>
+            <RadioButton GroupName="Summary (Odd)" Content="3" HorizontalAlignment="Left" Margin="92,62,0,0" VerticalAlignment="Top"  IsChecked="{Binding IsThreeProperty}"
+                          Command="{Binding OddChangedCommand}"/>
+            <RadioButton GroupName="Summary (Odd)" Content="5" HorizontalAlignment="Left" Margin="148,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578"  
+                         IsChecked="{Binding IsFiveProperty}"  Command="{Binding OddChangedCommand}"/>
+            <RadioButton GroupName="Summary (Odd)" Content="7" HorizontalAlignment="Left" Margin="197,62,0,0" VerticalAlignment="Top"  IsChecked="{Binding IsSevenProperty}"
+                          Command="{Binding OddChangedCommand}"/>
+        </Grid>
+        <Grid>
+            <RadioButton GroupName="Summary (Even)" Content="2" HorizontalAlignment="Left" Margin="35,82,0,0" VerticalAlignment="Top" IsChecked="{Binding IsTwoProperty}"
+                         Command="{Binding EvenChangedCommand}"/>
+            <RadioButton GroupName="Summary (Even)" Content="4" HorizontalAlignment="Left" Margin="92,82,0,0" VerticalAlignment="Top" IsChecked="{Binding IsFourProperty}"
+                         Command="{Binding EvenChangedCommand}"/>
+            <RadioButton GroupName="Summary (Even)" Content="6" HorizontalAlignment="Left" Margin="148,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.34,0.578"
+                         IsChecked="{Binding IsSixProperty}" Command="{Binding EvenChangedCommand}"/>
+            <RadioButton GroupName="Summary (Even)" Content="8" HorizontalAlignment="Left" Margin="197,82,0,0" VerticalAlignment="Top" IsChecked="{Binding IsEightProperty}"
+                         Command="{Binding EvenChangedCommand}"/>
+        </Grid>
+        <Button x:Name="calculateMButton" Content="Calculate" HorizontalAlignment="Left" Margin="167,114,0,0" VerticalAlignment="Top" Width="75" Tag="summaryMGrid"
+                Command="{Binding CalculateCommand}"/>
+        
+        
+        <Label Content="Elements" HorizontalAlignment="Left" Height="28" Margin="282,21,0,0" VerticalAlignment="Top" Width="69"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="282,49,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
+        <CheckBox x:Name="waterMCheckBox" Content="Water" HorizontalAlignment="Left" Height="16" Margin="294,61,0,0" VerticalAlignment="Top" Width="58" 
+                  IsChecked="{Binding IsWater}" Command="{Binding WaterChangedCommand}"/>
+        <CheckBox x:Name="earthMCheckBox" Content="Earth" HorizontalAlignment="Left" Height="16" Margin="294,77,0,0" VerticalAlignment="Top" Width="55"
+                  IsChecked="{Binding IsEarth}" Command="{Binding EarthChangedCommand}"/>
+        <CheckBox x:Name="windMCheckBox" Content="Wind" HorizontalAlignment="Left" Height="16" Margin="294,93,0,0" VerticalAlignment="Top" Width="55"
+                  IsChecked="{Binding IsWind}" Command="{Binding WindChangedCommand}"/>
+        <CheckBox x:Name="fireMCheckBox" Content="Fire" HorizontalAlignment="Left" Height="16" Margin="294,109,0,0" VerticalAlignment="Top" Width="48"
+                  IsChecked="{Binding IsFire}" Command="{Binding FireChangedCommand}"/>                        
+
+
+        <ComboBox x:Name="colorsMComboBox" HorizontalAlignment="Left" Margin="26,165,0,0" VerticalAlignment="Top" Width="235" SelectedIndex="0" Tag="Colors"
+                  ItemsSource="{Binding ColorsListProperty}" SelectedValue="{Binding ColorProperty}" />        
+
+        
+        <ComboBox x:Name="metalsMComboBox" HorizontalAlignment="Left" Margin="282,165,0,0" VerticalAlignment="Top" Width="235" 
+                   Tag="Metals" IsEditable="True" ItemsSource="{Binding MetalsListProperty}" SelectedValue="{Binding MetalProperty}" 
+                  Text="{Binding CustomMetalProperty}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding MetalChangedCommand}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding FocusLostCommand}" />
+                </i:EventTrigger>                
+            </i:Interaction.Triggers>            
+        </ComboBox>
+
+
+        <xctk:CheckComboBox x:Name="vegetablesComboBox" HorizontalAlignment="Left" Margin="26,204,0,0" VerticalAlignment="Top"                                                        
+                             ItemsSource="{Binding VegetablesListProperty}" SelectedItemsOverride="{Binding SelectedVegetables}"
+                             Width="235" Height="22"/>
+        
+        
+        <Button x:Name="sumbitMButton" Content="Submit" HorizontalAlignment="Left" Margin="442,254,0,0" VerticalAlignment="Top" 
+                Width="75" Command="{Binding SubmitCommand}"/>
+    </Grid>
+</UserControl>
