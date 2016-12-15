@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using JDI_Commons;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;

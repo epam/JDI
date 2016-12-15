@@ -2,6 +2,7 @@
 using Epam.JDI.Core.Interfaces.Settings;
 using Epam.JDI.Core.Logging;
 using JDI_Core.Interfaces.Settings;
+using static System.Int32;
 using static Epam.JDI.Core.Properties.Settings;
 
 namespace Epam.JDI.Core.Settings
@@ -17,7 +18,7 @@ namespace Epam.JDI.Core.Settings
         public static string JDISettingsPath = "test.properties";
         public static bool ExceptionThrown;
         public static IDriver<object> DriverFactory = new DefaultDriver();
-        public static bool UseCache = false;
+        public static bool UseCache;
         
         public static void ToLog(string message, LogLevels level)
         {
@@ -40,14 +41,21 @@ namespace Epam.JDI.Core.Settings
 
         public static void InitFromProperties()
         {
-            FillFromSettings(p => DriverFactory.RegisterDriver(p), "driver");
-            FillFromSettings(p => DriverFactory.SetRunType(p), "run.type");
-            FillFromSettings(p => Timeouts.WaitElementSec = int.Parse(p), "timeout.wait.element");
-            FillFromSettings(p => Timeouts.WaitPageLoadSec = int.Parse(p), "timeout.wait.pageLoad");
+            FillFromSettings(p => DriverFactory.RegisterDriver(p), "Driver");
+            FillFromSettings(p => DriverFactory.SetRunType(p), "RunType");
+            FillFromSettings(p => Timeouts.WaitElementSec = Parse(p), "TimeoutWaitElement");
+            FillFromSettings(p => ShortLogMessagesFormat = p.ToLower().Equals("short"), "LogMessageFormat");
+            FillFromSettings(p =>
+                UseCache = p.ToLower().Equals("true") || p.ToLower().Equals("1"), "Cache");
+            FillFromSettings(p =>
+                UseCache = p.ToLower().Equals("true") || p.ToLower().Equals("1"), "DemoMode");
+            FillFromSettings(p => HighlightSettings.SetTimeoutInSec(Parse(p)), "DemoDelay");
         }
 
         protected static void FillFromSettings(Action<string> action, string name)
         {
+            //var b = System.Configuration.ConfigurationManager.AppSettings["DriversFolder"];
+            //var a = Properties.Settings.Default["DriversFolder"];
             ExceptionUtils.AvoidExceptions(() => action.Invoke(Default[name].ToString()));
         }
         

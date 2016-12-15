@@ -108,20 +108,19 @@ public class WebSettings extends JDISettings {
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
         fillAction(p -> {
-            if (p.equals("soft")) {
+            p = p.toLowerCase();
+            if (p.equals("soft"))
                 p = "any, multiple";
-            }
-            if (p.equals("strict")) {
+            if (p.equals("strict"))
                 p = "visible, single";
-            }
             if (p.split(",").length == 2) {
                 List<String> params = asList(p.split(","));
                 if (params.contains("visible") || params.contains("displayed"))
                     elementSearchCriteria = WebElement::isDisplayed;
-                if (params.contains("single"))
-                    onlyOneElementAllowedInSearch = true;
                 if (params.contains("any") || params.contains("all"))
                     elementSearchCriteria = el -> el != null;
+                if (params.contains("single"))
+                    onlyOneElementAllowedInSearch = true;
                 if (params.contains("multiple"))
                     onlyOneElementAllowedInSearch = false;
             }
@@ -130,10 +129,8 @@ public class WebSettings extends JDISettings {
             String[] split = null;
             if (p.split(",").length == 2)
                 split = p.split(",");
-            if (p.split("x").length == 2)
-                split = p.split("x");
-            if (p.split("X").length == 2)
-                split = p.split("X");
+            if (p.toLowerCase().split("x").length == 2)
+                split = p.toLowerCase().split("x");
             if (split != null)
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");

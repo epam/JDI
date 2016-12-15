@@ -10,6 +10,7 @@ import com.epam.jdi.uitests.testing.career.page_objects.enums.JobCategories;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.Locations;
 import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.TreeDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;

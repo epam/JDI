@@ -43,12 +43,16 @@ public class FillFromAnnotationRules {
         switch (jTable.headerType()) {
             case COLUMNS_HEADERS:
                 table.hasOnlyColumnHeaders();
+                break;
             case ROWS_HEADERS:
                 table.hasOnlyRowHeaders();
+                break;
             case ALL_HEADERS:
                 table.hasAllHeaders();
+                break;
             case NO_HEADERS:
                 table.hasNoHeaders();
+                break;
         }
         table.useCache(jTable.useCache());
     }

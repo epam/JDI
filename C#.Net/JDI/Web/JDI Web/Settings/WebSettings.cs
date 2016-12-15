@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Common;
 using Epam.JDI.Core.Interfaces.Complex;
@@ -14,6 +16,9 @@ using JDI_Web.Selenium.Elements.Complex;
 using JDI_Web.Selenium.Elements.Complex.Table;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
+using static System.Int32;
+using static JDI_Web.Selenium.DriverFactory.WebDriverFactory;
+using Image = JDI_Web.Selenium.Elements.Common.Image;
 
 namespace JDI_Web.Settings
 {
@@ -50,24 +55,53 @@ namespace JDI_Web.Settings
 
         public static void InitNUnitDefault()
         {
-            Init();
+            InitFromProperties();
         }
         public static void InitMsTestDefault()
         {
-            Init(new Log4Net());
+            InitFromProperties(new Log4Net());
         }
         public static void InitFromProperties(ILogger logger = null, IAssert assert = null,
             TimeoutSettings timeouts = null, IDriver<IWebDriver> driverFactory = null)
         {
             Init(logger, assert, timeouts, driverFactory);
             JDISettings.InitFromProperties();
-            FillFromSettings(p => Domain = p, "domain");
-            FillFromSettings(p => DriverFactory.DriverPath = p, "drivers.folder");
-            // var isMultithread = Default["multithread"].ToString();
-            // TODO
-            /*Logger = isMultithread.Equals("true") || isMultithread.Equals("1")
-                ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: {0}] {0}", Thread.currentThread().getId(), s))
-                : new TestNGLogger("JDI Logger");*/
+            FillFromSettings(p => Domain = p, "Domain");
+            FillFromSettings(p => DriverFactory.DriverPath = p, "DriversFolder");
+
+            // FillFromSettings(p => DriverFactory.DriverVersion = p, "DriversVersion");
+            // fillAction(p->getDriverFactory().getLatestDriver =
+            //        p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
+            // fillAction(p->asserter.doScreenshot(p), "screenshot.strategy");
+            FillFromSettings(p =>
+            {
+                p = p.ToLower();
+                if (p.Equals("soft"))
+                    p = "any,multiple";
+                if (p.Equals("strict"))
+                    p = "visible,single";
+                if (p.Split(',').Length != 2) return;
+                var parameters = p.Split(',').ToList();
+                if (parameters.Contains("visible") || parameters.Contains("displayed"))
+                    WebDriverFactory.ElementSearchCriteria = el => el.Displayed;
+                if (parameters.Contains("any") || parameters.Contains("all"))
+                    WebDriverFactory.ElementSearchCriteria = el => el != null;
+                if (parameters.Contains("single") || parameters.Contains("displayed"))
+                    OnlyOneElementAllowedInSearch = true;
+                if (parameters.Contains("multiple") || parameters.Contains("displayed"))
+                    OnlyOneElementAllowedInSearch = false;
+            }, "SearchElementStrategy");
+
+            FillFromSettings(p =>
+            {
+                string[] split = null;
+                if (p.Split(',').Length == 2)
+                    split = p.Split(',');
+                if (p.ToLower().Split('x').Length == 2)
+                    split = p.ToLower().Split('x');
+                if (split != null)
+                    BrowserSize = new Size(Parse(split[0]), Parse(split[1]));
+            }, "BrowserSize");
         }
 
         private static readonly Dictionary<Type, Type> DefaultInterfacesMap = new Dictionary<Type, Type> {

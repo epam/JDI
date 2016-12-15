@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using Epam.JDI.Core.Interfaces.Base;
@@ -44,6 +45,7 @@ namespace JDI_Web.Selenium.DriverFactory
         public RunTypes RunType { get; set; } = RunTypes.Local;
         public HighlightSettings HighlightSettings = new HighlightSettings();
         public Func<IWebElement, bool> ElementSearchCriteria = el => el.Displayed;
+        public static bool OnlyOneElementAllowedInSearch = true;
 
         private readonly Dictionary<DriverTypes, string> _driverNamesDictionary = new Dictionary<DriverTypes, string>
         {
@@ -115,8 +117,15 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             return GetDriver(_driverNamesDictionary[driverType]);
         }
+
+
+        public static Size BrowserSize = new Size();
+
         public Func<IWebDriver, IWebDriver> WebDriverSettings = driver => {
-            driver.Manage().Window.Maximize();
+            if (BrowserSize.Height == 0)
+                driver.Manage().Window.Maximize();
+            else
+                driver.Manage().Window.Size = BrowserSize;
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.WaitElementSec));
             return driver;
         };

@@ -1,5 +1,4 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
-using Epam.JDI.Core.Interfaces.Complex;
 using JDI_UIWebTests.Enums;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Complex;

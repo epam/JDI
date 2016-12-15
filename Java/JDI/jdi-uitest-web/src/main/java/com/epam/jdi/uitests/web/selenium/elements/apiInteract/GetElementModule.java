@@ -46,8 +46,10 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 7/3/2015.
  */
 public class GetElementModule implements IAvatar {
-    private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
-    private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds";
+    private static final String FAILED_TO_FIND_ELEMENT_MESSAGE
+            = "Can't find Element '%s' during %s seconds";
+    private static final String FIND_TO_MUCH_ELEMENTS_MESSAGE
+            = "Find %s elements instead of one for Element '%s' during %s seconds";
     private By byLocator;
     public By frameLocator;
     public Function<WebElement, Boolean> localElementSearchCriteria = null;
@@ -172,8 +174,7 @@ public class GetElementModule implements IAvatar {
             default:
                 if (onlyOneElementAllowedInSearch)
                     throw exception(FIND_TO_MUCH_ELEMENTS_MESSAGE, result.size(), element, timeout);
-                else
-                    return result.get(0);
+                return result.get(0);
         }
     }
 

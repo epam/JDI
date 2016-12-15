@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Epam.JDI.Core.Interfaces.Complex;
-using JDI_UIWebTests.Enums;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
-using static JDI_UIWebTests.Tests.Complex.CommonActionsData;
 using static JDI_UIWebTests.UIObjects.TestSite;
 
 namespace JDI_UIWebTests.Tests.Complex

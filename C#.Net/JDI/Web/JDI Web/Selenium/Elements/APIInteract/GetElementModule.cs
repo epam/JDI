@@ -11,7 +11,6 @@ using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
-using static JDI_Web.Settings.WebSettings;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
 {
@@ -109,8 +108,10 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 case 1:
                     return result[0];
                 default:
-                    throw Exception(
-                        $"Find {result.Count} elements instead of one for Element '{Element}' during {timeout} seconds");
+                    if (WebDriverFactory.OnlyOneElementAllowedInSearch)
+                        throw Exception(
+                            $"Find {result.Count} elements instead of one for Element '{Element}' during {timeout} seconds");
+                    return result[0];
             }
 
         }
