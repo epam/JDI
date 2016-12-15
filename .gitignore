@@ -16,3 +16,4 @@ packages/
 # ReSharper files
 *.DotSettings.user
 *.bat
+*.txt
