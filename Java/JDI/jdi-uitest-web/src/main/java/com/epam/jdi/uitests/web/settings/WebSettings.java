@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.settings;
  */
 
 
+import com.codeborne.selenide.SelenideElement;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
@@ -30,6 +31,7 @@ import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.base.SupremeElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
@@ -143,6 +145,8 @@ public class WebSettings extends JDISettings {
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
             {IElement.class, Element.class},
+            {SelenideElement.class, SupremeElement.class},
+            {WebElement.class, SupremeElement.class},
             {IButton.class, Button.class},
             {IClickable.class, Clickable.class},
             {IComboBox.class, ComboBox.class},

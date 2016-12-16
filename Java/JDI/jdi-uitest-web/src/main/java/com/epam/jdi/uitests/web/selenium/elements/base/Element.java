@@ -47,7 +47,7 @@ import static java.lang.String.format;
  * @author Shubin Konstantin
  * @author Zharov Alexandr
  */
-public class Element extends BaseElement implements IElement, IHasElement {
+public class Element<T extends Element> extends BaseElement implements IElement, IHasElement {
 
     public Element() {
         super();
@@ -79,17 +79,21 @@ public class Element extends BaseElement implements IElement, IHasElement {
         return invoker.doJActionResult("Get web element",
                 () -> avatar.getElement(), DEBUG);
     }
+
     public WebElement getHighLightElement() {
         return avatar.getElement();
     }
+
     public void setWebElement(WebElement webElement) {
         avatar.setWebElement(webElement);
     }
+
     public WebElement get(By locator) {
         Element el = new Element(locator);
         el.setParent(this);
         return el.getWebElement();
     }
+
     public List<WebElement> getList(By locator) {
         return getWebElement().findElements(locator);
     }
@@ -233,11 +237,12 @@ public class Element extends BaseElement implements IElement, IHasElement {
                 });
     }
 
-    public void doubleClick() {
+    public T doubleClick() {
         invoker.doJAction("Double click on Element", () -> {
             Actions builder = new Actions(getDriver());
             builder.doubleClick(getWebElement()).perform();
         });
+        return (T)this;
     }
 
     public void rightClick() {
