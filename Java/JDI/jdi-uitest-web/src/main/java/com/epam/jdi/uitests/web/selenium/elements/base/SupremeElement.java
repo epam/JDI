@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.Coordinates;
+import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.support.ui.Select;
 
 import javax.imageio.ImageIO;
@@ -690,7 +691,7 @@ public class SupremeElement extends Element<SupremeElement> implements SelenideE
 
     @Override
     public Coordinates getCoordinates() {
-        return null;
+        return ((Locatable)getWebElement()).getCoordinates();
     }
 
     @Override
