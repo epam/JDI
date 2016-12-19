@@ -23,7 +23,8 @@ namespace JDI_Web.Selenium.DriverFactory
     public class WebDriverFactory : IDriver<IWebDriver>
     {
         private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
-        private Dictionary<string, IWebDriver> RunDrivers { get; } = new Dictionary<string, IWebDriver>();
+        private ThreadLocal<Dictionary<string, IWebDriver>> RunDrivers { get; } = 
+            new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
 
         private string _currentDriverName;
 
@@ -129,6 +130,7 @@ namespace JDI_Web.Selenium.DriverFactory
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.WaitElementSec));
             return driver;
         };
+        private object locker = new object();
 
         public IWebDriver GetDriver(string driverName)
         {
@@ -136,14 +138,21 @@ namespace JDI_Web.Selenium.DriverFactory
                 throw new Exception($"Can't find driver with name {driverName}");
             try
             {
-                if (!RunDrivers.ContainsKey(driverName))
+                IWebDriver result;
+                lock (locker)
                 {
-                    var resultDriver = Drivers[driverName]();
-                    if (resultDriver == null)
-                        throw new Exception($"Can't get Webdriver {driverName}. This Driver name is not registered");
-                    RunDrivers.Add(driverName, resultDriver);
+                    if (RunDrivers.Value == null || !RunDrivers.Value.ContainsKey(driverName))
+                    {
+                        var rDrivers = RunDrivers.Value ?? new Dictionary<string, IWebDriver>();
+                        var resultDriver = Drivers[driverName]();
+                        if (resultDriver == null)
+                            throw new Exception($"Can't get Webdriver {driverName}. This Driver name is not registered");
+                        rDrivers.Add(driverName, resultDriver);
+                        RunDrivers.Value = rDrivers;
+                    }
+                    result = RunDrivers.Value[driverName];
                 }
-                return RunDrivers[driverName];
+                return result;
             }
             catch
             {
@@ -203,10 +212,12 @@ namespace JDI_Web.Selenium.DriverFactory
 
         public void ReopenDriver(string driverName)
         {
-            if (RunDrivers.ContainsKey(driverName))
+            var rDriver = RunDrivers.Value;
+            if (rDriver.ContainsKey(driverName))
             {
-                RunDrivers[driverName].Close();
-                RunDrivers.Remove(driverName);
+                rDriver[driverName].Close();
+                rDriver.Remove(driverName);
+                RunDrivers.Value = rDriver;
             }
             if (Drivers.ContainsKey(driverName))
                 GetDriver(); // TODO
@@ -214,9 +225,9 @@ namespace JDI_Web.Selenium.DriverFactory
 
         public void Close()
         {
-            foreach (var driver in RunDrivers)
+            foreach (var driver in RunDrivers.Value)
                 driver.Value.Quit();
-            RunDrivers.Clear();
+            RunDrivers.Value.Clear();
         }
 
         public void SetRunType(string runType)
@@ -236,7 +247,7 @@ namespace JDI_Web.Selenium.DriverFactory
 
         public bool HasRunDrivers()
         {
-            return RunDrivers.Any();
+            return RunDrivers.Value != null && RunDrivers.Value.Any();
         }
         
         public void Highlight(IElement element)

@@ -18,9 +18,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.common.IText;
 
 /**
  * Created by Roman_Iovlev on 7/28/2015.
@@ -28,9 +26,9 @@ import com.epam.jdi.uitests.core.interfaces.common.IText;
 public interface ICell extends ISelect {
     ISelect get();
 
-    <T extends IClickable & IText> T get(Class<T> clazz);
+    <T> T get(Class<T> clazz);
 
-    <T extends IClickable & IText> T get(T element);
+    <T> T get(T element);
 
     int columnNum();
 

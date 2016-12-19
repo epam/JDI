@@ -131,7 +131,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get().get(subLocator);
     }
 
-    public <T extends IClickable & IText> T get(Class<T> clazz) {
+    public <T> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -143,7 +143,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get(instance);
     }
 
-    public <T extends IClickable & IText> T get(T cell) {
+    public <T> T get(T cell) {
         SelectElement cellSelect = (SelectElement) cell;
         By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))

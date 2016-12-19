@@ -127,6 +127,20 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         return result;
     }
 
+    public Map<K, V> toMap() {
+        return toMap(v -> v);
+    }
+    public <VResult> Map<K, VResult> toMap(Function<V, VResult> value) {
+        return toMap((k, v) -> k, (k,v) -> value.apply(v));
+    }
+    public <KResult, VResult> Map<KResult, VResult> toMap(
+            BiFunction<K, V, KResult> key, BiFunction<K, V, VResult> value) {
+        Map<KResult, VResult> result = new HashMap<>();
+        for (Pair<K, V> pair : pairs)
+            result.put(key.apply(pair.key, pair.value), value.apply(pair.key, pair.value));
+        return result;
+    }
+
     public boolean add(K key, V value) {
         if (hasKey(key))
             return false;
