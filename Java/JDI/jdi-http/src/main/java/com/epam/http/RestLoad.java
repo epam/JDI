@@ -1,5 +1,7 @@
 package com.epam.http;
 
+import com.epam.http.requests.RestMethod;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -8,9 +10,9 @@ import static java.lang.System.currentTimeMillis;
 /**
  * Created by Roman_Iovlev on 9/25/2016.
  */
-public class HttpLoad {
+public class RestLoad {
 
-    public static PerformanceResult LoadService(long liveTimeMSec, HttpRequest... requests) {
+    public static PerformanceResult loadService(long liveTimeMSec, RestMethod... requests) {
         Random rnd = new Random();
         long start = currentTimeMillis();
         PerformanceResult pr = new PerformanceResult();
@@ -19,10 +21,10 @@ public class HttpLoad {
         } while (currentTimeMillis() - start < liveTimeMSec);
         return pr;
     }
-    public static PerformanceResult LoadService(HttpRequest... requests) {
-        return LoadService(5000, requests);
+    public static PerformanceResult loadService(RestMethod... requests) {
+        return loadService(5000, requests);
     }
-    public static PerformanceResult LoadService(long liveTimeMSec, Map<HttpRequest, Integer> weightRequests) {
+    public static PerformanceResult loadService(long liveTimeMSec, Map<RestMethod, Integer> weightRequests) {
         Random rnd = new Random();
         long start = currentTimeMillis();
         PerformanceResult pr = new PerformanceResult();
@@ -31,20 +33,20 @@ public class HttpLoad {
         } while (currentTimeMillis() - start < liveTimeMSec);
         return pr;
     }
-    public static PerformanceResult LoadService(Map<HttpRequest, Integer> weightRequests) {
-        return LoadService(5000, weightRequests);
+    public static PerformanceResult loadService(Map<RestMethod, Integer> weightRequests) {
+        return loadService(5000, weightRequests);
     }
-    private static int getLength(Map<HttpRequest, Integer> wightRequests) {
+    private static int getLength(Map<RestMethod, Integer> wightRequests) {
         int Length = 0;
-        for(Map.Entry<HttpRequest, Integer> pair : wightRequests.entrySet())
+        for(Map.Entry<RestMethod, Integer> pair : wightRequests.entrySet())
             Length += pair.getValue();
         return Length;
     }
-    private static HttpRequest getRequest(Map<HttpRequest, Integer> wightRequests, int num) {
+    private static RestMethod getRequest(Map<RestMethod, Integer> wightRequests, int num) {
         if (wightRequests == null || wightRequests.size() == 0)
             return null;
         int Sum = 0;
-        for(Map.Entry<HttpRequest, Integer> pair : wightRequests.entrySet()) {
+        for(Map.Entry<RestMethod, Integer> pair : wightRequests.entrySet()) {
             Sum += pair.getValue();
             if (Sum >= num)
                 return pair.getKey();
