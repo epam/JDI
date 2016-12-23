@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.testing.unittests.common;
 
-import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
@@ -14,7 +13,6 @@ import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInSta
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.web.matcher.testng.Assert.areEquals;
-import static com.epam.web.matcher.testng.Assert.isTrue;
 import static java.lang.String.format;
 
 public class TextTests extends InitTests {
@@ -57,19 +55,17 @@ public class TextTests extends InitTests {
     }
 
     @Test
-    public void waitMatchTextParallel() {
+    public void waitMatchTextParallel() throws InterruptedException {
         isInState(SUPPORT_PAGE);
 
-        Timer timer = new Timer();
-        final int waitTimeOut = 1000;
-
-        new Thread(() -> {
-            Timer.sleep(waitTimeOut);
+        Thread thread = new Thread(() -> {
             page.moveToAction();
-        }).run();
+        });
+        thread.start();
 
         areEquals(textItem.get().waitMatchText(regEx), expectedText);
-        isTrue(timer.timePassedInMSec() > waitTimeOut);
+
+        thread.join();
     }
 
     @Test
@@ -78,18 +74,16 @@ public class TextTests extends InitTests {
     }
 
     @Test
-    public void waitTextParallel() {
+    public void waitTextParallel() throws InterruptedException {
         isInState(SUPPORT_PAGE);
 
-        Timer timer = new Timer();
-        final int waitTimeOut = 1000;
-
-        new Thread(() -> {
-            Timer.sleep(waitTimeOut);
+        Thread thread = new Thread(() -> {
             page.moveToAction();
-        }).run();
+        });
+        thread.start();
 
         areEquals(textItem.get().waitText(contains), expectedText);
-        isTrue(timer.timePassedInMSec() > waitTimeOut);
+
+        thread.join();
     }
 }
