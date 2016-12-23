@@ -1,0 +1,32 @@
+task wrapper(type: Wrapper) {}
+
+buildscript {
+    repositories {
+      mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.ullink.gradle:gradle-msbuild-plugin:2.12"
+    }
+	
+    dependencies {
+        classpath "com.ullink.gradle:gradle-nuget-plugin:2.5"
+    }	
+}
+
+apply plugin:'msbuild'
+apply plugin:'nuget'
+
+msbuild {
+  solutionFile = 'JDITestDesktopApp.sln'
+
+  targets = ['Clean', 'Rebuild']
+
+  destinationDir = 'build/msbuild/bin'
+
+  intermediateDir = 'build/msbuild/obj'
+}
+
+msbuild.dependsOn(nugetRestore)
+
+build.dependsOn(msbuild)
