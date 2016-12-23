@@ -12,6 +12,7 @@ obj/
 packages/
 *.nupkg
 *.nuspec
+*.bat
 
 # ReSharper files
 *.DotSettings.user
