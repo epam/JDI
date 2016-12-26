@@ -1,0 +1,111 @@
+.warningText {
+    color: red;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.selectedToDrop {
+    color: #6db982;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.POTextArea {
+    width: 95%;
+    background-color: inherit;
+    border: inherit;
+    position: relative;
+}
+
+.button {
+    hight: 25px;
+}
+
+.treeButtons {
+    position: relative;
+    float: right;
+}
+
+.collapseButton {
+    float: left;
+    margin: 0%;
+    position: relative;
+}
+
+.borderBottom {
+    border-bottom: 1px solid cadetblue;
+}
+
+.borderRight {
+    border-right: 1px solid cadetblue;
+}
+
+.tableDiv {
+    position: relative;
+    margin-left: 5%;
+    width: 90%;
+    height: 100%;
+    font-family: monospace;
+    border-radius: 6px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.highlight {
+    background-color: rgba(147, 219, 213, 0.4);
+}
+
+.staticHighlight {
+    background-color: rgba(57, 219, 136, 0.6);
+}
+
+.collapsedDiv {
+    width: 350px;
+    height: 120px;
+    font-family: monospace;
+    border: 1px solid transparent;
+    height: auto;
+}
+
+.collapsedTable {
+    position: relative;
+    border: inherit;
+    font-size: smaller;
+    background-color: transparent;
+    margin-left: 5%;
+    height: 100%;
+    width: 80%;
+    table-layout: auto;
+}
+
+.glyphicon-minus-sign {
+    color: red;
+}
+
+.glyphicon-plus-sign {
+    color: green;
+}
+
+.glyphicon-sign-lg {
+    color: forestgreen;
+    font-size: 2em;
+}
+
+.treeDiv {
+    position: relative;
+}
+
+.socialLinks {
+    color: rgba(164, 164, 164, 0.64);
+}
+
+.socialLinks:hover {
+    color: rgba(72, 72, 72, 0.64);
+}
+
+.socialButtons{
+    margin-right: 2%;
+    color: inherit;
+}
