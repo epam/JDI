@@ -5,7 +5,6 @@ target/
 *.exe
 .logs/
 *.xlsx
-*.html
 bin/
 obj/
 .vs/
