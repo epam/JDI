@@ -79,7 +79,7 @@ namespace JDI_Matchers
             if (!result)
             {
                 //TakeScreenshot();
-                AssertException(failMessage ?? message + " failed");
+                AssertException(failMessage == null ? message + " failed" : failMessage);
             }
         }
 
