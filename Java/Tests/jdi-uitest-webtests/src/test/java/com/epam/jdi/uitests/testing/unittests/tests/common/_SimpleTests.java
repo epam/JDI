@@ -33,6 +33,7 @@ public class _SimpleTests extends InitTests {
         metalsColorsPage.colors.select(Colors.Blue);
         metalsColorsPage.nature.select(Nature.FIRE, Nature.EARTH);
         assertContains(actionsLog::getFirstText, "Earth: condition changed to true");
+        supportPage.checkOpened();
     }
 
 }

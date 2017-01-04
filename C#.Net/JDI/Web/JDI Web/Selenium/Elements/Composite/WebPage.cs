@@ -228,7 +228,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             public void Equal()
             {
                 if (IsNullOrEmpty(_equals)) return;
-                Logger.Info($"Page {_what} equals to '{_equals}'");
+                Logger.Info("Check that " + $"Page {_what} equals to '{_equals}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Equals(_equals)));
             }
 
