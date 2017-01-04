@@ -37,7 +37,8 @@
         <log4j.version>1.2.17</log4j.version>
         <saucelab.version>2.1.19</saucelab.version>
         <junit.version>4.11</junit.version>
-        <jdi.version>1.0.39</jdi.version>
+        <jdi.version>1.0.32</jdi.version>
+        <selenide.version>4.1</selenide.version>
     </properties>
 
     <dependencies>
