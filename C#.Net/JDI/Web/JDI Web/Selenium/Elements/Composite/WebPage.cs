@@ -238,7 +238,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             public void Match()
             {
                 if (IsNullOrEmpty(_template)) return;
-                Logger.Info($"Page {_what} matches to '{_template}'");
+                Logger.Info("Check that " + $"Page {_what} matches to '{_template}'");
                 Asserter.IsTrue(_timer().Wait(() => _actual().Matches(_template)));
             }
 
