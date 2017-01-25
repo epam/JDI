@@ -18,12 +18,24 @@ using static JDI_Web.Properties.Settings;
 
 namespace JDI_Web.Selenium.DriverFactory
 {
-    public enum RunTypes { Local, Remote }
-    public enum DriverTypes { Chrome, Firefox, IE }
+    public enum RunTypes
+    {
+        Local,
+        Remote
+    }
+
+    public enum DriverTypes
+    {
+        Chrome,
+        Firefox,
+        IE
+    }
+
     public class WebDriverFactory : IDriver<IWebDriver>
     {
         private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
-        private ThreadLocal<Dictionary<string, IWebDriver>> RunDrivers { get; } = 
+
+        private ThreadLocal<Dictionary<string, IWebDriver>> RunDrivers { get; } =
             new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
 
         private string _currentDriverName;
@@ -54,16 +66,21 @@ namespace JDI_Web.Selenium.DriverFactory
             {DriverTypes.Firefox, "firefox"},
             {DriverTypes.IE, "internet explorer"}
         };
-        private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary<DriverTypes, Func<string, IWebDriver>>
+
+        private readonly Dictionary<DriverTypes, Func<string, IWebDriver>> _driversDictionary = new Dictionary
+            <DriverTypes, Func<string, IWebDriver>>
         {
             {DriverTypes.Chrome, path => IsNullOrEmpty(path) ? new ChromeDriver() : new ChromeDriver(path)},
             {DriverTypes.Firefox, path => new FirefoxDriver()},
-            {DriverTypes.IE, path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)}
+            {
+                DriverTypes.IE,
+                path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)
+            }
         };
-        
+
         private string RegisterLocalDriver(DriverTypes driverType)
         {
-            return RegisterDriver(GetDriverName(_driverNamesDictionary[driverType]), 
+            return RegisterDriver(GetDriverName(_driverNamesDictionary[driverType]),
                 () => WebDriverSettings(_driversDictionary[driverType](DriverPath)));
         }
 
@@ -73,7 +90,9 @@ namespace JDI_Web.Selenium.DriverFactory
                 return driverName;
             string newName;
             var i = 1;
-            do { newName = driverName + i++;
+            do
+            {
+                newName = driverName + i++;
             } while (Drivers.ContainsKey(newName));
             return newName;
         }
@@ -119,10 +138,10 @@ namespace JDI_Web.Selenium.DriverFactory
             return GetDriver(_driverNamesDictionary[driverType]);
         }
 
-
         public static Size BrowserSize = new Size();
 
-        public Func<IWebDriver, IWebDriver> WebDriverSettings = driver => {
+        public Func<IWebDriver, IWebDriver> WebDriverSettings = driver =>
+        {
             if (BrowserSize.Height == 0)
                 driver.Manage().Window.Maximize();
             else
@@ -130,7 +149,8 @@ namespace JDI_Web.Selenium.DriverFactory
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.WaitElementSec));
             return driver;
         };
-        private object locker = new object();
+
+        private readonly object locker = new object();
 
         public IWebDriver GetDriver(string driverName)
         {
@@ -154,12 +174,12 @@ namespace JDI_Web.Selenium.DriverFactory
                 }
                 return result;
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Can't get driver.");
+                throw new Exception($"Can't get driver: {e.Message}; StackTrace: {e.StackTrace}");
             }
         }
-        
+
         public string RegisterDriver(string driverName)
         {
             try
@@ -167,7 +187,8 @@ namespace JDI_Web.Selenium.DriverFactory
                 var driverType = _driverNamesDictionary.FirstOrDefault(x => x.Value == driverName).Key;
                 return RegisterLocalDriver(driverType);
             }
-            catch {
+            catch
+            {
                 throw new Exception(); // TODO
             }
         }
@@ -229,13 +250,17 @@ namespace JDI_Web.Selenium.DriverFactory
                 driver.Value.Quit();
             RunDrivers.Value.Clear();
         }
-
+        
         public void SetRunType(string runType)
         {
             switch (runType)
             {
-                case "local" : RunType = RunTypes.Local; return;
-                case "remote" : RunType = RunTypes.Remote; return;
+                case "local":
+                    RunType = RunTypes.Local;
+                    return;
+                case "remote":
+                    RunType = RunTypes.Remote;
+                    return;
             }
             RunType = RunTypes.Local;
         }
@@ -249,7 +274,7 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             return RunDrivers.Value != null && RunDrivers.Value.Any();
         }
-        
+
         public void Highlight(IElement element)
         {
             Highlight(element, HighlightSettings);
@@ -262,9 +287,8 @@ namespace JDI_Web.Selenium.DriverFactory
             var orig = ((WebElement) element).GetWebElement().GetAttribute("style");
             element.SetAttribute("style",
                 $"border: 3px solid {highlightSettings.FrameColor}; background-color: {highlightSettings.BgColor};");
-            Thread.Sleep(highlightSettings.TimeoutInSec * 1000);
+            Thread.Sleep(highlightSettings.TimeoutInSec*1000);
             element.SetAttribute("style", orig);
         }
-        
     }
 }
