@@ -47,12 +47,17 @@ namespace JDI_Web.Selenium.Elements.Composite
         {
             return Init<T>(GetType());
         }
-        
+
         public void OpenUrl(string url)
         {
             WebDriver.Navigate().GoToUrl(url);
         }
-        
+
+        public void OpenBaseUrl()
+        {
+            WebDriver.Navigate().GoToUrl(BaseUrl);
+        }
+
         public void Refresh()
         {
             WebDriver.Navigate().Refresh();
