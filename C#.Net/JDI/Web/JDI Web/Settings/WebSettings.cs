@@ -20,13 +20,14 @@ using static System.Int32;
 using static JDI_Web.Selenium.DriverFactory.WebDriverFactory;
 using Image = JDI_Web.Selenium.Elements.Common.Image;
 
+// ReSharper disable InconsistentNaming
+
 namespace JDI_Web.Settings
 {
     public class WebSettings : JDISettings
     {
         public static string Domain;
         public static bool HasDomain => Domain != null && Domain.Contains("://");
-
         public static IWebDriver WebDriver => WebDriverFactory.GetDriver();
         public static WebDriverFactory WebDriverFactory => (WebDriverFactory) DriverFactory;
 
@@ -42,7 +43,6 @@ namespace JDI_Web.Settings
 
         public static IJavaScriptExecutor JSExecutor => DriverFactory.GetDriver() as IJavaScriptExecutor;
 
-
         public static void Init(ILogger logger = null, IAssert assert = null,
             TimeoutSettings timeouts = null, IDriver<IWebDriver> driverFactory = null)
         {
@@ -57,10 +57,12 @@ namespace JDI_Web.Settings
         {
             InitFromProperties();
         }
+
         public static void InitMsTestDefault()
         {
             InitFromProperties(new Log4Net());
         }
+
         public static void InitFromProperties(ILogger logger = null, IAssert assert = null,
             TimeoutSettings timeouts = null, IDriver<IWebDriver> driverFactory = null)
         {
@@ -104,30 +106,30 @@ namespace JDI_Web.Settings
             }, "BrowserSize");
         }
 
-        private static readonly Dictionary<Type, Type> DefaultInterfacesMap = new Dictionary<Type, Type> {
-            { typeof(IElement), typeof(WebElement)},
-            { typeof(IButton), typeof(Button)},
-            { typeof(IClickable), typeof(Clickable)},
-            { typeof(IComboBox), typeof(ComboBox)},
-            { typeof(ISelector), typeof(Selector)},
-            { typeof(IText), typeof(Text)},
-            { typeof(IImage), typeof(Image)},
-            { typeof(ITextArea), typeof(TextArea)},
-            { typeof(ITextField), typeof(TextField)},
-            { typeof(ILabel), typeof(Label)},
-            { typeof(IDropDown), typeof(Dropdown)},
-            { typeof(IDropList), typeof(DropList)},
-            { typeof(ITable), typeof(Table)},
-            { typeof(ICheckBox), typeof(CheckBox)},
-            { typeof(IRadioButtons), typeof(RadioButtons)},
-            { typeof(ICheckList), typeof(CheckList)},
-            { typeof(ITextList), typeof(TextList)},
-            { typeof(ITabs), typeof(Tabs)},
-            { typeof(IMenu), typeof(Menu)},
-            { typeof(IFileInput), typeof(FileInput)},
-            { typeof(IDatePicker), typeof(DatePicker)},
-            { typeof(ILink), typeof(Link)}
-
+        private static readonly Dictionary<Type, Type> DefaultInterfacesMap = new Dictionary<Type, Type>
+        {
+            {typeof(IElement), typeof(WebElement)},
+            {typeof(IButton), typeof(Button)},
+            {typeof(IClickable), typeof(Clickable)},
+            {typeof(IComboBox), typeof(ComboBox)},
+            {typeof(ISelector), typeof(Selector)},
+            {typeof(IText), typeof(Text)},
+            {typeof(IImage), typeof(Image)},
+            {typeof(ITextArea), typeof(TextArea)},
+            {typeof(ITextField), typeof(TextField)},
+            {typeof(ILabel), typeof(Label)},
+            {typeof(IDropDown), typeof(Dropdown)},
+            {typeof(IDropList), typeof(DropList)},
+            {typeof(ITable), typeof(Table)},
+            {typeof(ICheckBox), typeof(CheckBox)},
+            {typeof(IRadioButtons), typeof(RadioButtons)},
+            {typeof(ICheckList), typeof(CheckList)},
+            {typeof(ITextList), typeof(TextList)},
+            {typeof(ITabs), typeof(Tabs)},
+            {typeof(IMenu), typeof(Menu)},
+            {typeof(IFileInput), typeof(FileInput)},
+            {typeof(IDatePicker), typeof(DatePicker)},
+            {typeof(ILink), typeof(Link)}
         };
     }
 }

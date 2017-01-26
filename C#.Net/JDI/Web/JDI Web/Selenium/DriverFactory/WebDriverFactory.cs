@@ -100,15 +100,17 @@ namespace JDI_Web.Selenium.DriverFactory
         public string RegisterDriver(string driverName, Func<IWebDriver> driver)
         {
             if (Drivers.ContainsKey(driverName))
+            {
                 throw Exception($"Can't register WebDriver {driverName}. Driver with the same name already registered");
+            }
             try
             {
                 Drivers.Add(driverName, driver);
                 CurrentDriverName = driverName;
             }
-            catch
+            catch(Exception e)
             {
-                throw Exception($"Can't register WebDriver {driverName}.");
+                throw Exception($"Can't register WebDriver {driverName}. StackTrace: {e.StackTrace}");
             }
             return driverName;
         }

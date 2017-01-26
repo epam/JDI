@@ -15,20 +15,20 @@ namespace JDI_Web.Selenium.Elements.Composite
         public string Title => WebDriver.Title;
         private static WebCascadeInit CascadeInit => new WebCascadeInit();
 
-        public static void Init(Type site)
+        public static void Init(Type siteType)
         {
-            CascadeInit.InitStaticPages(site, WebSettings.WebDriverFactory.CurrentDriverName);
-            CurrentSite = site;
+            CascadeInit.InitStaticPages(siteType, WebSettings.WebDriverFactory.CurrentDriverName);
+            CurrentSite = siteType;
         }
 
-        public static T Init<T>(Type site, string driverName) where T : Application
+        public static T Init<T>(Type siteType, string driverName) where T : Application
         {
-            return CascadeInit.InitPages<T>(site, driverName);
+            return CascadeInit.InitPages<T>(siteType, driverName);
         }
 
-        public static T Init<T>(Type site, DriverTypes driverType = DriverTypes.Chrome) where T : Application
+        public static T Init<T>(Type siteType, DriverTypes driverType = DriverTypes.Chrome) where T : Application
         {
-            return Init<T>(site, WebSettings.UseDriver(driverType));
+            return Init<T>(siteType, WebSettings.UseDriver(driverType));
         }
 
         public T Init<T>(string driverName) where T : Application
