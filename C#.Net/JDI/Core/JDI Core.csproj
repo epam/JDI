@@ -142,6 +142,7 @@
     <Compile Include="Settings\TimeoutSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JDI Core.nuspec" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

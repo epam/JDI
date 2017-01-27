@@ -15,3 +15,4 @@ packages/
 *.DotSettings.user
 *.bat
 *.txt
+*.user

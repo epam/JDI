@@ -80,6 +80,7 @@
     <Compile Include="StringExtentions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JDI Matchers.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
