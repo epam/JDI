@@ -1,7 +1,10 @@
-﻿namespace Epam.JDI.Core.Logging
+﻿using System;
+
+namespace Epam.JDI.Core.Logging
 {
     public interface ILogger
     {
+        void Exception(Exception ex);
         void Trace(string message);
         void Debug(string message);
         void Info(string message);

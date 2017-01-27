@@ -11,6 +11,7 @@ namespace JDI_Commons
             foreach (var element in enumerable)
                 action(element);
         }
+
         public static string FromNewLine(this string s)
         {
             return " " + Environment.NewLine + s;
@@ -24,7 +25,7 @@ namespace JDI_Commons
         public static string CutTestData(this string str)
         {
             var index = str.IndexOf('(');
-                return index > 0
+            return index > 0
                 ? str.Substring(0, index)
                 : str;
         }
@@ -39,15 +40,18 @@ namespace JDI_Commons
             return list != null ? string.Join(separator, list.Select(el => string.Format(format, el))) : "";
         }
 
-        public static string Print<TValue>(this IEnumerable<KeyValuePair<string, TValue>> collection, string separator = "; ", string pairFormat = "{0}: {1}")
+        public static string Print<TValue>(this IEnumerable<KeyValuePair<string, TValue>> collection,
+            string separator = "; ", string pairFormat = "{0}: {1}")
         {
-            return collection != null ? string.Join(separator, collection.Select(pair => string.Format(pairFormat, pair.Key, pair.Value))) : "";
+            return collection != null
+                ? string.Join(separator, collection.Select(pair => string.Format(pairFormat, pair.Key, pair.Value)))
+                : "";
         }
 
 
         public static object GetFieldByName(this object obj, string fieldName)
         {
-            var fieldsQueue = new Queue<string> (fieldName.Split('.'));
+            var fieldsQueue = new Queue<string>(fieldName.Split('.'));
             var result = obj;
             while (fieldsQueue.Any() && result != null)
             {
@@ -69,9 +73,9 @@ namespace JDI_Commons
         {
             if (list == null)
                 return -1;
-                for (var i = 0; i < list.Count; i++)
-                    if (func(list[i]))
-                        return i;
+            for (var i = 0; i < list.Count; i++)
+                if (func(list[i]))
+                    return i;
             return -1;
         }
 
@@ -79,13 +83,15 @@ namespace JDI_Commons
         {
             return s.Split(new[] {separator}, StringSplitOptions.None);
         }
+
         public static IList<string> SplitTrim(this string s, string separator)
         {
-            return s.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+            return s.Split(new[] {separator}, StringSplitOptions.RemoveEmptyEntries);
         }
+
         public static IList<T> ListCopy<T>(this IList<T> list, int from = 0, int to = 0)
         {
-            if (from * to < 0)
+            if (from*to < 0)
                 throw new Exception($"from and to should have same sign ({from}, {to})");
             if (from < 0)
                 from = list.Count + from - 1;

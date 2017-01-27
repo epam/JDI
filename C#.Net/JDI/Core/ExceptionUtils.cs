@@ -1,11 +1,12 @@
 ﻿using System;
-using static Epam.JDI.Core.Settings.JDISettings;
+using System.Diagnostics;
+using Epam.JDI.Core.Settings;
 
 namespace Epam.JDI.Core
 {
     public static class ExceptionUtils
     {
-        public static void ActionWithException(Action action, Func<string, string> exception)
+        public static void ActionWithException(Action action, Func<string, string> getExceptionMsg)
         {
             try
             {
@@ -13,31 +14,47 @@ namespace Epam.JDI.Core
             }
             catch (Exception ex)
             {
-                throw Exception(exception.Invoke(ex.Message));
+                var msg = getExceptionMsg.Invoke(ex.Message);
+                throw JDISettings.Exception(msg, ex);
             }
         }
-        public static T ActionWithException<T>(Func<T> func, Func<string, string> exception)
+
+        public static T ActionWithException<T>(Func<T> func, Func<string, string> getExceptionMsg)
         {
             try
             {
-                return func.Invoke();
+                var res = func.Invoke();
+                return res;
             }
             catch (Exception ex)
             {
-                throw Exception(exception.Invoke(ex.Message));
+                var msg = getExceptionMsg.Invoke(ex.Message);
+                throw JDISettings.Exception(msg, ex);
             }
         }
 
         public static T AvoidExceptions<T>(this Func<T> waitFunc)
         {
-            try { return waitFunc(); }
-            catch { return default(T); }
+            try
+            {
+                return waitFunc();
+            }
+            catch
+            {
+                return default(T);
+            }
         }
 
         public static void AvoidExceptions(this Action action)
         {
-            try { action(); }
-            catch { /* ignored */ }
+            try
+            {
+                action();
+            }
+            catch
+            {
+                /* ignored */
+            }
         }
     }
 }

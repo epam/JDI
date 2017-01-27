@@ -1,4 +1,5 @@
 ﻿using Epam.JDI.Core.Logging;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Settings;
 using NUnit.Framework;
@@ -15,7 +16,7 @@ namespace JDI_UIWebTests.Tests
         protected void SetUp()
         {            
             WebSettings.InitNUnitDefault();     
-            ILogger logger = WebSettings.Logger;
+            var logger = JDISettings.Logger;
             logger.Info("Init test run...");
             WinProcUtils.KillAllRunWebDrivers();
             WebSite.Init(typeof(TestSite));

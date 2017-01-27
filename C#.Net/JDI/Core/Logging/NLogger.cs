@@ -1,4 +1,5 @@
-﻿using NLog;
+﻿using System;
+using NLog;
 
 namespace Epam.JDI.Core.Logging
 {
@@ -20,6 +21,11 @@ namespace Epam.JDI.Core.Logging
                 }
                 return _log;
             }
+        }
+
+        public void Exception(Exception ex)
+        {
+            Log.Info(ex);
         }
 
         public void Trace(string message)

@@ -23,6 +23,11 @@ namespace Epam.JDI.Core.Logging
             }
         }
 
+        public void Exception(Exception ex)
+        {
+            Log.Error(ex.Message, ex);
+        }
+
         public void Trace(string message)
         {
             Log.Logger.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType, log4net.Core.Level.Trace, message, null);
