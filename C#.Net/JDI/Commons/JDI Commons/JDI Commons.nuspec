@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>JDI.UICommons</id>
+    <version>1.0.26</version>
+    <title>JDI Commons</title>
+    <authors>Iovlev Roman</authors>
+    <owners>Iovlev Roman</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Framework for UI Automation Testing. Web, Mobile, Desktop</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © 2009-2016 LifeSciences unit of EPAM Systems, Inc.</copyright>
+    <tags>nuget ui automation testing web mobile qa framework epam pageobjects selenium</tags>
+  </metadata>
+</package>
