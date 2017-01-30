@@ -33,11 +33,18 @@ namespace JDI_Web.Selenium.DriverFactory
 
     public class WebDriverFactory : IDriver<IWebDriver>
     {
-        private Dictionary<string, Func<IWebDriver>> Drivers { get; } = new Dictionary<string, Func<IWebDriver>>();
+        public WebDriverFactory()
+        {
+            Drivers = new Dictionary<string, Func<IWebDriver>>();
+            RunDrivers = new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
+            DriverPath = "C:/Selenium";
+            RunType = RunTypes.Local;
+        }
 
-        private ThreadLocal<Dictionary<string, IWebDriver>> RunDrivers { get; } =
-            new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
+        private Dictionary<string, Func<IWebDriver>> Drivers { get; }
 
+        private ThreadLocal<Dictionary<string, IWebDriver>> RunDrivers { get; }
+        
         private string _currentDriverName;
 
         public string CurrentDriverName
@@ -54,8 +61,8 @@ namespace JDI_Web.Selenium.DriverFactory
             set { _currentDriverName = value; }
         }
 
-        public string DriverPath { get; set; } = "C:/Selenium";
-        public RunTypes RunType { get; set; } = RunTypes.Local;
+        public string DriverPath { get; set; }
+        public RunTypes RunType { get; set; }
         public HighlightSettings HighlightSettings = new HighlightSettings();
         public Func<IWebElement, bool> ElementSearchCriteria = el => el.Displayed;
         public static bool OnlyOneElementAllowedInSearch = true;
@@ -152,7 +159,7 @@ namespace JDI_Web.Selenium.DriverFactory
             return driver;
         };
 
-        private readonly object locker = new object();
+        private readonly object _locker = new object();
 
         public IWebDriver GetDriver(string driverName)
         {
@@ -161,7 +168,7 @@ namespace JDI_Web.Selenium.DriverFactory
             try
             {
                 IWebDriver result;
-                lock (locker)
+                lock (_locker)
                 {
                     if (RunDrivers.Value == null || !RunDrivers.Value.ContainsKey(driverName))
                     {
