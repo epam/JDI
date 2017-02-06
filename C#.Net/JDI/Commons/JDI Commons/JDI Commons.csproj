@@ -71,6 +71,7 @@
     <Compile Include="TimerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="JDI Commons.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

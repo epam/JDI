@@ -1,31 +1,46 @@
 ﻿using System;
-using static NUnit.Framework.TestContext;
+using NUnit.Framework;
 
 namespace Epam.JDI.Core.Logging
 {
     public class NUnitLogger : ILogger
     {
-        private readonly object _locker = new object();
+        private readonly bool _writeDebug;
+
+        public NUnitLogger(bool writeDebug = true)
+        {
+            _writeDebug = writeDebug;
+        }
+
+        private static string Dt => $"{DateTime.Now:hh:mm:ss dd.MM.yy}";
+
+        public void Exception(Exception ex)
+        {
+            TestContext.WriteLine($"Exception");
+        }
 
         public void Trace(string message)
         {
-            WriteLine($"[Trace] {message}");
+            TestContext.WriteLine($"[Trace: {Dt}] {message}");
             System.Diagnostics.Debug.WriteLine("");
         }
 
         public void Debug(string message)
         {
-            WriteLine($"[Debug] {message}");
+            if (_writeDebug)
+            {
+                TestContext.WriteLine($"[Debug: {Dt}] {message}");
+            }
         }
 
         public void Info(string message)
         {
-            WriteLine($"[Info] {message}");
+            TestContext.WriteLine($"[Info: {Dt}] {message}");
         }
 
         public void Error(string message)
         {
-            WriteLine($"[Error] {message}");
+            TestContext.WriteLine($"[Error: {Dt}] {message}");
         }
 
         public void Step(string message)

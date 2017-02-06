@@ -3,7 +3,7 @@ using JDI_Matchers;
 
 namespace JDI_Web.Selenium.Base
 {
-    public class WebAssert : NUnitMatcher, IAssert
+    public class WebAssert : NUnitMatcher
     {
     }
 }

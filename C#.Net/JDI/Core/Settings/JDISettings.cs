@@ -5,6 +5,8 @@ using JDI_Core.Interfaces.Settings;
 using static System.Int32;
 using static Epam.JDI.Core.Properties.Settings;
 
+// ReSharper disable InconsistentNaming
+
 namespace Epam.JDI.Core.Settings
 {
     public class JDISettings
@@ -19,7 +21,7 @@ namespace Epam.JDI.Core.Settings
         public static bool ExceptionThrown;
         public static IDriver<object> DriverFactory = new DefaultDriver();
         public static bool UseCache;
-        
+
         public static void ToLog(string message, LogLevels level)
         {
             switch (level)
@@ -58,7 +60,7 @@ namespace Epam.JDI.Core.Settings
             //var a = Properties.Settings.Default["DriversFolder"];
             ExceptionUtils.AvoidExceptions(() => action.Invoke(Default[name].ToString()));
         }
-        
+
         public static void InitFromProperties(string propertyPath)
         {
             JDISettingsPath = propertyPath;
@@ -70,10 +72,16 @@ namespace Epam.JDI.Core.Settings
             ExceptionThrown = false;
         }
 
+        public static Exception Exception(string msg, Exception ex)
+        {
+            ExceptionThrown = true;
+            return Asserter.Exception(msg, ex);
+        }
+
         public static Exception Exception(string msg)
         {
             ExceptionThrown = true;
-             return Asserter.Exception(msg);
+            return Asserter.Exception(msg);
         }
     }
 }

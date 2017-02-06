@@ -10,9 +10,9 @@ obj/
 .vs/
 packages/
 *.nupkg
-*.nuspec
 
 # ReSharper files
 *.DotSettings.user
 *.bat
 *.txt
+*.user
