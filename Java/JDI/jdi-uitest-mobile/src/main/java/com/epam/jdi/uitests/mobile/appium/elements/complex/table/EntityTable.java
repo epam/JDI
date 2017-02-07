@@ -29,7 +29,11 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
 
 /**
  * Created by Sergey_Mishanin on 11/18/16.
@@ -104,17 +108,13 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         }
     }
 
-    public List<R> getRows(String... colNames)
+    public List<R> getRows() {
+        return select(rows().get(), row -> castToRow(row.value));
+    }
+
+    public List<R> getRows(Function<R, Boolean> rule)
     {
-        List<R> rows = new ArrayList<>();
-        for (int i=1; i<=size(); i++){
-            MapArray<String, ICell> row = new MapArray<>();
-            for (String colName: colNames){
-                row.add(columns.getColumn(colName).get(i));
-            }
-            rows.add(castToRow(row));
-        }
-        return rows;
+        return where(getRows(), rule);
     }
 
     public R getRow(String value, Column column)
