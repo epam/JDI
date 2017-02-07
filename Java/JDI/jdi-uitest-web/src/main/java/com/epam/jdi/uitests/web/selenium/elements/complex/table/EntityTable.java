@@ -108,9 +108,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
 
     public List<R> getRows(String... colNames)
     {
-        return select(colNames,
-            colName -> castToRow(new MapArray<>(size(),
-                i -> columns.getColumn(colName).get(i))));
+        return select(super.rows(colNames), row -> castToRow(row.value));
     }
 
     public R getRow(String value, Column column)

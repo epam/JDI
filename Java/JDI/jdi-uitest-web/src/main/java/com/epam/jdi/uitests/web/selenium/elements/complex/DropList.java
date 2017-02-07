@@ -127,16 +127,16 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         button().wait(resultFunc);
     }
 
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition) {
-        return button().wait(resultFunc, condition);
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
+        return (R) button().wait(resultFunc, condition);
     }
 
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {
         button().wait(resultFunc, timeoutSec);
     }
 
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition, int timeoutSec) {
-        return button().wait(resultFunc, condition, timeoutSec);
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
+        return (R) button().wait(resultFunc, condition, timeoutSec);
     }
 
     /**

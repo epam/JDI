@@ -4,24 +4,25 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
 import com.epam.web.matcher.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobDescriptionPage;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobListingPage;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.*;
 
 
 public class W3CEntityTableExamples extends TestsBase {
-    /*@BeforeMethod
+    @BeforeMethod
     public void before(Method method) {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
-    }*/
+    }
     @Test
     public void getTableInfoExample() {
-        jobListingPage.isOpened();
-        /*List<JobRecord> rows = jobList.getRows();
+     /*   jobListingPage.isOpened();
+        List<JobRecord> rows = jobList.getRows();
         Job job = jobList.entity(jobName, column(name.toString()));
         List<Job> jobs = jobList.entities();*/
     }
@@ -31,8 +32,8 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
-                .row(withValue("Senior QA Automation Engineer"), inColumn("JOB_NAME"))
-                .get("APPLY").select();
+                .row(withValue("Senior QA Automation Engineer"), inColumn("name"))
+                .get("apply").select();
 
         jobDescriptionPage.checkOpened();
     }
@@ -42,8 +43,8 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
-                .rowContains("Automation Engineer", inColumn("JOB_NAME"))
-                .get("APPLY").select();
+                .rowContains("Automation Engineer", inColumn("name"))
+                .get("apply").select();
 
         jobDescriptionPage.checkOpened();
     }
@@ -53,8 +54,8 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
-                .rowMatch(".+ Automation Engineer", inColumn("JOB_NAME"))
-                .get("APPLY").select();
+                .rowMatch(".+ Automation Engineer", inColumn("name"))
+                .get("apply").select();
 
         jobDescriptionPage.checkOpened();
     }
@@ -64,11 +65,11 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
-                "JOB_NAME~=Automation Engineer",
+                "name~=Automation Engineer",
                 "category*=.*Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 
@@ -77,11 +78,11 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
-                "JOB_NAME=Senior QA Automation Engineer",
+                "name=Senior QA Automation Engineer",
                 "category=Software Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("JOB_NAME").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 }

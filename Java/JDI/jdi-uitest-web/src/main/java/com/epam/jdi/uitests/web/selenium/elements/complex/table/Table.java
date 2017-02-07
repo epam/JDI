@@ -375,10 +375,11 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public MapArray<String, MapArray<String, ICell>> rows(String... colNameValues) {
+        if (colNameValues.length == 0)
+            return rows().get();
         List<TableFilter> filters = new ArrayList<>();
         for (String colNameValue : colNameValues)
             filters.add(new TableFilter(colNameValue));
-
         boolean matches = false;
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
@@ -415,6 +416,8 @@ public class Table extends Text implements ITable, Cloneable {
         return columns().matchesRegEx(regEx, row);
     }
     public MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues) {
+        if (rowNameValues.length == 0)
+            return columns().get();
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> column : columns().get()) {
             boolean matches = true;

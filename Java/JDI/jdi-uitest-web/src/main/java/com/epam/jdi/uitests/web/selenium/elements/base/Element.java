@@ -186,8 +186,8 @@ public class Element<T extends Element> extends BaseElement implements IElement,
      * @return Waits while condition with WebElement happens and returns result using resultFunc
      */
     @JDIAction
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition) {
-        return timer().getResultByCondition(() -> resultFunc.apply(getWebElement()), condition::apply);
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
+        return timer().getResultByCondition(() -> resultFunc.apply(getWebElement()), condition);
     }
 
     /**
@@ -208,9 +208,9 @@ public class Element<T extends Element> extends BaseElement implements IElement,
      * @return Waits while condition with WebElement and returns wait result
      */
     @JDIAction
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition, int timeoutSec) {
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
         setWaitTimeout(timeoutSec * 1000);
-        T result = new Timer(timeoutSec * 1000).getResultByCondition(() -> resultFunc.apply(getWebElement()), condition::apply);
+        R result = new Timer(timeoutSec * 1000).getResultByCondition(() -> resultFunc.apply(getWebElement()), condition);
         restoreWaitTimeout();
         return result;
     }
