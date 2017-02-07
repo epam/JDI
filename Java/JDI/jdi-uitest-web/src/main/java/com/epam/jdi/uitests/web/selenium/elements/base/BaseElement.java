@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ElementsActions;
@@ -84,6 +85,11 @@ public abstract class BaseElement implements IBaseElement {
         BaseElement.actionScenrios = actionScenrios;
     }
 
+    public void init(String driverName, IBaseElement parent, IAvatar avatar) {
+        new WebCascadeInit().initElements(this, driverName);
+        this.setAvatar(avatar);
+        this.setParent(parent);
+    }
     public static void setValueRule(String text, Consumer<String> action) {
         doActionRule.accept(text, action);
     }

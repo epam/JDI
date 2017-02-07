@@ -91,9 +91,10 @@ public class EntityTableExamples extends TestsBase {
     public void searchByMultiCriteriaInTableExample() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
-        JobRecord firstRow = jobListingPage.jobsListEntity.getRows(
-                "name=Senior QA Automation Engineer",
-                "category=Software Test Engineering").get(0);
+        JobRecord firstRow = jobListingPage.jobsListEntity.getRows(r ->
+                r.name.getText().equals("Senior QA Automation Engineer")
+                && r.category.getText().equals("Software Test Engineering"))
+                .get(0);
 
         Assert.areEquals(firstRow.name.getText(), "Senior QA Automation Engineer");
         Assert.areEquals(firstRow.category.getText(), "Software Test Engineering");

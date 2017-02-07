@@ -20,9 +20,12 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.map.MapArray;
+import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.TableFilter;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 
 import java.lang.reflect.Field;
@@ -30,9 +33,12 @@ import java.util.*;
 import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
+import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.convertStringToType;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
@@ -97,33 +103,37 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
                 if (clazz.isInterface())
                     clazz = getClassFromInterface(clazz);
                 value = (BaseElement) clazz.newInstance();
+                new WebCascadeInit().initElements(value, avatar.getDriverName());
+                value.init(avatar.getDriverName(), cell, cell.get().getAvatar());
             } catch (InstantiationException | IllegalAccessException e) {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
-
-            value.setAvatar(cell.get().getAvatar());
             return value;
             });
     }
 
-    public List<R> getRows(String... colNames)
+    public List<R> getRows() {
+        return select(rows().get(), row -> castToRow(row.value));
+    }
+
+    public List<R> getRows(Function<R, Boolean> rule)
     {
-        return select(super.rows(colNames), row -> castToRow(row.value));
+        return where(getRows(), rule);
     }
 
     public R getRow(String value, Column column)
     {
-        return castToRow(super.row(value, column));
+        return castToRow(row(value, column));
     }
 
     public R getRow(int rowNum)
     {
-        return castToRow(super.row(rowNum));
+        return castToRow(row(rowNum));
     }
 
     public R getRow(String rowName)
     {
-        return castToRow(super.row(rowName));
+        return castToRow(row(rowName));
     }
 
     private E newEntity(){

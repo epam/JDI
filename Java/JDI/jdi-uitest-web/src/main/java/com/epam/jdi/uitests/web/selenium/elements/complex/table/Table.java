@@ -395,7 +395,7 @@ public class Table extends Text implements ITable, Cloneable {
                     case CONTAINS:
                         matches = cell.getValue().contains(filter.value);
                         break;
-                    default:
+                    case MATCH:
                         matches = cell.getValue().matches(filter.value);
                         break;
                 }

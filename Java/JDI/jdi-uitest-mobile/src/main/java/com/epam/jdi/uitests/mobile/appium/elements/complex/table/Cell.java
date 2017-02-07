@@ -19,11 +19,13 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
+import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
 import org.openqa.selenium.By;
@@ -131,7 +133,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get().get(subLocator);
     }
 
-    public <T> T get(Class<T> clazz) {
+    public <T extends IBaseElement> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -143,8 +145,8 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get(instance);
     }
 
-    public <T> T get(T cell) {
-        SelectElement cellSelect = (SelectElement) cell;
+    public <T extends IBaseElement> T get(T cell) {
+        BaseElement cellSelect = (BaseElement) cell;
         By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
             locator = cellLocatorTemplate;

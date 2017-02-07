@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 
 /**
@@ -26,9 +27,9 @@ import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 public interface ICell extends ISelect {
     ISelect get();
 
-    <T> T get(Class<T> clazz);
+    <T extends IBaseElement> T get(Class<T> clazz);
 
-    <T> T get(T element);
+    <T extends IBaseElement> T get(T element);
 
     int columnNum();
 

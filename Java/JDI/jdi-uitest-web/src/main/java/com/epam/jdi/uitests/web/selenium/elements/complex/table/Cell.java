@@ -19,12 +19,14 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -131,7 +133,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get().get(subLocator);
     }
 
-    public <T> T get(Class<T> clazz) {
+    public <T extends IBaseElement> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -143,17 +145,17 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get(instance);
     }
 
-    public <T> T get(T cell) {
-        SelectElement cellSelect = (SelectElement) cell;
+    public <T extends IBaseElement> T get(T cell) {
+        BaseElement cellSelect = (BaseElement) cell;
         By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
             locator = cellLocatorTemplate;
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
             throw exception("Can't create cell with locator template " + cellSelect.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
-        cellSelect.setAvatar(new GetElementModule(fillByMsgTemplate(locator, columnIndex, rowIndex), cellSelect));
-        cellSelect.setParent(table);
-        new WebCascadeInit().initElements(cellSelect, avatar.getDriverName());
+        cellSelect.init(avatar.getDriverName(), table,
+            new GetElementModule(
+                    fillByMsgTemplate(locator, columnIndex, rowIndex), cellSelect));
         return cell;
     }
 

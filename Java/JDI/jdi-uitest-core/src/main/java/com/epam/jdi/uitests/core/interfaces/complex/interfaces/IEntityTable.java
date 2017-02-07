@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 
 
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Created by roman.i on 20.10.2014.
@@ -26,7 +27,8 @@ import java.util.List;
 
 public interface IEntityTable<E,R> extends ITable, List<E> {
 
-    List<R> getRows(String... colNames);
+    List<R> getRows();
+    List<R> getRows(Function<R, Boolean> colNames);
 
     R getRow(String value, Column column);
 
