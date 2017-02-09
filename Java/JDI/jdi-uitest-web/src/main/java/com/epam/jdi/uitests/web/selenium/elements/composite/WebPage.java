@@ -99,7 +99,8 @@ public class WebPage extends BaseElement implements IPage {
      * Check that page opened
      */
     public void checkOpened() {
-        asserter.isTrue(verifyOpened());
+        asserter.isTrue(verifyOpened(),
+                format("Page '%s' is not opened", toString()));
     }
     public boolean verifyOpened() {
         boolean result = false;
@@ -140,6 +141,7 @@ public class WebPage extends BaseElement implements IPage {
             logger.info(format("Page '%s' should be opened", getName()));
             if (verifyOpened()) return;
             open();
+            checkOpened();
         } catch (Exception ex) {
             throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
         }
@@ -198,6 +200,11 @@ public class WebPage extends BaseElement implements IPage {
     public void clearCache() {
         invoker.doJAction("Delete all cookies",
                 () -> getDriver().manage().deleteAllCookies());
+    }
+
+    @Override
+    public String toString() {
+        return getName() + "(" + url + ")";
     }
 
     public class StringCheckType {
