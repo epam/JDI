@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.43</version>
+        <version>1.0.45</version>
         <relativePath>../..</relativePath>
     </parent>
 
@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdi.version>1.0.43</jdi.version>
+        <jdi.version>1.0.45</jdi.version>
         <selenium.version>3.0.1</selenium.version>
         <allure.version>1.4.5</allure.version>
     </properties>

@@ -122,27 +122,27 @@ public class Search extends TextField implements ISearch {
                 () -> getSuggesionsAction(text));
     }
 
-    private TextList<Enum> getSuggestions() {
+    protected TextList<Enum> getSuggestions() {
         if (suggestions != null)
             return getSuggestionsList();
         throw exception("Suggestions list locator not specified for search. Use accordance constructor");
     }
 
-    private TextList<Enum> getSuggestionsList() {
+    protected TextList<Enum> getSuggestionsList() {
         suggestions.setParent(getParent());
         return suggestions;
     }
-    private TextField getTextField() {
+    protected TextField getTextField() {
         TextField textField = new TextField(getLocator());
         textField.setParent(getParent());
         return textField;
     }
-    private IButton getFindButton() {
+    protected IButton getFindButton() {
         searchButton.setParent(getParent());
         return searchButton;
     }
 
-    private ITextField getSearchField() {
+    protected ITextField getSearchField() {
         if (getLocator() != null)
             return getTextField();
         List<Field> fields = getFields(this, ITextField.class);
