@@ -21,6 +21,9 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
@@ -56,7 +59,7 @@ public class Search extends TextField implements ISearch {
     public Search(By byLocator, By selectLocator, By suggestionsListLocator) {
         super(byLocator);
         this.searchButton = new Button(selectLocator);
-        this.suggestions = new TextList(suggestionsListLocator);
+        this.suggestions = new TextList<>(suggestionsListLocator);
     }
 
     protected void findAction(String text) {
@@ -165,5 +168,14 @@ public class Search extends TextField implements ISearch {
             default:
                 throw exception("Form '%s' have more than 1 button. Use submit(entity, buttonName) for this case instead", toString());
         }
+    }
+
+    public void setUp(By input, By searchButton, By suggestions) {
+        if (input != null)
+            avatar = new GetElementModule(input, this);
+        if (searchButton != null)
+            this.searchButton = new Button(searchButton);
+        if (suggestions != null)
+            this.suggestions = new TextList<>(suggestions);
     }
 }

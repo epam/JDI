@@ -22,6 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -30,6 +31,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
@@ -37,6 +39,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindB
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
@@ -130,6 +133,7 @@ public class WebCascadeInit extends CascadeInit {
         setUpTableFromAnnotation(instance, field);
         setUpMenuFromAnnotation(instance, field);
         setUpDropdownFromAnnotation(instance, field);
+        setUpSearchFromAnnotation(instance, field);
     }
 
     private static void setUpTableFromAnnotation(BaseElement instance, Field field) {
@@ -137,6 +141,12 @@ public class WebCascadeInit extends CascadeInit {
         if (jTable == null || !isInterface(field, ITable.class))
             return;
         setUpTable((Table) instance, jTable);
+    }
+    private static void setUpSearchFromAnnotation(BaseElement instance, Field field) {
+        JSearch jSearch = field.getAnnotation(JSearch.class);
+        if (jSearch == null || !isInterface(field, ISearch.class))
+            return;
+        setUpSearch((Search) instance, jSearch);
     }
     private static void setUpDropdownFromAnnotation(BaseElement instance, Field field) {
         JDropdown jDropdown = field.getAnnotation(JDropdown.class);

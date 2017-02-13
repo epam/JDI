@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 
 import static com.epam.commons.LinqUtils.select;
@@ -52,7 +53,10 @@ public class FillFromAnnotationRules {
         }
         table.useCache(jTable.useCache());
     }
-
+    public static void setUpSearch(Search search, JSearch jSearch) {
+        search.setUp(findByToBy(jSearch.input()), findByToBy(jSearch.searchButton()),
+                findByToBy(jSearch.suggestions()));
+    }
     public static void setUpDropdown(Dropdown dropdown, JDropdown jDropdown) {
         dropdown.setUp(findByToBy(jDropdown.root()), findByToBy(jDropdown.value()),
                 findByToBy(jDropdown.list()), findByToBy(jDropdown.expand()),
