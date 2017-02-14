@@ -18,14 +18,24 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -34,6 +44,9 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
+import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 
 /**
@@ -129,7 +142,16 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
         }
     }
 
-    public void setUp(List<By> menuLevelsLocators) {
-        this.menuLevelsLocators = menuLevelsLocators;
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JMenu.class, IMenu.class))
+            return;
+        ((Menu) el).setUp(field.getAnnotation(JMenu.class));
+    }
+
+    public Menu<TEnum> setUp(JMenu jMenu) {
+        this.menuLevelsLocators = LinqUtils.select(asList(jMenu.levelLocators()), WebAnnotationsUtil::findByToBy);
+        if (!jMenu.separator().equals(""))
+            useSeparator(jMenu.separator());
+        return this;
     }
 }

@@ -23,10 +23,13 @@ import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +40,11 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
+import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -138,14 +145,57 @@ public class Table extends Text implements ITable, Cloneable {
         return result;
     }
 
-    public ITable setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
-        setAvatar(root);
-        cellLocatorTemplate = cell;
-        rows.lineTemplate = row;
-        columns.lineTemplate = column;
-        footerLocator = footer;
-        columns.startIndex = colStartIndex;
-        rows.startIndex = rowStartIndex;
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JTable.class, ITable.class))
+            return;
+        ((Table) el).setUp(field.getAnnotation(JTable.class));
+    }
+
+    public ITable setUp(JTable jTable) {
+        setAvatar(findByToBy(jTable.root()));
+        cellLocatorTemplate = findByToBy(jTable.cell());
+        columns.lineTemplate = findByToBy(jTable.column());
+        rows.lineTemplate = findByToBy(jTable.row());
+        footerLocator = findByToBy(jTable.footer());
+        columns.startIndex = jTable.colStartIndex();
+        rows.startIndex = jTable.rowStartIndex();
+
+        if (jTable.header().length > 0)
+            hasColumnHeaders(asList(jTable.header()));
+        if (jTable.rowsHeader().length > 0)
+            hasRowHeaders(asList(jTable.rowsHeader()));
+
+        By headers = findByToBy(jTable.column());
+        if (headers != null)
+            columns.headersLocator = headers;
+        headers = findByToBy(jTable.rowNames());
+        if (headers != null)
+            rows.headersLocator = headers;
+        if (jTable.height() > 0)
+            setColumnsCount(jTable.height());
+        if (jTable.width() > 0)
+            setRowsCount(jTable.width());
+        if (!jTable.size().equals("")) {
+            String[] split = jTable.size().split("x");
+            if (split.length == 1)
+                split = jTable.size().split("X");
+            if (split.length != 2)
+                throw exception("Can't setup Table from attribute. Bad size: " + jTable.size());
+            setColumnsCount(parseInt(split[0]));
+            setRowsCount(parseInt(split[1]));
+        }
+
+        switch (jTable.headerType()) {
+            case COLUMNS_HEADERS:
+                hasOnlyColumnHeaders();
+            case ROWS_HEADERS:
+                hasOnlyRowHeaders();
+            case ALL_HEADERS:
+                hasAllHeaders();
+            case NO_HEADERS:
+                hasNoHeaders();
+        }
+        useCache(jTable.useCache());
         return this;
     }
 

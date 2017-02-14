@@ -19,18 +19,28 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * RadioButtons control implementation
@@ -60,24 +70,37 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         expander = new GetElementType(selectLocator, this);
     }
 
-    public void setUp(By root, By value, By list, By expand, By elementByName) {
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JDropdown.class, IDropDown.class))
+            return;
+        ((Dropdown) el).setUp(field.getAnnotation(JDropdown.class));
+    }
+
+    public Dropdown<TEnum> setUp(JDropdown jDropdown) {
+        By root = findByToBy(jDropdown.root());
+        By value = findByToBy(jDropdown.value());
+        By list = findByToBy(jDropdown.list());
+        By expand = findByToBy(jDropdown.expand());
+        By elementByName = findByToBy(jDropdown.elementByName());
+
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
         }
         if (value != null) {
-            element = new GetElementType(value, this);
-            if (expander == null) expander = element;
+            this.element = new GetElementType(value, this);
+            if (expander == null) this.expander = element;
         }
         if (list != null)
-            allLabels = new GetElementType(list, this);
+            this.allLabels = new GetElementType(list, this);
         if (expand != null) {
-            expander = new GetElementType(expand, this);
-            if (element == null) element = expander;
+            this.expander = new GetElementType(expand, this);
+            if (element == null) this.element = expander;
         }
         if (elementByName != null)
             this.elementByName = new GetElementType(elementByName, this);
+        return this;
     }
 
     protected Label element() {

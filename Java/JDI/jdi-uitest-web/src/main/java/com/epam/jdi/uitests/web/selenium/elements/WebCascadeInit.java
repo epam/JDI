@@ -44,9 +44,11 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.object
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
@@ -130,35 +132,8 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
-        setUpTableFromAnnotation(instance, field);
-        setUpMenuFromAnnotation(instance, field);
-        setUpDropdownFromAnnotation(instance, field);
-        setUpSearchFromAnnotation(instance, field);
-    }
-
-    private static void setUpTableFromAnnotation(BaseElement instance, Field field) {
-        JTable jTable = field.getAnnotation(JTable.class);
-        if (jTable == null || !isInterface(field, ITable.class))
-            return;
-        setUpTable((Table) instance, jTable);
-    }
-    private static void setUpSearchFromAnnotation(BaseElement instance, Field field) {
-        JSearch jSearch = field.getAnnotation(JSearch.class);
-        if (jSearch == null || !isInterface(field, ISearch.class))
-            return;
-        setUpSearch((Search) instance, jSearch);
-    }
-    private static void setUpDropdownFromAnnotation(BaseElement instance, Field field) {
-        JDropdown jDropdown = field.getAnnotation(JDropdown.class);
-        if (jDropdown == null || !isInterface(field, IDropDown.class))
-            return;
-        setUpDropdown((Dropdown) instance, jDropdown);
-    }
-    private static void setUpMenuFromAnnotation(BaseElement instance, Field field) {
-        JMenu jMenu = field.getAnnotation(JMenu.class);
-        if (jMenu == null || !isInterface(field, IMenu.class))
-            return;
-        setUpMenu((Menu) instance, jMenu);
+        for (BiConsumer<BaseElement, Field> setUp : setUpFromAnnotation)
+            setUp.accept(instance, field);
     }
 
 }
