@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import org.openqa.selenium.By;
@@ -27,19 +28,25 @@ import org.openqa.selenium.By;
  */
 public class GetElementType {
     private By locator;
-    private GetElementModule avatar;
+    private BaseElement parent;
 
     public GetElementType() { }
-    public GetElementType(By locator, BaseElement element) {
+    public GetElementType(By locator, BaseElement parent) {
         this.locator = locator;
-        this.avatar = element.getAvatar();
+        this.parent = parent;
     }
 
     public <T extends BaseElement> T get(Class<T> clazz) {
         try {
-            return locator == null
-                    ? null
-                    : (T) clazz.newInstance().setAvatar(locator, avatar);
+            if (locator == null)
+                return null;
+            else {
+                T result = clazz.newInstance();
+                result.init(parent, new GetElementModule(locator, parent));
+                return result;
+            }
+
         } catch (Exception ignore) { return null; }
     }
+
 }

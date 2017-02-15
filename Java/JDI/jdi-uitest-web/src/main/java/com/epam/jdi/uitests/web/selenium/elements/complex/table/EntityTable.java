@@ -103,8 +103,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
                 if (clazz.isInterface())
                     clazz = getClassFromInterface(clazz);
                 value = (BaseElement) clazz.newInstance();
-                new WebCascadeInit().initElements(value, avatar.getDriverName());
-                value.init(avatar.getDriverName(), cell, cell.get().getAvatar());
+                value.init(cell.get());
             } catch (InstantiationException | IllegalAccessException e) {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }

@@ -85,10 +85,18 @@ public abstract class BaseElement implements IBaseElement {
         BaseElement.actionScenrios = actionScenrios;
     }
 
-    public void init(String driverName, IBaseElement parent, IAvatar avatar) {
-        new WebCascadeInit().initElements(this, driverName);
-        this.setAvatar(avatar);
-        this.setParent(parent);
+    public BaseElement init(IBaseElement parent) {
+        new WebCascadeInit().initElements(this, ((GetElementModule)parent.getAvatar()).getDriverName());
+        setAvatar(parent.getAvatar());
+        setParent(parent);
+
+        return this;
+    }
+    public BaseElement init(IBaseElement parent, IAvatar avatar) {
+        new WebCascadeInit().initElements(this, ((GetElementModule)avatar).getDriverName());
+        setAvatar(avatar);
+        setParent(parent);
+        return this;
     }
     public static void setValueRule(String text, Consumer<String> action) {
         doActionRule.accept(text, action);
@@ -102,8 +110,8 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public void setName(Field field) {
-        this.name = WebAnnotationsUtil.getElementName(field);
-        this.varName = field.getName();
+        name = WebAnnotationsUtil.getElementName(field);
+        varName = field.getName();
     }
 
     public void setName(String name) {
