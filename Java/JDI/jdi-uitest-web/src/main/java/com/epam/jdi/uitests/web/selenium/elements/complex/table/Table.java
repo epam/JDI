@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
+import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
@@ -326,7 +327,8 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     protected List<String> getFooterAction() {
-        return select(getWebElement().findElements(footerLocator), WebElement::getText);
+        return select(getWebElement()
+            .findElements(footerLocator), WebElement::getText);
     }
 
     private List<String> getFooter() {
@@ -343,6 +345,9 @@ public class Table extends Text implements ITable, Cloneable {
 
     public final ISelect header(String name) {
         return columns().header(name);
+    }
+    public final <TEnum extends Enum> ISelect header(TEnum enumName) {
+        return columns().header(getEnumValue(enumName));
     }
 
     public List<String> headers() {
