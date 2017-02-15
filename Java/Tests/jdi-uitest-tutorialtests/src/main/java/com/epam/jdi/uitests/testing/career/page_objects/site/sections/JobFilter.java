@@ -34,7 +34,7 @@ public class JobFilter extends Form<JobSearchFilter> {
     TreeDropdown<Locations> location = new TreeDropdown<>(
             By.className("career-location-box"),
             asList(By.cssSelector(".location-dropdown .optgroup"),
-                    By.xpath("//..//li")
+                By.xpath("//..//li")
             ));
 
     @FindBy(className = "job-search-button")

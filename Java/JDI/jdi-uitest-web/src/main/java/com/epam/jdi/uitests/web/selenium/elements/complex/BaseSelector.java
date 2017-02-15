@@ -73,7 +73,10 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
             return;
         }
         if (allLabels() != null) {
-            selectFromList(allLabels().getWebElements(), name);
+            if (allLabels().getLocator().toString().contains("%s"))
+                new Clickable(fillByTemplate(allLabels().getLocator(), name)).click();
+            else
+                selectFromList(allLabels().getWebElements(), name);
             return;
         }
         List<WebElement> elements = getAvatar().searchAll().getElements();
