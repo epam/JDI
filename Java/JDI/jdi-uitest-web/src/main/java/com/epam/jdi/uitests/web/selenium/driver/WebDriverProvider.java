@@ -29,7 +29,7 @@ public class WebDriverProvider {
     }
 
     private static final String CHROME_STORAGE = "http://chromedriver.storage.googleapis.com/";
-    private static final String CHROME_MAC_DRIVER = "chromedriver_mac32.zip";
+    private static final String CHROME_MAC_DRIVER = "chromedriver_mac64.zip";
     private static final String CHROME_NIX_DRIVER = "chromedriver_linux64.zip";
     private static final String CHROME_WIN_DRIVER = "chromedriver_win32.zip";
     public static String DRIVER_VERSION = "";
