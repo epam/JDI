@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
+import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.jdi.uitests.testing.career.page_objects.dataProviders.AttendeesProvider;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Attendee;
 import com.epam.web.matcher.testng.Assert;

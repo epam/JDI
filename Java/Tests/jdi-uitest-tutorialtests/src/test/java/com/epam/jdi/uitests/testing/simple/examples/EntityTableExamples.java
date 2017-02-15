@@ -1,10 +1,9 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
+import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Job;
 import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.JobRecord;
 import com.epam.web.matcher.testng.Assert;
-import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

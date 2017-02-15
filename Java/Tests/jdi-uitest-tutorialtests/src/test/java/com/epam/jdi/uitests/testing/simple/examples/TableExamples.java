@@ -2,7 +2,7 @@ package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.testing.career.common.tests.TestsBase;
+import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

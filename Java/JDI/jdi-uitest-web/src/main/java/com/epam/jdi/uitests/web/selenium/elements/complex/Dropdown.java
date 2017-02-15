@@ -50,7 +50,6 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
 public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum> {
     protected GetElementType element;
     protected GetElementType expander;
-    protected GetElementType elementByName;
 
     public Dropdown() {
         super();
@@ -81,7 +80,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         By value = findByToBy(jDropdown.value());
         By list = findByToBy(jDropdown.list());
         By expand = findByToBy(jDropdown.expand());
-        By elementByName = findByToBy(jDropdown.elementByName());
 
         if (root != null) {
             Element el = new Element(root);
@@ -98,8 +96,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             this.expander = new GetElementType(expand, this);
             if (element == null) this.element = expander;
         }
-        if (elementByName != null)
-            this.elementByName = new GetElementType(elementByName, this);
         return this;
     }
 
@@ -132,10 +128,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void selectAction(String name) {
         if (element() != null) {
             expandAction(name);
-            if (elementByName != null)
-                elementByName.get(Selector.class).select(name);
-            else
-                super.selectAction(name);
+            super.selectAction(name);
         } else
             new Select(getWebElement()).selectByVisibleText(name);
     }
@@ -153,9 +146,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected boolean isDisplayedAction(String name) {
         WebElement element;
         try {
-            element = elementByName != null
-                    ? elementByName.get(Selector.class).getWebElement(name)
-                    : getWebElement(name);
+            element = getWebElement(name);
         } catch (Exception | Error ex) {
             return false;
         }

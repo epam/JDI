@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.common.tests;
+package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
