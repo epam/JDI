@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex;
  */
 
 
+import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.mobile.appium.elements.GetElementType;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Clickable;
@@ -94,8 +95,11 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void expandAction(String name) {
         if (element().isDisplayed()) {
             setWaitTimeout(0);
-            if (!isDisplayedAction(name))
-                expander().click();
+            timer().wait(() -> {
+                if (!isDisplayedAction(name))
+                    expander().click();
+                return isDisplayedAction(name);
+            });
             restoreWaitTimeout();
         }
     }
@@ -204,10 +208,10 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         actions.expand(() -> expandAction(1));
     }
     public final void expand(String name) {
-        expand(1);
+        expandAction(name);
     }
     public final void expand(int index) {
-        expand(index);
+        expandAction(index);
     }
 
     /**

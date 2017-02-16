@@ -90,6 +90,13 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         this();
         add(objects);
     }
+    public MapArray(List<K> keys, List<V> values) {
+        if (keys == null || values == null ||
+            keys.size() == 0 || keys.size() != values.size())
+            throw new RuntimeException("keys and values count not equal");
+        for (int i = 0; i < keys.size(); i++)
+            add(keys.get(i), values.get(i));
+    }
 
     public static <T> MapArray<Integer, T> toMapArray(Collection<T> collection) {
         MapArray<Integer, T> mapArray = new MapArray<>();
@@ -197,14 +204,6 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         return true;
     }
 
-    /*
-        public V get(Object oKey) {
-            K key = null;
-            try {
-                key = (K)oKey;
-            } catch (Exception ex) { throwRuntimeException(new Exception("Can't do get in MapArray. Key have wrong type")); }
-            return get(key);
-        }*/
     public V get(K key) {
         Pair<K, V> first = null;
         try {

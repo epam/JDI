@@ -30,6 +30,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
@@ -138,7 +139,8 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected abstract List<WebElement> getHeadersAction();
 
     public final MapArray<String, ISelect> header() {
-        return new MapArray<>(getHeadersAction(), WebElement::getText, SelectElement::new);
+        return new MapArray<>(headers(),
+                (Function<String, ISelect>) select(getHeadersAction(), SelectElement::new));
     }
 
     public final ISelect header(String name) {
