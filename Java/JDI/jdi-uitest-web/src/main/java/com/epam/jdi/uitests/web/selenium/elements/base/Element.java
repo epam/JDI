@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  */
 
 
+import com.codeborne.selenide.SelenideElement;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
@@ -33,6 +34,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static java.lang.String.format;
@@ -46,7 +48,7 @@ import static java.lang.String.format;
  * @author Shubin Konstantin
  * @author Zharov Alexandr
  */
-public class Element<T extends Element> extends BaseElement implements IElement, IHasElement {
+public class Element extends BaseElement implements IElement, IHasElement {
 
     public Element() {
         super();
@@ -236,12 +238,11 @@ public class Element<T extends Element> extends BaseElement implements IElement,
                 });
     }
 
-    public T doubleClick() {
+    public void doubleClicks() {
         invoker.doJAction("Double click on Element", () -> {
             Actions builder = new Actions(getDriver());
             builder.doubleClick(getWebElement()).perform();
         });
-        return (T)this;
     }
 
     public void rightClick() {
