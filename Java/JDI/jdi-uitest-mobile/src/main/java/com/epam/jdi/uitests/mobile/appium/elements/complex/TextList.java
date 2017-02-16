@@ -99,7 +99,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     public WebElement getElement(String name) {
-        return first(getWebElements(), el -> el.getText().equals(name));
+        return new Selector(getLocator()).getWebElement(name);
     }
 
     public WebElement getElement(int index) {

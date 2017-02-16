@@ -22,6 +22,7 @@ import com.epam.commons.PrintUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.ITextList;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -99,7 +100,7 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
     }
 
     public WebElement getElement(String name) {
-        return first(getWebElements(), el -> el.getText().equals(name));
+        return new Selector(getLocator()).getWebElement(name);
     }
 
     public WebElement getElement(int index) {

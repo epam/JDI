@@ -44,5 +44,4 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(xpath = "//*[.='Cancel']")
     IButton cancel;
 
-
 }
