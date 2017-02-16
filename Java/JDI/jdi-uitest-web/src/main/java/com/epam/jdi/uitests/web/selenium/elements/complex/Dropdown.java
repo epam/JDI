@@ -113,11 +113,11 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void expandAction(String name) {
         if (element().isDisplayed()) {
             setWaitTimeout(0);
-            timer().wait(() -> {
-                if (!isDisplayedAction(name))
+            if (!isDisplayedAction(name))
+                timer().wait(() -> {
                     expander().click();
-                return isDisplayedAction(name);
-            });
+                    return isDisplayedAction(name);
+                });
             restoreWaitTimeout();
         }
     }
@@ -186,7 +186,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
-        return (R) element().wait(resultFunc, condition);
+        return  element().wait(resultFunc, condition);
     }
 
     public <R> R test(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
@@ -198,7 +198,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
-        return (R) element().wait(resultFunc, condition, timeoutSec);
+        return element().wait(resultFunc, condition, timeoutSec);
     }
 
     @Override
@@ -225,10 +225,10 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         actions.expand(() -> expandAction(1));
     }
     public final void expand(String name) {
-        expand(1);
+        actions.expand(() -> expandAction(name));
     }
     public final void expand(int index) {
-        expand(index);
+        actions.expand(() -> expandAction(index));
     }
 
     /**

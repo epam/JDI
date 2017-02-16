@@ -208,11 +208,12 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         actions.expand(() -> expandAction(1));
     }
     public final void expand(String name) {
-        expandAction(name);
+        actions.expand(() -> expandAction(name));
     }
     public final void expand(int index) {
-        expandAction(index);
+        actions.expand(() -> expandAction(index));
     }
+
 
     /**
      * Closing DropDown
