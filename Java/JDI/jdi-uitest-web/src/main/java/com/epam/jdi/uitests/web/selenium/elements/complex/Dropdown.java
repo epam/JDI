@@ -113,8 +113,11 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void expandAction(String name) {
         if (element().isDisplayed()) {
             setWaitTimeout(0);
-            if (!isDisplayedAction(name))
-                expander().click();
+            timer().wait(() -> {
+                if (!isDisplayedAction(name))
+                    expander().click();
+                return isDisplayedAction(name);
+            });
             restoreWaitTimeout();
         }
     }
