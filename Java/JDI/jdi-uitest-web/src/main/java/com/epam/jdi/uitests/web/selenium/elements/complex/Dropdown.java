@@ -85,6 +85,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
+            setAvatar(root);
         }
         if (value != null) {
             this.element = new GetElementType(value, this);
