@@ -77,17 +77,17 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         foreach(where(els, el -> isSelectedAction(el.getText())), WebElement::click);
     }
 
-    protected WebElement getElement(String name) {
+    public WebElement getWebElement(String name) {
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             return new GetElementModule(WebDriverByUtils.fillByTemplate(getLocator(), name), this).getElements().get(0);
         if (allLabels() != null)
-            return getElement(allLabels().getWebElements(), name);
-        return getElement(getElementsFromTag(), name);
+            return getWebElement(allLabels().getWebElements(), name);
+        return getWebElement(getElementsFromTag(), name);
     }
 
-    private WebElement getElement(List<WebElement> els, String name) {
+    private WebElement getWebElement(List<WebElement> els, String name) {
         if (els == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         List<WebElement> elements = where(els, el -> el.getText().equals(name));
@@ -96,17 +96,17 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
     }
 
-    protected WebElement getElement(int num) {
+    protected WebElement getWebElement(int num) {
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
         if (allLabels() != null)
-            return getElement(allLabels().getWebElements(), num);
-        return getElement(getElementsFromTag(), num);
+            return getWebElement(allLabels().getWebElements(), num);
+        return getWebElement(getElementsFromTag(), num);
     }
 
-    private WebElement getElement(List<WebElement> els, int num) {
+    private WebElement getWebElement(List<WebElement> els, int num) {
         if (num <= 0)
             throw exception("Can't get option with num '%s'. Number should be 1 or more", num);
         if (num > els.size())
@@ -115,11 +115,11 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
     }
 
     protected boolean isSelectedAction(String name) {
-        return isSelectedAction(getElement(name));
+        return isSelectedAction(getWebElement(name));
     }
 
     protected boolean isSelectedAction(int num) {
-        return isSelectedAction(getElement(num));
+        return isSelectedAction(getWebElement(num));
     }
 
     protected void selectListAction(String... names) {

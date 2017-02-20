@@ -50,6 +50,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
@@ -98,9 +99,10 @@ public class WebCascadeInit extends CascadeInit {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
             if (elementClass.isInterface())
                 elementClass = getClassFromInterface(type);
-            if (elementClass != null)
+            if (elementClass != null && !isClass(elementClass, Table.class))
                 instance = new Elements(newLocator, elementClass);
-        } else {
+        }
+        if (instance == null) {
             if (type.isInterface())
                 type = getClassFromInterface(type);
             if (type != null) {
@@ -119,15 +121,14 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     protected By getNewLocatorFromField(Field field) {
-        By byLocator = null;
         String locatorGroup = APP_VERSION;
-        if (locatorGroup == null)
-            return findByToBy(field.getAnnotation(FindBy.class));
+        if (locatorGroup.equals("DEFAULT"))
+            return field.isAnnotationPresent(FindBy.class)
+                ? findByToBy(field.getAnnotation(FindBy.class))
+                : getFindByLocator(field.getAnnotation(JFindBy.class));
         JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-        if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
-                byLocator = getFindByLocator(jFindBy);
-        return byLocator != null
-            ? byLocator
+        return jFindBy != null && locatorGroup.equals(jFindBy.group())
+            ? getFindByLocator(jFindBy)
             : findByToBy(field.getAnnotation(FindBy.class));
     }
 

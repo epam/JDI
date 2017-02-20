@@ -39,15 +39,11 @@ public class JDILogger implements ILogger {
     private Logger logger;
     private List<Long> multiThread = new ArrayList<>();
     private String getRecord(String record) {
-        String logRecord = "[" + logLevel + "]: " + record;
-        if (multiThread.size() > 1 )
-            return "[ThreadID: " + currentThread().getId() + "]" + logRecord;
         if (!multiThread.contains(currentThread().getId()))
-        {
             multiThread.add(currentThread().getId());
-            return "[ThreadID: " + currentThread().getId() + "]" + logRecord;
-        }
-        return logRecord;
+        return multiThread.size() > 1
+                ? "[ThreadID: " + currentThread().getId() + "]" + record
+                : record;
     }
 
 

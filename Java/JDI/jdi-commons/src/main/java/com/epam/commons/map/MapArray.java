@@ -91,6 +91,7 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         add(objects);
     }
     public MapArray(List<K> keys, List<V> values) {
+        this();
         if (keys == null || values == null ||
             keys.size() == 0 || keys.size() != values.size())
             throw new RuntimeException("keys and values count not equal");

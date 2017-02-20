@@ -46,6 +46,7 @@ import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.*;
@@ -120,7 +121,7 @@ public class WebSettings extends JDISettings {
                 if (params.contains("visible") || params.contains("displayed"))
                     elementSearchCriteria = WebElement::isDisplayed;
                 if (params.contains("any") || params.contains("all"))
-                    elementSearchCriteria = el -> el != null;
+                    elementSearchCriteria = Objects::nonNull;
                 if (params.contains("single"))
                     onlyOneElementAllowedInSearch = true;
                 if (params.contains("multiple"))

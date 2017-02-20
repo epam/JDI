@@ -33,6 +33,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -56,6 +57,7 @@ import static java.lang.System.setProperty;
 import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
+import static org.openqa.selenium.remote.CapabilityType.*;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 
 /**
@@ -68,6 +70,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Boolean getLatestDriver = false;
     private String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
+    public String pageLoadStrategy = "eager";
     public HighlightSettings highlightSettings = new HighlightSettings();
     private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
@@ -173,7 +176,12 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                         });
             case FIREFOX:
                 return registerDriver(driverType,
-                        () -> webDriverSettings.apply(new FirefoxDriver()));
+                        () -> {
+                            DesiredCapabilities capabilities = internetExplorer();
+                            capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+                            setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
+                            return webDriverSettings.apply(new FirefoxDriver(capabilities));
+                        });
             case IE:
                 return registerDriver(driverType, () -> {
                     DesiredCapabilities capabilities = internetExplorer();

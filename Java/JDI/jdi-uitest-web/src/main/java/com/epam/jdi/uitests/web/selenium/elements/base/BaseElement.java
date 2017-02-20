@@ -125,7 +125,9 @@ public abstract class BaseElement implements IBaseElement {
     protected Timer timer() {
         return avatar.timer();
     }
-
+    protected Timer timer(int sec) {
+        return avatar.timer(sec);
+    }
     protected JavascriptExecutor jsExecutor() {
         return (JavascriptExecutor) getDriver();
     }

@@ -63,7 +63,8 @@ public interface ITableLine {
 
     @JDIAction
     ISelect header(String name);
-
+    void removeHeaders(String... names);
+    void addHeaders(String... names);
     void clean();
 
     void setCount(int value);

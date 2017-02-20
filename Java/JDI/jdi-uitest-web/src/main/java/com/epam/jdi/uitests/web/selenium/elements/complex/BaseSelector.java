@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IVisible;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
@@ -66,37 +67,37 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected void selectAction(String name) {
+        Clickable cl = getElement(name);
+        if (cl != null)
+            cl.click();
+    }
+    protected Clickable getElement(String name) {
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", name);
-        if (hasLocator() && getLocator().toString().contains("%s")) {
-            new Clickable(fillByTemplate(getLocator(), name)).click();
-            return;
-        }
-        if (allLabels() != null) {
-            if (allLabels().getLocator().toString().contains("%s"))
-                new Clickable(fillByTemplate(allLabels().getLocator(), name)).click();
-            else
-                selectFromList(allLabels().getWebElements(), name);
-            return;
-        }
+        if (hasLocator() && getLocator().toString().contains("%s"))
+            return new Clickable(fillByTemplate(getLocator(), name));
+        if (allLabels() != null)
+            return allLabels().getLocator().toString().contains("%s")
+                ? new Clickable(fillByTemplate(allLabels().getLocator(), name))
+                : getFromList(allLabels().getWebElements(), name);
         List<WebElement> elements = getAvatar().searchAll().getElements();
         WebElement element = elements.get(0);
         if (elements.size() == 1 && element.getTagName().equals("select"))
             if (getSelector().getOptions().size() > 0) {
                 getSelector().selectByVisibleText(name);
-                return;
+                return null;
             }
             else throw exception("<select> tag has no <option> tags. Please Clarify element locator (%s)", this);
         if (elements.size() == 1 && element.getTagName().equals("ul"))
             elements = element.findElements(By.tagName("li"));
-        selectFromList(elements, name);
+        return getFromList(elements, name);
     }
 
-    private void selectFromList(List<WebElement> els, String name) {
+    private Clickable getFromList(List<WebElement> els, String name) {
         WebElement element = first(els, el -> el.getText().equals(name));
         if (element == null)
             throw exception("Can't find option '%s'. Please fix allLabelsLocator", name);
-        new Clickable(element).click();
+        return new Clickable(element);
     }
     public WebElement getWebElement() {
         if (avatar.hasWebElement())
@@ -114,37 +115,38 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected void selectAction(int num) {
+        Clickable cl = getElement(num);
+        if (cl != null)
+            cl.click();
+    }
+    protected Clickable getElement(int num) {
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", num);
-        if (allLabels() != null) {
-            selectFromList(allLabels().getWebElements(), num);
-            return;
-        }
-        if (getLocator().toString().contains("%s")) {
-            new Clickable(fillByTemplate(getLocator(), num)).click();
-            return;
-        }
+        if (allLabels() != null)
+            return selectFromList(allLabels().getWebElements(), num);
+        if (getLocator().toString().contains("%s"))
+            return new Clickable(fillByTemplate(getLocator(), num));
         List<WebElement> elements = getAvatar().searchAll().getElements();
         WebElement element = elements.get(0);
         if (elements.size() == 1 && element.getTagName().equals("select"))
             if (getSelector().getOptions().size() > 0) {
                 getSelector().selectByIndex(num - 1);
-                return;
+                return null;
             }
             else throw exception("<select> tag has no <option> tags. Please Clarify element locator (%s)", this);
         if (elements.size() == 1 && element.getTagName().equals("ul"))
             elements = element.findElements(By.tagName("li"));
-        selectFromList(elements, num);
+        return selectFromList(elements, num);
     }
 
-    private void selectFromList(List<WebElement> els, int num) {
+    private Clickable selectFromList(List<WebElement> els, int num) {
         if (num <= 0)
             throw exception("Can't get option with num '%s'. Number should be 1 or more", num);
         if (els == null)
             throw exception("Can't find option with num '%s'. Please fix allLabelsLocator", num);
         if (els.size() < num)
             throw exception("Can't find option with num '%s'. Find only '%s' options", num, els.size());
-        new Clickable(els.get(num - 1)).click();
+        return new Clickable(els.get(num - 1));
     }
 
     protected abstract boolean isSelectedAction(String name);
@@ -256,13 +258,9 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
             }
         return elements;
     }
-    public Function<String, WebElement> getWebElementAction = name ->
-            hasLocator() && getLocator().toString().contains("%s")
-                ? new Element(fillByTemplate(getLocator(), name)).getWebElement()
-                : first(getElements(), el -> el.getText().equals(name));
 
     public WebElement getWebElement(String name) {
-        return getWebElementAction.apply(name);
+        return getElement(name).getWebElement();
     }
 
     protected boolean isDisplayedAction(String name) {

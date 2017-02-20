@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 
 
 import com.epam.commons.Timer;
+import com.epam.commons.linqinterfaces.JFuncR;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -30,10 +31,12 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
+import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
@@ -105,7 +108,8 @@ public class GetElementModule implements IAvatar {
         logger.debug("Get Web Element: " + element);
         WebElement element = webElement != null
                 ? webElement
-                : timer().getResultByCondition(this::getElementAction, el -> el != null);
+                : getElementAction();
+                //: timer().getResultByCondition(this::getElementAction, Objects::nonNull);
         logger.debug("One Element found");
         return element;
     }
@@ -132,8 +136,11 @@ public class GetElementModule implements IAvatar {
         return result;
     }
 
+    public Timer timer(int sec) {
+        return new Timer(sec * 1000);
+    }
     public Timer timer() {
-        return new Timer(timeouts.getCurrentTimeoutSec() * 1000);
+        return timer(timeouts.getCurrentTimeoutSec());
     }
     private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
         List<WebElement> elements = timer().getResultByCondition(
@@ -159,13 +166,21 @@ public class GetElementModule implements IAvatar {
     }
 
     public GetElementModule searchAll() {
-        localElementSearchCriteria = el -> el != null;
+        localElementSearchCriteria = Objects::nonNull;
         return this;
+    }
+    private List<WebElement> getOneOrMoreElements() {
+        List<WebElement> result = webElements != null
+            ? webElements
+            : searchElements();
+        if (result.size() == 1)
+            return result;
+        return where(result, el -> getSearchCriteria().apply(el));
     }
 
     private WebElement getElementAction() {
         int timeout = timeouts.getCurrentTimeoutSec();
-        List<WebElement> result = getElementsAction();
+        List<WebElement> result = getOneOrMoreElements();
         switch (result.size()) {
             case 0:
                 throw exception(FAILED_TO_FIND_ELEMENT_MESSAGE, element, timeout);
@@ -186,7 +201,8 @@ public class GetElementModule implements IAvatar {
                 || ((p = (bElement = (BaseElement) element).getParent()) == null
                 && bElement.avatar.frameLocator == null))
             return getDriver().switchTo().defaultContent();
-        if (isClass(bElement.getClass(), Element.class) && (el = (Element) bElement).avatar.hasWebElement())
+        if (isClass(bElement.getClass(), Element.class)
+            && (el = (Element) bElement).avatar.hasWebElement())
             return el.getWebElement();
         By locator = bElement.getLocator();
         SearchContext searchContext = containsRoot(locator)

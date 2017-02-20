@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.core.settings;
  * Created by Roman_Iovlev on 7/27/2015.
  */
 public final class JDIData {
-    public static final String FRAMEWORK_NAME = "Jedi";
+    public static final String FRAMEWORK_NAME = "JDI";
     //CHECKSTYLE OFF
     public static final String APP_VERSION = "DEFAULT";
     //CHECKSTYLE ON

@@ -29,6 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -38,6 +39,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
+import static java.util.Collections.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -80,7 +82,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         int index = getIndex(headers(), lineName) + 1;
         if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
             return getElementByTemplate(index);
-        return (lineTemplate == null)
+        return lineTemplate == null
                 ? getLineAction(index)
                 : getElementByTemplate(index);
     }
@@ -91,6 +93,13 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
     }
 
+    public void removeHeaders(String... names) {
+        for (String name : names)
+            headers.remove(name);
+    }
+    public void addHeaders(String... names) {
+        addAll(headers, names);
+    }
     protected int getCount(boolean acceptEmpty)
     {
         table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
@@ -140,7 +149,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     public final MapArray<String, ISelect> header() {
         return new MapArray<>(headers(),
-                (Function<String, ISelect>) select(getHeadersAction(), SelectElement::new));
+                select(getHeadersAction(), SelectElement::new));
     }
 
     public final ISelect header(String name) {

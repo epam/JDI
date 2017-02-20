@@ -19,17 +19,12 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
-import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -38,6 +33,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.epam.commons.Timer.logTime;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
@@ -115,9 +111,10 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         if (element().isDisplayed()) {
             setWaitTimeout(0);
             if (!isDisplayedAction(name))
+                restoreWaitTimeout();
                 timer().wait(() -> {
                     expander().click();
-                    return isDisplayedAction(name);
+                    return timer(1).wait(() -> isDisplayedAction(name));
                 });
             restoreWaitTimeout();
         }
@@ -150,7 +147,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected boolean isDisplayedAction(String name) {
         WebElement element;
         try {
-            element = getWebElement(name);
+            element = allLabels.get(TextList.class).getElement(name);
         } catch (Exception | Error ex) {
             return false;
         }

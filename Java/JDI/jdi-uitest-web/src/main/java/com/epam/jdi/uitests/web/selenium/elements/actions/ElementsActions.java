@@ -113,6 +113,7 @@ public class ElementsActions {
                 result -> "Checkbox is " + (result ? "checked" : "unchecked"));
     }
 
+
     // Input Actions
     public void inputLines(JAction clearAction, Consumer<String> inputAction, String... textLines) {
         invoker().doJAction("Input several lines of text in textarea",

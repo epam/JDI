@@ -27,6 +27,9 @@ public class WebDriverProvider {
     static final String getIEDriverPath (String folderPath) {
         return folderPath + "/IEDriverServer.exe";
     }
+    static final String getFirefoxDriverPath (String folderPath) {
+        return folderPath + "/geckodriver.exe";
+    }
 
     private static final String CHROME_STORAGE = "http://chromedriver.storage.googleapis.com/";
     private static final String CHROME_MAC_DRIVER = "chromedriver_mac64.zip";

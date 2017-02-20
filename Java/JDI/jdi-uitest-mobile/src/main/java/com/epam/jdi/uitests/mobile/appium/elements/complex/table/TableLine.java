@@ -142,7 +142,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     public final MapArray<String, ISelect> header() {
         return new MapArray<>(headers(),
-                (Function<String, ISelect>) select(getHeadersAction(), SelectElement::new));
+                select(getHeadersAction(), SelectElement::new));
     }
 
     public final ISelect header(String name) {

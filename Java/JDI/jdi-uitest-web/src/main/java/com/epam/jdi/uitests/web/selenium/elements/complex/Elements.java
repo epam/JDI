@@ -18,19 +18,24 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.commons.LinqUtils;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
-import static com.epam.commons.LinqUtils.first;
-import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.*;
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement.namesEqual;
 
 
 /**
@@ -88,6 +93,26 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
                     throw exception("Can't instantiate list element");
                 }
             }));
+    }
+
+    public <TData> List<TData> asData(Class<TData> clazz) {
+        return LinqUtils.select(listOfElements(), element -> {
+            try {
+                TData data = clazz.newInstance();
+                foreach(getFields(element, IHasValue.class), item -> {
+                    Field field = LinqUtils.first(getFields(data, String.class), f ->
+                            namesEqual(f.getName(), item.getName()));
+                    if (field == null)
+                        return;
+                    try {
+                        field.set(data, ((IHasValue) getValueField(item, element)).getValue());
+                    } catch (Exception ignore) { }
+                });
+                return data;
+            } catch (Exception ex) {
+                    throw exception("Can't get Data from class: " + clazz);
+            }
+        });
     }
 
     public int size() {
