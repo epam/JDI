@@ -34,19 +34,26 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.PrintUtils.print;
+import static com.epam.commons.ReflectionUtils.checkEntityIsNotNull;
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.utils.common.PrintUtils.objToSetValue;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement.namesEqual;
 import static java.lang.String.format;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
 public class Form<T> extends Element implements IForm<T> {
+    protected Class<T> entityClass;
+    public Form() {}
+    public Form(Class<T> clazz) {
+        this.entityClass = checkEntityIsNotNull(clazz);
+    }
+
     protected void setValueAction(String text, ISetValue element) {
         element.setValue(text);
     }
@@ -145,6 +152,10 @@ public class Form<T> extends Element implements IForm<T> {
     public void submit(T entity, Enum buttonName) {
         fill(objToSetValue(entity));
         getElementClass.getButton(buttonName.toString().toLowerCase()).click();
+    }
+
+    public T getEntity() {
+        return extractEntity(entityClass, this);
     }
 
     /**

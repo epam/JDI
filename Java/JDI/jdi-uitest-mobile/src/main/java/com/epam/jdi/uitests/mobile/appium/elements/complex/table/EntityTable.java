@@ -112,9 +112,13 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return select(rows().get(), row -> castToRow(row.value));
     }
 
-    public List<R> getRows(Function<R, Boolean> rule)
+    public R firstRow(Function<R, Boolean> colNames) {
+        return getRows(colNames).get(0);
+    }
+
+    public List<R> getRows(Function<R, Boolean> colNames)
     {
-        return where(getRows(), rule);
+        return where(getRows(), colNames);
     }
 
     public R getRow(String value, Column column)

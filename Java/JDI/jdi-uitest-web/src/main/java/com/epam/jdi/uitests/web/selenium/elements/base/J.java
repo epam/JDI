@@ -26,13 +26,13 @@ import java.util.List;
 /**
  * Created by Sergey_Mishanin on 12/14/16.
  */
-public class SupremeElement extends Element implements SelenideElement {
+public class J extends Element implements SelenideElement {
 
-    public SupremeElement(By locator){
+    public J(By locator){
         super(locator);
     }
 
-    public SupremeElement(WebElement webElement){
+    public J(WebElement webElement){
         super(webElement);
     }
 
@@ -40,7 +40,7 @@ public class SupremeElement extends Element implements SelenideElement {
         clickCenter();
     }
 
-    public SupremeElement setValue(String text) {
+    public J setValue(String text) {
         WebElement element = getWebElement();
         if ("select".equalsIgnoreCase(element.getTagName())) {
             selectOptionByValue(text);
@@ -58,11 +58,11 @@ public class SupremeElement extends Element implements SelenideElement {
         return this;
     }
 
-    public SupremeElement val(String text) {
+    public J val(String text) {
         return setValue(text);
     }
 
-    public SupremeElement append(String text) {
+    public J append(String text) {
         invoker.doJAction("Append text to Element", () -> {
             Actions builder = new Actions(getDriver());
             builder.sendKeys(getWebElement(), text).perform();
@@ -70,12 +70,12 @@ public class SupremeElement extends Element implements SelenideElement {
         return this;
     }
     
-    public SupremeElement doubleClick() {
+    public J doubleClick() {
         doubleClicks();
         return this;
     }
 
-    public SupremeElement pressEnter() {
+    public J pressEnter() {
         invoker.doJAction("Press Enter on Element", () -> {
             Actions builder = new Actions(getDriver());
             builder.sendKeys(getWebElement(), Keys.ENTER).perform();
@@ -84,7 +84,7 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement pressTab() {
+    public J pressTab() {
         invoker.doJAction("Press Tab on Element", () -> {
             Actions builder = new Actions(getDriver());
             builder.sendKeys(getWebElement(), Keys.TAB).perform();
@@ -177,7 +177,7 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement selectRadio(String value) {
+    public J selectRadio(String value) {
         invoker.doJAction("Select Radio Button with [" + value + "] value", () -> {
             WebElement radio = get(By.xpath(".//input[@type='radio'][@value=" + value + "]"));
             if (radio.getAttribute("readonly") != null)
@@ -214,7 +214,7 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement setSelected(boolean selected) {
+    public J setSelected(boolean selected) {
         invoker.doJAction("Set selected state of Element to [" + selected + "]", () -> {
             WebElement checkbox = getWebElement();
             if (checkbox.isSelected() ^ selected) {
@@ -227,73 +227,73 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement should(Condition... conditions) {
+    public J should(Condition... conditions) {
         Selenide.$(getWebElement()).should(conditions);
         return this;
     }
 
     
-    public SupremeElement shouldHave(Condition... conditions) {
+    public J shouldHave(Condition... conditions) {
         Selenide.$(getWebElement()).shouldHave(conditions);
         return this;
     }
 
     
-    public SupremeElement shouldBe(Condition... conditions) {
+    public J shouldBe(Condition... conditions) {
         Selenide.$(getWebElement()).shouldBe(conditions);
         return this;
     }
 
     
-    public SupremeElement shouldNot(Condition... conditions) {
+    public J shouldNot(Condition... conditions) {
         Selenide.$(getWebElement()).shouldNot(conditions);
         return this;
     }
 
     
-    public SupremeElement shouldNotHave(Condition... conditions) {
+    public J shouldNotHave(Condition... conditions) {
         Selenide.$(getWebElement()).shouldNotHave(conditions);
         return this;
     }
 
     
-    public SupremeElement shouldNotBe(Condition... conditions) {
+    public J shouldNotBe(Condition... conditions) {
         Selenide.$(getWebElement()).shouldNotBe(conditions);
         return this;
     }
 
     
-    public SupremeElement waitUntil(Condition condition, long timeoutMilliseconds) {
+    public J waitUntil(Condition condition, long timeoutMilliseconds) {
         Selenide.$(getWebElement()).waitUntil(condition, timeoutMilliseconds);
         return this;
     }
 
     
-    public SupremeElement waitUntil(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
+    public J waitUntil(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
         Selenide.$(getWebElement()).waitUntil(condition, timeoutMilliseconds, pollingIntervalMilliseconds);
         return this;
     }
 
     
-    public SupremeElement waitWhile(Condition condition, long timeoutMilliseconds) {
+    public J waitWhile(Condition condition, long timeoutMilliseconds) {
         Selenide.$(getWebElement()).waitWhile(condition, timeoutMilliseconds);
         return this;
     }
 
     
-    public SupremeElement waitWhile(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
+    public J waitWhile(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
         Selenide.$(getWebElement()).waitWhile(condition, timeoutMilliseconds, pollingIntervalMilliseconds);
         return this;
     }
 
     
-    public SupremeElement parent() {
+    public J parent() {
         WebElement parent = getWebElement().findElement(By.xpath("./.."));
-        return new SupremeElement(parent);
+        return new J(parent);
     }
 
     
-    public SupremeElement closest(String tagOrClass) {
+    public J closest(String tagOrClass) {
         String xpath = tagOrClass.startsWith(".") ?
                 String.format("ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' %s ')][1]", tagOrClass.substring(1)) :
                 String.format("ancestor::%s[1]", tagOrClass);
@@ -302,42 +302,42 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement find(String cssSelector) {
-        return new SupremeElement(get(By.cssSelector(cssSelector)));
+    public J find(String cssSelector) {
+        return new J(get(By.cssSelector(cssSelector)));
     }
 
     
-    public SupremeElement find(String cssSelector, int index) {
-        return new SupremeElement(getList(By.cssSelector(cssSelector)).get(index));
+    public J find(String cssSelector, int index) {
+        return new J(getList(By.cssSelector(cssSelector)).get(index));
     }
 
     
-    public SupremeElement find(By by) {
-        return new SupremeElement(get(by));
+    public J find(By by) {
+        return new J(get(by));
     }
 
     
-    public SupremeElement find(By by, int index) {
-        return new SupremeElement(getList(by).get(index));
+    public J find(By by, int index) {
+        return new J(getList(by).get(index));
     }
 
     
-    public SupremeElement $(String cssSelector) {
+    public J $(String cssSelector) {
         return find(cssSelector);
     }
 
     
-    public SupremeElement $(String cssSelector, int index) {
+    public J $(String cssSelector, int index) {
         return find(cssSelector, index);
     }
 
     
-    public SupremeElement $(By by) {
+    public J $(By by) {
         return find(by);
     }
 
     
-    public SupremeElement $(By by, int index) {
+    public J $(By by, int index) {
         return find(by, index);
     }
 
@@ -394,7 +394,7 @@ public class SupremeElement extends Element implements SelenideElement {
         File uploadedFile = uploadFile(inputField, files[0]);
 
         if (files.length > 1) {
-            SupremeElement form = closest("form");
+            J form = closest("form");
             for (int i = 1; i < files.length; i++) {
                 uploadFile(cloneInputField(form, inputField), files[i]);
             }
@@ -421,7 +421,7 @@ public class SupremeElement extends Element implements SelenideElement {
         }
     }
 
-    protected WebElement cloneInputField(SupremeElement form, WebElement inputField) {
+    protected WebElement cloneInputField(J form, WebElement inputField) {
         return (WebElement)jsExecutor().executeScript(
                 "var fileInput = document.createElement('input');" +
                         "fileInput.setAttribute('type', arguments[1].getAttribute('type'));" +
@@ -458,10 +458,10 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement getSelectedOption() throws NoSuchElementException {
+    public J getSelectedOption() throws NoSuchElementException {
         Select selectField = new Select(getWebElement());
         WebElement selectedOption = selectField.getFirstSelectedOption();
-        return new SupremeElement(selectedOption);
+        return new J(selectedOption);
     }
 
     
@@ -483,13 +483,13 @@ public class SupremeElement extends Element implements SelenideElement {
 
     
     public String getSelectedValue() {
-        SupremeElement option = getSelectedOption();
+        J option = getSelectedOption();
         return option == null ? null : option.attr("value");
     }
 
     
     public String getSelectedText() {
-        SupremeElement option = getSelectedOption();
+        J option = getSelectedOption();
         return option == null ? null : option.text();
     }
 
@@ -555,26 +555,26 @@ public class SupremeElement extends Element implements SelenideElement {
     }
 
     
-    public SupremeElement contextClick() {
+    public J contextClick() {
         rightClick();
         return this;
     }
 
     
-    public SupremeElement hover() {
+    public J hover() {
         mouseOver();
         return this;
     }
 
     
-    public SupremeElement dragAndDropTo(String targetCssSelector) {
-        dragAndDrop(new SupremeElement(By.cssSelector(targetCssSelector)));
+    public J dragAndDropTo(String targetCssSelector) {
+        dragAndDrop(new J(By.cssSelector(targetCssSelector)));
         return this;
     }
 
     
-    public SupremeElement dragAndDropTo(WebElement webElement) {
-        dragAndDrop(new SupremeElement(webElement));
+    public J dragAndDropTo(WebElement webElement) {
+        dragAndDrop(new J(webElement));
         return this;
     }
 

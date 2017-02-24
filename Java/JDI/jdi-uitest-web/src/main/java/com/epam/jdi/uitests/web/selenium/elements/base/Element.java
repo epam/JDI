@@ -19,9 +19,11 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
 
 
 import com.codeborne.selenide.SelenideElement;
+import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.settings.WebSettings;
@@ -31,12 +33,19 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.epam.commons.LinqUtils.foreach;
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.ReflectionUtils.newEntity;
+import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**
@@ -62,9 +71,27 @@ public class Element extends BaseElement implements IElement, IHasElement {
         avatar.setWebElement(webElement);
     }
 
+    public static <T> T extractEntity(Class<T> entityClass, BaseElement el) {
+        try {
+            T data = newEntity(entityClass);
+            foreach(getFields(el, IHasValue.class), item -> {
+                Field field = LinqUtils.first(getFields(data, String.class), f ->
+                        namesEqual(f.getName(), item.getName()));
+                if (field == null)
+                    return;
+                try {
+                    field.set(data, ((IHasValue) getValueField(item, el)).getValue());
+                } catch (Exception ignore) { }
+            });
+            return data;
+        } catch (Exception ex) {
+            throw exception("Can't get entity from Form" + el.getName() + " for class: " + entityClass.getClass());
+        }
+    }
+
     public static <T extends Element> T copy(T element, By newLocator) {
         try {
-            T result = (T) element.getClass().newInstance();
+            T result = newEntity((Class<T>) element.getClass());
             result.setAvatar(newLocator, element.getAvatar());
             return result;
         } catch (Exception ex) {

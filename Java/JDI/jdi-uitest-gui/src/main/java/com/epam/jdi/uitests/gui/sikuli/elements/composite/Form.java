@@ -11,6 +11,11 @@ import java.util.List;
  */
 public class Form<T> extends Element implements IForm<T> {
 
+    protected Class<T> entityClass;
+    public Form() {}
+    public Form(Class<T> clazz) {
+        this.entityClass = checkEntityIsNotNull(clazz);
+    }
     /**
      * @param map Specify entity as map
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
@@ -20,6 +25,9 @@ public class Form<T> extends Element implements IForm<T> {
 
     }
 
+    public T getEntity() {
+        return extractEntity(entityClass, this);
+    }
     /**
      * @param map Specify entity as mapArray
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity

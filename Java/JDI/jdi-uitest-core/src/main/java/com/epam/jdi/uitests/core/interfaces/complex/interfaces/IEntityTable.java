@@ -29,6 +29,7 @@ public interface IEntityTable<E,R> extends ITable, List<E> {
 
     List<R> getRows();
     List<R> getRows(Function<R, Boolean> colNames);
+    R firstRow(Function<R, Boolean> rule);
 
     R getRow(String value, Column column);
 

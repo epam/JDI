@@ -40,6 +40,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.getByLocator;
+import static java.util.Collections.addAll;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -91,6 +92,14 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
                 ? lineTemplate
                 : defaultTemplate, value);
         return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
+    }
+
+    public void removeHeaders(String... names) {
+        for (String name : names)
+            headers.remove(name);
+    }
+    public void addHeaders(String... names) {
+        addAll(headers, names);
     }
 
     protected int getCount(boolean acceptEmpty)

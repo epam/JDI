@@ -13,6 +13,7 @@ import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inC
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobDescriptionPage;
 import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobListingPage;
+import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 
 
 public class EntityTableExamples extends TestsBase {
@@ -90,10 +91,9 @@ public class EntityTableExamples extends TestsBase {
     public void searchByMultiCriteriaInTableExample() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
-        JobRecord firstRow = jobListingPage.jobsListEntity.getRows(r ->
-                r.name.getText().equals("Senior QA Automation Engineer")
-                && r.category.getText().equals("Software Test Engineering"))
-                .get(0);
+        JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
+                textOf(r.name).equals("Senior QA Automation Engineer") &&
+                textOf(r.category).equals("Software Test Engineering"));
 
         Assert.areEquals(firstRow.name.getText(), "Senior QA Automation Engineer");
         Assert.areEquals(firstRow.category.getText(), "Software Test Engineering");
@@ -103,10 +103,9 @@ public class EntityTableExamples extends TestsBase {
     public void complexTableExample() {
         jobListingPage.isOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
-        JobRecord firstRow = jobListingPage.jobsListEntity.getRows(r ->
-                r.name.getText().equals("Senior QA Automation Engineer")
-                        && r.category.getText().equals("Software Test Engineering"))
-                .get(0);
+        JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
+                r.name.getText().equals("Senior QA Automation Engineer") &&
+                r.category.getText().equals("Software Test Engineering"));
         firstRow.apply.click();
     }
 }

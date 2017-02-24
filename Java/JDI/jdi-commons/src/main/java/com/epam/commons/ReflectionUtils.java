@@ -130,4 +130,19 @@ public final class ReflectionUtils {
 
         throw new IllegalArgumentException("Can't parse field " + field.getName() + ". Type [" + clazz + "] is unsupported");
     }
+
+    public static <T> Class<T> checkEntityIsNotNull(Class<T> entityClass) {
+        if (entityClass == null)
+            throw new IllegalArgumentException("Entity type was not specified");
+        return entityClass;
+    }
+
+    public static <T> T newEntity(Class<T> entityClass) {
+        try {
+            return entityClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException("Can't instantiate " + entityClass.getSimpleName() +
+                    ". You must have empty constructor to do this");
+        }
+    }
 }

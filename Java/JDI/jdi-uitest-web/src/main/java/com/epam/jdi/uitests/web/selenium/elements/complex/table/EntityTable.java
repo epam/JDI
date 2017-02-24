@@ -20,39 +20,36 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.map.MapArray;
-import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.TableFilter;
-import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
-import static com.epam.commons.PrintUtils.print;
+import static com.epam.commons.ReflectionUtils.checkEntityIsNotNull;
 import static com.epam.commons.ReflectionUtils.convertStringToType;
+import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static java.lang.String.format;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
  * Created by Sergey_Mishanin on 11/18/16.
  */
 public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
-    private Class<E> entityClass;
     private Class<R> rowClass;
+    private Class<E> entityClass;
 
-    public EntityTable(Class<E> entityClass){
-        if (entityClass == null)
-            throw new IllegalArgumentException("Entity type was not specified");
-
-        this.entityClass = entityClass;
+    public EntityTable(Class<E> entityClass) {
+        this.entityClass = checkEntityIsNotNull(entityClass);
         hasColumnHeaders(select(entityClass.getFields(), Field::getName));
     }
 
@@ -115,9 +112,13 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return select(rows().get(), row -> castToRow(row.value));
     }
 
-    public List<R> getRows(Function<R, Boolean> rule)
+    public R firstRow(Function<R, Boolean> colNames) {
+        return getRows(colNames).get(0);
+    }
+
+    public List<R> getRows(Function<R, Boolean> colNames)
     {
-        return where(getRows(), rule);
+        return where(getRows(), colNames);
     }
 
     public R getRow(String value, Column column)
@@ -135,22 +136,12 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return castToRow(row(rowName));
     }
 
-    private E newEntity(){
-        try {
-            return entityClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw exception("Can't instantiate %s. You must have empty constructor to do this",
-                    entityClass.getSimpleName());
-        }
-    }
-
     private E rowToEntity(MapArray<String, ICell> row) {
-        E entity = newEntity();
+        E entity = newEntity(entityClass);
         if (row == null)
             return entity;
 
         Field[] fields = entity.getClass().getFields();
-
         row.pairs.forEach(entry
             -> setEntityField(entity, fields, entry.key, entry.value.getText()));
         return entity;

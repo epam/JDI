@@ -32,13 +32,12 @@ import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.base.SupremeElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
-import com.epam.web.matcher.testng.Assert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -137,12 +136,13 @@ public class WebSettings extends JDISettings {
             if (split != null)
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
+        fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
             {IElement.class, Element.class},
-            {SelenideElement.class, SupremeElement.class},
-            {WebElement.class, SupremeElement.class},
+            {SelenideElement.class, J.class},
+            {WebElement.class, J.class},
             {IButton.class, Button.class},
             {IClickable.class, Clickable.class},
             {IComboBox.class, ComboBox.class},
