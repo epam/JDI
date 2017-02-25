@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.epam.commons.LinqUtils.first;
+
 /**
  * Created by Roman_Iovlev on 2/21/2017.
  */
@@ -37,5 +39,9 @@ public class JdiStatic {
 
     public static List<J> $$(By locator) {
         return $$(WebSettings.getDriver().findElements(locator));
+    }
+
+    public static J find(List<J> jList, String value) {
+        return first(jList, e -> e.getText().equals(value));
     }
 }

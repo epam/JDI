@@ -62,7 +62,7 @@
         <module>Tests/jdi-uitest-guitests</module>
         <module>Tests/jdi-uitest-cucumbertests</module>
         <module>Tests/jdi-httpTests</module>
-        <module>Tests/jdi.examples</module>
+        <module>Tests/jdi-uitest-web-examples</module>
     </modules>
 
     <!--<dependencies>
