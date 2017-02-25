@@ -33,5 +33,6 @@ public class CareerTests extends TestsBase {
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha class contains 'form-field-error'")
             .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
+
     }
 }
