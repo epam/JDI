@@ -1,7 +1,9 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table.base;
 
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.testing.unittests.entities.SupportEntity;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -17,6 +19,10 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.sup
 public class SupportTableTestsBase extends InitTests {
     protected ITable table() {
         return supportPage.supportTable;
+    }
+
+    protected EntityTable<SupportEntity, ?> entityTable() {
+        return supportPage.entityTable;
     }
 
     @BeforeMethod

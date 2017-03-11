@@ -173,36 +173,43 @@ public final class ScreenAssert {
         getAssert().arrayEquals(actual, expected);
     }
 
-    public static <T> void entityIncludeMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        getAssert().entityIncludeMapArray(actual, entity, failMessage);
+    public static <T> void entitiesAreEquals(T actual, T expected, String failMessage) {
+        getAssert().entitiesAreEquals(actual, expected, failMessage);
+    }
+    public static  <T> void entitiesAreEquals(T actual, T expected) {
+        getAssert().entitiesAreEquals(actual, expected);
     }
 
-    public static <T> void entityIncludeMapArray(MapArray<String, String> actual, T entity) {
-        getAssert().entityIncludeMapArray(actual, entity);
+    public static <T> void entityIncludeMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        getAssert().entityIncludeMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        getAssert().entityEqualsToMapArray(actual, entity, failMessage);
+    public static <T> void entityIncludeMapArray(T entity, MapArray<String, String> expected) {
+        getAssert().entityIncludeMapArray(entity, expected);
     }
 
-    public static <T> void entityEqualsToMapArray(MapArray<String, String> actual, T entity) {
-        getAssert().entityEqualsToMapArray(actual, entity);
+    public static <T> void entityEqualsToMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        getAssert().entityEqualsToMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMap(Map<String, String> actual, T entity, String failMessage) {
-        getAssert().entityIncludeMap(actual, entity, failMessage);
+    public static <T> void entityEqualsToMapArray(T entity, MapArray<String, String> expected) {
+        getAssert().entityEqualsToMapArray(entity, expected);
     }
 
-    public static <T> void entityIncludeMap(Map<String, String> actual, T entity) {
-        getAssert().entityIncludeMap(actual, entity);
+    public static <T> void entityIncludeMap(T entity, Map<String, String> expected, String failMessage) {
+        getAssert().entityIncludeMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMap(Map<String, String> actual, T entity, String failMessage) {
-        getAssert().entityEqualsToMap(actual, entity, failMessage);
+    public static <T> void entityIncludeMap(T entity, Map<String, String> expected) {
+        getAssert().entityIncludeMap(entity, expected);
     }
 
-    public static <T> void entityEqualsToMap(Map<String, String> actual, T entity) {
-        getAssert().entityEqualsToMap(actual, entity);
+    public static <T> void entityEqualsToMap(T entity, Map<String, String> expected, String failMessage) {
+        getAssert().entityEqualsToMap(entity, expected, failMessage);
+    }
+
+    public static <T> void entityEqualsToMap(T entity, Map<String, String> expected) {
+        getAssert().entityEqualsToMap(entity, expected);
     }
 
     public static void isSortedByAsc(int[] array, String failMessage) {
@@ -416,35 +423,35 @@ public final class ScreenAssert {
     }
 
 
-    public static <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        getAssert().entityIncludeMapArray(actual, entity, failMessage);
+    public static <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        getAssert().entityIncludeMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity) {
-        getAssert().entityIncludeMapArray(actual, entity);
+    public static <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected) {
+        getAssert().entityIncludeMapArray(entity, expected);
     }
 
-    public static <T> void entityEqualsToMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        getAssert().entityEqualsToMapArray(actual, entity, failMessage);
+    public static <T> void entityEqualsToMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        getAssert().entityEqualsToMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMapArray(Supplier<MapArray<String, String>> actual, T entity) {
-        getAssert().entityEqualsToMapArray(actual, entity);
+    public static <T> void entityEqualsToMapArray(T entity, Supplier<MapArray<String, String>> expected) {
+        getAssert().entityEqualsToMapArray(entity, expected);
     }
 
-    public static <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        getAssert().entityIncludeMap(actual, entity, failMessage);
+    public static <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        getAssert().entityIncludeMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity) {
-        getAssert().entityIncludeMap(actual, entity);
+    public static <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected) {
+        getAssert().entityIncludeMap(entity, expected);
     }
 
-    public static <T> void entityEqualsToMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        getAssert().entityEqualsToMap(actual, entity, failMessage);
+    public static <T> void entityEqualsToMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        getAssert().entityEqualsToMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMap(Supplier<Map<String, String>> actual, T entity) {
-        getAssert().entityEqualsToMap(actual, entity);
+    public static <T> void entityEqualsToMap(T entity, Supplier<Map<String, String>> expected) {
+        getAssert().entityEqualsToMap(entity, expected);
     }
 }

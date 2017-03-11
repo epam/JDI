@@ -39,5 +39,8 @@ public class EpamJDISite extends WebSite {
     public static Footer footer;
     @FindBy(css = ".logs li")
     public static TextList<Enum> actionsLog;
+    @FindBy(css = ".results")
+    public static TextList<Enum> resultsLog;
+
 
 }

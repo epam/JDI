@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.support.FindBy;
 

@@ -28,6 +28,7 @@ public interface IAsserter {
     RuntimeException exception(String message, Object... args);
     <TResult> TResult silent(JFuncREx<TResult> func);
     void isTrue(Boolean actual);
+    void isTrue(Boolean actual, String msg);
     void isTrue(BooleanSupplier actual);
     void checkMessage(String checkMessage);
     void doScreenshot(String doScreenshot);

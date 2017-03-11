@@ -1,26 +1,34 @@
 ﻿using System;
 using Epam.JDI.Core.Base;
 using JDI_Web.Selenium.Base;
+using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
-using JDI_Web.Selenium.DriverFactory;
 
 namespace JDI_Web.Selenium.Elements.Composite
 {
     public class WebSite : Application
     {
-        public static void Init(Type site)
+        public IWebDriver WebDriver => WebSettings.WebDriverFactory.GetDriver(DriverName);
+        public string Url => WebDriver.Url;
+        public string BaseUrl => new Uri(WebDriver.Url).GetLeftPart(UriPartial.Authority);
+        public string Title => WebDriver.Title;
+        private static WebCascadeInit CascadeInit => new WebCascadeInit();
+
+        public static void Init(Type siteType)
         {
-            new WebCascadeInit().InitStaticPages(site, WebSettings.WebDriverFactory.CurrentDriverName);
-            CurrentSite = site;
+            CascadeInit.InitStaticPages(siteType, WebSettings.WebDriverFactory.CurrentDriverName);
+            CurrentSite = siteType;
         }
-        public static T Init<T>(Type site, string driverName) where T : Application
+
+        public static T Init<T>(Type siteType, string driverName) where T : Application
         {
-            return new WebCascadeInit().InitPages<T>(site, driverName);
+            return CascadeInit.InitPages<T>(siteType, driverName);
         }
-        public static T Init<T>(Type site, DriverTypes driverType = DriverTypes.Chrome) where T : Application
+
+        public static T Init<T>(Type siteType, DriverTypes driverType = DriverTypes.Chrome) where T : Application
         {
-            return Init<T>(site, WebSettings.UseDriver(driverType));
+            return Init<T>(siteType, WebSettings.UseDriver(driverType));
         }
 
         public T Init<T>(string driverName) where T : Application
@@ -28,6 +36,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             DriverName = driverName;
             return Init<T>(GetType(), driverName);
         }
+
         public T Init<T>(DriverTypes driverType = DriverTypes.Chrome) where T : Application
         {
             DriverName = WebSettings.UseDriver(driverType);
@@ -39,12 +48,29 @@ namespace JDI_Web.Selenium.Elements.Composite
             return Init<T>(GetType());
         }
 
-        public IWebDriver WebDriver => WebSettings.WebDriverFactory.GetDriver(DriverName);
-        public void OpenUrl(string url) { WebDriver.Navigate().GoToUrl(url); }
-        public string Url => WebDriver.Url;
-        public string Title => WebDriver.Title;
-        public void Refresh() { WebDriver.Navigate().Refresh(); }
-        public void Forward() { WebDriver.Navigate().Forward(); }
-        public void Back() { WebDriver.Navigate().Back(); }
+        public void OpenUrl(string url)
+        {
+            WebDriver.Navigate().GoToUrl(url);
+        }
+
+        public void OpenBaseUrl()
+        {
+            WebDriver.Navigate().GoToUrl(BaseUrl);
+        }
+
+        public void Refresh()
+        {
+            WebDriver.Navigate().Refresh();
+        }
+
+        public void Forward()
+        {
+            WebDriver.Navigate().Forward();
+        }
+
+        public void Back()
+        {
+            WebDriver.Navigate().Back();
+        }
     }
 }

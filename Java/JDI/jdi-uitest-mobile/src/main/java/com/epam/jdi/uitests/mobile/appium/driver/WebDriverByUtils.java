@@ -37,8 +37,7 @@ import static java.lang.String.format;
  */
 public final class WebDriverByUtils {
 
-    private WebDriverByUtils() {
-    }
+    private WebDriverByUtils() { }
 
     public static Function<String, By> getByFunc(By by) {
         return first(getMapByTypes(), key -> by.toString().contains(key));
@@ -50,11 +49,21 @@ public final class WebDriverByUtils {
 
     public static By fillByTemplate(By by, Object... args) {
         String byLocator = getByLocator(by);
+        if (!byLocator.contains("%"))
+            throw new RuntimeException(getBadLocatorMsg(byLocator, args));
         try {
             byLocator = format(byLocator, args);
         } catch (Exception ex) {
             throw new RuntimeException(getBadLocatorMsg(byLocator, args));
         }
+        return getByFunc(by).apply(byLocator);
+    }
+
+    public static boolean containsRoot(By by) {
+        return by != null && by.toString().contains(": *root*");
+    }
+    public static By trimRoot(By by) {
+        String byLocator = getByLocator(by).replace("*root*", " ").trim();
         return getByFunc(by).apply(byLocator);
     }
 
@@ -85,6 +94,33 @@ public final class WebDriverByUtils {
         if (m.find())
             return m.group("locator");
         throw new RuntimeException("Can't get By name for: " + by);
+    }
+
+    public static By correctXPaths(By byValue) {
+        return byValue.toString().contains("By.xpath: //")
+                ? getByFunc(byValue).apply(getByLocator(byValue)
+                .replaceFirst("/", "./"))
+                : byValue;
+    }
+
+    public static By getByFromString(String stringLocator) {
+        if (stringLocator == null || stringLocator.equals(""))
+            throw new RuntimeException("Can't get By locator from string empty or null string");
+        String[] split = stringLocator.split("(^=)*=.*");
+        if (split.length == 1)
+            return By.cssSelector(split[0]);
+        switch (split[0]) {
+            case "css": return By.cssSelector(split[1]);
+            case "xpath": return By.xpath(split[1]);
+            case "class": return By.className(split[1]);
+            case "name": return By.name(split[1]);
+            case "id": return By.id(split[1]);
+            case "tag": return By.tagName(split[1]);
+            case "link": return By.partialLinkText(split[1]);
+            default: throw new RuntimeException(
+                    String.format("Can't get By locator from string: %s. Bad suffix: %s. (available: css, xpath, class, id, name, link, tag)",
+                            stringLocator, split[0]));
+        }
     }
 
     private static Map<String, Function<String, By>> getMapByTypes() {

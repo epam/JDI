@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 
 
@@ -177,37 +178,42 @@ public final class Assert {
     public static <T> void arrayEquals(T actual, T expected) {
         matcher.arrayEquals(actual, expected);
     }
-
-    public static <T> void entityIncludeMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        matcher.entityIncludeMapArray(actual, entity, failMessage);
+    public static <T> void entitiesAreEquals(T actual, T expected, String failMessage) {
+        matcher.entitiesAreEquals(actual, expected, failMessage);
+    }
+    public static  <T> void entitiesAreEquals(T actual, T expected) {
+        matcher.entitiesAreEquals(actual, expected);
+    }
+    public static <T> void entityIncludeMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        matcher.entityIncludeMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMapArray(MapArray<String, String> actual, T entity) {
-        matcher.entityIncludeMapArray(actual, entity);
+    public static <T> void entityIncludeMapArray(T entity, MapArray<String, String> expected) {
+        matcher.entityIncludeMapArray(entity, expected);
     }
 
-    public static <T> void entityEqualsToMapArray(MapArray<String, String> actual, T entity, String failMessage) {
-        matcher.entityEqualsToMapArray(actual, entity, failMessage);
+    public static <T> void entityEqualsToMapArray(T entity, MapArray<String, String> expected, String failMessage) {
+        matcher.entityEqualsToMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMapArray(MapArray<String, String> actual, T entity) {
-        matcher.entityEqualsToMapArray(actual, entity);
+    public static <T> void entityEqualsToMapArray(T entity, MapArray<String, String> expected) {
+        matcher.entityEqualsToMapArray(entity, expected);
     }
 
-    public static <T> void entityIncludeMap(Map<String, String> actual, T entity, String failMessage) {
-        matcher.entityIncludeMap(actual, entity, failMessage);
+    public static <T> void entityIncludeMap(T entity, Map<String, String> expected, String failMessage) {
+        matcher.entityIncludeMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMap(Map<String, String> actual, T entity) {
-        matcher.entityIncludeMap(actual, entity);
+    public static <T> void entityIncludeMap(T entity, Map<String, String> expected) {
+        matcher.entityIncludeMap(entity, expected);
     }
 
-    public static <T> void entityEqualsToMap(Map<String, String> actual, T entity, String failMessage) {
-        matcher.entityEqualsToMap(actual, entity, failMessage);
+    public static <T> void entityEqualsToMap(T entity, Map<String, String> expected, String failMessage) {
+        matcher.entityEqualsToMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMap(Map<String, String> actual, T entity) {
-        matcher.entityEqualsToMap(actual, entity);
+    public static <T> void entityEqualsToMap(T entity, Map<String, String> expected) {
+        matcher.entityEqualsToMap(entity, expected);
     }
 
     public static void isSortedByAsc(int[] array, String failMessage) {
@@ -421,35 +427,35 @@ public final class Assert {
     }
 
 
-    public static <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        matcher.entityIncludeMapArray(actual, entity, failMessage);
+    public static <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        matcher.entityIncludeMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMapArray(Supplier<MapArray<String, String>> actual, T entity) {
-        matcher.entityIncludeMapArray(actual, entity);
+    public static <T> void entityIncludeMapArray(T entity, Supplier<MapArray<String, String>> expected) {
+        matcher.entityIncludeMapArray(entity, expected);
     }
 
-    public static <T> void entityEqualsToMapArray(Supplier<MapArray<String, String>> actual, T entity, String failMessage) {
-        matcher.entityEqualsToMapArray(actual, entity, failMessage);
+    public static <T> void entityEqualsToMapArray(T entity, Supplier<MapArray<String, String>> expected, String failMessage) {
+        matcher.entityEqualsToMapArray(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMapArray(Supplier<MapArray<String, String>> actual, T entity) {
-        matcher.entityEqualsToMapArray(actual, entity);
+    public static <T> void entityEqualsToMapArray(T entity, Supplier<MapArray<String, String>> expected) {
+        matcher.entityEqualsToMapArray(entity, expected);
     }
 
-    public static <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        matcher.entityIncludeMap(actual, entity, failMessage);
+    public static <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        matcher.entityIncludeMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityIncludeMap(Supplier<Map<String, String>> actual, T entity) {
-        matcher.entityIncludeMap(actual, entity);
+    public static <T> void entityIncludeMap(T entity, Supplier<Map<String, String>> expected) {
+        matcher.entityIncludeMap(entity, expected);
     }
 
-    public static <T> void entityEqualsToMap(Supplier<Map<String, String>> actual, T entity, String failMessage) {
-        matcher.entityEqualsToMap(actual, entity, failMessage);
+    public static <T> void entityEqualsToMap(T entity, Supplier<Map<String, String>> expected, String failMessage) {
+        matcher.entityEqualsToMap(entity, expected, failMessage);
     }
 
-    public static <T> void entityEqualsToMap(Supplier<Map<String, String>> actual, T entity) {
-        matcher.entityEqualsToMap(actual, entity);
+    public static <T> void entityEqualsToMap(T entity, Supplier<Map<String, String>> expected) {
+        matcher.entityEqualsToMap(entity, expected);
     }
 }

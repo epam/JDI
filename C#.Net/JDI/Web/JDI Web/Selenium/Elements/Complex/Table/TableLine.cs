@@ -70,7 +70,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
         public Dictionary<string, SelectableElement> Header()
         {
-            return GetHeadersAction.ToDictionary(key => key.Text, value => new SelectableElement());
+            return GetHeadersAction.ToDictionary(key => key.Text, 
+                value => new SelectableElement(webElement: value));
         }
 
         public SelectableElement Header(string name)

@@ -22,13 +22,16 @@ import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
@@ -36,14 +39,18 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindB
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.function.BiConsumer;
 
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
@@ -92,9 +99,10 @@ public class WebCascadeInit extends CascadeInit {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
             if (elementClass.isInterface())
                 elementClass = getClassFromInterface(type);
-            if (elementClass != null)
+            if (elementClass != null && !isClass(elementClass, Table.class))
                 instance = new Elements(newLocator, elementClass);
-        } else {
+        }
+        if (instance == null) {
             if (type.isInterface())
                 type = getClassFromInterface(type);
             if (type != null) {
@@ -113,41 +121,20 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     protected By getNewLocatorFromField(Field field) {
-        By byLocator = null;
         String locatorGroup = APP_VERSION;
-        if (locatorGroup == null)
-            return findByToBy(field.getAnnotation(FindBy.class));
+        if (locatorGroup.equals("DEFAULT"))
+            return field.isAnnotationPresent(FindBy.class)
+                ? findByToBy(field.getAnnotation(FindBy.class))
+                : getFindByLocator(field.getAnnotation(JFindBy.class));
         JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-        if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
-                byLocator = getFindByLocator(jFindBy);
-        return byLocator != null
-            ? byLocator
+        return jFindBy != null && locatorGroup.equals(jFindBy.group())
+            ? getFindByLocator(jFindBy)
             : findByToBy(field.getAnnotation(FindBy.class));
     }
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
-        setUpTableFromAnnotation(instance, field);
-        setUpMenuFromAnnotation(instance, field);
-        setUpDropdownFromAnnotation(instance, field);
-    }
-
-    private static void setUpTableFromAnnotation(BaseElement instance, Field field) {
-        JTable jTable = field.getAnnotation(JTable.class);
-        if (jTable == null || !isInterface(field, ITable.class))
-            return;
-        setUpTable((Table) instance, jTable);
-    }
-    private static void setUpDropdownFromAnnotation(BaseElement instance, Field field) {
-        JDropdown jDropdown = field.getAnnotation(JDropdown.class);
-        if (jDropdown == null || !isInterface(field, IDropDown.class))
-            return;
-        setUpDropdown((Dropdown) instance, jDropdown);
-    }
-    private static void setUpMenuFromAnnotation(BaseElement instance, Field field) {
-        JMenu jMenu = field.getAnnotation(JMenu.class);
-        if (jMenu == null || !isInterface(field, IMenu.class))
-            return;
-        setUpMenu((Menu) instance, jMenu);
+        for (BiConsumer<BaseElement, Field> setUp : setUpFromAnnotation)
+            setUp.accept(instance, field);
     }
 
 }

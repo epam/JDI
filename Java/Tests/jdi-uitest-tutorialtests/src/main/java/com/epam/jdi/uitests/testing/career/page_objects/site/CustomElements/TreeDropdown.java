@@ -24,6 +24,7 @@ package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
 
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
@@ -50,7 +51,10 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> {
     }
 
     protected void expandAction() {
-        if (getDriver().findElements(treeLocators.get(0)).size() == 0)
+        setWaitTimeout(0);
+        List<WebElement> els = getDriver().findElements(treeLocators.get(0));
+        restoreWaitTimeout();
+        if (treeLocators != null && els.size() == 0)
             element().click();
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class CareerPage extends WebPage {
-    @FindBy(className = "job-search")
+    @FindBy(className = "job-search-form-ui")
     public JobFilter jobFilter;
 
     @FindBy(css = ".tile-menu>li>a")

@@ -1,5 +1,7 @@
 package com.epam.jdi.uitests.testing.career.page_objects.entities;
 
+import com.epam.jdi.uitests.core.annotations.Name;
+
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */

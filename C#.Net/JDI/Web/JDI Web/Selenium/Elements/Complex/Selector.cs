@@ -19,10 +19,19 @@ namespace JDI_Web.Selenium.Elements.Complex
     public class Selector<TEnum> : BaseSelector<TEnum>, ISelector<TEnum>
         where TEnum : IConvertible
     {
-        protected Selector() : this(null, webElements: null) { }
+        protected Selector() : this(null, webElements: null)
+        {
+            
+        }
 
-        public Selector(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null, WebBaseElement element = null) : 
-            base(optionsNamesLocatorTemplate, webElements, element) { }
+        public Selector(By optionsNamesLocatorTemplate, List<IWebElement> webElements = null,
+            WebBaseElement element = null) :
+                base(optionsNamesLocatorTemplate, webElements, element)
+        {
+            // TODO: need to initialize in each constructor ??? (exclude to separate method)
+            SelectedNameAction = (s, name) => ((Selector<TEnum>)s).SelectedAction(this).Equals(name);
+            GetValueAction = s => ((Selector<TEnum>)s).Selected();
+        }
         public Selector(By optionsNamesLocatorTemplate, By allOptionsNamesLocator, List<IWebElement> webElements = null, WebBaseElement element = null)
             : base(optionsNamesLocatorTemplate, allOptionsNamesLocator, webElements, element)
         {

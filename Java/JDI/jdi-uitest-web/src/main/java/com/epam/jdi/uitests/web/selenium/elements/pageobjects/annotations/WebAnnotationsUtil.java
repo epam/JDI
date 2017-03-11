@@ -19,18 +19,20 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
-import com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Quotes;
 
 import java.util.function.Consumer;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static com.epam.jdi.uitests.web.settings.WebSettings.hasDomain;
+import static java.lang.String.format;
 
 /**
  * Created by roman.i on 25.09.2014.
@@ -109,22 +111,46 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static By getFindByLocator(JFindBy locator) {
         if (locator == null) return null;
-        if (!"".equals(locator.id()))
-            return By.id(locator.id());
-        if (!"".equals(locator.className()))
-            return By.className(locator.className());
+
         if (!"".equals(locator.xpath()))
             return By.xpath(locator.xpath());
         if (!"".equals(locator.css()))
             return By.cssSelector(locator.css());
         if (!"".equals(locator.linkText()))
             return By.linkText(locator.linkText());
-        if (!"".equals(locator.name()))
-            return By.name(locator.name());
         if (!"".equals(locator.partialLinkText()))
             return By.partialLinkText(locator.partialLinkText());
         if (!"".equals(locator.tagName()))
             return By.tagName(locator.tagName());
+
+        if (!"".equals(locator.text()))
+            return By.xpath(".//*/text()[normalize-space(.) = " +
+                Quotes.escape(locator.text()) + "]/parent::*");
+
+        if (!"".equals(locator.attribute().name()))
+            return getAttribute(locator.attribute().name(), locator.attribute().value());
+        if (!"".equals(locator.id()))
+            return By.id(locator.id());
+        if (!"".equals(locator.className()))
+            return By.className(locator.className());
+        if (!"".equals(locator.name()))
+            return By.name(locator.name());
+        if (!"".equals(locator.value()))
+            return getAttribute("value", locator.value());
+        if (!"".equals(locator.title()))
+            return getAttribute("title", locator.title());
+
+        if (!"".equals(locator.model()))
+            return By.cssSelector(format("[ng-model='%s']", locator.model()));
+        if (!"".equals(locator.binding()))
+            return By.cssSelector(format("[ng-binding='%s']", locator.binding()));
+        if (!"".equals(locator.repeat()))
+            return By.cssSelector(format("[ng-repeat='%s']", locator.repeat()));
+
         return null;
+    }
+
+    private static By getAttribute(String name, String value) {
+        return By.xpath(".//*[@" + name + '=' + Quotes.escape(value) + ']');
     }
 }

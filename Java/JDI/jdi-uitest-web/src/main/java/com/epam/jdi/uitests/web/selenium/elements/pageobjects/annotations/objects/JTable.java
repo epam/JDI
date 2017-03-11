@@ -37,6 +37,8 @@ public @interface JTable {
     String[] header() default {};
     String[] rowsHeader() default {};
 
+    FindBy headers() default @FindBy();
+    FindBy rowNames() default @FindBy();
     FindBy cell() default @FindBy();
     FindBy row() default @FindBy();
     FindBy column() default @FindBy();

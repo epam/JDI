@@ -24,7 +24,7 @@ namespace JDI_Tests.Tests.Epam
             //new Timer().Wait(() => !JobListingPage.JobsList.Empty);
             JobListingPage.GetJobRowByName("Senior QA Automation Engineer");
             JobDescriptionPage.AddCvForm.Submit(attendee);
-            //new Check("Captcha").Contains(()->jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
+            //new Check("Captcha").Contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
         }
         
     }

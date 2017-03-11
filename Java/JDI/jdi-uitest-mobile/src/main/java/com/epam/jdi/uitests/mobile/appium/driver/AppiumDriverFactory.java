@@ -52,6 +52,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 public class AppiumDriverFactory implements IDriver<WebDriver> {
     public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public String currentDriverName = "";
     public boolean isDemoMode = false;
@@ -192,7 +193,7 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
             if (resultDriver == null)
                 throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
             resultDriver.manage().window().maximize();
-            resultDriver.manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
+            resultDriver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
             return resultDriver;
         } catch (Exception ex) {
             throw exception("Can't get driver");

@@ -1,4 +1,8 @@
 ﻿
+using System;
+using System.Linq;
+using JDI_Commons;
+
 namespace Epam.JDI.Core.Logging
 {
     public class LogAgregator : ILogger
@@ -9,6 +13,12 @@ namespace Epam.JDI.Core.Logging
         {
             _loggers = loggers;
         }
+
+        public void Exception(Exception ex)
+        {
+            _loggers.ToList().ForEach(l => l.Exception(ex));
+        }
+
         public void Trace(string message)
         {
             foreach (var logger in _loggers)

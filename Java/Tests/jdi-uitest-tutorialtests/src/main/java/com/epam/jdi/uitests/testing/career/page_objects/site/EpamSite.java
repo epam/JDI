@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
@@ -15,8 +16,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
@@ -34,15 +35,18 @@ public class EpamSite extends WebSite {
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
-    @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply", urlCheckType = MATCH)
+    @JPage(url = "/careers/job-listings/job.10190#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
+            urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
+
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
+
     @JMenu(levelLocators = {
         @FindBy(css = ".tile-menu>li>a"),
         @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
     })
-    public static Menu<HeaderMenu> multipleHeaderMenu;
+    public static Menu multipleHeaderMenu;
     //public static Elements<Dropdown<Enum>> els;
 
     @FindBy(css = ".tile-menu>li>a")

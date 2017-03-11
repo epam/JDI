@@ -20,11 +20,11 @@ namespace JDI_Commons
         }
 
         public Timer(double timoutInMsec = DefaultTimeout, int retryTimeoutInMSec = DefaultRetryTimeout) : this()
-        { 
+        {
             _timeoutInMSec = timoutInMsec;
             _retryTimeoutInMSec = retryTimeoutInMSec;
         }
-        
+
         public TimeSpan TimePassed => _watch.Elapsed;
         public bool TimeoutPassed => _watch.Elapsed > TimeSpan.FromMilliseconds(_timeoutInMSec);
 
@@ -43,22 +43,29 @@ namespace JDI_Commons
         {
             return GetResultByCondition(func, result => true);
         }
+
         public T GetResultByCondition<T>(Func<T> getFunc, Func<T, bool> conditionFunc)
         {
             Exception exception = null;
             do
             {
-                try 
+                try
                 {
                     var result = getFunc.Invoke();
                     if (result != null && conditionFunc.Invoke(result))
                         return result;
-                } catch (Exception ex) { exception = ex; }
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
                 Thread.Sleep(_retryTimeoutInMSec);
             } while (!TimeoutPassed);
-                if (exception != null)
-                    throw new Exception(exception.Message);
-                throw new TimeoutException("The operation has timed-out");
+            if (exception != null)
+            {
+                throw exception;
+            }
+            throw new TimeoutException("The operation has timed-out");
         }
     }
 }

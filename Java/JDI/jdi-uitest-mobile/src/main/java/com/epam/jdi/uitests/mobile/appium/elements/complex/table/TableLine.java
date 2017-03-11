@@ -19,21 +19,29 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ElementIndexType;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ITableLine;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
-import static com.epam.commons.LinqUtils.*;
+import static com.epam.commons.LinqUtils.getIndex;
+import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.fillByTemplate;
+import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.getByLocator;
+import static java.util.Collections.addAll;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -43,13 +51,13 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     public ElementIndexType elementIndex;
     public Table table;
     protected int count = 0;
-    protected String[] headers;
+    protected List<String> headers;
     protected int startIndex = 1;
     protected By headersLocator;
     protected By defaultTemplate;
     protected By lineTemplate = null;
 
-    protected <T extends TableLine> T clone(T newTableLine, Table newTable) {
+    public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());
         newTableLine.hasHeader = hasHeader;
         newTableLine.elementIndex = elementIndex;
@@ -68,26 +76,61 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(int colNum) {
-        return table.getWebElement().findElements(fillByTemplate((lineTemplate != null) ? lineTemplate : defaultTemplate, colNum));
+        return getElementByTemplate(colNum + startIndex - 1);
     }
 
     protected List<WebElement> getLineAction(String lineName) {
+        int index = getIndex(headers(), lineName) + 1;
+        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
+            return getElementByTemplate(index);
         return (lineTemplate == null)
-                ? getLineAction(getIndex(headers(), lineName) + 1)
-                : table.getWebElement().findElements(fillByTemplate(lineTemplate, lineName));
+                ? getLineAction(index)
+                : getElementByTemplate(index);
+    }
+    private List<WebElement> getElementByTemplate(Object value) {
+        By locator = fillByTemplate(lineTemplate != null
+                ? lineTemplate
+                : defaultTemplate, value);
+        return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
+    }
+
+    public void removeHeaders(String... names) {
+        for (String name : names)
+            headers.remove(name);
+    }
+    public void addHeaders(String... names) {
+        addAll(headers, names);
+    }
+
+    protected int getCount(boolean acceptEmpty)
+    {
+        table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
+        List<WebElement> elements = getHeadersAction();
+        if (elements.size() == 0)
+            elements = getFirstLine();
+        table.getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
+        if (!acceptEmpty)
+            elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
+        return elements != null && elements.size() > 0
+            ? elements.size()
+            : 0;
     }
 
     protected abstract List<WebElement> getFirstLine();
-
-    protected abstract int getCount();
 
     public void setCount(int value) {
         if (table.cache) count = value;
     }
 
     public int count() {
-        return count > 0 ? count
-                : headers != null && headers.length > 0 ? headers.length : getCount();
+        return count(false);
+    }
+    public int count(boolean acceptEmpty) {
+        if (count > 0)
+            return count;
+        if (headers != null && headers.size() > 0)
+            return headers.size();
+        return getCount(acceptEmpty);
     }
 
     public void clean() {
@@ -95,49 +138,50 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         count = 0;
     }
 
-    public void setHeaders(String[] value) {
+    public void setHeaders(List<String> value) {
         if (table.cache)
-            headers = value.clone();
+            headers = new ArrayList<>(value);
     }
 
-    protected String[] getHeadersTextAction() {
-        return toStringArray(select(getHeadersAction(), WebElement::getText));
+    protected List<String> getHeadersTextAction() {
+        return select(getHeadersAction(), WebElement::getText);
     }
 
     protected abstract List<WebElement> getHeadersAction();
 
-    public final MapArray<String, SelectElement> header() {
-        return new MapArray<>(getHeadersAction(), WebElement::getText, SelectElement::new);
+    public final MapArray<String, ISelect> header() {
+        return new MapArray<>(headers(),
+                select(getHeadersAction(), SelectElement::new));
     }
 
-    public final SelectElement header(String name) {
+    public final ISelect header(String name) {
         return header().get(name);
     }
 
-    public String[] headers() {
+    public List<String> headers() {
         if (headers != null)
-            return headers.clone();
-        String[] localHeaders = hasHeader
+            return new ArrayList<>(headers);
+        List<String> localHeaders = hasHeader
                 ? timer().getResult(this::getHeadersTextAction)
                 : getNumList(count());
-        if (localHeaders == null || localHeaders.length == 0)
-            return new String[]{};
-        if (count > 0 && localHeaders.length > count)
-            localHeaders = toStringArray(Arrays.asList(localHeaders).subList(0, count));
+        if (localHeaders == null || localHeaders.size() == 0)
+            return new ArrayList<>();
+        if (count > 0 && localHeaders.size() > count)
+            localHeaders = localHeaders.subList(0, count);
         setHeaders(localHeaders);
-        setCount(localHeaders.length);
+        setCount(localHeaders.size());
         return localHeaders;
     }
 
-    protected String[] getNumList(int count) {
+    protected List<String> getNumList(int count) {
         return getNumList(count, 1);
     }
 
-    protected String[] getNumList(int count, int from) {
+    protected List<String> getNumList(int count, int from) {
         List<String> result = new ArrayList<>();
         for (int i = from; i < count + from; i++)
             result.add(Integer.toString(i));
-        return result.toArray(new String[count]);
+        return result;
     }
 
     public final void update(TableLine tableLine) {
@@ -145,7 +189,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
             setCount(tableLine.count());
         if (tableLine.startIndex != 1)
             startIndex = tableLine.startIndex;
-        if (tableLine.headers != null && tableLine.headers.length > 0)
+        if (tableLine.headers != null && tableLine.headers.size() > 0)
             setHeaders(tableLine.headers());
         if ((isClass(tableLine.getClass(), Columns.class) && !tableLine.hasHeader)
                 || (isClass(tableLine.getClass(), Rows.class) && tableLine.hasHeader))

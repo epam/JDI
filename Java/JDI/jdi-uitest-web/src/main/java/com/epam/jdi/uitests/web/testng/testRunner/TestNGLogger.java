@@ -3,8 +3,6 @@ package com.epam.jdi.uitests.web.testng.testRunner;
 import com.epam.jdi.uitests.core.logger.JDILogger;
 import org.slf4j.Marker;
 
-import java.util.function.Function;
-
 import static org.testng.Reporter.log;
 
 /**
@@ -16,9 +14,6 @@ public class TestNGLogger extends JDILogger {
     }
     public TestNGLogger(String name) {
         super(name);
-    }
-    public TestNGLogger(String name, Function<String, String> pattern) {
-        super(name, pattern);
     }
 
     @Override

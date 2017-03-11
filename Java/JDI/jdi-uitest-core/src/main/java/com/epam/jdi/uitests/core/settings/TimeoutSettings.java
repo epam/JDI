@@ -21,21 +21,29 @@ package com.epam.jdi.uitests.core.settings;
  * Created by 12345 on 04.07.2015.
  */
 public class TimeoutSettings {
-    public int currentTimeoutSec;
-
-    public int waitElementSec = 20;
-    public int waitPageLoadSec = 20;
-    public int retryMSec = 100;
+    private int waitElementSec = 20;
+    private int defaultWaitTimeout = 20;
+    private int waitPageLoadSec = 20;
+    private int retryMSec = 100;
 
     public TimeoutSettings() {
-        setCurrentTimeoutSec(waitPageLoadSec);
+        setCurrentTimeoutSec(waitElementSec);
     }
 
+    public void setDefaultTimeoutSec(int timeoutSec) {
+        defaultWaitTimeout = timeoutSec;
+    }
     public void setCurrentTimeoutSec(int timeoutSec) {
-        currentTimeoutSec = timeoutSec;
+        waitElementSec = timeoutSec;
+    }
+    public int getDefaultTimeoutSec() {
+        return defaultWaitTimeout;
+    }
+    public int getCurrentTimeoutSec() {
+        return waitElementSec;
     }
 
     public void dropTimeouts() {
-        setCurrentTimeoutSec(waitElementSec);
+        setCurrentTimeoutSec(defaultWaitTimeout);
     }
 }

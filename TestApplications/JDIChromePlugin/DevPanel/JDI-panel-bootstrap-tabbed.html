@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="libs/jquery-2.1.4.js"></script>
+    <script src="libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="libs/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <script src="libs/bootstrap-3.3.5-dist/css/bootstrap.css"></script>
+    <script src="libs/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+    <script src="js/utils/arrayUtils.js"></script>
+    <script src="js/utils/stringPatterns.js"></script>
+    <script src="js/data/sections.js"></script>
+    <script src="js/data/pages.js"></script>
+    <script src="js/panel.js"></script>
+    <script src="js/ui/pageActivity.js"></script>
+    <script src="js/ui/treeActivity.js"></script>
+    <script src="js/ui/treeGetInfo.js"></script>
+    <script src="js/ui/sectionActivity.js"></script>
+    <script src="js/dictionary/jdiObject.js"></script>
+    <script src="js/dictionary/requestsName.js"></script>
+    <script src="libs/string.format-1.0.packed.js"></script>
+    <script src="js/POjava/helper.js"></script>
+    <script src="js/POjava/toJava.js"></script>
+    <link rel="stylesheet" href="libs/highlight/styles/default.css">
+    <script src="libs/highlight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="style/JDI-panel.css">
+    <link rel="stylesheet" href="style/bootstrap_ext.css">
+    <script src="js/utils/saveFiles.js"></script>
+    <script src="libs/FileSaver.js"></script>
+    <script src="libs/jszip/jszip.js"></script>
+    <script src="libs/jszip/jszip.min.js"></script>
+    <link rel="stylesheet" href="libs/font-awesome-4.5.0/css/font-awesome.css">
+
+</head>
+
+<div id="template" style="display: none">
+    <li class="collapsedDiv" id="main-div-{i}">
+        <div>
+            <span class="collapseButton glyphicon glyphicon-expand" title="collapse element" id="btn-col-{i}"></span>
+
+            <div class="tableDiv" id="div-col-{i}" style="display: none">
+                <table class="collapsedTable">
+                    <tr>
+                        <td class="borderBottom borderRight"></td>
+                        <td class="borderBottom">Name</td>
+                        <td class="borderBottom">Type</td>
+                    </tr>
+                    <tr>
+                        <td class="borderRight">PageObject</td>
+                        <td>
+                            <input id="PO-name-{i}" type="text" class="POTextArea">
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <input id="PO-type-{i}" class="dropdown-toggle POTextArea" type="text"
+                                       data-toggle="dropdown">
+                                <ul class="dropdown-menu" style="font-size: inherit">
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="borderRight">Locator</td>
+                        <td colspan="2">
+                            <input id="PO-locator-{i}" type="text" class="POTextArea">
+                        </td>
+                    </tr>
+                    <tr id="tr-PO-gen-{i}" style="display: none">
+                        <td class="borderRight">InitClass</td>
+                        <td colspan="2">
+                            <input id="PO-gen-{i}" type="text" class="POTextArea">
+                        </td>
+                    </tr>
+                    <tr id="tr-PO-section-{i}" style="display: none">
+                        <td class="borderRight">SectionClass</td>
+                        <td colspan="2">
+                            <div class="dropdown">
+                                <input id="PO-section-{i}" class="dropdown-toggle POTextArea" type="text"
+                                       data-toggle="dropdown">
+                                <ul class="dropdown-menu" style="font-size: inherit">
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                    <span id="btn-remove-{i}" class="treeButtons glyphicon glyphicon-minus-sign"
+                          title="delete this element"></span>
+                <span id="btn-add-{i}" class="treeButtons glyphicon glyphicon-plus-sign" title="add new element"></span>
+                <input type="checkbox" id="cb-locate-{i}" title="locate this element">
+                <!-- Modal -->
+                <div class="modal" id="modal-{i}" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">What to do with children...</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <div class=" btn-group btn-group-sm">
+                                    <button id="modal-btn-up-{i}" type="button" class="btn btn-success"
+                                            data-dismiss="modal">Move Up
+                                    </button>
+                                    <button id="modal-cancel-{i}" type="button" class="btn" data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button id="modal-btn-delete-{i}" type="submit" class="btn btn-danger"
+                                            data-dismiss="modal">Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="tableDiv" style="display: block" id="div-col-none-{i}">
+                <table class="">
+                    <tr>
+                        <td class="warningText" id="jdi-name-col-{i}">new object</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </li>
+</div>
+
+<div id="template-form-tab" style="display: none">
+    <li><a href="#form-content-{page}-{tab}" id="a-forms-{page}-{tab}">new form</a></li>
+</div>
+
+<div id="template-section-nav-tab-link" style="display: none">
+    <li><a href="#section-content-{section}" id="a-section-{section}">new section
+        <button class="close">×</button>
+    </a></li>
+</div>
+
+<div id="template-sect-nav-cont" style="display: none">
+    <div id="section-content-{section}" class="tab-pane fade">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#coll1-{section}"
+                       id="a-coll1-{section}">No Name</a>
+                    <button id="btn-coll1-{section}" class="btn-success btn-sm btn"><span
+                            class="glyphicon glyphicon-download-alt"></span>
+                    </button>
+                </h4>
+            </div>
+            <div id="coll1-{section}" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <pre></pre>
+                </div>
+            </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#coll2-{section}"
+                       id="a-coll2-{section}"></a>
+                    <button id="btn-coll2-{section}" class="btn-success btn-sm btn"><span
+                            class="glyphicon glyphicon-download-alt"></span>
+                    </button>
+                </h4>
+            </div>
+            <div id="coll2-{section}" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <pre></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="template-sect-nav-cont-nonForm" style="display: none">
+    <div id="section-content-{section}" class="panel panel-default tab-pane fade container-fluid" style=>
+        <div class="row">
+            <button id="btn-coll1-{section}" class="btn-success btn-sm btn"
+                    style="float: right; margin-right: 15px; margin-top: 10px"><span
+                    class="glyphicon glyphicon-download-alt"></span>
+            </button>
+        </div>
+        <div class="panel-body row">
+            <pre></pre>
+        </div>
+    </div>
+</div>
+
+<div id="template-page" style="display: none">
+    <div class="container-fluid" style="-webkit-user-select: none; height: 100%">
+
+        <!--buttons-->
+        <div class="row">
+            <div class="col-xs-8"><br>
+
+                <div class="btn-group btn-group-sm">
+                    <button id="btn-all-{page}" class="btn btn-success">ShowAll</button>
+                    <button id="btn-empty-tree-{page}" class="btn btn-danger">Clear All</button>
+                </div>
+            </div>
+            <div class="col-xs-4"><br>
+                <button id="btn-download-all-{page}" class="btn-success btn btn-sm" style="float: right"><span
+                        class="glyphicon glyphicon-download-alt"></span> All Pages
+                </button>
+            </div>
+        </div>
+        <hr>
+        <!--text fields-->
+        <div class="row">
+            <div class="col-xs-6">
+                <label id="lbl" for="txt-name-{page}" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                    Class Name:
+                </label>
+
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="txt-name-{page}">
+                </div>
+            </div>
+            <div class="col-xs-6">
+
+                <label for="txt-package-{page}" class="col-xs-2 control-label">
+                    Package Name:
+                </label>
+
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" id="txt-package-{page}"
+                           placeholder="enter your package name here">
+                </div>
+            </div>
+        </div>
+        <!--url text field-->
+        <div class="row">
+            <label for="txt-URL-{page}" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                URL:
+            </label>
+
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="txt-URL-{page}" readonly>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="glyphicon glyphicon-plus-sign fa-2x" id="span-add-new-bean-{page}"></span>
+                <button id="btn-download-page-{page}" class="btn-success btn-sm btn" style="float: right"><span
+                        class="glyphicon glyphicon-download-alt"></span>
+                </button>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="row"><!--tree+pages-->
+            <div class="col-xs-6 col-xxs-12">
+                <div class="row">
+                    <div class="col-xxs-12">
+                        <div id="tree-{page}" class="treeDiv" style="overflow-x: scroll"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 hidden-xxs">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <pre id="PO-pre-{page}">Page Object will be shown here</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sx-12">
+            <ul class="nav nav-tabs" id="main-nav-tabs">
+                <li class="active">
+                    <a href="#page-0" id="a-page-0">Current Page<span id='a-close-page-0'
+                                                                      class='close fa fa-times'></span>
+                    </a>
+                </li>
+                <li><a id="add-new-tag"><span class="glyphicon glyphicon-plus"></span></a></li>
+                <li style="float: right"><a href="#page-sections" id="a-tab-sections" style="background: lightgrey">Sections</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="main-tab-content">
+                <div id="page-0" class="tab-pane fade in active"></div>
+                <div id="page-sections" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <br>
+                            <ul class="nav nav-tabs" id="section-nav-tab"></ul>
+                            <div class="tab-content" id="section-nav-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-7 col-md-offset-5 col-md-7 col-xs-offset-5 col-xs-7"
+             style="color: darkgrey; margin-top: 7%">
+            <a class="socialLinks" href-1="https://github.com/grebnat/gga-selenium-framework"><span
+                    class="fa fa-github-square fa-2x socialButtons"></span></a>
+            <a class="socialLinks" href-1="http://vk.com/"><span class="fa fa-vk fa-2x socialButtons"></span></a>
+            <a class="socialLinks" href-1="https://www.facebook.com/"><span
+                    class="fa fa-facebook fa-2x socialButtons"></span></a>
+            <a class="socialLinks" href-1="https://twitter.com/"><span
+                    class="fa fa-twitter-square fa-2x socialButtons"></span></a>
+        </div>
+
+        <script src="libs/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+    </div>
+</div>
+
+</body>
+</html>

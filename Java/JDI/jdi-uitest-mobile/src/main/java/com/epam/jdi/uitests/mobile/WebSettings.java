@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.mobile;
  */
 
 
+import com.epam.jdi.uitests.core.logger.JDILogger;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.mobile.appium.TestNGCheck;
 import com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory;
@@ -72,7 +73,7 @@ public class WebSettings extends JDISettings {
             }
         };
         asserter.doScreenshot("screen_on_fail");
-        logger = getLogger("JDI Logger");
+        logger = new JDILogger("JDI Logger");
         timeouts = new WebTimeoutSettings();
     }
 }

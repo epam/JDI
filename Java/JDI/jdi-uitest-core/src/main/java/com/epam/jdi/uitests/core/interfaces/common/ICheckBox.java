@@ -24,7 +24,7 @@ import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 /**
  * Created by Roman_Iovlev on 7/6/2015.
  */
-public interface ICheckBox extends IClickable, ISetValue {
+public interface ICheckBox extends IClickable, IText, ISetValue {
     /**
      * Set checkbox checked
      */

@@ -18,32 +18,40 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
  */
 
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
+
+import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 
 /**
  * Created by 12345 on 07.11.2014.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
+@Repeatable(JFindBys.class)
 public @interface JFindBy {
-    String id() default "";
-
-    String name() default "";
-
-    String className() default "";
-
+    // Selenium
     String css() default "";
-
     String tagName() default "";
-
     String linkText() default "";
-
     String partialLinkText() default "";
-
     String xpath() default "";
 
-    String group();
+    // Text
+    String text() default "";
+
+    //Attributes
+    JAttribute attribute() default @JAttribute(name = "", value = "");
+    String id() default "";
+    String name() default "";
+    String className() default "";
+    String value() default "";
+    String title() default "";
+
+    // Angular
+    String model() default "";
+    String binding() default "";
+    String repeat() default "";
+
+    // Group
+    String group() default APP_VERSION;
 }

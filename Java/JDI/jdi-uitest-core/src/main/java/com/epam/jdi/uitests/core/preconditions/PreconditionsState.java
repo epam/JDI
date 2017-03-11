@@ -36,13 +36,11 @@ public final class PreconditionsState {
 
     public static void isInState(IPreconditions condition, Method method) {
         try {
-            out.println(format("=== Start precondition. Thread id : %s", currentThread().getId()));
             logger.info("Move to condition: " + condition);
             if (method != null) testName = method.getName();
             if (!alwaysMoveToCondition && condition.checkAction())
                 return;
             condition.moveToAction();
-            out.println(format("=== Move to done precondition. Thread id : %s", currentThread().getId()));
             asserter.isTrue(condition::checkAction);
             logger.info(condition + " condition achieved");
         } catch (Exception ex) {
@@ -56,12 +54,10 @@ public final class PreconditionsState {
 
     public static void moveToState(IPreconditions condition, Method method) {
         try {
-            out.println(format("=== Start precondition. Thread id : %s", currentThread().getId()));
-            logger.info("Move to condition: " + condition);
-            if (method != null) testName = method.getName();
-            condition.moveToAction();
-            out.println(format("=== Move to done precondition. Thread id : %s", currentThread().getId()));
-            logger.info(condition + " condition achieved");
+            boolean temp = alwaysMoveToCondition;
+            alwaysMoveToCondition = true;
+            isInState(condition, method);
+            alwaysMoveToCondition = temp;
         } catch (Exception ex) {
             throw asserter.exception(format("Can't reach state: %s. Reason: %s", condition, ex.getMessage()));
         }

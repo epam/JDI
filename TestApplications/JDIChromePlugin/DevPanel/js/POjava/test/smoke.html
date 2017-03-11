@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jsonGenerator smoke test 1</title>
+    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.20.0.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//code.jquery.com/qunit/qunit-1.20.0.js"></script>
+    <script src="../../../libs/string.format-1.0.packed.js"></script>
+    <script src="../../dictionary/jdiObject.js"></script>
+    <script src="../helper.js"></script>
+    <script src="../toJava.js"></script>
+    <script src="smoke.js"></script>
+</head>
+<body>
+<div id="testData" style="display: block">
+    <!--test 1-->
+    <div>
+        <h3>page with 3 elements</h3>
+        <main>
+            <pre>
+            {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "section": "myClass",
+                "elements": [
+                    {
+                        "type": "ITextField",
+                        "name": "t1",
+                        "locator": "[jdi-name=t1]"
+                    },
+                    {
+                        "type": "ITextField",
+                        "name": "t2",
+                        "locator": "[jdi-name=t2]"
+                    },
+                        {
+                        "type": "IButton",
+                        "name": "b1",
+                        "locator": "[jdi-name=b1]"
+                    }
+                ],
+            "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 2-->
+    <div>
+        <h3>form</h3>
+        <main id="form">
+            <pre>
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "section": "myClass",
+                "elements": [
+                    {
+                        "type": "Form",
+                        "name": "formName",
+                        "gen": "form3Content",
+                        "locator": "[jdi-name=form3]",
+                        "section": "formClassName",
+                        "elements": [
+                            {
+                                "type": "ITextField",
+                                "name": "t3_form",
+                                "locator": "[jdi-name=t3_form]"
+                            },
+                            {
+                                "type": "ITextArea",
+                                "name": "t3_form",
+                                "locator": "[jdi-name=t3_form]"
+                            },
+                            {
+                                "type": "IButton",
+                                "name": "b3_form",
+                                "locator": "[jdi-name=b3_form]"
+                            }
+                        ]
+                    }
+                ],
+                "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 3-->
+    <div>
+        <h3>pagination own</h3>
+        <main>
+            <pre>
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "section": "myClass",
+                "elements": [
+                    {
+                        "type": "IPagination",
+                        "name": "pagination1FieldName",
+                        "locator": "[jdi-name=pagination1]",
+                        "own":"true",
+                        "section": "paginationClassName",
+                        "elements": [
+                            {
+                                "type": "IElement",
+                                "name": "prev",
+                                "locator": "[jdi-name=prev]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "first",
+                                "locator": "[jdi-name=first]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "last",
+                                "locator": "[jdi-name=last]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "next",
+                                "locator": "[jdi-name=next]"
+                            }
+                        ]
+                    }
+                ],
+                "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 4-->
+    <div>
+        <h3>mega test 4</h3>
+        <main id="section">
+            <pre>
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "elements": [
+                    {
+                        "type": "Section",
+                        "name": "section1",
+                        "gen": "section",
+                        "locator": "[jdi-name=section1]",
+                        "section": "sectionClassName",
+                        "elements": [
+                            {
+                                "type": "ITextField",
+                                "name": "t1",
+                                "locator": "[jdi-name=t1]"
+                            },
+                            {
+                                "type": "ITextField",
+                                "name": "t2",
+                                "locator": "[jdi-name=t2]"
+                            },
+                            {
+                                "type": "IButton",
+                                "name": "b1",
+                                "locator": "[jdi-name=b1]"
+                            },
+                            {
+                                "type": "Form",
+                                "name": "form1",
+                                "gen": "form1Content",
+                                "locator": "[jdi-name=form1]",
+                                "section": "Form1ClassName",
+                                "elements": [
+                                    {
+                                        "type": "ITextField",
+                                        "name": "t1_form",
+                                        "locator": "[jdi-name=t1_form]"
+                                    },
+                                    {
+                                        "type": "ITextArea",
+                                        "name": "t1_form",
+                                        "locator": "[jdi-name=t1_form]"
+                                    },
+                                    {
+                                        "type": "IButton",
+                                        "name": "b1_form",
+                                        "locator": "[jdi-name=b1_form]"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "title": "title"
+            }
+            </pre>
+        </main>
+        <pre id="res">
+
+        </pre>
+    </div>
+    <!--test 5-->
+    <div>
+        <h3>page with 3 table</h3>
+        <main>
+            <pre>
+            {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "section": "myClassName",
+                "elements": [
+                    {
+                        "type": "ITextField",
+                        "name": "t1",
+                        "locator": "[jdi-name=t1]"
+                    },
+                    {
+                        "type": "ITextField",
+                        "name": "t2",
+                        "locator": "[jdi-name=t2]"
+                    },
+                    {
+                        "type": "IButton",
+                        "name": "b1",
+                        "locator": "[jdi-name=b1]"
+                    },
+                    {
+                        "type": "ITable",
+                        "name": "t1",
+                        "locator": "[jdi-name=t1]"
+                    }
+                ],
+            "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 6-->
+    <div>
+        <h3>all available elements on one page</h3>
+        <main>
+            <pre>
+            {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "section": "myClassName",
+                "elements": [
+                    {
+                        "type": "ITextField",
+                        "name": "t1",
+                        "locator": "[jdi-name=t1]"
+                    },
+                    {
+                        "type": "ITextField",
+                        "name": "t2",
+                        "locator": "[jdi-name=t2]"
+                    },
+                    {
+                        "type": "IButton",
+                        "name": "b1",
+                        "locator": "[jdi-name=b1]"
+                    },
+                    {
+                        "type": "ITable",
+                        "name": "t1",
+                        "locator": "[jdi-name=t1]"
+                    },
+                    {
+                        "type": "IRange",
+                        "name": "range",
+                        "locator": "[jdi-name=range]"
+                    }
+                ],
+            "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 7-->
+    <div>
+        <h3>pagination</h3>
+        <main>
+            <pre>
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "section": "myClassName",
+                "elements": [
+                    {
+                        "type": "IPagination",
+                        "name": "pagination1",
+                        "locator": "[jdi-name=pagination1]",
+                        "own":"false",
+                        "section": "paginationClassName",
+                        "elements": [
+                            {
+                                "type": "IElement",
+                                "name": "prev",
+                                "locator": "[jdi-name=prev]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "first",
+                                "locator": "[jdi-name=first]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "last",
+                                "locator": "[jdi-name=last]"
+                            },
+                            {
+                                "type": "IElement",
+                                "name": "next",
+                                "locator": "[jdi-name=next]"
+                            }
+                        ]
+                    }
+                ],
+                "title": "title"
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 8-->
+    <div>
+        <h3>names</h3>
+        <main>
+            <pre>
+            {
+                "type":"Form",
+                "name":"form1",
+                "locator":"[jdi-name=pagination1]",
+                "section":"Pagination1Class",
+                "gen":"jjj",
+                "elements":[
+                    {
+                        "type":"IElement",
+                        "name":"prev",
+                        "locator":"[jdi-name=prev]",
+                        "section":"Prev"
+                    },
+                    {
+                        "type":"IElement",
+                        "name":"first",
+                        "locator":"[jdi-name=first]",
+                        "section":"First"
+                    },
+                    {
+                        "type":"IElement",
+                        "name":"last",
+                        "locator":"[jdi-name=last]",
+                        "section":"Last"
+                    },
+                    {
+                        "type":"IElement",
+                        "name":"next",
+                        "locator":"[jdi-name=next]",
+                        "section":"Next"
+                    }
+                ]
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+    <!--test 9-->
+    <div>
+        <h3>search</h3>
+        <main>
+            <pre>
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "title": "title",
+                "section": "section",
+                "elements": [
+                    {
+                        "type": "Form",
+                        "name": "form",
+                        "gen": "formContent",
+                        "locator": "[jdi-name=form]",
+                        "section": "Form",
+                        "elements": [
+                            {
+                                "type": "ISearch",
+                                "name": "search_f1",
+                                "locator": "[jdi-name=search_f1]",
+                                "section": "Search_f1",
+                                "elements": [
+                                    {
+                                        "type": "ITextField",
+                                        "name": "search_input",
+                                        "locator": "[jdi-name=search_input]",
+                                        "section": "Search_input"
+                                    },
+                                    {
+                                        "type": "IButton",
+                                        "name": "search_button",
+                                        "locator": "[jdi-name=search_button]",
+                                        "section": "Search_button"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+            </pre>
+        </main>
+        <pre>
+
+        </pre>
+    </div>
+</div>
+<div>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+</div>
+</body>
+</html>

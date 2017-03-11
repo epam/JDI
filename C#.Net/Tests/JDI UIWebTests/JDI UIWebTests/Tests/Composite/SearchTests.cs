@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_UIWebTests.UIObjects.TestSite;
-using JDI_Web.Selenium.Elements.Composite;
-using static JDI_Web.Settings.WebSettings;
 
 namespace JDI_UIWebTests.Tests.Composite
 {

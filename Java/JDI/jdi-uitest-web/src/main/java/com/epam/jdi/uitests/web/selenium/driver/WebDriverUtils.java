@@ -32,8 +32,23 @@ import static com.epam.commons.TryCatchUtil.tryGetResult;
  */
 public final class WebDriverUtils {
     private WebDriverUtils() { }
+    private static final String KILL = "taskkill /F /IM ";
     public static void killAllRunWebDrivers() {
         try {
+     /*       String line;
+            List<String> list = new ArrayList<>();
+            Process p = Runtime.getRuntime().exec
+                    (System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+            BufferedReader input =
+                    new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((line = input.readLine()) != null) {
+                list.add(line);
+            }
+            String s =first(where(list, el -> el.contains("firefox") && el.contains("-foreground")
+                    || el.contains("chromedriver")
+                    || el.contains("IEDriverServer")));
+            //for ( String serviceName : list)
+             //   Runtime.getRuntime().exec(KILL + serviceName);*/
             String pid = getPid();
             while (pid != null) {
                 killPID(pid);

@@ -2,8 +2,8 @@
 
 ||C#.Net|Java|
 |---|---|---|
-|CI|[![Windows Build status](https://ci.appveyor.com/api/projects/status/0tqpq0g45urdhg2m/branch/master?svg=true)](https://ci.appveyor.com/project/elv1s42/jdi-yqifx/branch/master)|[![Build Status](https://travis-ci.org/epam/JDI.svg?branch=master)](https://travis-ci.org/epam/JDI)|
-|Package|[![NuGet Version](https://img.shields.io/nuget/v/JDI.UICore.svg)](https://www.nuget.org/packages/JDI.UICore)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons)|
+|CI|[![Build status](https://ci.appveyor.com/api/projects/status/98p7dbaiggwp7ilh?svg=true)](https://ci.appveyor.com/project/elv1s42/jdi-m0fd6)|[![Build Status](https://travis-ci.org/epam/JDI.svg?branch=master)](https://travis-ci.org/epam/JDI)|
+|Package|[![NuGet Version](https://img.shields.io/nuget/v/JDI.UICore.svg)](https://www.nuget.org/packages/JDI.UICore)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-uitest-web)|
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
@@ -12,7 +12,7 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
-##First step: just download this [simplest Java example](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+##First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
 1. Click Link. Unpack zip
 2. Open project (Double click on pom.xml (if it is not setup to open with Idea by default setup this))
 3. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
@@ -224,20 +224,20 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.33</version>
+    <version>1.0.39</version>
 </dependency>
 ```
 ####Gradle
 ```xml
 dependencies {
-  testCompile 'com.epam.jdi:jdi-uitest-web:1.0.33'
+  testCompile 'com.epam.jdi:jdi-uitest-web:1.0.39'
 }
 ```
 ####IVY
 ```xml
 <ivy-module>
   <dependencies>
-    <dependency org="com.epam.jdi" name="jdi-uitest-web" rev="1.0.33"/>
+    <dependency org="com.epam.jdi" name="jdi-uitest-web" rev="1.0.39"/>
   </dependencies>
 </ivy-module>
 ```
@@ -246,7 +246,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.33</version>
+    <version>1.0.39</version>
 </dependency>
 ```
 ####Desktop(Maven):
@@ -254,7 +254,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.33</version>
+    <version>1.0.39</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
@@ -288,6 +288,7 @@ Add Nuget package "JDI.UIWeb" to your solution
 ##Links
 
 Site: http://jdi.epam.com/
+
 VK: https://vk.com/jdi_framework
 
 You can ask your questions on StackOverflow with [![htmlelements](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework) tag.

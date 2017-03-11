@@ -141,8 +141,8 @@ namespace JDI_Web.Selenium.Elements.Complex
             return Element.Wait(resultFunc, condition, timeoutSec);
         }
 
-        public Action<Dropdown<TEnum>> ClickAction => d => Element.Click();
-        public Func<Dropdown<TEnum>, string> GetTextAction = d => d.Element.GetText;
+        public virtual Action<Dropdown<TEnum>> ClickAction { get; set; } = d => d.Element.Click();
+        public virtual Func<Dropdown<TEnum>, string> GetTextAction { get; set; } = d => d.Element.GetText;
 
         public void Expand()
         {

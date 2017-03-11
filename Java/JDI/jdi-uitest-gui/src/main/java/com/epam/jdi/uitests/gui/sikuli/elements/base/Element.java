@@ -1,8 +1,10 @@
 package com.epam.jdi.uitests.gui.sikuli.elements.base;
 
+import com.epam.commons.LinqUtils;
 import com.epam.commons.TryCatchUtil;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.gui.sikuli.elements.BaseElement;
 import org.sikuli.script.Pattern;
@@ -10,8 +12,14 @@ import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
 
 import java.awt.*;
+import java.lang.reflect.Field;
 
+import static com.epam.commons.LinqUtils.foreach;
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**
@@ -34,6 +42,39 @@ public class Element extends BaseElement implements IElement {
     public Element getElement() {
         return invoker.doJActionResult("Get gui element",
                 () -> this != null ? this : avatar.getElement(), DEBUG);
+    }
+
+    public static <T> Class<T> checkEntityIsNotNull(Class<T> entityClass) {
+        if (entityClass == null)
+            throw new IllegalArgumentException("Entity type was not specified");
+        return entityClass;
+    }
+
+    public static <T> T newEntity(Class<T> entityClass) {
+        try {
+            return entityClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw exception("Can't instantiate %s. You must have empty constructor to do this",
+                    entityClass.getSimpleName());
+        }
+    }
+
+    public static <T> T extractEntity(Class<T> entityClass, BaseElement el) {
+        try {
+            T data = newEntity(entityClass);
+            foreach(getFields(el, IHasValue.class), item -> {
+                Field field = LinqUtils.first(getFields(data, String.class), f ->
+                        namesEqual(f.getName(), item.getName()));
+                if (field == null)
+                    return;
+                try {
+                    field.set(data, ((IHasValue) getValueField(item, el)).getValue());
+                } catch (Exception ignore) { }
+            });
+            return data;
+        } catch (Exception ex) {
+            throw exception("Can't get entity from Form" + el.getName() + " for class: " + entityClass.getClass());
+        }
     }
 
     public void rightClick() {

@@ -18,11 +18,13 @@ package com.epam.jdi.uitests.web.settings;
  */
 
 
+import com.codeborne.selenide.SelenideElement;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.*;
 import com.epam.jdi.uitests.core.interfaces.complex.*;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.TestNGCheck;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
@@ -30,13 +32,12 @@ import com.epam.jdi.uitests.web.selenium.driver.ScreenshotMaker;
 import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.jdi.uitests.web.selenium.elements.common.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.*;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGLogger;
 import com.epam.web.matcher.base.BaseMatcher;
-import com.epam.web.matcher.testng.Assert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -44,11 +45,14 @@ import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.*;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
+import static com.epam.web.matcher.base.BaseMatcher.*;
+import static com.epam.web.matcher.testng.Assert.*;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
@@ -86,13 +90,13 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void init() throws IOException {
         driverFactory = new SeleniumDriverFactory();
-        asserter = new TestNGCheck();
-        BaseMatcher.screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
+        logger = new TestNGLogger("JDI Logger");
+        asserter = new TestNGCheck().setUpLogger(logger);
+        screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
         asserter.doScreenshot("screen_on_fail");
-        Assert.setMatcher((BaseMatcher) asserter);
+        setMatcher((BaseMatcher) asserter);
         timeouts = new WebTimeoutSettings();
         getProperties(jdiSettingsPath);
-        logger = new TestNGLogger("JDI Logger");
         MapInterfaceToElement.init(defaultInterfacesMap);
     }
 
@@ -106,20 +110,19 @@ public class WebSettings extends JDISettings {
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
         fillAction(p -> {
-            if (p.equals("soft")) {
+            p = p.toLowerCase();
+            if (p.equals("soft"))
                 p = "any, multiple";
-            }
-            if (p.equals("strict")) {
+            if (p.equals("strict"))
                 p = "visible, single";
-            }
             if (p.split(",").length == 2) {
                 List<String> params = asList(p.split(","));
                 if (params.contains("visible") || params.contains("displayed"))
                     elementSearchCriteria = WebElement::isDisplayed;
+                if (params.contains("any") || params.contains("all"))
+                    elementSearchCriteria = Objects::nonNull;
                 if (params.contains("single"))
                     onlyOneElementAllowedInSearch = true;
-                if (params.contains("any") || params.contains("all"))
-                    elementSearchCriteria = el -> el != null;
                 if (params.contains("multiple"))
                     onlyOneElementAllowedInSearch = false;
             }
@@ -128,21 +131,18 @@ public class WebSettings extends JDISettings {
             String[] split = null;
             if (p.split(",").length == 2)
                 split = p.split(",");
-            if (p.split("x").length == 2)
-                split = p.split("x");
-            if (p.split("X").length == 2)
-                split = p.split("X");
+            if (p.toLowerCase().split("x").length == 2)
+                split = p.toLowerCase().split("x");
             if (split != null)
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
-        String isMultithread = getProperty("multithread");
-        logger = isMultithread != null && (isMultithread.equals("true") || isMultithread.equals("1"))
-            ? new TestNGLogger("JDI Logger", s -> String.format("[ThreadId: %s] %s", Thread.currentThread().getId(), s))
-            : new TestNGLogger("JDI Logger");
+        fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
             {IElement.class, Element.class},
+            {SelenideElement.class, J.class},
+            {WebElement.class, J.class},
             {IButton.class, Button.class},
             {IClickable.class, Clickable.class},
             {IComboBox.class, ComboBox.class},

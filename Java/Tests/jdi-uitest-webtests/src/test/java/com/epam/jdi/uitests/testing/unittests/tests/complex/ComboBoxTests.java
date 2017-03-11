@@ -81,7 +81,6 @@ public class ComboBoxTests extends InitTests {
         checkAction("Metals: value changed to Blue");
     }
 
-    // Fails
     @Test
     public void getSelectedTest() {
         metals().select("Gold");

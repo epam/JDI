@@ -22,15 +22,15 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
     @JDropdown(
-        root = @FindBy(className = "country-selection"),
-        value = @FindBy(css = ".country-wrapper .arrow"),
-        elementByName = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
+        root = @FindBy(className = "country-wrapper"),
+        value = @FindBy(className = "arrow"),
+        list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
     IDropDown country;
 
     @JDropdown(
-            root = @FindBy(className = "city-selection"),
-            expand = @FindBy(css = ".city-wrapper .arrow"),
-            list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+        root = @FindBy(className = "city-wrapper"),
+        expand = @FindBy(className = "arrow"),
+        list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
     )
     IDropDown city;
 
@@ -43,6 +43,5 @@ public class AddCVForm extends Form<Attendee> {
     IButton submit;
     @FindBy(xpath = "//*[.='Cancel']")
     IButton cancel;
-
 
 }

@@ -23,6 +23,9 @@ package com.epam.commons;
 public final class StringUtils {
     public static final String LINE_BREAK = System.getProperty("line.separator");
 
+    public static boolean namesEqual(String name1, String name2) {
+        return name1.toLowerCase().replace(" ", "").equals(name2.toLowerCase().replace(" ", ""));
+    }
     private StringUtils() {
     }
 

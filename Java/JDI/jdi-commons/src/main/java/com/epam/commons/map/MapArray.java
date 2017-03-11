@@ -75,6 +75,11 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         for (int i = 0; i < count; i++)
             add(key.apply(i), value.apply(i));
     }
+    public MapArray(int count, Function<Integer, Pair<K, V>> pairFunc) {
+        this();
+        for (int i = 0; i < count; i++)
+            add(pairFunc.apply(i));
+    }
 
     public MapArray(MapArray<K, V> mapArray) {
         this();
@@ -84,6 +89,14 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     public MapArray(Object[][] objects) {
         this();
         add(objects);
+    }
+    public MapArray(List<K> keys, List<V> values) {
+        this();
+        if (keys == null || values == null ||
+            keys.size() == 0 || keys.size() != values.size())
+            throw new RuntimeException("keys and values count not equal");
+        for (int i = 0; i < keys.size(); i++)
+            add(keys.get(i), values.get(i));
     }
 
     public static <T> MapArray<Integer, T> toMapArray(Collection<T> collection) {
@@ -119,6 +132,20 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         MapArray<K, VResult> result = new MapArray<>();
         for (Pair<K, V> pair : pairs)
             result.add(pair.key, value.apply(pair.value));
+        return result;
+    }
+
+    public Map<K, V> toMap() {
+        return toMap(v -> v);
+    }
+    public <VResult> Map<K, VResult> toMap(Function<V, VResult> value) {
+        return toMap((k, v) -> k, (k,v) -> value.apply(v));
+    }
+    public <KResult, VResult> Map<KResult, VResult> toMap(
+            BiFunction<K, V, KResult> key, BiFunction<K, V, VResult> value) {
+        Map<KResult, VResult> result = new HashMap<>();
+        for (Pair<K, V> pair : pairs)
+            result.put(key.apply(pair.key, pair.value), value.apply(pair.key, pair.value));
         return result;
     }
 
@@ -178,14 +205,6 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         return true;
     }
 
-    /*
-        public V get(Object oKey) {
-            K key = null;
-            try {
-                key = (K)oKey;
-            } catch (Exception ex) { throwRuntimeException(new Exception("Can't do get in MapArray. Key have wrong type")); }
-            return get(key);
-        }*/
     public V get(K key) {
         Pair<K, V> first = null;
         try {

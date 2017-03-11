@@ -11,6 +11,7 @@ import com.epam.jdi.uitests.gui.sikuli.elements.enums.ContextType;
 import com.epam.jdi.uitests.gui.sikuli.elements.enums.OffsetUnits;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.util.List;
@@ -100,6 +101,12 @@ public class GetElementModule implements IAvatar {
     public Rectangle getRectangle() { return rectangle; }
 
     public void setDriverName(String driverName) { this.driverName = driverName; }
+
+    @Override
+    public IAvatar copy() {
+        throw new NotImplementedException();
+    }
+
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
     }
@@ -111,6 +118,6 @@ public class GetElementModule implements IAvatar {
 
 
     public Timer timer() {
-        return new Timer(timeouts.currentTimeoutSec * 1000);
+        return new Timer(timeouts.getCurrentTimeoutSec() * 1000);
     }
 }

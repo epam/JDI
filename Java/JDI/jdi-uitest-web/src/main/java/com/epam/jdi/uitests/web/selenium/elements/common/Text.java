@@ -39,13 +39,14 @@ public class Text extends Element implements IText {
     }
 
     protected String getTextAction() {
-        String getText = getWebElement().getText();
-        if (!getText.equals(""))
-            return getText;
-        String getValue = getWebElement().getAttribute("value");
-        return getValue != null
-                ? getValue
-                : getText;
+        WebElement element = getWebElement();
+        String getValue = element.getAttribute("value");
+        if (getValue != null && !getValue.equals(""))
+            return getValue;
+        String getText = element.getText();
+        return getText != null
+                ? getText
+                : getValue;
     }
 
     protected String getValueAction() {

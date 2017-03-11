@@ -20,67 +20,88 @@ package com.epam.jdi.uitests.mobile.appium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
-import com.epam.jdi.uitests.mobile.appium.elements.composite.AppPage;
+import com.epam.jdi.uitests.mobile.appium.elements.complex.Dropdown;
+import com.epam.jdi.uitests.mobile.appium.elements.complex.Elements;
+import com.epam.jdi.uitests.mobile.appium.elements.complex.Menu;
+import com.epam.jdi.uitests.mobile.appium.elements.complex.table.Table;
 import com.epam.jdi.uitests.mobile.appium.elements.composite.Section;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.Frame;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.JFindBy;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.JPage;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.*;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.*;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
-import static com.epam.commons.ReflectionUtils.isClass;
+import static com.epam.commons.ReflectionUtils.isInterface;
+import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.*;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpDropdown;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpMenu;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpTable;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public class AppiumCascadeInit extends CascadeInit {
-
-    protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, AppPage.class, Section.class, Element.class}; }
+    protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, Section.class, Element.class}; }
 
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
-        if (isClass(parentType, AppPage.class) && parentType.isAnnotationPresent(JPage.class))
-            fillPageFromAnnotaiton((AppPage) instance, parentType.getAnnotation(JPage.class), null);
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
         BaseElement element = (BaseElement) instance;
-        if (element.getLocator() == null)
-            element.avatar.byLocator = getNewLocator(field);
+        if (!element.hasLocator())
+            element.setAvatar(new GetElementModule(getNewLocator(field), element));
+        return element;
+    }
+    @Override
+    protected IBaseElement fillFromJDIAnnotation(IBaseElement instance, Field field) {
+        BaseElement element = (BaseElement) instance;
+        fillFromAnnotation(element, field);
         return element;
     }
     @Override
     protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent, Class<?> type) {
         BaseElement element = (BaseElement) instance;
-        if (parent == null || type != null) {
-            By frameBy = getFrame(field.getDeclaredAnnotation(Frame.class));
-            if (frameBy != null)
-                element.avatar.frameLocator =  frameBy;
-        }
+        if (parent != null && type == null)
+            return element;
+        By frameBy = getFrame(field.getDeclaredAnnotation(Frame.class));
+        if (frameBy != null)
+            element.avatar.frameLocator =  frameBy;
         return element;
     }
     protected IBaseElement getElementsRules(Field field, String driverName, Class<?> type, String fieldName) throws IllegalAccessException, InstantiationException {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
-        /*if (isInterface(type, List.class)) {
+        if (isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
             if (elementClass.isInterface())
-                elementClass = com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface(type);
+                elementClass = getClassFromInterface(type);
             if (elementClass != null)
                 instance = new Elements(newLocator, elementClass);
-        } else {*/
+        } else {
             if (type.isInterface())
-                type = com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface(type);
+                type = getClassFromInterface(type);
             if (type != null) {
                 instance = (BaseElement) type.newInstance();
-                instance.avatar.byLocator = newLocator;
+                if (instance.getAvatar() != null && newLocator == null)
+                    instance.setAvatar(new GetElementModule(instance));
+                else
+                    instance.setAvatar(new GetElementModule(newLocator, instance));
             }
-        /*}*/
+        }
         if (instance == null)
             throw exception("Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
                     type, fieldName);
@@ -91,14 +112,39 @@ public class AppiumCascadeInit extends CascadeInit {
     protected By getNewLocatorFromField(Field field) {
         By byLocator = null;
         String locatorGroup = APP_VERSION;
-        if (locatorGroup != null) {
-            JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-            if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
-                byLocator = findByToBy(jFindBy);
-        }
+        if (locatorGroup == null)
+            return findByToBy(field.getAnnotation(FindBy.class));
+        JFindBy jFindBy = field.getAnnotation(JFindBy.class);
+        if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
+            byLocator = AppiumAnnotationsUtil.getFindByLocator(jFindBy);
         return byLocator != null
                 ? byLocator
                 : findByToBy(field.getAnnotation(FindBy.class));
+    }
+
+    private static void fillFromAnnotation(BaseElement instance, Field field) {
+        setUpTableFromAnnotation(instance, field);
+        setUpMenuFromAnnotation(instance, field);
+        setUpDropdownFromAnnotation(instance, field);
+    }
+
+    private static void setUpTableFromAnnotation(BaseElement instance, Field field) {
+        JTable jTable = field.getAnnotation(JTable.class);
+        if (jTable == null || !isInterface(field, ITable.class))
+            return;
+        setUpTable((Table) instance, jTable);
+    }
+    private static void setUpDropdownFromAnnotation(BaseElement instance, Field field) {
+        JDropdown jDropdown = field.getAnnotation(JDropdown.class);
+        if (jDropdown == null || !isInterface(field, IDropDown.class))
+            return;
+        setUpDropdown((Dropdown) instance, jDropdown);
+    }
+    private static void setUpMenuFromAnnotation(BaseElement instance, Field field) {
+        JMenu jMenu = field.getAnnotation(JMenu.class);
+        if (jMenu == null || !isInterface(field, IMenu.class))
+            return;
+        setUpMenu((Menu) instance, jMenu);
     }
 
 }

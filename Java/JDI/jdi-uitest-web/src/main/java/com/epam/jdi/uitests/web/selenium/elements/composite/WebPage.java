@@ -21,7 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 
@@ -98,7 +99,8 @@ public class WebPage extends BaseElement implements IPage {
      * Check that page opened
      */
     public void checkOpened() {
-        asserter.isTrue(verifyOpened());
+        asserter.isTrue(verifyOpened(),
+                format("Page '%s' is not opened", toString()));
     }
     public boolean verifyOpened() {
         boolean result = false;
@@ -139,6 +141,7 @@ public class WebPage extends BaseElement implements IPage {
             logger.info(format("Page '%s' should be opened", getName()));
             if (verifyOpened()) return;
             open();
+            checkOpened();
         } catch (Exception ex) {
             throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
         }
@@ -199,6 +202,11 @@ public class WebPage extends BaseElement implements IPage {
                 () -> getDriver().manage().deleteAllCookies());
     }
 
+    @Override
+    public String toString() {
+        return getName() + "(" + url + ")";
+    }
+
     public class StringCheckType {
         private Supplier<String> actual;
         private String equals;
@@ -222,7 +230,7 @@ public class WebPage extends BaseElement implements IPage {
             logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
                 || equals.equals("")
-                || timer.wait(() -> actual.get().equals(equals));
+                || actual.get().equals(equals);
         }
 
         /**

@@ -1,7 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.dataproviders;
 
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.enums.RowNumbers;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import org.testng.annotations.DataProvider;
 
 import static com.epam.jdi.uitests.testing.unittests.enums.ColumnHeaders.*;
@@ -17,7 +17,7 @@ public class DynamicTableDP {
     @DataProvider(name = "changeColumnSet")
     public static Object[][] changeColumnSet() {
         return new Object[][]{
-                {new TableProvider("Add column Table with additional column ", dynamicTablePage.dynamicTable, Table::hasAllHeaders,
+                {new TableProvider("Add column Table with additional column ", dynamicTablePage.dynamicTable, ITable::hasAllHeaders,
                         dynamicTablePage -> dynamicTablePage.addColumn(col3), dynamicTablePage),
                         "3/8", "Column 1, Column 2, Column 3",
                         "Microsoft Technologies, Mobile, UXD, Version Control Systems, JavaScript Components and Frameworks, Software Construction, Life Sciences, Content management",
@@ -32,7 +32,7 @@ public class DynamicTableDP {
                                 "||Content management||Select\nSee More\nDrupal|Select\nSee More\nAdobe Day CRX|Select\nSee More\nSharepoint||",
                         "1 column, 2 column, 3 column, 4 column"},
 
-                {new TableProvider("deleteFirstColumn", dynamicTablePage.dynamicTable, Table::hasAllHeaders,
+                {new TableProvider("deleteFirstColumn", dynamicTablePage.dynamicTable, ITable::hasAllHeaders,
                         dynamicTablePage -> dynamicTablePage.deleteColumn(col1), dynamicTablePage),
                         "1/8", "Column 2",
                         "Microsoft Technologies, Mobile, UXD, Version Control Systems, JavaScript Components and Frameworks, Software Construction, Life Sciences, Content management",
@@ -46,7 +46,7 @@ public class DynamicTableDP {
                                 "||Life Sciences||Select\nSee More\nChemistry||\n" +
                                 "||Content management||Select\nSee More\nAdobe Day CRX||",
                         "1 column, 3 column"},
-                {new TableProvider("deleteLastColumn", dynamicTablePage.dynamicTable, Table::hasAllHeaders,
+                {new TableProvider("deleteLastColumn", dynamicTablePage.dynamicTable, ITable::hasAllHeaders,
                         dynamicTablePage -> dynamicTablePage.deleteColumn(col2), dynamicTablePage),
                         "1/8", "Column 1",
                         "Microsoft Technologies, Mobile, UXD, Version Control Systems, JavaScript Components and Frameworks, Software Construction, Life Sciences, Content management",

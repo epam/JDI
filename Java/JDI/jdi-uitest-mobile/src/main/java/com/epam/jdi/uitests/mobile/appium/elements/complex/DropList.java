@@ -51,11 +51,11 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     public DropList(By valueLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.button = new GetElementType(valueLocator);
+        this.button = new GetElementType(valueLocator, this);
     }
 
     protected Clickable button() {
-        return button.get(new Clickable(), getAvatar());
+        return button.get(Clickable.class);
     }
 
     protected void expandAction(String name) {
@@ -75,7 +75,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             super.selectListAction(names);
         } else
             for (String name : names)
-                new Select(getWebElement()).selectByVisibleText(name);
+                getSelector().selectByVisibleText(name);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             super.selectListAction(indexes);
         } else
             for (int index : indexes)
-                new Select(getWebElement()).selectByIndex(index);
+                getSelector().selectByIndex(index);
     }
 
     @Override

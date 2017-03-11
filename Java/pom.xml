@@ -6,7 +6,7 @@
 
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-framework</artifactId>
-    <version>1.0.32</version>
+    <version>1.0.58</version>
     <packaging>pom</packaging>
     <name>EPAM UI Test Framework</name>
     <description>Automation UI testing for web mobile and desktop</description>
@@ -62,6 +62,7 @@
         <module>Tests/jdi-uitest-guitests</module>
         <module>Tests/jdi-uitest-cucumbertests</module>
         <module>Tests/jdi-httpTests</module>
+        <module>Tests/jdi-uitest-web-examples</module>
     </modules>
 
     <!--<dependencies>

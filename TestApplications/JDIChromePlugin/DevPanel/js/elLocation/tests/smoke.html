@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jsonGenerator smoke test 1</title>
+    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.20.0.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//code.jquery.com/qunit/qunit-1.20.0.js"></script>
+    <script src="../../../libs/string.format-1.0.packed.js"></script>
+    <script src="../../dictionary/jdiObject.js"></script>
+    <script src="../jsonGenerator.js"></script>
+    <script src="../../POjava/helper.js"></script>
+    <script src="smoke.js"></script>
+    <style>
+        .left {
+            background-color: #b8faff;
+            border: 1px solid black;
+            width: 49%;
+            float: left;
+            height: 100%;
+        }
+
+        .right {
+            background-color: #ffddfc;
+            border: 1px solid black;
+            width: 49%;
+            float: right;
+            height: 100%;
+        }
+
+        .res {
+            display: block;
+            height: 1000px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="testData" style="display: block">
+    <!--test 1-->
+    <div>
+        <h3>page with 3 elements</h3>
+        <main>
+            <div>
+                <div>
+                    <label for="login">Name</label>
+                    <input jdi-type="ITextField" jdi-name="t1" id="login" type="text">
+                </div>
+                <div>
+                    <label for="password">Last Name</label>
+                    <input jdi-type="ITextField" jdi-name="t2" id="password" type="text">
+                </div>
+                <button jdi-type="IButton" jdi-name="b1" type="submit">Submit</button>
+            </div>
+        </main>
+        <div class="res">
+        <pre class="left">
+        {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "title": "title",
+            "section": "section",
+            "elements": [
+                {
+                    "type": "ITextField",
+                    "name": "t1",
+                    "locator": "[jdi-name=t1]",
+                    "section": "T1"
+                },
+                {
+                    "type": "ITextField",
+                    "name": "t2",
+                    "locator": "[jdi-name=t2]",
+                    "section": "T2"
+                },
+                {
+                    "type": "IButton",
+                    "name": "b1",
+                    "locator": "[jdi-name=b1]",
+                    "section": "B1"
+                }
+            ]
+        }
+        </pre>
+            <pre class="right">
+
+            </pre>
+        </div>
+    </div>
+    <!--test 2-->
+    <div>
+        <h3>form</h3>
+        <main>
+            <div>
+                <form jdi-type="Form" jdi-name="form3" jdi-gen="fomr3Content">
+                    <div>
+                        <input jdi-type="ITextField" jdi-parent="form3" jdi-name="t3_form" type="text">
+                        <input jdi-type="ITextArea" jdi-parent="form3" jdi-name="t3_form" type="text">
+
+                        <div>
+                            <button jdi-type="IButton" jdi-parent="form3" jdi-name="b3_form" type="submit">Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <div class="res">
+        <pre class="left">
+        {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "title": "title",
+            "section": "section",
+            "elements": [
+                {
+                    "type": "Form",
+                    "name": "form3",
+                    "gen": "fomr3Content",
+                    "locator": "[jdi-name=form3]",
+                    "section": "Form3",
+                    "elements": [
+                        {
+                            "type": "ITextField",
+                            "name": "t3_form",
+                            "locator": "[jdi-name=t3_form]",
+                            "section": "T3_form"
+                        },
+                        {
+                            "type": "ITextArea",
+                            "name": "t3_form",
+                            "locator": "[jdi-name=t3_form]",
+                            "section": "T3_form"
+                        },
+                        {
+                            "type": "IButton",
+                            "name": "b3_form",
+                            "locator": "[jdi-name=b3_form]",
+                            "section": "B3_form"
+                        }
+                    ]
+                }
+            ]
+        }
+        </pre>
+        <pre class="right">
+
+            </pre>
+        </div>
+    </div>
+    <!--test 3-->
+    <div>
+        <h3>pagination</h3>
+        <main>
+            <div>
+                <ul class="uui-pagination" jdi-type="IPagination" jdi-name="pagination1">
+                    <li class="prev" jdi-type="IElement" jdi-parent="pagination1" jdi-name="prev"><a href="#"><i
+                            class="fa fa-long-arrow-left"></i></a></li>
+                    <li class="first" jdi-type="IElement" jdi-parent="pagination1" jdi-name="first"><a
+                            href="#">First</a></li>
+                    <li class="last" jdi-type="IElement" jdi-parent="pagination1" jdi-name="last"><a href="#">Last</a>
+                    </li>
+                    <li class="next" jdi-type="IElement" jdi-parent="pagination1" jdi-name="next"><a href="#"><i
+                            class="fa fa-long-arrow-right"></i></a></li>
+                </ul>
+            </div>
+        </main>
+        <div class="res">
+        <pre class="left">
+        {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "title": "title",
+            "section": "section",
+            "elements": [
+                {
+                    "type": "IPagination",
+                    "name": "pagination1",
+                    "locator": "[jdi-name=pagination1]",
+                    "section": "Pagination1",
+                    "elements": [
+                        {
+                            "type": "IElement",
+                            "name": "prev",
+                            "locator": "[jdi-name=prev]",
+                            "section": "Prev"
+                        },
+                        {
+                            "type": "IElement",
+                            "name": "first",
+                            "locator": "[jdi-name=first]",
+                            "section": "First"
+                        },
+                        {
+                            "type": "IElement",
+                            "name": "last",
+                            "locator": "[jdi-name=last]",
+                            "section": "Last"
+                        },
+                        {
+                            "type": "IElement",
+                            "name": "next",
+                            "locator": "[jdi-name=next]",
+                            "section": "Next"
+                        }
+                    ]
+                }
+            ]
+        }
+        </pre>
+        <pre class="right">
+
+            </pre>
+        </div>
+    </div>
+    <!--test 4-->
+    <div>
+        <h3>Section</h3>
+        <main>
+            <section jdi-type="Section" jdi-name="section1" jdi-gen="section">
+                <div>
+                    <h3>page</h3>
+                    <div>
+                        <label for="login">Name</label>
+                        <input jdi-type="ITextField" jdi-name="t1" type="text" jdi-parent="section1">
+                    </div>
+                    <div>
+                        <label for="password">Last Name</label>
+                        <input jdi-type="ITextField" jdi-name="t2" type="text" jdi-parent="section1">
+                    </div>
+                    <button jdi-type="IButton" jdi-name="b1" type="submit" jdi-parent="section1">Submit</button>
+                </div>
+                <form jdi-type="Form" jdi-selected=true jdi-name="form1" jdi-gen="fomr1Content" jdi-parent="section1">
+                    <div>
+                        <input jdi-selected=true jdi-type="ITextField" jdi-parent="form1" jdi-name="t1_form"
+                               type="text">
+                        <input jdi-selected=true jdi-type="ITextArea" jdi-parent="form1" jdi-name="t1_form" type="text">
+
+                        <div>
+                            <button jdi-selected=true jdi-type="IButton" jdi-parent="form1" jdi-name="b1_form"
+                                    type="submit">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <div class="res">
+        <pre class="left">
+        {
+            "name": "name",
+            "url": "url",
+            "type": "IPage",
+            "packageName": "com.my.test",
+            "title": "title",
+            "section": "section",
+            "elements": [
+                {
+                    "type": "Section",
+                    "name": "section1",
+                    "gen": "section",
+                    "locator": "[jdi-name=section1]",
+                    "section": "Section1",
+                    "elements": [
+                        {
+                            "type": "ITextField",
+                            "name": "t1",
+                            "locator": "[jdi-name=t1]",
+                            "section": "T1"
+                        },
+                        {
+                            "type": "ITextField",
+                            "name": "t2",
+                            "locator": "[jdi-name=t2]",
+                            "section": "T2"
+                        },
+                        {
+                            "type": "IButton",
+                            "name": "b1",
+                            "locator": "[jdi-name=b1]",
+                            "section": "B1"
+                        },
+                        {
+                            "type": "Form",
+                            "name": "form1",
+                            "gen": "fomr1Content",
+                            "locator": "[jdi-name=form1]",
+                            "section": "Form1",
+                            "elements": [
+                                {
+                                    "type": "ITextField",
+                                    "name": "t1_form",
+                                    "locator": "[jdi-name=t1_form]",
+                                    "section": "T1_form"
+                                },
+                                {
+                                    "type": "ITextArea",
+                                    "name": "t1_form",
+                                    "locator": "[jdi-name=t1_form]",
+                                    "section": "T1_form"
+                                },
+                                {
+                                    "type": "IButton",
+                                    "name": "b1_form",
+                                    "locator": "[jdi-name=b1_form]",
+                                    "section": "B1_form"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        </pre>
+        <pre class="right">
+
+            </pre>
+    </div>
+    </div>
+    <!--test 5-->
+    <div>
+        <h3>Search</h3>
+        <main>
+            <form jdi-type="Form" jdi-name="form" jdi-gen="formContent">
+                <p>
+                <div jdi-type="ISearch" jdi-name="search_f1" jdi-parent="form">
+                    <input jdi-type="ITextField" jdi-parent="search_f1" jdi-name="search_input" type="search" name="q"
+                           placeholder="Поиск по сайту">
+                    <input jdi-type="IButton" jdi-parent="search_f1" jdi-name="search_button" type="submit"
+                           value="Найти">
+                </div>
+                </p>
+            </form>
+        </main>
+        <div class="res">
+            <pre class="left">
+            {
+                "name": "name",
+                "url": "url",
+                "type": "IPage",
+                "packageName": "com.my.test",
+                "title": "title",
+                "section": "section",
+                "elements": [
+                    {
+                        "type": "Form",
+                        "name": "form",
+                        "gen": "formContent",
+                        "locator": "[jdi-name=form]",
+                        "section": "Form",
+                        "elements": [
+                            {
+                                "type": "ISearch",
+                                "name": "search_f1",
+                                "locator": "[jdi-name=search_f1]",
+                                "section": "Search_f1",
+                                "elements": [
+                                    {
+                                        "type": "ITextField",
+                                        "name": "search_input",
+                                        "locator": "[jdi-name=search_input]",
+                                        "section": "Search_input"
+                                    },
+                                    {
+                                        "type": "IButton",
+                                        "name": "search_button",
+                                        "locator": "[jdi-name=search_button]",
+                                        "section": "Search_button"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+            </pre>
+            <pre class="right">
+
+            </pre>
+        </div>
+    </div>
+</div>
+<div>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+</div>
+</body>
+</html>

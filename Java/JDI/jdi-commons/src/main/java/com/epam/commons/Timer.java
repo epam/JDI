@@ -148,4 +148,9 @@ public class Timer {
         return null;
     }
 
+    private static int i = 1;
+    private static int getNum() { return i = i++;}
+    public static void logTime() {
+        System.out.println(i++ + ": " + Timer.nowTime());
+    }
 }

@@ -1,7 +1,9 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.testing.unittests.entities.SupportEntity;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.support.FindBy;
@@ -16,6 +18,8 @@ public class SupportPage extends WebPage {
     public ITable tableWithHeaders = new Table().hasAllHeaders();
     @FindBy(css = ".uui-table")
     public ITable tableWithoutHeaders = new Table().hasNoHeaders();
+    @FindBy(css = ".uui-table")
+    public EntityTable<SupportEntity, ?> entityTable = new EntityTable<>(SupportEntity.class);
     @JTable(
             root = @FindBy(css = "root locator"),
             header = {"header1", "header2"},

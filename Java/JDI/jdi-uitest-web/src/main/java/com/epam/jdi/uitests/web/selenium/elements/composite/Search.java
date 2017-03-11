@@ -20,10 +20,20 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
+import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 
 import java.lang.reflect.Field;
@@ -32,6 +42,8 @@ import java.util.List;
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 import static java.lang.String.format;
 
 /**
@@ -56,7 +68,7 @@ public class Search extends TextField implements ISearch {
     public Search(By byLocator, By selectLocator, By suggestionsListLocator) {
         super(byLocator);
         this.searchButton = new Button(selectLocator);
-        this.suggestions = new TextList(suggestionsListLocator);
+        this.suggestions = new TextList<>(suggestionsListLocator);
     }
 
     protected void findAction(String text) {
@@ -119,27 +131,27 @@ public class Search extends TextField implements ISearch {
                 () -> getSuggesionsAction(text));
     }
 
-    private TextList<Enum> getSuggestions() {
+    protected TextList<Enum> getSuggestions() {
         if (suggestions != null)
             return getSuggestionsList();
         throw exception("Suggestions list locator not specified for search. Use accordance constructor");
     }
 
-    private TextList<Enum> getSuggestionsList() {
+    protected TextList<Enum> getSuggestionsList() {
         suggestions.setParent(getParent());
         return suggestions;
     }
-    private TextField getTextField() {
+    protected TextField getTextField() {
         TextField textField = new TextField(getLocator());
         textField.setParent(getParent());
         return textField;
     }
-    private IButton getFindButton() {
+    protected IButton getFindButton() {
         searchButton.setParent(getParent());
         return searchButton;
     }
 
-    private ITextField getSearchField() {
+    protected ITextField getSearchField() {
         if (getLocator() != null)
             return getTextField();
         List<Field> fields = getFields(this, ITextField.class);
@@ -165,5 +177,25 @@ public class Search extends TextField implements ISearch {
             default:
                 throw exception("Form '%s' have more than 1 button. Use submit(entity, buttonName) for this case instead", toString());
         }
+    }
+
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JSearch.class, ISearch.class))
+            return;
+        ((Search) el).setUp(field.getAnnotation(JSearch.class));
+    }
+
+    public Search setUp(JSearch jSearch) {
+        By input = findByToBy(jSearch.input());
+        By searchButton = findByToBy(jSearch.searchButton());
+        By suggestions = findByToBy(jSearch.suggestions());
+
+        if (input != null)
+            avatar = new GetElementModule(input, this);
+        if (searchButton != null)
+            this.searchButton = new Button(searchButton);
+        if (suggestions != null)
+            this.suggestions = new TextList<>(suggestions);
+        return this;
     }
 }

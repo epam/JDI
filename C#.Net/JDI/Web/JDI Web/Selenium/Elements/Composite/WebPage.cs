@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Complex;
+using JDI_Commons;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
@@ -17,22 +17,28 @@ namespace JDI_Web.Selenium.Elements.Composite
     {
         public static bool CheckAfterOpen = false;
         private string _url;
-        public string Url {
+
+        public string Url
+        {
             get
             {
                 return _url == null || _url.Contains("://") || !WebSettings.HasDomain
-                        ? _url
-                        : GetUrlFromUri(_url); 
+                    ? _url
+                    : GetUrlFromUri(_url);
             }
-            set { _url = value;  }
+            set { _url = value; }
         }
+
         public string Title;
         protected CheckPageTypes CheckUrlType = CheckPageTypes.None;
         protected CheckPageTypes CheckTitleType = CheckPageTypes.None;
         protected string UrlTemplate;
         public static WebPage CurrentPage;
 
-        public WebPage() { }
+        public WebPage()
+        {
+        }
+
         public WebPage(string url = null, string title = null)
         {
             Url = url;
@@ -43,10 +49,12 @@ namespace JDI_Web.Selenium.Elements.Composite
         {
             return WebSettings.Domain.Replace("/*$", "") + "/" + new Regex("^//*").Replace(uri, "");
         }
+
         public static string GetMatchFromDomain(string uri)
         {
             return WebSettings.Domain.Replace("/*$", "").Replace(".", "\\.") + "/" + uri.Replace("^/*", "");
         }
+
         public static void OpenUrl(string url)
         {
             new WebPage(url).Open();
@@ -61,7 +69,9 @@ namespace JDI_Web.Selenium.Elements.Composite
         {
             return WebSettings.WebDriver.Title;
         }
-        public void UpdatePageData(string url, string title, CheckPageTypes checkUrlType, CheckPageTypes checkTitleType, string urlTemplate)
+
+        public void UpdatePageData(string url, string title, CheckPageTypes checkUrlType, CheckPageTypes checkTitleType,
+            string urlTemplate)
         {
             if (_url == null)
                 Url = url;
@@ -84,14 +94,14 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public void CheckOpened()
         {
-            if (IsNullOrEmpty(UrlTemplate) && new [] { CheckPageTypes.None, CheckPageTypes.Equal }.Contains(CheckUrlType))
+            if (IsNullOrEmpty(UrlTemplate) && new[] {CheckPageTypes.None, CheckPageTypes.Equal}.Contains(CheckUrlType))
                 CheckUrl().Equal();
-            else 
+            else
                 switch (CheckUrlType)
                 {
                     case CheckPageTypes.None:
-                        Asserter.IsTrue(GetUrl().Contains(UrlTemplate) 
-                            || GetUrl().Matches(UrlTemplate));
+                        Asserter.IsTrue(GetUrl().Contains(UrlTemplate)
+                                        || GetUrl().Matches(UrlTemplate));
                         break;
                     case CheckPageTypes.Equal:
                         CheckUrl().Equal();
@@ -132,8 +142,8 @@ namespace JDI_Web.Selenium.Elements.Composite
         private bool IsOnPage()
         {
             var url = WebDriver.Url;
-            if (IsNullOrEmpty(UrlTemplate) 
-                && new[] { CheckPageTypes.None, CheckPageTypes.Equal }.Contains(CheckUrlType))
+            if (IsNullOrEmpty(UrlTemplate)
+                && new[] {CheckPageTypes.None, CheckPageTypes.Equal}.Contains(CheckUrlType))
                 return url.Equals(Url);
             switch (CheckUrlType)
             {
@@ -148,6 +158,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             }
             return false;
         }
+
         public void IsOpened()
         {
             ActionWithException(() =>
@@ -161,48 +172,53 @@ namespace JDI_Web.Selenium.Elements.Composite
         /**
          * Refresh current page
          */
+
         public void Refresh()
         {
             Invoker.DoJAction($"Refresh page {Name}",
-                    el => WebDriver.Navigate().Refresh());
+                el => WebDriver.Navigate().Refresh());
         }
 
         /**
          * Go back to previous page
          */
+
         public void Back()
         {
             Invoker.DoJAction("Go back to previous page",
-                    el => WebDriver.Navigate().Back());
+                el => WebDriver.Navigate().Back());
         }
 
 
         /**
          * Go forward to next page
          */
+
         public void Forward()
         {
             Invoker.DoJAction("Go forward to next page",
-                    el => WebDriver.Navigate().Forward());
+                el => WebDriver.Navigate().Forward());
         }
 
         /**
          * @param cookie Specify cookie
          *               Add cookie in browser
          */
+
         public void AddCookie(Cookie cookie)
         {
             Invoker.DoJAction("Go forward to next page",
-                    el => WebDriver.Manage().Cookies.AddCookie(cookie));
+                el => WebDriver.Manage().Cookies.AddCookie(cookie));
         }
 
         /**
          * Clear browsers cache
          */
+
         public void ClearCache()
         {
             Invoker.DoJAction("Go forward to next page",
-                    el => WebDriver.Manage().Cookies.DeleteAllCookies());
+                el => WebDriver.Manage().Cookies.DeleteAllCookies());
         }
 
         public class StringCheckType
@@ -225,6 +241,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             /**
              * Check that current page url/title equals to expected url/title
              */
+
             public void Equal()
             {
                 if (IsNullOrEmpty(_equals)) return;
@@ -235,6 +252,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             /**
              * Check that current page url/title matches to expected url/title-matcher
              */
+
             public void Match()
             {
                 if (IsNullOrEmpty(_template)) return;
@@ -245,8 +263,9 @@ namespace JDI_Web.Selenium.Elements.Composite
             /**
              * Check that current page url/title contains expected url/title-matcher
              */
+
             public void Contains()
-            {            
+            {
                 var url = IsNullOrEmpty(_template)
                     ? _equals
                     : _template;

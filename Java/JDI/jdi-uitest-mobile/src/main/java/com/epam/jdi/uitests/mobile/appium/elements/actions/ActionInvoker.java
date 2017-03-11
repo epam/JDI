@@ -39,7 +39,6 @@ public class ActionInvoker {
     private BaseElement element;
 
     public ActionInvoker(BaseElement element) {
-        JDISettings.newTest();
         this.element = element;
     }
 

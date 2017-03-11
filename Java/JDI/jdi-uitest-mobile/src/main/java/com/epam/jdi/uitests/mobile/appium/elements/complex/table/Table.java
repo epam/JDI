@@ -20,11 +20,10 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
-import com.epam.jdi.uitests.mobile.appium.elements.base.SelectElement;
 import com.epam.jdi.uitests.mobile.appium.elements.common.Text;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ICell;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ITable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,12 +31,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.epam.commons.EnumUtils.getAllEnumNamesAsArray;
+import static com.epam.commons.EnumUtils.getAllEnumNames;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.Timer.waitCondition;
-import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static java.util.Arrays.asList;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -46,12 +46,12 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  */
 public class Table extends Text implements ITable, Cloneable {
     public boolean cache = true;
-    protected String[] footer;
+    protected List<String> footer;
     protected By cellLocatorTemplate;
-    private List<ICell> allCells = new ArrayList<>();
-    private Columns columns = new Columns();
-    private Rows rows = new Rows();
-    private By footerLocator = By.xpath(".//tfoot//th");
+    protected List<ICell> allCells = new ArrayList<>();
+    protected Columns columns = new Columns();
+    protected Rows rows = new Rows();
+    protected By footerLocator = By.xpath(".//tfoot/tr/th");
 
     // ------------------------------------------ //
 
@@ -69,9 +69,12 @@ public class Table extends Text implements ITable, Cloneable {
 
     public Table(By columnHeader, By row, By column) {
         this();
-        columns.lineTemplate = column;
-        columns.headersLocator = columnHeader;
-        rows.lineTemplate = row;
+        if (column != null)
+            columns.lineTemplate = column;
+        if (columnHeader != null)
+            columns.headersLocator = columnHeader;
+        if (row != null)
+            rows.lineTemplate = row;
     }
 
     public Table(By rowHeader, By columnHeader, By row, By column, int rowStartIndex, int columnStartIndex) {
@@ -96,9 +99,10 @@ public class Table extends Text implements ITable, Cloneable {
         this.cellLocatorTemplate = cellLocatorTemplate;
     }
 
-    public Table(By columnHeader, By rowHeader, By row, By column, By footer, TableSettings settings,
+    public Table(By columnHeader, By rowHeader, By row, By column, By footer,
                  int columnStartIndex, int rowStartIndex) {
         this();
+
         columns.lineTemplate = column;
         if (columnHeader != null)
             columns.headersLocator = columnHeader;
@@ -110,12 +114,6 @@ public class Table extends Text implements ITable, Cloneable {
         columns.startIndex = columnStartIndex;
         rows.startIndex = rowStartIndex;
 
-        setTableSettings(settings);
-    }
-
-    public Table(TableSettings settings) {
-        this();
-        setTableSettings(settings);
     }
 
     public Table copy() {
@@ -123,27 +121,36 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public Table clone() {
-        asserter.silent(() -> super.clone());
         Table newTable = new Table();
-        newTable.rows = rows().clone(new Rows(), newTable);
-        newTable.columns = columns().clone(new Columns(), newTable);
-        newTable.avatar = new GetElementModule(getLocator(), getAvatar().context, newTable);
+        newTable.rows = ((Rows)rows()).clone(new Rows(), newTable);
+        newTable.columns = ((Columns)columns()).clone(new Columns(), newTable);
+        newTable.avatar = new GetElementModule(getLocator(), newTable);
         return newTable;
     }
 
     public List<ICell> getCells() {
         List<ICell> result = new ArrayList<>();
-        MapArray<String, MapArray<String, ICell>> rows = rows().get();
         for (String columnName : columns().headers())
-            for (String rowName : rows().headers())
-                result.add(rows.get(rowName).get(columnName));
+            headers().forEach(rowName
+                -> result.add(cell(columnName, rowName)));
         if (cache)
             allCells = result;
         return result;
     }
 
-    public ITable useCache() {
-        cache = true;
+    public ITable setUp(By root, By cell, By row, By column, By footer, int colStartIndex, int rowStartIndex) {
+        setAvatar(root);
+        cellLocatorTemplate = cell;
+        rows.lineTemplate = row;
+        columns.lineTemplate = column;
+        footerLocator = footer;
+        columns.startIndex = colStartIndex;
+        rows.startIndex = rowStartIndex;
+        return this;
+    }
+
+    public ITable useCache(boolean value) {
+        cache = value;
         return this;
     }
 
@@ -157,7 +164,7 @@ public class Table extends Text implements ITable, Cloneable {
         clean();
     }
 
-    public Columns columns() {
+    public IColumn columns() {
         return columns;
     }
 
@@ -169,6 +176,10 @@ public class Table extends Text implements ITable, Cloneable {
         return columns().getColumn(colName);
     }
 
+    private MapArray<String, ICell> column(Column column) {
+        return column.get(this::column, this::column);
+    }
+
     public List<String> columnValue(int colNum) {
         return columns().getColumnValue(colNum);
     }
@@ -177,15 +188,11 @@ public class Table extends Text implements ITable, Cloneable {
         return columns().getColumnValue(colName);
     }
 
-    private MapArray<String, ICell> column(Column column) {
-        return column.get(this::column, this::column);
-    }
-
     public void setColumns(Columns value) {
         columns.update(value);
     }
 
-    public Rows rows() {
+    public IRow rows() {
         return rows;
     }
 
@@ -197,6 +204,10 @@ public class Table extends Text implements ITable, Cloneable {
         return rows().getRow(rowName);
     }
 
+    private MapArray<String, ICell> row(Row row) {
+        return row.get(this::row, this::row);
+    }
+
     public List<String> rowValue(int rowNum) {
         return rows().getRowValue(rowNum);
     }
@@ -205,66 +216,53 @@ public class Table extends Text implements ITable, Cloneable {
         return rows().getRowValue(rowName);
     }
 
-    public void setTableSettings(TableSettings settings) {
-        rows().hasHeader = settings.rowHasHeaders;
-        rows().headers = settings.rowHeaders;
-        rows().count = settings.rowsCount;
-        columns().hasHeader = settings.columnHasHeaders;
-        columns().headers = settings.columnHeaders;
-        columns().count = settings.columnsCount;
-    }
-
-    private MapArray<String, ICell> row(Row row) {
-        return row.get(this::row, this::row);
-    }
-
     public void setRows(Rows value) {
         rows.update(value);
     }
 
     public ITable hasAllHeaders() {
-        columns().hasHeader = true;
-        rows().hasHeader = true;
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = true;
         return this;
     }
 
     public ITable hasNoHeaders() {
-        columns().hasHeader = false;
-        rows().hasHeader = false;
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = false;
         return this;
     }
 
     public ITable hasOnlyColumnHeaders() {
-        columns().hasHeader = true;
-        rows().hasHeader = false;
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = false;
         return this;
     }
 
     public ITable hasOnlyRowHeaders() {
-        columns().hasHeader = false;
-        rows().hasHeader = true;
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = true;
         return this;
     }
 
 
-    public ITable hasColumnHeaders(String[] value) {
-        columns().hasHeader = true;
-        columns().setHeaders(value);
+    public ITable hasColumnHeaders(List<String> value) {
+        ((Columns) columns()).hasHeader = true;
+        ((Columns) columns()).headers = new ArrayList<>(value);
         return this;
     }
 
     public <THeaders extends Enum> ITable hasColumnHeaders(Class<THeaders> headers) {
-        return hasColumnHeaders(getAllEnumNamesAsArray(headers));
+        return hasColumnHeaders(getAllEnumNames(headers));
     }
 
-    public ITable hasRowHeaders(String[] value) {
-        rows().hasHeader = true;
-        rows().setHeaders(value);
+    public ITable hasRowHeaders(List<String> value) {
+        ((Rows)rows()).hasHeader = true;
+        ((Rows)rows()).headers = new ArrayList<>(value);
         return this;
     }
 
     public <THeaders extends Enum> ITable hasRowHeaders(Class<THeaders> headers) {
-        return hasRowHeaders(getAllEnumNamesAsArray(headers));
+        return hasRowHeaders(getAllEnumNames(headers));
     }
 
     public ITable setColumnsCount(int value) {
@@ -277,38 +275,37 @@ public class Table extends Text implements ITable, Cloneable {
         return this;
     }
 
-    protected String[] getFooterAction() {
-        return select(getWebElement().findElements(By.xpath(".//tfoot/tr/th")), WebElement::getText)
-                .toArray(new String[1]);
+    protected List<String> getFooterAction() {
+        return select(getWebElement().findElements(footerLocator), WebElement::getText);
     }
 
-    private String[] getFooter() {
-        return footer.clone();
+    private List<String> getFooter() {
+        return new ArrayList<>(footer);
     }
 
-    public void setFooter(String[] value) {
-        footer = value.clone();
+    public void setFooter(List<String> value) {
+        footer = new ArrayList<>(value);
     }
 
-    public final MapArray<String, SelectElement> header() {
+    public final MapArray<String, ISelect> header() {
         return columns().header();
     }
 
-    public final SelectElement header(String name) {
+    public final ISelect header(String name) {
         return columns().header(name);
     }
 
-    public String[] headers() {
+    public List<String> headers() {
         return columns().headers();
     }
 
-    public String[] footer() {
+    public List<String> footer() {
         if (footer != null)
             return getFooter();
         footer = invoker.doJActionResult("Get Footer", this::getFooterAction);
-        if (footer == null || footer.length == 0)
-            return new String[]{};
-        columns().setCount(footer.length);
+        if (footer == null || footer.size() == 0)
+            return new ArrayList<>();
+        columns().setCount(footer.size());
         return getFooter();
     }
 
@@ -316,20 +313,23 @@ public class Table extends Text implements ITable, Cloneable {
         int colIndex = column.get(this::getColumnIndex, num -> num + columns().getStartIndex() - 1);
         int rowIndex = row.get(this::getRowIndex, num -> num + rows().getStartIndex() - 1);
         return addCell(colIndex, rowIndex,
-                column.get(name -> asList(columns().headers()).indexOf(name) + 1, num -> num),
-                row.get(name -> asList(rows().headers()).indexOf(name) + 1, num -> num),
+                column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
+                row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
                 column.get(name -> name, num -> ""),
                 row.get(name -> name, num -> ""));
     }
 
     public ICell cell(WebElement webElement, Column column, Row row) {
         return addCell(webElement,
-                column.get(name -> asList(columns().headers()).indexOf(name) + 1, num -> num),
-                row.get(name -> asList(rows().headers()).indexOf(name) + 1, num -> num),
+                column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
+                row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
                 column.get(name -> name, num -> ""),
                 row.get(name -> name, num -> ""));
     }
 
+    private List<ICell> contains(Collection<ICell> list, String value) {
+        return new ArrayList<>(where(list, cell -> cell.getValue().contains(value)));
+    }
     private List<ICell> matches(Collection<ICell> list, String regex) {
         return new ArrayList<>(where(list, cell -> cell.getValue().matches(regex)));
     }
@@ -338,6 +338,9 @@ public class Table extends Text implements ITable, Cloneable {
         return new ArrayList<>(where(getCells(), cell -> cell.getValue().equals(value)));
     }
 
+    public List<ICell> cellsContains(String value) {
+        return contains(getCells(), value);
+    }
     public List<ICell> cellsMatch(String regex) {
         return matches(getCells(), regex);
     }
@@ -361,28 +364,56 @@ public class Table extends Text implements ITable, Cloneable {
         }
         return null;
     }
+    public MapArray<String, MapArray<String, ICell>> rows(String value, Column column) {
+        return rows().withValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsContains(String value, Column column) {
+        return rows().containsValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column) {
+        return rows().matchesRegEx(regEx, column);
+    }
 
     public MapArray<String, MapArray<String, ICell>> rows(String... colNameValues) {
+        List<TableFilter> filters = new ArrayList<>();
+        for (String colNameValue : colNameValues)
+            filters.add(new TableFilter(colNameValue));
+
+        boolean matches = false;
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
-            boolean matches = true;
-            for (String colNameValue : colNameValues) {
-                if (!colNameValue.matches("[^=]+=[^=]*"))
-                    throw exception("Wrong searchCriteria for Cells: " + colNameValue);
-                String[] splitted = colNameValue.split("=");
-                String colName = splitted[0];
-                String colValue = splitted[1];
-                ICell cell = row.value.get(colName);
-                if (cell == null || !cell.getValue().equals(colValue)) {
-                    matches = false;
-                    break;
+            for (TableFilter filter : filters) {
+                ICell cell = row.value.get(filter.name);
+                if (cell == null)
+                    throw exception(format("Search rows for '%s' failed. Can't get cell for column named %s",
+                            print(colNameValues), filter.name));
+                switch (filter.type) {
+                    case EQUAL:
+                        matches = cell.getValue().equals(filter.value);
+                        break;
+                    case CONTAINS:
+                        matches = cell.getValue().contains(filter.value);
+                        break;
+                    default:
+                        matches = cell.getValue().matches(filter.value);
+                        break;
                 }
+                if (!matches) break;
             }
             if (matches) result.add(row);
         }
         return result;
     }
 
+    public MapArray<String, MapArray<String, ICell>> columns(String value, Row row) {
+        return columns().withValue(value, row);
+    }
+    public MapArray<String, MapArray<String, ICell>> columnsContains(String value, Row row) {
+        return columns().containsValue(value, row);
+    }
+    public MapArray<String, MapArray<String, ICell>> columnsMatches(String regEx, Row row) {
+        return columns().matchesRegEx(regEx, row);
+    }
     public MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues) {
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> column : columns().get()) {
@@ -414,8 +445,8 @@ public class Table extends Text implements ITable, Cloneable {
 
     public boolean isEmpty() {
         getDriver().manage().timeouts().implicitlyWait(0, MILLISECONDS);
-        int rowsCount = rows().count();
-        getDriver().manage().timeouts().implicitlyWait(timeouts.waitElementSec, SECONDS);
+        int rowsCount = rows().count(true);
+        getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return rowsCount == 0;
     }
 
@@ -428,17 +459,39 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ICell cell(String value, Row row) {
-        int rowNum = (row.haveName())
-                ? asList(rows().headers()).indexOf(row.getName()) + 1
+        int rowNum = row.hasName()
+                ? rows().headers().indexOf(row.getName()) + 1
                 : row.getNum();
         return rows().getRow(rowNum).first((name, cell) -> cell.getValue().equals(value));
+    }
+    public ICell cellContains(String value, Row row) {
+        int rowNum = row.hasName()
+                ? rows().headers().indexOf(row.getName()) + 1
+                : row.getNum();
+        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Row row) {
+        MapArray<String, ICell> rowLine = row(row);
+        List<ICell> cells =  matches(rowLine.values(), regex);
+        return cells.size() > 0 ? cells.get(0) : null;
     }
 
     public ICell cell(String value, Column column) {
         int colIndex = column.get(
-                name -> asList(columns().headers()).indexOf(name) + 1,
+                name -> columns().headers().indexOf(name) + 1,
                 num -> num);
         return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().equals(value));
+    }
+    public ICell cellContains(String value, Column column) {
+        int colIndex = column.get(
+                name -> columns().headers().indexOf(name) + 1,
+                num -> num);
+        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Column column) {
+        MapArray<String, ICell> columnLine = column(column);
+        List<ICell> cells = matches(columnLine.values(), regex);
+        return cells.size() > 0 ? cells.get(0) : null;
     }
 
     public List<ICell> cellsMatch(String regex, Column column) {
@@ -455,17 +508,33 @@ public class Table extends Text implements ITable, Cloneable {
         ICell columnCell = cell(value, row);
         return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
     }
+    public MapArray<String, ICell> columnContains(String value, Row row) {
+        ICell columnCell = cellContains(value, row);
+        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+    }
+    public MapArray<String, ICell> columnMatch(String regEx, Row row) {
+        ICell columnCell = cellMatch(regEx, row);
+        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+    }
 
     public MapArray<String, ICell> row(String value, Column column) {
         ICell rowCell = cell(value, column);
         return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
     }
+    public MapArray<String, ICell> rowContains(String value, Column column) {
+        ICell rowCell = cellContains(value, column);
+        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+    }
+    public MapArray<String, ICell> rowMatch(String regEx, Column column) {
+        ICell rowCell = cellMatch(regEx, column);
+        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+    }
 
     private int getColumnIndex(String name) {
         int nameIndex;
-        String[] headers = columns().headers();
-        if (headers != null && asList(headers).contains(name))
-            nameIndex = asList(headers).indexOf(name);
+        List<String> headers = columns().headers();
+        if (headers != null && headers.contains(name))
+            nameIndex = headers.indexOf(name);
         else
             throw exception("Can't Get Column: '" + name + "'. " + ((headers == null)
                     ? "ColumnHeaders is Null"
@@ -475,9 +544,9 @@ public class Table extends Text implements ITable, Cloneable {
 
     private int getRowIndex(String name) {
         int nameIndex;
-        String[] headers = rows().headers();
-        if (headers != null && asList(headers).contains(name))
-            nameIndex = asList(headers).indexOf(name);
+        List<String> headers = rows().headers();
+        if (headers != null && headers.contains(name))
+            nameIndex = headers.indexOf(name);
         else
             throw exception("Can't Get Row: '%s'. Available RowHeaders: (%s)", name, print(headers, ", ", "'{0}'"));
         return nameIndex + rows().getStartIndex();
@@ -487,17 +556,17 @@ public class Table extends Text implements ITable, Cloneable {
     protected String getTextAction() {
         return "||X||" + print(columns().headers(), "|") + "||\n"
                 + print(select(rows().headers(),
-                        rowName -> "||" + rowName + "||" + print(select(where(getCells(),
-                                cell -> cell.rowName().equals(rowName)), ICell::getValue), "|") + "||"), "\n");
+                        rowName -> "||" + rowName + "||" + print(rowValue(rowName), "|") + "||"), "\n");
     }
 
     private Cell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {
-        Cell cell = (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum);
+        Cell cell = (allCells.size() != 0)
+            ? (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum)
+            : null;
         if (cell != null)
             return cell.updateData(colName, rowName);
         cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
-        cell.setAvatar(cell.get().getAvatar());
-
+        cell.setParent(this);
         if (cache)
             allCells.add(cell);
         return cell;

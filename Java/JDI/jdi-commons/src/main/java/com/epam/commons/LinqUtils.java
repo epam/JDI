@@ -65,7 +65,7 @@ public final class LinqUtils {
         if (map == null)
             throw new RuntimeException("Can't do selectMap. Collection is Null");
         try {
-            return map.entrySet().stream().map(func::apply).collect(Collectors.toList());
+            return map.entrySet().stream().map(func).collect(Collectors.toList());
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }

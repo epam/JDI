@@ -20,12 +20,13 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.mobile.appium.elements.complex.table.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -33,7 +34,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 /**
  * Created by 12345 on 26.10.2014.
  */
-public class Rows extends TableLine {
+public class Rows extends TableLine implements IRow {
     public Rows() {
         hasHeader = false;
         elementIndex = ElementIndexType.Nums;
@@ -46,12 +47,7 @@ public class Rows extends TableLine {
     }
 
     protected List<WebElement> getFirstLine() {
-        return table.columns().getLineAction(1);
-    }
-
-    protected int getCount() {
-        List<WebElement> elements = getFirstLine();
-        return elements != null ? elements.size() : 0;
+        return ((Columns)table.columns()).getLineAction(1);
     }
 
     public MapArray<String, MapArray<String, ICell>> get() {
@@ -62,7 +58,7 @@ public class Rows extends TableLine {
 
     public List<String> getRowValue(String rowName) {
         try {
-            return select(table.rows().getLineAction(rowName), WebElement::getText);
+            return select(getLineAction(rowName), WebElement::getText);
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());
         }
@@ -74,17 +70,19 @@ public class Rows extends TableLine {
 
     public MapArray<String, ICell> cellsToRow(Collection<ICell> cells) {
         return new MapArray<>(cells,
-                cell -> headers()[cell.columnNum() - 1],
+                cell -> headers().get(cell.columnNum() - 1),
                 cell -> cell);
     }
 
     public MapArray<String, ICell> getRow(int rowNum) {
-        if (count() < 0 || table.rows().count() < rowNum || rowNum <= 0)
+        if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
-            List<WebElement> webRow = getLineAction(rowNum);
-            return new MapArray<>(table.columns().count(),
-                    key -> table.columns().headers()[key],
+            int colsCount = table.columns().count();
+            List<WebElement> webRow = timer().getResultByCondition(
+                    () -> getLineAction(rowNum), els -> els.size() == colsCount);
+            return new MapArray<>(colsCount,
+                    key -> table.columns().headers().get(key),
                     value -> table.cell(webRow.get(value), new Column(value + 1), new Row(rowNum)));
         } catch (Exception | Error ex) {
             throw throwRowsException(Integer.toString(rowNum) + "", ex.getMessage());
@@ -95,7 +93,7 @@ public class Rows extends TableLine {
         if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
-            return select(table.rows().getLineAction(rowNum), WebElement::getText);
+            return select(getLineAction(rowNum), WebElement::getText);
         } catch (Exception | Error ex) {
             throw throwRowsException(Integer.toString(rowNum), ex.getMessage());
         }
@@ -105,18 +103,42 @@ public class Rows extends TableLine {
         return getRow(rowNum).toMapArray(IText::getText);
     }
 
+    private MapArray<String, MapArray<String, ICell>> withValueByRule(Column column,
+           BiFunction<String, String, Boolean> func) {
+        Collection<String> rowNames = column.hasName()
+                ? table.columns().getColumnAsText(column.getName()).where(func).keys()
+                : table.columns().getColumnAsText(column.getNum()).where(func).keys();
+        return new MapArray<>(rowNames, key -> key, this::getRow);
+    }
+    public final MapArray<String, MapArray<String, ICell>> withValue(String value, Column column) {
+        return withValueByRule(column, (key, val) -> val.equals(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> containsValue(String value, Column column) {
+        return withValueByRule(column, (key, val) -> val.contains(value));
+    }
+    public final MapArray<String, MapArray<String, ICell>> matchesRegEx(String regEx, Column column) {
+        return withValueByRule(column, (key, val) -> val.matches(regEx));
+    }
+
     public final MapArray<String, ICell> getRow(String rowName) {
         try {
-            String[] headers = table.columns().headers();
-            return new MapArray<>(table.columns().count(),
-                    key -> table.columns().headers[key],
-                    value -> table.cell(getLineAction(rowName).get(value), new Column(headers[value]), new Row(rowName)));
+            int colsCount = table.columns().count();
+            List<WebElement> webRowLine = timer().getResultByCondition(
+                    () -> getLineAction(rowName), els -> els.size() == colsCount);
+            List<String> headers = table.columns().headers();
+            return new MapArray<>(colsCount,
+                    table.columns().headers()::get,
+                    value -> table.cell(webRowLine.get(value), new Column(headers.get(value)), new Row(rowName)));
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());
         }
     }
 
-    private RuntimeException throwRowsException(String colName, String ex) {
-        return exception("Can't Get Row '%s'. Exception: %s", colName, ex);
+    protected boolean skipFirstColumn() {
+        return hasHeader && lineTemplate == null;
+    }
+
+    private RuntimeException throwRowsException(String rowName, String ex) {
+        return exception("Can't Get Row '%s'. Reason: %s", rowName, ex);
     }
 }

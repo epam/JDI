@@ -1,0 +1,64 @@
+{
+  "name": "JDI Page Objects",
+  "version": "0.1",
+  "description": "Generate JDI Page Objects for all page or foe selected components",
+  "devtools_page": "jdi-preprocessor.html",
+  "manifest_version": 2,
+  "content_security_policy": "default-src 'self'  chrome-extension-resource: ; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval';  connect-src *; frame-src *;",
+  "web_accessible_resources": [
+    "*"
+  ],
+  "background": {
+    "matches": [
+      "http://*/*",
+      "https://*/*",
+      "file:///D:/vol2/page/generator.html",
+      "file:///D:/vol2/page/generator_2.html",
+      "file:///D:/vol2/page/generator_3.html",
+      "*://*/*"
+    ],
+    "scripts": [
+      "DevPanel/libs/jquery-2.1.4.js",
+      "DevPanel/js/background.js",
+      "DevPanel/js/dictionary/requestsName.js",
+      "DevPanel/js/dictionary/jdiObject.js",
+      "DevPanel/js/POjava/helper.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file:///D:/vol2/page/generator.html",
+        "file:///D:/vol2/page/generator_2.html",
+        "file:///D:/vol2/page/generator_3.html",
+        "*://*/*"
+      ],
+      "js": [
+        "DevPanel/libs/jquery-2.1.4.js",
+        "DevPanel/libs/string.format-1.0.packed.js",
+        "DevPanel/js/dictionary/requestsName.js",
+        "DevPanel/js/dictionary/jdiObject.js",
+        "DevPanel/js/inspWindowContent.js",
+        "DevPanel/js/elLocation/jsonGenerator.js",
+        "DevPanel/js/elLocation/highlightElement.js",
+        "DevPanel/js/elLocation/mouseMoveKeyPressEvents.js",
+        "DevPanel/js/POjava/helper.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "tabs",
+    "notifications",
+    "http://*/",
+    "https://*/",
+    "file:///D:/vol2/page/generator.html",
+    "file:///D:/vol2/page/generator_2.html",
+    "file:///D:/vol2/page/generator_3.html",
+    "*://*/*"
+  ]
+}

@@ -20,17 +20,23 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.epam.commons.Timer.logTime;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * RadioButtons control implementation
@@ -40,7 +46,6 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum> {
     protected GetElementType element;
     protected GetElementType expander;
-    protected GetElementType elementByName;
 
     public Dropdown() {
         super();
@@ -56,27 +61,39 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     public Dropdown(By selectLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.element = new GetElementType(selectLocator, this);
+        element = new GetElementType(selectLocator, this);
+        expander = new GetElementType(selectLocator, this);
     }
 
-    public void setUp(By root, By value, By list, By expand, By elementByName) {
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JDropdown.class, IDropDown.class))
+            return;
+        ((Dropdown) el).setUp(field.getAnnotation(JDropdown.class));
+    }
+
+    public Dropdown<TEnum> setUp(JDropdown jDropdown) {
+        By root = findByToBy(jDropdown.root());
+        By value = findByToBy(jDropdown.value());
+        By list = findByToBy(jDropdown.list());
+        By expand = findByToBy(jDropdown.expand());
+
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
+            setAvatar(root);
         }
         if (value != null) {
-            element = new GetElementType(value, this);
-            if (expander == null) expander = element;
+            this.element = new GetElementType(value, this);
+            if (expander == null) this.expander = element;
         }
         if (list != null)
-            allLabels = new GetElementType(list, this);
+            this.allLabels = new GetElementType(list, this);
         if (expand != null) {
-            expander = new GetElementType(expand, this);
-            if (element == null) element = expander;
+            this.expander = new GetElementType(expand, this);
+            if (element == null) this.element = expander;
         }
-        if (elementByName != null)
-            this.elementByName = new GetElementType(elementByName, this);
+        return this;
     }
 
     protected Label element() {
@@ -94,7 +111,11 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         if (element().isDisplayed()) {
             setWaitTimeout(0);
             if (!isDisplayedAction(name))
-                expander().click();
+                restoreWaitTimeout();
+                timer().wait(() -> {
+                    expander().click();
+                    return timer(1).wait(() -> isDisplayedAction(name));
+                });
             restoreWaitTimeout();
         }
     }
@@ -108,10 +129,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void selectAction(String name) {
         if (element() != null) {
             expandAction(name);
-            if (elementByName != null)
-                elementByName.get(Selector.class).select(name);
-            else
-                super.selectAction(name);
+            super.selectAction(name);
         } else
             new Select(getWebElement()).selectByVisibleText(name);
     }
@@ -129,9 +147,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected boolean isDisplayedAction(String name) {
         WebElement element;
         try {
-            element = elementByName != null
-                    ? elementByName.get(Selector.class).getWebElement(name)
-                    : getWebElement(name);
+            element = allLabels.get(TextList.class).getElement(name);
         } catch (Exception | Error ex) {
             return false;
         }
@@ -167,15 +183,19 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         element().wait(resultFunc);
     }
 
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition) {
-        return element().wait(resultFunc, condition);
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
+        return  element().wait(resultFunc, condition);
+    }
+
+    public <R> R test(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
+        return resultFunc.apply(getWebElement());
     }
 
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {
         element().wait(resultFunc, timeoutSec);
     }
 
-    public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition, int timeoutSec) {
+    public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
         return element().wait(resultFunc, condition, timeoutSec);
     }
 
@@ -203,10 +223,10 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         actions.expand(() -> expandAction(1));
     }
     public final void expand(String name) {
-        expand(1);
+        actions.expand(() -> expandAction(name));
     }
     public final void expand(int index) {
-        expand(index);
+        actions.expand(() -> expandAction(index));
     }
 
     /**

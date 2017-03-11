@@ -5,13 +5,14 @@ target/
 *.exe
 .logs/
 *.xlsx
-*.html
 bin/
 obj/
 .vs/
 packages/
 *.nupkg
-*.nuspec
 
 # ReSharper files
 *.DotSettings.user
+*.bat
+*.txt
+*.user

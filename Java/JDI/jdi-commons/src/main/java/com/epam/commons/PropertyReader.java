@@ -36,7 +36,7 @@ public final class PropertyReader {
     }
 
 
-    private static Properties readProperties() throws IOException {
+    public static Properties readProperties() throws IOException {
         properties = new Properties();
         try {
             inputStream = PropertyReader.class.getResourceAsStream(getCorrectPath());
@@ -54,19 +54,19 @@ public final class PropertyReader {
 
     public static Properties getProperties(String path) throws IOException {
         propertiesPath = path;
-        return loadProperties();
+        return readProperties();
     }
 
-    public static Properties getProperties() throws IOException {
-        return getProperties(propertiesPath);
-    }
 
     public static String getProperty(String propertyName) throws IOException {
         return loadProperties().getProperty(propertyName);
     }
 
     public static void fillAction(Consumer<String> action, String name) {
-        Object prop = properties.get(name);
+        Object prop = null;
+        try {
+            prop = getProperty(name);
+        } catch (Exception ignore) {}
         if (prop != null && !prop.equals(""))
             action.accept(prop.toString());
     }

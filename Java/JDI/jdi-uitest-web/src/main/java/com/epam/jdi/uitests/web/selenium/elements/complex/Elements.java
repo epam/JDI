@@ -18,20 +18,28 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.commons.LinqUtils;
+import com.epam.jdi.uitests.core.annotations.Title;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
+import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
-
+import static com.epam.jdi.uitests.web.selenium.elements.base.Element.extractEntity;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
@@ -88,6 +96,11 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
                     throw exception("Can't instantiate list element");
                 }
             }));
+    }
+
+    public <E> List<E> asData(Class<E> entityClass) {
+        return LinqUtils.select(listOfElements(),
+            element -> extractEntity(entityClass, this));
     }
 
     public int size() {
@@ -149,9 +162,30 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
     public T get(int index) {
         return listOfElements().get(index);
     }
+
+    private boolean isTextElement(Field field) {
+        return field.getType().equals(Text.class) || field.getType().equals(IText.class);
+    }
     public T get(String name) {
+        Field[] fields = classType.getFields();
+        if (where(fields, this::isTextElement).size() == 1)
+            return first(listOfElements(),
+                el -> ((IText)getValueField(first(el.getClass().getFields(), this::isTextElement), el))
+                    .getText().equals(name));
+        Field titleField = first(fields, f -> f.isAnnotationPresent(Title.class)
+                && (f.getType().equals(Text.class)|| f.getType().equals(IText.class)));
+        if (titleField != null)
+            return first(listOfElements(),
+                el -> ((IText)getValueField(getFieldWithName(el, titleField.getName()), el))
+                    .getText().equals(name));
         return first(listOfElements(), el -> getElementByNameAction(el.getWebElement(), name));
     }
+    private Field getFieldWithName(Object o, String name) {
+        try {
+            return o.getClass().getField(name);
+        } catch (Exception ex) {throw exception("Can't get value from field %s", name); }
+    }
+
     public T get(Enum name) {
         return get(getEnumValue(name));
     }

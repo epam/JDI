@@ -22,7 +22,7 @@ import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.web.selenium.elements.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 
@@ -32,6 +32,7 @@ import java.util.List;
 
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 /**
@@ -42,10 +43,6 @@ public class GetElement {
 
     public GetElement(BaseElement element) {
         this.element = element;
-    }
-
-    public static boolean namesEqual(String name1, String name2) {
-        return name1.toLowerCase().replace(" ", "").equals(name2.toLowerCase().replace(" ", ""));
     }
 
     public Button getButton(String buttonName) {

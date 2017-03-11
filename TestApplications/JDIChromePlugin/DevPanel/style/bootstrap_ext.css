@@ -1,0 +1,16 @@
+@media (max-width: 450px){
+    .col-xxs-12 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        float: left;
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .hidden-xxs {
+        display: none !important;
+    }
+}

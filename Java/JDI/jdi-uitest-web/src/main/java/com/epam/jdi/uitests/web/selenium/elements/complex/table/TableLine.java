@@ -19,21 +19,28 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 
 
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ElementIndexType;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.interfaces.ITableLine;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
+import static java.util.Collections.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -49,7 +56,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected By defaultTemplate;
     protected By lineTemplate = null;
 
-    protected <T extends TableLine> T clone(T newTableLine, Table newTable) {
+    public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());
         newTableLine.hasHeader = hasHeader;
         newTableLine.elementIndex = elementIndex;
@@ -72,25 +79,34 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(String lineName) {
-        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
-            return getElementByTemplate(lineName);
         int index = getIndex(headers(), lineName) + 1;
-        return (lineTemplate == null)
+        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
+            return getElementByTemplate(index);
+        return lineTemplate == null
                 ? getLineAction(index)
                 : getElementByTemplate(index);
     }
     private List<WebElement> getElementByTemplate(Object value) {
-        By locator = fillByTemplate((lineTemplate != null)
+        By locator = fillByTemplate(lineTemplate != null
                 ? lineTemplate
                 : defaultTemplate, value);
         return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);
     }
 
+    public void removeHeaders(String... names) {
+        for (String name : names)
+            headers.remove(name);
+    }
+    public void addHeaders(String... names) {
+        addAll(headers, names);
+    }
     protected int getCount(boolean acceptEmpty)
     {
+        table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
         List<WebElement> elements = getHeadersAction();
         if (elements.size() == 0)
             elements = getFirstLine();
+        table.getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         if (!acceptEmpty)
             elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0
@@ -107,7 +123,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     public int count() {
         return count(false);
     }
-    protected int count(boolean acceptEmpty) {
+    public int count(boolean acceptEmpty) {
         if (count > 0)
             return count;
         if (headers != null && headers.size() > 0)
@@ -131,11 +147,12 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     protected abstract List<WebElement> getHeadersAction();
 
-    public final MapArray<String, SelectElement> header() {
-        return new MapArray<>(getHeadersAction(), WebElement::getText, SelectElement::new);
+    public final MapArray<String, ISelect> header() {
+        return new MapArray<>(headers(),
+                select(getHeadersAction(), SelectElement::new));
     }
 
-    public final SelectElement header(String name) {
+    public final ISelect header(String name) {
         return header().get(name);
     }
 

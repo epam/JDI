@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
+using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Settings;
 using OpenQA.Selenium;
+using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
@@ -28,6 +30,8 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             Element = element;
             ByLocator = byLocator;
+            if (IsNullOrEmpty(DriverName))
+                DriverName = JDISettings.DriverFactory.CurrentDriverName;
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
@@ -104,8 +108,10 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 case 1:
                     return result[0];
                 default:
-                    throw Exception(
-                        $"Find {result.Count} elements instead of one for Element '{Element}' during {timeout} seconds");
+                    if (WebDriverFactory.OnlyOneElementAllowedInSearch)
+                        throw Exception(
+                            $"Find {result.Count} elements instead of one for Element '{Element}' during {timeout} seconds");
+                    return result[0];
             }
 
         }

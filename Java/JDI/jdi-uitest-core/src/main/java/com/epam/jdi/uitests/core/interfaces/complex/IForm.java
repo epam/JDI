@@ -65,8 +65,13 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     List<String> verify(MapArray<String, String> map);
 
     /**
+     * Get fields from form as specified class entity
+     */
+    @JDIAction
+    T getEntity();
+    /**
      * @param entity Specify entity
-     *               Verify that form filled correctly. If not returns list of keys where verification fails
+     * Verify that form filled correctly. If not returns list of keys where verification fails
      */
     @JDIAction
     default List<String> verify(T entity) {
@@ -270,11 +275,25 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     default void login(T entity) {
         submit(entity, "login");
     }
+    /**
+     * @param entity Specify entity
+     *               Fill all SetValue elements and click on Button “login” or ”loginButton” <br>
+     * @apiNote To use this option Form pageObject should have only one IButton Element
+     */
     @JDIAction
     default void loginAs(T entity) {
         login(entity);
     }
 
+    /**
+     * @param entity Specify entity
+     *               Fill all SetValue elements and click on Button “login” or ”loginButton” <br>
+     * @apiNote To use this option Form pageObject should have only one IButton Element
+     */
+    @JDIAction
+    default void send(T entity) {
+        submit(entity, "send");
+    }
     /**
      * @param entity Specify entity
      *               Fill all SetValue elements and click on Button “add” or ”addButton” <br>

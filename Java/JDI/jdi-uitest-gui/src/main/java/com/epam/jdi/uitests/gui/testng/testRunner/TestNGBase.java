@@ -23,8 +23,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 
-public final class TestNGBase {
-    private TestNGBase() { }
+public class TestNGBase {
     protected static Timer timer;
 
     public static long getTestRunTime() {

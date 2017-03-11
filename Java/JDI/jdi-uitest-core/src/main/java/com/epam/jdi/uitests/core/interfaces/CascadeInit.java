@@ -75,7 +75,6 @@ public abstract class CascadeInit {
             if (parent != null)
                 instance.getAvatar().setDriverName(driverName);
             instance.setTypeName(type.getSimpleName());
-            instance.setParent(parent);
             field.set(parent, instance);
             if (isInterface(field, IComposite.class))
                 initElements(instance, driverName);
