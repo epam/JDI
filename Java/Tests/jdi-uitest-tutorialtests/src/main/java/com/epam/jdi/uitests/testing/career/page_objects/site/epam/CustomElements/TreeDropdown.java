@@ -24,7 +24,6 @@ package com.epam.jdi.uitests.testing.career.page_objects.site.epam.CustomElement
 
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
-import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;

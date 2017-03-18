@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.mobile.appium.elements.apiInteract;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import org.openqa.selenium.By;
@@ -39,7 +38,7 @@ import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.mobile.WebSettings.getDriverFactory;
-import static com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory.*;
+import static com.epam.jdi.uitests.mobile.appium.driver.AppiumDriverFactory.onlyOneElementAllowedInSearch;
 import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverByUtils.*;
 import static java.lang.String.format;
 

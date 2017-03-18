@@ -24,7 +24,6 @@ import com.epam.jdi.uitests.mobile.appium.elements.base.Clickable;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.function.Function;
 

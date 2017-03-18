@@ -18,11 +18,9 @@ package com.epam.jdi.uitests.gui.sikuli.elements.actions;
  */
 
 
-
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.gui.sikuli.elements.BaseElement;
 
 import java.util.function.Function;

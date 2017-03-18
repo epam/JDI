@@ -1,7 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
-import com.epam.jdi.uitests.core.interfaces.common.IImage;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;

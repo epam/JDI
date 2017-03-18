@@ -34,9 +34,7 @@ import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
-import static com.epam.commons.ReflectionUtils.checkEntityIsNotNull;
-import static com.epam.commons.ReflectionUtils.convertStringToType;
-import static com.epam.commons.ReflectionUtils.newEntity;
+import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;

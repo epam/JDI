@@ -34,9 +34,7 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.commons.ReflectionUtils.checkEntityIsNotNull;
-import static com.epam.commons.ReflectionUtils.getFields;
-import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;

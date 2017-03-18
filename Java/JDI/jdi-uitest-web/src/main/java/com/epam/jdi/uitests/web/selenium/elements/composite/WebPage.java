@@ -29,7 +29,6 @@ import org.openqa.selenium.Cookie;
 import java.util.function.Supplier;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
 
 /**

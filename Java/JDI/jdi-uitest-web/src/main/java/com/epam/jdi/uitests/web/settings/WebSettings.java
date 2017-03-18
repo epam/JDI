@@ -48,11 +48,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static com.epam.commons.PropertyReader.*;
+import static com.epam.commons.PropertyReader.fillAction;
+import static com.epam.commons.PropertyReader.getProperties;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
-import static com.epam.web.matcher.base.BaseMatcher.*;
-import static com.epam.web.matcher.testng.Assert.*;
+import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
+import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 

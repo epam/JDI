@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.function.BinaryOperator;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 import static org.mytests.epam.site.selenide.PageJobDescription.pageJobDescription;
 import static org.mytests.epam.site.site.EpamSite.jobDescriptionPage;

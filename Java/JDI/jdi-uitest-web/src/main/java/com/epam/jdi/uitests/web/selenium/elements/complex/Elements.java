@@ -32,11 +32,8 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
-import static com.epam.commons.LinqUtils.first;
-import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.LinqUtils.where;
+import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
-import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
 import static com.epam.jdi.uitests.web.selenium.elements.base.Element.extractEntity;

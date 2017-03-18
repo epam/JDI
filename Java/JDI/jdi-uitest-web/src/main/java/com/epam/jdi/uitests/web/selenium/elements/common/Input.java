@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.common;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

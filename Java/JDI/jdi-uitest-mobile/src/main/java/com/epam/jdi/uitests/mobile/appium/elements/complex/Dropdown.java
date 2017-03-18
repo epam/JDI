@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex;
  */
 
 
-import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.mobile.appium.elements.GetElementType;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Clickable;

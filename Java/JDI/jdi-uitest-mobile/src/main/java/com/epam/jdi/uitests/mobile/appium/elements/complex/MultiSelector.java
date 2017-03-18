@@ -30,7 +30,6 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.commons.Timer.waitCondition;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 /**

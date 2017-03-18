@@ -19,7 +19,6 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 
 
 import com.epam.commons.Timer;
-import com.epam.commons.linqinterfaces.JFuncR;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -36,11 +35,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
-import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.elementSearchCriteria;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.onlyOneElementAllowedInSearch;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
 import static java.lang.String.format;

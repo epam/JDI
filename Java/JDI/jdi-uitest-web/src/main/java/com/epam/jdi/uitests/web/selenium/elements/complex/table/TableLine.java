@@ -29,9 +29,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
@@ -39,7 +37,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
-import static java.util.Collections.*;
+import static java.util.Collections.addAll;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**

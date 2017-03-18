@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  */
 
 
-import com.codeborne.selenide.SelenideElement;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
@@ -37,11 +36,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.epam.commons.LinqUtils.foreach;
-import static com.epam.commons.ReflectionUtils.getFields;
-import static com.epam.commons.ReflectionUtils.getValueField;
-import static com.epam.commons.ReflectionUtils.newEntity;
+import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;

@@ -1,8 +1,6 @@
 package com.epam.jdi.uitests.web.selenium;
 
 import com.epam.jdi.uitests.core.interfaces.IAsserter;
-import com.epam.web.matcher.base.BaseMatcher;
-import com.epam.web.matcher.base.IChecker;
 import com.epam.web.matcher.testng.Check;
 import org.slf4j.Logger;
 

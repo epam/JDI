@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.mobile.appium.elements.actions;
 
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;

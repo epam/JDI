@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static javax.xml.validation.SchemaFactory.*;
+import static javax.xml.validation.SchemaFactory.newInstance;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

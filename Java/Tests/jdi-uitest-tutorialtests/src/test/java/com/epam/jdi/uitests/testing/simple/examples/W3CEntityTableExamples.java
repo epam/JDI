@@ -4,13 +4,15 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.web.matcher.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.*;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.jobDescriptionPage;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.jobListingPage;
 
 
 public class W3CEntityTableExamples extends TestsBase {

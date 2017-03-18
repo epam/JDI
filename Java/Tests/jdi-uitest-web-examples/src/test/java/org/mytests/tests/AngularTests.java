@@ -4,7 +4,6 @@ import com.epam.web.matcher.testng.Assert;
 import org.mytests.InitTestsAngular;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.open;
 import static org.mytests.angular.site.AngularSite.angularPage;
 
 /**

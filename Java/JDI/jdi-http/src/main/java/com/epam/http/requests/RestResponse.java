@@ -5,7 +5,8 @@ import com.jayway.restassured.response.Response;
 import java.util.function.Function;
 
 import static com.epam.http.ExceptionHandler.exception;
-import static com.epam.http.requests.RestStatusType.*;
+import static com.epam.http.requests.RestStatusType.ERROR;
+import static com.epam.http.requests.RestStatusType.OK;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

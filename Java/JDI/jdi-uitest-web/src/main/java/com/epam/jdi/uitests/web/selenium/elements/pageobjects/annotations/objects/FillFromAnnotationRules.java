@@ -10,9 +10,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
 
 /**

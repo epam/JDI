@@ -24,8 +24,6 @@ import static com.epam.jdi.uitests.core.settings.JDIData.testName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static java.lang.String.format;
-import static java.lang.System.out;
-import static java.lang.Thread.currentThread;
 
 /**
  * Created by Roman_Iovlev on 10/27/2015.

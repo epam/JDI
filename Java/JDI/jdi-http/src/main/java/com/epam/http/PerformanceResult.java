@@ -2,7 +2,7 @@ package com.epam.http;
 
 import com.epam.http.requests.RestResponse;
 
-import static com.epam.http.requests.RestStatusType.*;
+import static com.epam.http.requests.RestStatusType.ERROR;
 
 /**
  * Created by Roman_Iovlev on 9/25/2016.

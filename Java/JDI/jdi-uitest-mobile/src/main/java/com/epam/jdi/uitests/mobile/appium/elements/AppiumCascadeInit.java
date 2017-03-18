@@ -30,9 +30,10 @@ import com.epam.jdi.uitests.mobile.appium.elements.complex.Elements;
 import com.epam.jdi.uitests.mobile.appium.elements.complex.Menu;
 import com.epam.jdi.uitests.mobile.appium.elements.complex.table.Table;
 import com.epam.jdi.uitests.mobile.appium.elements.composite.Section;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.*;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil;
-import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.*;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.Frame;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
@@ -46,10 +47,9 @@ import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.*;
-import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpDropdown;
-import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpMenu;
-import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpTable;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.getFrame;
+import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.*;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.

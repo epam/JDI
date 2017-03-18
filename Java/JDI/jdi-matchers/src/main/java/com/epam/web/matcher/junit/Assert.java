@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
 
 

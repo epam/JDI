@@ -30,11 +30,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
-import static com.epam.commons.LinqUtils.getIndex;
-import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.LinqUtils.where;
+import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;

@@ -1,7 +1,5 @@
 package org.mytests.epam.site.selenide;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.web.matcher.junit.Assert;
 import org.mytests.epam.site.entities.Attendee;
@@ -9,7 +7,6 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.web.selenium.elements.base.JdiStatic.*;
 
 

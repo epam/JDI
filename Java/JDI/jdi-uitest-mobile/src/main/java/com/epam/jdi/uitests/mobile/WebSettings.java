@@ -29,8 +29,6 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.function.Supplier;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 /**
  * Created by Roman_Iovlev on 11/13/2015.
  */

@@ -22,7 +22,6 @@ import com.epam.commons.PrintUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.ITextList;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

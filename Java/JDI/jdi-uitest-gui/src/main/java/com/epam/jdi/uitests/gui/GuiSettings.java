@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.commons.PropertyReader.getProperties;
-import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/18/2016.

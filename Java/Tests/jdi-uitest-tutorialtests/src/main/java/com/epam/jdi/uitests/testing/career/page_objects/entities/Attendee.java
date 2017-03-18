@@ -1,8 +1,6 @@
 package com.epam.jdi.uitests.testing.career.page_objects.entities;
 
 
-import lombok.Data;
-
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */
