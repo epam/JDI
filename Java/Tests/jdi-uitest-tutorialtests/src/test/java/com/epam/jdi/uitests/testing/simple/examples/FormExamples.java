@@ -17,7 +17,7 @@ public class FormExamples extends TestsBase {
 
     @BeforeMethod
     public void before(Method method) throws IOException {
-        jobDescriptionPage.isOpened();
+        jobDescriptionPage.shouldBeOpened();
     }
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)

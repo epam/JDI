@@ -19,12 +19,12 @@ import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl
 public class EntityTableExamples extends TestsBase {
     @BeforeMethod
     public void before(Method method) {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
     }
     @Test
     public void getTableInfo() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         Assert.areEquals(jobListingPage.jobsListEntity.columns().size(), 4);
         Assert.areEquals(jobListingPage.jobsListEntity.rows().size(), 2);
@@ -38,7 +38,7 @@ public class EntityTableExamples extends TestsBase {
 
     @Test
     public void searchInTable() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity
             .getRow(withValue("Senior QA Automation Engineer"), inColumn("name")).apply.click();
@@ -47,7 +47,7 @@ public class EntityTableExamples extends TestsBase {
     }
     @Test
     public void findEntity() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         Job job = jobListingPage.jobsListEntity
                 .entity(withValue("Senior QA Automation Engineer"), inColumn("name"));
@@ -56,7 +56,7 @@ public class EntityTableExamples extends TestsBase {
     }
     @Test
     public void searchContainsInTable() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity
                 .rowContains("Automation Engineer", inColumn("name")) //TODO
@@ -66,7 +66,7 @@ public class EntityTableExamples extends TestsBase {
     }
     @Test
     public void searchMatchInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity
                 .rowMatch(".+ Automation Engineer", inColumn("name")) //TODO
@@ -76,7 +76,7 @@ public class EntityTableExamples extends TestsBase {
     }
     @Test
     public void searchContainsListInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         /*MapArray<String, ICell> firstRow = jobListingPage.jobsListEntity.getRow( //TODO
                 "name~=Automation Engineer",
@@ -89,7 +89,7 @@ public class EntityTableExamples extends TestsBase {
 
     @Test
     public void searchByMultiCriteriaInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
                 textOf(r.name).equals("Senior QA Automation Engineer") &&
@@ -101,7 +101,7 @@ public class EntityTableExamples extends TestsBase {
 
     @Test
     public void complexTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
                 r.name.getText().equals("Senior QA Automation Engineer") &&

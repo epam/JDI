@@ -18,12 +18,12 @@ import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSit
 public class W3CEntityTableExamples extends TestsBase {
     @BeforeMethod
     public void before(Method method) {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
     }
     @Test
     public void getTableInfoExample() {
-     /*   jobListingPage.isOpened();
+     /*   jobListingPage.shouldBeOpened();
         List<JobRecord> rows = jobList.getRows();
         Job job = jobList.entity(jobName, column(name.toString()));
         List<Job> jobs = jobList.entities();*/
@@ -31,7 +31,7 @@ public class W3CEntityTableExamples extends TestsBase {
 
     @Test
     public void searchInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
                 .row(withValue("Senior QA Automation Engineer"), inColumn("name"))
@@ -42,7 +42,7 @@ public class W3CEntityTableExamples extends TestsBase {
 
     @Test
     public void searchContainsInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
                 .rowContains("Automation Engineer", inColumn("name"))
@@ -53,7 +53,7 @@ public class W3CEntityTableExamples extends TestsBase {
 
     @Test
     public void searchMatchInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
                 .rowMatch(".+ Automation Engineer", inColumn("name"))
@@ -64,7 +64,7 @@ public class W3CEntityTableExamples extends TestsBase {
 
     @Test
     public void searchContainsListInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "name~=Automation Engineer",
@@ -77,7 +77,7 @@ public class W3CEntityTableExamples extends TestsBase {
 
     @Test
     public void searchByMultiCriteriaInTableExample() {
-        jobListingPage.isOpened();
+        jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
                 "name=Senior QA Automation Engineer",

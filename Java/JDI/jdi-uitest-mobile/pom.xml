@@ -5,7 +5,7 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.58</version>
+        <version>1.0.60</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,7 @@
         <log4j.version>1.2.17</log4j.version>
         <saucelab.version>2.1.19</saucelab.version>
         <junit.version>4.11</junit.version>
-        <jdi.version>1.0.59</jdi.version>
+        <version>1.0.60</version>
         <appium.version>3.3.0</appium.version>
     </properties>
 
@@ -32,12 +32,12 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-core</artifactId>
-            <version>${jdi.version}</version>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>${jdi.version}</version>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

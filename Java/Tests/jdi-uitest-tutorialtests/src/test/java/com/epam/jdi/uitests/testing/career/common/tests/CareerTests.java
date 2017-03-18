@@ -17,7 +17,7 @@ public class CareerTests extends TestsBase {
 
     @BeforeMethod
     public void before(Method method) {
-        homePage.isOpened();
+        homePage.shouldBeOpened();
     }
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)

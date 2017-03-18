@@ -16,7 +16,7 @@ public enum Preconditions implements IPreconditions {
     JOBS_LIST_SHOWN(
         () -> EpamSite.jobListingPage.verifyOpened() && !EpamSite.jobListingPage.jobsList.isEmpty(),
         () -> {
-            EpamSite.jobListingPage.isOpened();
+            EpamSite.jobListingPage.shouldBeOpened();
             Assert.isFalse(() -> EpamSite.jobListingPage.jobsList.isEmpty());
         }
     ),

@@ -17,7 +17,7 @@ import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSit
 public class DemoModeExamples extends TestsBase {
     @BeforeMethod
     public void before(Method method) throws IOException {
-        homePage.isOpened();
+        homePage.shouldBeOpened();
     }
 
     //TODO in progress
