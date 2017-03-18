@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.base;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -98,7 +98,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
     /**
      * Specified Selenium Element for this Element
      */
-    @JDIAction
+    @Step
     public WebElement getWebElement() {
         return invoker.doJActionResult("Get web element",
                 () -> avatar.getElement(), DEBUG);
@@ -195,7 +195,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @param resultFunc Specify expected function result
      * Waits while condition with WebElement happens during specified timeout and returns result using resultFunc
      */
-    @JDIAction
+    @Step
     public void wait(Function<WebElement, Boolean> resultFunc) {
         boolean result = wait(resultFunc, r -> r);
         asserter.isTrue(result);
@@ -206,7 +206,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @param condition  Specify expected function condition
      * @return Waits while condition with WebElement happens and returns result using resultFunc
      */
-    @JDIAction
+    @Step
     public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition) {
         return timer().getResultByCondition(() -> resultFunc.apply(getWebElement()), condition::apply);
     }
@@ -216,7 +216,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @param timeoutSec Specify timeout
      * Waits while condition with WebElement happens during specified timeout and returns wait result
      */
-    @JDIAction
+    @Step
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {
         boolean result = wait(resultFunc, r -> r, timeoutSec);
         asserter.isTrue(result);
@@ -228,7 +228,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @param condition  Specify expected function condition
      * @return Waits while condition with WebElement and returns wait result
      */
-    @JDIAction
+    @Step
     public <T> T wait(Function<WebElement, T> resultFunc, Function<T, Boolean> condition, int timeoutSec) {
         setWaitTimeout(timeoutSec);
         T result = new Timer(timeoutSec * 1000).getResultByCondition(() -> resultFunc.apply(getWebElement()), condition::apply);

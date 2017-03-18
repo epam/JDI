@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.IVisible;
@@ -32,50 +32,50 @@ public interface ITextList<TEnum extends Enum> extends IBaseElement, IHasValue, 
      * @param name Specify string by String mechanic
      * @return Get textList’s text by specified param
      */
-    @JDIAction
+    @Step
     String getText(String name);
 
     /**
      * @param index Specify string by Integer mechanic
      * @return Get textList’s text by specified param
      */
-    @JDIAction
+    @Step
     String getText(int index);
 
     /**
      * @param enumName Specify string by Enum mechanic
      * @return Get textList’s text by specified param
      */
-    @JDIAction
+    @Step
     String getText(TEnum enumName);
 
     /**
      * @return Returns strings count
      */
-    @JDIAction
+    @Step
     int count();
 
     /**
      * @return Wait while TextList’s text contains expected text. Returns Element’s text
      */
-    @JDIAction
+    @Step
     List<String> waitText(String str);
 
     /**
      * @return Return list of strings of TextList
      */
-    @JDIAction
+    @Step
     List<String> getTextList();
 
     /**
      * @return Return first String in list
      */
-    @JDIAction
+    @Step
     String getFirstText();
 
     /**
      * @return Return last String in list
      */
-    @JDIAction
+    @Step
     String getLastText();
 }

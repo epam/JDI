@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 
 /**
@@ -27,12 +27,12 @@ public interface IImage extends IClickable {
     /**
      * @return Get image source
      */
-    @JDIAction
+    @Step
     String getSource();
 
     /**
      * @return Get image alt/hint text
      */
-    @JDIAction
+    @Step
     String getAlt();
 }

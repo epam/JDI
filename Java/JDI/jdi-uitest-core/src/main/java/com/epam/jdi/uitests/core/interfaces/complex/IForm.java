@@ -18,7 +18,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  */
 
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
@@ -36,14 +36,14 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as map
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
-    @JDIAction
+    @Step
     void fill(MapArray<String, String> map);
 
     /**
      * @param entity Specify entity
      *               Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
-    @JDIAction
+    @Step
     default void fill(T entity) {
         fill(objToSetValue(entity));
     }
@@ -52,7 +52,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as map
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
-    @JDIAction
+    @Step
     default void fill(Map<String, String> map) {
         fill(MapArray.toMapArray(map));
     }
@@ -61,19 +61,19 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as mapArray
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
-    @JDIAction
+    @Step
     List<String> verify(MapArray<String, String> map);
 
     /**
      * Get fields from form as specified class entity
      */
-    @JDIAction
+    @Step
     T getEntity();
     /**
      * @param entity Specify entity
      * Verify that form filled correctly. If not returns list of keys where verification fails
      */
-    @JDIAction
+    @Step
     default List<String> verify(T entity) {
         return verify(objToSetValue(entity));
     }
@@ -82,7 +82,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as map
      *            Verify that form filled correctly. If not returns list of keys where verification fails
      */
-    @JDIAction
+    @Step
     default List<String> verify(Map<String, String> map) {
         return verify(MapArray.toMapArray(map));
     }
@@ -91,14 +91,14 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as mapArray
      *            Verify that form filled correctly. If not throws error
      */
-    @JDIAction
+    @Step
     void check(MapArray<String, String> map);
 
     /**
      * @param entity Specify entity
      *               Verify that form filled correctly. If not throws error
      */
-    @JDIAction
+    @Step
     default void check(T entity) {
         check(objToSetValue(entity));
     }
@@ -107,7 +107,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @param map Specify entity as map
      *               Verify that form filled correctly. If not throws error
      */
-    @JDIAction
+    @Step
     default void check(Map<String, String> map) {
         check(MapArray.toMapArray(map));
     }
@@ -117,7 +117,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *             Fill first setable field with value and click on Button “submit” <br>
      * @apiNote To use this option Form pageObject should have at least one ISetValue element and only one IButton Element
      */
-    @JDIAction
+    @Step
     void submit(String text);
 
     /**
@@ -127,7 +127,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     void submit(String text, String buttonName);
 
 
@@ -137,11 +137,11 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void login(String text) {
         submit(text, "login");
     }
-    @JDIAction
+    @Step
     default void loginAs(String text) {
         login(text);
     }
@@ -152,7 +152,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void add(String text) {
         submit(text, "add");
     }
@@ -163,7 +163,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void publish(String text) {
         submit(text, "publish");
     }
@@ -174,7 +174,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void save(String text) {
         submit(text, "save");
     }
@@ -185,7 +185,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void update(String text) {
         submit(text, "update");
     }
@@ -196,7 +196,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void cancel(String text) {
         submit(text, "cancel");
     }
@@ -207,7 +207,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void close(String text) {
         submit(text, "close");
     }
@@ -218,7 +218,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void back(String text) {
         submit(text, "back");
     }
@@ -229,7 +229,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void select(String text) {
         submit(text, "select");
     }
@@ -240,7 +240,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void next(String text) {
         submit(text, "next");
     }
@@ -251,7 +251,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * @apiNote To use this option Form pageObject should have at least one ISetValue element <br>
      * Allowed different buttons to send one form e.g. save/ publish / cancel / search update ...
      */
-    @JDIAction
+    @Step
     default void search(String text) {
         submit(text, "search");
     }
@@ -261,7 +261,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “submit” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void submit(T entity) {
         submit(objToSetValue(entity));
     }
@@ -271,7 +271,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “login” or ”loginButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void login(T entity) {
         submit(entity, "login");
     }
@@ -280,7 +280,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “login” or ”loginButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void loginAs(T entity) {
         login(entity);
     }
@@ -290,7 +290,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “login” or ”loginButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void send(T entity) {
         submit(entity, "send");
     }
@@ -299,7 +299,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “add” or ”addButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void add(T entity) {
         submit(entity, "add");
     }
@@ -309,7 +309,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “publish” or ”publishButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void publish(T entity) {
         submit(entity, "publish");
     }
@@ -319,7 +319,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “save” or ”saveButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void save(T entity) {
         submit(entity, "save");
     }
@@ -329,7 +329,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “update” or ”updateButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void update(T entity) {
         submit(entity, "update");
     }
@@ -339,7 +339,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “cancel” or ”cancelButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void cancel(T entity) {
         submit(entity, "cancel");
     }
@@ -349,7 +349,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “close” or ”closeButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void close(T entity) {
         submit(entity, "close");
     }
@@ -359,7 +359,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “back” or ”backButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void back(T entity) {
         submit(entity, "back");
     }
@@ -369,7 +369,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “select” or ”selectButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void select(T entity) {
         submit(entity, "select");
     }
@@ -379,7 +379,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “next” or ”nextButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void next(T entity) {
         submit(entity, "next");
     }
@@ -389,7 +389,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      *               Fill all SetValue elements and click on Button “search” or ”searchButton” <br>
      * @apiNote To use this option Form pageObject should have only one IButton Element
      */
-    @JDIAction
+    @Step
     default void search(T entity) {
         submit(entity, "search");
     }
@@ -402,7 +402,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
      * * Letters case in button name  no matters
      */
-    @JDIAction
+    @Step
     void submit(T entity, String buttonName);
 
     /**
@@ -413,7 +413,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
      * * Letters case in button name  no matters
      */
-    @JDIAction
+    @Step
     void submit(T entity, Enum buttonName);
 
     /**
@@ -422,6 +422,6 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      * e.g. if you call "submit(user, "Publish") then you should have Element 'publishButton'. <br>
      * * Letters case in button name  no matters
      */
-    @JDIAction
+    @Step
     void submit(MapArray<String, String> objStrings);
 }

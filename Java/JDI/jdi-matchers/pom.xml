@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>6.8.1</testng.version>
         <junit.version>4.11</junit.version>
-        <jdi.version>1.0.58</jdi.version>
+        <jdi.version>1.0.59</jdi.version>
     </properties>
 
     <dependencies>

@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 
@@ -28,20 +28,20 @@ public interface IText extends IHasValue, IElement {
     /**
      * @return Get Element’s text
      */
-    @JDIAction
+    @Step
     String getText();
 
     /**
      * @param text Specify expected text
      * @return Wait while Element’s text contains expected text. Returns Element’s text
      */
-    @JDIAction
+    @Step
     String waitText(String text);
 
     /**
      * @param regEx Specify expected regular expression Text
      * @return Wait while Element’s text matches regEx. Returns Element’s text
      */
-    @JDIAction
+    @Step
     String waitMatchText(String regEx);
 }

@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 
@@ -33,61 +33,61 @@ public interface ISelector<TEnum extends Enum> extends IBaseElement, ISetValue {
      * @param name Specify name using string
      *             Select Element with name (use text) from list
      */
-    @JDIAction
+    @Step
     void select(String name);
 
     /**
      * @param name Specify name using enum
      *             Select Element with name (use enum) from list
      */
-    @JDIAction
+    @Step
     void select(TEnum name);
 
     /**
      * @param index Specify digit to select
      *              Select Element with name (use index) from list
      */
-    @JDIAction
+    @Step
     void select(int index);
 
     /**
      * @return Get name of the selected Element
      */
-    @JDIAction
+    @Step
     String getSelected();
 
     /**
      * @return Get index of the selected Element
      */
-    @JDIAction
+    @Step
     int getSelectedIndex();
 
     /**
      * @param name Specify name using string
      * @return Is option selected?
      */
-    @JDIAction
+    @Step
     boolean isSelected(String name);
 
     /**
      * @param name Specify name using enum
      * @return Is option selected?
      */
-    @JDIAction
+    @Step
     boolean isSelected(TEnum name);
 
     /**
      * @param name Specify name using string
      * Wait while option (from text) is selected. Return false if this not happens
      */
-    @JDIAction
+    @Step
     void waitSelected(String name);
 
     /**
      * @param name Specify name using enum
      * Wait while option (from enum) is selected. Return false if this not happens
      */
-    @JDIAction
+    @Step
     void waitSelected(TEnum name);
 /*
     boolean isDisplayed(String name);
@@ -95,7 +95,7 @@ public interface ISelector<TEnum extends Enum> extends IBaseElement, ISetValue {
     /**
      * @return Get labels of all options
      */
-    @JDIAction
+    @Step
     List<String> getOptions();
 
     default List<String> getNames() {
@@ -109,7 +109,7 @@ public interface ISelector<TEnum extends Enum> extends IBaseElement, ISetValue {
     /**
      * @return Get all options labels in one string separated with “; ”
      */
-    @JDIAction
+    @Step
     default String getOptionsAsText() {
         return print(getOptions());
     }

@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 
 import com.epam.commons.Timer;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -148,7 +148,7 @@ public class WebPage extends BaseElement implements IPage {
     /**
      * Refresh current page
      */
-    @JDIAction
+    @Step
     public void refresh() {
         invoker.doJAction(format("Refresh page '%s", getName()),
                 () -> getDriver().navigate().refresh());
@@ -156,7 +156,7 @@ public class WebPage extends BaseElement implements IPage {
     /**
      * Reload current page
      */
-    @JDIAction
+    @Step
     public void reload() {
         invoker.doJAction(format("Reload page '%s", getName()),
                 () -> getDriver().navigate().refresh());
@@ -165,7 +165,7 @@ public class WebPage extends BaseElement implements IPage {
     /**
      * Go back to previous page
      */
-    @JDIAction
+    @Step
     public void back() {
         invoker.doJAction("Go back to previous page",
                 () -> getDriver().navigate().back());
@@ -175,7 +175,7 @@ public class WebPage extends BaseElement implements IPage {
     /**
      * Go forward to next page
      */
-    @JDIAction
+    @Step
     public void forward() {
         invoker.doJAction("Go forward to next page",
                 () -> getDriver().navigate().forward());
@@ -185,7 +185,7 @@ public class WebPage extends BaseElement implements IPage {
      * @param cookie Specify cookie
      *               Add cookie in browser
      */
-    @JDIAction
+    @Step
     public void addCookie(Cookie cookie) {
         invoker.doJAction("Add cookie",
                 () -> getDriver().manage().addCookie(cookie));
@@ -194,7 +194,7 @@ public class WebPage extends BaseElement implements IPage {
     /**
      * Clear browsers cache
      */
-    @JDIAction
+    @Step
     public void clearCache() {
         invoker.doJAction("Delete all cookies",
                 () -> getDriver().manage().deleteAllCookies());
@@ -223,7 +223,7 @@ public class WebPage extends BaseElement implements IPage {
         /**
          * Check that current page url/title equals to expected url/title
          */
-        @JDIAction
+        @Step
         public boolean check() {
             logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
@@ -234,7 +234,7 @@ public class WebPage extends BaseElement implements IPage {
         /**
          * Check that current page url/title matches to expected url/title-matcher
          */
-        @JDIAction
+        @Step
         public boolean match() {
             logger.info(format("Check that page %s matches to '%s'", what, template));
             return template == null
@@ -245,7 +245,7 @@ public class WebPage extends BaseElement implements IPage {
         /**
          * Check that current page url/title contains expected url/title-matcher
          */
-        @JDIAction
+        @Step
         public boolean contains() {
             logger.info(format("Check that page %s contains to '%s'", what, template));
             return template == null

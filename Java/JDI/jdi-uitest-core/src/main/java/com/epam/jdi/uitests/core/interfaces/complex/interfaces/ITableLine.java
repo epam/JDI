@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 
 
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public interface ITableLine {
     /**
      * Get Columns/Rows count
      */
-    @JDIAction
+    @Step
     int count();
     int count(boolean acceptEmpty);
     default int size() { return count(); }
@@ -39,7 +39,7 @@ public interface ITableLine {
     /**
      * Get Columns/Rows headers
      */
-    @JDIAction
+    @Step
     List<String> headers();
 
     /**
@@ -52,16 +52,16 @@ public interface ITableLine {
      * cell("Name, "5")
      * myTable.columns().count()
      */
-    @JDIAction
+    @Step
     MapArray<String, MapArray<String, ICell>> get();
 
-    @JDIAction
+    @Step
     MapArray<String, MapArray<String, String>> getAsText();
 
-    @JDIAction
+    @Step
     MapArray<String, ISelect> header();
 
-    @JDIAction
+    @Step
     ISelect header(String name);
     void removeHeaders(String... names);
     void addHeaders(String... names);

@@ -31,7 +31,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdi.version>1.0.58</jdi.version>
+        <jdi.version>1.0.59</jdi.version>
+        <allure.version>1.5.2</allure.version>
     </properties>
 
 
@@ -50,6 +51,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.13</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-annotations</artifactId>
+            <version>${allure.version}</version>
         </dependency>
     </dependencies>
     <build>

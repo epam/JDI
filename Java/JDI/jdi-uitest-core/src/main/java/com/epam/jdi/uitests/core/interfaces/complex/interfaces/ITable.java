@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 
 
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 
@@ -33,79 +33,79 @@ public interface ITable extends IText {
     /**
      * Get Cell by column/row index (Int) or name(String)
      */
-    @JDIAction
+    @Step
     ICell cell(Column column, Row row);
 
-    @JDIAction
+    @Step
     default ICell cell(String columnName, String rowName) {
         return cell(Column.column(columnName), Row.row(rowName));
     }
 
-    @JDIAction
+    @Step
     default ICell cell(int columnIndex, int rowIndex) {
         return cell(Column.column(columnIndex), Row.row(rowIndex));
     }
 
-    @JDIAction
+    @Step
     default ICell cell(int columnIndex, String rowName) {
         return cell(Column.column(columnIndex), Row.row(rowName));
     }
 
-    @JDIAction
+    @Step
     default ICell cell(String columnName, int rowIndex) {
         return cell(Column.column(columnName), Row.row(rowIndex));
     }
     /**
      * Get all Cells with values equals to searched value
      */
-    @JDIAction
+    @Step
     List<ICell> cells(String value);
 
     /**
      * Get first Cell in row with value contains expected value
      */
-    @JDIAction
+    @Step
     ICell cellContains(String value, Row row);
 
     /**
      * Get first Cell in row with value match expected regEx
      */
-    @JDIAction
+    @Step
     ICell cellMatch(String regex, Row row);
 
     /**
      * Get first Cell in column with value contains expected value
      */
-    @JDIAction
+    @Step
     ICell cellContains(String value, Column column);
 
     /**
      * Get first Cell in column with value match expected regEx
      */
-    @JDIAction
+    @Step
     ICell cellMatch(String regex, Column column);
     /**
      * Get all Cells with values contains expected value
      */
-    @JDIAction
+    @Step
     List<ICell> cellsContains(String value);
 
     /**
      * Get all Cells with values matches to searched regex
      */
-    @JDIAction
+    @Step
     List<ICell> cellsMatch(String regex);
 
     /**
      * Get first Cell with equals to searched value
      */
-    @JDIAction
+    @Step
     ICell cell(String value);
 
     /**
      * Get first Cell with matches to searched regex
      */
-    @JDIAction
+    @Step
     ICell cellMatch(String regex);
 
     /**
@@ -117,7 +117,7 @@ public interface ITable extends IText {
      * e.g. rows("Name*=.* +*", "Profession~=Test") <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, MapArray<String, ICell>> rows(String... colNameValues);
 
     MapArray<String, MapArray<String, ICell>> rows(String value, Column column);
@@ -132,7 +132,7 @@ public interface ITable extends IText {
      * e.g. columns("Total*=\\d+", "Profession~=QA") <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues);
 
     MapArray<String, MapArray<String, ICell>> columns(String value, Row row);
@@ -144,7 +144,7 @@ public interface ITable extends IText {
      * e.g. waitValue("100", row("Total")) <br>
      * or   waitValue("100", row(5))
      */
-    @JDIAction
+    @Step
     boolean waitValue(String value, Row row);
 
     /**
@@ -152,25 +152,25 @@ public interface ITable extends IText {
      * e.g. waitValue("Roman", column("Name")) <br>
      * or   waitValue("Roman", column(3))
      */
-    @JDIAction
+    @Step
     boolean waitValue(String value, Column column);
 
     /**
      * Indicates are any rows in table. Check immediately
      */
-    @JDIAction
+    @Step
     boolean isEmpty();
 
     /**
      * Wait while at least one row appear in table
      */
-    @JDIAction
+    @Step
     boolean waitHaveRows();
 
     /**
      * Wait while at least count of rows appear in table
      */
-    @JDIAction
+    @Step
     boolean waitRows(int count);
 
     /**
@@ -178,7 +178,7 @@ public interface ITable extends IText {
      * e.g. cell("100", row("Total")) <br>
      * or   cell("100", row(5))
      */
-    @JDIAction
+    @Step
     ICell cell(String value, Row row);
 
     /**
@@ -186,7 +186,7 @@ public interface ITable extends IText {
      * e.g. cell("Roman", column("Name")) <br>
      * or   cell("Roman", column(3))
      */
-    @JDIAction
+    @Step
     ICell cell(String value, Column column);
 
     /**
@@ -194,7 +194,7 @@ public interface ITable extends IText {
      * e.g. cellsMatch(".*uccess.*", row("Result")) <br>
      * or   cellsMatch(".*uccess.*", row(5))
      */
-    @JDIAction
+    @Step
     List<ICell> cellsMatch(String regex, Row row);
 
     /**
@@ -202,7 +202,7 @@ public interface ITable extends IText {
      * e.g. cellsMatch("Roma.*", column("Name")) <br>
      * or   cellsMatch("Roma.*", column(3))
      */
-    @JDIAction
+    @Step
     List<ICell> cellsMatch(String regex, Column column);
 
     /**
@@ -211,7 +211,7 @@ public interface ITable extends IText {
      * or   row("Roman", column(3)) <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> row(String value, Column column);
 
     /**
@@ -220,7 +220,7 @@ public interface ITable extends IText {
      * or   column("100", row(5)) <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> column(String value, Row row);
     /**
      * Get Column cells for Cell with searched value contains in Row's values by index(Int) or name(String) <br>
@@ -228,7 +228,7 @@ public interface ITable extends IText {
      * or   columnContains("mwork", row(5)) <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> columnContains(String value, Row row);
     /**
      * Get Column cells for Cell with Row's values match regEx by index(Int) or name(String) <br>
@@ -236,7 +236,7 @@ public interface ITable extends IText {
      * or   columnContains("Frame.+ork", row(5)) <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> columnMatch(String regEx, Row row);
     /**
      * Get Column cells for Cell with searched value contains in Column's values by index(Int) or name(String) <br>
@@ -244,7 +244,7 @@ public interface ITable extends IText {
      * or   row("mwork", column(3)) <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> rowContains(String value, Column column);
     /**
      * Get Column cells for Cell with Column's values match regEx by index(Int) or name(String) <br>
@@ -252,7 +252,7 @@ public interface ITable extends IText {
      * or   row("Frame.+ork", column(3)) <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> rowMatch(String regEx, Column column);
 
     IRow rows();
@@ -261,26 +261,26 @@ public interface ITable extends IText {
      * Get Row with index <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> row(int rowNum);
 
     /**
      * Get Row with name <br>
      * Each Row is map: columnName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> row(String rowName);
 
     /**
      * Get Row value
      */
-    @JDIAction
+    @Step
     List<String> rowValue(int colNum);
 
     /**
      * Get Row value
      */
-    @JDIAction
+    @Step
     List<String> rowValue(String colName);
 
     IColumn columns();
@@ -289,53 +289,53 @@ public interface ITable extends IText {
      * Get Column with index <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> column(int colNum);
 
     /**
      * Get Column with name <br>
      * Each Column is map: rowName:cell
      */
-    @JDIAction
+    @Step
     MapArray<String, ICell> column(String colName);
 
     /**
      * Get Column value
      */
-    @JDIAction
+    @Step
     List<String> columnValue(int colNum);
 
     /**
      * Get Column value
      */
-    @JDIAction
+    @Step
     List<String> columnValue(String colName);
 
     /**
      * Get Header
      */
-    @JDIAction
+    @Step
     MapArray<String, ISelect> header();
 
-    @JDIAction
+    @Step
     ISelect header(String name);
 
     /**
      * Get Header
      */
-    @JDIAction
+    @Step
     List<String> headers();
 
     /**
      * Get Footer
      */
-    @JDIAction
+    @Step
     List<String> footer();
 
     /**
      * Get All Cells
      */
-    @JDIAction
+    @Step
     List<ICell> getCells();
 
     /**

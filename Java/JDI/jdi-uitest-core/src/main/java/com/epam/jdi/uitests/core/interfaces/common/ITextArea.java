@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Created by Roman_Iovlev on 7/6/2015.
@@ -27,19 +27,19 @@ public interface ITextArea extends ITextField {
      * @param textLines Specify text lines (clear textArea before
      *                  Clear textarea and Input several lines of text in textarea
      */
-    @JDIAction
+    @Step
     void inputLines(String... textLines);
 
     /**
      * @param textLine Specify text to add new line (without clearing previous)
      *                 Add text in textarea from new line
      */
-    @JDIAction
+    @Step
     void addNewLine(String textLine);
 
     /**
      * @return Get lines of text in textarea
      */
-    @JDIAction
+    @Step
     String[] getLines();
 }

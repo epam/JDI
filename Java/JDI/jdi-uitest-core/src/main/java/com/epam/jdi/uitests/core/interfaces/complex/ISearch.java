@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 
@@ -32,7 +32,7 @@ public interface ISearch extends ITextField, IComposite {
      * @param selectValue Specify value to choose from suggested search result
      *                    Input text in search and then select value from suggestions
      */
-    @JDIAction
+    @Step
     void chooseSuggestion(String text, String selectValue);
 
     /**
@@ -40,20 +40,20 @@ public interface ISearch extends ITextField, IComposite {
      * @param selectIndex Specify index to choose from suggested search result
      *                    Input text in search and then select suggestions by index
      */
-    @JDIAction
+    @Step
     void chooseSuggestion(String text, int selectIndex);
 
     /**
      * @param text Specify Text to search
      *             Input text in search field and press search button
      */
-    @JDIAction
+    @Step
     void find(String text);
 
     /**
      * @param text Specify Text to search
      * @return Select all suggestions for text
      */
-    @JDIAction
+    @Step
     List<String> getSuggesions(String text);
 }

@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 
@@ -28,18 +28,18 @@ public interface ICheckBox extends IClickable, IText, ISetValue {
     /**
      * Set checkbox checked
      */
-    @JDIAction
+    @Step
     void check();
 
     /**
      * Set checkbox unchecked
      */
-    @JDIAction
+    @Step
     void uncheck();
 
     /**
      * @return Verify is checkbox checked
      */
-    @JDIAction
+    @Step
     boolean isChecked();
 }

@@ -17,7 +17,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 
@@ -28,18 +28,18 @@ public interface IPopup extends IText, IComposite {
     /**
      * Click on Button marked with annotation @OkButton or named "okButton"
      */
-    @JDIAction
+    @Step
     void ok();
 
     /**
      * Click on Button marked with annotation @CancelButton or named "cancelButton"
      */
-    @JDIAction
+    @Step
     void cancel();
 
     /**
      * Click on Button marked with annotation @CloseButton or named "closeButton"
      */
-    @JDIAction
+    @Step
     void close();
 }

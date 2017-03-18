@@ -2,7 +2,7 @@ package com.epam.jdi.uitests.gui.sikuli.elements.base;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.TryCatchUtil;
-import com.epam.jdi.uitests.core.annotations.JDIAction;
+import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -38,7 +38,7 @@ public class Element extends BaseElement implements IElement {
         super(pattern);
     }
 
-    @JDIAction
+    @Step
     public Element getElement() {
         return invoker.doJActionResult("Get gui element",
                 () -> this != null ? this : avatar.getElement(), DEBUG);
