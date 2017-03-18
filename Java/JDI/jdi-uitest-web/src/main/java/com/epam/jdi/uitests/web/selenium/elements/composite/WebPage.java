@@ -127,6 +127,13 @@ public class WebPage extends BaseElement implements IPage {
         currentPage = this;
         return (T) this;
     }
+    public void shouldBeOpened() {
+        isOpened();
+    }
+    /**
+     * @deprecated  Better use more obvious {@link #shouldBeOpened()}
+     */
+    @Deprecated
     public void isOpened() {
         try {
             logger.info(format("Page '%s' should be opened", getName()));
