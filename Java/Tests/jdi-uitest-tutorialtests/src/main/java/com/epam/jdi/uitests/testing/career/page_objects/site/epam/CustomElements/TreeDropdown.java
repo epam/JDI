@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.CustomElements;
 /*
  * Created by Roman_Iovlev on 6/20/2016
  *

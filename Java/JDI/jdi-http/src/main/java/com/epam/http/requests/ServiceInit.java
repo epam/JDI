@@ -15,7 +15,7 @@ public class ServiceInit {
     public static void init(Class<?> c){
         String domain = null;
         if (c.isAnnotationPresent(ServiceDomain.class))
-            domain = c.getAnnotation(ServiceDomain.class).domain();
+            domain = c.getAnnotation(ServiceDomain.class).value();
         List<Field> methods = where(c.getDeclaredFields(), f -> f.getType().equals(RestMethod.class));
         for (Field method: methods) {
             try {
@@ -37,21 +37,21 @@ public class ServiceInit {
         if (method.isAnnotationPresent(Method.class)) {
             Method m = method.getAnnotation(Method.class);
             RestMethodTypes[] types = m.types();
-            return new RestMethodData(getUrlFromDomain(domain, m.uri()),
+            return new RestMethodData(getUrlFromDomain(domain, m.value()),
                     types.length == 1 ? types[0] : null);
         }
         if (method.isAnnotationPresent(GET.class))
             return new RestMethodData(getUrlFromDomain(domain,
-                    method.getAnnotation(GET.class).uri()), RestMethodTypes.GET);
+                    method.getAnnotation(GET.class).value()), RestMethodTypes.GET);
         if (method.isAnnotationPresent(POST.class))
             return new RestMethodData(getUrlFromDomain(domain,
-                    method.getAnnotation(POST.class).uri()), RestMethodTypes.POST);
+                    method.getAnnotation(POST.class).value()), RestMethodTypes.POST);
         if (method.isAnnotationPresent(PUT.class))
             return new RestMethodData(getUrlFromDomain(domain,
-                    method.getAnnotation(PUT.class).uri()), RestMethodTypes.PUT);
+                    method.getAnnotation(PUT.class).value()), RestMethodTypes.PUT);
         if (method.isAnnotationPresent(DELETE.class))
             return new RestMethodData(getUrlFromDomain(domain,
-                    method.getAnnotation(DELETE.class).uri()), RestMethodTypes.DELETE);
+                    method.getAnnotation(DELETE.class).value()), RestMethodTypes.DELETE);
         return new RestMethodData();
     }
 }

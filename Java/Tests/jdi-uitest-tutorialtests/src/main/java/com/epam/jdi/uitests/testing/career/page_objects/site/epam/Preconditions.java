@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam;
 
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.jdi.uitests.core.preconditions.IPreconditions;
@@ -6,7 +6,6 @@ import com.epam.web.matcher.testng.Assert;
 import com.google.common.base.Supplier;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.alwaysMoveToCondition;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobListingPage;
 import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.checkUrl;
 import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.openUri;
 
@@ -15,10 +14,10 @@ import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.o
  */
 public enum Preconditions implements IPreconditions {
     JOBS_LIST_SHOWN(
-        () -> jobListingPage.verifyOpened() && !jobListingPage.jobsList.isEmpty(),
+        () -> EpamSite.jobListingPage.verifyOpened() && !EpamSite.jobListingPage.jobsList.isEmpty(),
         () -> {
-            jobListingPage.isOpened();
-            Assert.isFalse(() -> jobListingPage.jobsList.isEmpty());
+            EpamSite.jobListingPage.isOpened();
+            Assert.isFalse(() -> EpamSite.jobListingPage.jobsList.isEmpty());
         }
     ),
     CAREERS_PAGE("/careers");

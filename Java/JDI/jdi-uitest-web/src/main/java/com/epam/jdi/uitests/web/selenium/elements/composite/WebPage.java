@@ -56,14 +56,6 @@ public class WebPage extends BaseElement implements IPage {
         this.title = title;
     }
 
-    public static String getUrlFromUri(String uri) {
-        return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
-    }
-
-    public static String getMatchFromDomain(String uri) {
-        return domain.replaceAll("/*$", "").replace(".", "\\.") + "/" + uri.replaceAll("^/*", "");
-    }
-
     public static void openUrl(String url) {
         new WebPage(url).open();
     }

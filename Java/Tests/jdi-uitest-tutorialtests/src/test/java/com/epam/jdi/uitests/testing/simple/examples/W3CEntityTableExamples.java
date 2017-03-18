@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.*;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.*;
 
 
 public class W3CEntityTableExamples extends TestsBase {

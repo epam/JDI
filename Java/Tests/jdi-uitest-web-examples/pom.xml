@@ -11,6 +11,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <parent>
+        <groupId>com.epam.jdi</groupId>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <version>1.0.58</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
     <dependencies>
         <dependency>
             <groupId>com.epam.jdi</groupId>

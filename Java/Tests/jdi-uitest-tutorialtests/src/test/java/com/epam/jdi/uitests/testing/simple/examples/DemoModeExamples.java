@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.homePage;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.homePage;
 
 
 public class DemoModeExamples extends TestsBase {

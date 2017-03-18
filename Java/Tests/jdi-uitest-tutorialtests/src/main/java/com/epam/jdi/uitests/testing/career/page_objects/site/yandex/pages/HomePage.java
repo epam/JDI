@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
+package com.epam.jdi.uitests.testing.career.page_objects.site.yandex.pages;
 
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 

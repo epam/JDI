@@ -1,10 +1,10 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
+package com.epam.jdi.uitests.testing.career.page_objects.site.google.pages;
 
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */
-public class ProductDevelopmentPage extends WebPage {
+public class SearchPage extends WebPage {
 
 }

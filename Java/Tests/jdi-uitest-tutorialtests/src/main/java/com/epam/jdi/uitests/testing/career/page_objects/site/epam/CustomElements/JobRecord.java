@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.CustomElements;
 
 import com.epam.jdi.uitests.core.interfaces.common.ILink;
 import com.epam.jdi.uitests.core.interfaces.common.IText;

@@ -1,7 +1,7 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.pages;
 
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.testing.career.page_objects.site.sections.AddCVForm;
+import com.epam.jdi.uitests.testing.career.page_objects.site.epam.sections.AddCVForm;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.support.FindBy;
 

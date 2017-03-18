@@ -15,6 +15,6 @@ import static com.epam.http.requests.RestMethodTypes.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface Method {
-    String uri();
+    String value();
     RestMethodTypes[] types() default { GET, POST, PUT, DELETE };
 }

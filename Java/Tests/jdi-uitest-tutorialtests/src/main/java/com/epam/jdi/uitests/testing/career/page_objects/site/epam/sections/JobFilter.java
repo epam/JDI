@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.sections;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.sections;
 
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
@@ -8,9 +8,8 @@ import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.JobSearchFilter;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.JobCategories;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.Locations;
-import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.TreeDropdown;
+import com.epam.jdi.uitests.testing.career.page_objects.site.epam.CustomElements.TreeDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;

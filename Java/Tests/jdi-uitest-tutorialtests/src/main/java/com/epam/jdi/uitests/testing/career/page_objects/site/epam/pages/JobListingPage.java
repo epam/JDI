@@ -1,10 +1,10 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.pages;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.career.page_objects.entities.Job;
-import com.epam.jdi.uitests.testing.career.page_objects.site.CustomElements.JobRecord;
+import com.epam.jdi.uitests.testing.career.page_objects.site.epam.CustomElements.JobRecord;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;

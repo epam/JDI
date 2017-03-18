@@ -1,6 +1,6 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site.pages;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam.pages;
 
-import com.epam.jdi.uitests.testing.career.page_objects.site.sections.JobFilter;
+import com.epam.jdi.uitests.testing.career.page_objects.site.epam.sections.JobFilter;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.support.FindBy;

@@ -385,6 +385,9 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         }
     }
 
+    public MapArray<K, V> filter(BiFunction<K, V, Boolean> func) {
+        return where(func);
+    }
     public MapArray<K, V> where(BiFunction<K, V, Boolean> func) {
         try {
             return pairs.stream().filter(pair -> func.apply(pair.key, pair.value))

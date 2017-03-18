@@ -28,11 +28,11 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
  */
 public class WebSite extends Application {
     public static <T> void init(Class<T> site) {
-        new WebCascadeInit().initStaticPages(site, getDriverFactory().currentDriverName());
-        currentSite = site;
+        init(site, getDriverFactory().currentDriverName());
     }
-    public static <T extends WebSite> T init(Class<T> site, String driverName) {
-        return new WebCascadeInit().initPages(site, driverName);
+    public static <T> void init(Class<T> site, String driverName) {
+        new WebCascadeInit().initStaticPages(site, driverName);
+        currentSite = site;
     }
 
 }

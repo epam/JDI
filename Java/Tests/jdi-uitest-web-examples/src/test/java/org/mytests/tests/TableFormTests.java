@@ -1,11 +1,14 @@
 package org.mytests.tests;
 
+import com.sun.jna.platform.win32.Netapi32Util;
 import org.mytests.InitTestsTableForm;
 import org.mytests.epam.site.entities.Attendee;
 import org.mytests.epam.site.entities.Job;
 import org.mytests.epam.site.selenide.PageJobs;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.function.BinaryOperator;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
@@ -18,12 +21,15 @@ import static org.mytests.epam.site.site.EpamSite.jobsPage;
  */
 public class TableFormTests extends InitTestsTableForm {
 
+    private static BinaryOperator<Netapi32Util.User> op;
+
     @DataProvider
     public static Object[][] cvData() {
         return new Object[][]{
             { new Attendee(),
               new Job("Senior QA Automation Engineer",
-                    "Software Test Engineering")}
+                    "Software Test Engineering"),
+                    op }
         };
     }
     // JDI test

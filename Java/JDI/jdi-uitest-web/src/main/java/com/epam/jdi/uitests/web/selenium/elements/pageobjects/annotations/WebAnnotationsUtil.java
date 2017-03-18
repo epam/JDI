@@ -29,9 +29,7 @@ import java.util.function.Consumer;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.getUrlFromUri;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
-import static com.epam.jdi.uitests.web.settings.WebSettings.hasDomain;
 import static java.lang.String.format;
 
 /**
@@ -39,13 +37,22 @@ import static java.lang.String.format;
  */
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
+    private static void initDomain(Class<?> parentClass) {
+
+    }
+    public static String getUrlFromUri(String uri, Class<?> parentClass) {
+        String siteDomain = domain;
+        if (parentClass.isAnnotationPresent(JSite.class))
+            siteDomain = parentClass.getAnnotation(JSite.class).domain();
+        if (siteDomain == null)
+            siteDomain = "";
+        return siteDomain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
+    }
+
     public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation, Class<?> parentClass) {
         String url = pageAnnotation.url();
-        if (!hasDomain() && parentClass != null && parentClass.isAnnotationPresent(JSite.class))
-            domain = parentClass.getAnnotation(JSite.class).domain();
-        url = url.contains("://") || parentClass == null || !hasDomain()
-                ? url
-                : getUrlFromUri(url);
+        if (!url.contains("://"))
+            url = getUrlFromUri(url, parentClass);
         String title = pageAnnotation.title();
         String urlTemplate = pageAnnotation.urlTemplate();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
@@ -53,11 +60,6 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         if (urlCheckType == MATCH || urlCheckType == CONTAINS && urlTemplate.equals(""))
             urlTemplate = url;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
-    }
-
-    private static String getUrlFromDomain(Object parent, String uri) {
-        domain = parent.getClass().getAnnotation(JSite.class).domain();
-        return getUrlFromUri(uri);
     }
 
     public static By getFrame(Frame frame) {

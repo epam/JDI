@@ -1,13 +1,12 @@
-package com.epam.jdi.uitests.testing.career.page_objects.site;
+package com.epam.jdi.uitests.testing.career.page_objects.site.epam;
 
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu;
 import com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderSolutionsMenu;
-import com.epam.jdi.uitests.testing.career.page_objects.site.pages.*;
+import com.epam.jdi.uitests.testing.career.page_objects.site.epam.pages.*;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;

@@ -11,8 +11,8 @@ import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobDescriptionPage;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.jobListingPage;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.jobDescriptionPage;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.jobListingPage;
 
 
 public class TableExamples extends TestsBase {

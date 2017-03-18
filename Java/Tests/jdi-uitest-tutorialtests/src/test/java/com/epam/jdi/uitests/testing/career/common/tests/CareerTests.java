@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.testing.career.page_objects.enums.HeaderMenu.CAREERS;
-import static com.epam.jdi.uitests.testing.career.page_objects.site.EpamSite.*;
+import static com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite.*;
 
 
 public class CareerTests extends TestsBase {

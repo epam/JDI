@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.career.page_objects.entities;
 
-import com.epam.jdi.uitests.core.annotations.Name;
+
+import lombok.Data;
 
 /**
  * Created by Roman_Iovlev on 10/22/2015.
