@@ -6,8 +6,10 @@ import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.*;
+
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebDrivers;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 
 /**
  * Created by Roman_Iovlev on 7/13/2015.
@@ -21,7 +23,7 @@ public abstract class TestsBase extends TestNGBase {
     }
 
     @AfterSuite(alwaysRun = true)
-    public static void tearDown() {
-        killAllRunWebDrivers();
+    public static void tearDown() throws IOException {
+        killAllRunWebBrowsers();
     }
 }
