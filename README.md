@@ -150,7 +150,7 @@ Or even verify exceptions
     }
 ```
 
-See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing/career/common/tests/simple/examples)
+See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
 
 ###UI Objects
 ```Java
