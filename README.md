@@ -1,6 +1,6 @@
-#JDI UI Test Automation Framework
+# JDI UI Test Automation Framework
 
-||C#.Net|Java|
+| | C#.Net | Java |
 |---|---|---|
 |CI|[![Build status](https://ci.appveyor.com/api/projects/status/98p7dbaiggwp7ilh?svg=true)](https://ci.appveyor.com/project/elv1s42/jdi-m0fd6)|[![Build Status](https://travis-ci.org/epam/JDI.svg?branch=master)](https://travis-ci.org/epam/JDI)|
 |Package|[![NuGet Version](https://img.shields.io/nuget/v/JDI.UICore.svg)](https://www.nuget.org/packages/JDI.UICore)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-uitest-web)|
@@ -12,14 +12,14 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
-##First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+## First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
 1. Click Link. Unpack zip
 2. Open project (Double click on pom.xml (if it is not setup to open with Idea by default setup this))
 3. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
 
 ... So easy!
 
-##Introduction
+## Introduction
 
 JDI – is the test Framework for UI test automation. It extends the Page Objects design pattern and introduces many additional elements along with implementation of its common usages.
 
@@ -35,7 +35,7 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
-###Simple Examples
+### Simple Examples
 Simple Login example with DataProvider using Business entity User
 ```Java
     @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
@@ -152,7 +152,7 @@ Or even verify exceptions
 
 See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
 
-###UI Objects
+### UI Objects
 ```Java
 @JSite(domain = "https://www.epam.com")
 public class EpamSite extends WebSite {
@@ -217,9 +217,9 @@ public class AddCVForm extends Form<Attendee> {
 ```
 
 ## How to add
-###Java:
-####Web:
-####Maven
+### Java:
+#### Web:
+#### Maven
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
@@ -227,13 +227,13 @@ public class AddCVForm extends Form<Attendee> {
     <version>1.0.39</version>
 </dependency>
 ```
-####Gradle
+#### Gradle
 ```xml
 dependencies {
   testCompile 'com.epam.jdi:jdi-uitest-web:1.0.39'
 }
 ```
-####IVY
+#### IVY
 ```xml
 <ivy-module>
   <dependencies>
@@ -241,7 +241,7 @@ dependencies {
   </dependencies>
 </ivy-module>
 ```
-####Mobile(Maven):
+#### Mobile(Maven):
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
@@ -249,7 +249,7 @@ dependencies {
     <version>1.0.39</version>
 </dependency>
 ```
-####Desktop(Maven):
+#### Desktop(Maven):
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
@@ -259,7 +259,7 @@ dependencies {
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
 
-##JDI settings
+## JDI settings
 ```Java
 driver=chrome
 timeout.wait.element=10
@@ -274,25 +274,26 @@ screenshot.strategy=on fail | on | off
 ```
 See [more settings examples](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/src/test/resources/test.properties)
 
-###.Net 
+### .Net 
 Add Nuget package "JDI.UIWeb" to your solution
 
-##Examples
+## Examples
 [Java tests](https://github.com/epam/JDI/tree/master/Java/Tests)
 
 [C# tests](https://github.com/epam/JDI/tree/master/C%23.Net/Tests)
 
-##Methods Documentation
+## Methods Documentation
 [Java](https://github.com/epam/JDI/blob/master/JDI_UI_TEST_Framework.docx )
 
-##Links
+## Links
 
 Site: http://jdi.epam.com/
 
 VK: https://vk.com/jdi_framework
 
 You can ask your questions on StackOverflow with [![htmlelements](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework) tag.
-##Contacts:
+
+## Contacts:
 
 Mail: roman_iovlev@epam.com
 
