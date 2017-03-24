@@ -18,9 +18,10 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
  */
 
 
-import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.complex.IPopup;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
+
+import static com.epam.jdi.uitests.core.annotations.functions.Functions.*;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
@@ -32,25 +33,34 @@ public class Popup extends Text implements IPopup {
         return getWebElement().getText();
     }
 
+    protected void okAction() {
+        getElementClass.getButton(OK_BUTTON).click();
+    }
+    protected void cancelAction() {
+        getElementClass.getButton(CANCEL_BUTTON).click();
+    }
+    protected void closeAction() {
+        getElementClass.getButton(CLOSE_BUTTON).click();
+    }
     /**
      * Click on Button marked with annotation @OkButton or named "okButton"
      */
-    public void ok() {
-        getElementClass.getButton(Functions.OK_BUTTON).click();
+    public final void ok() {
+        invoker.doJAction("Press Ok on popup", this::okAction);
     }
 
     /**
      * Click on Button marked with annotation @CancelButton or named "cancelButton"
      */
     public void cancel() {
-        getElementClass.getButton(Functions.CANCEL_BUTTON).click();
+        invoker.doJAction("Press Cancel on popup", this::cancelAction);
     }
 
     /**
      * Click on Button marked with annotation @CloseButton or named "closeButton"
      */
     public void close() {
-        getElementClass.getButton(Functions.CLOSE_BUTTON).click();
+        invoker.doJAction("Close on popup", this::closeAction);
     }
 
 }

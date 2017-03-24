@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.mobile.appium.elements.base;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -32,6 +31,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.lang.reflect.Field;
 import java.util.List;

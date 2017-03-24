@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.gui.sikuli.elements.base;
 
 import com.epam.commons.LinqUtils;
 import com.epam.commons.TryCatchUtil;
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -10,6 +9,7 @@ import com.epam.jdi.uitests.gui.sikuli.elements.BaseElement;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.awt.*;
 import java.lang.reflect.Field;

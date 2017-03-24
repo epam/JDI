@@ -18,10 +18,10 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  */
 
 import com.epam.commons.map.MapArray;
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.Map;

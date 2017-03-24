@@ -19,12 +19,12 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 
 import com.epam.commons.Timer;
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.function.Supplier;
 

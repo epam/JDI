@@ -19,8 +19,8 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 
 
 import com.epam.commons.map.MapArray;
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 

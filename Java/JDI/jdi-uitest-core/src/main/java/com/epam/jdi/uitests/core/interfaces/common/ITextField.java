@@ -18,9 +18,9 @@ package com.epam.jdi.uitests.core.interfaces.common;
  */
 
 
-import ru.yandex.qatools.allure.annotations.Step;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
+import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Created by Roman_Iovlev on 7/6/2015.
