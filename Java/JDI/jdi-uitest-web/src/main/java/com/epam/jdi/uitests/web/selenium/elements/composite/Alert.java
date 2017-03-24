@@ -24,5 +24,9 @@ public class Alert extends Popup {
     protected void closeAction() {
         getAlert().dismiss();
     }
+    @Override
+    protected String getTextAction() {
+        return getAlert().getText();
+    }
 
 }
