@@ -201,6 +201,13 @@ public abstract class BaseMatcher implements IChecker {
             throw exception(ex.getMessage());
         }
     }
+
+    public void ignore(JAction action) {
+        try {
+            action.invoke();
+        } catch (Exception ignore) { }
+    }
+
     //CHECKSTYLE OFF
     private String toUtf8(String text) {
         return silent(() -> new String(text.getBytes(), "UTF-8"));

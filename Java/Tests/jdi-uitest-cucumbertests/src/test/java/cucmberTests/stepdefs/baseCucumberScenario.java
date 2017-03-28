@@ -8,7 +8,7 @@ import com.epam.web.matcher.verify.Verify;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
-import java.io.*;
+import java.io.IOException;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.initFromProperties;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;

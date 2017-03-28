@@ -17,10 +17,10 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.commons.*;
-import org.openqa.selenium.os.*;
+import java.io.IOException;
 
-import java.io.*;
+import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static org.openqa.selenium.os.WindowsUtils.killByName;
 
 /**
  * Created by 12345 on 26.01.2015.
@@ -33,24 +33,9 @@ public final class WebDriverUtils {
     //TODO Add OS type and current user check.
     //TODO Try to use C/C++ Library to work with processes.
     public static void killAllRunWebBrowsers() throws IOException {
-        switch (PropertyReader.getProperty("driver").toLowerCase()) {
-            case "chrome":
-                WindowsUtils.killByName("chromedriver.exe");
-                WindowsUtils.killByName("chrome.exe");
-                break;
-            case "firefox":
-                WindowsUtils.killByName("geckodriver.exe");
-                WindowsUtils.killByName("firefox.exe");
-                break;
-            case "ie":
-            case "internetexplorer":
-                WindowsUtils.killByName("IEDriverServer.exe");
-                WindowsUtils.killByName("iexplore.exe");
-                break;
-            case "edge":
-                WindowsUtils.killByName("MicrosoftWebDriver.exe");
-                WindowsUtils.killByName("MicrosoftEdge.exe");
-            default:
-        }
+        asserter.ignore(() -> killByName("chromedriver.exe"));
+        asserter.ignore(() -> killByName("geckodriver.exe"));
+        asserter.ignore(() -> killByName("IEDriverServer.exe"));
+        asserter.ignore(() -> killByName("MicrosoftWebDriver.exe"));
     }
 }

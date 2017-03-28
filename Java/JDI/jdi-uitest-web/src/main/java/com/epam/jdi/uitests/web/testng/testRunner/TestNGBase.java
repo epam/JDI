@@ -17,18 +17,22 @@ package com.epam.jdi.uitests.web.testng.testRunner;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.commons.*;
-import com.epam.jdi.uitests.web.selenium.driver.*;
-import org.testng.annotations.*;
+import com.epam.commons.Timer;
+import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
+import com.epam.jdi.uitests.web.settings.WebSettings;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
-import java.io.*;
-import java.time.*;
-import java.time.format.*;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
-import static com.epam.commons.StringUtils.*;
+import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.settings.WebSettings.initFromProperties;
 import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
@@ -46,11 +50,8 @@ public class TestNGBase {
     public static void jdiSetUp() throws IOException {
         initFromProperties();
         logger.info("Init test run");
-
-        String browserKill = PropertyReader.getProperty("browser.kill.before");
-        if (browserKill == null || browserKill.equals("true")) {
+        if (WebSettings.killBrowser.toLowerCase().contains("before"))
             killAllRunWebBrowsers();
-        }
         if (!driverFactory.hasDrivers())
             useDriver(DriverTypes.CHROME);
         timer = new Timer();
@@ -65,9 +66,7 @@ public class TestNGBase {
 
         logger.info("Test run finished. " + LINE_BREAK + "Total test run time: " + formattedTime);
 
-        String browserKill = PropertyReader.getProperty("browser.kill.after");
-        if (browserKill == null || browserKill.equals("true")) {
+        if (WebSettings.killBrowser.toLowerCase().contains("after"))
             killAllRunWebBrowsers();
-        }
     }
 }
