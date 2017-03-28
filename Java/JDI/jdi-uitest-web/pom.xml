@@ -32,7 +32,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenium.version>3.0.1</selenium.version>
+        <selenium.version>3.3.1</selenium.version>
         <testng.version>6.8.1</testng.version>
         <log4j.version>1.2.17</log4j.version>
         <saucelab.version>2.1.19</saucelab.version>

@@ -8,6 +8,8 @@ import com.epam.web.matcher.verify.Verify;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
+import java.io.*;
+
 import static com.epam.jdi.uitests.core.settings.JDISettings.initFromProperties;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
@@ -38,11 +40,9 @@ public class baseCucumberScenario {
         }
     }
 
-
     @After
-    public void after(){
+    public void after() throws IOException {
         TestNGBase.jdiTearDown();
         Verify.getFails();
     }
-
 }
