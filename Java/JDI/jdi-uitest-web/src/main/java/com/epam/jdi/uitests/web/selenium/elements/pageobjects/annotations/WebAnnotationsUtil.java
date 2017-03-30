@@ -21,8 +21,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import javaslang.API;
-import javaslang.API.Match;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Quotes;
@@ -33,8 +31,6 @@ import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageT
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
-import static javaslang.API.Case;
-import static javaslang.API.Match;
 
 /**
  * Created by roman.i on 25.09.2014.
