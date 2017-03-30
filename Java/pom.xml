@@ -6,7 +6,7 @@
 
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-framework</artifactId>
-    <version>1.0.60</version>
+    <version>1.0.61</version>
     <packaging>pom</packaging>
     <name>EPAM UI Test Framework</name>
     <description>Automation UI testing for web mobile and desktop</description>

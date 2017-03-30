@@ -1,10 +1,18 @@
 package com.epam.jdi.uitests.gui.sikuli.elements.composite;
 
+import com.epam.commons.LinqUtils;
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.annotations.Mandatory;
+import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
+import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import com.epam.jdi.uitests.gui.sikuli.elements.base.Element;
 
+import java.lang.reflect.Field;
 import java.util.List;
+
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.ALL;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/14/2016.
@@ -25,6 +33,22 @@ public class Form<T> extends Element implements IForm<T> {
 
     }
 
+    private FormFilters filter = ALL;
+    public void filter(FormFilters filter) {
+        this.filter = filter;
+    }
+    private List<Field> allFields() {
+        switch (filter) {
+            case MANDATORY:
+                return LinqUtils.where(getFields(this, ISetValue.class),
+                        field -> field.isAnnotationPresent(Mandatory.class));
+            case OPTIONAL:
+                return LinqUtils.where(getFields(this, ISetValue.class),
+                        field -> !field.isAnnotationPresent(Mandatory.class));
+            default:
+                return getFields(this, ISetValue.class);
+        }
+    }
     public T getEntity() {
         return extractEntity(entityClass, this);
     }
