@@ -171,6 +171,14 @@ public final class Assert {
         matcher.listEquals(actual, expected);
     }
 
+    public static <T> void listContains(Collection<T> actual, T expected, String failMessage) { matcher.listContains(actual, expected, failMessage); }
+
+    public static <T> void listContains(Collection<T> actual, T expected) { matcher.listContains(actual, expected); }
+
+    public static <T> void listContains(Collection<T> actual, Collection<T> expected, String failMessage) { matcher.listContains(actual, expected, failMessage); }
+
+    public static <T> void listContains(Collection<T> actual, Collection<T> expected) { matcher.listContains(actual, expected); }
+
     public static <T> void arrayEquals(T actual, T expected, String failMessage) {
         matcher.arrayEquals(actual, expected, failMessage);
     }

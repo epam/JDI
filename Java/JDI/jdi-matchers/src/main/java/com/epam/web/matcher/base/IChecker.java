@@ -28,6 +28,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.toIntArray;
 import static com.epam.commons.ReflectionUtils.getFields;
+import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 8/28/2015.
@@ -87,6 +88,14 @@ public interface IChecker {
     <T> void listEquals(Collection<T> actual, Collection<T> expected, String failMessage);
 
     default <T> void listEquals(Collection<T> actual, Collection<T> expected) { listEquals(actual, expected, null); }
+
+    default <T> void listContains(Collection<T> actual, T expected, String failMessage) { listContains(actual, asList(expected), failMessage);};
+
+    default <T> void listContains(Collection<T> actual, T expected) { listContains(actual, asList(expected), null); }
+
+    <T> void listContains(Collection<T> actual, Collection<T> expected, String failMessage);
+
+    default <T> void listContains(Collection<T> actual, Collection<T> expected) { listContains(actual, expected, null); }
 
     <T> void arrayEquals(T actual, T expected, String failMessage);
 

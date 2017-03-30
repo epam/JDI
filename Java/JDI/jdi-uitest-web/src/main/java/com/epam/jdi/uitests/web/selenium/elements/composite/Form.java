@@ -28,6 +28,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
+import com.epam.web.matcher.testng.Assert;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -206,8 +207,8 @@ public class Form<T> extends Element implements IForm<T> {
      */
     public void check(MapArray<String, String> objStrings) {
         List<String> result = verify(objStrings);
-        if (result.size() > 0)
-            throw exception("Check form failed:" + LINE_BREAK + print(result, LINE_BREAK));
+        Assert.areEquals(result.size(), 0,
+            "Check form failed:" + LINE_BREAK + print(result, LINE_BREAK));
     }
 
     protected String getValueAction() {

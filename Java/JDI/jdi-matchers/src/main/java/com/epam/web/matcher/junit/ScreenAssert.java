@@ -164,6 +164,13 @@ public final class ScreenAssert {
     public static <T> void listEquals(Collection<T> actual, Collection<T> expected) {
         getAssert().listEquals(actual, expected);
     }
+    public static <T> void listContains(Collection<T> actual, T expected, String failMessage) { getAssert().listContains(actual, expected, failMessage); }
+
+    public static <T> void listContains(Collection<T> actual, T expected) { getAssert().listContains(actual, expected); }
+
+    public static <T> void listContains(Collection<T> actual, Collection<T> expected, String failMessage) { getAssert().listContains(actual, expected, failMessage); }
+
+    public static <T> void listContains(Collection<T> actual, Collection<T> expected) { getAssert().listContains(actual, expected); }
 
     public static <T> void arrayEquals(T actual, T expected, String failMessage) {
         getAssert().arrayEquals(actual, expected, failMessage);
