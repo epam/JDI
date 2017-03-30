@@ -19,16 +19,13 @@ package com.epam.jdi.uitests.core.utils.common;
 
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
-import com.epam.jdi.uitests.core.annotations.Complex;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.*;
-import static java.lang.Integer.parseInt;
 import static java.lang.reflect.Array.get;
 import static java.lang.reflect.Array.getLength;
 
@@ -39,59 +36,24 @@ public final class PrintUtils {
     private PrintUtils() {
     }
 
-    private static String printObject(Object obj) {
-        List<String> result = new ArrayList<>();
-        for (Field field : getFields(obj, Object.class)) {
-            Object value = getValueField(field, obj);
-            String strValue = null;
-            if (value == null)
-                strValue = "#NULL#";
-            else if (isClass(value.getClass(), String.class, Integer.class, Boolean.class))
-                strValue = value.toString();
-            else if (isClass(value.getClass(), Enum.class))
-                strValue = getEnumValue((Enum) value);
-            else if (field.isAnnotationPresent(Complex.class))
-                strValue = "#(#" + printObject(value) + "#)#";
-            if (strValue != null)
-                result.add(String.format("%s#:#%s", AnnotationsUtil.getElementName(field), strValue));
-        }
-        return print(result, "#;#", "%s");
-    }
-
-    public static MapArray<String, String> objToSetValue(Object obj) {
-        return (obj == null)
-                ? new MapArray<>()
-                : parseObjectAsString(printObject(obj));
-    }
-
-    public static String processValue(String input, List<String> values) {
-        if (input.equals("#NULL#"))
-            return null;
-        return input.matches("#VAL\\d*")
-                ? values.get(parseInt(input.substring(4)) - 1)
-                : input;
-    }
-
-    public static MapArray<String, String> parseObjectAsString(String objString) {
-        if (objString == null)
-            return null;
-        MapArray<String, String> result = new MapArray<>();
-        List<String> values = new ArrayList<>();
-        int i = 1;
-        String str = objString;
-        int from;
-        while ((from = str.indexOf("#(#")) > 0) {
-            int to = str.indexOf("#)#");
-            values.add(str.substring(from + 3, to));
-            str = str.replaceAll("#\\(#.*#\\)#", "#VAL" + i++);
-        }
-        String[] fields = str.split("#;#");
-        for (String field : fields) {
-            String[] splitField = field.split("#:#");
-            if (splitField.length == 2)
-                result.add(splitField[0], processValue(splitField[1], values));
-        }
-        return result;
+    public static MapArray<String, String> getMapFromObject(Object obj) {
+        if (obj == null)
+            return new MapArray<>();
+        return new MapArray<>(getFields(obj, Object.class),
+            AnnotationsUtil::getElementName,
+            field -> {
+                Object value = getValueField(field, obj);
+                if (value == null)
+                    return null;
+                if (isClass(value.getClass(), String.class, Integer.class, Boolean.class))
+                    return value.toString();
+                if (isClass(value.getClass(), Enum.class))
+                    return getEnumValue((Enum) value);
+                return null;
+                // TODO
+                /*if (field.isAnnotationPresent(Complex.class))
+                    printObject(value)*/
+            });
     }
 
     public static String printObjectAsArray(Object array) {

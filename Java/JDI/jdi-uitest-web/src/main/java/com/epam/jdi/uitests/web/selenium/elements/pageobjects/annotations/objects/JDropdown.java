@@ -17,6 +17,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.ElementType;
@@ -35,5 +36,9 @@ public @interface JDropdown {
     FindBy value() default @FindBy();
     FindBy list() default @FindBy();
     FindBy expand() default @FindBy();
+    JFindBy jRoot() default @JFindBy();
+    JFindBy jValue() default @JFindBy();
+    JFindBy jList() default @JFindBy();
+    JFindBy jExpand() default @JFindBy();
 
 }

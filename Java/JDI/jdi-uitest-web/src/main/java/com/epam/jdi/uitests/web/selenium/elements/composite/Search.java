@@ -182,6 +182,12 @@ public class Search extends TextField implements ISearch {
         By input = findByToBy(jSearch.input());
         By searchButton = findByToBy(jSearch.searchButton());
         By suggestions = findByToBy(jSearch.suggestions());
+        if (input == null)
+            input = findByToBy(jSearch.jInput());
+        if (searchButton == null)
+            searchButton = findByToBy(jSearch.jSearchButton());
+        if (suggestions == null)
+            suggestions = findByToBy(jSearch.jSuggestions());
 
         if (input != null)
             avatar = new GetElementModule(input, this);

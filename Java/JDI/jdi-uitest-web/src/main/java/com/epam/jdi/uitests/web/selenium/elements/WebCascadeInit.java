@@ -30,6 +30,7 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -113,10 +114,10 @@ public class WebCascadeInit extends CascadeInit {
         if (locatorGroup.equals("DEFAULT"))
             return field.isAnnotationPresent(FindBy.class)
                 ? findByToBy(field.getAnnotation(FindBy.class))
-                : getFindByLocator(field.getAnnotation(JFindBy.class));
+                : WebAnnotationsUtil.findByToBy(field.getAnnotation(JFindBy.class));
         JFindBy jFindBy = field.getAnnotation(JFindBy.class);
         return jFindBy != null && locatorGroup.equals(jFindBy.group())
-            ? getFindByLocator(jFindBy)
+            ? WebAnnotationsUtil.findByToBy(jFindBy)
             : findByToBy(field.getAnnotation(FindBy.class));
     }
 

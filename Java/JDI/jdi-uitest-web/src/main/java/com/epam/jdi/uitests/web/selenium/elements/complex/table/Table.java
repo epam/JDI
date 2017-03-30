@@ -153,25 +153,41 @@ public class Table extends Text implements ITable, Cloneable {
     }
 
     public ITable setUp(JTable jTable) {
-        setAvatar(findByToBy(jTable.root()));
+        By root = findByToBy(jTable.root());
+        if (root == null)
+            root = findByToBy(jTable.jRoot());
+        setAvatar(root);
+        By headers = findByToBy(jTable.headers());
+        By rowNames = findByToBy(jTable.rowNames());
         cellLocatorTemplate = findByToBy(jTable.cell());
         columns.lineTemplate = findByToBy(jTable.column());
         rows.lineTemplate = findByToBy(jTable.row());
         footerLocator = findByToBy(jTable.footer());
         columns.startIndex = jTable.colStartIndex();
         rows.startIndex = jTable.rowStartIndex();
+        if (headers == null)
+            headers = findByToBy(jTable.jHeaders());
+        if (rowNames == null)
+            rowNames = findByToBy(jTable.jRowNames());
+        if (cellLocatorTemplate == null)
+            cellLocatorTemplate = findByToBy(jTable.jCell());
+        if (columns.lineTemplate == null)
+            columns.lineTemplate = findByToBy(jTable.jColumn());
+        if (rows.lineTemplate == null)
+            rows.lineTemplate = findByToBy(jTable.jRow());
+        if (footerLocator == null)
+            footerLocator = findByToBy(jTable.jFooter());
+
+        if (headers != null)
+            columns.headersLocator = headers;
+        if (rowNames != null)
+            rows.headersLocator = rowNames;
 
         if (jTable.header().length > 0)
             hasColumnHeaders(asList(jTable.header()));
         if (jTable.rowsHeader().length > 0)
             hasRowHeaders(asList(jTable.rowsHeader()));
 
-        By headers = findByToBy(jTable.column());
-        if (headers != null)
-            columns.headersLocator = headers;
-        headers = findByToBy(jTable.rowNames());
-        if (headers != null)
-            rows.headersLocator = headers;
         if (jTable.height() > 0)
             setColumnsCount(jTable.height());
         if (jTable.width() > 0)

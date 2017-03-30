@@ -18,6 +18,8 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  */
 
 
+import com.epam.jdi.uitests.web.selenium.elements.base.J;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import org.openqa.selenium.support.FindBy;
 
 import java.lang.annotation.ElementType;
@@ -34,6 +36,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JTable {
     FindBy root() default @FindBy();
+    JFindBy jRoot() default @JFindBy();
     String[] header() default {};
     String[] rowsHeader() default {};
 
@@ -43,6 +46,12 @@ public @interface JTable {
     FindBy row() default @FindBy();
     FindBy column() default @FindBy();
     FindBy footer() default @FindBy();
+    JFindBy jHeaders() default  @JFindBy();
+    JFindBy jRowNames() default @JFindBy();
+    JFindBy jCell() default     @JFindBy();
+    JFindBy jRow() default      @JFindBy();
+    JFindBy jColumn() default   @JFindBy();
+    JFindBy jFooter() default   @JFindBy();
 
     int height() default -1;
     int width() default -1;

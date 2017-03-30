@@ -20,18 +20,20 @@ package com.epam.jdi.uitests.core.interfaces.complex;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.epam.jdi.uitests.core.utils.common.PrintUtils.objToSetValue;
+import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.MANDATORY;
+import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.OPTIONAL;
+import static com.epam.jdi.uitests.core.utils.common.PrintUtils.getMapFromObject;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
-public interface IForm<T> extends IComposite, ISetValue, IElement {
+public interface IForm<T> extends IComposite, IHasValue, IElement {
     /**
      * @param map Specify entity as map
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
@@ -39,13 +41,24 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
     @Step
     void fill(MapArray<String, String> map);
 
+    void filter(FormFilters filter);
+    @Step
+    default IForm<T> onlyMandatory() {
+        filter(MANDATORY);
+        return this;
+    }
+    @Step
+    default IForm<T> onlyOptional() {
+        filter(OPTIONAL);
+        return this;
+    }
     /**
      * @param entity Specify entity
      *               Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity
      */
     @Step
     default void fill(T entity) {
-        fill(objToSetValue(entity));
+        fill(getMapFromObject(entity));
     }
 
     /**
@@ -75,7 +88,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      */
     @Step
     default List<String> verify(T entity) {
-        return verify(objToSetValue(entity));
+        return verify(getMapFromObject(entity));
     }
 
     /**
@@ -100,7 +113,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      */
     @Step
     default void check(T entity) {
-        check(objToSetValue(entity));
+        check(getMapFromObject(entity));
     }
 
     /**
@@ -263,7 +276,7 @@ public interface IForm<T> extends IComposite, ISetValue, IElement {
      */
     @Step
     default void submit(T entity) {
-        submit(objToSetValue(entity));
+        submit(getMapFromObject(entity));
     }
 
     /**

@@ -21,6 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import javaslang.API;
+import javaslang.API.Match;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Quotes;
@@ -31,6 +33,8 @@ import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageT
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
+import static javaslang.API.Case;
+import static javaslang.API.Match;
 
 /**
  * Created by roman.i on 25.09.2014.
@@ -85,25 +89,24 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static By findByToBy(FindBy locator) {
         if (locator == null) return null;
-        if (!"".equals(locator.id()))
+        if (!locator.id().isEmpty())
             return By.id(locator.id());
-        if (!"".equals(locator.className()))
+        if (!locator.className().isEmpty())
             return By.className(locator.className());
-        if (!"".equals(locator.xpath()))
+        if (!locator.xpath().isEmpty())
             return By.xpath(locator.xpath());
-        if (!"".equals(locator.css()))
+        if (!locator.css().isEmpty())
             return By.cssSelector(locator.css());
-        if (!"".equals(locator.linkText()))
+        if (!locator.linkText().isEmpty())
             return By.linkText(locator.linkText());
-        if (!"".equals(locator.name()))
+        if (!locator.name().isEmpty())
             return By.name(locator.name());
-        if (!"".equals(locator.partialLinkText()))
+        if (!locator.partialLinkText().isEmpty())
             return By.partialLinkText(locator.partialLinkText());
-        if (!"".equals(locator.tagName()))
+        if (!locator.tagName().isEmpty())
             return By.tagName(locator.tagName());
         return null;
     }
-
 
     public static void fillLocator(FindBy value, Consumer<By> action) {
         By by = findByToBy(value);
@@ -111,7 +114,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             action.accept(by);
     }
 
-    public static By getFindByLocator(JFindBy locator) {
+    public static By findByToBy(JFindBy locator) {
         if (locator == null) return null;
 
         if (!"".equals(locator.xpath()))

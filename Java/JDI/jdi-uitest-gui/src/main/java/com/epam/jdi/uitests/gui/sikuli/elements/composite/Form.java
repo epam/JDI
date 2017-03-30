@@ -106,15 +106,6 @@ public class Form<T> extends Element implements IForm<T> {
     }
 
     /**
-     * @param value Specify element value
-     *              Set value to Element
-     */
-    @Override
-    public void setValue(String value) {
-
-    }
-
-    /**
      * @return Get value of Element
      */
     @Override

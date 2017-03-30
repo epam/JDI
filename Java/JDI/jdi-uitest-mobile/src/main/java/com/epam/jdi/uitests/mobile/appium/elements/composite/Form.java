@@ -39,7 +39,7 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.utils.common.PrintUtils.objToSetValue;
+import static com.epam.jdi.uitests.core.utils.common.PrintUtils.getMapFromObject;
 import static java.lang.String.format;
 
 /**
@@ -122,7 +122,7 @@ public class Form<T> extends Element implements IForm<T> {
      * * Letters case in button name  no matters
      */
     public void submit(T entity, String buttonName) {
-        fill(objToSetValue(entity));
+        fill(getMapFromObject(entity));
         getElementClass.getButton(buttonName).click();
     }
 
@@ -147,7 +147,7 @@ public class Form<T> extends Element implements IForm<T> {
      * * Letters case in button name  no matters
      */
     public void submit(T entity, Enum buttonName) {
-        fill(objToSetValue(entity));
+        fill(getMapFromObject(entity));
         getElementClass.getButton(buttonName.toString().toLowerCase()).click();
     }
 
@@ -192,23 +192,11 @@ public class Form<T> extends Element implements IForm<T> {
                 ((IHasValue) getValueField(field, this)).getValue()));
     }
 
-    protected void setValueAction(String value) {
-        submit(PrintUtils.parseObjectAsString(value));
-    }
-
     /**
      * @return Get value of Element
      */
     public final String getValue() {
         return actions.getValue(this::getValueAction);
-    }
-
-    /**
-     * @param value Specify element value
-     *              Set value to Element
-     */
-    public final void setValue(String value) {
-        actions.setValue(value, this::setValueAction);
     }
 
 }

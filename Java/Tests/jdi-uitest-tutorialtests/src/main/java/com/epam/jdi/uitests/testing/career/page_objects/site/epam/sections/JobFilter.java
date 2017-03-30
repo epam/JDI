@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.career.page_objects.site.epam.sections;
 
+import com.epam.jdi.uitests.core.annotations.Mandatory;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
