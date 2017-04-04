@@ -141,7 +141,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void selectAction(String name) {
         if (element().getLocator().toString().contains("select"))
             try {
-                new Select(getWebElement()).selectByVisibleText(name);
+                new Select(element().getWebElement()).selectByVisibleText(name);
                 return;
             } catch (Exception ignore) { }
         expandAction(name);
@@ -296,9 +296,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     public WebElement getWebElement() {
-        Element el = new Element(getLocator());
-        el.setParent(getParent());
-        return el.getWebElement();
+        return new GetElementType(getLocator(), this).get(Element.class).getWebElement();
     }
 
     public String getAttribute(String name) {
