@@ -3,7 +3,7 @@ package com.epam.jdi.uitests.gui.sikuli.elements.common;
 import com.epam.commons.TryCatchUtil;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 
-import static com.epam.web.matcher.junit.Assert.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 /**
  * Created by Natalia_Grebenshchikova on 1/19/2016.
