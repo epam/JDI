@@ -98,7 +98,7 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
 
     protected String getSelectedAction() {
         if (allLabels() != null)
-            return getSelected(allLabels().getWebElements());
+            return getSelected(allLabels().avatar.searchAll().getElements());
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get Selected options. Override getSelectedAction or place locator to <select> tag");
         List<WebElement> els = getAvatar().searchAll().getElements();
@@ -117,7 +117,7 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
 
     protected int getSelectedIndexAction() {
         if (allLabels() != null) {
-            return getSelectedIndex(allLabels().getWebElements());
+            return getSelectedIndex(allLabels().avatar.searchAll().getElements());
         }
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get Selected options. Override getSelectedAction or place locator to <select> tag");

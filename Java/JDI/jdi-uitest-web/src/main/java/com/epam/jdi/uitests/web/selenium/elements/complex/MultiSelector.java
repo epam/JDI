@@ -31,6 +31,7 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 
 /**
  * Created by roman.i on 03.10.2014.
@@ -57,7 +58,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         if (getLocator().toString().contains("%s"))
             throw exception("Can't clear options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
         if (allLabels() != null) {
-            clearElements(allLabels().getWebElements());
+            clearElements(allLabels().avatar.searchAll().getElements());
             return;
         }
         List<WebElement> elements = getAvatar().searchAll().getElements();
@@ -81,9 +82,9 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't get option. No optionsNamesLocator and allLabelsLocator found");
         if (getLocator().toString().contains("%s"))
-            return new GetElementModule(WebDriverByUtils.fillByTemplate(getLocator(), name), this).getElements().get(0);
+            return new GetElementModule(fillByTemplate(getLocator(), name), this).getElements().get(0);
         if (allLabels() != null)
-            return getWebElement(allLabels().getWebElements(), name);
+            return getWebElement(allLabels().avatar.searchAll().getElements(), name);
         return getWebElement(getElementsFromTag(), name);
     }
 
@@ -102,7 +103,7 @@ public abstract class MultiSelector<TEnum extends Enum> extends BaseSelector<TEn
         if (getLocator().toString().contains("%s"))
             throw exception("Can't get options. Specify allLabelsLocator or fix optionsNamesLocator (should not contain '%s')");
         if (allLabels() != null)
-            return getWebElement(allLabels().getWebElements(), num);
+            return getWebElement(allLabels().avatar.searchAll().getElements(), num);
         return getWebElement(getElementsFromTag(), num);
     }
 

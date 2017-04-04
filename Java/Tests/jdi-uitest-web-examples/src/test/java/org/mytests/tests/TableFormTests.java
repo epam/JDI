@@ -27,7 +27,7 @@ public class TableFormTests extends InitTestsTableForm {
     public static Object[][] cvData() {
         return new Object[][]{
             { new Attendee(),
-              new Job("Senior QA Automation Engineer",
+              new Job("QA Specialist",
                     "Software Test Engineering"),
                     op }
         };

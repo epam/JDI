@@ -33,7 +33,7 @@ public class EntityTableExamples extends TestsBase {
         Assert.areEquals(jobListingPage.jobsListEntity.getValue(),
             "||X||name|category|location|apply||\n" +
             "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+            "||2||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||");
     }
 
     @Test
@@ -41,7 +41,7 @@ public class EntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         jobListingPage.jobsListEntity
-            .getRow(withValue("Senior QA Automation Engineer"), inColumn("name")).apply.click();
+            .getRow(withValue("QA Specialist"), inColumn("name")).apply.click();
 
         jobDescriptionPage.checkOpened();
     }
@@ -50,9 +50,9 @@ public class EntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         Job job = jobListingPage.jobsListEntity
-                .entity(withValue("Senior QA Automation Engineer"), inColumn("name"));
+                .entity(withValue("QA Specialist"), inColumn("name"));
 
-        Assert.entitiesAreEquals(job, new Job("Senior QA Automation Engineer", "Software Test Engineering", "St-Petersburg, Russia"));
+        Assert.entitiesAreEquals(job, new Job("QA Specialist", "Software Test Engineering", "St-Petersburg, Russia"));
     }
     @Test
     public void searchContainsInTable() {
@@ -83,7 +83,7 @@ public class EntityTableExamples extends TestsBase {
                 "category*=.*Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "QA Specialist");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");*/
     }
 
@@ -92,10 +92,10 @@ public class EntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
-                textOf(r.name).equals("Senior QA Automation Engineer") &&
+                textOf(r.name).equals("QA Specialist") &&
                 textOf(r.category).equals("Software Test Engineering"));
 
-        Assert.areEquals(firstRow.name.getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.name.getText(), "QA Specialist");
         Assert.areEquals(firstRow.category.getText(), "Software Test Engineering");
     }
 
@@ -104,7 +104,7 @@ public class EntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsListEntity::isEmpty);
         JobRecord firstRow = jobListingPage.jobsListEntity.firstRow(r ->
-                r.name.getText().equals("Senior QA Automation Engineer") &&
+                r.name.getText().equals("QA Specialist") &&
                 r.category.getText().equals("Software Test Engineering"));
         firstRow.apply.click();
     }

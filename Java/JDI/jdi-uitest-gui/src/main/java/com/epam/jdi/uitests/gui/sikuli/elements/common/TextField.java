@@ -2,11 +2,15 @@ package com.epam.jdi.uitests.gui.sikuli.elements.common;
 
 import com.epam.commons.TryCatchUtil;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
+import org.openqa.selenium.By;
+
+import static com.epam.web.matcher.junit.Assert.exception;
+
 /**
  * Created by Natalia_Grebenshchikova on 1/19/2016.
  */
 public class TextField extends Text implements ITextField {
-
+    public String labelLocator;
     /**
      * @param text Specify text to input to TextField
      *             Input text in textfield
@@ -17,6 +21,13 @@ public class TextField extends Text implements ITextField {
 
     protected void inputAction(CharSequence text) {
         TryCatchUtil.tryGetResult(() -> this.getParentRegion().type(this.getPattern(), text.toString()));
+    }
+    public String label() {
+        if (labelLocator == null)
+            throw exception("Label locator no specified");
+        Text label = new Text();
+        label.setParent(getParent());
+        return label.getText();
     }
 
     /**

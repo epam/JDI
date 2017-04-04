@@ -27,6 +27,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.function.Function;
 
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
+
 /**
  * Select control implementation
  *
@@ -172,7 +174,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     public WebElement getWebElement() {
-        return new Element(getLocator()).getWebElement();
+        return new GetElementType(getLocator(), this).get(Clickable.class).getWebElement();
     }
 
     /**

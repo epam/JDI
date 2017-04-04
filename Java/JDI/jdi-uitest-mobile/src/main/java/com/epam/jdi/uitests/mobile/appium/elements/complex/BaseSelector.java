@@ -72,7 +72,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
             return;
         }
         if (allLabels() != null) {
-            selectFromList(allLabels().getWebElements(), name);
+            selectFromList(allLabels().avatar.searchAll().getElements(), name);
             return;
         }
         List<WebElement> elements = getAvatar().searchAll().getElements();

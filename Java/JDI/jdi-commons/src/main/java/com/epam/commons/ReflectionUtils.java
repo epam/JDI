@@ -93,6 +93,8 @@ public final class ReflectionUtils {
         return (T) getValueField(LinqUtils.first(obj.getClass().getDeclaredFields(), field -> isExpectedClass(field, types)), obj);
     }
     private static boolean isExpectedClass(Field field, Class<?>... types) {
+        if (types == null || types.length == 0)
+            return true;
         for (Class<?> type : types)
             if (isClass(field, type) || isInterface(field, type))
                 return true;

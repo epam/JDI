@@ -34,6 +34,12 @@ public interface ITextField extends ISetValue, IText, IElement {
     void input(CharSequence text);
 
     /**
+     * Returns label of text field
+     */
+    @Step
+    String label();
+
+    /**
      * @param text Specify text to send keys to TextField
      *             Input text in textfield
      */

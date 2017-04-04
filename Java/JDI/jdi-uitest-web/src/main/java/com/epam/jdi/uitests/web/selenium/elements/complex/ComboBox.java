@@ -20,8 +20,11 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import org.openqa.selenium.By;
+
+import static com.epam.web.matcher.junit.Assert.exception;
 
 /**
  * ComboBox control implementation
@@ -53,6 +56,15 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
     public ComboBox(By selectorLocator, By optionsNamesLocatorTemplate, By valueLocator, By allOptionsNamesLocator) {
         super(selectorLocator, optionsNamesLocatorTemplate, allOptionsNamesLocator);
         textField = new GetElementType(valueLocator, this);
+    }
+    public By labelLocator;
+
+    public String label() {
+        if (labelLocator == null)
+            throw exception("Label locator no specified");
+        Label label = new Label(labelLocator);
+        label.setParent(getParent());
+        return label.getText();
     }
 
     protected TextField textField() {

@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.complex.IPagination;
 import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import org.openqa.selenium.By;
@@ -34,6 +35,8 @@ import java.util.List;
 import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static java.lang.String.format;
 
 /**
@@ -123,63 +126,63 @@ public class Pagination extends BaseElement implements IPagination {
     protected Clickable nextAction() {
         String shortName = "next";
         if (nextLocator != null)
-            return new Clickable(nextLocator);
+            return new GetElementType(nextLocator, this).get(Clickable.class);
 
         Clickable nextLink = getClickable(shortName);
         if (nextLink != null)
             return nextLink;
 
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
+            return new GetElementType(fillByTemplate(getLocator(), shortName), this).get(Clickable.class);
         throw exception(cantChooseElementMsg("Next", shortName, "nextAction"));
     }
 
     private Clickable previousAction() {
         String shortName = "prev";
         if (previousLocator != null)
-            return new Clickable(previousLocator);
+            return new GetElementType(previousLocator, this).get(Clickable.class);
 
         Clickable prevLink = getClickable(shortName);
         if (prevLink != null)
             return prevLink;
 
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
+            return new GetElementType(fillByTemplate(getLocator(), shortName), this).get(Clickable.class);
         throw exception(cantChooseElementMsg("Previous", shortName, "previousAction"));
     }
 
     private Clickable firstAction() {
         String shortName = "first";
         if (firstLocator != null)
-            return new Clickable(firstLocator);
+            return new GetElementType(firstLocator, this).get(Clickable.class);
 
         Clickable firstLink = getClickable(shortName);
         if (firstLink != null)
             return firstLink;
 
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
+            return new GetElementType(fillByTemplate(getLocator(), shortName), this).get(Clickable.class);
         throw exception(cantChooseElementMsg("First", shortName, "firstAction"));
     }
 
     private Clickable lastAction() {
         String shortName = "last";
         if (lastLocator != null)
-            return new Clickable(lastLocator);
+            return new GetElementType(lastLocator, this).get(Clickable.class);
 
         Clickable lastLink = getClickable(shortName);
         if (lastLink != null)
             return lastLink;
 
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), shortName));
+            return new GetElementType(fillByTemplate(getLocator(), shortName), this).get(Clickable.class);
         throw exception(cantChooseElementMsg("Last", shortName, "lastAction"));
     }
 
     private Clickable pageAction(int index) {
         String shortName = "page";
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new Clickable(WebDriverByUtils.fillByTemplate(getLocator(), index));
+            return new GetElementType(fillByTemplate(getLocator(), index), this).get(Clickable.class);
 
         Clickable pageLink = getClickable(shortName);
         if (pageLink != null)

@@ -73,11 +73,11 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", name);
         if (hasLocator() && getLocator().toString().contains("%s"))
-            return new Clickable(fillByTemplate(getLocator(), name));
+            return new GetElementType(fillByTemplate(getLocator(), name), this).get(Clickable.class);
         if (allLabels() != null)
             return allLabels().getLocator().toString().contains("%s")
-                ? new Clickable(fillByTemplate(allLabels().getLocator(), name))
-                : getFromList(allLabels().getWebElements(), name);
+                ? new GetElementType(fillByTemplate(allLabels().getLocator(), name), this).get(Clickable.class)
+                : getFromList(allLabels().avatar.searchAll().getElements(), name);
         List<WebElement> elements = getAvatar().searchAll().getElements();
         WebElement element = elements.get(0);
         if (elements.size() == 1 && element.getTagName().equals("select"))
@@ -121,9 +121,9 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         if (!hasLocator() && allLabels() == null)
             throw exception("Can't find option '%s'. No optionsNamesLocator and allLabelsLocator found", num);
         if (allLabels() != null)
-            return selectFromList(allLabels().getWebElements(), num);
+            return selectFromList(allLabels().avatar.searchAll().getElements(), num);
         if (getLocator().toString().contains("%s"))
-            return new Clickable(fillByTemplate(getLocator(), num));
+            return new GetElementType(fillByTemplate(getLocator(), num), this).get(Clickable.class);
         List<WebElement> elements = getAvatar().searchAll().getElements();
         WebElement element = elements.get(0);
         if (elements.size() == 1 && element.getTagName().equals("select"))

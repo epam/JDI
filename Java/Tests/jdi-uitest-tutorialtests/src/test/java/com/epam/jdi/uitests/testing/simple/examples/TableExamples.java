@@ -30,7 +30,7 @@ public class TableExamples extends TestsBase {
         Assert.areEquals(jobListingPage.jobsList.getValue(),
             "||X||name|category|location|apply||\n" +
             "||1||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-            "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+            "||2||QA Specialist|Software Test Engineering|St-Petersburg, Russia|Apply||");
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
-            .row(withValue("Senior QA Automation Engineer"), inColumn("name"))
+            .row(withValue("QA Specialist"), inColumn("name"))
             .get("apply").select();
 
         jobDescriptionPage.checkOpened();
@@ -72,7 +72,7 @@ public class TableExamples extends TestsBase {
                 "category*=.*Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "QA Specialist");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 
@@ -81,11 +81,11 @@ public class TableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
-                "name=Senior QA Automation Engineer",
+                "name=QA Specialist",
                 "category=Software Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "QA Specialist");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 }

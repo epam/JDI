@@ -105,7 +105,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     protected Label element() {
         if (element == null)
-            throw exception("'Value' element for dropdown not defined");
+            return null;
         return element.get(Label.class);
     }
     protected Clickable expander() {
@@ -283,7 +283,9 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     public WebElement getWebElement() {
-        return new Element(getLocator()).getWebElement();
+        Element el = new Element(getLocator());
+        el.setParent(getParent());
+        return el.getWebElement();
     }
 
     public String getAttribute(String name) {

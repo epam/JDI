@@ -34,7 +34,7 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.jobsList
-                .row(withValue("Senior QA Automation Engineer"), inColumn("name"))
+                .row(withValue("QA Specialist"), inColumn("name"))
                 .get("apply").select();
 
         jobDescriptionPage.checkOpened();
@@ -71,7 +71,7 @@ public class W3CEntityTableExamples extends TestsBase {
                 "category*=.*Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "QA Specialist");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 
@@ -80,11 +80,11 @@ public class W3CEntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobListingPage.jobsList::isEmpty);
         MapArray<String, ICell> firstRow = jobListingPage.jobsList.rows(
-                "name=Senior QA Automation Engineer",
+                "name=QA Specialist",
                 "category=Software Test Engineering")
                 .first().value;
 
-        Assert.areEquals(firstRow.get("name").getText(), "Senior QA Automation Engineer");
+        Assert.areEquals(firstRow.get("name").getText(), "QA Specialist");
         Assert.areEquals(firstRow.get("category").getText(), "Software Test Engineering");
     }
 }
