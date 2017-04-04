@@ -26,7 +26,6 @@ import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
-import com.epam.jdi.uitests.core.utils.common.PrintUtils;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import com.epam.jdi.uitests.mobile.appium.elements.common.Button;
 

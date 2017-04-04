@@ -24,10 +24,10 @@ import com.epam.jdi.uitests.core.annotations.Mandatory;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
+import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.web.matcher.testng.Assert;
 
 import java.lang.reflect.Field;
@@ -37,14 +37,12 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.foreach;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.*;
-import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
+import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.ALL;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.utils.common.PrintUtils.getMapFromObject;
-import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.ALL;
-import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.MANDATORY;
 import static java.lang.String.format;
 
 /**

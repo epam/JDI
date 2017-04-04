@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.commons.EnumUtils;
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.base.IMultiSelector;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

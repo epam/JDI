@@ -105,12 +105,17 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     protected Label element() {
         if (element == null)
-            return null;
+            return getLocator() != null && !getLocator().equals("")
+                ? new GetElementType(getLocator(), this).get(Label.class)
+                : null;
         return element.get(Label.class);
     }
     protected Clickable expander() {
-        if (expander == null)
+        if (expander == null) {
+            if (getLocator() != null && !getLocator().equals(""))
+                return new GetElementType(getLocator(), this).get(Label.class);
             throw exception("'Expand' element for dropdown not defined");
+        }
         return expander.get(Label.class);
     }
 
@@ -134,11 +139,13 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     @Override
     protected void selectAction(String name) {
-        if (element() != null) {
-            expandAction(name);
-            super.selectAction(name);
-        } else
-            new Select(getWebElement()).selectByVisibleText(name);
+        if (element().getLocator().toString().contains("select"))
+            try {
+                new Select(getWebElement()).selectByVisibleText(name);
+                return;
+            } catch (Exception ignore) { }
+        expandAction(name);
+        super.selectAction(name);
     }
 
     @Override
@@ -220,7 +227,13 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     protected String getTextAction() {
-        return element().getText();
+        String result = "";
+        if (element().getLocator().toString().contains("select")) try {
+            result = new Select(element().getWebElement()).getFirstSelectedOption().getText();
+        } catch (Exception ignore) {}
+        return result != null && !result.equals("")
+            ? result
+            : element().getText();
     }
 
     /**

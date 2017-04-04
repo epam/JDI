@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.gui.sikuli.elements.common;
 
 import com.epam.commons.TryCatchUtil;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
-import org.openqa.selenium.By;
 
 import static com.epam.web.matcher.junit.Assert.exception;
 

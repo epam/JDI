@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
  */
 
 
-import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import org.openqa.selenium.support.FindBy;
 

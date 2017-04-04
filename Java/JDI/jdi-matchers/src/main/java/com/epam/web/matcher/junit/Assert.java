@@ -30,7 +30,6 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 import static com.epam.web.matcher.base.DoScreen.SCREEN_ON_FAIL;
-import static java.util.Arrays.asList;
 
 
 /**

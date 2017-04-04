@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing;
 
-import com.epam.jdi.uitests.testing.career.page_objects.site.epam.EpamSite;
+import com.epam.jdi.site.epam.EpamSite;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import org.testng.annotations.AfterSuite;

@@ -1,7 +1,7 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.jdi.uitests.testing.career.page_objects.site.google.GoogleSite;
-import com.epam.jdi.uitests.testing.career.page_objects.site.yandex.YandexSite;
+import com.epam.jdi.site.google.GoogleSite;
+import com.epam.jdi.site.yandex.YandexSite;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
