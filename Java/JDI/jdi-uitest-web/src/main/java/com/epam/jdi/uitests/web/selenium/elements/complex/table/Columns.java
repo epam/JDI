@@ -101,6 +101,8 @@ public class Columns extends TableLine implements IColumn {
     }
 
     public final MapArray<String, ICell> getColumn(int colNum) {
+        if (colNum <= 0)
+            throw exception("Table indexes starts from 1");
         if (count() < 0 || count() < colNum || colNum <= 0)
             throw exception("Can't Get Column '%s'. [num] > RowsCount(%s).", colNum, count());
         try {
@@ -116,6 +118,8 @@ public class Columns extends TableLine implements IColumn {
     }
 
     public final List<String> getColumnValue(int colNum) {
+        if (colNum <= 0)
+            throw exception("Table indexes starts from 1");
         if (count() < 0 || count() < colNum || colNum <= 0)
             throw exception("Can't Get Column '%s'. [num] > RowsCount(%s).", colNum, count());
         try {

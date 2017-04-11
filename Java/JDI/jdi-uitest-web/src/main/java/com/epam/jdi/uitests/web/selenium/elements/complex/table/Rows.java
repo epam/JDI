@@ -75,6 +75,8 @@ public class Rows extends TableLine implements IRow {
     }
 
     public MapArray<String, ICell> getRow(int rowNum) {
+        if (rowNum <= 0)
+            throw exception("Table indexes starts from 1");
         if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {
@@ -90,6 +92,8 @@ public class Rows extends TableLine implements IRow {
     }
 
     public List<String> getRowValue(int rowNum) {
+        if (rowNum <= 0)
+            throw exception("Table indexes starts from 1");
         if (count() < 0 || count() < rowNum || rowNum <= 0)
             throw exception("Can't Get Row '%s'. [num] > ColumnsCount(%s).", rowNum, count());
         try {

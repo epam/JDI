@@ -43,16 +43,22 @@ public interface ITable extends IText {
 
     @Step
     default ICell cell(int columnIndex, int rowIndex) {
+        if (columnIndex <= 0 || rowIndex <= 0)
+            throw new RuntimeException("Table indexes starts from 1");
         return cell(Column.column(columnIndex), Row.row(rowIndex));
     }
 
     @Step
     default ICell cell(int columnIndex, String rowName) {
+        if (columnIndex <= 0)
+            throw new RuntimeException("Table indexes starts from 1");
         return cell(Column.column(columnIndex), Row.row(rowName));
     }
 
     @Step
     default ICell cell(String columnName, int rowIndex) {
+        if (rowIndex <= 0)
+            throw new RuntimeException("Table indexes starts from 1");
         return cell(Column.column(columnName), Row.row(rowIndex));
     }
     /**

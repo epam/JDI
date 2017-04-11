@@ -98,8 +98,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     public void addHeaders(String... names) {
         addAll(headers, names);
     }
-    protected int getCount(boolean acceptEmpty)
-    {
+    protected int getCount(boolean acceptEmpty) {
         table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
         List<WebElement> elements = getHeadersAction();
         if (elements.size() == 0)

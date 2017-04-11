@@ -5,9 +5,11 @@ import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextArea;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -43,5 +45,4 @@ public class AddCVForm extends Form<Attendee> {
     IButton submit;
     @FindBy(xpath = "//*[.='Cancel']")
     IButton cancel;
-
 }
