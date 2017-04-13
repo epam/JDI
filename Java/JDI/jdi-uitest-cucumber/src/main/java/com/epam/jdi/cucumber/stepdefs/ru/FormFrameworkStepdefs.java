@@ -1,23 +1,21 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
+import com.epam.jdi.cucumber.*;
+import cucumber.api.java.ru.*;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/19/2016.
- */
 public class FormFrameworkStepdefs {
-    @And("^I'm submit form \"([^\"]*)\" data \"([^\"]*)\"$")
+
+    @И("^я отправляю форму \"([^\"]*)\" с данными \"([^\"]*)\"$")
     public void iSubmitFormData(String formName, String json) throws Throwable {
         Utils.processForm(formName, json, FormActions.SUBMIT);
     }
 
-    @And("^I'm fill form \"([^\"]*)\" data \"([^\"]*)\"$")
+    @И("^я заполняю форму \"([^\"]*)\" с данными \"([^\"]*)\"$")
     public void iFillFormData(String formName, String json) throws Throwable {
         Utils.processForm(formName, json, FormActions.FILL);
     }
 
-    @Then("^Form \"([^\"]*)\" contains data \"([^\"]*)\"$")
+    @Тогда("^форма \"([^\"]*)\" заполнена данными \"([^\"]*)\"$")
     public void formContainsData(String formName, String json) throws Throwable {
         Utils.processForm(formName, json, FormActions.CHECK);
     }

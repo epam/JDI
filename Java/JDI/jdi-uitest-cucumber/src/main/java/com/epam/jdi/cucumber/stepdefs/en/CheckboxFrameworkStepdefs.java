@@ -1,9 +1,9 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
+import com.epam.jdi.cucumber.*;
+import com.epam.jdi.uitests.core.interfaces.common.*;
+import com.epam.jdi.uitests.web.selenium.elements.composite.*;
+import cucumber.api.java.en.*;
 
 /**
  * Created by Dmitry_Lebedev1 on 1/20/2016.
@@ -20,14 +20,14 @@ public class CheckboxFrameworkStepdefs {
         ((ICheckBox) Utils.getClassField(WebPage.currentPage, fieldName)).uncheck();
     }
 
-    @Then("^Checkbox \"([^\"]*)\" is checked$")
+    @Then("^checkbox \"([^\"]*)\" is checked$")
     public void checkboxIsCheck(String fieldName) throws Throwable {
         if (!((ICheckBox) Utils.getClassField(WebPage.currentPage, fieldName)).isChecked()) {
             throw new Exception("Checkbox is not checked.");
         }
     }
 
-    @Then("^Checkbox \"([^\"]*)\" is unchecked$")
+    @Then("^checkbox \"([^\"]*)\" is unchecked$")
     public void checkboxIsUncheck(String fieldName) throws Throwable {
         if (((ICheckBox) Utils.getClassField(WebPage.currentPage, fieldName)).isChecked()) {
             throw new Exception("Checkbox is checked.");

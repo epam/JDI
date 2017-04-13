@@ -1,9 +1,10 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.uitests.core.interfaces.complex.IPagination;
-import cucumber.api.java.en.And;
+import com.epam.jdi.cucumber.*;
+import com.epam.jdi.uitests.core.interfaces.complex.*;
+import cucumber.api.java.en.*;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.*;
 
 /**
  * Created by Dmitry_Lebedev1 on 1/21/2016.
