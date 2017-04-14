@@ -1,27 +1,20 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber;
 
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
-import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.core.interfaces.complex.IForm;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import com.google.gson.Gson;
+import com.epam.jdi.uitests.core.interfaces.base.*;
+import com.epam.jdi.uitests.core.interfaces.complex.*;
+import com.epam.jdi.uitests.web.selenium.elements.composite.*;
+import com.google.gson.*;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import java.lang.reflect.*;
+import java.util.*;
 
 
 /**
  * Created by Dmitry_Lebedev1 on 1/13/2016.
  */
 public final class Utils {
-    private Utils() { }
+    private Utils() {
+    }
 
     public static Object getClassField(Class container, String fieldName) {
         Object result;
@@ -111,11 +104,11 @@ public final class Utils {
     public static List<Object> filterCompositeFields(Object o) throws IllegalAccessException {
         List<Object> containers = new ArrayList<>();
         for (Field f : o instanceof Class ? ((Class) o).getFields() : o.getClass().getFields()) {
-                Object fData = f.get(o);
-                if (fData instanceof IComposite && !f.getName().equals("currentPage")) {
-                    containers.add(fData);
-                    containers.addAll(filterCompositeFields(fData));
-                }
+            Object fData = f.get(o);
+            if (fData instanceof IComposite && !f.getName().equals("currentPage")) {
+                containers.add(fData);
+                containers.addAll(filterCompositeFields(fData));
+            }
         }
         return containers;
     }

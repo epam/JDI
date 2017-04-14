@@ -1,10 +1,9 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.uitests.web.selenium.elements.common.TextArea;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import com.epam.jdi.cucumber.*;
+import com.epam.jdi.uitests.web.selenium.elements.common.*;
+import com.epam.jdi.uitests.web.selenium.elements.composite.*;
+import cucumber.api.java.en.*;
 
 /**
  * Created by Dmitry_Lebedev1 on 1/22/2016.
@@ -22,7 +21,7 @@ public class TextAreaFrameworkStepdefs {
     }
 
     //TODO
-    @Then("^Field \"([^\"]*)\" contains \"([^\"]*)\"$")
+    @Then("^field \"([^\"]*)\" contains \"([^\"]*)\"$")
     public void fieldContains(String filedName, String contains) throws Throwable {
 //        ((IText)getClassField(WebPage.currentPage, filedName)).con
     }
@@ -31,5 +30,4 @@ public class TextAreaFrameworkStepdefs {
     public void iMInputToNewInput(String filedName, String newInput) throws Throwable {
         ((TextArea) Utils.getClassField(WebPage.currentPage, filedName)).newInput(newInput);
     }
-
 }

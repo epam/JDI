@@ -1,16 +1,15 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
+import com.epam.jdi.cucumber.*;
+import com.epam.jdi.uitests.web.selenium.elements.composite.*;
+import cucumber.api.java.en.*;
 
 
 /**
  * Created by Dmitry_Lebedev1 on 1/18/2016.
  */
 public class PageFrameworkStepdefs {
+
     @Given("^I'm open \"(.*?)\"$")
     public void iMOpen(String pageName) {
         ((WebPage) Utils.getClassField(WebSite.currentSite, pageName)).open();
@@ -36,12 +35,12 @@ public class PageFrameworkStepdefs {
         WebPage.currentPage.forward();
     }
 
-    @And("^Check page url match$")
+    @And("^check page url match$")
     public void checkPageUrlMatch() throws Throwable {
         WebPage.currentPage.url().match();
     }
 
-    @And("^Check page url contains$")
+    @And("^check page url contains$")
     public void checkPageUrlContains() throws Throwable {
         WebPage.currentPage.url().contains();
     }

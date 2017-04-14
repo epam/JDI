@@ -1,22 +1,19 @@
-package com.epam.cucmber.stepdefs;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import org.junit.Assert;
+import com.epam.jdi.cucumber.*;
+import com.epam.jdi.uitests.core.interfaces.base.*;
+import com.epam.jdi.uitests.web.selenium.elements.composite.*;
+import cucumber.api.java.ru.*;
+import org.junit.*;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/20/2016.
- */
 public class ElementFrameworkStepdefs {
 
-    @And("^For element \"([^\"]*)\" I set attribute \"([^\"]*)\" on \"([^\"]*)\"$")
+    @И("^у элемента \"([^\"]*)\" я устанавливаю атрибуту \"([^\"]*)\" значение \"([^\"]*)\"$")
     public void forElementISetAttributeOn(String fieldName, String attributeName, String attributeValue) throws Throwable {
         ((IElement) Utils.getClassField(WebPage.currentPage, fieldName)).setAttribute(attributeName, attributeValue);
     }
 
-    @Then("^Element \"([^\"]*)\" has /attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
+    @Тогда("^элемент \"([^\"]*)\" содержит атрибут \"([^\"]*)\" со значением \"([^\"]*)\"$")
     public void elementHasAttributeWithValue(String fieldName, String attributeName, String attributeValue) throws Throwable {
         Assert.assertTrue(((IElement) Utils.getClassField(WebPage.currentPage, fieldName)).getAttribute(attributeName).equals(attributeValue));
     }
