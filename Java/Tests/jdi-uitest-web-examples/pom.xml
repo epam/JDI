@@ -4,6 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.epam.jdi</groupId>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <version>1.0.66</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
     <artifactId>jdi-uitest-web-examples</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -11,18 +18,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <parent>
-        <groupId>com.epam.jdi</groupId>
-        <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.61</version>
-        <relativePath>../..</relativePath>
-    </parent>
-
     <dependencies>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>1.0.61</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
