@@ -2,13 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.61</version>
+        <version>1.0.66</version>
         <relativePath>../..</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-uitest-gui</artifactId>
 
@@ -21,12 +22,12 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-core</artifactId>
-            <version>1.0.61</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>1.0.61</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sikulix</groupId>
@@ -39,5 +40,4 @@
             <version>2.45.0</version>
         </dependency>
     </dependencies>
-
 </project>
