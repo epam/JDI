@@ -1,12 +1,28 @@
 package com.epam.jdi.cucumber;
 
-import com.epam.jdi.uitests.core.interfaces.base.*;
-import com.epam.jdi.uitests.core.interfaces.complex.*;
-import com.epam.jdi.uitests.web.selenium.elements.composite.*;
-import com.google.gson.*;
+import com.epam.jdi.uitests.core.interfaces.base.IComposite;
+import com.epam.jdi.uitests.core.interfaces.base.IElement;
+import com.epam.jdi.uitests.core.interfaces.complex.IForm;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
+import com.google.gson.Gson;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static com.epam.commons.LinqUtils.first;
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
+import static com.epam.jdi.uitests.core.interfaces.Application.currentSite;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
+import static java.lang.String.join;
+import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Arrays.asList;
 
 
 /**
@@ -41,7 +57,7 @@ public final class Utils {
     }
 
     public static Object getClassField(String containerName) {
-        Class[] containers = {WebPage.currentPage.getClass(), WebSite.currentSite};
+        Class[] containers = {currentPage.getClass(), currentSite};
         Object resultElement = null;
         for (Class i : containers) {
             resultElement = getClassField(i, containerName);
@@ -74,31 +90,18 @@ public final class Utils {
         return new Gson().fromJson(json, t);
     }
 
-    public static Object createFromJSON(String json, Type t) throws Exception {
-        Object result = ((Class) t).newInstance();
-        Map<String, String> mJson = new Gson().fromJson(json, Map.class);
-        for (Map.Entry<String, String> e : mJson.entrySet()) {
-            Field f = result.getClass().getDeclaredField(e.getKey());
-            f.setAccessible(true);
-            f.set(result, e.getValue());
-        }
-        return result;
-    }
-
-    public static void processForm(String formName, String json, FormActions action) throws Exception {
-        IForm form = (IForm) getClassField(WebPage.currentPage, formName);
-        Object entity = createFromJSON(json, getParameterizedTypeForm(form));
-        switch (action) {
-            case SUBMIT:
-                form.submit(entity);
-                break;
-            case FILL:
-                form.fill(entity);
-                break;
-            case CHECK:
-                form.check(entity);
-                break;
-        }
+    public static Object createFromJSON(String json, IForm form) {
+        Type t = getParameterizedTypeForm(form);
+        try {
+            Object result = ((Class) t).newInstance();
+            Map<String, String> mJson = new Gson().fromJson(json, Map.class);
+            for (Map.Entry<String, String> e : mJson.entrySet()) {
+                Field f = result.getClass().getDeclaredField(e.getKey());
+                f.setAccessible(true);
+                f.set(result, e.getValue());
+            }
+            return result;
+        } catch (Exception ex) { throw exception("Can't create object from Json. Exception: " + ex.getMessage()); }
     }
 
     public static List<Object> filterCompositeFields(Object o) throws IllegalAccessException {
@@ -116,10 +119,85 @@ public final class Utils {
     // Find all composite elements on root pageobject,  then find one named element. If composite elements contains
     // more then one named elements, use first find.
     public static Object getClassFieldAnyway(String fieldName, Class expectedClass) throws IllegalAccessException {
-        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(WebSite.currentSite)), expectedClass);
+        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite)), expectedClass);
     }
 
     public static Object getClassFieldAnyway(String fieldName) throws IllegalAccessException {
-        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(WebSite.currentSite)), IElement.class);
+        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite)), IElement.class);
     }
+    ////////////
+
+    public static <T> T getElementByName(String... names) {
+        return getElementByName(currentPage, names);
+    }
+    public static <T> T getElementByName(String name) {
+        return getElementByName(currentPage, name);
+    }
+    public static <T> T getElementByName(Object location, String... names) {
+        return getElementByName(location, join(".", names));
+    }
+    public static <T> T getElementByName(Object location, String name) {
+        int index = name.indexOf(".");
+        return index == -1
+                ? getElementByNameSingle(name, location)
+                : getCascade(name, location);
+    }
+    private static <T> T getCascade(String name, Object page) {
+        int index = name.indexOf(".");
+        return index == -1
+                ? getElementByNameChained(name, "", page)
+                : getElementByNameChained(name.substring(0, index),
+                name.substring(index+1), page);
+    }
+    private static <T> T getElementByNameSingle(String name, Object page) {
+        try {
+            List<Field> fields = getAllFields(page);
+            Field expectedField = first(fields,
+                    f -> getElementName(f).equals(name) || f.getName().equals(name));
+            if (expectedField !=null)
+                return (T) expectedField.get(page);
+            for(Field f: fields) {
+                T result = getElementByNameSingle(name, getObjectFromField(f, page));
+                if (result != null)
+                    return result;
+            }
+        } catch (Exception ex) {
+            throw  exception("Can't get element by Name: " + name);
+        }
+        return null;
+    }
+    private static Object getObjectFromField(Field f, Object clazz) {
+        try {
+            return f.get(clazz);
+        } catch (Exception ex) { throw exception("Can't get Object"); }
+    }
+    private static List<Field> getAllFields(Object page) {
+        WebCascadeInit w = new WebCascadeInit();
+        return page.getClass().getName().equals("java.lang.Class")
+                ? getFields(asList(((Class) page).getDeclaredFields()),
+                w.decorators(), f -> isStatic(f.getModifiers()))
+                : getFields(page, w.decorators(), w.stopTypes());
+    }
+    private static <T> T getElementByNameChained(String name, String path, Object page) {
+        try {
+            List<Field> fields = getAllFields(page);
+            Field expectedField = first(fields,
+                    f -> getElementName(f).equals(name) || f.getName().equals(name));
+            if (expectedField != null)
+                return (T) (path.equals("")
+                        ? expectedField.get(page)
+                        : getCascade(name, expectedField.getType()));
+            for(Field f: fields) {
+                T result = getCascade(name, getObjectFromField(f, page));
+                if (result != null)
+                    return path.equals("")
+                            ? result
+                            : getCascade(path, result);
+            }
+        } catch (Exception ex) {
+            throw  exception("Can't get element by Name: " + name);
+        }
+        return null;
+    }
+
 }

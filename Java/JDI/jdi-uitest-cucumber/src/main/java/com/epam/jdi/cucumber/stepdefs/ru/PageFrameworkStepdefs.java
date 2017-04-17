@@ -1,8 +1,11 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.web.selenium.elements.composite.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.cucumber.Utils;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
+import cucumber.api.java.ru.Дано;
+import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Тогда;
 
 public class PageFrameworkStepdefs {
 

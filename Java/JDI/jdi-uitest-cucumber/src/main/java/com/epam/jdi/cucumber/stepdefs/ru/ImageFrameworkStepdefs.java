@@ -1,11 +1,11 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.web.selenium.elements.common.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.cucumber.Utils;
+import com.epam.jdi.uitests.web.selenium.elements.common.Image;
+import cucumber.api.java.ru.Тогда;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.*;
-import static org.junit.Assert.*;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
+import static org.junit.Assert.assertEquals;
 
 public class ImageFrameworkStepdefs {
 

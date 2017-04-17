@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.en;
+package com.epam.jdi.cucumber.stepdefs.rus;
 
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;

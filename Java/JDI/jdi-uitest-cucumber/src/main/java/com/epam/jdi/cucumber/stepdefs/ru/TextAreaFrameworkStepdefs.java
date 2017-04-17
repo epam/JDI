@@ -1,20 +1,20 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.web.selenium.elements.common.*;
-import com.epam.jdi.uitests.web.selenium.elements.composite.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.uitests.web.selenium.elements.common.TextArea;
+import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Когда;
+import cucumber.api.java.ru.Тогда;
 
 public class TextAreaFrameworkStepdefs {
 
     @Когда("^я ввожу в \"([^\"]*)\" ещё строки \"([^\"]*)\"$")
     public void iMInputToLines(String filedName, String lines) throws Throwable {
-        ((TextArea) Utils.getClassField(WebPage.currentPage, filedName)).inputLines(lines);
+        ((TextArea) getElementByName(filedName)).inputLines(lines);
     }
 
     @И("^я ввожу в \"([^\"]*)\" ещё строку \"([^\"]*)\"$")
     public void iMInputToNewLine(String filedName, String newLine) throws Throwable {
-        ((TextArea) Utils.getClassField(WebPage.currentPage, filedName)).addNewLine(newLine);
+        ((TextArea) getElementByName(filedName)).addNewLine(newLine);
     }
 
     //TODO
@@ -25,6 +25,6 @@ public class TextAreaFrameworkStepdefs {
 
     @И("^я ввожу в \"([^\"]*)\" новые строки \"([^\"]*)\"$")
     public void iMInputToNewInput(String filedName, String newInput) throws Throwable {
-        ((TextArea) Utils.getClassField(WebPage.currentPage, filedName)).newInput(newInput);
+        ((TextArea) getElementByName(filedName)).newInput(newInput);
     }
 }

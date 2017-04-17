@@ -1,10 +1,10 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.core.interfaces.complex.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.cucumber.Utils;
+import com.epam.jdi.uitests.core.interfaces.complex.IPagination;
+import cucumber.api.java.ru.И;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.*;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
 public class PaginationFrameworkStepdefs {
 

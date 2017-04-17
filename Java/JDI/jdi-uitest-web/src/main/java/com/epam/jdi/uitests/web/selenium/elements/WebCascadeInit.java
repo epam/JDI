@@ -52,7 +52,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
  */
 public class WebCascadeInit extends CascadeInit {
 
-    protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, WebPage.class, Section.class, Element.class}; }
+    public Class<?>[] stopTypes() { return new Class<?>[] {Object.class, WebPage.class, Section.class, Element.class}; }
 
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
         if (field.isAnnotationPresent(JPage.class))

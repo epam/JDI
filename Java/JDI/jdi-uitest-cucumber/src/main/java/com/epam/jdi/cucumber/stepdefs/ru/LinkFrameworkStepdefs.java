@@ -1,10 +1,12 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.core.interfaces.common.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.cucumber.Utils;
+import com.epam.jdi.uitests.core.interfaces.common.ILink;
+import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Тогда;
 
-public class LinkFrameworkStepdefs {
+public class
+LinkFrameworkStepdefs {
 
     @Тогда("^ссылка \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void linkFromContains(String linkName, String containerName, String contains) throws NoSuchFieldException {

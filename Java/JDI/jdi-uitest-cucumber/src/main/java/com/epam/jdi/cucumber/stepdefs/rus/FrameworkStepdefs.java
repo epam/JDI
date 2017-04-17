@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.en;
+package com.epam.jdi.cucumber.stepdefs.rus;
 
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import cucumber.api.java.en.Given;

@@ -1,25 +1,26 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.*;
-import com.epam.jdi.uitests.core.interfaces.common.*;
-import com.epam.jdi.uitests.web.selenium.elements.composite.*;
-import cucumber.api.java.ru.*;
+import com.epam.jdi.cucumber.Utils;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.common.ITextField;
+import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Тогда;
 
 public class TextFrameworkStepdefs {
 
     @И("^я заполняю поле \"([^\"]*)\" текстом \"([^\"]*)\"$")
     public void iMFillFieldByText(String fieldName, String text) throws Throwable {
-        ((ITextField) Utils.getClassField(WebPage.currentPage, fieldName)).sendKeys(text);
+        ((ITextField) getElementByName(fieldName)).sendKeys(text);
     }
 
     @Тогда("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void textFromContains(String fieldName, String contains) throws Throwable {
-        ((IText) Utils.getClassField(WebPage.currentPage, fieldName)).waitText(contains);
+        ((IText) getElementByName(fieldName)).waitText(contains);
     }
 
     @И("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" соответствует \"([^\"]*)\"$")
     public void textFromMach(String fieldName, String regex) throws Throwable {
-        ((IText) Utils.getClassField(WebPage.currentPage, fieldName)).waitMatchText(regex);
+        ((IText) getElementByName(fieldName)).waitMatchText(regex);
     }
 
     @И("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")

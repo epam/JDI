@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.en;
+package com.epam.jdi.cucumber.stepdefs.rus;
 
 import com.epam.jdi.uitests.core.interfaces.common.ILink;
 import cucumber.api.java.en.Then;

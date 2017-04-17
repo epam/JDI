@@ -39,7 +39,7 @@ import static java.util.Arrays.asList;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public abstract class CascadeInit {
-    private Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
+    public Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
 
     public synchronized void initElements(Object parent, String driverName) {
         setFieldsForInit(parent, getFields(parent, decorators(), stopTypes()), parent.getClass(), driverName);

@@ -1,9 +1,7 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
-import com.epam.commons.map.MapArray;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
