@@ -32,9 +32,11 @@ public class AnnotationsUtil {
     }
 
     public static String getElementName(Field field) {
-        return field.isAnnotationPresent(Name.class)
-            ? field.getAnnotation(Name.class).value()
-            : splitCamelCase(field.getName());
+        if (field.isAnnotationPresent(Name.class))
+            return field.getAnnotation(Name.class).value();
+        if (field.getType().isAnnotationPresent(Name.class))
+            return field.getType().getAnnotation(Name.class).value();
+        return splitCamelCase(field.getName());
     }
 
     public static Functions getFunction(Field field) {
