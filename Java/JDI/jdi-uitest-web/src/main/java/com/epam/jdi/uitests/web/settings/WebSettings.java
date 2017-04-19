@@ -94,9 +94,9 @@ public class WebSettings extends JDISettings {
         driverFactory = new SeleniumDriverFactory();
         logger = new TestNGLogger("JDI Logger");
         asserter = new TestNGCheck().setUpLogger(logger);
-        screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
-        asserter.doScreenshot("screen_on_fail");
         setMatcher((BaseMatcher) asserter);
+        asserter.doScreenshot("screen_on_fail");
+        screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
         timeouts = new WebTimeoutSettings();
         getProperties(jdiSettingsPath);
         MapInterfaceToElement.init(defaultInterfacesMap);
