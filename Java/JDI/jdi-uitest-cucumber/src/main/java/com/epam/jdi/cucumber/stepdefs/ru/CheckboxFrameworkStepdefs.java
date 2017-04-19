@@ -4,6 +4,9 @@ import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Тогда;
 
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+
 public class CheckboxFrameworkStepdefs {
 
     @И("^я отмечаю \"([^\"]*)\"$")
@@ -19,14 +22,14 @@ public class CheckboxFrameworkStepdefs {
     @Тогда("^Флажок \"([^\"]*)\" отмечен$")
     public void checkboxIsCheck(String fieldName) {
         if (!((ICheckBox) getElementByName(fieldName)).isChecked()) {
-            throw new Exception("Checkbox is not checked.");
+            throw exception("Checkbox is not checked.");
         }
     }
 
     @Тогда("^Флажок \"([^\"]*)\" не отмечен$")
     public void checkboxIsUncheck(String fieldName) {
         if (((ICheckBox) getElementByName(fieldName)).isChecked()) {
-            throw new Exception("Checkbox is checked.");
+            throw exception("Checkbox is checked.");
         }
     }
 }

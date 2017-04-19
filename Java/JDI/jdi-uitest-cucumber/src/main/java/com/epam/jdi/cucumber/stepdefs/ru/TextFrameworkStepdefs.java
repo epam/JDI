@@ -6,6 +6,8 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Тогда;
 
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+
 public class TextFrameworkStepdefs {
 
     @И("^я заполняю поле \"([^\"]*)\" текстом \"([^\"]*)\"$")

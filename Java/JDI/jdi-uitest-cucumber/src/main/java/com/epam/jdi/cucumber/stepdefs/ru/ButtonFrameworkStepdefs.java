@@ -5,6 +5,8 @@ import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.И;
 
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+
 public class ButtonFrameworkStepdefs {
 
     @Дано("^я нажимаю на \"([^\"]*)\"(?:(?: кнопку|ссылку)$|$)")

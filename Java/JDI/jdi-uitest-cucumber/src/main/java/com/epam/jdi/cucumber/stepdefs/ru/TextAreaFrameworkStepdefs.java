@@ -5,6 +5,8 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
 
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+
 public class TextAreaFrameworkStepdefs {
 
     @Когда("^я ввожу в \"([^\"]*)\" ещё строки \"([^\"]*)\"$")

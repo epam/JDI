@@ -5,6 +5,8 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Тогда;
 import org.junit.Assert;
 
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+
 public class ElementFrameworkStepdefs {
 
     @И("^у элемента \"([^\"]*)\" я устанавливаю атрибуту \"([^\"]*)\" значение \"([^\"]*)\"$")
