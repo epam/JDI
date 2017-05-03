@@ -1,20 +1,21 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.core.interfaces.common.ILink;
-import cucumber.api.java.ru.И;
-import cucumber.api.java.ru.Тогда;
+import cucumber.api.java.en.Then;
 
-public class
-LinkFrameworkStepdefs {
+import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-    @Тогда("^ссылка \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
-    public void linkFromContains(String linkName, String containerName, String contains) throws NoSuchFieldException {
-        ((ILink) Utils.getClassField(Utils.getClassField(containerName), linkName)).waitReferenceContains(contains);
+public class LinkFrameworkStepdefs {
+
+    @Then("^ссылка \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
+    public void linkFromContains(String linkName, String containerName, String contains) {
+        ILink link = getElementByName(containerName, linkName);
+        link.waitReferenceContains(contains);
     }
 
-    @И("^ссылка \"([^\"]*)\" из \"([^\"]*)\" соответствует \"([^\"]*)\"$")
-    public void linkFromMuchReference(String linkName, String containerName, String regex) throws Throwable {
-        ((ILink) Utils.getClassField(Utils.getClassField(containerName), linkName)).waitMatchReference(regex);
+    @Then("^ссылка \"([^\"]*)\" из \"([^\"]*)\" соответствует \"([^\"]*)\"$")
+    public void linkFromMuchReference(String linkName, String containerName, String regex) {
+        ILink link = getElementByName(containerName, linkName);
+        link.waitMatchReference(regex);
     }
 }

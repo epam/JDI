@@ -5,10 +5,6 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-
-/**
- * Created by Dmitry_Lebedev1 on 1/14/2016.
- */
 public class LinkFrameworkStepdefs {
 
     @Then("^link \"([^\"]*)\" from \"([^\"]*)\" contains reference \"([^\"]*)\"$")

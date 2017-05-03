@@ -8,10 +8,6 @@ import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.core.interfaces.Application.currentSite;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
-
-/**
- * Created by Dmitry_Lebedev1 on 1/18/2016.
- */
 public class PageFrameworkStepdefs {
 
     @Given("^I open \"(.*?)\"$")

@@ -7,9 +7,6 @@ import org.junit.Assert;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/20/2016.
- */
 public class ElementFrameworkStepdefs {
 
     @When("^for element \"([^\"]*)\" I set attribute \"([^\"]*)\" on \"([^\"]*)\"$")
