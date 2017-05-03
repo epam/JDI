@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.rus;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.core.interfaces.complex.IPagination;

@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.rus;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import cucumber.api.java.en.Then;

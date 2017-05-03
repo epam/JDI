@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.rus;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
 import cucumber.api.java.ru.Когда;

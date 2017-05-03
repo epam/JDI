@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.rus;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

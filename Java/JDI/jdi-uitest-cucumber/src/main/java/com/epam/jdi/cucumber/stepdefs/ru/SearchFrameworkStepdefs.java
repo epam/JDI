@@ -1,4 +1,4 @@
-package com.epam.jdi.cucumber.stepdefs.rus;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import cucumber.api.java.en.When;
