@@ -7,26 +7,23 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.createFromJSON;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/19/2016.
- */
 public class FormFrameworkStepdefs {
 
-    @When("^I submit form \"([^\"]*)\" data \"([^\"]*)\"$")
+    @When("^я отправляю форму \"([^\"]*)\" с данными \"([^\"]*)\"$")
     public void iSubmitFormData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);
         form.submit(entity);
     }
 
-    @When("^I fill form \"([^\"]*)\" data \"([^\"]*)\"$")
+    @When("^я заполняю форму \"([^\"]*)\" данными \"([^\"]*)\"$")
     public void iFillFormData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);
         form.fill(entity);
     }
 
-    @Then("^form \"([^\"]*)\" contains data \"([^\"]*)\"$")
+    @Then("^форма \"([^\"]*)\" заполнена данными \"([^\"]*)\"$")
     public void formContainsData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);

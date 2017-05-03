@@ -6,9 +6,6 @@ import cucumber.api.java.en.When;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/22/2016.
- */
 public class TextAreaFrameworkStepdefs {
 
     @When("^I input to \"([^\"]*)\" lines \"([^\"]*)\"$")

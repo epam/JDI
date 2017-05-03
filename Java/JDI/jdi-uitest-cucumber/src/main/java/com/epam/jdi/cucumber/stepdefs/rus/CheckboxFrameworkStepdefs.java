@@ -7,9 +7,6 @@ import cucumber.api.java.ru.Тогда;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/20/2016.
- */
 public class CheckboxFrameworkStepdefs {
 
     @Тогда("^я отмечаю \"([^\"]*)\"$")
@@ -24,7 +21,7 @@ public class CheckboxFrameworkStepdefs {
         checkbox.uncheck();
     }
 
-    @Когда("^Флажок \"([^\"]*)\" отмечен$")
+    @Когда("^флажок \"([^\"]*)\" отмечен$")
     public void checkboxIsCheck(String fieldName) {
         ICheckBox checkbox = getElementByName(fieldName);
         if (!checkbox.isChecked()) {
@@ -32,7 +29,7 @@ public class CheckboxFrameworkStepdefs {
         }
     }
 
-    @Когда("^Флажок \"([^\"]*)\" не отмечен$")
+    @Когда("^флажок \"([^\"]*)\" не отмечен$")
     public void checkboxIsUncheck(String fieldName) {
         ICheckBox checkbox = getElementByName(fieldName);
         if (checkbox.isChecked()) {

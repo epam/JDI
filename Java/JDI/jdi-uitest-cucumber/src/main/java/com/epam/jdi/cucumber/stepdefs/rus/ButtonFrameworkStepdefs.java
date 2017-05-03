@@ -6,9 +6,6 @@ import cucumber.api.java.ru.Тогда;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/15/2016.
- */
 public class ButtonFrameworkStepdefs {
 
     @Тогда("^я нажимаю на \"([^\"]*)\"(?:(?: кнопку|ссылку)$|$)")

@@ -7,18 +7,15 @@ import org.junit.Assert;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/20/2016.
- */
 public class ElementFrameworkStepdefs {
 
-    @When("^for element \"([^\"]*)\" I set attribute \"([^\"]*)\" on \"([^\"]*)\"$")
+    @When("^у элемента \"([^\"]*)\" я устанавливаю атрибуту \"([^\"]*)\" значение \"([^\"]*)\"$")
     public void forElementISetAttributeOn(String fieldName, String attributeName, String attributeValue) {
         IElement el = getElementByName(fieldName);
         el.setAttribute(attributeName, attributeValue);
     }
 
-    @Then("^element \"([^\"]*)\" has /attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
+    @Then("^элемент \"([^\"]*)\" содержит атрибут \"([^\"]*)\" со значением \"([^\"]*)\"$")
     public void elementHasAttributeWithValue(String fieldName, String attributeName, String attributeValue) {
         IElement el = getElementByName(fieldName);
         Assert.assertTrue(el.getAttribute(attributeName).equals(attributeValue));

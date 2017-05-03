@@ -5,19 +5,15 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-
-/**
- * Created by Dmitry_Lebedev1 on 1/14/2016.
- */
 public class LinkFrameworkStepdefs {
 
-    @Then("^link \"([^\"]*)\" from \"([^\"]*)\" contains reference \"([^\"]*)\"$")
+    @Then("^ссылка \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void linkFromContains(String linkName, String containerName, String contains) {
         ILink link = getElementByName(containerName, linkName);
         link.waitReferenceContains(contains);
     }
 
-    @Then("^link \"([^\"]*)\" from \"([^\"]*)\" match reference \"([^\"]*)\"$")
+    @Then("^ссылка \"([^\"]*)\" из \"([^\"]*)\" соответствует \"([^\"]*)\"$")
     public void linkFromMuchReference(String linkName, String containerName, String regex) {
         ILink link = getElementByName(containerName, linkName);
         link.waitMatchReference(regex);

@@ -7,36 +7,33 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/14/2016.
- */
 public class TextFrameworkStepdefs {
 
-    @And("^I fill field \"([^\"]*)\" by text \"([^\"]*)\"$")
+    @And("^я заполняю поле \"([^\"]*)\" текстом \"([^\"]*)\"$")
     public void iMFillFieldByText(String fieldName, String text) {
         ITextField textField = getElementByName(fieldName);
         textField.sendKeys(text);
     }
 
-    @Then("^(?:text|label|link|button) \"([^\"]*)\" contains \"([^\"]*)\"$")
+    @Then("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void textFromContains(String fieldName, String contains) {
         IText text = getElementByName(fieldName);
         text.waitText(contains);
     }
 
-    @Then("^(?:text|label|link|button) \"([^\"]*)\" match \"([^\"]*)\"$")
+    @Then("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" соответствует \"([^\"]*)\"$")
     public void textFromMach(String fieldName, String regex) {
         IText text = getElementByName(fieldName);
         text.waitMatchText(regex);
     }
 
-    @Then("^(?:text|label|link|button) \"([^\"]*)\" from \"([^\"]*)\" contains \"([^\"]*)\"$")
+    @Then("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void textFromContains(String linkName, String containerName, String contains) {
         IText text = getElementByName(containerName, linkName);
         text.waitText(contains);
     }
 
-    @Then("^(?:text|label|link|button) \"([^\"]*)\" from \"([^\"]*)\" match \"([^\"]*)\"$")
+    @Then("^(?:текст|лейбл|ссылка|кнопка) \"([^\"]*)\" из \"([^\"]*)\" соответствует \"([^\"]*)\"$")
     public void textFromMuch(String linkName, String containerName, String regex) {
         IText text = getElementByName(containerName, linkName);
         text.waitMatchText(regex);
