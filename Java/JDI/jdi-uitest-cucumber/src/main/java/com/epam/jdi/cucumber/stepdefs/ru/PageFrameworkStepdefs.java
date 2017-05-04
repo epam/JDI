@@ -1,46 +1,49 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import cucumber.api.java.ru.Дано;
-import cucumber.api.java.ru.И;
-import cucumber.api.java.ru.Тогда;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+import static com.epam.jdi.cucumber.Utils.getElementByName;
+import static com.epam.jdi.uitests.core.interfaces.Application.currentSite;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
 public class PageFrameworkStepdefs {
 
-    @Дано("^я открываю страницу \"(.*?)\"$")
+    @Given("^я открываю страницу \"(.*?)\"$")
     public void iMOpen(String pageName) {
-        ((WebPage) Utils.getClassField(WebSite.currentSite, pageName)).open();
+        currentPage = getElementByName(currentSite, pageName);
+        currentPage.open();
     }
 
-    @Тогда("^я на странице \"(.*?)\"$")
-    public void iMOn(String pageName) throws Throwable {
-        ((WebPage) Utils.getClassField(WebSite.currentSite, pageName)).checkOpened();
+    @Then("^я на странице \"(.*?)\"$")
+    public void iMOn(String pageName) {
+        currentPage = getElementByName(currentSite, pageName);
+        currentPage.checkOpened();
     }
 
-    @И("^я обновляю страницу$")
-    public void iMRefreshPage() throws Throwable {
-        WebPage.currentPage.refresh();
+    @When("^я обновляю страницу$")
+    public void iMRefreshPage() {
+        currentPage.refresh();
     }
 
-    @И("^я перехожу на предыдущую страницу$")
-    public void iMGoBack() throws Throwable {
-        WebPage.currentPage.back();
+    @When("^я перехожу на предыдущую страницу$")
+    public void iMGoBack() {
+        currentPage.back();
     }
 
-    @И("^я перехожу на последующую страницу$")
-    public void iMGoForward() throws Throwable {
-        WebPage.currentPage.forward();
+    @When("^я перехожу на последующую страницу$")
+    public void iMGoForward() {
+        currentPage.forward();
     }
 
-    @И("^проверяю соответствие адреса текущей страницы$")
-    public void checkPageUrlMatch() throws Throwable {
-        WebPage.currentPage.url().match();
+    @Then("^я проверяю соответствие адреса текущей страницы$")
+    public void checkPageUrlMatch() {
+        currentPage.url().match();
     }
 
-    @И("^проверяю содержимое адреса текущей страницы$")
-    public void checkPageUrlContains() throws Throwable {
-        WebPage.currentPage.url().contains();
+    @Then("^я проверяю содержимое адреса текущей страницы$")
+    public void checkPageUrlContains() {
+        currentPage.url().contains();
     }
 }

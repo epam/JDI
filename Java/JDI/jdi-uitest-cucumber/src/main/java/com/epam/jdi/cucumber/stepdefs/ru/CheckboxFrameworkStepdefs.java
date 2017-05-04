@@ -1,7 +1,7 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
-import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
@@ -9,26 +9,30 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 public class CheckboxFrameworkStepdefs {
 
-    @И("^я отмечаю \"([^\"]*)\"$")
+    @Тогда("^я отмечаю \"([^\"]*)\"$")
     public void iMCheck(String fieldName) {
-        ((ICheckBox) getElementByName(fieldName)).check();
+        ICheckBox checkbox = getElementByName(fieldName);
+        checkbox.check();
     }
 
-    @И("^я снял отметку с \"([^\"]*)\"$")
+    @Тогда("^я снял отметку с \"([^\"]*)\"$")
     public void iMUncheck(String fieldName) {
-        ((ICheckBox) getElementByName(fieldName)).uncheck();
+        ICheckBox checkbox = getElementByName(fieldName);
+        checkbox.uncheck();
     }
 
-    @Тогда("^Флажок \"([^\"]*)\" отмечен$")
+    @Когда("^флажок \"([^\"]*)\" отмечен$")
     public void checkboxIsCheck(String fieldName) {
-        if (!((ICheckBox) getElementByName(fieldName)).isChecked()) {
+        ICheckBox checkbox = getElementByName(fieldName);
+        if (!checkbox.isChecked()) {
             throw exception("Checkbox is not checked.");
         }
     }
 
-    @Тогда("^Флажок \"([^\"]*)\" не отмечен$")
+    @Когда("^флажок \"([^\"]*)\" не отмечен$")
     public void checkboxIsUncheck(String fieldName) {
-        if (((ICheckBox) getElementByName(fieldName)).isChecked()) {
+        ICheckBox checkbox = getElementByName(fieldName);
+        if (checkbox.isChecked()) {
             throw exception("Checkbox is checked.");
         }
     }

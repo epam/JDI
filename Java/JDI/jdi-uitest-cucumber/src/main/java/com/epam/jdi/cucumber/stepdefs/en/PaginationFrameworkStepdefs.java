@@ -8,9 +8,6 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/21/2016.
- */
 public class PaginationFrameworkStepdefs {
 
     @When("^On pagination \"([^\"]*)\" I press next$")
@@ -24,7 +21,7 @@ public class PaginationFrameworkStepdefs {
         pagination.previous();
     }
 
-    @When("^On pagination \"([^\"]*)\" I select page number(\\d+)$")
+    @When("^On pagination \"([^\"]*)\" I select page number (\\d+)$")
     public void iMUsePaginationToSelect(String paginationName, int index) {
         Pagination pagination = getElementByName(paginationName);
         pagination.selectPage(index);

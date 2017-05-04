@@ -1,21 +1,22 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
-import cucumber.api.java.ru.Тогда;
+import cucumber.api.java.en.Then;
 
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
+import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static org.junit.Assert.assertEquals;
 
 public class ImageFrameworkStepdefs {
 
-    @Тогда("^у картинки \"([^\"]*)\" атрибут source равен \"([^\"]*)\"$")
-    public void imageSourceIs(String fieldName, String source) throws Throwable {
-        assertEquals(((Image) Utils.getClassField(currentPage, fieldName)).getSource(), source);
+    @Then("^у картинки \"([^\"]*)\" атрибут source равен \"([^\"]*)\"$")
+    public void imageSourceIs(String fieldName, String source) {
+        Image img = getElementByName(fieldName);
+        assertEquals(img.getSource(), source);
     }
 
-    @Тогда("^у картинки \"([^\"]*)\" атрибут alt равен \"([^\"]*)\"$")
-    public void imageTooltipIs(String fieldName, String alt) throws Throwable {
-        assertEquals(((Image) Utils.getClassField(currentPage, fieldName)).getAlt(), alt);
+    @Then("^у картинки \"([^\"]*)\" атрибут alt равен \"([^\"]*)\"$")
+    public void imageTooltipIs(String fieldName, String alt) {
+        Image img = getElementByName(fieldName);
+        assertEquals(img.getAlt(), alt);
     }
 }

@@ -1,21 +1,24 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
-import cucumber.api.java.ru.Дано;
-import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Когда;
+import cucumber.api.java.ru.Тогда;
+
+import static com.epam.jdi.cucumber.Utils.getElementByName;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
 public class ButtonFrameworkStepdefs {
 
-    @Дано("^я нажимаю на \"([^\"]*)\"(?:(?: кнопку|ссылку)$|$)")
-    public void iMClickOnButton(String buttonName) throws Throwable {
-        ((IClickable) getElementByName(buttonName)).click();
+    @Тогда("^я нажимаю на \"([^\"]*)\"(?:(?: кнопку|ссылку)$|$)")
+    public void iMClickOnButton(String buttonName) {
+        IClickable cl = getElementByName(buttonName);
+        cl.click();
     }
 
-    @И("^я нажимаю на \"([^\"]*)\" (?:(?: кнопку|ссылку)) из \"([^\"]*)\"$")
-    public void iMClickOnLinkFrom(String fieldName, String containerName) throws Throwable {
-        ((IClickable) Utils.getClassField(Utils.getClassField(containerName), fieldName)).click();
+    @Когда("^я нажимаю на \"([^\"]*)\" (?:(?: кнопку|ссылку)) из \"([^\"]*)\"$")
+    public void iMClickOnLinkFrom(String fieldName, String containerName) {
+        IClickable cl = getElementByName(containerName, fieldName);
+        cl.click();
     }
 }

@@ -7,9 +7,6 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/20/2016.
- */
 public class CheckboxFrameworkStepdefs {
 
     @When("^I check \"([^\"]*)\"$")

@@ -7,9 +7,6 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.createFromJSON;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-/**
- * Created by Dmitry_Lebedev1 on 1/19/2016.
- */
 public class FormFrameworkStepdefs {
 
     @When("^I submit form \"([^\"]*)\" data \"([^\"]*)\"$")
