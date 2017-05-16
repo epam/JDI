@@ -39,7 +39,12 @@ class SeleniumDriverFactory(object):
         return driver
 
     def get_driver(self):
-        return self.current_driver
+        if self.current_driver is not None:
+            return self.current_driver
+        else:
+            self.register_driver(DriverTypes.chrome.name)
+            return self.current_driver
+
 
 
 
