@@ -19,3 +19,9 @@ class WebSettings(JDISettings):
         driver_factory = SeleniumDriverFactory()
         WebSettings.set_driver_factory(driver_factory)
         return driver_factory.register_driver(driver_name)
+
+    @staticmethod
+    def quit_browser():
+        WebSettings.get_driver_factory()\
+            .get_driver().quit()
+

@@ -21,9 +21,9 @@ class GetElementModule(object):
         self.element = element
 
     def get_element(self):
-        self.logger.debug("Get Web Element: " + self.element)
+        # self.logger.debug("Get Web Element: " + self.element)
         element = self.web_element if self.web_element is not None else self.__get_element_action()
-        self.logger.debug("One Element found")
+        # self.logger.debug("One Element found")
         return element
 
     def __get_element_action(self):
@@ -40,14 +40,9 @@ class GetElementModule(object):
 
     def __search_elements(self):
         # TODO: containsRoot, searchContext
-        # search_context = self.__get_search_context()
         locator = self.by_locator
-        driver = self.get_driver()  # TODO: get it from JDISettings
-        driver.find_elements(locator)
-        # if locator == By.XPATH:
-        #     driver.find_element_by_xpath(self.element)  # xpath? element?
-        # if locator == By.ID:
-        #     driver.get_driver().find_element_by_id(self.element)
+        driver = self.get_driver()
+        return driver.find_elements(locator[0], locator[1])
 
     @staticmethod
     def get_driver():

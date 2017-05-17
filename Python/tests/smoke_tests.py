@@ -12,6 +12,9 @@ class SmokeTests(unittest.TestCase):
 
     def test_first(self):
         YandexSite.home_page.open()
-        self.assertEquals(YandexSite.home_page.get_driver().current_url, "https://ya.ru/")
+        YandexSite.home_page.yandex_link.click()
+        self.assertEquals(YandexSite.home_page.get_driver().current_url, "https://yandex.ru/")
 
+    def tearDown(self):
+        WebSettings.quit_browser()
 
