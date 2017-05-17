@@ -6,5 +6,8 @@ class BaseElement(object):
     avatar = None
     parent = None
 
-    def __init__(self, by_locator):
-        self.avatar = GetElementModule(by_locator)
+    if not avatar:
+        avatar = GetElementModule()
+
+    def get_driver(self):
+        return self.avatar.get_driver()

@@ -20,6 +20,7 @@ class SeleniumDriverFactory(object):
             self.current_driver = self.register_chrome_driver()
         if driver_name == DriverTypes.firefox.name:
             self.current_driver = self.register_firefox_driver()
+        return driver_name
 
     def register_chrome_driver(self):
         chrome_driver = WebDriverProvider.get_chrome_driver_path(self.drivers_path)

@@ -51,5 +51,5 @@ class GetElementModule(object):
 
     @staticmethod
     def get_driver():
-        return
+        return JDISettings.get_driver_factory().get_driver()
 
