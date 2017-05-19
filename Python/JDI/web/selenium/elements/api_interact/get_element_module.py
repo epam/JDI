@@ -6,15 +6,14 @@ class GetElementModule(object):
     FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds"
     FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds"
 
+    # TODO: there are not class attributes, there are Gem instance attributes -> re-write it
+
     logger = JDISettings.logger
 
     by_locator = None
     web_element = None
     element = None
-    frameLocator = None
     web_elements = []
-    find_element_function = None
-    find_elements_function = None
 
     def __init__(self, by_locator=None, element=None):  # element -> table, search, button ...
         self.by_locator = by_locator

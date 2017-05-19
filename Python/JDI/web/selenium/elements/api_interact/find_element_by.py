@@ -10,3 +10,7 @@ class By(object):
     @staticmethod
     def css(by_css):
         return Selenium_By.CSS_SELECTOR, by_css
+
+    @staticmethod
+    def link_text(link_text):
+        return Selenium_By.LINK_TEXT, link_text
