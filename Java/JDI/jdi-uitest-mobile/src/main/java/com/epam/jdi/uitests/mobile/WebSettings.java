@@ -43,7 +43,9 @@ public class WebSettings extends JDISettings {
     }
 
     public static AppiumDriverFactory getDriverFactory() {
-        return (AppiumDriverFactory) JDISettings.driverFactory;
+        if (driverFactory == null)
+            driverFactory = new AppiumDriverFactory();
+        return (AppiumDriverFactory) driverFactory;
     }
 
     public static String useDriver(DriverTypes driverName) {
@@ -63,7 +65,6 @@ public class WebSettings extends JDISettings {
     }
 
     public static void init() {
-        driverFactory = new AppiumDriverFactory();
         asserter = new TestNGCheck() {
             @Override
             protected String doScreenshotGetMessage() {

@@ -14,5 +14,9 @@ public class Job {
         this.category = category;
         this.location = location;
     }
-
+    @Override
+    public String toString() {
+        return String.format("Name: %s; Category: %s; Loacation: %s;",
+                name, category, location);
+    }
 }

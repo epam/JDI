@@ -16,7 +16,7 @@ import static com.epam.jdi.site.epam.EpamSite.*;
 public class CareerTests extends TestsBase {
 
     @BeforeMethod
-    public void before(Method method) {
+    public void before() {
         homePage.shouldBeOpened();
     }
 
@@ -33,6 +33,5 @@ public class CareerTests extends TestsBase {
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha class contains 'form-field-error'")
             .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
-
     }
 }

@@ -13,7 +13,7 @@ public class JobDescriptionPage extends WebPage {
     @FindBy(css = ".form-constructor")
     public AddCVForm addCVForm;
 
-    @FindBy(id = "captcha-input")
+    @FindBy(name = "captcha")
     public IElement captcha;
 
 }

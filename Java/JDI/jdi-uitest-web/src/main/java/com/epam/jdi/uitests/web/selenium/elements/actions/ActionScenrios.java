@@ -44,17 +44,15 @@ public class ActionScenrios {
     public static JActionTTTT<BaseElement, String, JAction, LogLevels> actionScenario =
             (element, actionName, jAction, level) -> {
         element.logAction(actionName, level);
-        logger.logDisabled();
+        logger.logOff(() -> {
         try {
             new Timer(timeouts.getCurrentTimeoutSec() * 1000).wait(() -> {
                 jAction.invoke();
                 return true;
             });
-            logger.logEnabled();
         } catch (Exception | Error ex) {
-            logger.logEnabled();
             throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
-        }
+        }});
         logger.debug("Done");
     };
 
@@ -67,25 +65,24 @@ public class ActionScenrios {
                 LogLevels, Object> resultScenario = (element, actionName, jAction, logResult, level) -> {
         element.logAction(actionName);
         Timer timer = new Timer();
-        Object result;
-        String stringResult;
-        logger.logDisabled();
-        try {
-            result = new Timer(timeouts.getCurrentTimeoutSec() * 1000)
-                    .getResultByCondition(jAction, res -> true);
-            if (result == null)
-                throw asserter.exception("Do action %s failed. Can't get result", actionName);
-             stringResult = logResult == null
-                    ? result.toString()
-                    : asserter.silent(() -> logResult.apply(result));
-            logger.logEnabled();
-        } catch (Exception | Error ex) {
-            logger.logEnabled();
-            throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
-        }
-        toLog(format("Get result '%s' in %s seconds", stringResult,
+        final Object[] result = new Object[1];
+        final String[] stringResult = new String[1];
+        logger.logOff(() -> {
+            try {
+                result[0] = new Timer(timeouts.getCurrentTimeoutSec() * 1000)
+                        .getResultByCondition(jAction, res -> true);
+                if (result[0] == null)
+                    throw asserter.exception("Do action %s failed. Can't get result", actionName);
+                stringResult[0] = logResult == null
+                        ? result[0].toString()
+                        : asserter.silent(() -> logResult.apply(result[0]));
+            } catch (Exception | Error ex) {
+                throw asserter.exception("Do action %s failed. Can't get result. Reason: %s", actionName, ex.getMessage());
+            }
+        });
+        toLog(format("Get result '%s' in %s seconds", stringResult[0],
                 format("%.2f", (double) timer.timePassedInMSec() / 1000)), level);
-        return result;
+        return result[0];
     };
 
     public <TResult> TResult resultScenario(String actionName, Supplier<TResult> jAction,

@@ -13,7 +13,7 @@ public final class AttendeesProvider {
     @DataProvider(name = "attendees")
     public static Object[][] attendees() {
         return new Object[][]{
-                {new Attendee()}
+                { new Attendee() }
         };
     }
 }

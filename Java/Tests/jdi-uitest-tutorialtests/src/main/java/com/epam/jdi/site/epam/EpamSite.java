@@ -43,10 +43,9 @@ public class EpamSite extends WebSite {
 
     @JMenu(levelLocators = {
         @FindBy(css = ".tile-menu>li>a"),
-        @FindBy(xpath = "//*[@class='tile-menu']//*[@href='/solutions']//..//li")
+        @FindBy(css = "ul.tile-menu>li li")
     })
     public static Menu multipleHeaderMenu;
-    //public static Elements<Dropdown<Enum>> els;
 
     @FindBy(css = ".tile-menu>li>a")
     public static Elements<Button> listMenu;

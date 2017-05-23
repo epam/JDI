@@ -27,6 +27,7 @@ import java.util.List;
  * Created by Sergey_Mishanin on 12/14/16.
  */
 public class J extends Element implements SelenideElement {
+    public J() {super();}
 
     public J(By locator){
         super(locator);

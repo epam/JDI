@@ -68,7 +68,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public Boolean getLatestDriver = false;
-    private String currentDriverName = "CHROME";
+    public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public String pageLoadStrategy = "eager";
     public HighlightSettings highlightSettings = new HighlightSettings();

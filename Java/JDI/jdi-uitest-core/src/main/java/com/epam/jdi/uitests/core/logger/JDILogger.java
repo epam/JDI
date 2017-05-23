@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.core.logger;
 
+import com.epam.commons.linqinterfaces.*;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 
@@ -27,13 +28,25 @@ public class JDILogger implements ILogger {
     private LogLevels settingslogLevel = INFO;
     public LogLevels logLevel = settingslogLevel;
 
-    public void logDisabled() { logLevel = OFF; }
-    public void logEnabled() { logLevel = settingslogLevel; }
+    public void logOff(JActionEx action) {
+        logOff(() -> { action.invoke(); return null; });
+    }
+    public <T> T logOff(JFuncREx<T> func) {
+        if (logLevel == OFF) {
+            try { return func.invoke();
+            } catch (Exception ex) { throw new RuntimeException(ex); }
+        }
+        logLevel = OFF;
+        T result;
+        try{ result = func.invoke(); }
+        catch (Exception ex) {throw new RuntimeException(ex); }
+        logLevel = settingslogLevel;
+        return result;
+    }
     public void setLogLevel(LogLevels logLevel) {
         this.logLevel = logLevel;
         this.settingslogLevel = logLevel;
     }
-
     private String name;
     private Logger logger;
     private List<Long> multiThread = new ArrayList<>();

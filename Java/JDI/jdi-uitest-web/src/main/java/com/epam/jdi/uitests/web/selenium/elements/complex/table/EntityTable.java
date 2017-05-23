@@ -34,9 +34,13 @@ import java.util.function.Function;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
+import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.*;
+import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static java.lang.System.getProperty;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
@@ -164,7 +168,10 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     }
 
     public List<E> all(){
-        return select(rows.get().values(), this::rowToEntity);
+        List<E> result = logger.logOff(() ->
+            select(rows.get().values(), this::rowToEntity));
+        logger.info("Got entities from table: " + LINE_BREAK + print(select(result, Object::toString), LINE_BREAK));
+        return result;
     }
 
     private void setEntityField(E entity, Field[] fields, String fieldName, String value)

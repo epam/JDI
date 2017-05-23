@@ -10,15 +10,16 @@ import java.io.IOException;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
+import static com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit.*;
 
 /**
  * Created by Roman_Iovlev on 7/13/2015.
  */
 public abstract class TestsBase extends TestNGBase {
-
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
         WebSite.init(EpamSite.class);
+
         logger.info("Run Tests");
     }
 

@@ -20,9 +20,11 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
@@ -31,7 +33,10 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.lang.reflect.Field;
@@ -44,8 +49,12 @@ import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpFromAnnotation;
+import static com.epam.jdi.uitests.web.settings.WebSettings.*;
+import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
+import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -53,10 +62,39 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
 public class WebCascadeInit extends CascadeInit {
 
     public Class<?>[] stopTypes() { return new Class<?>[] {Object.class, WebPage.class, Section.class, Element.class}; }
+    @Override
+    public Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class, WebElement.class }; }
 
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
         if (field.isAnnotationPresent(JPage.class))
             fillPageFromAnnotaiton((WebPage) instance, field.getAnnotation(JPage.class), parentType);
+    }
+    private static void initDriver() {
+        if (!initialized)
+            try {
+                initFromProperties();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+    }
+
+    public static <T> T initPageObject(Class<T> clazz) {
+        initDriver();
+        return initPageObject(clazz, currentDriverName);
+    }
+    public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
+        initDriver();
+        return initPageObject(clazz, useDriver(() -> driver));
+    }
+    public static <T> T initPageObject(Class<T> clazz, String driverName) {
+        T page;
+        try {
+            page = clazz.newInstance();
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't init PageObject: " + clazz.getName());
+        }
+        new WebCascadeInit().initElements(page, driverName);
+        return page;
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
@@ -86,7 +124,9 @@ public class WebCascadeInit extends CascadeInit {
         BaseElement instance = null;
         if (isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
-            if (elementClass.isInterface())
+            if (isClass(elementClass, WebElement.class))
+                elementClass = J.class;
+            else if (elementClass.isInterface())
                 elementClass = getClassFromInterface(type);
             if (elementClass != null && !isClass(elementClass, Table.class))
                 instance = new Elements(newLocator, elementClass);

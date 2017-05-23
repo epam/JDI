@@ -50,6 +50,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.commons.PropertyReader.getProperties;
+import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
@@ -72,7 +73,9 @@ public class WebSettings extends JDISettings {
     }
 
     public static SeleniumDriverFactory getDriverFactory() {
-        return (SeleniumDriverFactory) JDISettings.driverFactory;
+        if (driverFactory == null)
+            driverFactory = new SeleniumDriverFactory();
+        return (SeleniumDriverFactory) driverFactory;
     }
 
     public static String useDriver(DriverTypes driverName) {
@@ -91,7 +94,6 @@ public class WebSettings extends JDISettings {
     }
 
     public static synchronized void init() throws IOException {
-        driverFactory = new SeleniumDriverFactory();
         logger = new TestNGLogger("JDI Logger");
         asserter = new TestNGCheck().setUpLogger(logger);
         setMatcher((BaseMatcher) asserter);
@@ -100,8 +102,9 @@ public class WebSettings extends JDISettings {
         timeouts = new WebTimeoutSettings();
         getProperties(jdiSettingsPath);
         MapInterfaceToElement.init(defaultInterfacesMap);
+        driverFactory = new SeleniumDriverFactory();
     }
-
+    public static boolean initialized = false;
 
     public static synchronized void initFromProperties() throws IOException {
         init();
@@ -142,6 +145,7 @@ public class WebSettings extends JDISettings {
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
         fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
+        initialized = true;
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
