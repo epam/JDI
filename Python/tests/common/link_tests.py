@@ -11,3 +11,4 @@ class LinkTests(InitTests):
         EpamJDISite.home_page.about.click()
         EpamJDISite.login_page.submit(User.default())
 
+

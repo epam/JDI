@@ -6,18 +6,18 @@ class GetElementModule(object):
     FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds"
     FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds"
 
-    logger = JDISettings.logger
-
     def __init__(self, by_locator=None, element=None):  # element -> table, search, button ...
         self.by_locator = by_locator
         self.element = element
         self.web_element = None
         self.web_elements = []
 
+        self.logger = JDISettings.get_logger()
+
     def get_element(self):
-        # self.logger.debug("Get Web Element: " + self.element)
+        self.logger.debug("Get Web Element: " + str(self.element))
         element = self.web_element if self.web_element is not None else self.__get_element_action()
-        # self.logger.debug("One Element found")
+        self.logger.debug("One Element found")
         return element
 
     def __get_element_action(self):

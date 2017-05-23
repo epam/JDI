@@ -10,6 +10,9 @@ class BaseElement(object):
     def get_driver(self):
         return self.avatar.get_driver()
 
+    def __str__(self):
+        return self.__class__.__name__
+
     def _get_type_name(self):
         return self.__class__.__name__
 

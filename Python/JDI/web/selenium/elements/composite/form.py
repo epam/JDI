@@ -23,7 +23,6 @@ class Form(Element):
 
     def get_button(self, button_name):
         button = [element for element in self.__class__.__dict__.values() if "Button" in str(type(element))][0]
-        b = button.get_element()
-        return b
+        return button
 
 

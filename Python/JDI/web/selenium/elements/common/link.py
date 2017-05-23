@@ -7,3 +7,4 @@ class Link(ClickableText):
         super(Link, self).__init__(by_locator)
 
 
+
