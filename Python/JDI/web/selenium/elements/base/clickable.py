@@ -7,4 +7,4 @@ class Clickable(Element):
         super(Clickable, self).__init__(by_locator)
 
     def click(self):
-        return self.avatar.get_element().click()
+        return self.get_element().click()
