@@ -6,13 +6,13 @@ class GetElementModule(object):
     FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds"
     FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds"
 
-    def __init__(self, by_locator=None, element=None):  # element -> table, search, button ...
+    def __init__(self, by_locator=None, element=None):
         self.by_locator = by_locator
         self.element = element
         self.web_element = None
         self.web_elements = []
 
-        self.logger = JDISettings.get_logger()
+        # self.logger = JDISettings.get_logger()
 
     def get_element(self):
         self.logger.debug("Get Web Element: " + str(self.element))
@@ -50,8 +50,8 @@ class GetElementModule(object):
     def get_search_context(self):
         if self.element.parent is not None:
             locator = self.element.parent.avatar.by_locator
-            search_context = self.element.parent.get_driver()
-            return search_context.find_element(locator[0], locator[1])
+            driver = self.element.parent.get_driver()
+            return driver.find_element(locator[0], locator[1])
 
 
 

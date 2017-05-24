@@ -1,9 +1,11 @@
 from JDI.core.settings.jdi_settings import JDISettings
 from JDI.web.selenium.driver.selenium_driver_factory import SeleniumDriverFactory
+from JDI.core.logger.jdi_logger import JDILogger
 
 
 class WebSettings(JDISettings):
 
+    logger = JDILogger()
     domain = None
 
     @staticmethod

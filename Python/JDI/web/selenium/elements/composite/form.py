@@ -18,11 +18,11 @@ class Form(Element):
 
     def get_fields(self, entity_map):
         fields = {field: element for field, element in self.__class__.__dict__.items() if field in entity_map
-                  and "TextField" in str(type(element))}
+                  and str(element) is "TextField"}
         return fields
 
     def get_button(self, button_name):
-        button = [element for element in self.__class__.__dict__.values() if "Button" in str(type(element))][0]
+        button = [element for element in self.__class__.__dict__.values() if str(element) is "Button"][0]
         return button
 
 
