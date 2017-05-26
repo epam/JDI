@@ -12,13 +12,6 @@ Copyright (c) 2016, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
-## First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
-1. Click Link. Unpack zip
-2. Open project (Double click on pom.xml (if it is not setup to open with Idea by default setup this))
-3. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
-
-... So easy!
-
 ## Introduction
 
 JDI – is the test Framework for UI test automation. It extends the Page Objects design pattern and introduces many additional elements along with implementation of its common usages.
@@ -35,28 +28,93 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
-### Simple Examples
-Simple Login example with DataProvider using Business entity User
+## Installation (in existing project)
+Just add maven dependency in your test project
+```xml
+<dependency>
+    <groupId>com.epam.jdi</groupId>
+    <artifactId>jdi-uitest-web</artifactId>
+    <version>1.0.67</version>
+</dependency>
+```
+And reimport maven dependencies (rebuild project)
+See more installation examples below
+
+## First steps (project from scratch): 
+
+just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
+1. Click Link. Unpack zip
+2. Open project (Select pom.xml and open it in IntelliJIdea or Eclipse)
+3. Rebuild project.
+4. RunTests. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
+5. Observe results in console log or in Allure report (target > site > index.html)
+
+... So easy!
+
+### Simple Test Examples
+1) Simple Login example with DataProvider using Business entity User
+
+First setup your UI Object (PageObject)
+Pages:
+```Java
+@JSite(domain = "https://www.epam.com")
+public class EpamSite extends WebSite {
+    @JPage(url = "/login")
+    public static Login careerPage;
+    @JPage(url = "/", title = "EPAM | Software Product Development Services")
+    public static HomePage homePage;
+    
+    public static LoginForm loginForm
+}
+```
+Than setup Pages content
+```Java
+public class HomePage extends WebPage {
+}
+public class LoginPage extends WebPage {
+}
+public class LoginForm extends Form<User> {
+    @FindBy(id="login")
+    public TextField name;
+    @FindBy(id="psw")
+    public TextField password;
+    
+    @FindBy(id="submit-btn")
+    public Button password;
+}
+```
+Than write a test
 ```Java
     @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
     public void loginExample(User user) {
+        loginPage.open();
         loginForm.loginAs(user);
         homePage.checkOpened();
     }    
 ```
-Filling large form in one row example with DataProvider using Business entity Attendee
+1. Open Login page
+2. Login as user
+3. Check that homePage opened
+
+2) Filling large form in one row example with DataProvider using Business entity Attendee
 ```Java
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
-        addCVForm.submit(attendee);
+        sendCVPage.open();
+        cvForm.submit(attendee);
         // Check
         Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }
 ```
-Work with Table (jobList) example
+1. Open SendCV page
+2. Submit cv form with your attendee data 
+3. Check that Form not sent because captcha field has an error
+
+3) Work with Table (jobList) example
 ```Java
     @Test
     public void getTableInfoExample() {
+        jobsPage.open();
         Assert.isFalse(jobsList::isEmpty);
         Assert.areEquals(jobsList.columns().count(), 4);
         Assert.areEquals(jobsList.rows().count(), 2);
@@ -66,13 +124,14 @@ Work with Table (jobList) example
             "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
     }
 ```
-Simple example of complex Search in table 
+1. Open Jobs page
+2. Verify data in jobsList table
+* Table has records
+* Columns amount equal 4
+* Rows amount equal 2
+* Table structure is correct
 
-0. Wait while table have some Rows
-
-1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
-
-2. For this row select cell in Column APPLY
+4) Simple example of complex Search in table 
 ```Java
 @Test
     public void searchInTableExample() {
@@ -82,13 +141,11 @@ Simple example of complex Search in table
         jobDescriptionPage.checkOpened();
     }
 ```
-Simple example of complex Search with multiple criteria in table 
-
-1. Get first row where 
-    value in column "JOB_NAME" equals to "Senior QA Automation Engineer" AND 
-    value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
-
+0. Wait while table have some Rows
+1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
 2. For this row select cell in Column APPLY
+
+5) Simple example of complex Search with multiple criteria in table 
 ```Java    
     @Test
     public void searchByMultiCriteriaInTableExample() {
@@ -100,7 +157,12 @@ Simple example of complex Search with multiple criteria in table
         Assert.areEquals(firstRow.get("JOB_LOCATION").getText(), "St-Petersburg, Russia");
     }
 ```
-Some our matchers examples
+1. Get first row where 
+    value in column "JOB_NAME" equals to "Senior QA Automation Engineer" AND 
+    value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
+2. For this row select cell in Column APPLY
+
+6) Some our matchers examples
 ```Java    
     @Test
     public void matcherExamples() {
@@ -108,6 +170,7 @@ Some our matchers examples
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 ```
+7) Assert that actual result *becomes* equal expected result during specified timeout
 Just add '() -> ' to your Assert and wait some result from service or page loading (example fails if you remove '() ->' operator)
 ```Java   
     private int i = 0;
@@ -123,7 +186,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
         Assert.matches(() -> getNext(), ".*S");
     }
 ```
-Match lists and arrays
+8) Match lists and arrays
 ```Java    
     @Test
     public void listAssertsExample() {
@@ -140,7 +203,7 @@ Match lists and arrays
     }
 
 ```
-Or even verify exceptions
+9) Or even verify exceptions
 ```Java  
     @Test
     public void exceptionAssertsExample() {
@@ -224,7 +287,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 #### Gradle
@@ -246,7 +309,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 #### Desktop(Maven):
@@ -254,7 +317,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
