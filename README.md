@@ -51,7 +51,7 @@ Unpack zip and run project (open pom.xml) with IntelliJIdea or Eclipse
 Note: Rebuild your project if necessary (In IntelliJIdea do Build > Rebuild Project)
 
 ### 2. Setup your UI Objects (PageObjects) for your project
-Note: if you download empty project template via link this Pages already exist
+Note: if you download example project via link this Pages already exist in \src\main\java\org\mytests\uiobjects\example
 
 [View](http://pix.my/o/3lHw5f?1495800530)
 
@@ -101,7 +101,17 @@ driver=chrome
 timeout.wait.element=10
 driver.getLatest=true
 ```
-### 4. Write a simple test (SimpleExampleTest.java)
+### 4. Init Test Site (like PageFactory) via just one line
+Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleTestsInit.java
+```Java
+    @BeforeSuite(alwaysRun = true)
+    public static void setUp() throws Exception {
+        WebSite.init(JDIExampleSite.class);
+        logger.info("Run Tests");
+    }
+```
+### 5. Write a simple test (SimpleExampleTest.java)
+Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleExampleTest.java
 ```Java
     @Test
     public void loginExample() {
@@ -110,9 +120,9 @@ driver.getLatest=true
         homePage.checkOpened();
     }    
 ```
-### 5. Run Test. Right click on test and choose Run
+### 6. Run Test. Right click on test and choose Run
 [View](http://pix.my/o/9h65Ps?1495800825)
-### 6. Observe results in console log or in Allure report (target > site > index.html)
+### 7. Observe results in console log or in Allure report (target > site > index.html)
 Open Maven Window (View > Tool Windows > Maven Projects)
 
 And run allure:report (jdi.examples > Plugins > allure > allure:report)
