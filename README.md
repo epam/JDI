@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
 
-Copyright (c) 2016, EPAM Systems
+Copyright (c) 2017, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
 
@@ -28,8 +28,23 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
-## Installation (in existing project)
+## Installation
+### in existing project
 Just add maven dependency in your test project
+
+And reimport maven dependencies (rebuild project)
+See more installation examples below
+### from scratch 
+or just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) with already setup test project structure
+
+## Simple detailed first example
+Lets implement simple login scenario with JDI
+1. Open Login page
+2. Login as user
+3. Check that homePage opened
+
+1. We need to create Java Test project and add jdi dependency in it
+If you familiar with Java or already have test project then just add com.epam.jdi:jdi-uitest-web dependency in your project
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
@@ -37,31 +52,19 @@ Just add maven dependency in your test project
     <version>1.0.67</version>
 </dependency>
 ```
-And reimport maven dependencies (rebuild project)
-See more installation examples below
-
-## First steps (project from scratch): 
-
-just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
-1. Click Link. Unpack zip
-2. Open project (Select pom.xml and open it in IntelliJIdea or Eclipse)
-3. Rebuild project.
-4. RunTests. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
-5. Observe results in console log or in Allure report (target > site > index.html)
-
-... So easy!
-
-### Simple Test Examples
-### 1) Simple Login example with DataProvider using Business entity User
-
-First setup your UI Object (PageObject)
+### OR 
+Download simple already predefined test project using this [link](https://github.com/epam/JDI-Examples/archive/master.zip)
+Unpack zip and run project (open pom.xml) with InteliJIdea or Eclipse
+Note: Rebuild your project if necessary (In intelliJIdea do Build > Rebuild Project)
+2. Setup your UI Objects (PageObjects) for your project
+Note: if you download empty project template via link this Pages already exist
 Pages:
 ```Java
-@JSite(domain = "https://www.epam.com")
+@JSite(domain = "https://jdi-framework.github.io/tests/")
 public class EpamSite extends WebSite {
-    @JPage(url = "/login")
+    @JPage(url = "/index.htm")
     public static Login careerPage;
-    @JPage(url = "/", title = "EPAM | Software Product Development Services")
+    @JPage(url = "/index.htm", title = "EPAM | Software Product Development Services")
     public static HomePage homePage;
     
     public static LoginForm loginForm
@@ -74,16 +77,16 @@ public class HomePage extends WebPage {
 public class LoginPage extends WebPage {
 }
 public class LoginForm extends Form<User> {
-    @FindBy(id="login")
+    @FindBy(id="Login")
     public TextField name;
-    @FindBy(id="psw")
+    @FindBy(id="Password")
     public TextField password;
     
-    @FindBy(id="submit-btn")
-    public Button password;
+    @FindBy(css="[type=submit[")
+    public Button enter;
 }
 ```
-Than write a test
+3. Write a simple test
 ```Java
     @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
     public void loginExample(User user) {
@@ -92,11 +95,13 @@ Than write a test
         homePage.checkOpened();
     }    
 ```
-1. Open Login page
-2. Login as user
-3. Check that homePage opened
+4. Run Test. Right click on test and choose Run.
+5. Observe results in console log or in Allure report (target > site > index.html)
 
-### 2) Filling large form in one row example with DataProvider using Business entity Attendee
+... So easy!
+
+## More test examples
+### 1) Filling large form in one row example with DataProvider using Business entity Attendee
 ```Java
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
@@ -110,7 +115,7 @@ Than write a test
 2. Submit cv form with your attendee data 
 3. Check that Form not sent because captcha field has an error
 
-### 3) Work with Table (jobList) example
+### 2) Work with Table (jobList) example
 ```Java
     @Test
     public void getTableInfoExample() {
@@ -131,7 +136,7 @@ Than write a test
 * Rows amount equal 2
 * Table structure is correct
 
-### 4) Simple example of complex Search in table 
+### 3) Simple example of complex Search in table 
 ```Java
 @Test
     public void searchInTableExample() {
@@ -145,7 +150,7 @@ Than write a test
 1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
 2. For this row select cell in Column APPLY
 
-### 5) Simple example of complex Search with multiple criteria in table 
+### 4) Simple example of complex Search with multiple criteria in table 
 ```Java    
     @Test
     public void searchByMultiCriteriaInTableExample() {
@@ -162,7 +167,7 @@ Than write a test
     value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
 2. For this row select cell in Column APPLY
 
-### 6) Some our matchers examples
+### 5) Some our matchers examples
 ```Java    
     @Test
     public void matcherExamples() {
@@ -170,7 +175,7 @@ Than write a test
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 ```
-### 7) Assert that actual result *becomes* equal expected result during specified timeout
+### 6) Assert that actual result *becomes* equal expected result during specified timeout
 Just add '() -> ' to your Assert and wait some result from service or page loading (example fails if you remove '() ->' operator)
 ```Java   
     private int i = 0;
@@ -186,7 +191,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
         Assert.matches(() -> getNext(), ".*S");
     }
 ```
-### 8) Match lists and arrays
+### 7) Match lists and arrays
 ```Java    
     @Test
     public void listAssertsExample() {
@@ -203,7 +208,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
     }
 
 ```
-### 9) Or even verify exceptions
+### 8) Or even verify exceptions
 ```Java  
     @Test
     public void exceptionAssertsExample() {
