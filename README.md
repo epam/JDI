@@ -30,11 +30,11 @@ Enjoy to us! :)
 
 ## Simple detailed first example
 Lets implement simple login scenario with JDI
-1. Open Login page
-2. Login as user
-3. Check that homePage opened
+1) Open Login page
+2) Login as user
+3) Check that homePage opened
 
-1. We need to create Java Test project and add jdi dependency in it
+1. Create Java test project and add jdi dependency
 If you familiar with Java or already have test project then just add com.epam.jdi:jdi-uitest-web dependency in your project
 ```xml
 <dependency>
