@@ -29,7 +29,7 @@ We strive to make the test process easier and full of joy.
 Enjoy to us! :)
 
 ## Simple detailed first example
-Lets implement simple login scenario with JDI
+Lets implement simple login scenario with JDI on our test site (https://jdi-framework.github.io/tests/)
 1) Open Login page
 2) Login as user
 3) Check that homePage opened
