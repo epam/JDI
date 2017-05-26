@@ -34,7 +34,7 @@ Lets implement simple login scenario with JDI
 2) Login as user
 3) Check that homePage opened
 
-1. Create Java test project and add jdi dependency
+### 1. Create Java test project and add jdi dependency
 If you familiar with Java or already have test project then just add com.epam.jdi:jdi-uitest-web dependency in your project
 ```xml
 <dependency>
@@ -45,10 +45,14 @@ If you familiar with Java or already have test project then just add com.epam.jd
 ```
 ### OR 
 Download simple already predefined test project using this [link](https://github.com/epam/JDI-Examples/archive/master.zip)
+
 Unpack zip and run project (open pom.xml) with InteliJIdea or Eclipse
+
 Note: Rebuild your project if necessary (In intelliJIdea do Build > Rebuild Project)
-2. Setup your UI Objects (PageObjects) for your project
+
+### 2. Setup your UI Objects (PageObjects) for your project
 Note: if you download empty project template via link this Pages already exist
+
 Pages:
 ```Java
 @JSite(domain = "https://jdi-framework.github.io/tests/")
@@ -77,7 +81,7 @@ public class LoginForm extends Form<User> {
     public Button enter;
 }
 ```
-3. Write a simple test
+### 3. Write a simple test
 ```Java
     @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
     public void loginExample(User user) {
@@ -86,8 +90,8 @@ public class LoginForm extends Form<User> {
         homePage.checkOpened();
     }    
 ```
-4. Run Test. Right click on test and choose Run.
-5. Observe results in console log or in Allure report (target > site > index.html)
+### 4. Run Test. Right click on test and choose Run.
+### 5. Observe results in console log or in Allure report (target > site > index.html)
 
 ... So easy!
 
