@@ -120,7 +120,9 @@ Note: if you download example project via link this Test already exist in \src\t
         homePage.checkOpened();
     }    
 ```
-### 6. Run Test. Right click on test and choose Run
+### 6. Run Test. 
+Right click on test and choose Run
+
 [View](http://pix.my/o/GN0ykf?1495801680)
 ### 7. Observe results in console log or in Allure report (target > site > index.html)
 Open Maven Window (View > Tool Windows > Maven Projects)
