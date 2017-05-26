@@ -46,54 +46,78 @@ If you familiar with Java or already have test project then just add com.epam.jd
 ### OR 
 Download simple already predefined test project using this [link](https://github.com/epam/JDI-Examples/archive/master.zip)
 
-Unpack zip and run project (open pom.xml) with InteliJIdea or Eclipse
+Unpack zip and run project (open pom.xml) with IntelliJIdea or Eclipse
 
-Note: Rebuild your project if necessary (In intelliJIdea do Build > Rebuild Project)
+Note: Rebuild your project if necessary (In IntelliJIdea do Build > Rebuild Project)
 
 ### 2. Setup your UI Objects (PageObjects) for your project
 Note: if you download empty project template via link this Pages already exist
 
+[View](http://pix.my/o/3lHw5f?1495800530)
+
 Pages:
 ```Java
 @JSite(domain = "https://jdi-framework.github.io/tests/")
-public class EpamSite extends WebSite {
-    @JPage(url = "/index.htm")
-    public static Login careerPage;
-    @JPage(url = "/index.htm", title = "EPAM | Software Product Development Services")
+public class JDIExampleSite extends WebSite {
+    @JPage(url = "/")
+    public static LoginPage loginPage;
+    @JPage(url = "/index.htm", title = "Index Page")
     public static HomePage homePage;
-    
-    public static LoginForm loginForm
+
+    public static LoginForm loginForm;
 }
 ```
-Than setup Pages content
+Then setup Pages content
 ```Java
 public class HomePage extends WebPage {
 }
+public class User {
+    public String name = "epam";
+    public String password = "1234";
+}
 public class LoginPage extends WebPage {
+    @FindBy(css = ".profile-photo")
+    public Label profilePhoto;
+
+    public void login() {
+        loginPage.profilePhoto.click();
+        loginForm.loginAs(new User());
+    }
 }
 public class LoginForm extends Form<User> {
     @FindBy(id="Login")
     public TextField name;
     @FindBy(id="Password")
     public TextField password;
-    
-    @FindBy(css="[type=submit[")
+
+    @FindBy(css="[type=submit]")
     public Button enter;
 }
 ```
-### 3. Write a simple test
+### 3. (Optional) Add test properties 
+See in \src\test\test.properties.For example:
 ```Java
-    @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
-    public void loginExample(User user) {
+driver=chrome
+timeout.wait.element=10
+driver.getLatest=true
+```
+### 4. Write a simple test (SimpleExampleTest.java)
+```Java
+    @Test
+    public void loginExample() {
         loginPage.open();
-        loginForm.loginAs(user);
+        loginPage.login();
         homePage.checkOpened();
     }    
 ```
-### 4. Run Test. Right click on test and choose Run.
-### 5. Observe results in console log or in Allure report (target > site > index.html)
+### 5. Run Test. Right click on test and choose Run
+[View](http://pix.my/o/9h65Ps?1495800825)
+### 6. Observe results in console log or in Allure report (target > site > index.html)
+Open Maven Window (View > Tool Windows > Maven Projects)
 
-... So easy!
+And run allure:report (jdi.examples > Plugins > allure > allure:report)
+
+[View](http://pix.my/o/qyx2Pj?1495800923)
 
 ## More test examples
 ### 1) Filling large form in one row example with DataProvider using Business entity Attendee
