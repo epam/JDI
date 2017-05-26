@@ -52,7 +52,7 @@ just download this [Simple Java example project](https://github.com/epam/JDI-Exa
 ... So easy!
 
 ### Simple Test Examples
-1) Simple Login example with DataProvider using Business entity User
+### 1) Simple Login example with DataProvider using Business entity User
 
 First setup your UI Object (PageObject)
 Pages:
@@ -96,7 +96,7 @@ Than write a test
 2. Login as user
 3. Check that homePage opened
 
-2) Filling large form in one row example with DataProvider using Business entity Attendee
+### 2) Filling large form in one row example with DataProvider using Business entity Attendee
 ```Java
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
@@ -110,7 +110,7 @@ Than write a test
 2. Submit cv form with your attendee data 
 3. Check that Form not sent because captcha field has an error
 
-3) Work with Table (jobList) example
+### 3) Work with Table (jobList) example
 ```Java
     @Test
     public void getTableInfoExample() {
@@ -131,7 +131,7 @@ Than write a test
 * Rows amount equal 2
 * Table structure is correct
 
-4) Simple example of complex Search in table 
+### 4) Simple example of complex Search in table 
 ```Java
 @Test
     public void searchInTableExample() {
@@ -145,7 +145,7 @@ Than write a test
 1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
 2. For this row select cell in Column APPLY
 
-5) Simple example of complex Search with multiple criteria in table 
+### 5) Simple example of complex Search with multiple criteria in table 
 ```Java    
     @Test
     public void searchByMultiCriteriaInTableExample() {
@@ -162,7 +162,7 @@ Than write a test
     value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
 2. For this row select cell in Column APPLY
 
-6) Some our matchers examples
+### 6) Some our matchers examples
 ```Java    
     @Test
     public void matcherExamples() {
@@ -170,7 +170,7 @@ Than write a test
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 ```
-7) Assert that actual result *becomes* equal expected result during specified timeout
+### 7) Assert that actual result *becomes* equal expected result during specified timeout
 Just add '() -> ' to your Assert and wait some result from service or page loading (example fails if you remove '() ->' operator)
 ```Java   
     private int i = 0;
@@ -186,7 +186,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
         Assert.matches(() -> getNext(), ".*S");
     }
 ```
-8) Match lists and arrays
+### 8) Match lists and arrays
 ```Java    
     @Test
     public void listAssertsExample() {
@@ -203,7 +203,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
     }
 
 ```
-9) Or even verify exceptions
+### 9) Or even verify exceptions
 ```Java  
     @Test
     public void exceptionAssertsExample() {
