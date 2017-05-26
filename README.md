@@ -28,15 +28,6 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
-## Installation
-### in existing project
-Just add maven dependency in your test project
-
-And reimport maven dependencies (rebuild project)
-See more installation examples below
-### from scratch 
-or just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) with already setup test project structure
-
 ## Simple detailed first example
 Lets implement simple login scenario with JDI
 1. Open Login page
