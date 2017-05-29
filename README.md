@@ -8,16 +8,9 @@
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
 
-Copyright (c) 2016, EPAM Systems
+Copyright (c) 2017, EPAM Systems
 
 License: GPL v3. [GPL License](http://www.gnu.org/licenses)
-
-## First step: just download this [Simple Java example project](https://github.com/epam/JDI-Examples/archive/master.zip) and run test
-1. Click Link. Unpack zip
-2. Open project (Double click on pom.xml (if it is not setup to open with Idea by default setup this))
-3. Find test class in tree on left \> Right click on test class (SmokeTest.cs) (on test method) \> Choose `Run 'SmokeTest'`(`Run '<chosen test>'`)
-
-... So easy!
 
 ## Introduction
 
@@ -35,28 +28,129 @@ We strive to make the test process easier and full of joy.
 
 Enjoy to us! :)
 
-### Simple Examples
-Simple Login example with DataProvider using Business entity User
+## Simple detailed first example
+Lets implement simple login scenario with JDI on our test site (https://jdi-framework.github.io/tests/)
+1) Open Login page
+2) Login as user
+3) Check that homePage opened
+
+### 1. Create Java test project and add jdi dependency
+If you familiar with Java or already have test project then just add com.epam.jdi:jdi-uitest-web dependency in your project
+```xml
+<dependency>
+    <groupId>com.epam.jdi</groupId>
+    <artifactId>jdi-uitest-web</artifactId>
+    <version>1.0.67</version>
+</dependency>
+```
+### OR 
+Download simple already predefined test project using this [link](https://github.com/epam/JDI-Examples/archive/master.zip)
+
+Unpack zip and run project (open pom.xml) with IntelliJIdea or Eclipse
+
+Note: Rebuild your project if necessary (In IntelliJIdea do Build > Rebuild Project)
+
+### 2. Setup your UI Objects (PageObjects) for your project
+Note: if you download example project via link this Pages already exist in \src\main\java\org\mytests\uiobjects\example
+
+[View](http://pix.my/o/3lHw5f?1495800530)
+
+Pages:
 ```Java
-    @Test(dataProvider = "users", dataProviderClass = UsersProvider.class)
-    public void loginExample(User user) {
-        loginForm.loginAs(user);
+@JSite(domain = "https://jdi-framework.github.io/tests/")
+public class JDIExampleSite extends WebSite {
+    @JPage(url = "/")
+    public static LoginPage loginPage;
+    @JPage(url = "/index.htm", title = "Index Page")
+    public static HomePage homePage;
+
+    public static LoginForm loginForm;
+}
+```
+Then setup Pages content
+```Java
+public class HomePage extends WebPage {
+}
+public class User {
+    public String name = "epam";
+    public String password = "1234";
+}
+public class LoginPage extends WebPage {
+    @FindBy(css = ".profile-photo")
+    public Label profilePhoto;
+
+    public void login() {
+        loginPage.profilePhoto.click();
+        loginForm.loginAs(new User());
+    }
+}
+public class LoginForm extends Form<User> {
+    @FindBy(id="Login")
+    public TextField name;
+    @FindBy(id="Password")
+    public TextField password;
+
+    @FindBy(css="[type=submit]")
+    public Button enter;
+}
+```
+### 3. (Optional) Add test properties 
+See in \src\test\test.properties.For example:
+```Java
+driver=chrome
+timeout.wait.element=10
+driver.getLatest=true
+```
+### 4. Init Test Site (like PageFactory) via just one line
+Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleTestsInit.java
+```Java
+    @BeforeSuite(alwaysRun = true)
+    public static void setUp() throws Exception {
+        WebSite.init(JDIExampleSite.class);
+        logger.info("Run Tests");
+    }
+```
+### 5. Write a simple test (SimpleExampleTest.java)
+Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleExampleTest.java
+```Java
+    @Test
+    public void loginExample() {
+        loginPage.open();
+        loginPage.login();
         homePage.checkOpened();
     }    
 ```
-Filling large form in one row example with DataProvider using Business entity Attendee
+### 6. Run Test. 
+Right click on test and choose Run
+
+[View](http://pix.my/o/GN0ykf?1495801680)
+### 7. Observe results in console log or in Allure report (target > site > index.html)
+Open Maven Window (View > Tool Windows > Maven Projects)
+
+And run allure:report (jdi.examples > Plugins > allure > allure:report)
+
+[View](http://pix.my/o/qyx2Pj?1495800923)
+
+## More test examples
+### 1) Filling large form in one row example with DataProvider using Business entity Attendee
 ```Java
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void fillFormExample(Attendee attendee) {
-        addCVForm.submit(attendee);
+        sendCVPage.open();
+        cvForm.submit(attendee);
         // Check
         Assert.contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }
 ```
-Work with Table (jobList) example
+1. Open SendCV page
+2. Submit cv form with your attendee data 
+3. Check that Form not sent because captcha field has an error
+
+### 2) Work with Table (jobList) example
 ```Java
     @Test
     public void getTableInfoExample() {
+        jobsPage.open();
         Assert.isFalse(jobsList::isEmpty);
         Assert.areEquals(jobsList.columns().count(), 4);
         Assert.areEquals(jobsList.rows().count(), 2);
@@ -66,13 +160,14 @@ Work with Table (jobList) example
             "||2||Senior QA Automation Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||");
     }
 ```
-Simple example of complex Search in table 
+1. Open Jobs page
+2. Verify data in jobsList table
+* Table has records
+* Columns amount equal 4
+* Rows amount equal 2
+* Table structure is correct
 
-0. Wait while table have some Rows
-
-1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
-
-2. For this row select cell in Column APPLY
+### 3) Simple example of complex Search in table 
 ```Java
 @Test
     public void searchInTableExample() {
@@ -82,13 +177,11 @@ Simple example of complex Search in table
         jobDescriptionPage.checkOpened();
     }
 ```
-Simple example of complex Search with multiple criteria in table 
-
-1. Get first row where 
-    value in column "JOB_NAME" equals to "Senior QA Automation Engineer" AND 
-    value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
-
+0. Wait while table have some Rows
+1. Get first row where value in column "JOB_NAME" equals to "Senior QA Automation Engineer"
 2. For this row select cell in Column APPLY
+
+### 4) Simple example of complex Search with multiple criteria in table 
 ```Java    
     @Test
     public void searchByMultiCriteriaInTableExample() {
@@ -100,7 +193,12 @@ Simple example of complex Search with multiple criteria in table
         Assert.areEquals(firstRow.get("JOB_LOCATION").getText(), "St-Petersburg, Russia");
     }
 ```
-Some our matchers examples
+1. Get first row where 
+    value in column "JOB_NAME" equals to "Senior QA Automation Engineer" AND 
+    value in column "JOB_CATEGORY" equals to "Software Test Engineering" 
+2. For this row select cell in Column APPLY
+
+### 5) Some our matchers examples
 ```Java    
     @Test
     public void matcherExamples() {
@@ -108,6 +206,7 @@ Some our matchers examples
         Assert.matches("1352-423-85746", "\\d{4}-\\d{3}-\\d{5}");
     }
 ```
+### 6) Assert that actual result *becomes* equal expected result during specified timeout
 Just add '() -> ' to your Assert and wait some result from service or page loading (example fails if you remove '() ->' operator)
 ```Java   
     private int i = 0;
@@ -123,7 +222,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
         Assert.matches(() -> getNext(), ".*S");
     }
 ```
-Match lists and arrays
+### 7) Match lists and arrays
 ```Java    
     @Test
     public void listAssertsExample() {
@@ -140,7 +239,7 @@ Match lists and arrays
     }
 
 ```
-Or even verify exceptions
+### 8) Or even verify exceptions
 ```Java  
     @Test
     public void exceptionAssertsExample() {
@@ -224,7 +323,7 @@ public class AddCVForm extends Form<Attendee> {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 #### Gradle
@@ -246,7 +345,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-mobile</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 #### Desktop(Maven):
@@ -254,7 +353,7 @@ dependencies {
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-gui</artifactId>
-    <version>1.0.39</version>
+    <version>1.0.67</version>
 </dependency>
 ```
 *NOTE:* You need to setup Java version 8 or higher (see instruction on [Maven](https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html) site or example [here](https://github.com/epam/JDI/blob/master/Java/Tests/jdi-uitest-tutorialtests/pom.xml))
