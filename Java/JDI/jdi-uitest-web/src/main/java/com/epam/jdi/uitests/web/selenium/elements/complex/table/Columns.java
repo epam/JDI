@@ -47,7 +47,7 @@ public class Columns extends TableLine implements IColumn {
         return table.getWebElement().findElements(headersLocator);
     }
 
-    protected List<WebElement> getFirstLine() {
+    protected List<WebElement> getCrossFirstLine() {
         return ((Rows)table.rows()).getLineAction(1);
     }
 

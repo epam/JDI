@@ -54,4 +54,8 @@ abstract class RowColumn {
     public <T> T get(Function<String, T> nameAction, Function<Integer, T> numAction) {
         return hasName() ? nameAction.apply(name) : numAction.apply(num);
     }
+    @Override
+    public String toString() {
+        return hasName() ? name : (num+"");
+    }
 }

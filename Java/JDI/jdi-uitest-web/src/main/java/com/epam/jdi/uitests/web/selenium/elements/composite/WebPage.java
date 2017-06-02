@@ -210,14 +210,12 @@ public class WebPage extends BaseElement implements IPage {
         private String equals;
         private String template;
         private String what;
-        private Timer timer;
 
         StringCheckType(Supplier<String> actual, String equals, String template, String what, Timer timer) {
             this.actual = actual;
             this.equals = equals;
             this.template = template;
             this.what = what;
-            this.timer = timer;
         }
 
         /**

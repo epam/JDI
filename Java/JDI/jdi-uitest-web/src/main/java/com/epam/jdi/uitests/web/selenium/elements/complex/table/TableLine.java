@@ -34,11 +34,9 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static java.util.Collections.addAll;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -99,19 +97,19 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         addAll(headers, names);
     }
     protected int getCount(boolean acceptEmpty) {
-        table.getDriver().manage().timeouts().implicitlyWait(0, SECONDS);
+        setWaitTimeout(0);
         List<WebElement> elements = getHeadersAction();
         if (elements.size() == 0)
-            elements = getFirstLine();
-        table.getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
+            elements = getCrossFirstLine();
+        restoreWaitTimeout();
         if (!acceptEmpty)
-            elements = timer().getResultByCondition(this::getFirstLine, el -> el != null && el.size() > 0);
+            elements = timer().getResultByCondition(this::getCrossFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0
             ? elements.size()
             : 0;
     }
 
-    protected abstract List<WebElement> getFirstLine();
+    protected abstract List<WebElement> getCrossFirstLine();
 
     public void setCount(int value) {
         if (table.cache) count = value;

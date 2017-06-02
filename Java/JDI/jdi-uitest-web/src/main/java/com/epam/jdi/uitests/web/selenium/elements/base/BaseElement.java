@@ -113,6 +113,9 @@ public abstract class BaseElement implements IBaseElement {
         name = WebAnnotationsUtil.getElementName(field);
         varName = field.getName();
     }
+    protected void initSubElements() {
+        new WebCascadeInit().initElements(this, getAvatar().getDriverName());
+    }
 
     public void setName(String name) {
         this.name = name;

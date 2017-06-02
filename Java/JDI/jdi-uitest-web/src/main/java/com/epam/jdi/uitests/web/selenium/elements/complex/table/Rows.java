@@ -46,7 +46,7 @@ public class Rows extends TableLine implements IRow {
         return table.getWebElement().findElements(headersLocator);
     }
 
-    protected List<WebElement> getFirstLine() {
+    protected List<WebElement> getCrossFirstLine() {
         return ((Columns)table.columns()).getLineAction(1);
     }
 
