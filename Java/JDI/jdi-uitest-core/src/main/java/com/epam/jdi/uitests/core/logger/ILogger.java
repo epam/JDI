@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.core.logger;
 
-import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import org.slf4j.Logger;

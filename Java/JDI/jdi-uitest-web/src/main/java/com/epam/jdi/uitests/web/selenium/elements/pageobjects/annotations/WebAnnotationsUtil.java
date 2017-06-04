@@ -29,7 +29,6 @@ import java.util.function.Consumer;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.EQUAL;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
 

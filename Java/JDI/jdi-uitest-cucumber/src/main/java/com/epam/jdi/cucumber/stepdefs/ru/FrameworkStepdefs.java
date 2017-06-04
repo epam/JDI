@@ -5,8 +5,6 @@ import cucumber.api.java.en.Given;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-import static com.epam.jdi.cucumber.Utils.getElementByName;
-
 public class FrameworkStepdefs {
 
     @Given("^я заполняю \"([^\"]*)\" значением \"([^\"]*)\"$")

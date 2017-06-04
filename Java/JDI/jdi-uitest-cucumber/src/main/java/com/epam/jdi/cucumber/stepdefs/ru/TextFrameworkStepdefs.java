@@ -7,8 +7,6 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-import static com.epam.jdi.cucumber.Utils.getElementByName;
-
 public class TextFrameworkStepdefs {
 
     @And("^я заполняю поле \"([^\"]*)\" текстом \"([^\"]*)\"$")

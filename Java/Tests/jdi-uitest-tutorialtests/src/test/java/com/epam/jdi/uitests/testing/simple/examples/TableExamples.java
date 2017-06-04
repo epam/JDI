@@ -1,12 +1,9 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.entities.Job;
-import com.epam.jdi.site.epam.CustomElements.JobRecord;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

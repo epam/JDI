@@ -1,8 +1,6 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
 

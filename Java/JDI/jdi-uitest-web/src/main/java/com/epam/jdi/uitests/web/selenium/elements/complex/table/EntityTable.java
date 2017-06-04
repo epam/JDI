@@ -40,12 +40,12 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static java.lang.String.format;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
  * Created by Sergey_Mishanin on 11/18/16.
  */
+// Use following initialization for Entity table: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'
 public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     private Class<R> rowClass;
     private Class<E> entityClass;
@@ -121,8 +121,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
             : null;
     }
 
-    public List<R> getRows(Function<R, Boolean> colNames)
-    {
+    public List<R> getRows(Function<R, Boolean> colNames) {
         List<R> rows = where(getRows(), colNames);
         if (rows.size() == 0)
             logger.info("Can't find any rows that meat criterias");

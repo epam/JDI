@@ -6,8 +6,6 @@ import cucumber.api.java.en.When;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-import static com.epam.jdi.cucumber.Utils.getElementByName;
-
 public class TextAreaFrameworkStepdefs {
 
     @When("^я ввожу в \"([^\"]*)\" ещё строки \"([^\"]*)\"$")

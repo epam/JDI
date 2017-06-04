@@ -20,12 +20,12 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
@@ -33,7 +33,6 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,6 +45,7 @@ import java.util.function.BiConsumer;
 
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
+import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -53,8 +53,6 @@ import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.cur
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpFromAnnotation;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
-import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
-import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -122,6 +120,11 @@ public class WebCascadeInit extends CascadeInit {
     protected IBaseElement getElementsRules(Field field, String driverName, Class<?> type, String fieldName) throws IllegalAccessException, InstantiationException {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
+        if (isClass(type, EntityTable.class))
+            throw exception(
+            "Entity table should have constructor for correct initialization." + LINE_BREAK +
+                "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'" + LINE_BREAK +
+                "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
         if (isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
             if (isClass(elementClass, WebElement.class))
@@ -136,6 +139,8 @@ public class WebCascadeInit extends CascadeInit {
                 type = getClassFromInterface(type);
             if (type != null) {
                 instance = (BaseElement) type.newInstance();
+                if (newLocator == null)
+                    newLocator = instance.getLocator();
                 if (instance.getAvatar() != null && newLocator == null)
                     instance.setAvatar(new GetElementModule(instance));
                 else

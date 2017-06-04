@@ -60,7 +60,7 @@ public @interface JTable {
     int colStartIndex() default 1;
 
     TableHeaderTypes headerType() default COLUMNS_HEADERS;
-    boolean useCache() default true;
+    boolean useCache() default false;
 
 
 }
