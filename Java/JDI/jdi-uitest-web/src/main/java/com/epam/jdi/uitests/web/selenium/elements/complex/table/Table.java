@@ -548,7 +548,7 @@ public class Table extends Text implements ITable, Cloneable {
         MapArray<String, ICell> rowLine = row(row);
         List<ICell> cells =  matches(rowLine.values(), regex);
         if (cells.size() == 0) {
-            logger.info("Can't find any cells in row %s that matches regEx: %s", row, regex);
+            logger.info(format("Can't find any cells in row %s that matches regEx: %s", row, regex));
             return null;
         }
         return cells.get(0);
@@ -570,7 +570,7 @@ public class Table extends Text implements ITable, Cloneable {
         MapArray<String, ICell> columnLine = column(column);
         List<ICell> cells = matches(columnLine.values(), regex);
         if (cells.size() == 0) {
-            logger.info("Can't find any cells in column %s that matches regEx: %s", column, regex);
+            logger.info(format("Can't find any cells in column %s that matches regEx: %s", column, regex));
             return null;
         }
         return cells.get(0);
@@ -589,7 +589,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> column(String value, Row row) {
         ICell columnCell = cell(value, row);
         if (columnCell == null) {
-            logger.info("Can't find any cells in row %s with value", row, value);
+            logger.info(format("Can't find any cells in row %s with value %s", row, value));
             return null;
         }
         return columns().getColumn(columnCell.columnNum());
@@ -597,7 +597,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> columnContains(String value, Row row) {
         ICell columnCell = cellContains(value, row);
         if (columnCell == null) {
-            logger.info("Can't find any cells in row %s that contains value", row, value);
+            logger.info(format("Can't find any cells in row %s that contains value %s", row, value));
             return null;
         }
         return columns().getColumn(columnCell.columnNum());
@@ -605,7 +605,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> columnMatch(String regEx, Row row) {
         ICell columnCell = cellMatch(regEx, row);
         if (columnCell == null) {
-            logger.info("Can't find any cells in row %s that matches regex", row, regEx);
+            logger.info(format("Can't find any cells in row %s that matches regex %s", row, regEx));
             return null;
         }
         return columns().getColumn(columnCell.columnNum());
@@ -614,7 +614,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> row(String value, Column column) {
         ICell rowCell = cell(value, column);
         if (rowCell == null) {
-            logger.info("Can't find any cells in column %s with value", column, value);
+            logger.info(format("Can't find any cells in column %s with value %s", column, value));
             return null;
         }
         return rows().getRow(rowCell.rowNum());
@@ -622,7 +622,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> rowContains(String value, Column column) {
         ICell rowCell = cellContains(value, column);
         if (rowCell == null) {
-            logger.info("Can't find any cells in column %s that contains value", column, value);
+            logger.info(format("Can't find any cells in column %s that contains value %s", column, value));
             return null;
         }
         return rows().getRow(rowCell.rowNum());
@@ -630,7 +630,7 @@ public class Table extends Text implements ITable, Cloneable {
     public MapArray<String, ICell> rowMatch(String regEx, Column column) {
         ICell rowCell = cellMatch(regEx, column);
         if (rowCell == null) {
-            logger.info("Can't find any cells in column %s that matches regEx: %s", column, regEx);
+            logger.info(format("Can't find any cells in column %s that matches regEx: %s", column, regEx));
             return null;
         }
         return rows().getRow(rowCell.rowNum());

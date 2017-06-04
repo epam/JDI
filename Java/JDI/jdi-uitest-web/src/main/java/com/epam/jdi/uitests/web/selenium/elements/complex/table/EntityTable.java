@@ -40,7 +40,7 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static java.lang.System.getProperty;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
@@ -115,12 +115,18 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     }
 
     public R firstRow(Function<R, Boolean> colNames) {
-        return getRows(colNames).get(0);
+        List<R> rows = getRows(colNames);
+        return rows.size() > 0
+            ? rows.get(0)
+            : null;
     }
 
     public List<R> getRows(Function<R, Boolean> colNames)
     {
-        return where(getRows(), colNames);
+        List<R> rows = where(getRows(), colNames);
+        if (rows.size() == 0)
+            logger.info("Can't find any rows that meat criterias");
+        return rows;
     }
 
     public R getRow(String value, Column column)
