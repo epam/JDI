@@ -17,14 +17,14 @@ package com.epam.commons;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.commons.linqinterfaces.JActionTEx;
+import com.epam.commons.linqinterfaces.JFuncTREx;
+import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -44,63 +44,69 @@ public final class LinqUtils {
         return result;
     }
 
-    public static <T, TR> List<TR> select(Collection<T> list, Function<T, TR> func) {
+    public static <T, TR> List<TR> select(Collection<T> list, JFuncTREx<T, TR> func) {
         if (list == null)
             throw new RuntimeException("Can't do select. Collection is Null");
         try {
             List<TR> result = new CopyOnWriteArrayList<>();
             for (T el : list)
-                result.add(func.apply(el));
+                result.add(func.invoke(el));
             return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
     }
 
-    public static <T, TR> List<TR> select(T[] array, Function<T, TR> func) {
+    public static <T, TR> List<TR> select(T[] array, JFuncTREx<T, TR> func) {
         return select(asList(array), func);
     }
 
-    public static <K, V, R> List<R> selectMap(Map<K, V> map, Function<Map.Entry<K, V>, R> func) {
+    public static <K, V, R> List<R> selectMap(Map<K, V> map, JFuncTREx<Map.Entry<K, V>, R> func) {
         if (map == null)
             throw new RuntimeException("Can't do selectMap. Collection is Null");
         try {
-            return map.entrySet().stream().map(func).collect(Collectors.toList());
+            List<R> result = new CopyOnWriteArrayList<>();
+            for (Map.Entry<K,V> el : map.entrySet())
+                result.add(func.invoke(el));
+            return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
     }
 
-    public static <K, V, TR> Map<K, TR> select(Map<K, V> map, Function<V, TR> func) {
+    public static <K, V, TR> Map<K, TR> select(Map<K, V> map, JFuncTREx<V, TR> func) {
         if (map == null)
             throw new RuntimeException("Can't do select. Collection is Null");
         try {
             Map<K, TR> result = new HashMap<>();
             for (Map.Entry<K, V> el : map.entrySet())
-                result.put(el.getKey(), func.apply(el.getValue()));
+                result.put(el.getKey(), func.invoke(el.getValue()));
             return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
     }
 
-    public static <K, V, TR> List<TR> toList(Map<K, V> map, BiFunction<K, V, TR> func) {
+    public static <K, V, TR> List<TR> toList(Map<K, V> map, JFuncTTREx<K, V, TR> func) {
         if (map == null)
             throw new RuntimeException("Can't do select. Collection is Null");
         try {
-            return map.entrySet().stream().map(el -> func.apply(el.getKey(), el.getValue())).collect(Collectors.toList());
+            List<TR> result = new CopyOnWriteArrayList<>();
+            for (Map.Entry<K,V> el : map.entrySet())
+                result.add(func.invoke(el.getKey(), el.getValue()));
+            return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
     }
 
-    public static <T> List<T> where(Collection<T> list, Function<T, Boolean> func) {
+    public static <T> List<T> where(Collection<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)
             throw new RuntimeException("Can't do where. Collection is Null");
         try {
             List<T> result = new ArrayList<>();
             for (T el : list)
-                if (func.apply(el))
+                if (func.invoke(el))
                     result.add(el);
             return result;
         } catch (Exception ex) {
@@ -108,42 +114,45 @@ public final class LinqUtils {
         }
     }
 
-    public static <T> List<T> where(T[] list, Function<T, Boolean> func) {
+    public static <T> List<T> where(T[] list, JFuncTREx<T, Boolean> func) {
         return where(asList(list), func);
     }
 
-    public static <K, V> Map<K, V> where(Map<K, V> map, Function<Map.Entry<K, V>, Boolean> func) {
+    public static <K, V> Map<K, V> where(Map<K, V> map, JFuncTREx<Map.Entry<K, V>, Boolean> func) {
         if (map == null)
             throw new RuntimeException("Can't do where. Collection is Null");
         try {
             Map<K, V> result = new HashMap<>();
-            map.entrySet().stream().filter(func::apply).forEach(el -> result.put(el.getKey(), el.getValue()));
+            for (Map.Entry<K,V> el : map.entrySet())
+                if (func.invoke(el))
+                    result.put(el.getKey(), el.getValue());
             return result;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do where. Exception: " + ex.getMessage());
         }
     }
 
-    public static <T> void foreach(Collection<T> list, Consumer<T> action) {
+    public static <T> void foreach(Collection<T> list, JActionTEx<T> action) {
         if (list == null)
             throw new RuntimeException("Can't do foreach. Collection is Null");
         try {
             for (T el : list)
-                action.accept(el);
+                action.invoke(el);
         } catch (Exception ex) {
             throw new RuntimeException("Can't do foreach. Exception: " + ex.getMessage());
         }
     }
 
-    public static <T> void foreach(T[] list, Consumer<T> action) {
+    public static <T> void foreach(T[] list, JActionTEx<T> action) {
         foreach(asList(list), action);
     }
 
-    public static <K, V> void foreach(Map<K, V> map, Consumer<Map.Entry<K, V>> action) {
+    public static <K, V> void foreach(Map<K, V> map, JActionTEx<Map.Entry<K, V>> action) {
         if (map == null)
             throw new RuntimeException("Can't do foreach. Collection is Null");
         try {
-            map.entrySet().forEach(action::accept);
+            for (Map.Entry e : map.entrySet())
+                action.invoke(e);
         } catch (Exception ex) {
             throw new RuntimeException("Can't do foreach. Exception: " + ex.getMessage());
         }
@@ -165,12 +174,12 @@ public final class LinqUtils {
         return map.entrySet().iterator().next().getValue();
     }
 
-    public static <T> T first(Collection<T> list, Function<T, Boolean> func) {
+    public static <T> T first(Collection<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null || list.size() == 0)
             return null;
         try {
             for (T el : list)
-                if (func.apply(el))
+                if (func.invoke(el))
                     return el;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do first. Exception: " + ex.getMessage());
@@ -178,16 +187,16 @@ public final class LinqUtils {
         return null;
     }
 
-    public static <T> boolean any(Collection<T> list, Function<T, Boolean> func) {
+    public static <T> boolean any(Collection<T> list, JFuncTREx<T, Boolean> func) {
         return first(list, func) != null;
     }
 
-    public static <T> int firstIndex(List<T> list, Function<T, Boolean> func) {
+    public static <T> int firstIndex(List<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)
             throw new RuntimeException("Can't get firstIndex. Collection is Null");
         try {
             for (int i = 0; i < list.size(); i++)
-                if (func.apply(list.get(i)))
+                if (func.invoke(list.get(i)))
                     return i;
         } catch (Exception ex) {
             throw new RuntimeException("Can't get firstIndex. Exception: " + ex.getMessage());
@@ -195,25 +204,29 @@ public final class LinqUtils {
         return -1;
     }
 
-    public static <T> int firstIndex(T[] array, Function<T, Boolean> func) {
-        if (array == null)
+    public static <T> int firstIndex(T[] array, JFuncTREx<T, Boolean> func) {
+        try {
+            if (array == null)
+                return -1;
+            for (int i = 0; i < array.length; i++)
+                if (func.invoke(array[i]))
+                    return i;
             return -1;
-        for (int i = 0; i < array.length; i++)
-            if (func.apply(array[i]))
-                return i;
-        return -1;
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't get firstIndex. Exception: " + ex.getMessage());
+        }
     }
 
-    public static <T> T first(T[] list, Function<T, Boolean> func) {
+    public static <T> T first(T[] list, JFuncTREx<T, Boolean> func) {
         return first(asList(list), func);
     }
 
-    public static <K, V> V first(Map<K, V> map, Function<K, Boolean> func) {
+    public static <K, V> V first(Map<K, V> map, JFuncTREx<K, Boolean> func) {
         if (map == null)
             throw new RuntimeException("Can't do first. Collection is Null");
         try {
             for (Map.Entry<K, V> el : map.entrySet())
-                if (func.apply(el.getKey()))
+                if (func.invoke(el.getKey()))
                     return el.getValue();
         } catch (Exception ex) {
             throw new RuntimeException("Can't do first. Exception: " + ex.getMessage());
@@ -221,12 +234,12 @@ public final class LinqUtils {
         return null;
     }
 
-    public static <K, V> V first(MapArray<K, V> map, Function<K, Boolean> func) {
+    public static <K, V> V first(MapArray<K, V> map, JFuncTREx<K, Boolean> func) {
         if (map == null)
             throw new RuntimeException("Can't do first. Collection is Null");
         try {
             for (Pair<K, V> pair : map.pairs)
-                if (func.apply(pair.key))
+                if (func.invoke(pair.key))
                     return pair.value;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do first. Exception: " + ex.getMessage());
@@ -247,13 +260,13 @@ public final class LinqUtils {
         return last(asList(list));
     }
 
-    public static <T> T last(Collection<T> list, Function<T, Boolean> func) {
+    public static <T> T last(Collection<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)
             throw new RuntimeException("Can't do last. Collection is Null");
         T result = null;
         try {
             for (T el : list)
-                if (func.apply(el))
+                if (func.invoke(el))
                     result = el;
         } catch (Exception ex) {
             throw new RuntimeException("Can't do last. Exception: " + ex.getMessage());
@@ -261,7 +274,7 @@ public final class LinqUtils {
         return result;
     }
 
-    public static <T> T last(T[] list, Function<T, Boolean> func) {
+    public static <T> T last(T[] list, JFuncTREx<T, Boolean> func) {
         return last(asList(list), func);
     }
 
@@ -320,18 +333,28 @@ public final class LinqUtils {
         return listCopy(list, 0, to);
     }
 
-    public static <T> List<T> selectMany(List<T> list, Function<T, List<T>> func) {
-        List<T> result = new ArrayList<>();
-        for (T el : list)
-            result.addAll(func.apply(el));
-        return result;
+    public static <T> List<T> selectMany(List<T> list, JFuncTREx<T, List<T>> func) {
+        try {
+            List<T> result = new ArrayList<>();
+            for (T el : list)
+                for (T element : func.invoke(el))
+                    result.add(element);
+            return result;
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't do selectMany. Exception: " + ex.getMessage());
+        }
     }
 
-    public static <T> List<T> selectManyArray(List<T> list, Function<T, T[]> func) {
-        List<T> result = new ArrayList<>();
-        for (T el : list)
-            result.addAll(asList(func.apply(el)));
-        return result;
+    public static <T> List<T> selectManyArray(List<T> list, JFuncTREx<T, T[]> func) {
+        try {
+                List<T> result = new ArrayList<>();
+            for (T el : list)
+                for (T element : func.invoke(el))
+                    result.add(element);
+            return result;
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't do selectMany. Exception: " + ex.getMessage());
+    }
     }
 
 }

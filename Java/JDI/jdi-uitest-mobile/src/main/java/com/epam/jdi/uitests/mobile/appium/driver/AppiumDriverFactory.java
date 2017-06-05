@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.mobile.appium.driver;
 
 import com.epam.commons.PropertyReader;
 import com.epam.commons.TryCatchUtil;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
@@ -51,7 +52,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public class AppiumDriverFactory implements IDriver<WebDriver> {
-    public Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public String currentDriverName = "";
@@ -66,7 +67,7 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
     }
 
     public AppiumDriverFactory(boolean isDemoMode, HighlightSettings highlightSettings,
-                               Function<WebElement, Boolean> elementSearchCriteria) {
+                               JFuncTREx<WebElement, Boolean> elementSearchCriteria) {
         this.isDemoMode = isDemoMode;
         this.highlightSettings = highlightSettings;
         this.elementSearchCriteria = elementSearchCriteria;

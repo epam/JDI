@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
@@ -107,8 +108,8 @@ public class Rows extends TableLine implements IRow {
         return getRow(rowNum).toMapArray(IText::getText);
     }
 
-    private MapArray<String, MapArray<String, ICell>> withValueByRule(Column column,
-           BiFunction<String, String, Boolean> func) {
+    private MapArray<String, MapArray<String, ICell>> withValueByRule(
+        Column column, JFuncTTREx<String, String, Boolean> func) {
         Collection<String> rowNames = column.hasName()
                 ? table.columns().getColumnAsText(column.getName()).where(func).keys()
                 : table.columns().getColumnAsText(column.getNum()).where(func).keys();

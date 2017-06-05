@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.actions;
 
 
 import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 
 import java.util.ArrayList;
@@ -185,7 +186,7 @@ public class ElementsActions {
         invoker().doJAction("Expand Element", expandAction);
     }
 
-    public List<String> areSelected(Supplier<List<String>> getNames, Function<String, Boolean> waitSelectedAction) {
+    public List<String> areSelected(Supplier<List<String>> getNames, JFuncTREx<String, Boolean> waitSelectedAction) {
         return invoker().doJActionResult("Are selected", () ->
                 where(getNames.get(), waitSelectedAction));
     }

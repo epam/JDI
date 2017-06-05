@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
  */
 
 import com.epam.commons.ReflectionUtils;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
@@ -112,11 +113,11 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return select(rows().get(), row -> castToRow(row.value));
     }
 
-    public R firstRow(Function<R, Boolean> colNames) {
+    public R firstRow(JFuncTREx<R, Boolean> colNames) {
         return getRows(colNames).get(0);
     }
 
-    public List<R> getRows(Function<R, Boolean> colNames)
+    public List<R> getRows(JFuncTREx<R, Boolean> colNames)
     {
         return where(getRows(), colNames);
     }

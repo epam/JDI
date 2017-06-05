@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
@@ -84,7 +85,7 @@ public class Columns extends TableLine implements IColumn {
     }
 
     private MapArray<String, MapArray<String, ICell>> withValueByRule(Row row,
-        BiFunction<String, String, Boolean> func) {
+      JFuncTTREx<String, String, Boolean> func) {
         Collection<String> rowNames = row.hasName()
                 ? table.rows().getRowAsText(row.getName()).where(func).keys()
                 : table.rows().getRowAsText(row.getNum()).where(func).keys();

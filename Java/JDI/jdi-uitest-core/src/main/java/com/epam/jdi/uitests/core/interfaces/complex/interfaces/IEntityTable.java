@@ -18,6 +18,8 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncTREx;
+
 import java.util.List;
 import java.util.function.Function;
 
@@ -28,8 +30,8 @@ import java.util.function.Function;
 public interface IEntityTable<E,R> extends ITable, List<E> {
 
     List<R> getRows();
-    List<R> getRows(Function<R, Boolean> colNames);
-    R firstRow(Function<R, Boolean> rule);
+    List<R> getRows(JFuncTREx<R, Boolean> colNames);
+    R firstRow(JFuncTREx<R, Boolean> rule);
 
     R getRow(String value, Column column);
 

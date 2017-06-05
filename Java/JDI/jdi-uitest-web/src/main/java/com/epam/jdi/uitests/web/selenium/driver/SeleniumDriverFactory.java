@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.driver;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
@@ -64,7 +65,7 @@ import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public class SeleniumDriverFactory implements IDriver<WebDriver> {
-    public static Function<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
+    public static JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     public Boolean getLatestDriver = false;
@@ -87,12 +88,12 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         this(false, highlightSettings, WebElement::isDisplayed);
     }
 
-    public SeleniumDriverFactory(Function<WebElement, Boolean> elementSearchCriteria) {
+    public SeleniumDriverFactory(JFuncTREx<WebElement, Boolean> elementSearchCriteria) {
         this(false, new HighlightSettings(), elementSearchCriteria);
     }
 
     public SeleniumDriverFactory(boolean isDemoMode, HighlightSettings highlightSettings,
-                                 Function<WebElement, Boolean> elementSearchCriteria) {
+                                 JFuncTREx<WebElement, Boolean> elementSearchCriteria) {
         this.isDemoMode = isDemoMode;
         this.highlightSettings = highlightSettings;
         SeleniumDriverFactory.elementSearchCriteria = elementSearchCriteria;

@@ -59,7 +59,6 @@ public class EntityTableExamples extends TestsBase {
         Assert.isFalse(jobsTable()::isEmpty);
         Job job = jobsTable()
                 .entity(withValue("QA Specialist"), inColumn("name"));
-
         Assert.entitiesAreEquals(job, new Job("QA Specialist", "Software Test Engineering", "St-Petersburg, Russia"));
     }
     @Test

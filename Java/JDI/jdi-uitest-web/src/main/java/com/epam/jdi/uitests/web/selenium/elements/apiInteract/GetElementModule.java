@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.apiInteract;
 
 
 import com.epam.commons.Timer;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -53,7 +54,7 @@ public class GetElementModule implements IAvatar {
             = "Find %s elements instead of one for Element '%s' during %s seconds";
     private By byLocator;
     public By frameLocator;
-    public Function<WebElement, Boolean> localElementSearchCriteria = null;
+    public JFuncTREx<WebElement, Boolean> localElementSearchCriteria = null;
     public WebElement rootElement;
     private String driverName = "";
     private BaseElement element;
@@ -121,7 +122,7 @@ public class GetElementModule implements IAvatar {
 
     public <T> T findImmediately(Supplier<T> func, T ifError) {
         element.setWaitTimeout(0);
-        Function<WebElement, Boolean> temp = localElementSearchCriteria;
+        JFuncTREx<WebElement, Boolean> temp = localElementSearchCriteria;
         localElementSearchCriteria = el -> true;
         T result;
         try {
@@ -140,7 +141,7 @@ public class GetElementModule implements IAvatar {
     public Timer timer() {
         return timer(timeouts.getCurrentTimeoutSec());
     }
-    private List<WebElement> getElementsByCondition(Function<WebElement, Boolean> condition) {
+    private List<WebElement> getElementsByCondition(JFuncTREx<WebElement, Boolean> condition) {
         List<WebElement> elements = timer().getResultByCondition(
                 this::searchElements,
                 els -> any(els, getSearchCriteria()));
@@ -159,7 +160,7 @@ public class GetElementModule implements IAvatar {
         return result;
     }
 
-    private Function<WebElement, Boolean> getSearchCriteria() {
+    private JFuncTREx<WebElement, Boolean> getSearchCriteria() {
         return localElementSearchCriteria != null ? localElementSearchCriteria : elementSearchCriteria;
     }
 
@@ -173,7 +174,7 @@ public class GetElementModule implements IAvatar {
             : searchElements();
         if (result.size() == 1)
             return result;
-        return where(result, el -> getSearchCriteria().apply(el));
+        return where(result, el -> getSearchCriteria().invoke(el));
     }
 
     private WebElement getElementAction() {

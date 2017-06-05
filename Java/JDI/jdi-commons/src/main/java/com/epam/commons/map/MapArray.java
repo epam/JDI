@@ -18,14 +18,13 @@ package com.epam.commons.map;
  */
 
 import com.epam.commons.LinqUtils;
+import com.epam.commons.linqinterfaces.JActionTTEx;
+import com.epam.commons.linqinterfaces.JFuncTREx;
+import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.pairs.Pair;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.TryCatchUtil.throwRuntimeException;
@@ -46,39 +45,57 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         add(key, value);
     }
 
-    public <T> MapArray(Collection<T> collection, Function<T, K> key, Function<T, V> value) {
+    public <T> MapArray(Collection<T> collection, JFuncTREx<T, K> key, JFuncTREx<T, V> value) {
         this();
-        for (T t : collection)
-            add(key.apply(t), value.apply(t));
+        try {
+            for (T t : collection)
+                add(key.invoke(t), value.invoke(t));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
 
-    public MapArray(Collection<K> collection, Function<K, V> value) {
+    public MapArray(Collection<K> collection, JFuncTREx<K, V> value) {
         this();
-        for (K k : collection)
-            add(k, value.apply(k));
+        try {
+            for (K k : collection)
+                add(k, value.invoke(k));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
 
-    public <T> MapArray(T[] array, Function<T, K> key, Function<T, V> value) {
+    public <T> MapArray(T[] array, JFuncTREx<T, K> key, JFuncTREx<T, V> value) {
         this();
-        for (T t : array)
-            add(key.apply(t), value.apply(t));
+        try {
+            for (T t : array)
+                add(key.invoke(t), value.invoke(t));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
 
-    public MapArray(K[] array, Function<K, V> value) {
+    public MapArray(K[] array, JFuncTREx<K, V> value) {
         this();
+        try {
         for (K k : array)
-            add(k, value.apply(k));
+            add(k, value.invoke(k));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
 
-    public MapArray(int count, Function<Integer, K> key, Function<Integer, V> value) {
+    public MapArray(int count, JFuncTREx<Integer, K> key, JFuncTREx<Integer, V> value) {
         this();
+        try {
         for (int i = 0; i < count; i++)
-            add(key.apply(i), value.apply(i));
+            add(key.invoke(i), value.invoke(i));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
-    public MapArray(int count, Function<Integer, Pair<K, V>> pairFunc) {
+    public MapArray(int count, JFuncTREx<Integer, Pair<K, V>> pairFunc) {
         this();
+        try {
         for (int i = 0; i < count; i++)
-            add(pairFunc.apply(i));
+            add(pairFunc.invoke(i));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't create MapArray"); }
     }
 
     public MapArray(MapArray<K, V> mapArray) {
@@ -121,31 +138,41 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
     public <KResult, VResult> MapArray<KResult, VResult> toMapArray(
-            BiFunction<K, V, KResult> key, BiFunction<K, V, VResult> value) {
+            JFuncTTREx<K, V, KResult> key, JFuncTTREx<K, V, VResult> value) {
         MapArray<KResult, VResult> result = new MapArray<>();
-        for (Pair<K, V> pair : pairs)
-            result.add(key.apply(pair.key, pair.value), value.apply(pair.key, pair.value));
+        try {
+            for (Pair<K, V> pair : pairs)
+                result.add(key.invoke(pair.key, pair.value), value.invoke(pair.key, pair.value));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't convert toMapArray"); }
         return result;
     }
 
-    public <VResult> MapArray<K, VResult> toMapArray(Function<V, VResult> value) {
+    public <VResult> MapArray<K, VResult> toMapArray(JFuncTREx<V, VResult> value) {
         MapArray<K, VResult> result = new MapArray<>();
+        try {
         for (Pair<K, V> pair : pairs)
-            result.add(pair.key, value.apply(pair.value));
+            result.add(pair.key, value.invoke(pair.value));
         return result;
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't convert toMapArray"); }
     }
 
     public Map<K, V> toMap() {
         return toMap(v -> v);
     }
-    public <VResult> Map<K, VResult> toMap(Function<V, VResult> value) {
-        return toMap((k, v) -> k, (k,v) -> value.apply(v));
+    public <VResult> Map<K, VResult> toMap(JFuncTREx<V, VResult> value) {
+        return toMap((k, v) -> k, (k,v) -> value.invoke(v));
     }
     public <KResult, VResult> Map<KResult, VResult> toMap(
-            BiFunction<K, V, KResult> key, BiFunction<K, V, VResult> value) {
+            JFuncTTREx<K, V, KResult> key, JFuncTTREx<K, V, VResult> value) {
         Map<KResult, VResult> result = new HashMap<>();
-        for (Pair<K, V> pair : pairs)
-            result.put(key.apply(pair.key, pair.value), value.apply(pair.key, pair.value));
+        try {
+            for (Pair<K, V> pair : pairs)
+                result.put(key.invoke(pair.key, pair.value),
+                        value.invoke(pair.key, pair.value));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't convert toMap"); }
         return result;
     }
 
@@ -163,13 +190,16 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     }
 
 
-    public MapArray<K, V> update(K key, Function<V, V> func) {
+    public MapArray<K, V> update(K key, JFuncTREx<V, V> func) {
         V value = null;
         if (hasKey(key)) {
             value = get(key);
             removeByKey(key);
         }
-        pairs.add(new Pair<>(key, func.apply(value)));
+        try {
+            pairs.add(new Pair<>(key, func.invoke(value)));
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't do update"); }
         return this;
     }
 
@@ -243,7 +273,7 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         return LinqUtils.select(pairs, pair -> pair.value);
     }
 
-    public Collection<V> values(Function<V, Boolean> condition) {
+    public Collection<V> values(JFuncTREx<V, Boolean> condition) {
         return LinqUtils.where(values(), condition);
     }
 
@@ -374,34 +404,38 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         return clone();
     }
 
-    public <T1> List<T1> select(BiFunction<K, V, T1> func) {
+    public <T1> List<T1> select(JFuncTTREx<K, V, T1> func) {
         try {
-            return pairs.stream()
-                    .map(pair -> func.apply(pair.key, pair.value))
-                    .collect(toList());
+            List<T1> result = new ArrayList<>();
+            for (Pair<K,V> pair : pairs)
+                result.add(func.invoke(pair.key, pair.value));
+            return result;
         } catch (Exception ignore) {
             throwRuntimeException(ignore);
             return new ArrayList<>();
         }
     }
 
-    public MapArray<K, V> filter(BiFunction<K, V, Boolean> func) {
+    public MapArray<K, V> filter(JFuncTTREx<K, V, Boolean> func) {
         return where(func);
     }
-    public MapArray<K, V> where(BiFunction<K, V, Boolean> func) {
+    public MapArray<K, V> where(JFuncTTREx<K, V, Boolean> func) {
         try {
-            return pairs.stream().filter(pair -> func.apply(pair.key, pair.value))
-                    .collect(Collectors.toCollection(MapArray::new));
+            MapArray<K, V> result = new MapArray<>();
+            for (Pair<K,V> pair : pairs)
+                if (func.invoke(pair.key, pair.value))
+                    result.add(pair);
+            return result;
         } catch (Exception ignore) {
             throwRuntimeException(ignore);
             return null;
         }
     }
 
-    public V first(BiFunction<K, V, Boolean> func) {
+    public V first(JFuncTTREx<K, V, Boolean> func) {
         try {
             for (Pair<K, V> pair : pairs)
-                if (func.apply(pair.key, pair.value))
+                if (func.invoke(pair.key, pair.value))
                     return pair.value;
             return null;
         } catch (Exception ignore) {
@@ -410,20 +444,20 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         }
     }
 
-    public void foreach(BiConsumer<K, V> action) {
+    public void foreach(JActionTTEx<K, V> action) {
         try {
             for (Pair<K, V> pair : pairs)
-                action.accept(pair.key, pair.value);
+                action.invoke(pair.key, pair.value);
         } catch (Exception ignore) {
             throwRuntimeException(ignore);
         }
     }
 
-    public <R> List<R> selectMany(BiFunction<K, V, List<R>> func) {
+    public <R> List<R> selectMany(JFuncTTREx<K, V, List<R>> func) {
         try {
             List<R> result = new ArrayList<>();
             for (Pair<K, V> pair : pairs)
-                result.addAll(func.apply(pair.key, pair.value));
+                result.addAll(func.invoke(pair.key, pair.value));
             return result;
         } catch (Exception ignore) {
             throwRuntimeException(ignore);

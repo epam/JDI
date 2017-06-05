@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 import com.epam.commons.LinqUtils;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
@@ -52,7 +53,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
 
     public EntityTable(Class<E> entityClass) {
         this.entityClass = checkEntityIsNotNull(entityClass);
-        hasColumnHeaders(select(entityClass.getFields(), Field::getName));
+        hasColumnHeaders(select(entityClass.getDeclaredFields(), Field::getName));
     }
 
     public EntityTable(Class<E> entityClass, Class<R> rowClass){
@@ -114,14 +115,14 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return select(rows().get(), row -> castToRow(row.value));
     }
 
-    public R firstRow(Function<R, Boolean> colNames) {
+    public R firstRow(JFuncTREx<R, Boolean> colNames) {
         List<R> rows = getRows(colNames);
         return rows.size() > 0
             ? rows.get(0)
             : null;
     }
 
-    public List<R> getRows(Function<R, Boolean> colNames) {
+    public List<R> getRows(JFuncTREx<R, Boolean> colNames) {
         List<R> rows = where(getRows(), colNames);
         if (rows.size() == 0)
             logger.info("Can't find any rows that meat criterias");
