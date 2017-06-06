@@ -29,13 +29,19 @@ We strive to make the test process easier and full of joy.
 Enjoy to us! :)
 
 ## Simple detailed first example
-Lets implement simple login scenario with JDI on our test site (https://jdi-framework.github.io/tests/)
+Lets implement simple login scenario with JDI on our test site (https://epam.github.io/JDI/)
 1) Open Login page
 2) Login as user
 3) Check that homePage opened
 
+Result you can see [here](https://github.com/epam/JDI-Examples/archive/master.zip)
+
+Note: you can use this already predefined test project template for all your new projects
+
+## But lets do this step by step from scratch
+
 ### 1. Create Java test project and add jdi dependency
-If you familiar with Java or already have test project then just add com.epam.jdi:jdi-uitest-web dependency in your project
+First of all you just need to add dependency for jdi-web into your new Java test project
 ```xml
 <dependency>
     <groupId>com.epam.jdi</groupId>
@@ -43,46 +49,42 @@ If you familiar with Java or already have test project then just add com.epam.jd
     <version>1.0.67</version>
 </dependency>
 ```
-### OR 
-Download simple already predefined test project using this [link](https://github.com/epam/JDI-Examples/archive/master.zip)
-
-Unpack zip and run project (open pom.xml) with IntelliJIdea or Eclipse
-
-Note: Rebuild your project if necessary (In IntelliJIdea do Build > Rebuild Project)
 
 ### 2. Setup your UI Objects (PageObjects) for your project
 Note: if you download example project via link this Pages already exist in \src\main\java\org\mytests\uiobjects\example
 
 [View](http://pix.my/o/3lHw5f?1495800530)
 
-Pages:
+Pages structure:
 ```Java
-@JSite(domain = "https://jdi-framework.github.io/tests/")
+@JSite(domain = "https://epam.github.io/JDI/")
 public class JDIExampleSite extends WebSite {
-    @JPage(url = "/")
-    public static LoginPage loginPage;
-    @JPage(url = "/index.htm", title = "Index Page")
     public static HomePage homePage;
 
     public static LoginForm loginForm;
+
+    @FindBy(css = ".profile-photo")
+    public static Label profilePhoto;
+
+    public static void login() {
+        profilePhoto.click();
+        loginForm.loginAs(new User());
+    }
 }
 ```
-Then setup Pages content
+Note: all fields and methods on your Site page are STATIC
+
+Then setup HomePage (you can put here all elements related to Home Page. All elements on pages are NOT static)
 ```Java
+@JPage(url = "/index.htm", title = "Index Page")
 public class HomePage extends WebPage {
 }
+```
+Setup Login form and entity User for it
+```Java
 public class User {
     public String name = "epam";
     public String password = "1234";
-}
-public class LoginPage extends WebPage {
-    @FindBy(css = ".profile-photo")
-    public Label profilePhoto;
-
-    public void login() {
-        loginPage.profilePhoto.click();
-        loginForm.loginAs(new User());
-    }
 }
 public class LoginForm extends Form<User> {
     @FindBy(id="Login")
@@ -94,15 +96,18 @@ public class LoginForm extends Form<User> {
     public Button enter;
 }
 ```
+Note: all fields on form are NOT static
+
 ### 3. (Optional) Add test properties 
-See in \src\test\test.properties.For example:
+See in \src\test\resources\test.properties 
 ```Java
 driver=chrome
 timeout.wait.element=10
 driver.getLatest=true
 ```
+and logging properties in \src\test\resources\log4j.properties 
+
 ### 4. Init Test Site (like PageFactory) via just one line
-Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleTestsInit.java
 ```Java
     @BeforeSuite(alwaysRun = true)
     public static void setUp() throws Exception {
@@ -111,12 +116,11 @@ Note: if you download example project via link this Test already exist in \src\t
     }
 ```
 ### 5. Write a simple test (SimpleExampleTest.java)
-Note: if you download example project via link this Test already exist in \src\test\java\org\mytests\tests\example\SimpleExampleTest.java
 ```Java
     @Test
     public void loginExample() {
-        loginPage.open();
-        loginPage.login();
+        homePage.open();
+        login();
         homePage.checkOpened();
     }    
 ```
