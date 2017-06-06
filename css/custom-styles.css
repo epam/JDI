@@ -310,7 +310,6 @@ header {
     position: absolute;
     right: 20px;
 }
-inspector-stylesheet:1
 #summary-block {
     width: 360px;
 }
@@ -378,7 +377,6 @@ inspector-stylesheet:1
 
 .main-content-hg {
     min-height: 100%;
-    padding-bottom: 32px;
 }
 
 .centercol {
@@ -875,8 +873,7 @@ inspector-stylesheet:1
 
 footer {
     bottom: 0;
-    margin-top: -64px;
-    position: fixed;
+    position: relative;
     z-index: 1000;
 }
     .footer-bg {
