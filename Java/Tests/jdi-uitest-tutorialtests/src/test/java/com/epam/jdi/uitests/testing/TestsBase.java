@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
 
+import static com.epam.jdi.site.epam.EpamSite.homePage;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 
@@ -18,6 +19,7 @@ public abstract class TestsBase extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
         WebSite.init(EpamSite.class);
+        homePage.open();
         logger.info("Run Tests");
     }
 

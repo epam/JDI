@@ -14,12 +14,6 @@ import static com.epam.jdi.site.epam.EpamSite.*;
 
 
 public class CareerTests extends TestsBase {
-
-    @BeforeMethod
-    public void before() {
-        homePage.shouldBeOpened();
-    }
-
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
         multipleHeaderMenu.hoverAndClick("SOLUTIONS|Product Development");
