@@ -17,12 +17,11 @@ class Form(Element):
             element.get_element().send_keys(entity_map[field])
 
     def get_fields(self, entity_map):
-        fields = {field: element for field, element in self.__class__.__dict__.items() if field in entity_map
+        return {field: element for field, element in self.__class__.__dict__.items() if field in entity_map
                   and str(element) is "TextField"}
-        return fields
+
 
     def get_button(self, button_name):
-        button = [element for element in self.__class__.__dict__.values() if str(element) is "Button"][0]
-        return button
+        return [element for element in self.__class__.__dict__.values() if str(element) is "Button"][0]
 
 

@@ -36,7 +36,7 @@ class SeleniumDriverFactory(object):
             driver.maximize_window()
         else:
             driver.set_window_size(self.browser_size)
-        driver.implicitly_wait(JDISettings.timeouts.get_current_timeout_sec())
+        driver.implicitly_wait(JDISettings.get_current_timeout_sec())
         return driver
 
     def get_driver(self):
