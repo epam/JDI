@@ -305,6 +305,15 @@ header {
             }
 
 /*------RIGHT MENU CUSTOM STYLES-----*/
+#elements-block {
+    width: 150px;
+    position: absolute;
+    right: 20px;
+}
+inspector-stylesheet:1
+#summary-block {
+    width: 360px;
+}
 
 .uui-side-bar.right-fix-panel {
     background-color: #e8f4f6;
@@ -353,7 +362,7 @@ header {
             background-color: #7d7d7d;
         }
         .uui-info-panel-horizontal.panel-gray .info-panel-body {
-            height: 155px;
+            height: 170px;
         }
 
 /*------CONTENT-----*/
@@ -669,7 +678,7 @@ header {
 
     /*Pagination Custom Styles*/
     .uui-pagination {
-        margin-top: -32px;
+        margin-top: 20px;
         height: 32px;
         left: 50%;
         margin-left: -153px;
