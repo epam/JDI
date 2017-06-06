@@ -11,8 +11,8 @@ import static com.epam.commons.PrintUtils.print;
 public class DataClass {
     @Override
     public String toString() {
-        return print(LinqUtils.select(getClass().getDeclaredFields(),
-            f -> f.getName() + ":" + f.get(this)), ";");
+        return getClass().getSimpleName() + "{" + print(LinqUtils.select(getClass().getDeclaredFields(),
+            f -> f.getName() + ":" + f.get(this)), ";") + "}";
     }
 
     @Override
