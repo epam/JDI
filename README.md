@@ -46,7 +46,7 @@ First of all you just need to add dependency for jdi-web into your new Java test
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-web</artifactId>
-    <version>1.0.67</version>
+    <version>1.0.71</version>
 </dependency>
 ```
 
@@ -72,6 +72,8 @@ public class JDIExampleSite extends WebSite {
     }
 }
 ```
+https://github.com/epam/JDI-Examples/blob/master/src/main/java/org/mytests/uiobjects/example/JDIExampleSite.java
+
 Note: all fields and methods on your Site page are STATIC
 
 Then setup HomePage (you can put here all elements related to Home Page. All elements on pages are NOT static)
@@ -80,6 +82,8 @@ Then setup HomePage (you can put here all elements related to Home Page. All ele
 public class HomePage extends WebPage {
 }
 ```
+https://github.com/epam/JDI-Examples/blob/master/src/main/java/org/mytests/uiobjects/example/pages/HomePage.java
+
 Setup Login form and entity User for it
 ```Java
 public class User {
@@ -96,6 +100,10 @@ public class LoginForm extends Form<User> {
     public Button enter;
 }
 ```
+https://github.com/epam/JDI-Examples/blob/master/src/main/java/org/mytests/uiobjects/example/entities/User.java
+
+https://github.com/epam/JDI-Examples/blob/master/src/main/java/org/mytests/uiobjects/example/pages/LoginForm.java
+
 Note: all fields on form are NOT static
 
 ### 3. (Optional) Add test properties 
@@ -115,6 +123,8 @@ and logging properties in \src\test\resources\log4j.properties
         logger.info("Run Tests");
     }
 ```
+https://github.com/epam/JDI-Examples/blob/master/src/test/java/org/mytests/tests/example/SimpleTestsInit.java
+
 ### 5. Write a simple test (SimpleExampleTest.java)
 ```Java
     @Test
@@ -124,6 +134,8 @@ and logging properties in \src\test\resources\log4j.properties
         homePage.checkOpened();
     }    
 ```
+https://github.com/epam/JDI-Examples/blob/master/src/test/java/org/mytests/tests/example/SimpleExampleTest.java
+
 ### 6. Run Test. 
 Right click on test and choose Run
 
