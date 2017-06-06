@@ -59,27 +59,25 @@ Pages structure:
 ```Java
 @JSite(domain = "https://epam.github.io/JDI/")
 public class JDIExampleSite extends WebSite {
-    @JPage(url = "/")   
-    public static LoginPage loginPage;
-    @JPage(url = "/index.htm", title = "Index Page")
     public static HomePage homePage;
 
     public static LoginForm loginForm;
-}
-```
-Then setup Pages content
-```Java
-// Home Page
-public class HomePage extends WebPage {
-}
-public class LoginPage extends WebPage {
-    @FindBy(css = ".profile-photo")
-    public Label profilePhoto;
 
-    public void login() {
-        loginPage.profilePhoto.click();
+    @FindBy(css = ".profile-photo")
+    public static Label profilePhoto;
+
+    public static void login() {
+        profilePhoto.click();
         loginForm.loginAs(new User());
     }
+}
+```
+Note: all fields and methods on your Site page are STATIC
+
+Then setup HomePage (you can put here all elements related to Home Page. All elements on pages are NOT static)
+```Java
+@JPage(url = "/index.htm", title = "Index Page")
+public class HomePage extends WebPage {
 }
 ```
 Setup Login form and entity User for it
@@ -98,6 +96,8 @@ public class LoginForm extends Form<User> {
     public Button enter;
 }
 ```
+Note: all fields on form are NOT static
+
 ### 3. (Optional) Add test properties 
 See in \src\test\resources\test.properties 
 ```Java
@@ -119,8 +119,8 @@ and logging properties in \src\test\resources\log4j.properties
 ```Java
     @Test
     public void loginExample() {
-        loginPage.open();
-        loginPage.login();
+        homePage.open();
+        login();
         homePage.checkOpened();
     }    
 ```
