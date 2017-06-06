@@ -1,9 +1,9 @@
 import unittest
 
 from JDI.web.selenium.settings.WebSettings import WebSettings
-from tests.site.pageobjects.epam_jdi_site import EpamJDISite
 from JDI.web.selenium.elements.composite.web_site import WebSite
-from tests.site.entities.user import User
+from Test.jdi_uitests_webtests.main.entities.user import User
+from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISite
 
 
 class InitTests(unittest.TestCase):

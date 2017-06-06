@@ -15,9 +15,9 @@ class GetElementModule(object):
         # self.logger = JDISettings.get_logger()
 
     def get_element(self):
-        self.logger.debug("Get Web Element: " + str(self.element))
+        #self.logger.debug("Get Web Element: " + str(self.element))
         element = self.web_element if self.web_element is not None else self.__get_element_action()
-        self.logger.debug("One Element found")
+       # self.logger.debug("One Element found")
         return element
 
     def __get_element_action(self):

@@ -12,7 +12,7 @@ class SeleniumDriverFactory(object):
     def __init__(self):
         self.current_driver = None
         self.browser_size = None
-        self.drivers_path = WebDriverProvider.FOLDER_PATH
+        self.drivers_path = JDISettings.get_driver_path()
 
     def register_driver(self, driver_name):
         driver_name = driver_name.lower()
@@ -23,7 +23,7 @@ class SeleniumDriverFactory(object):
         return driver_name
 
     def register_chrome_driver(self):
-        chrome_driver = WebDriverProvider.get_chrome_driver_path(self.drivers_path)
+        chrome_driver = WebDriverProvider.get_chrome_driver_path()
         os.environ["webdriver.chrome.driver"] = chrome_driver
 
         return self.__web_driver_settings(ChromeDriver(chrome_driver))

@@ -17,8 +17,8 @@ class JDILogger(object):
 
     def __basic_settings(self):
         # TODO: there is a problem, setLevel takes only int type
-        self.logger.setLevel(LogLevels.INFO)
-        self.logger.setLevel(LogLevels.DEBUG)
+        self.logger.setLevel(LogLevels.INFO.value[0])
+        self.logger.setLevel(LogLevels.DEBUG.value[0])
         hdlr = logging.FileHandler('jdi.log')
         hdlr.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
         self.logger.addHandler(hdlr)
