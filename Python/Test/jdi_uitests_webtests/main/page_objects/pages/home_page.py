@@ -6,10 +6,6 @@ from JDI.web.selenium.settings.WebSettings import WebSettings
 
 class HomePage(WebPage):
 
-    def __init__(self, domain=None):
-
-        self.url = "/index.htm"
-        self.title = "Index Page"
+    def __init__(self, url, title):
+        super(HomePage, self).__init__(url=url, title=title)
         self.about = Link(By.link_text("About"))
-
-        super(HomePage, self).__init__(WebSettings.domain + self.url)

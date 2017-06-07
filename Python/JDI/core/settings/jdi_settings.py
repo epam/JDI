@@ -2,7 +2,7 @@
 
 class JDISettings(object):
 
-    JDI_SETTINGS_FILE_PATH = "../jdi.properties"
+    JDI_SETTINGS_FILE_PATH = "../../jdi.properties"
 
     __wait_element_sec = 20
     _driver_factory = None
@@ -10,8 +10,7 @@ class JDISettings(object):
     _jdi_settings = None
 
     @staticmethod
-    def get_driver_factory():
-        return JDISettings._driver_factory
+    def get_driver_factory(): return JDISettings._driver_factory
 
     @staticmethod
     def _read_jdi_settings():
@@ -23,8 +22,7 @@ class JDISettings(object):
                 JDISettings._jdi_settings[param[0]] = param[1].strip()
 
     @staticmethod
-    def get_driver_path():
-        return JDISettings.get_setting_by_name("drivers_folder")
+    def get_driver_path(): return JDISettings.get_setting_by_name("drivers_folder")
 
     @staticmethod
     def get_setting_by_name(setting_name):
@@ -37,7 +35,8 @@ class JDISettings(object):
         prop = JDISettings.get_setting_by_name("timeout_wait_element")
         return JDISettings.__wait_element_sec if prop is None else prop
 
-
+    @staticmethod
+    def get_domain(): return JDISettings.get_setting_by_name("domain")
 
 
     # @staticmethod

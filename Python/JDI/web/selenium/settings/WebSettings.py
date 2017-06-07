@@ -6,7 +6,7 @@ from JDI.core.logger.jdi_logger import JDILogger
 class WebSettings(JDISettings):
 
     logger = JDILogger()
-    domain = None
+    domain = JDISettings.get_domain()
 
     @staticmethod
     def get_driver_factory():
@@ -18,12 +18,14 @@ class WebSettings(JDISettings):
 
     @staticmethod
     def use_driver(driver_name):
-        driver_factory = SeleniumDriverFactory()
-        WebSettings.set_driver_factory(driver_factory)
-        return driver_factory.register_driver(driver_name)
+        JDISettings._driver_factory = SeleniumDriverFactory()
+        WebSettings.set_driver_factory(JDISettings._driver_factory)
+        return JDISettings._driver_factory.register_driver(driver_name)
 
     @staticmethod
     def quit_browser():
-        WebSettings.get_driver_factory()\
-            .get_driver().quit()
+        WebSettings.get_driver_factory().get_driver().quit()
 
+    @staticmethod
+    def get_driver():
+        return WebSettings.get_driver_factory().get_driver()
