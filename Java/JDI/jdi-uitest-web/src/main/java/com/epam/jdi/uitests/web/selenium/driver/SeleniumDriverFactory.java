@@ -27,6 +27,9 @@ import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.settings.WebSettings;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -51,12 +54,12 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.*;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.FOLDER_PATH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
-import static java.lang.System.setProperty;
 import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static javaslang.API.*;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.CapabilityType.PAGE_LOAD_STRATEGY;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
@@ -152,7 +155,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
     }
 
-    public String registerDriver(DriverTypes driverType) {
+    public String registerDriver(DriverTypes driverType){
         switch (runType) {
             case LOCAL:
                 return registerLocalDriver(driverType);
@@ -165,35 +168,46 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     // GET DRIVER
 
-    protected String registerLocalDriver(DriverTypes driverType) {
-        switch (driverType) {
-            case CHROME:
-                return registerDriver(driverType,
-                        () -> {
-                            if (getLatestDriver)
-                                downloadChromeDriver(driversPath);
-                            setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-                            return webDriverSettings.apply(new ChromeDriver());
-                        });
-            case FIREFOX:
-                return registerDriver(driverType,
-                        () -> {
-                            DesiredCapabilities capabilities = internetExplorer();
-                            capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
-                            setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-                            return webDriverSettings.apply(new FirefoxDriver(capabilities));
-                        });
-            case IE:
-                return registerDriver(driverType, () -> {
-                    DesiredCapabilities capabilities = internetExplorer();
-                    capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-                    if (getLatestDriver)
-                        downloadIEDriver(driversPath);
-                    setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
-                    return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
-                });
-        }
-        throw exception("Unknown driver: " + driverType);
+//    protected String registerLocalDriver(DriverTypes driverType) {
+//        switch (driverType) {
+//            case CHROME:
+//                return registerDriver(driverType,
+//                        () -> {
+//                            if (getLatestDriver)
+//                                downloadChromeDriver(driversPath);
+//                            setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
+//                            return webDriverSettings.apply(new ChromeDriver());
+//                        });
+//            case FIREFOX:
+//                return registerDriver(driverType,
+//                        () -> {
+//                            DesiredCapabilities capabilities = internetExplorer();
+//                            capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+//                            setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
+//                            return webDriverSettings.apply(new FirefoxDriver(capabilities));
+//                        });
+//            case IE:
+//                return registerDriver(driverType, () -> {
+//                    DesiredCapabilities capabilities = internetExplorer();
+//                    capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+//                    if (getLatestDriver)
+//                        downloadIEDriver(driversPath);
+//                    setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
+//                    return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
+//                });
+//        }
+//        throw exception("Unknown driver: " + driverType);
+//    }
+
+    protected String registerLocalDriver(DriverTypes driverType){
+        return Match(driverType).of(
+                Case(CHROME, () -> registerDriver(driverType, () -> initChrome())),
+                Case(FIREFOX, () -> registerDriver(driverType, () -> initFirefox())),
+                Case(IE, () -> registerDriver(driverType, () -> initIE())),
+                Case($(), () -> {
+                    throw exception("Unknown driver: " + driverType);
+                })
+        );
     }
 
     public String registerDriver(DriverTypes driverType, Supplier<WebDriver> driver) {
@@ -212,7 +226,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         return driverName;
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver(){
         try {
             if (!currentDriverName.equals(""))
                 return getDriver(currentDriverName);
@@ -222,6 +236,26 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             throw WebSettings.asserter.exception("Can't get WebDriver. " + LINE_BREAK + ex.getMessage());
         }
     }
+
+    private WebDriver initFirefox() {
+        DesiredCapabilities capabilities = internetExplorer();
+        capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+        FirefoxDriverManager.getInstance().arch32().setup();
+        return new FirefoxDriver(capabilities);
+    }
+
+    private WebDriver initChrome() {
+        ChromeDriverManager.getInstance().setup();
+        return new ChromeDriver();
+    }
+
+    private WebDriver initIE(){
+        DesiredCapabilities capabilities = internetExplorer();
+        capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+        InternetExplorerDriverManager.getInstance().setup();
+        return new InternetExplorerDriver(capabilities);
+    }
+
     public static Dimension browserSizes;
 
     public static Function<WebDriver, WebDriver> webDriverSettings = driver -> {
@@ -233,7 +267,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         return driver;
     };
 
-    public WebDriver getDriver(String driverName) {
+    public WebDriver getDriver(String driverName){
         if (!drivers.keys().contains(driverName))
             throw exception("Can't find driver with name '%s'", driverName);
         try {

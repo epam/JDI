@@ -39,6 +39,8 @@
         <junit.version>4.11</junit.version>
         <version>1.0.66</version>
         <selenide.version>4.1</selenide.version>
+        <webdrivermanager.version>1.6.2</webdrivermanager.version>
+        <javaslang.version>2.0.6</javaslang.version>
     </properties>
 
     <dependencies>
@@ -86,6 +88,16 @@
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.javaslang</groupId>
+            <artifactId>javaslang</artifactId>
+            <version>${javaslang.version}</version>
         </dependency>
     </dependencies>
 
