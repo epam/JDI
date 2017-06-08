@@ -7,4 +7,5 @@ class MetalColorPage(WebPage):
 
     def __init__(self, url, title):
         super(MetalColorPage, self).__init__(url=url, title=title)
-        self.calculateButton = Button(By.id("calculate-button"))
+
+    calculateButton = Button(By.id("calculate-button"))

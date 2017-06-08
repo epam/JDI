@@ -10,11 +10,10 @@ class InitTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        WebSite.init(EpamJDISite, WebSettings.use_driver("chrome"))
+        WebSite.init(EpamJDISite, "chrome")
         WebSettings.logger.info("Run Tests")
         EpamJDISite.home_page.open()
         EpamJDISite.login_page.submit(User.default())
-        # WebSettings.get_logger().info("Run Tests")
 
     @classmethod
     def tearDownClass(cls):

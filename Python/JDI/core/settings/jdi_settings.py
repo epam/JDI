@@ -1,3 +1,5 @@
+import os
+from Test.jdi_uitests_webtests import PROJECT_PATH
 
 
 class JDISettings(object):
@@ -36,28 +38,5 @@ class JDISettings(object):
         return JDISettings.__wait_element_sec if prop is None else prop
 
     @staticmethod
-    def get_domain(): return JDISettings.get_setting_by_name("domain")
-
-
-    # @staticmethod
-    # def get_logger(name="JDI"):
-    #     if JDISettings.__logger:
-    #         return JDISettings.__logger
-    #     else:
-    #         return JDISettings.set_logger(name)
-    #
-    # @staticmethod
-    # def set_logger(name):
-    #     logger =
-    #     logger.setLevel(logging.INFO)
-    #     logger.setLevel(logging.DEBUG)
-    #     hdlr = logging.FileHandler('jdi.log')
-    #     hdlr.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
-    #     logger.addHandler(hdlr)
-    #     JDISettings.__logger = logger
-    #     return JDISettings.__logger
-
-
-
-
-
+    def get_domain():
+       return JDISettings.get_setting_by_name("domain")

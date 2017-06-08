@@ -1,11 +1,11 @@
 from JDI.web.selenium.elements.composite.web_page import WebPage
 from JDI.web.selenium.elements.api_interact.find_element_by import By
 from JDI.web.selenium.elements.common.link import Link
-from JDI.web.selenium.settings.WebSettings import WebSettings
 
 
 class HomePage(WebPage):
 
     def __init__(self, url, title):
         super(HomePage, self).__init__(url=url, title=title)
-        self.about = Link(By.link_text("About"))
+
+    about = Link(By.link_text("About"))

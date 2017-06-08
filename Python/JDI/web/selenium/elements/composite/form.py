@@ -1,7 +1,7 @@
-from JDI.web.selenium.elements.base.element import Element
+from JDI.web.selenium.elements.composite.section import Section
 
 
-class Form(Element):
+class Form(Section):
 
     def submit(self, entity):
         self.fill(Form.get_map_from_object(entity))

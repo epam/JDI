@@ -16,7 +16,11 @@ class GetElementModule(object):
 
     def get_element(self):
         #self.logger.debug("Get Web Element: " + str(self.element))
-        element = self.web_element if self.web_element is not None else self.__get_element_action()
+      #  element = self.web_element if self.web_element is not None else self.__get_element_action()
+
+        if self.web_element is None:
+            self.web_element = self.__get_element_action()
+        element = self.web_element
        # self.logger.debug("One Element found")
         return element
 
