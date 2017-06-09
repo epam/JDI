@@ -10,7 +10,7 @@ class InitTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        WebSite.init(EpamJDISite, "chrome")
+        WebSite.init(EpamJDISite, "chrome", "../jdi.properties")
         WebSettings.logger.info("Run Tests")
         EpamJDISite.home_page.open()
         EpamJDISite.login_page.submit(User.default())

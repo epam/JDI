@@ -11,4 +11,4 @@ class ButtonTests(InitTests):
         Preconditions.METALS_AND_COLORS_PAGE.isInState()
 
     def test_click(self):
-        EpamJDISite.metals_colors_page.calculateButton.click()
+        self.button.click()

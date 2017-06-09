@@ -1,10 +1,22 @@
-import os
-from Test.jdi_uitests_webtests import PROJECT_PATH
+class PropertyPath:
+    def get_property_file(self):
+        name = "jdi.properties"
+        i = 0
+        while True and i < 100:
+            try:
+                open(name)
+                return name
+            except FileNotFoundError:
+                name = "../" + name
+                i = i + 1
+        raise FileNotFoundError("There is not property file with name 'jdi.properties' in your project")
+
+    path = property(get_property_file)
 
 
 class JDISettings(object):
 
-    JDI_SETTINGS_FILE_PATH = "../../jdi.properties"
+    JDI_SETTINGS_FILE_PATH = PropertyPath().get_property_file()
 
     __wait_element_sec = 20
     _driver_factory = None
@@ -40,3 +52,4 @@ class JDISettings(object):
     @staticmethod
     def get_domain():
        return JDISettings.get_setting_by_name("domain")
+
