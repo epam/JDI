@@ -6,3 +6,5 @@ class ClickableText(Clickable):
     def __init__(self, by_locator=None):
         super(ClickableText, self).__init__(by_locator)
 
+    def get_text(self):
+        return self.get_element().text

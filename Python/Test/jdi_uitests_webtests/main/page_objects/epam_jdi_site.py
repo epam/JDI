@@ -1,3 +1,4 @@
+from JDI.web.selenium.elements.complex.text_list import TextList
 from JDI.web.selenium.elements.composite.web_site import WebSite
 from JDI.web.selenium.elements.api_interact.find_element_by import By
 from Test.jdi_uitests_webtests.main.page_objects.pages import *
@@ -12,6 +13,5 @@ class EpamJDISite(WebSite):
 
     login_page = Login(By.css(".uui-profile-menu"))
 
- #   @JPage(url = "/page2.htm", title = "Metal and Colors")
- #   public static MetalsColorsPage metalsColorsPage;
+    actions_log = TextList(By.css(".logs li"))
 
