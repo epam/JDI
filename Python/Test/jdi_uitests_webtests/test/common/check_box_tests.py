@@ -1,3 +1,7 @@
+import unittest
+
+from ddt import ddt, data, unpack
+
 from JDI.core.settings.jdi_settings import JDISettings
 from JDI.jdi_assert.testing.assertion import Assert
 from JDI.web.selenium.elements.complex.common_action_data import CommonActionData
@@ -6,6 +10,7 @@ from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISit
 from Test.jdi_uitests_webtests.test.init_tests import InitTests
 
 
+@ddt
 class CheckBoxText(InitTests):
 
     check_box = EpamJDISite.metals_colors_page.cb_water
@@ -16,14 +21,22 @@ class CheckBoxText(InitTests):
     def tearDown(self):
         JDISettings.get_driver_factory().get_driver().refresh()
 
-    # @staticmethod
-    # @pytest.mark.parametrize('input', 'expected', [(1, 2)])
-    # # @ddt.data(("True", True), ("1", True), ("False", False), ("0", False))
-    # def test_set_value(input, expected):
-    #     if not expected:
-    #         EpamJDISite.metals_colors_page.cb_water.click()
-    #     EpamJDISite.metals_colors_page.cb_water.set_value(input)
-    #     CommonActionData.check_action("Water: condition changed to " + expected.lower())
+    @data(("True", True), ("1", True), ("False", False), ("0", False))
+    @unpack
+    def test_set_value(self, input, expected):
+         if not expected:
+             EpamJDISite.metals_colors_page.cb_water.click()
+         EpamJDISite.metals_colors_page.cb_water.set_value(input)
+         CommonActionData.check_action("Water: condition changed to " + str(expected).lower())
+
+    @data("true ","1 "," false", "0 ", " ", "123", " 1", " 0", "!@#$%^&*", "qwdewf", "1qwe", "1qwe", "true123", "123true", "false123", "123false", "o", "O", "tr ue")
+    def test_set_value_nothing_changes(self, input):
+        self.check_box.click()
+        self.check_box.set_value(input)
+        CommonActionData.check_action("Water: condition changed to true")
+        self.check_box.click()
+        self.check_box.set_value(input)
+        CommonActionData.check_action("Water: condition changed to false")
 
     def test_check_single(self):
         self.check_box.check()
@@ -57,12 +70,5 @@ class CheckBoxText(InitTests):
         CommonActionData.check_action("Water: condition changed to false")
 
 
-   # @data("1")
-    #@parameterized(1)
-   # def test_set_value(self, input):
-   #     self.check_box.click()
-   #     self.check_box.set_value(input)
-    #    CommonActionData.check_action("Water: condition changed to ")
-
-
-
+if __name__ == "__main__":
+    unittest.main()

@@ -18,8 +18,7 @@ class CheckBox(Clickable):
         return self.get_element().is_selected()
 
     def set_value(self, value):
-        if value.lower() in ["true", "1", "check"]: self.check()
-        elif value.lower() in ["false", "0", "uncheck"]: self.uncheck()
-        else: raise Exception("Value {0} could not be set to the checkbox".format(value))
-
-
+        if str(value).lower() in ["true", "check", "1"]:
+            self.check()
+        elif str(value).lower() in ["false", "uncheck", "0"]:
+            self.uncheck()
