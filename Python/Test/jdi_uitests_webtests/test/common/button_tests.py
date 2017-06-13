@@ -6,7 +6,7 @@ from JDI.jdi_assert.testing.assertion import Assert
 
 class ButtonTests(InitTests):
 
-    button = EpamJDISite.metals_colors_page.calculateButton
+    button = EpamJDISite.metals_colors_page.calculate_button
 
     def setUp(self):
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()

@@ -1,4 +1,3 @@
-from hamcrest import *
 from nose.tools import assert_true
 
 
@@ -7,7 +6,7 @@ class Assert:
     @staticmethod
     def assert_element_test(el, expected_text):
         actual_text = el.get_text()
-        assert_true(actual_text == expected_text, "Expected text is '{0}' , but was '{1'}".format(expected_text, actual_text))
+        assert_true(actual_text == expected_text, "Expected text is '{0}' , but was '{1}'".format(expected_text, actual_text))
 
     @staticmethod
     def assert_contains(actual_text, expected_text):
@@ -20,3 +19,7 @@ class Assert:
     @staticmethod
     def is_true(condition):
         assert_true(condition)
+
+    @staticmethod
+    def check_text(actual, expected):
+        assert actual == expected

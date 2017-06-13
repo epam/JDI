@@ -1,3 +1,6 @@
+from JDI.jdi_assert.base.base_matcher import BaseMatcher
+
+
 class PropertyPath:
     def get_property_file(self):
         name = "jdi.properties"
@@ -22,6 +25,7 @@ class JDISettings(object):
     _driver_factory = None
     __logger = None
     _jdi_settings = None
+    asserter = BaseMatcher()
 
     @staticmethod
     def get_driver_factory(): return JDISettings._driver_factory

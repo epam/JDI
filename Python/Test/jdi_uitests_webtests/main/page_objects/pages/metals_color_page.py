@@ -4,6 +4,7 @@ from JDI.core.settings.jdi_settings import JDISettings
 from JDI.web.selenium.elements.api_interact.find_element_by import By
 from JDI.web.selenium.elements.common.button import Button
 from JDI.web.selenium.elements.common.check_box import CheckBox
+from JDI.web.selenium.elements.common.label import Label
 from JDI.web.selenium.elements.composite.web_page import WebPage
 
 
@@ -21,6 +22,8 @@ class MetalColorPage(WebPage):
     calculate_button = Button(By.id("calculate-button"))
 
     cb_water = CheckBoxMetalColor(By.xpath("//*[@id='elements-checklist']//*[text()='Water']"))
+
+    calculate_label = Label(By.id("calculate-button"))
 
 
 
