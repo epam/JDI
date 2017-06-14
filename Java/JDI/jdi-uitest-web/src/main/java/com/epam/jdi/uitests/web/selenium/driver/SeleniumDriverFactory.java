@@ -59,6 +59,7 @@ import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.CapabilityType.PAGE_LOAD_STRATEGY;
+import static org.openqa.selenium.remote.DesiredCapabilities.firefox;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 
 /**
@@ -178,7 +179,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             case FIREFOX:
                 return registerDriver(driverType,
                         () -> {
-                            DesiredCapabilities capabilities = internetExplorer();
+                            DesiredCapabilities capabilities =firefox();
                             capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
                             setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
                             return webDriverSettings.apply(new FirefoxDriver(capabilities));
