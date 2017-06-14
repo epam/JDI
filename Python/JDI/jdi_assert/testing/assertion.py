@@ -10,7 +10,13 @@ class Assert:
 
     @staticmethod
     def assert_contains(actual_text, expected_text):
-        assert_true(actual_text.find(expected_text) is not -1, "Text '{0}' was not found in line '{1}'".format(expected_text, actual_text))
+        assert_true(actual_text.find(expected_text) is not -1,
+                    "Text '{0}' was not found in line '{1}'".format(expected_text, actual_text))
+
+    @staticmethod
+    def assert_equal(actual_text, expected_text):
+        assert_true(actual_text == expected_text,
+                    "Text '{0}' does not equal '{1}'".format(expected_text, actual_text))
 
     @staticmethod
     def is_false(condition):

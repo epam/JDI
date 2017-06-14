@@ -17,5 +17,6 @@ class BaseMatcher:
         logger.info(log_message)
         if condition != expected_condition:
             logger.exception(fail_message)
+            raise Exception(fail_message)
 
 
