@@ -10,8 +10,12 @@ class TextArea(TextField):
         self.clear()
         for i in range(0, len(lines) - 1):
             self.input(lines[i] + "\n")
-        self.input(lines[len(lines) - 1])
+        self.input(lines[-1])
 
     def get_lines(self):
         return JDISettings.get_driver_factory() \
             .get_driver().execute_script("return arguments[0].value", self.get_element()).split("\n")
+
+    def add_new_line(self, text):
+        self.input("\n")
+        self.input(text)
