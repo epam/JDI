@@ -18,3 +18,6 @@ class TextField(Text):
 
     def clear(self):
         self.get_web_element().clear()
+
+    def focus(self):
+        self.get_web_element().click()
