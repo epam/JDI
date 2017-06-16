@@ -14,7 +14,7 @@ class WebCascadeInit:
         for el_name in elements:
             el = getattr(site, el_name)
             if WebCascadeInit.is_element(el):
-                el.name = WebCascadeInit.get_element_name(el)
+                el.name = el_name
                 if WebCascadeInit.is_page(el): el.parent = site
                 if WebCascadeInit.is_composite(el) or WebCascadeInit.is_page(el): WebCascadeInit.init_site_page(el)
 

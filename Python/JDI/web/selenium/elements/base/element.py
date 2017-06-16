@@ -18,3 +18,6 @@ class Element(BaseElement):
 
     def get_web_element(self):
         return self.avatar.get_element()
+
+    def get_web_elements(self):
+        return self.avatar.get_elements()

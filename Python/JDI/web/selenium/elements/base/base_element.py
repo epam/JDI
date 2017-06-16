@@ -10,7 +10,6 @@ class BaseElement(object):
 
     def __init__(self, by_locator=None):
         self.avatar = GetElementModule(by_locator, self)
-        #self.set_parent()
 
     def get_driver(self):
         return self.avatar.get_driver()
@@ -21,8 +20,5 @@ class BaseElement(object):
     def _get_type_name(self):
         return self.__class__.__name__
 
-    # def set_parent(self):
-    #     d = self.__class__.__dict__
-    #     for element in iter(d):
-    #         if hasattr(d[element], "parent"):
-    #             d[element].parent = self
+    def get_name(self):
+        return self.name if self.name is not None else self._get_type_name()

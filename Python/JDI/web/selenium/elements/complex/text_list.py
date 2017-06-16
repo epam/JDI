@@ -11,12 +11,12 @@ class TextList(Element):
     def get_first_text(self):
         return self.get_text_list()[0]
 
+    def get_text_by_line(self, line_number):
+        return  self.get_text_list()[line_number]
+
     def get_text_list(self):
         res = list()
         for x in self.get_web_elements():
             res.append(x.text)
         return res
-
-    def get_web_elements(self):
-        return self.avatar.get_elements()
 
