@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NUnit3TestAdapter.3.8.0-alpha1\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\..\packages\NUnit3TestAdapter.3.8.0-alpha1\build\net35\NUnit3TestAdapter.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,6 +17,8 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,16 +38,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NLog.4.4.1\lib\net45\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.5.0.0-beta07\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -52,13 +55,20 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="WebDriver, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebDriver, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -71,6 +81,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Attributes\AnnotaionsUtil.cs" />
     <Compile Include="Attributes\AttributesUtil.cs" />
     <Compile Include="Attributes\ComplexAttribute.cs" />
     <Compile Include="Attributes\FillFromFieldAttribute.cs" />
@@ -83,11 +94,13 @@
     <Compile Include="Base\Application.cs" />
     <Compile Include="Base\CascadeInit.cs" />
     <Compile Include="ExceptionUtils.cs" />
+    <Compile Include="Interfaces\Application.cs" />
     <Compile Include="Interfaces\Base\IAvatar.cs" />
     <Compile Include="Interfaces\Base\IBaseElement.cs" />
     <Compile Include="Interfaces\Base\IClickable.cs" />
     <Compile Include="Interfaces\Base\IComposite.cs" />
     <Compile Include="Interfaces\Base\IElement.cs" />
+    <Compile Include="Interfaces\Base\IHasParent.cs" />
     <Compile Include="Interfaces\Base\IHasValue.cs" />
     <Compile Include="Interfaces\Base\IMultiSelector.cs" />
     <Compile Include="Interfaces\Base\ISelect.cs" />
@@ -103,6 +116,7 @@
     <Compile Include="Interfaces\Common\IText.cs" />
     <Compile Include="Interfaces\Common\ITextArea.cs" />
     <Compile Include="Interfaces\Common\ITextField.cs" />
+    <Compile Include="Interfaces\Complex\FormFilters.cs" />
     <Compile Include="Interfaces\Complex\ICheckList.cs" />
     <Compile Include="Interfaces\Complex\IComboBox.cs" />
     <Compile Include="Interfaces\Complex\IDropDown.cs" />
@@ -118,9 +132,23 @@
     <Compile Include="Interfaces\Complex\ISelector.cs" />
     <Compile Include="Interfaces\Complex\ITabs.cs" />
     <Compile Include="Interfaces\Complex\ITextList.cs" />
+    <Compile Include="Interfaces\Complex\Tables\CheckPageTypes.cs" />
+    <Compile Include="Interfaces\Complex\Tables\Column.cs" />
+    <Compile Include="Interfaces\Complex\Tables\ElementIndexType.cs" />
+    <Compile Include="Interfaces\Complex\Tables\ICell.cs" />
+    <Compile Include="Interfaces\Complex\Tables\IColumn.cs" />
+    <Compile Include="Interfaces\Complex\Tables\IEntityTable.cs" />
+    <Compile Include="Interfaces\Complex\Tables\IRow.cs" />
+    <Compile Include="Interfaces\Complex\Tables\ITable.cs" />
+    <Compile Include="Interfaces\Complex\Tables\ITableLine.cs" />
+    <Compile Include="Interfaces\Complex\Tables\Row.cs" />
+    <Compile Include="Interfaces\Complex\Tables\RowColumn.cs" />
+    <Compile Include="Interfaces\Complex\Tables\TableFilter.cs" />
+    <Compile Include="Interfaces\Complex\Tables\WithValue.cs" />
     <Compile Include="Interfaces\IComplex.cs" />
     <Compile Include="Interfaces\Settings\DefaultDriver.cs" />
     <Compile Include="Interfaces\Settings\IDriver.cs" />
+    <Compile Include="Interfaces\Settings\ITestRunner.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\JDILogger.cs" />
     <Compile Include="Logging\LogAgregator.cs" />
@@ -128,12 +156,15 @@
     <Compile Include="Logging\Log4Net.cs" />
     <Compile Include="Logging\LogLevels.cs" />
     <Compile Include="Logging\NLogger.cs" />
+    <Compile Include="Preconditions\IPreconditions.cs" />
+    <Compile Include="Preconditions\PreconditionsState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reporting\ActionsType.cs" />
     <Compile Include="Reporting\PerformanceStatistic.cs" />
     <Compile Include="Settings\HighlightSettings.cs" />
     <Compile Include="Settings\IAssert.cs" />
@@ -175,6 +206,12 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\NUnit3TestAdapter.3.8.0-alpha1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit3TestAdapter.3.8.0-alpha1\build\net35\NUnit3TestAdapter.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
