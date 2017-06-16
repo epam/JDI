@@ -17,6 +17,21 @@ namespace JDI_Core.Interfaces.Settings
             throw new NotImplementedException();
         }
 
+        public void SetDriverPath(string driverPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCurrentDriver(string driverName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetDriverPath()
+        {
+            throw new NotImplementedException();
+        }
+
         public object GetDriver()
         {
             throw new NotImplementedException();
@@ -47,7 +62,12 @@ namespace JDI_Core.Interfaces.Settings
             throw new NotImplementedException();
         }
 
-        public string CurrentDriverName { get; set; } = "NO DRIVER";
+        public string CurrentDriverName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCurrentDriverName { get; set; } = "NO DRIVER";
         public string DriverPath { get; set; } = "DEFAULT DRIVER";
     }
 }
