@@ -16,3 +16,17 @@ packages/
 *.bat
 *.txt
 *.user
+Python/JDI/core/interfaces/__pycache__/
+Python/JDI/core/logger/__pycache__/
+Python/JDI/core/settings/__pycache__/
+Python/JDI/web/selenium/driver/__pycache__/
+.*/__pycache__/.*
+Python/JDI/web/selenium/elements/composite/__pycache__/
+Python/JDI/web/selenium/elements/common/__pycache__/
+Python/JDI/web/selenium/elements/api_interact/__pycache__/
+Python/JDI/web/selenium/elements/base/__pycache__/
+Python/JDI/web/selenium/settings/__pycache__/
+Python/tests/__pycache__/
+Python/tests/site/pageobjects/pages/__pycache__/
+Python/tests/site/entities/__pycache__/
+Python/tests/site/pageobjects/__pycache__/
