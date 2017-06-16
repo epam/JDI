@@ -32,6 +32,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -174,7 +175,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                             if (getLatestDriver)
                                 downloadChromeDriver(driversPath);
                             setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-                            return webDriverSettings.apply(new ChromeDriver());
+                            ChromeOptions chromeOptions = new ChromeOptions();
+                            chromeOptions.addArguments("--start-fullscreen");
+                            return webDriverSettings.apply(new ChromeDriver(chromeOptions));
                         });
             case FIREFOX:
                 return registerDriver(driverType,
