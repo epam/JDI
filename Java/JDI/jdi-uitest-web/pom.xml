@@ -39,6 +39,7 @@
         <junit.version>4.11</junit.version>
         <version>1.0.66</version>
         <selenide.version>4.1</selenide.version>
+        <java.guava.version>22.0</java.guava.version>
     </properties>
 
     <dependencies>
@@ -68,6 +69,11 @@
             <version>${selenium.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-gwt</artifactId>
+            <version>${java.guava.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
@@ -88,7 +94,6 @@
             <version>${selenide.version}</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
