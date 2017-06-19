@@ -108,7 +108,7 @@ namespace JDI_Web.Selenium.Base
         protected By GetNewLocatorFromField(FieldInfo field)
         {
             By byLocator = null;
-            var locatorGroup = AppVersion;
+            var locatorGroup = APP_VERSION;
             if (locatorGroup == null)
                 return FindByAttribute.Locator(field) ?? field.GetFindsBy();
             var jFindBy = field.GetAttribute<JFindByAttribute>();

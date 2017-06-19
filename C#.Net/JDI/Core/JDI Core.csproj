@@ -146,7 +146,6 @@
     <Compile Include="Interfaces\Complex\Tables\TableFilter.cs" />
     <Compile Include="Interfaces\Complex\Tables\WithValue.cs" />
     <Compile Include="Interfaces\IComplex.cs" />
-    <Compile Include="Interfaces\Settings\DefaultDriver.cs" />
     <Compile Include="Interfaces\Settings\IDriver.cs" />
     <Compile Include="Interfaces\Settings\ITestRunner.cs" />
     <Compile Include="Logging\ILogger.cs" />

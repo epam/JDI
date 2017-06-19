@@ -15,17 +15,11 @@ namespace Epam.JDI.Core.Interfaces.Settings
 
         bool HasRunDrivers();
 
-        string CurrentDriverName();
-        void SetCurrentDriver(string driverName);
-
-        T GetDriver(string name);
+        string CurrentDriverName { get; set; }
 
         void Highlight(IElement element);
 
         void Highlight(IElement element, HighlightSettings highlightSettings);
-
-        string GetDriverPath();
-
-        void SetDriverPath(string driverPath);
+        string DriverPath { get; set; }
     }
 }

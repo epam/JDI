@@ -21,12 +21,12 @@ namespace JDI_Core.Interfaces
 
         public void IsInState(IPreconditions precondition)
         {
-            JDISettings.DriverFactory.SetCurrentDriver(driverName);
+            JDISettings.DriverFactory.CurrentDriverName = driverName;
             PreconditionsState.IsInState(precondition);
         }
         public void IsInState(IPreconditions precondition, NUnit.Framework.DescriptionAttribute method)
         {
-            JDISettings.DriverFactory.SetCurrentDriver(driverName);
+            JDISettings.DriverFactory.CurrentDriverName = driverName;
             PreconditionsState.IsInState(precondition, method);
         }
     }
