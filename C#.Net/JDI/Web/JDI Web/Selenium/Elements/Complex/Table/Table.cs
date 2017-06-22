@@ -14,6 +14,7 @@ using RestSharp.Extensions;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Selenium.Elements.Complex.Table.Column;
 using static JDI_Web.Selenium.Elements.Complex.Table.Row;
+using Epam.JDI.Core.Interfaces.Base;
 
 namespace JDI_Web.Selenium.Elements.Complex.Table
 {
@@ -125,7 +126,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                            "||").Print("\n");
         };
 
-        public Table Copy()
+    public Table Copy()
         {
             return Clone();
         }

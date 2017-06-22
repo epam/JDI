@@ -153,7 +153,7 @@
     <Compile Include="Selenium\Elements\Composite\WebPage.cs" />
     <Compile Include="Selenium\Elements\Composite\WebSite.cs" />
     <Compile Include="Selenium\Elements\WebActions\ActionInvoker.cs" />
-    <Compile Include="Selenium\Elements\WebActions\ActionScenrios.cs" />
+    <Compile Include="Selenium\Elements\WebActions\ActionScenarios.cs" />
     <Compile Include="Selenium\Elements\WebActions\ElementsActions.cs" />
     <Compile Include="Settings\MapInterfaceToElement.cs" />
     <Compile Include="Settings\WebSettings.cs" />

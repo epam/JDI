@@ -7,6 +7,7 @@ using JDI_Web.Selenium.Base;
 using RestSharp.Extensions;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
+using JDI_Web.Selenium.Elements.Composite;
 
 namespace JDI_Web.Selenium.Elements.WebActions
 {
@@ -199,6 +200,11 @@ namespace JDI_Web.Selenium.Elements.WebActions
         {
             return Invoker.DoJActionResult("Are deselected", el =>
                 getNames(el).Where(name => !waitSelectedAction.Invoke(name)).ToList());
+        }
+
+        public void Expand(Action<WebBaseElement> expandAction)
+        {
+            Invoker.DoJAction("Expand Element", expandAction);
         }
 
         public void WaitDeselected(Func<WebBaseElement, string, bool> waitSelectedAction, params string[] names)

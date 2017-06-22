@@ -172,6 +172,5 @@ namespace JDI_Web.Selenium.Elements.APIInteract
 
         private Func<IWebElement, bool> GetSearchCriteria 
             => LocalElementSearchCriteria ?? WebSettings.WebDriverFactory.ElementSearchCriteria;
-        
     }
 }

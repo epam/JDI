@@ -8,11 +8,11 @@ using static Epam.JDI.Core.ExceptionUtils;
 
 namespace JDI_Web.Selenium.Elements.WebActions
 {
-    public class ActionScenrios
+    public class ActionScenarios
     {
         private WebBaseElement _element;
 
-        public ActionScenrios SetElement(WebBaseElement element)
+        public ActionScenarios SetElement(WebBaseElement element)
         {
             _element = element;
             return this;
