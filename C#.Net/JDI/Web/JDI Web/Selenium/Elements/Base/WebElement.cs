@@ -31,7 +31,7 @@ namespace JDI_Web.Selenium.Elements.Base
 
         public WebElement GetHighLightElement()
         {
-            return Avatar.GetElement();
+            return Avatar.GetFirstValue<WebElement>();
         }
 
         /**

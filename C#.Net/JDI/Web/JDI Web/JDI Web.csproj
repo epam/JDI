@@ -111,6 +111,7 @@
     <Compile Include="Selenium\Elements\Common\DatePicker.cs" />
     <Compile Include="Selenium\Elements\Common\FileInput.cs" />
     <Compile Include="Selenium\Elements\Common\Image.cs" />
+    <Compile Include="Selenium\Elements\Common\Input.cs" />
     <Compile Include="Selenium\Elements\Common\Label.cs" />
     <Compile Include="Selenium\Elements\Common\Link.cs" />
     <Compile Include="Selenium\Elements\Common\TextArea.cs" />
@@ -122,6 +123,8 @@
     <Compile Include="Selenium\Elements\Complex\Dropdown.cs" />
     <Compile Include="Selenium\Elements\Complex\DropList.cs" />
     <Compile Include="Selenium\Elements\Complex\Elements.cs" />
+    <Compile Include="Selenium\Elements\Complex\Table\DynamicTable.cs" />
+    <Compile Include="Selenium\Elements\Complex\Table\FilterDsl.cs" />
     <Compile Include="Selenium\Elements\Complex\Tree.cs" />
     <Compile Include="Selenium\Elements\Complex\Menu.cs" />
     <Compile Include="Selenium\Elements\Complex\MultiSelector.cs" />
