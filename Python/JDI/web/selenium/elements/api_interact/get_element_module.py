@@ -59,10 +59,18 @@ class GetElementModule(object):
         return JDISettings.get_driver_factory().get_driver()
 
     def get_search_context(self):
+        from JDI.web.selenium.elements.composite.web_site import WebSite
+        try:
+            if issubclass(type(self.element.parent), WebSite) or issubclass(self.element.parent, WebSite):
+                return None
+        except: pass
         if self.element.parent is not None:
             locator = self.element.parent.avatar.by_locator
+            if locator is None:
+                return None
             driver = self.element.parent.get_driver()
             return driver.find_element(locator[0], locator[1])
+
 
 
 

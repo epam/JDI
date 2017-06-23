@@ -72,3 +72,6 @@ class MultiSelector(BaseSelector):
 
     def get_value(self):
         (", ".join(self.are_selected()))
+
+    def set_value_action(self, value):
+        self.select_list(value.split(", "))

@@ -5,7 +5,9 @@ from JDI.web.selenium.elements.api_interact.find_element_by import By
 from JDI.web.selenium.elements.common.button import Button
 from JDI.web.selenium.elements.common.check_box import CheckBox
 from JDI.web.selenium.elements.common.label import Label
+from JDI.web.selenium.elements.common.text import Text
 from JDI.web.selenium.elements.complex.check_list import CheckList
+from JDI.web.selenium.elements.complex.combo_box import ComboBox
 from JDI.web.selenium.elements.composite.web_page import WebPage
 
 
@@ -20,6 +22,10 @@ class CheckListMetalColor(CheckList):
     def is_element_selected(self, el):
         return el.find_element_by_xpath("../input").is_selected()
 
+class ComboBoxMetalColor(ComboBox):
+
+    def get_text(self):
+        return Text(By.css(".metals .filter-option")).get_text()
 
 class MetalColorPage(WebPage):
 
@@ -33,6 +39,10 @@ class MetalColorPage(WebPage):
     calculate_label = Label(By.id("calculate-button"))
 
     nature_check_list = CheckListMetalColor(By.css("#elements-checklist label"))
+
+    combo_box = ComboBoxMetalColor(select_locator=By.css(".metals .caret"),
+                         options_names_locator_template=By.css(".metals li span"),
+                         value_locator=By.css(".metals input"))
 
 
 
