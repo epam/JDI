@@ -8,6 +8,7 @@ from JDI.web.selenium.elements.common.label import Label
 from JDI.web.selenium.elements.common.text import Text
 from JDI.web.selenium.elements.complex.check_list import CheckList
 from JDI.web.selenium.elements.complex.combo_box import ComboBox
+from JDI.web.selenium.elements.complex.dropdown import Dropdown
 from JDI.web.selenium.elements.composite.web_page import WebPage
 
 
@@ -43,6 +44,8 @@ class MetalColorPage(WebPage):
     combo_box = ComboBoxMetalColor(select_locator=By.css(".metals .caret"),
                          options_names_locator_template=By.css(".metals li span"),
                          value_locator=By.css(".metals input"))
+
+    color_dropdown = Dropdown(By.css(".colors .filter-option"), By.css(".colors li span"))
 
 
 

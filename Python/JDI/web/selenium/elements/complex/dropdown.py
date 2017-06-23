@@ -51,7 +51,8 @@ class Dropdown(Selector):
         return self.element.get(Label)
 
     def expand(self):
-        self.get_expander().avatar.get_element().click()
+        if not self.is_displayed_in_list(1):
+            self.get_expander().avatar.get_element().click()
 
     def get_expander(self):
         if self.expander is None:
@@ -80,3 +81,9 @@ class Dropdown(Selector):
     def get_value(self):
         return self.get_text()
 
+    def get_options(self):
+        is_expanded = self.is_displayed_in_list(1)
+        if not is_expanded: self._element().click()
+        res = super(Dropdown, self).get_options_actions()
+        if not is_expanded: self._element().click()
+        return res

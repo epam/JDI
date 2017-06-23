@@ -14,3 +14,11 @@ class Metals(Enum):
     SILVER = "Silver"
     BRONZE = "Bronze"
     SELEN  = "Selen"
+
+
+class Colors(Enum):
+    COLORS = "Colors"
+    RED    = "Red"
+    GREEN  = "Green"
+    BLUE   = "Blue"
+    YELLOW = "Yellow"

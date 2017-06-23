@@ -12,6 +12,7 @@ from Test.jdi_uitests_webtests.test.common.text_tests import TextTests
 
 from Test.jdi_uitests_webtests.test.complex.check_list_tests import CheckListTests
 from Test.jdi_uitests_webtests.test.complex.combo_box_tests import ComboBoxTests
+from Test.jdi_uitests_webtests.test.complex.dropdown_expanded_tests import DropdownExpandedTests
 
 
 if __name__ == "__main__":
