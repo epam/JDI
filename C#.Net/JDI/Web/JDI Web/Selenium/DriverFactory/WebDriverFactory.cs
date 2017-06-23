@@ -37,7 +37,7 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             Drivers = new Dictionary<string, Func<IWebDriver>>();
             RunDrivers = new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
-            DriverPath = "C:/Selenium";
+            DriverPath = "C:/GIT/JDI2/JDI/C#.Net/packages/Selenium.Chrome.WebDriver.2.30/driver";
             RunType = RunTypes.Local;
         }
 
