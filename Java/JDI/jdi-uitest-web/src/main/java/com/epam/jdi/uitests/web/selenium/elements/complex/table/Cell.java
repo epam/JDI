@@ -39,7 +39,7 @@ import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByMs
 /**
  * Cell have some info about its position:<br>
  * ColumnName, RowName, ColumnIndex, RowIndex<br>
- * You can do some actions with Cell:<br>
+ * You can do some actions with Cendell:<br>
  * Click, Select, getText, waitText, waitMatchText<br>
  * Also you can use get() method to get Element of specified for table Type and do any possible action with it<br>
  */
