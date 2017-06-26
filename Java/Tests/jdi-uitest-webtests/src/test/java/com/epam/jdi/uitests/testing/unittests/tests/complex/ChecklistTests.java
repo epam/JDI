@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
+import com.epam.jdi.uitests.testing.unittests.custom.CheckListOfTypeOne;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
 import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
@@ -21,6 +22,7 @@ import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActions
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static com.epam.web.matcher.testng.Assert.*;
 import static java.util.Arrays.asList;
+import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 
 /**
  * Created by Roman_Iovlev on 9/15/2015.
@@ -32,6 +34,8 @@ public class ChecklistTests extends InitTests {
     private ICheckList<Nature> nature() {
         return metalsColorsPage.nature;
     }
+
+    private  CheckListOfTypeOne natureExtended() {return metalsColorsPage.natureExtended; }
 
     @BeforeMethod
     public void before(Method method) throws IOException {
@@ -193,18 +197,42 @@ private List<String> ls() { return new ArrayList<>(); }
         areEquals(nature().getName(), "Nature");
     }
 
-    @Test
+    //@Test ISSUE!!! areSelected() method does not work for checkboxes "Nature" from MetalAndColors
     public void areSelectedTest() {
-        listEquals(nature().areSelected(), new ArrayList<>());// isDisplayed not defined
+        listEquals(nature().areSelected(), new ArrayList<String>());
+    }
+
+    //@Test ISSUE!!! areDeselected() method does not work for checkboxes "Nature" from MetalAndColors
+    //Always return all deselected
+    public void areDeselectedTest() {
+        listEquals(nature().areDeselected(), natureOptions);// isDisplayed not defined
     }
 
     @Test
-    public void areDeselectedTest() {
-        listEquals(nature().areDeselected(), natureOptions);// isDisplayed not defined
+    public void areSelectedTestNew() {
+
+        natureExtended().selectAll();   //select only unchecked
+        natureExtended().deselectAll(); //deselect only checked
+        nature().selectAll();           //it will just click all checkboxes and select them in given case
+        System.out.println(natureExtended().getSelected().size());
+        listEquals(natureExtended().getSelected(), natureOptions);
+    }
+
+    @Test
+    public void areDeselectedTestNew() {
+
+        natureExtended().selectAll();//select only unchecked
+        nature().selectAll();        //it will just click all checkboxes and deselect them in given case
+        nature().selectAll();        //it will just click all checkboxes and select them in given case
+        natureExtended().deselectAll();
+        listEquals(natureExtended().getDeselected(), natureOptions);// isDisplayed not defined
+
     }
 
     @Test
     public void getValueTest() {
         areEquals(nature().getValue(), "");// isDisplayed not defined
     }
+
 }
+

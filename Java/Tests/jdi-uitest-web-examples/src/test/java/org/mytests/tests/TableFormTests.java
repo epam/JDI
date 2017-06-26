@@ -52,7 +52,7 @@ public class TableFormTests extends InitTestsTableForm {
     // Selenide looks like tests written on JDI using J SelenideElement wrapper
     @Test(dataProvider = "cvData")
     public void selenideTest(Attendee attendee, Job job) {
-        System.setProperty("webdriver.gecko.driver", "D:\\Work\\Projects\\Java\\JDI\\Github\\Java\\Tests\\jdi-uitest-web-examples\\src\\main\\resources\\driver\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
         open(PageJobs.url); // download and put geckodriver because Selenide not support driver auto loading
         PageJobs.applyLinkFor(job.name, job.category).click();
         pageJobDescription.submitForm(attendee);
