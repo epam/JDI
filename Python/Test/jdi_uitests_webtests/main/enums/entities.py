@@ -22,3 +22,9 @@ class Colors(Enum):
     GREEN  = "Green"
     BLUE   = "Blue"
     YELLOW = "Yellow"
+
+class Odds(Enum):
+    ONE   = "1"
+    THREE = "3"
+    FIVE  = "5"
+    SEVEN = "7"

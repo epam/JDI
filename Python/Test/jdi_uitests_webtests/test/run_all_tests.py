@@ -13,6 +13,8 @@ from Test.jdi_uitests_webtests.test.common.text_tests import TextTests
 from Test.jdi_uitests_webtests.test.complex.check_list_tests import CheckListTests
 from Test.jdi_uitests_webtests.test.complex.combo_box_tests import ComboBoxTests
 from Test.jdi_uitests_webtests.test.complex.dropdown_expanded_tests import DropdownExpandedTests
+from Test.jdi_uitests_webtests.test.complex.dropdown_tests import DropdownTests
+from Test.jdi_uitests_webtests.test.complex.radio_button_tests import RadioButtonTests
 
 
 if __name__ == "__main__":

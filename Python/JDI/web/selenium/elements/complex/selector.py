@@ -20,14 +20,17 @@ class Selector(BaseSelector):
     def get_values(self):
         return self.get_options()
 
+    def get_value(self):
+        return self.get_selected()
+
     def get_options_as_text(self):
         return ", ".join(self.get_options())
 
     def get_selected(self):
-        el = filter(lambda x: x.is_selected(), self.get_web_elements())
-        if el is None:
+        el = list(filter(lambda x: x.is_selected(), self.get_web_elements()))
+        if len(el) == 0:
             raise Exception("No elements selected. Override getSelectedAction or place locator to <select> tag")
-        return el.text
+        return el[0].text
 
     def get_selected_index(self):
         index = None

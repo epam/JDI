@@ -2,19 +2,20 @@ from JDI.web.selenium.elements.base.base_element import BaseElement
 from JDI.web.selenium.elements.composite.form import Section
 from JDI.web.selenium.elements.composite.web_page import WebPage
 
-class WebCascadeInit:
 
+class WebCascadeInit:
     @staticmethod
     def init_site_page(site):
         elements = WebCascadeInit.get_all_elements(site)
         for el_name in elements:
-            el = getattr(site, el_name)
-            if WebCascadeInit.is_element(el):
-                el.name = el_name
-                el.parent = site
-                if WebCascadeInit.is_page(el): el.parent = site
-                if WebCascadeInit.is_composite(el) or WebCascadeInit.is_page(el):
-                    WebCascadeInit.init_site_page(el)
+            if el_name != "parent":
+                el = getattr(site, el_name)
+                if WebCascadeInit.is_element(el):
+                    el.name = el_name
+                    el.parent = site
+                    if WebCascadeInit.is_page(el): el.parent = site
+                    if WebCascadeInit.is_composite(el) or WebCascadeInit.is_page(el):
+                        WebCascadeInit.init_site_page(el)
 
     @staticmethod
     def get_all_elements(site):

@@ -36,13 +36,14 @@ class BaseSelector(Element):
         self.set_value_action(value)
 
     def set_value_action(self, value): self.select_action(value)
-    def get_options(self): raise NotImplemented("This method should be implemented in subclasses")
+    def get_options(self):
+        return self.get_options_actions()
+
+    def get_value(self):
+        raise NotImplemented("This method should be implemented in subclasses")
 
     def get_options_actions(self):
-        els = self.get_web_elements()
-        res = list()
-        for el in els: res.append(el.text)
-        return res
+        return list(map(lambda el: el.text, self.get_web_elements()))
 
     def is_selected(self, el):
         if self.is_selector:
