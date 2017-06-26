@@ -32,7 +32,6 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
@@ -55,7 +54,6 @@ public class GetElementModule implements IAvatar {
     private By byLocator;
     public By frameLocator;
     public JFuncTREx<WebElement, Boolean> localElementSearchCriteria = null;
-    public WebElement rootElement;
     private String driverName = "";
     private BaseElement element;
     private WebElement webElement;
@@ -80,7 +78,6 @@ public class GetElementModule implements IAvatar {
         GetElementModule clone = new GetElementModule(byLocator, element);
         clone.localElementSearchCriteria = localElementSearchCriteria;
         clone.frameLocator = frameLocator;
-        clone.rootElement = rootElement;
         clone.driverName = driverName;
         clone.element = element;
         clone.webElement = webElement;
@@ -218,8 +215,7 @@ public class GetElementModule implements IAvatar {
                 : searchContext;
     }
 
-    private List<WebElement> searchElements()
-    {
+    private List<WebElement> searchElements() {
         SearchContext searchContext = containsRoot(getLocator())
                 ? getDriver()
                 : getSearchContext(element.getParent());

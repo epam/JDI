@@ -67,24 +67,6 @@ public class Element extends BaseElement implements IElement, IHasElement {
         avatar.setWebElement(webElement);
     }
 
-    public static <T> T extractEntity(Class<T> entityClass, BaseElement el) {
-        try {
-            T data = newEntity(entityClass);
-            foreach(getFields(el, IHasValue.class), item -> {
-                Field field = LinqUtils.first(getFields(data, String.class), f ->
-                        namesEqual(f.getName(), item.getName()));
-                if (field == null)
-                    return;
-                try {
-                    field.set(data, ((IHasValue) getValueField(item, el)).getValue());
-                } catch (Exception ignore) { }
-            });
-            return data;
-        } catch (Exception ex) {
-            throw exception("Can't get entity from Form" + el.getName() + " for class: " + entityClass.getClass());
-        }
-    }
-
     public static <T extends Element> T copy(T element, By newLocator) {
         try {
             T result = newEntity((Class<T>) element.getClass());
@@ -95,10 +77,6 @@ public class Element extends BaseElement implements IElement, IHasElement {
         }
     }
 
-    /**
-     * Specified Selenium Element for this Element
-     */
-    @Step
     public WebElement getWebElement() {
         return invoker.doJActionResult("Get web element",
                 () -> avatar.getElement(), DEBUG);
@@ -234,7 +212,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      */
     @Step
     public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
-        setWaitTimeout(timeoutSec * 1000);
+        setWaitTimeout(timeoutSec);
         R result = new Timer(timeoutSec * 1000).getResultByCondition(() -> resultFunc.apply(getWebElement()), condition);
         restoreWaitTimeout();
         return result;
