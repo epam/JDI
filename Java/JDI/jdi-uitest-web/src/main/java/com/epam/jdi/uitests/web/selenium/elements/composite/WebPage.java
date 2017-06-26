@@ -120,7 +120,7 @@ public class WebPage extends BaseElement implements IPage {
      * Opens url specified for page
      */
     public <T extends IPage> T open() {
-        invoker.doJAction(format("Open page '%s' by url %s", getName(), url),
+        invoker.doJAction(format("Open page '%s'", getName()),
                 () -> getDriver().navigate().to(url));
         if (checkAfterOpen)
             checkOpened();
