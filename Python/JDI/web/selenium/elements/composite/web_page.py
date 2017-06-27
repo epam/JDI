@@ -11,9 +11,10 @@ class WebPage(BaseElement):
 
     url = None
     title = None
+    domain = None
 
-    def __init__(self, url, title):
-        self.url = JDISettings.get_domain() + url
+    def __init__(self, url, title=None, domain=None):
+        self.url = (JDISettings.get_domain() if domain is None else domain)+url
         self.title = title
         super(WebPage, self).__init__()
 

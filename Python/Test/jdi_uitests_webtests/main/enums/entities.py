@@ -28,3 +28,7 @@ class Odds(Enum):
     THREE = "3"
     FIVE  = "5"
     SEVEN = "7"
+
+class Buttons(Enum):
+    SUBMIT    = "submit"
+    CALCULATE = "calculate"

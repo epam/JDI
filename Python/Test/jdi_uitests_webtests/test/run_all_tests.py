@@ -16,6 +16,8 @@ from Test.jdi_uitests_webtests.test.complex.dropdown_expanded_tests import Dropd
 from Test.jdi_uitests_webtests.test.complex.dropdown_tests import DropdownTests
 from Test.jdi_uitests_webtests.test.complex.radio_button_tests import RadioButtonTests
 
+from Test.jdi_uitests_webtests.test.composite.form_tests import FormTests
+from Test.jdi_uitests_webtests.test.composite.frame_tests import FrameTests
 
 if __name__ == "__main__":
     unittest.main()

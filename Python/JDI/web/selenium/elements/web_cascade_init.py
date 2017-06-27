@@ -11,6 +11,8 @@ class WebCascadeInit:
             if el_name != "parent":
                 el = getattr(site, el_name)
                 if WebCascadeInit.is_element(el):
+                    if str.startswith(el_name, "i_frame"):
+                        el.avatar.frame_locator = el.avatar.by_locator
                     el.name = el_name
                     el.parent = site
                     if WebCascadeInit.is_page(el): el.parent = site

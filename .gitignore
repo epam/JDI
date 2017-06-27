@@ -49,3 +49,5 @@ Python/Test/jdi_uitests_webtests/test/__pycache__/
 Python/Test/jdi_uitests_webtests/test/common/__pycache__/
 Python/Test/jdi_uitests_webtests/test/complex/__pycache__/
 Python/Test/__pycache__/
+Python/Test/jdi_uitests_webtests/main/page_objects/w3c_site/__pycache__/
+Python/Test/jdi_uitests_webtests/test/composite/__pycache__/
