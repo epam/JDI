@@ -63,3 +63,18 @@ class WebPage(BaseElement):
     def contains_title(self):
         return JDISettings.get_driver_factory().get_driver().current_title in self.title
 
+    def refresh(self):
+        JDISettings.get_driver_factory().get_driver().refresh()
+
+    def back(self):
+        JDISettings.get_driver_factory().get_driver().back()
+
+    def forward(self):
+        JDISettings.get_driver_factory().get_driver().forward()
+
+    def add_cookie(self, cookie):
+        JDISettings.get_driver_factory().get_driver().add_cookie(cookie)
+
+    def clear_cache(self):
+        JDISettings.get_driver_factory().get_driver().delete_all_cookies()
+

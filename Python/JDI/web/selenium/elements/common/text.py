@@ -10,9 +10,8 @@ class Text(Element):
 
     def _get_text(self):
         el = self.get_web_element()
-        get_value = el.get_attribute("value")
-        get_text = el.text
-        return get_value if get_text in [None, ""] else get_text
+        res = el.get_attribute("value") if el.text in [None, ""] else el.text
+        return "" if res is None else res
 
     def get_text(self):
         return self._get_text()

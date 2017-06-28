@@ -18,7 +18,9 @@ class InitTests(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        WebSettings.quit_browser()
+        try:
+            WebSettings.quit_browser()
+        except: pass
 
 
 class W3CInit(unittest.TestCase):

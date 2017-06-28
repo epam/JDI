@@ -18,6 +18,9 @@ from Test.jdi_uitests_webtests.test.complex.radio_button_tests import RadioButto
 
 from Test.jdi_uitests_webtests.test.composite.form_tests import FormTests
 from Test.jdi_uitests_webtests.test.composite.frame_tests import FrameTests
+from Test.jdi_uitests_webtests.test.composite.form_two_buttons_tests import FormTwoButtonsTests
+from Test.jdi_uitests_webtests.test.composite.page_tests import PageTests
+
 
 if __name__ == "__main__":
     unittest.main()
