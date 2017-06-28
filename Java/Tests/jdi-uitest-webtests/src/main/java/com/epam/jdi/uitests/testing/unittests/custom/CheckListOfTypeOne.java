@@ -72,6 +72,7 @@ public class CheckListOfTypeOne extends CheckList<Nature> {
 
     }
 
+
     public List<String> getDeselected() {
         return getDriver().findElements(By.xpath(xPathOptionsInputsLocator)).stream()
                 .filter(e -> !e.isSelected())
@@ -79,7 +80,6 @@ public class CheckListOfTypeOne extends CheckList<Nature> {
                 .collect(Collectors.toList());
 
     }
-
 
 
     //Looking for checkbox button we need, using its label's text
@@ -108,9 +108,5 @@ public class CheckListOfTypeOne extends CheckList<Nature> {
                    .forEach(btn->btn.findElement(By.xpath(".//following-sibling::label"))
                    .click());
     }
-
-
-
-
 
 }
