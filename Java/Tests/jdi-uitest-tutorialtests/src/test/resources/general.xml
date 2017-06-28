@@ -3,8 +3,8 @@
 <suite name="Test suite" parallel="methods" thread-count="1">
     <test name="Tests" preserve-order="true">
         <classes>
-            <!--class name="com.epam.jdi.uitests.testing.simple.examples.TableExamples"/-->
-            <!--class name="com.epam.jdi.uitests.testing.career.common.tests.CareerTests"/-->
+            <class name="com.epam.jdi.uitests.testing.simple.examples.TableExamples"/>
+            <class name="com.epam.jdi.uitests.testing.career.common.tests.CareerTests"/>
             <class name="com.epam.jdi.uitests.testing.simple.examples.FormExamples"/>
         </classes>
     </test>
