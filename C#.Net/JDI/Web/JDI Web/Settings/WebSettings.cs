@@ -31,7 +31,7 @@ namespace JDI_Web.Settings
         public static IWebDriver WebDriver => WebDriverFactory.GetDriver();
         public static WebDriverFactory WebDriverFactory => (WebDriverFactory) DriverFactory;
 
-        public static string UseDriver(DriverTypes driverName = DriverTypes.Chrome)
+        public static string UseDriver(DriverTypes driverName = DriverTypes.Firefox)
         {
             return WebDriverFactory.RegisterDriver(driverName);
         }
