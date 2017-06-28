@@ -1,5 +1,6 @@
 from JDI.core.interfaces.check_page_types import CheckPageTypes
 from JDI.core.settings.jdi_settings import JDISettings
+from JDI.core.utils.decorators import scenario
 from JDI.jdi_assert.testing.assertion import Assert
 from JDI.web.selenium.elements.base.base_element import BaseElement
 
@@ -18,6 +19,7 @@ class WebPage(BaseElement):
         self.title = title
         super(WebPage, self).__init__()
 
+    @scenario(action_name="Open page '%s' by url %s", values_list={"title", "url"})
     def open(self):
         self.get_driver().get(self.url)
 

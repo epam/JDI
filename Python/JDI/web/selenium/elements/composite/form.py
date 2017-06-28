@@ -39,7 +39,7 @@ class Form(Section):
                        self.__class__.__dict__.items()))
 
     def get_button(self, button_name):
-        return [element for element in self.__class__.__dict__.values() if str(element) is "Button"][0]
+        return [element for element in self.__class__.__dict__.values() if element.__class__.__name__ is "Button"][0]
 
     def set_text(self, text):
         field = sorted((list(filter(lambda item: isinstance(item[1], TextField) or isinstance(item[1], TextArea),self.__class__.__dict__.items()))))[0][1]

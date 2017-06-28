@@ -18,6 +18,7 @@ class ContactForm(Form):
     def get_form_value(self):
         return {self.first_name.get_text(), self.last_name.get_text(), self.description.get_text()}
 
+
 class ContactFormTwoButtons(Form):
     def __init__(self, by_locator=None):
         super(ContactFormTwoButtons, self).__init__(by_locator)

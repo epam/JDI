@@ -41,3 +41,10 @@ class BaseElement(object):
     def get_locator(self):
         return self.avatar.by_locator
 
+    def __str__(self):
+        try:
+            return "; ".join({self.parent.avatar.by_locator[0] + ":" + self.parent.avatar.by_locator[1],
+                          self.avatar.by_locator[0] + ":" + self.avatar.by_locator[1],
+                           self.parent.__class__.__name__+"."+self.__class__.__name__})
+        except:
+            return ""
