@@ -173,7 +173,7 @@ public class Form<T> extends Element implements IForm<T> {
     }
 
     public T getEntity() {
-        return extractEntity(entityClass, this);
+        return asEntity(entityClass);
     }
 
     /**

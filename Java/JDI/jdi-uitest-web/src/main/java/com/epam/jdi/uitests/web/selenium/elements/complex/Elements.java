@@ -36,7 +36,6 @@ import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
-import static com.epam.jdi.uitests.web.selenium.elements.base.Element.extractEntity;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
@@ -97,7 +96,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public <E> List<E> asData(Class<E> entityClass) {
         return LinqUtils.select(listOfElements(),
-            element -> extractEntity(entityClass, this));
+            element -> asEntity(entityClass));
     }
 
     public int size() {
