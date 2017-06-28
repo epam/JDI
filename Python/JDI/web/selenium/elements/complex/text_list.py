@@ -1,5 +1,3 @@
-from selenium.webdriver.remote.webelement import WebElement
-
 from JDI.web.selenium.elements.base.element import Element
 
 

@@ -21,3 +21,9 @@ class Element(BaseElement):
 
     def get_web_elements(self):
         return self.avatar.get_elements()
+
+    def get_locator(self):
+        return self.avatar.by_locator
+
+    def is_displayed_action(self):
+        self.get_web_element().is_displayed()

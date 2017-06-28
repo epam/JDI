@@ -24,7 +24,8 @@ import static java.util.Arrays.asList;
 /**
  * Created by Roman_Iovlev on 9/15/2015.
  */
-public class DropdownExpandedTests extends InitTests {
+public class
+DropdownExpandedTests extends InitTests {
     private static final List<String> oddOptions = asList("Colors", "Red", "Green", "Blue", "Yellow");
 
     private IDropDown<Colors> colors() {

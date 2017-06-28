@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 
 from JDI.core.settings.jdi_settings import JDISettings
 from JDI.jdi_assert.testing.assertion import Assert
-from Test.jdi_uitests_webtests.main.enums.nature import Nature
+from Test.jdi_uitests_webtests.main.enums.entities import Nature
 from Test.jdi_uitests_webtests.main.enums.preconditions import Preconditions
 from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISite
 from Test.jdi_uitests_webtests.main.utils.common_action_data import CommonActionsData

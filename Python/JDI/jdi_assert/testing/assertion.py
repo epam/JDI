@@ -23,8 +23,8 @@ class Assert:
         assert_true(not condition)
 
     @staticmethod
-    def is_true(condition):
-        assert_true(condition)
+    def is_true(condition, text=None):
+        assert_true(condition, text)
 
     @staticmethod
     def check_text(actual, expected):

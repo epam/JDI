@@ -17,6 +17,6 @@ class Login(Form):
 
     def submit(self, user):
         Login.profile.click()
-        super(Login, self).submit(user)
+        super(Login, self).submit_form(user)
 
 

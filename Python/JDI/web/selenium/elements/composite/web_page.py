@@ -11,9 +11,10 @@ class WebPage(BaseElement):
 
     url = None
     title = None
+    domain = None
 
-    def __init__(self, url, title):
-        self.url = JDISettings.get_domain() + url
+    def __init__(self, url, title=None, domain=None):
+        self.url = (JDISettings.get_domain() if domain is None else domain)+url
         self.title = title
         super(WebPage, self).__init__()
 
@@ -61,4 +62,19 @@ class WebPage(BaseElement):
 
     def contains_title(self):
         return JDISettings.get_driver_factory().get_driver().current_title in self.title
+
+    def refresh(self):
+        JDISettings.get_driver_factory().get_driver().refresh()
+
+    def back(self):
+        JDISettings.get_driver_factory().get_driver().back()
+
+    def forward(self):
+        JDISettings.get_driver_factory().get_driver().forward()
+
+    def add_cookie(self, cookie):
+        JDISettings.get_driver_factory().get_driver().add_cookie(cookie)
+
+    def clear_cache(self):
+        JDISettings.get_driver_factory().get_driver().delete_all_cookies()
 

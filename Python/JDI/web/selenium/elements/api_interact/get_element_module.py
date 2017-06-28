@@ -3,7 +3,7 @@ from JDI.core.settings.jdi_settings import JDISettings
 
 class GetElementModule(object):
 
-    FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds"
+    FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '{0}' during  seconds"
     FIND_TO_MUCH_ELEMENTS_MESSAGE = "Find %s elements instead of one for Element '%s' during %s seconds"
 
     def __init__(self, by_locator=None, element=None):
@@ -11,6 +11,7 @@ class GetElementModule(object):
         self.element = element
         self.web_element = None
         self.web_elements = []
+        self.frame_locator = None
 
         # self.logger = JDISettings.get_logger()
 
@@ -34,7 +35,7 @@ class GetElementModule(object):
     def __get_element_action(self):
         result = self.__get_one_or_more_elements()
         if len(result) == 0:
-            raise Exception(GetElementModule.FAILED_TO_FIND_ELEMENT_MESSAGE % self.element)
+            raise Exception(GetElementModule.FAILED_TO_FIND_ELEMENT_MESSAGE.format(self.element))
         elif len(result) == 1:
             return result[0]
         elif len(result) > 1:
@@ -49,22 +50,34 @@ class GetElementModule(object):
     def __search_elements(self):
         # TODO: containsRoot
         locator = self.by_locator
-        search_context = self.get_search_context()
+        search_context = self.get_search_context(self.element.parent)
         if search_context is None:
             search_context = self.get_driver()
+       # if self.frame_locator is not None:
+       #     self.get_driver().switch_to().frame(self.get_driver().find_element(self.frame_locator))
         return search_context.find_elements(locator[0], locator[1])
 
     @staticmethod
     def get_driver():
         return JDISettings.get_driver_factory().get_driver()
 
-    def get_search_context(self):
+    def get_search_context(self, b_element):
+        from JDI.web.selenium.elements.composite.web_site import WebSite
+        try:
+            if issubclass(type(self.element.parent), WebSite) or issubclass(self.element.parent, WebSite):
+                return None
+        except: pass
         if self.element.parent is not None:
-            locator = self.element.parent.avatar.by_locator
-            driver = self.element.parent.get_driver()
+            locator = b_element.avatar.by_locator
+            if locator is None:
+                return None
+            driver = self.get_driver()
+            if b_element.avatar.frame_locator is not None:
+                self.switch_to_last_opened_window()
+                res = driver.find_element(locator[0], locator[1])
+                driver.switch_to_frame(b_element.avatar.frame_locator[1])
+                return driver
             return driver.find_element(locator[0], locator[1])
 
-
-
-
-
+    def switch_to_last_opened_window(self):
+        self.get_driver().switch_to_window( self.get_driver().window_handles[-1])
