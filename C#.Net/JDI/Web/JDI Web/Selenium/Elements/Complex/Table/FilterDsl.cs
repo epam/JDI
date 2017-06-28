@@ -1,4 +1,5 @@
-﻿using Epam.JDI.Core.Interfaces.Common;
+
+using Epam.JDI.Core.Interfaces.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
