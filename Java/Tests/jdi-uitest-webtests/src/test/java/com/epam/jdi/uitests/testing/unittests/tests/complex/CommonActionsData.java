@@ -89,7 +89,7 @@ public class CommonActionsData {
 
     @Step
     public static void checkCalculate(String text) {
-        assertContains(metalsColorsPage.calculateText::getText, text);
+       assertContains(metalsColorsPage.calculateText::getText, text);
     }
 
     @Step
