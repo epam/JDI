@@ -96,7 +96,7 @@ public class TableFormTests extends InitTestsTableForm {
 
 
        pageJobDescription.submitForm(attendee);
-       //pageJobDescription.verifyCVForm(attendee);
+       pageJobDescription.verifyCVForm(attendee);
     }
 
 
