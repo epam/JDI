@@ -60,7 +60,7 @@ public class TableFormTests extends InitTestsTableForm {
         };
     }
     // JDI test
-   // @Test(dataProvider = "cvData")
+    @Test(dataProvider = "cvData")
     public void tableFormTest(Attendee attendee, Job job) {
         jobsPage.open();
         jobsPage.jobs.firstRow(r ->
@@ -94,12 +94,6 @@ public class TableFormTests extends InitTestsTableForm {
 
         getDriver().get(url());
 
-
-/*
-
-       WebSettings.useDriver();
-       WebSite.init(EpamSite.class);
-*/
 
        pageJobDescription.submitForm(attendee);
        //pageJobDescription.verifyCVForm(attendee);
