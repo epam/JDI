@@ -5,6 +5,7 @@ import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.testing.unittests.custom.CheckListOfTypeOne;
 import com.epam.jdi.uitests.testing.unittests.enums.Colors;
 import com.epam.jdi.uitests.testing.unittests.enums.Metals;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
@@ -36,14 +37,40 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(id = "calculate-button")
     public ILabel calculateLabel;
 
-    public IDropDown<Colors> colors = new Dropdown<>(By.cssSelector(".colors .filter-option"),
-            By.cssSelector(".colors li span"));
+   /* public IDropDown<Colors> colors = new Dropdown<Colors>(By.cssSelector(".colors .filter-option"),
+            By.cssSelector(".colors li span")){
+
+    };
+*/
+
+
+    public IDropDown<Colors> colors = new Dropdown<Colors>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {
+        @Override
+        protected void selectAction(String name) {
+            expand();
+            getDriver().findElement(By.xpath("//div[@class='dropdown-menu open']/ul/li/a/span[@class='text'][contains(text(),'"+name+"')]")).click();
+            close();
+        }
+
+    };
+
+    //select[@id='colors-dropdown']
 
     @FindBy(css = ".summ-res")
-    public IText calculateText;
+    public IText calculateText = new Text(){
+        protected String getTextAction() {
+             return getDriver().findElement(By.cssSelector(".summ-res")).getText();
+        };
+
+    };
+
+
+    public Text c1alculateText;
 
     @FindBy(css = "#elements-checklist label")
     public ICheckList<Nature> nature;
+
+    public CheckListOfTypeOne natureExtended = new CheckListOfTypeOne("//section[@id='elements-checklist']/p[@class='checkbox']", "/label", "/input");
 
     @FindBy(xpath = "//*[@id='elements-checklist']//*[label[text()='%s']]/label")
     public ICheckList<Nature> natureTemplate;
@@ -66,3 +93,5 @@ public class MetalsColorsPage extends WebPage {
                 }
             };
 }
+
+

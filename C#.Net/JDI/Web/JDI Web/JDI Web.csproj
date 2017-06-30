@@ -126,7 +126,6 @@
     <Compile Include="Selenium\Elements\Complex\DropList.cs" />
     <Compile Include="Selenium\Elements\Complex\Elements.cs" />
     <Compile Include="Selenium\Elements\Complex\Table\DynamicTable.cs" />
-
     <Compile Include="Selenium\Elements\Complex\Table\FilterDsl.cs" />
     <Compile Include="Selenium\Elements\Complex\Tree.cs" />
     <Compile Include="Selenium\Elements\Complex\Menu.cs" />

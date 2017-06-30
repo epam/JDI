@@ -23,6 +23,7 @@ import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageT
  */
 @JSite(domain = "https://www.epam.com")
 public class EpamSite extends WebSite {
+    @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
     @JPage(url = "/careers", title = "Careers")
     public static CareerPage careerPage;

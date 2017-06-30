@@ -37,7 +37,9 @@ public class DropdownTests extends InitTests {
 
     @Test
     public void selectStringTest() {
+
         colors().select("Blue");
+
         CommonActionsData.checkAction("Colors: value changed to Blue");
     }
 
@@ -49,6 +51,7 @@ public class DropdownTests extends InitTests {
 
     @Test
     public void selectEnumTest() {
+
         colors().select(Blue);
         CommonActionsData.checkAction("Colors: value changed to Blue");
     }
@@ -75,6 +78,7 @@ public class DropdownTests extends InitTests {
 
     @Test
     public void setValueTest() {
+
         colors().setValue("Blue");
         CommonActionsData.checkAction("Colors: value changed to Blue");
     }

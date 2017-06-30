@@ -45,6 +45,8 @@ public class RFileInputTests extends InitTests {
         checkFileLoaded(fileName());
     }
 
+
+
     private void checkFileLoaded(String fileName) {
         checkAction(format("FileUpload: file \"%s\" has been uploaded", fileName));
         Assert.areEquals(uploadedFileName().getText(), fileName);
