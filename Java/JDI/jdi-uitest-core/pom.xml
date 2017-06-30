@@ -5,12 +5,11 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>jdi-uitest-core</artifactId>
-    <version>1.0.66</version>
     <name>EPAM JDI UI Testing Framework Core</name>
     <packaging>jar</packaging>
 
@@ -30,8 +29,6 @@
     </developers>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version>1.0.66</version>
         <allure.version>1.5.2</allure.version>
     </properties>
 
@@ -40,13 +37,8 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-commons</artifactId>
-            <version>${version}</version>
+            <version>${parent.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.epam.jdi</groupId>
-            <artifactId>jdi-matchers</artifactId>
-            <version>${version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>

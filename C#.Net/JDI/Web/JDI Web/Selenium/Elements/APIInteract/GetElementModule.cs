@@ -70,7 +70,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug("OneElement found");
                 return element;
             }
-            set { _webElement = value; }
+            set => _webElement = value;
         }
 
         public List<IWebElement> WebElements
@@ -82,7 +82,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug($"Found {elements.Count} elements");
                 return elements;
             }
-            set { _webElements = value; }
+            set => _webElements = value;
         }
         public T FindImmediately<T>(Func<T> func, T ifError)
         {
@@ -135,7 +135,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             WebBaseElement el;
             if (element == null || (el = element as WebBaseElement) == null 
-                || (el.Parent == null && el.FrameLocator == null))
+                || el.Parent == null && el.FrameLocator == null)
                 return WebDriver.SwitchTo().DefaultContent();
             var elem = element as WebElement;
             if (elem?.WebAvatar._webElement != null)

@@ -48,7 +48,7 @@ namespace JDI_Web.Selenium.Base
 
         public static ActionScenarios ActionScenrios
         {
-            set { ActionInvoker.ActionScenrios = value; }
+            set => ActionInvoker.ActionScenrios = value;
         }
 
         public static Action<string, Action<string>> DoActionRule = (text, action) =>
@@ -74,8 +74,8 @@ namespace JDI_Web.Selenium.Base
 
         public GetElementModule WebAvatar
         {
-            get { return (GetElementModule) Avatar; }
-            set { Avatar = value; }
+            get => (GetElementModule) Avatar;
+            set => Avatar = value;
         }
 
         public ActionInvoker Invoker;
@@ -89,8 +89,8 @@ namespace JDI_Web.Selenium.Base
 
         public string TypeName
         {
-            get { return _typeName ?? GetType().Name; }
-            set { _typeName = value; }
+            get => _typeName ?? GetType().Name;
+            set => _typeName = value;
         }
 
         protected Timer Timer => WebAvatar.Timer;
@@ -110,8 +110,8 @@ namespace JDI_Web.Selenium.Base
 
         public List<IWebElement> WebElements
         {
-            get { return WebAvatar.WebElements; }
-            set { WebAvatar.WebElements = value; }
+            get => WebAvatar.WebElements;
+            set => WebAvatar.WebElements = value;
         }
 
         public bool HasLocator => WebAvatar.HasLocator;

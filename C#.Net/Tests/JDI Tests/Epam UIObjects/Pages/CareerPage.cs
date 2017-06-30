@@ -9,7 +9,7 @@ namespace JDI_Tests.Epam_UIObjects.Pages
 {
     public class CareerPage : WebPage
     {
-        [FindBy(ClassName = "job-search")]
+        [FindBy(ClassName = "job-search-form-ui")]
         public JobFilter JobFilter;
 
         [FindBy(Css = ".tile-menu>li>a")]

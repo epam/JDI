@@ -7,16 +7,14 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>jdi-httpTests</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <name>EPAM JDI HTTP Tests</name>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdi.http.version>1.0.1</jdi.http.version>
         <testng.version>6.8.1</testng.version>
     </properties>

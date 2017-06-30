@@ -5,11 +5,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-uitest-web-examples</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <parent>
         <groupId>com.epam.jdi</groupId>
@@ -22,7 +17,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>1.0.70</version>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
 

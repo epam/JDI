@@ -1,7 +1,6 @@
 ﻿using Epam.JDI.Core.Settings;
 using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
-using JDI_Tests.Epam_UIObjects.Pages;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;

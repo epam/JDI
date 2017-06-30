@@ -159,16 +159,16 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public TEntity this[int index]
         {
-            get { return index > 0
-                    ? Entity(index)
-                    : Entity(Count + index + 1); }
-            set { throw new Exception("Not applicable"); }
+            get => index > 0
+                ? Entity(index)
+                : Entity(Count + index + 1);
+            set => throw new Exception("Not applicable");
         }
 
         public TEntity this[string name]
         {
-            get { return Entity(name); }
-            set { throw new Exception("Not applicable"); }
+            get => Entity(name);
+            set => throw new Exception("Not applicable");
         }
     }
 }

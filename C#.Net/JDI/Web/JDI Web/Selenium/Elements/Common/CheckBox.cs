@@ -73,8 +73,8 @@ namespace JDI_Web.Selenium.Elements.Common
 
         public string Value
         {
-            get { return Actions.GetValue(GetValueFunc); }
-            set { Actions.SetValue(value, SetValueAction); }
+            get => Actions.GetValue(GetValueFunc);
+            set => Actions.SetValue(value, SetValueAction);
         }
 
         protected Func<WebBaseElement, string> GetValueFunc = el => ((CheckBox) el).IsChecked() + "";
