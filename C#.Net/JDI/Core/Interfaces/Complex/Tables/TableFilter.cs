@@ -19,9 +19,7 @@ namespace JDI_Core.Interfaces.Complex.Tables
             
             if (Regex.IsMatch(template, "[^=]+\\*=[^=]*"))
             {
-                string data = "THExxQUICKxxBROWNxxFOX";
-
-                split = template.Split(new string[] { "\\*=" }, StringSplitOptions.None);
+                split = template.Split(new[] { "\\*=" }, StringSplitOptions.None);
                 name = split[0];
                 value = split[1];
                 type = CheckPageTypes.MATCH;

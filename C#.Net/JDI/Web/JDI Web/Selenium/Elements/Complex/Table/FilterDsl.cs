@@ -1,4 +1,3 @@
-﻿
 using Epam.JDI.Core.Interfaces.Common;
 
 namespace JDI_Web.Selenium.Elements.Complex.Table

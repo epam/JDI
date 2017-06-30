@@ -29,9 +29,11 @@ namespace JDI_Web.Settings
         public static string Domain;
         public static bool HasDomain => Domain != null && Domain.Contains("://");
         public static IWebDriver WebDriver => WebDriverFactory.GetDriver();
-        public static WebDriverFactory WebDriverFactory => (WebDriverFactory) DriverFactory;
+        private static WebDriverFactory _webDriverFactory;
 
-        public static string UseDriver(DriverTypes driverName = DriverTypes.Chrome)
+        public static WebDriverFactory WebDriverFactory => _webDriverFactory ?? (_webDriverFactory = new WebDriverFactory());
+
+        public static string UseDriver(DriverTypes driverName = DriverTypes.Firefox)
         {
             return WebDriverFactory.RegisterDriver(driverName);
         }

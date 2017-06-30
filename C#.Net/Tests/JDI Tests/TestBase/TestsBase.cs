@@ -1,6 +1,7 @@
 ﻿using Epam.JDI.Core.Settings;
 using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
+using JDI_Tests.Epam_UIObjects.Pages;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Elements.Composite;
 using JDI_Web.Settings;
@@ -20,7 +21,6 @@ namespace JDI_Tests.Tests.Epam
             JDISettings.Logger.Info("Init test run");
             WinProcUtils.KillAllRunWebDrivers();
             _timer = new Timer();
-            
             WebSite.Init(typeof(EpamSite));
             EpamSite.HomePage.Open();
             JDISettings.Logger.Info("Run Tests");

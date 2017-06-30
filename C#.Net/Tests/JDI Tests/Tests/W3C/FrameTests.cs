@@ -54,9 +54,9 @@ namespace JDI_Tests.Tests.W3C
     public class TablePage : WebPage
     {
         [FindBy(Id = "customers")]
-        public Table<CompanyInfo> Companies = new Table<CompanyInfo> { RowFrom = 2 };
+        public EntityTable<CompanyInfo> Companies = new EntityTable<CompanyInfo> { RowFrom = 2 };
         [FindBy(Id = "customers")]
-        public Table<CompanyInfoShort> CompaniesShort = new Table<CompanyInfoShort> { RowFrom = 2 };
+        public EntityTable<CompanyInfoShort> CompaniesShort = new EntityTable<CompanyInfoShort> { RowFrom = 2 };
     }
 
     public class ExampleFrame : Section

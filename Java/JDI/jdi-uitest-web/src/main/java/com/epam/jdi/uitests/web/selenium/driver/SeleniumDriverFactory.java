@@ -239,7 +239,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
-            throw exception("Can't find driver with name '%s'", driverName);
+            if (drivers.count() == 0)
+                registerDriver(driverName);
+            else throw exception("Can't find driver with name '%s'", driverName);
         try {
             Lock lock = new ReentrantLock();
             lock.lock();

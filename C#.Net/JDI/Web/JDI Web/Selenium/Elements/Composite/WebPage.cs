@@ -20,13 +20,10 @@ namespace JDI_Web.Selenium.Elements.Composite
 
         public string Url
         {
-            get
-            {
-                return _url == null || _url.Contains("://") || !WebSettings.HasDomain
-                    ? _url
-                    : GetUrlFromUri(_url);
-            }
-            set { _url = value; }
+            get => _url == null || _url.Contains("://") || !WebSettings.HasDomain
+                ? _url
+                : GetUrlFromUri(_url);
+            set => _url = value;
         }
 
         public string Title;

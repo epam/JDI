@@ -17,6 +17,20 @@ namespace JDI_Commons
             return type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).ToList();
         }
 
+        public static object Value(this FieldInfo f, Object parent)
+        {
+            try
+            {
+                return f.GetValue(parent);
+            }
+            catch
+            {
+                if (parent == null)
+                    return null;
+                throw;
+            }
+        }
+
         public static bool ContainsType(this Type[] types, FieldInfo field)
         {
             return types.Contains(field.FieldType);

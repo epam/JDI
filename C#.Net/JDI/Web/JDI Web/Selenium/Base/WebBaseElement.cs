@@ -14,6 +14,7 @@ using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Logging.LogLevels;
 using static Epam.JDI.Core.Settings.JDISettings;
+using JDI_Web.Selenium.Elements.Base;
 
 namespace JDI_Web.Selenium.Base
 {
@@ -40,7 +41,12 @@ namespace JDI_Web.Selenium.Base
             }
         }
 
-        public static ActionScenrios ActionScenrios
+        public WebElement GetHighLightElement()
+        {
+            return Avatar.GetFirstValue<WebElement>();
+        }
+
+        public static ActionScenarios ActionScenrios
         {
             set { ActionInvoker.ActionScenrios = value; }
         }
@@ -98,8 +104,8 @@ namespace JDI_Web.Selenium.Base
 
         public IWebElement WebElement
         {
-            get { return _webElement ?? WebAvatar.WebElement; }
-            set { WebAvatar.WebElement = value; }
+            get => _webElement ?? WebAvatar.WebElement;
+            set => WebAvatar.WebElement = value;
         }
 
         public List<IWebElement> WebElements

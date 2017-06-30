@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 
 import static org.mytests.textsSite.site.TextSite.textsPage;
 
-
 /**
  * Created by Alexander_Petrovskiy on 5/23/2016.
  */

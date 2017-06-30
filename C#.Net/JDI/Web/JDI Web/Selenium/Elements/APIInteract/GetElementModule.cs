@@ -11,6 +11,8 @@ using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
+using static JDI_Web.Settings.WebSettings;
+using WebDriverFactory = JDI_Web.Selenium.DriverFactory.WebDriverFactory;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
 {
@@ -30,8 +32,8 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             Element = element;
             ByLocator = byLocator;
-            if (IsNullOrEmpty(DriverName))
-                DriverName = JDISettings.DriverFactory.CurrentDriverName;
+            if (IsNullOrEmpty(DriverName) && WebSettings.WebDriverFactory != null && !IsNullOrEmpty(WebSettings.WebDriverFactory.CurrentDriverName))
+                DriverName = WebSettings.WebDriverFactory.CurrentDriverName;
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
@@ -172,6 +174,5 @@ namespace JDI_Web.Selenium.Elements.APIInteract
 
         private Func<IWebElement, bool> GetSearchCriteria 
             => LocalElementSearchCriteria ?? WebSettings.WebDriverFactory.ElementSearchCriteria;
-        
     }
 }

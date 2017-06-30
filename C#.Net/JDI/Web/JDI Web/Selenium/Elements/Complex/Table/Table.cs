@@ -37,30 +37,30 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                     AllCells = result;
                 return result;
             }
-            set { _allCells = value; }
+            set => _allCells = value;
         }
 
         public Columns Columns
         {
-            get { return _columns; }
-            set { _columns.Update(value); }
+            get => _columns;
+            set => _columns.Update(value);
         }
 
         public Rows Rows
         {
-            get { return _rows; }
-            set { _rows.Update(value); }
+            get => _rows;
+            set => _rows.Update(value);
         }
 
         public bool Cache { set; get; }
 
-        public By RootBy { set { WebAvatar.ByLocator = value;  } }
+        public By RootBy { set => WebAvatar.ByLocator = value; }
         protected By CellLocatorBy { set; get; }
-        public By ColumnBy { set { Columns.LineTemplate = value; } }
-        public By RowBy { set { Rows.LineTemplate = value; } }
+        public By ColumnBy { set => Columns.LineTemplate = value; }
+        public By RowBy { set => Rows.LineTemplate = value; }
         public By FooterBy { get; set; } = By.XPath(".//tfoot/tr/th");
-        public By ColumnHeaderBy { set { Columns.HeadersLocator = value; } }
-        public By RowHeaderBy { set { Rows.HeadersLocator = value; } }
+        public By ColumnHeaderBy { set => Columns.HeadersLocator = value; }
+        public By RowHeaderBy { set => Rows.HeadersLocator = value; }
 
         public string[] ColumnHeaders
         {
@@ -80,8 +80,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             }
         }
 
-        public int ColumnFrom { set { Columns.StartIndex = value; } }
-        public int RowFrom { set { Rows.StartIndex = value; } }
+        public int ColumnFrom { set => Columns.StartIndex = value; }
+        public int RowFrom { set => Rows.StartIndex = value; }
 
         public TableHeaderTypes HeaderType
         {
@@ -125,7 +125,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                            "||").Print("\n");
         };
 
-        public Table Copy()
+    public Table Copy()
         {
             return Clone();
         }
@@ -275,8 +275,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<string> Footer
         {
-            get { return new List<string>(_footer); }
-            set { _footer = new List<string>(value); }
+            get => new List<string>(_footer);
+            set => _footer = new List<string>(value);
         }
 
         public Dictionary<string, SelectableElement> Header()
