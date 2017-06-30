@@ -3,14 +3,14 @@ from enum import Enum
 
 class LogLevels(Enum):
 
-    # OFF = -1,     # no logging
+    OFF = -1,     # no logging
     FATAL = 50,    # unexpected errors
     ERROR = 40,    # critical errors
     WARNING = 30,  # errors due to wrong params
     INFO = 20,     # actions info
     DEBUG = 10,    # debug info (not for prod)
-    # TRACE = 8,    # trace info (not for prod)
-    # ALL = 100     # all log messages
+    TRACE = 8,    # trace info (not for prod)
+    ALL = 100     # all log messages
 
     __priority = None
 
