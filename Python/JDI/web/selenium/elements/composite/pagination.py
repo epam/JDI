@@ -1,10 +1,10 @@
+from JDI.core.utils.decorators import scenario
 from JDI.web.selenium.elements.base.base_element import BaseElement
 from JDI.web.selenium.elements.base.clickable import Clickable
 from JDI.web.selenium.get_element_type import GetElementType
 
 
 class Pagination(BaseElement):
-
     next_locator = None
     previous_locator = None
     first_locator = None
@@ -22,31 +22,22 @@ class Pagination(BaseElement):
         self.first_locator = by_first_locator
         self.last_locator = by_last_locator
 
-    def next(self):
-        short_name = "next"
-        if self.next_locator is not None:
-            GetElementType(self.next_locator, self).get(Clickable).click()
-            return
+    def cant_choose_element_msg(self, action_name, short_name, action):
+        return "Can't choose {0} page for Element '{3}'. " \
+               "Please specify locator for this action using constructor " \
+               "or add Clickable Element on pageObject with name '{1}Link' " \
+               "or '{1}Button' or use locator template with parameter '{1}' or override {2}() in class" \
+            .format(action_name, short_name, action, self.name)
 
-        new_link = self.get_clickable(short_name)
-        if new_link is not None:
-            new_link.click()
-            return
-        raise Exception(self.cant_choose_element_msg("Next", short_name, "nextAction"))
+    def get_clickable(self, name):
+        fields = sorted((list(filter(lambda item: isinstance(item[1], Clickable), self.__class__.__dict__.items()))))
+        return list(filter(lambda field: name in field[0], fields))[0][1]
 
-    def previous(self):
-        short_name = "previous"
-        if self.next_locator is not None:
-            GetElementType(self.previous_locator, self).get(Clickable).click()
-            return
-
-        prev_link = self.get_clickable(short_name)
-        if prev_link is not None:
-            prev_link.click()
-            return
-        raise Exception(self.cant_choose_element_msg("Previous", short_name, "previousAction"))
-
+    @scenario(action_name="Choose First page")
     def first(self):
+        self.first_action()
+
+    def first_action(self):
         short_name = "first"
         if self.next_locator is not None:
             GetElementType(self.first_locator, self).get(Clickable).click()
@@ -58,7 +49,11 @@ class Pagination(BaseElement):
             return
         raise Exception(self.cant_choose_element_msg("First", short_name, "firstAction"))
 
+    @scenario(action_name="Choose Last page")
     def last(self):
+        self.last_action()
+
+    def last_action(self):
         short_name = "last"
         if self.last_locator is not None:
             GetElementType(self.last_locator, self).get(Clickable).click()
@@ -70,7 +65,27 @@ class Pagination(BaseElement):
             return
         raise Exception(self.cant_choose_element_msg("Last", short_name, "lastAction"))
 
-    def page(self, index):
+    @scenario(action_name="Choose Next page")
+    def next(self):
+        self.next_action()
+
+    def next_action(self):
+        short_name = "next"
+        if self.next_locator is not None:
+            GetElementType(self.next_locator, self).get(Clickable).click()
+            return
+
+        new_link = self.get_clickable(short_name)
+        if new_link is not None:
+            new_link.click()
+            return
+        raise Exception(self.cant_choose_element_msg("Next", short_name, "nextAction"))
+
+    @scenario(action_name="Choose '%s' page", values_list="value_from_function")
+    def select_page(self, index):
+        self.select_page_action(index)
+
+    def select_page_action(self, index):
         short_name = "page"
         if self.get_locator() is not None and "%s" in self.get_locator():
             GetElementType(self.get_locator() % index, self).get(Clickable).click()
@@ -82,15 +97,18 @@ class Pagination(BaseElement):
             return
         raise Exception(self.cant_choose_element_msg(index, short_name, "lastAction"))
 
-    def cant_choose_element_msg(self, action_name, short_name, action):
-        return "Can't choose {0} page for Element '{3}'. " \
-               "Please specify locator for this action using constructor " \
-               "or add Clickable Element on pageObject with name '{1}Link' " \
-               "or '{1}Button' or use locator template with parameter '{1}' or override {2}() in class"\
-            .format(action_name, short_name, action, self.name)
+    @scenario(action_name="Choose Previous page")
+    def previous(self):
+        self.previous_action()
 
-    def get_clickable(self, name):
-        fields = sorted((list(filter(lambda item: isinstance(item[1], Clickable),  self.__class__.__dict__.items()))))
-        return list(filter(lambda field: name in field[0], fields))[0][1]
+    def previous_action(self):
+        short_name = "previous"
+        if self.next_locator is not None:
+            GetElementType(self.previous_locator, self).get(Clickable).click()
+            return
 
-
+        prev_link = self.get_clickable(short_name)
+        if prev_link is not None:
+            prev_link.click()
+            return
+        raise Exception(self.cant_choose_element_msg("Previous", short_name, "previousAction"))
