@@ -17,6 +17,8 @@ namespace Epam.JDI.Core.Interfaces.Settings
 
         string CurrentDriverName { get; set; }
 
+        T GetDriver(string name);
+
         void Highlight(IElement element);
 
         void Highlight(IElement element, HighlightSettings highlightSettings);
