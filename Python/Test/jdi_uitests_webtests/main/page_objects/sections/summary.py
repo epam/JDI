@@ -17,13 +17,13 @@ class RadioButtonsSummary(RadioButtons):
         return list(map(lambda el: el.find_element_by_tag_name("input"),
                         super(RadioButtonsSummary, self).get_web_elements()))
 
-    def is_selected(self, text):
+    def is_selected_action(self, el):
         actual_text = list(filter(lambda x: x.is_selected(), self.get_input_web_elements()))[0].find_element_by_xpath(
             "..").text
-        if isinstance(text, str):
-            return actual_text == text
-        if isinstance(text, Enum):
-            return actual_text == text.value
+        if isinstance(el, str):
+            return actual_text == el
+        if isinstance(el, Enum):
+            return actual_text == el.value
 
     def get_selected_index(self):
         try:
@@ -43,13 +43,13 @@ class SelectorSummary(Selector):
         return list(map(lambda el: el.find_element_by_tag_name("input"),
                         super(SelectorSummary, self).get_web_elements()))
 
-    def is_selected(self, text):
+    def is_selected_action(self, el):
         actual_text = list(filter(lambda x: x.is_selected(), self.get_input_web_elements()))[0].find_element_by_xpath(
             "..").text
-        if isinstance(text, str):
-            return actual_text == text
-        if isinstance(text, Enum):
-            return actual_text == text.value
+        if isinstance(el, str):
+            return actual_text == el
+        if isinstance(el, Enum):
+            return actual_text == el.value
 
     def get_selected_index(self):
         try:

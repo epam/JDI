@@ -8,4 +8,7 @@ class Clickable(Element):
 
     @scenario(action_name="Click on Element for")
     def click(self):
-        return self.get_element().click()
+        self.click_action()
+
+    def click_action(self):
+        self.get_element().click()

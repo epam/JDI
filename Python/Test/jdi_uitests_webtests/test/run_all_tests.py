@@ -2,7 +2,7 @@ import unittest
 
 from Test.jdi_uitests_webtests.test.common.button_tests import ButtonTests
 from Test.jdi_uitests_webtests.test.common.check_box_tests import CheckBoxText
-from Test.jdi_uitests_webtests.test.common.image_tests import ImageTextx
+from Test.jdi_uitests_webtests.test.common.image_tests import ImageTests
 from Test.jdi_uitests_webtests.test.common.label_tests import LabelTests
 from Test.jdi_uitests_webtests.test.common.link_tests import LinkTests
 from Test.jdi_uitests_webtests.test.common.r_file_input_tests import RFileInputTests

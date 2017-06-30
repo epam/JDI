@@ -10,7 +10,7 @@ class RFileInput(FileInput):
     def clear(self):
         pass
 
-    def input(self, text):
+    def input_action(self,text):
         self.get_web_element().click()
         jdi_win32.paste_text(text)
 

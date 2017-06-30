@@ -12,7 +12,7 @@ from Test.jdi_uitests_webtests.main.page_objects.sections.summary import Summary
 
 
 class CheckBoxMetalColor(CheckBox):
-    def is_checked(self):
+    def is_check_action(self):
         driver = JDISettings.get_driver_factory().get_driver()
         return False if driver.find_element_by_xpath(
             "//*[@id='elements-checklist']//*[*[text()='Water']]/input").get_attribute("checked") is None else True
@@ -26,7 +26,6 @@ class CheckListMetalColor(CheckList):
 class ComboBoxMetalColor(ComboBox):
     def get_text(self):
         return Text(By.css(".metals .filter-option")).get_text()
-
 
 class MetalColorPage(WebPage):
     def __init__(self, url, title):

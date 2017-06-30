@@ -4,7 +4,7 @@ from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISit
 from Test.jdi_uitests_webtests.test.init_tests import InitTests
 
 
-class ImageTextx(InitTests):
+class ImageTests(InitTests):
     ALT = "ALT"
     SRC = "https://jdi-framework.github.io/tests/images/Logo_Epam_Color.svg"
 
