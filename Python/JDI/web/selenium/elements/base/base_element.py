@@ -21,6 +21,9 @@ class BaseElement(object):
     def get_name(self):
         return self.name if self.name is not None else self._get_type_name()
 
+    def get_parent(self):
+        return self.parent
+
     def init(self, parent, avatar):
         from JDI.web.selenium.elements.cascade_init import WebCascadeInit
         WebCascadeInit.init_elements(self)
@@ -34,4 +37,7 @@ class BaseElement(object):
 
     def set_parent(self, parent):
         self.parent = parent
+
+    def get_locator(self):
+        return self.avatar.by_locator
 

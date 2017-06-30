@@ -12,6 +12,7 @@ class Preconditions(Enum):
     METALS_AND_COLORS_PAGE = "/page2.htm",
     SUPPORT_PAGE = "/page3.htm",
     DATES_PAGE = "/page4.htm"
+    SIMPLE_TABLE_PAGE = "/page6.htm"
 
     def is_in_state(self):
         str_value = self.value[0] if isinstance(self.value, tuple) else self.value
