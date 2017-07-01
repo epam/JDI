@@ -27,7 +27,6 @@ public class CellsSubElementsTests extends DynamicTableTestBase {
     @Test
     public void clickHiddenCellLinkTest() {
         dynamic().getCellLink(2, 8).click();
-
         new Check("Actual Log Info").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} :See More link clicked");
     }
 
