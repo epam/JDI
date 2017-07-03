@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */
-@AllArgsConstructor
-@NoArgsConstructor
+/*@AllArgsConstructor
+@NoArgsConstructor*/
 public class Attendee extends DataClass {
     public JobSearchFilter filter = new JobSearchFilter();
 
@@ -23,5 +23,8 @@ public class Attendee extends DataClass {
 
     public Attendee(String name) {
         this.name = name;
+    }
+
+    public Attendee(){
     }
 }
