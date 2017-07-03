@@ -15,6 +15,8 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
+import static com.epam.jdi.uitests.testing.unittests.enums.Nature.*;
+import static com.epam.jdi.uitests.testing.unittests.enums.Nature.WATER;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.actionsLog;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -47,6 +49,10 @@ public class ChecklistTests extends InitTests {
                 el -> el.getAttribute("checked") != null) != null);
     }
 
+    private void checkAllUnchecked() {
+        assertTrue(first(getDriver().findElements(By.cssSelector("#elements-checklist input")),
+                el -> el.getAttribute("checked") == null) != null);
+    }
     @Test
     public void selectStringTest() {
         nature().select("Fire");
@@ -61,7 +67,7 @@ public class ChecklistTests extends InitTests {
 
     @Test
     public void selectEnumTest() {
-        nature().select(Nature.FIRE);
+        nature().select(FIRE);
         checkAction("Fire: condition changed to true");
     }
 
@@ -69,10 +75,9 @@ public class ChecklistTests extends InitTests {
     public void select2StringTest() {
         nature().select("Water", "Fire");
         checkAction("Fire: condition changed to true");
-        assertContains(() -> (String) actionsLog.getTextList().get(1), "Water: condition changed to true");
+        assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
 
     }
-private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void select2IndexTest() {
@@ -83,7 +88,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void select2EnumTest() {
-        nature().select(Nature.WATER, Nature.FIRE);
+        nature().select(WATER, FIRE);
         checkAction("Fire: condition changed to true");
         assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
@@ -102,7 +107,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void checkEnumTest() {
-        nature().check(Nature.FIRE);
+        nature().check(FIRE);
         checkAction("Fire: condition changed to true");
     }
 
@@ -123,7 +128,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void check2EnumTest() {
-        nature().check(Nature.WATER, Nature.FIRE);
+        nature().check(WATER, FIRE);
         checkAction("Fire: condition changed to true");
         assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
@@ -155,7 +160,7 @@ private List<String> ls() { return new ArrayList<>(); }
         nature().checkAll();
         checkAllChecked();
         nature().clear();
-        checkAllChecked(); // isDisplayed not defined
+        checkAllUnchecked(); // isDisplayed not defined
     }
 
     @Test
@@ -163,7 +168,7 @@ private List<String> ls() { return new ArrayList<>(); }
         nature().checkAll();
         checkAllChecked();
         nature().uncheckAll();
-        checkAllChecked(); // isDisplayed not defined
+        checkAllUnchecked(); // isDisplayed not defined
     }
 
     @Test
@@ -197,22 +202,22 @@ private List<String> ls() { return new ArrayList<>(); }
         areEquals(nature().getName(), "Nature");
     }
 
-    //@Test ISSUE!!! areSelected() method does not work for checkboxes "Nature" from MetalAndColors
-    //@Test
+    @Test
     public void areSelectedTest() {
-        listEquals(nature().areSelected(), new ArrayList<String>());
+        nature().select(WATER, FIRE);
+        listEquals(nature().areSelected(), asList(WATER.value, FIRE.value));
     }
 
     //@Test ISSUE!!! areDeselected() method does not work for checkboxes "Nature" from MetalAndColors
     //Always return all deselected
     //@Test
     public void areDeselectedTest() {
-        listEquals(nature().areDeselected(), natureOptions);// isDisplayed not defined
+        nature().check(WATER, FIRE);
+        listEquals(nature().areDeselected(), asList(EARTH.value, WIND.value));// isDisplayed not defined
     }
 
     @Test
     public void areSelectedTestNew() {
-
         natureExtended().selectAll();   //select only unchecked
         natureExtended().deselectAll(); //deselect only checked
         nature().selectAll();           //it will just click all checkboxes and select them in given case

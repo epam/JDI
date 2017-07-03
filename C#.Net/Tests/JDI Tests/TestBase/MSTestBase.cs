@@ -19,11 +19,7 @@ namespace JDI_Tests.Tests.Epam
             WebSettings.InitMsTestDefault();
             JDISettings.Logger.Info("Init test run");
             WinProcUtils.KillAllRunWebDrivers();
-
-            if (!JDISettings.DriverFactory.HasDrivers())
-                WebSettings.UseDriver(DriverTypes.Chrome);
             _timer = new Timer();
-            
             WebSite.Init(typeof(EpamSite));
             EpamSite.HomePage.Open();
             JDISettings.Logger.Info("Run Tests");

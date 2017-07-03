@@ -12,15 +12,12 @@
     </parent>
 
     <artifactId>jdi-uitest-tutorialtests</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <name>EPAM JDI UI Testing Tutorial Tests</name>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version>1.0.70</version>
         <selenium.version>3.0.1</selenium.version>
         <allure.version>1.4.5</allure.version>
-        <aspectj.version>1.8.9</aspectj.version>
+        <aspectj.version>1.8.10</aspectj.version>
     </properties>
 
     <dependencies>
@@ -32,7 +29,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>${version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <!--Allure-->
         <dependency>
@@ -40,7 +37,11 @@
             <artifactId>allure-testng-adaptor</artifactId>
             <version>${allure.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -72,7 +73,7 @@
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -javaagent:"${settings.localRepository}\org\aspectj\aspectjweaver\${aspectj.version}\aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <properties>
                         <property>

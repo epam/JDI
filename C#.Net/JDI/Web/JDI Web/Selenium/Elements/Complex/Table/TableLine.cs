@@ -18,7 +18,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public int Count
         {
-            get { return GetCount(false); }
+            get => GetCount(false);
             set { if (Table.Cache)
                     _count = value; }
         }

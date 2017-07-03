@@ -11,14 +11,14 @@ namespace JDI_Web.Selenium.Elements.WebActions
     public class ActionInvoker
     {
         private readonly WebBaseElement _element;
-        public static ActionScenrios ActionScenrios = new ActionScenrios();
+        public static ActionScenarios ActionScenrios = new ActionScenarios();
 
         public ActionInvoker(WebBaseElement element)
         {
             JDISettings.NewTest();
             _element = element;
         }
-
+        
         public TResult DoJActionResult<TResult>(string actionName, Func<WebBaseElement, TResult> action,
             Func<TResult, string> logResult = null, LogLevels level = LogLevels.Info)
         {

@@ -11,6 +11,8 @@ using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
+using static JDI_Web.Settings.WebSettings;
+using WebDriverFactory = JDI_Web.Selenium.DriverFactory.WebDriverFactory;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
 {
@@ -30,8 +32,8 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             Element = element;
             ByLocator = byLocator;
-            if (IsNullOrEmpty(DriverName))
-                DriverName = JDISettings.DriverFactory.CurrentDriverName;
+            if (IsNullOrEmpty(DriverName) && WebSettings.WebDriverFactory != null && !IsNullOrEmpty(WebSettings.WebDriverFactory.CurrentDriverName))
+                DriverName = WebSettings.WebDriverFactory.CurrentDriverName;
         }
 
         public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
@@ -68,7 +70,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug("OneElement found");
                 return element;
             }
-            set { _webElement = value; }
+            set => _webElement = value;
         }
 
         public List<IWebElement> WebElements
@@ -80,7 +82,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug($"Found {elements.Count} elements");
                 return elements;
             }
-            set { _webElements = value; }
+            set => _webElements = value;
         }
         public T FindImmediately<T>(Func<T> func, T ifError)
         {
@@ -133,7 +135,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         {
             WebBaseElement el;
             if (element == null || (el = element as WebBaseElement) == null 
-                || (el.Parent == null && el.FrameLocator == null))
+                || el.Parent == null && el.FrameLocator == null)
                 return WebDriver.SwitchTo().DefaultContent();
             var elem = element as WebElement;
             if (elem?.WebAvatar._webElement != null)
@@ -172,6 +174,5 @@ namespace JDI_Web.Selenium.Elements.APIInteract
 
         private Func<IWebElement, bool> GetSearchCriteria 
             => LocalElementSearchCriteria ?? WebSettings.WebDriverFactory.ElementSearchCriteria;
-        
     }
 }

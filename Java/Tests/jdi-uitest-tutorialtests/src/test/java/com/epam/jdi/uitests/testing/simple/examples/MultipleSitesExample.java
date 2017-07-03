@@ -29,6 +29,6 @@ public class MultipleSitesExample {
             "https://ya.ru/");
         GoogleSite.homePage.open();
         Assert.contains(GoogleSite.homePage.getDriver().getCurrentUrl(),
-                "https://www.google.ru/");
+                "https://www.google.");
     }
 }

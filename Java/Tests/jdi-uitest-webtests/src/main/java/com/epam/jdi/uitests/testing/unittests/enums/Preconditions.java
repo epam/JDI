@@ -10,6 +10,7 @@ import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.alwaysM
 import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.dates;
+import static com.epam.jdi.uitests.web.selenium.preconditions.WebPreconditions.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 
 /**
@@ -18,8 +19,8 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 public enum Preconditions implements WebPreconditions {
     HOME_PAGE("index.htm"),
     CONTACT_PAGE("page1.htm"),
-    CONTACT_PAGE_FILLED(() -> WebPreconditions.checkUrl("page1.htm"), () -> {
-        WebPreconditions.openUri("page1.htm");
+    CONTACT_PAGE_FILLED(() -> checkUrl("page1.htm"), () -> {
+        openUri("page1.htm");
         contactFormPage.name.newInput(DEFAULT.name);
         contactFormPage.lastName.newInput(DEFAULT.lastName);
         contactFormPage.description.newInput(DEFAULT.description);
@@ -31,9 +32,9 @@ public enum Preconditions implements WebPreconditions {
     DYNAMIC_TABLE_PAGE("page5.htm"),
     SIMPLE_PAGE("page6.htm"),
     DATES_PAGE_FILLED(
-        () -> WebPreconditions.checkUrl("page4.htm"),
+        () -> checkUrl("page4.htm"),
         () -> {
-        WebPreconditions.openUri("page4.htm");
+        openUri("page4.htm");
         WebElement datePicker = getDriver().findElement(dates.datepicker.getLocator());
         datePicker.clear();
         datePicker.sendKeys("09/09/1945");
@@ -49,7 +50,7 @@ public enum Preconditions implements WebPreconditions {
     }
 
     Preconditions(String uri) {
-        this(() -> WebPreconditions.checkUrl(uri), () -> WebPreconditions.openUri(uri));
+        this(() -> checkUrl(uri), () -> openUri(uri));
     }
 
     Preconditions(String uri, boolean isStatic) {

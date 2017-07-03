@@ -12,7 +12,24 @@ namespace JDI_Core.Interfaces.Settings
             throw new NotImplementedException();
         }
 
+
+
         public void SetRunType(string runType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetDriverPath(string driverPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCurrentDriver(string driverName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetDriverPath()
         {
             throw new NotImplementedException();
         }

@@ -7,12 +7,11 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>jdi-uitest-cucumbertests</artifactId>
-    <version>1.0.66</version>
     <name>EPAM JDI UI Testing Unit tests</name>
     <packaging>jar</packaging>
 
@@ -26,8 +25,6 @@
     </developers>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <fw.version>1.0.2</fw.version>
         <selenium.version>3.0.1</selenium.version>
         <allure.version>1.4.5</allure.version>
         <java.version>1.7</java.version>
@@ -41,7 +38,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-cucumber</artifactId>
-            <version>1.0.66</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>

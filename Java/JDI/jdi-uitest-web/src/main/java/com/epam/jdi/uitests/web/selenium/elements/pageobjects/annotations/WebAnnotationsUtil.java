@@ -37,13 +37,10 @@ import static java.lang.String.format;
  */
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
-    private static void initDomain(Class<?> parentClass) {
-
-    }
     public static String getUrlFromUri(String uri, Class<?> parentClass) {
-        String siteDomain = domain;
         if (parentClass.isAnnotationPresent(JSite.class))
-            siteDomain = parentClass.getAnnotation(JSite.class).domain();
+            domain = parentClass.getAnnotation(JSite.class).domain();
+        String siteDomain = domain;
         if (siteDomain == null)
             siteDomain = "";
         return siteDomain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");

@@ -5,19 +5,18 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-matchers</artifactId>
-    <version>1.0.66</version>
+    <version>1.0.70</version>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>6.8.1</testng.version>
         <junit.version>4.11</junit.version>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
     </properties>
 
     <dependencies>
@@ -34,7 +33,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-commons</artifactId>
-            <version>${version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -12,7 +12,6 @@
     </parent>
 
     <artifactId>jdi-uitest-webtests</artifactId>
-    <version>1.0.70</version>
     <name>EPAM JDI UI Testing Unit tests</name>
     <packaging>jar</packaging>
 
@@ -27,8 +26,6 @@
     </developers>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <fw.version>1.0.2</fw.version>
         <selenium.version>3.0.1</selenium.version>
         <allure.version>1.4.5</allure.version>
     </properties>
@@ -42,7 +39,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>1.0.70</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>

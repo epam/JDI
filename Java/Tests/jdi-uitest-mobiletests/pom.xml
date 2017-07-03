@@ -5,14 +5,12 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.66</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version>1.0.66</version>
         <selenium.version>3.0.1</selenium.version>
         <allure.version>1.4.5</allure.version>
     </properties>
@@ -32,7 +30,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-mobile</artifactId>
-            <version>1.0.66</version>
+            <version>${parent.version}</version>
         </dependency>
     </dependencies>
 </project>

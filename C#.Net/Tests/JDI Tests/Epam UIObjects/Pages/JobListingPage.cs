@@ -11,7 +11,7 @@ namespace JDI_Tests.Epam_UIObjects.Pages
     public class JobListingPage : WebPage
     {
         [FindBy(ClassName = "search-result-list")]
-        public Table<Job, JobColumn> JobsList = new Table<Job, JobColumn>
+        public EntityTable<Job, JobColumn> JobsList = new EntityTable<Job, JobColumn>
         {
             RowBy = By.XPath(".//li[{0}]//div"),
             ColumnBy = By.XPath(".//li//div[{0}]"),

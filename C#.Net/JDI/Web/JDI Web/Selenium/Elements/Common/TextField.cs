@@ -9,7 +9,7 @@ namespace JDI_Web.Selenium.Elements.Common
     {
         public TextField() : this(null) { }
         public TextField(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
-            : base(byLocator, webElement, element:element) { }
+            : base(byLocator, webElement, element) { }
 
         protected Func<WebBaseElement, string> GetTextFunc =
             el => el.WebAvatar.FindImmediately(() => el.WebElement.GetAttribute("value"), "");
@@ -34,8 +34,8 @@ namespace JDI_Web.Selenium.Elements.Common
 
         public new string Value
         {
-            get { return base.Value; }
-            set { Actions.SetValue(value, SetValueAction); }
+            get => base.Value;
+            set => Actions.SetValue(value, SetValueAction);
         }
 
         public void SendKeys(string text)
