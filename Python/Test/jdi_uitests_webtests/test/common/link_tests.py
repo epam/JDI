@@ -9,6 +9,7 @@ class LinkTests(InitTests):
     link = EpamJDISite.footer.about_link
 
     def setUp(self):
+        super(LinkTests, self).setUp()
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_click(self):

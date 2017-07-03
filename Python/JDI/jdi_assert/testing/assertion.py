@@ -1,4 +1,8 @@
+import time
 from nose.tools import assert_true
+
+from JDI.core.settings.jdi_settings import log
+from JDI.web.selenium.settings.WebSettings import WebSettings
 
 
 class Assert:
@@ -17,6 +21,24 @@ class Assert:
     def assert_equal(actual_text, expected_text):
         assert_true(actual_text == expected_text,
                     "Text '{0}' does not equal '{1}'".format(expected_text, actual_text))
+
+    @staticmethod
+    def wait_assert_equal(function_actual_text, expected_text, seconds=5):
+        actual_text = ""
+        t = 0
+        timeout = 0.5
+        while t < seconds/timeout:
+            actual_text = function_actual_text()
+            if actual_text == expected_text:
+                log.to_do_info_logging = True
+                return
+            else:
+                log.to_do_info_logging = False
+                time.sleep(timeout)
+                t += timeout
+        log.to_do_info_logging = True
+        WebSettings.logger.error("Text '{0}' does not equal '{1}'".format(expected_text, actual_text))
+        raise AssertionError("Text '{0}' does not equal '{1}'".format(expected_text, actual_text))
 
     @staticmethod
     def is_false(condition):

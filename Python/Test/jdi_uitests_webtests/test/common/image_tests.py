@@ -11,6 +11,7 @@ class ImageTests(InitTests):
     clickable_item = EpamJDISite.home_page.logo_image
 
     def setUp(self):
+        super(ImageTests, self).setUp()
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_click(self):

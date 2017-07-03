@@ -18,6 +18,7 @@ class CheckListTests(InitTests):
     check_list = EpamJDISite.metals_colors_page.nature_check_list
 
     def setUp(self):
+        super(CheckListTests, self).setUp()
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     @data("Fire", 4, Nature.FIRE)

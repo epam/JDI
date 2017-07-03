@@ -12,6 +12,7 @@ class FormTests(InitTests):
     contact = Contact("Ivan", "Ivanov", "Smart Man")
 
     def setUp(self):
+        super(FormTests, self).setUp()
         Preconditions.CONTACT_PAGE.is_in_state()
 
     def test_fill(self):

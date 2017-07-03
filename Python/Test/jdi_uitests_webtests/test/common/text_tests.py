@@ -17,6 +17,7 @@ class TextTests(InitTests):
     contains = "ENIM AD MINIM VENIAM, QUIS NOSTRUD"
 
     def setUp(self):
+        super(TextTests, self).setUp()
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_get_text(self):

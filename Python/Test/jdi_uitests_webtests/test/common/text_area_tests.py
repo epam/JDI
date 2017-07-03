@@ -9,6 +9,7 @@ class TextAreaTests(InitTests):
     text_item = EpamJDISite.contact_form_page.description
 
     def setUp(self):
+        super(TextAreaTests, self).setUp()
         Preconditions.CONTACT_PAGE.is_in_state()
 
     def test_input_line(self):

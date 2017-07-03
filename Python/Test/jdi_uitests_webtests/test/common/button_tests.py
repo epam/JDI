@@ -9,6 +9,7 @@ class ButtonTests(InitTests):
     button = EpamJDISite.metals_colors_page.calculate_button
 
     def setUp(self):
+        super(ButtonTests, self).setUp()
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def test_click(self):

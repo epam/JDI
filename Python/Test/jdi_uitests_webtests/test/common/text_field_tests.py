@@ -12,6 +12,7 @@ class TextFieldTests(InitTests):
     initial_text = "init"
 
     def setUp(self):
+        super(TextFieldTests, self).setUp()
         Preconditions.CONTACT_PAGE.is_in_state()
         self.text_field.input(self.initial_text)
 

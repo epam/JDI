@@ -5,6 +5,7 @@ from Test.jdi_uitests_webtests.test.init_tests import InitTests
 
 class SearchTests(InitTests):
     def setUp(self):
+        super(SearchTests, self).setUp()
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_fill(self):

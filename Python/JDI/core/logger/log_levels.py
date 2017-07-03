@@ -1,7 +1,10 @@
 from enum import Enum
 
 
+
+
 class LogLevels(Enum):
+
 
     OFF = -1,     # no logging
     FATAL = 50,    # unexpected errors
