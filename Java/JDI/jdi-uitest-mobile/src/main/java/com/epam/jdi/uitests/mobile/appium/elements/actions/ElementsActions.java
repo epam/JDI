@@ -35,8 +35,6 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static java.lang.String.format;
 import static java.lang.String.join;
 
-;
-
 /**
  * Created by Roman_Iovlev on 9/3/2015.
  */

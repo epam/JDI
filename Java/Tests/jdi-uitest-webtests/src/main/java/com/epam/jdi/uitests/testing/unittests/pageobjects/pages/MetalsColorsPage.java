@@ -82,7 +82,6 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(xpath = "//*[@id='elements-checklist']//*[label[text()='%s']]/label")
     public ICheckList<Nature> natureTemplate;
 
-
     @FindBy(xpath = "//*[@id='elements-checklist']//*[text()='Water']")
     public CheckBox cbWater = new CheckBox() {
         @Override
