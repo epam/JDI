@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.web.selenium.elements.base.J;
 import com.epam.web.matcher.junit.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class PageJobDescription {
     List<J> cityList = $$("[id*='applicantCity'] li");
 
     public void submitForm(Attendee attendee) {
+
         nameTextField.sendKeys(attendee.name);
         lastNameTextField.sendKeys(attendee.lastName);
         emailField.sendKeys(attendee.email);
