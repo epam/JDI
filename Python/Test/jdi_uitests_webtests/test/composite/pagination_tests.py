@@ -6,7 +6,7 @@ from Test.jdi_uitests_webtests.test.init_tests import InitTests
 
 
 def check_page_opened(num):
-    Assert.is_true(JDISettings.get_driver_factory().get_driver().current_url.endswith("/page{0}.htm".format(num)))
+    Assert.assert_true(JDISettings.get_driver_factory().get_driver().current_url.endswith("/page{0}.htm".format(num)))
 
 
 class PaginationTests(InitTests):

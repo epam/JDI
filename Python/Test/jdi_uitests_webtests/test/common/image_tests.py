@@ -26,7 +26,7 @@ class ImageTests(InitTests):
         Assert.check_text(self.clickable_item.get_element().get_attribute(attribute_name), value)
 
     def test_get_source(self):
-        Assert.check_text(self.clickable_item.get_source(), self.SRC)
+        Assert.assert_equal(self.clickable_item.get_source(), self.SRC)
 
     def test_get_tip(self):
-        Assert.check_text(self.clickable_item.get_alt(), self.ALT)
+        Assert.assert_equal(self.clickable_item.get_alt(), self.ALT)

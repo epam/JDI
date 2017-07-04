@@ -47,7 +47,7 @@ def scenario(action_name, values_list={}):
                         time2.sleep(0.5)
                         t += 1
                         ex = exception
-                    finally: 
+                    finally:
                         if done:
                             action_logging_stop(action_name, values_list, el)
             finally:

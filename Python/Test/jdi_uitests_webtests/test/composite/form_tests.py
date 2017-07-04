@@ -37,7 +37,7 @@ class FormTests(InitTests):
 
     def test_verify(self):
         self.form.fill(self.contact)
-        Assert.is_true(self.form.verify(self.contact))
+        Assert.assert_true(self.form.verify(self.contact))
 
     def test_check(self):
         self.form.fill(self.contact)

@@ -15,3 +15,4 @@ class FormTwoButtonsTests(InitTests):
 
     def test_submit_spec_button_string(self):
         self.form.submit_form(self.contact, "calculate")
+        Assert.wait_assert_equal(lambda: EpamJDISite.contact_form_page.result.get_text(), "Summary: 3")

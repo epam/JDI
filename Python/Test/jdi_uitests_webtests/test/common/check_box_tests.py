@@ -49,9 +49,9 @@ class CheckBoxText(InitTests):
         CommonActionsData.check_action("Water: condition changed to false")
 
     def test_is_check(self):
-        Assert.is_false(self.check_box.is_checked())
+        Assert.assert_false(self.check_box.is_checked())
         self.check_box.click()
-        Assert.is_true(self.check_box.is_checked())
+        Assert.assert_true(self.check_box.is_checked())
 
     def test_multi_uncheck(self):
         self.check_box.click()

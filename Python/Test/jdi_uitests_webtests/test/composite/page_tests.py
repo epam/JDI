@@ -43,16 +43,16 @@ class PageTests(unittest.TestCase):
     def test_add_cookie(self):
         cookie = {'name': 'key', 'value': 'value'}
         self.get_driver().delete_all_cookies()
-        Assert.is_true(not len(self.get_driver().get_cookies()))
+        Assert.assert_true(not len(self.get_driver().get_cookies()))
         EpamJDISite.contact_form_page.add_cookie(cookie)
         Assert.assert_equal(self.get_driver().get_cookie(cookie["name"])["value"], cookie["value"])
 
     def test_clear_cache(self):
         cookie = {'name': 'key', 'value': 'value'}
         EpamJDISite.contact_form_page.add_cookie(cookie)
-        Assert.is_false(not len(self.get_driver().get_cookies()))
+        Assert.assert_false(not len(self.get_driver().get_cookies()))
         EpamJDISite.contact_form_page.clear_cache()
-        Assert.is_true(not len(self.get_driver().get_cookies()))
+        Assert.assert_true(not len(self.get_driver().get_cookies()))
 
     def tearDown(self):
         WebSettings.quit_browser()

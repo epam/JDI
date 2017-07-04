@@ -15,7 +15,7 @@ class Form(Section):
 
     def check(self, entity):
         res = self.verify(entity)
-        Assert.is_true(res, "Check form failed")
+        Assert.assert_true(res)
 
     def fill(self, entity):
         entity_map = Form.get_map_from_object(entity)

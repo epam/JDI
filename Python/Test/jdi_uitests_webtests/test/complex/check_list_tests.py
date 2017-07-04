@@ -122,13 +122,13 @@ class CheckListTests(InitTests):
         driver = JDISettings.get_driver_factory().get_driver()
         els = driver.find_elements(By.CSS_SELECTOR, value="#elements-checklist input")
         for el in els:
-            Assert.is_true(el.get_attribute("checked") == "true")
+            Assert.assert_true(el.get_attribute("checked") == "true")
 
     def check_all_unchecked(self):
         driver = JDISettings.get_driver_factory().get_driver()
         els = driver.find_elements(By.CSS_SELECTOR, value="#elements-checklist input")
         for el in els:
-            Assert.is_true(el.get_attribute("checked") in ["false", None])
+            Assert.assert_true(el.get_attribute("checked") in ["false", None])
 
 
 if __name__ == "__main__":
