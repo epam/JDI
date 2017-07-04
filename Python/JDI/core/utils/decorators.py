@@ -37,16 +37,18 @@ def scenario(action_name, values_list={}):
                         ex = None
                         done = True
                         return func(*el)
-                    except:
+                    except Exception as exception:
                         done = False
                         time2.sleep(0.5)
                         t += 1
+                        ex = exception
                     finally:
                         if done:
                             action_logging_stop(action_name)
             finally:
                 if ex is not None and log.to_do_info_logging:
                     WebSettings.logger.error(ex)
+                    raise ex
 
         return wrapper
 

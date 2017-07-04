@@ -37,15 +37,17 @@ class Selector(BaseSelector):
 
     @scenario(action_name="Get Selected element index")
     def get_selected_index(self):
-        return self.get_selected_index_action()
-
-    def get_selected_index_action(self):
-        index = None
         try:
-            list(map(lambda x: x.is_selected(), self.get_web_elements())).index(True)
+            index = self.get_selected_index_action()
+            if index is None:
+                raise ValueError("No elements selected. Override getSelectedAction or place locator to <select> tag")
+            else:
+                return index
         except ValueError:
             raise ValueError("No elements selected. Override getSelectedAction or place locator to <select> tag")
-        return index
+
+    def get_selected_index_action(self):
+        return list(map(lambda x: x.is_selected(), self.get_web_elements())).index(True)
 
     def get_values(self):
         return self.get_options()

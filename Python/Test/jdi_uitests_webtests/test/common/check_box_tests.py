@@ -16,7 +16,7 @@ class CheckBoxText(InitTests):
     check_box = EpamJDISite.metals_colors_page.cb_water
 
     def setUp(self):
-        super(CheckBoxText, self).setUp()
+        super(CheckBoxText, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def tearDown(self):

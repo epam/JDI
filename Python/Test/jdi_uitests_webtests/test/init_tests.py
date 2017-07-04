@@ -17,8 +17,8 @@ class InitTests(unittest.TestCase):
         EpamJDISite.login_page.submit(User.default())
 
     @classmethod
-    def setUp(self):
-        WebSettings.logger.info("\nRun Test '%s'" % self.__name__)
+    def setUp(self, name=""):
+        WebSettings.logger.info("\nRun Test '%s'" % name)
 
     @classmethod
     def tearDownClass(cls):

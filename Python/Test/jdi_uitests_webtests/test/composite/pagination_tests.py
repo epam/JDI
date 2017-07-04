@@ -13,7 +13,7 @@ class PaginationTests(InitTests):
     pagination = EpamJDISite.simple_table_page.pagination
 
     def setUp(self):
-        super(PaginationTests, self).setUp()
+        super(PaginationTests, self).setUp(self.id().split(".")[-1])
         Preconditions.SIMPLE_TABLE_PAGE.is_in_state()
 
     def test_next(self):

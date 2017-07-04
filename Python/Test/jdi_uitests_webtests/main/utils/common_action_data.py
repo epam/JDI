@@ -54,6 +54,9 @@ class CommonActionsData:
         except Exception as ex:
             Assert.assert_contains(str(ex), message)
             return
+        except:
+            d = 8
+
         raise Exception("Exception not thrown")
 
 

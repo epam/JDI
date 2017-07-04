@@ -12,6 +12,7 @@ from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISit
 
 class PageTests(unittest.TestCase):
     def setUp(self):
+        WebSettings.logger.info("Run Test %s" % self.id().split(".")[-1])
         WebSite.init(EpamJDISite, "chrome")
         WebSettings.logger.info("Run Tests")
         EpamJDISite.home_page.open()
