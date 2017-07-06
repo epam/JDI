@@ -2,7 +2,7 @@ from JDI.web.selenium.elements.api_interact.find_element_by import By
 from JDI.web.selenium.elements.base.element import Element
 from JDI.web.selenium.elements.common.label import Label
 from JDI.web.selenium.elements.composite.web_page import WebPage
-from Test.jdi_uitest_web_examples.main.site.epam.add_cv_form import AddCVForm
+from Test.jdi_uitest_web_examples.main.site.epam.add_cv_form import AddCVForm, JobFilter
 
 
 class CareerPage(WebPage):
@@ -10,7 +10,7 @@ class CareerPage(WebPage):
         super(CareerPage, self).__init__(url=url, title=title)
 
     job_filter = JobFilter(By.css(".job-search-form-ui"))
-    list_menu = JDIElements(By.css(".tile-menu>li>a"), Label)
+    list_menu = None#JDIElements(By.css(".tile-menu>li>a"), Label)
 
 
 class HomePage(WebPage):
@@ -30,18 +30,18 @@ class JobListingPage(WebPage):
     def __init__(self, url, title):
         super(JobListingPage, self).__init__(url=url, title=title)
 
-        jobs_list = Table(root=By.css(".search-result-list"),
-                          row=By.xpath(".//li[%s]//div"),
-                          column=By.xpath(".//li//div[%s]"),
-                          header={"name", "category", "location", "apply"})
+        jobs_list = None#Table(root=By.css(".search-result-list"),
+                    #      row=By.xpath(".//li[%s]//div"),
+                     #     column=By.xpath(".//li//div[%s]"),
+                     #     header={"name", "category", "location", "apply"})
 
-        jods_list_entity = EntityTable(root=By.css(".search-result-list"),
-                                       row=By.xpath(".//li[%s]//div"),
-                                       column=By.xpath(".//li//div[%s]"),
-                                       header={"name", "category", "location", "apply"},
-                                       entity_class=JobRecord)
+        jods_list_entity = None#EntityTable(root=By.css(".search-result-list"),
+                              #         row=By.xpath(".//li[%s]//div"),
+                              #         column=By.xpath(".//li//div[%s]"),
+                               #        header={"name", "category", "location", "apply"},
+                               #        entity_class=JobRecord)
 
 
 class ProductDevelopmentPage(WebPage):
-    def __init__(self, url, title):
+    def __init__(self, url, title=None):
         super(ProductDevelopmentPage, self).__init__(url=url, title=title)

@@ -23,7 +23,7 @@ class ImageTests(InitTests):
         attribute_name = "testAttr"
         value = "testValue"
         self.clickable_item.set_attribute(attribute_name, value)
-        Assert.check_text(self.clickable_item.get_element().get_attribute(attribute_name), value)
+        Assert.assert_equal(self.clickable_item.get_element().get_attribute(attribute_name), value)
 
     def test_get_source(self):
         Assert.assert_equal(self.clickable_item.get_source(), self.SRC)

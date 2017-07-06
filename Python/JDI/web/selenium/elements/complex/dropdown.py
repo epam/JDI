@@ -5,6 +5,7 @@ from selenium.webdriver.support.select import Select
 
 from JDI.core.utils.decorators import scenario
 from JDI.web.selenium.elements.base.clickable import Clickable
+from JDI.web.selenium.elements.base.element import Element
 from JDI.web.selenium.elements.common.label import Label
 from JDI.web.selenium.elements.common.text import Text
 from JDI.web.selenium.elements.complex.selector import Selector
@@ -16,14 +17,20 @@ class Dropdown(Selector, Clickable, Text):
 
     element = None
     expander = None
+    root = None
 
-    def __init__(self, select_locator=None, option_names_locator=None, all_options_locator=None):
+    def __init__(self, select_locator=None, option_names_locator=None, all_options_locator=None, root=None):
         if select_locator is not None and option_names_locator is None and all_options_locator is None:
             super(Dropdown, self).__init__(select_locator)
         elif select_locator is not None and option_names_locator is not None and all_options_locator is None:
             super(Dropdown, self).__init__(option_names_locator, all_options_locator)
             self.element = GetElementType(select_locator, self)
             self.expander = GetElementType(select_locator, self)
+        if root is not None:
+            el = Element(by_locator=root)
+            el.set_parent(self.get_parent())
+            self.set_parent(el)
+            self.set_avatar(root)
 
     def click_action(self):
         self._element().click()

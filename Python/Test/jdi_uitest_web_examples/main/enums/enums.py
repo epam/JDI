@@ -2,12 +2,13 @@ from enum import Enum
 
 
 class HeaderMenu(Enum):
-    SOLUTIONS   = "Solution"
-    INDUSTRIES  = "Inducstries"
-    ABOUT       = "About"
-    IDEAS       = "Ideas"
-    CAREERS     = "Careers"
-    CONTACT     = "Contact"
+    SOLUTIONS   = "SOLUTIONS"
+    INDUSTRIES  = "INDUSTRIES"
+    ABOUT       = "ABOUT"
+    IDEAS       = "IDEAS"
+    CAREERS     = "CAREERS"
+    CONTACT     = "CONTACT"
+
 
 class HeaderSolutionsMenu(Enum):
     PRODUCT_DEVELOPMENT     = "Product Development"
@@ -15,8 +16,10 @@ class HeaderSolutionsMenu(Enum):
     CORE_TECHNOLOGIES       = "Core Technologies"
     ASSURANCE               = "Assurance"
 
+
 class JobCategories(Enum):
-    QA ="Software Test Engineering"
+    QA = "Software Test Engineering"
+
 
 class JobListHeaders(Enum):
     NAME     = "name"
@@ -24,5 +27,6 @@ class JobListHeaders(Enum):
     LOCATION = "location"
     APPLY    = "apply"
 
-class Location(Enum):
+
+class Locations(Enum):
     SAINT_PETERSBURG = "Russian Federation > Saint-Petersburg"

@@ -52,3 +52,6 @@ class BaseElement(object):
                     str += "; Parent: %s:'%s'" % (self.parent.avatar.by_locator[0], self.parent.avatar.by_locator[1])
 
         return str
+
+    def has_locator(self):
+        return self.avatar.has_locator()

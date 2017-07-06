@@ -1,7 +1,7 @@
 import time as time2
 
 from JDI.core.settings.jdi_settings import log
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 
 
 def action_populated_string(action_name, values_list, el):
@@ -37,7 +37,7 @@ def scenario(action_name, values_list={}):
             done = False
             ex = None
             try:
-                while t < 20:
+                while t < 3:
                     try:
                         ex = None
                         done = True

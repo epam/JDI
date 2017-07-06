@@ -1,6 +1,6 @@
 import unittest
 
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 from JDI.web.selenium.elements.composite.web_site import WebSite
 from Test.jdi_uitests_webtests.main.entities.user import User
 from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISite

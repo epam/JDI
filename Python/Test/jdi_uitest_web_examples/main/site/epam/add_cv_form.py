@@ -35,8 +35,8 @@ class JobFilter(Form):
                         select_locator=By.css(".multi-select-filter"),
                         option_names_locator=By.css(".blue-checkbox-label"))
 
-    location = TreeDropdown(By.css("career-location-box"),
-                            {By.css(".location-dropdown .optgroup"), By.xpath("//..//li")})
+    #location = TreeDropdown(By.css("career-location-box"),{By.css(".location-dropdown .optgroup"), By.xpath("//..//li")})
+    location = None
 
     select_button = Button(By.css(".job-search-button"))
     label = Label(By.css(".job-search-title"))

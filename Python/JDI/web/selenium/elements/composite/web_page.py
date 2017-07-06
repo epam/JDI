@@ -3,6 +3,7 @@ from JDI.core.settings.jdi_settings import JDISettings
 from JDI.core.utils.decorators import scenario
 from JDI.jdi_assert.testing.assertion import Assert
 from JDI.web.selenium.elements.base.base_element import BaseElement
+from JDI.web.selenium.settings.web_settings import WebSettings
 
 
 class WebPage(BaseElement):
@@ -74,6 +75,9 @@ class WebPage(BaseElement):
         if not result:
             return False
 
+        if self.title is None:
+            return True
+
         if self.checkTitleType == CheckPageTypes.EQUAL:
             return self.check_title()
         if self.checkTitleType == CheckPageTypes.MATCH:
@@ -82,3 +86,15 @@ class WebPage(BaseElement):
             return self.contains_title()
 
         return False
+
+    def should_be_opened(self):
+        try:
+            WebSettings.logger.info("Page '{0}' should be opened".format(self.get_name()))
+            if self.verify_opened(): return
+            self.open()
+            self.check_opened()
+        except Exception as ex:
+            msg = "Can't open page '{0}'. Reason: {1}".format(self.get_name(), str(ex))
+            WebSettings.logger.info(msg)
+            raise Exception(msg)
+

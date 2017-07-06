@@ -1,7 +1,7 @@
 import time
 
 from JDI.core.settings.jdi_settings import log
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 
 
 class AssertUtils:
