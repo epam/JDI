@@ -60,8 +60,8 @@ public class TableFormTests extends InitTestsTableForm {
                    }
         };
     }
-    // JDI test
- //   @Test(dataProvider = "cvData")
+
+    @Test(dataProvider = "cvData")
     public void tableFormTest(Attendee attendee, Job job) {
         jobsPage.open();
         jobsPage.jobs.firstRow(r ->
@@ -82,11 +82,8 @@ public class TableFormTests extends InitTestsTableForm {
     public void selenideTest(Attendee attendee, Job job) {
 
        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
-        Configuration.browser="chrome";
+       Configuration.browser="chrome";
 
-       /* System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
-        Configuration.browser="firefox";
-*/
 
         open(PageJobs.url); // download and put geckodriver because Selenide not support driver auto loading
         PageJobs.applyLinkFor(job.name, job.category).click();
