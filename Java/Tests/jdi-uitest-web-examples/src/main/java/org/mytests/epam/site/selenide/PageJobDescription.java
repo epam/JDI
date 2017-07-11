@@ -1,13 +1,19 @@
 package org.mytests.epam.site.selenide;
 
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.junit.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
+import javax.jws.WebService;
+import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.epam.jdi.uitests.web.selenium.elements.base.JdiStatic.*;
 
 
@@ -37,12 +43,26 @@ public class PageJobDescription {
         lastNameTextField.sendKeys(attendee.lastName);
         emailField.sendKeys(attendee.email);
         counryValue.click();
-        find(counryList, attendee.country).click();
+        find(counryList, attendee.country);//.click();
         cityValue.click();
-        find(cityList, attendee.city).click();
-        cvTextField.sendKeys(attendee.cv);
+        find(cityList, attendee.city);//.click();
+
+
+        //cvTextField.click();
+        //cvTextField.sendKeys(new File(attendee.cv).getAbsolutePath());
+        //org.openqa.selenium.WebDriverException: unknown error: cannot focus element
+
+       /* NB!
+        Since in some cases WebDriver is not able focus to Windows Control to enter a file path
+        solution may be found with usage of AutoIt Script
+        https://ru.wikipedia.org/wiki/AutoIt
+        https://www.autoscript.com
+        A script will contain three commands ControlFocus(..., ControlSetText(..., ControlClick(...
+        and can be executed in the test:
+        RunTime.getRunTime().exec("C:\\ThePath\\AutoITScript.exe")*/
+
+        commentTextField.click();
         commentTextField.sendKeys(attendee.comment);
-        submitButton.click();
     }
 
     public void verifyCVForm(Attendee attendee) {

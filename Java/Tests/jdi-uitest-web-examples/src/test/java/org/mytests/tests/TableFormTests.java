@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 import java.util.function.BinaryOperator;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.url;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
@@ -60,7 +61,7 @@ public class TableFormTests extends InitTestsTableForm {
         };
     }
     // JDI test
-    @Test(dataProvider = "cvData")
+ //   @Test(dataProvider = "cvData")
     public void tableFormTest(Attendee attendee, Job job) {
         jobsPage.open();
         jobsPage.jobs.firstRow(r ->
@@ -80,23 +81,22 @@ public class TableFormTests extends InitTestsTableForm {
     @Test(dataProvider = "cvData")
     public void selenideTest(Attendee attendee, Job job) {
 
-        /*System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
-        Configuration.browser="firefox";*/
-        /*System.setProperty("phantomjs.binary.path", "C:\\Selenium\\phantomjs.exe");
-        Configuration.browser="phantomjs";*/
-
-        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+       System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
         Configuration.browser="chrome";
 
+       /* System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\geckodriver.exe");
+        Configuration.browser="firefox";
+*/
 
         open(PageJobs.url); // download and put geckodriver because Selenide not support driver auto loading
         PageJobs.applyLinkFor(job.name, job.category).click();
 
-        getDriver().get(url());
+        WebSettings.useDriver(()->getWebDriver());
+
+        pageJobDescription.submitForm(attendee);
 
 
-       pageJobDescription.submitForm(attendee);
-       pageJobDescription.verifyCVForm(attendee);
+        pageJobDescription.verifyCVForm(attendee);
     }
 
 

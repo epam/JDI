@@ -15,6 +15,8 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
+import static com.epam.jdi.uitests.testing.unittests.enums.Nature.FIRE;
+import static com.epam.jdi.uitests.testing.unittests.enums.Nature.WATER;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.actionsLog;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -61,7 +63,7 @@ public class ChecklistTests extends InitTests {
 
     @Test
     public void selectEnumTest() {
-        nature().select(Nature.FIRE);
+        nature().select(FIRE);
         checkAction("Fire: condition changed to true");
     }
 
@@ -83,7 +85,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void select2EnumTest() {
-        nature().select(Nature.WATER, Nature.FIRE);
+        nature().select(WATER, FIRE);
         checkAction("Fire: condition changed to true");
         assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
@@ -102,7 +104,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void checkEnumTest() {
-        nature().check(Nature.FIRE);
+        nature().check(FIRE);
         checkAction("Fire: condition changed to true");
     }
 
@@ -123,7 +125,7 @@ private List<String> ls() { return new ArrayList<>(); }
 
     @Test
     public void check2EnumTest() {
-        nature().check(Nature.WATER, Nature.FIRE);
+        nature().check(WATER, FIRE);
         checkAction("Fire: condition changed to true");
         assertContains(() -> actionsLog.getTextList().get(1), "Water: condition changed to true");
     }
@@ -199,9 +201,9 @@ private List<String> ls() { return new ArrayList<>(); }
 
     //@Test ISSUE!!! areSelected() method does not work for checkboxes "Nature" from MetalAndColors
     //@Test
-    public void areSelectedTest() {
-        listEquals(nature().areSelected(), new ArrayList<String>());
-    }
+    //public void areSelectedTest() {
+    //    listEquals(nature().areSelected(), new ArrayList<String>());
+    //}
 
     //@Test ISSUE!!! areDeselected() method does not work for checkboxes "Nature" from MetalAndColors
     //Always return all deselected
@@ -230,6 +232,15 @@ private List<String> ls() { return new ArrayList<>(); }
         listEquals(natureExtended().getDeselected(), natureOptions);// isDisplayed not defined
 
     }
+
+    @Test
+    public void areSelectedTest() {
+        nature().select(WATER, FIRE);
+        logger.info(nature().areSelected().toString());
+        listEquals(natureExtended().getSelected(), asList(WATER.value, FIRE.value));
+    }
+
+
 
     @Test
     public void getValueTest() {

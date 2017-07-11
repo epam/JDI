@@ -10,7 +10,7 @@ public class Attendee {
         email = "roman_iovlev@epam.com",
         country = "Russian Federation",
         city = "Saint-Petersburg",
-        cv, // = "jdi-uitest-tutorialtests\\src\\test\\resources\\cv.txt"
+        cv = "src/test/resources/cv.txt",
         comment = "I WANT TO WORK IN EPAM!!!";
 
     public Attendee() { }
