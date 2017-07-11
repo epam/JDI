@@ -14,6 +14,7 @@ using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Logging.LogLevels;
 using static Epam.JDI.Core.Settings.JDISettings;
+using JDI_Web.Selenium.Elements.Base;
 
 namespace JDI_Web.Selenium.Base
 {
@@ -40,9 +41,14 @@ namespace JDI_Web.Selenium.Base
             }
         }
 
-        public static ActionScenrios ActionScenrios
+        public WebElement GetHighLightElement()
         {
-            set { ActionInvoker.ActionScenrios = value; }
+            return Avatar.GetFirstValue<WebElement>();
+        }
+
+        public static ActionScenarios ActionScenrios
+        {
+            set => ActionInvoker.ActionScenrios = value;
         }
 
         public static Action<string, Action<string>> DoActionRule = (text, action) =>
@@ -68,8 +74,8 @@ namespace JDI_Web.Selenium.Base
 
         public GetElementModule WebAvatar
         {
-            get { return (GetElementModule) Avatar; }
-            set { Avatar = value; }
+            get => (GetElementModule) Avatar;
+            set => Avatar = value;
         }
 
         public ActionInvoker Invoker;
@@ -83,8 +89,8 @@ namespace JDI_Web.Selenium.Base
 
         public string TypeName
         {
-            get { return _typeName ?? GetType().Name; }
-            set { _typeName = value; }
+            get => _typeName ?? GetType().Name;
+            set => _typeName = value;
         }
 
         protected Timer Timer => WebAvatar.Timer;
@@ -98,14 +104,14 @@ namespace JDI_Web.Selenium.Base
 
         public IWebElement WebElement
         {
-            get { return _webElement ?? WebAvatar.WebElement; }
-            set { WebAvatar.WebElement = value; }
+            get => _webElement ?? WebAvatar.WebElement;
+            set => WebAvatar.WebElement = value;
         }
 
         public List<IWebElement> WebElements
         {
-            get { return WebAvatar.WebElements; }
-            set { WebAvatar.WebElements = value; }
+            get => WebAvatar.WebElements;
+            set => WebAvatar.WebElements = value;
         }
 
         public bool HasLocator => WebAvatar.HasLocator;

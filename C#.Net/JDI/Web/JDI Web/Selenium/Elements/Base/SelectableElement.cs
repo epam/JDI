@@ -30,8 +30,8 @@ namespace JDI_Web.Selenium.Elements.Base
             => ((SelectableElement)el).Select();
         public new string Value
         {
-            get { return Actions.GetValue(GetValueFunc); }
-            set { Actions.SetValue(value, SetValueAction); }
+            get => Actions.GetValue(GetValueFunc);
+            set => Actions.SetValue(value, SetValueAction);
         }
     }
 }

@@ -18,10 +18,12 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  */
 
 
+import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
@@ -39,12 +41,15 @@ import java.text.MessageFormat;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import static com.epam.commons.ReflectionUtils.isClass;
+import static com.epam.commons.LinqUtils.foreach;
+import static com.epam.commons.ReflectionUtils.*;
+import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static java.lang.String.format;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -171,14 +176,14 @@ public abstract class BaseElement implements IBaseElement {
         return this;
     }
 
-    public void setWaitTimeout(long mSeconds) {
-        logger.debug("Set wait timeout to " + mSeconds);
-        getDriver().manage().timeouts().implicitlyWait(mSeconds, MILLISECONDS);
-        timeouts.setCurrentTimeoutSec((int) (mSeconds / 1000));
+    public void setWaitTimeout(int seconds) {
+        logger.debug("Set wait timeout to " + seconds);
+        getDriver().manage().timeouts().implicitlyWait(seconds, SECONDS);
+        timeouts.setCurrentTimeoutSec(seconds);
     }
 
     public void restoreWaitTimeout() {
-        setWaitTimeout(timeouts.getDefaultTimeoutSec() * 1000);
+        setWaitTimeout(timeouts.getDefaultTimeoutSec());
     }
 
     protected String getTypeName() {
@@ -214,6 +219,24 @@ public abstract class BaseElement implements IBaseElement {
 
     public void logAction(String actionName) {
         logAction(actionName, INFO);
+    }
+
+    public <T> T asEntity(Class<T> entityClass) {
+        try {
+            T data = newEntity(entityClass);
+            foreach(getFields(this, IHasValue.class), item -> {
+                Field field = LinqUtils.first(getFields(data, String.class), f ->
+                        namesEqual(f.getName(), item.getName()));
+                if (field == null)
+                    return;
+                try {
+                    field.set(data, ((IHasValue) getValueField(item, this)).getValue());
+                } catch (Exception ignore) { }
+            });
+            return data;
+        } catch (Exception ex) {
+            throw exception("Can't get entity from Form" + getName() + " for class: " + entityClass.getClass());
+        }
     }
 
     @Override

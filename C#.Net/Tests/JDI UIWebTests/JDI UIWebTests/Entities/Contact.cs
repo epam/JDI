@@ -12,11 +12,21 @@ namespace JDI_UIWebTests.Entities
         private int _firstSummary;
         private int _secondSummary;
 
-        public string FirstName { get { return  _firstName; } set { _firstName = value; } }
-        public string LastName { get { return _lastName; } set { _lastName = value; } }
-        public string Description { get { return _description; } set { _description = value; } }
-        public int FirstSummary { get { return _firstSummary; } set { _firstSummary = value; } }
-        public int SecondSummary { get { return _secondSummary; } set { _secondSummary = value; } }
+        public string FirstName { get => _firstName;
+            set => _firstName = value;
+        }
+        public string LastName { get => _lastName;
+            set => _lastName = value;
+        }
+        public string Description { get => _description;
+            set => _description = value;
+        }
+        public int FirstSummary { get => _firstSummary;
+            set => _firstSummary = value;
+        }
+        public int SecondSummary { get => _secondSummary;
+            set => _secondSummary = value;
+        }
 
         public Contact(string firstName, string lastName, string description, int firstSummary, int secondSummary)
         {

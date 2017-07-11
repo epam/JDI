@@ -11,14 +11,30 @@ namespace JDI_Web.Attributes
         private By _locator;
 
         public string Group;
-        public string Id { set { _locator = By.Id(value); } get { return ""; } }
-        public string Name { set { _locator = By.Name(value); } get { return ""; } }
-        public string ClassName { set { _locator = By.ClassName(value); } get { return ""; } }
-        public string Css { set { _locator = By.CssSelector(value); } get { return ""; } }
-        public string XPath { set { _locator = By.XPath(value); } get { return ""; } }
-        public string Tag { set { _locator = By.TagName(value); } get { return ""; } }
-        public string LinkText { set { _locator = By.LinkText(value); } get { return ""; } }
-        public string PartialLinkText { set { _locator = By.PartialLinkText(value); } get { return ""; } }
+        public string Id { set => _locator = By.Id(value);
+            get => "";
+        }
+        public string Name { set => _locator = By.Name(value);
+            get => "";
+        }
+        public string ClassName { set => _locator = By.ClassName(value);
+            get => "";
+        }
+        public string Css { set => _locator = By.CssSelector(value);
+            get => "";
+        }
+        public string XPath { set => _locator = By.XPath(value);
+            get => "";
+        }
+        public string Tag { set => _locator = By.TagName(value);
+            get => "";
+        }
+        public string LinkText { set => _locator = By.LinkText(value);
+            get => "";
+        }
+        public string PartialLinkText { set => _locator = By.PartialLinkText(value);
+            get => "";
+        }
 
         public static By GetLocatorFromFindBy(FindsByAttribute fbAttr)
         {

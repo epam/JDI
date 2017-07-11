@@ -12,27 +12,15 @@ namespace JDI_UIWebTests.Entities
         [Name("Login")]
         public string Login
         {
-            get
-            {
-                return _login;
-            }
-            set
-            {
-                _login = value;
-            }
+            get => _login;
+            set => _login = value;
         }
 
         [Name("Password")]
         public string Password
         {
-            get
-            {
-                return _password;
-            }
-            set
-            {
-                _password = value;
-            }
+            get => _password;
+            set => _password = value;
         }
 
         public User(string login, string password) {

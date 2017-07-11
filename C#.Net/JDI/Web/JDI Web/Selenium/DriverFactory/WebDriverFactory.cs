@@ -37,7 +37,7 @@ namespace JDI_Web.Selenium.DriverFactory
         {
             Drivers = new Dictionary<string, Func<IWebDriver>>();
             RunDrivers = new ThreadLocal<Dictionary<string, IWebDriver>>(() => new Dictionary<string, IWebDriver>());
-            DriverPath = "C:/Selenium";
+            DriverPath = AppDomain.CurrentDomain.BaseDirectory;
             RunType = RunTypes.Local;
         }
 
@@ -58,7 +58,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 }
                 return _currentDriverName;
             }
-            set { _currentDriverName = value; }
+            set => _currentDriverName = value;
         }
 
         public string DriverPath { get; set; }
@@ -164,7 +164,9 @@ namespace JDI_Web.Selenium.DriverFactory
         public IWebDriver GetDriver(string driverName)
         {
             if (!Drivers.ContainsKey(driverName))
-                throw new Exception($"Can't find driver with name {driverName}");
+                if (Drivers.Count == 0)
+                    RegisterDriver(driverName);
+                else throw new Exception($"Can't find driver with name {driverName}");
             try
             {
                 IWebDriver result;

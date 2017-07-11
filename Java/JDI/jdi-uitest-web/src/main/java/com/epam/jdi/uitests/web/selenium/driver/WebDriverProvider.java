@@ -28,7 +28,7 @@ public class WebDriverProvider {
         return folderPath + "/IEDriverServer.exe";
     }
     static final String getFirefoxDriverPath (String folderPath) {
-        return folderPath + "/geckodriver.exe";
+        return checkOS().equals("win") ? folderPath + "/geckodriver.exe" : folderPath + "/geckodriver";
     }
 
     private static final String CHROME_STORAGE = "http://chromedriver.storage.googleapis.com/";

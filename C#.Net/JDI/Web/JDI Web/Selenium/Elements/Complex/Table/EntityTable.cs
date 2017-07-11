@@ -11,7 +11,7 @@ using static JDI_Web.Selenium.Attributes.GetElementClass;
 
 namespace JDI_Web.Selenium.Elements.Complex.Table
 {
-    public class Table<TEntity, TRow> : Table<TEntity>
+    public class EntityTable<TEntity, TRow> : EntityTable<TEntity>
     {
         private TRow NewRow => Activator.CreateInstance<TRow>();
         private TRow CastToRow(Dictionary<string, ICell> row)
@@ -54,9 +54,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         }
     }
 
-    public class Table<TEntity> : Table, IList<TEntity>
+    public class EntityTable<TEntity> : Table, IList<TEntity>
     {
-        public Table()
+        public EntityTable()
         {
             ColumnHeaders = typeof(TEntity).GetFieldsList().Select(f => f.Name).ToArray();
         }
@@ -82,7 +82,12 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         {
             return GetRows(colNameValues).Select(r => RowToEntity(r.Value)).ToList();
         }
-        
+
+        public int Size()
+        {
+            return Rows.Count;
+        }
+
         public TEntity Entity(string value, Column column)
         {
             return RowToEntity(Row(value, column));
@@ -128,6 +133,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             All.CopyTo(array, arrayIndex);
         }
 
+
+
         public bool Remove(TEntity item)
         {
             throw new Exception("Not applicable");
@@ -152,16 +159,16 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public TEntity this[int index]
         {
-            get { return index > 0
-                    ? Entity(index)
-                    : Entity(Count + index + 1); }
-            set { throw new Exception("Not applicable"); }
+            get => index > 0
+                ? Entity(index)
+                : Entity(Count + index + 1);
+            set => throw new Exception("Not applicable");
         }
 
         public TEntity this[string name]
         {
-            get { return Entity(name); }
-            set { throw new Exception("Not applicable"); }
+            get => Entity(name);
+            set => throw new Exception("Not applicable");
         }
     }
 }

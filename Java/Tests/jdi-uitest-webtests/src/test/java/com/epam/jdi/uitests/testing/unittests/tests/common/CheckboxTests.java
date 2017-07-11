@@ -39,7 +39,7 @@ public class CheckboxTests extends InitTests {
     public void uncheckSingleTest() throws InterruptedException {
         checkBox().click();
         checkBox().uncheck();
-        checkAction("Water: condition changed to false");
+        checkAction("");
     }
 
     @Test

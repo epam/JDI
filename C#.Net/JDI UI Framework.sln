@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Core", "JDI\Core\JDI Core.csproj", "{99EE5894-9F49-43E2-A129-7916D924D49C}"
 EndProject
@@ -14,6 +14,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI Tests", "Tests\JDI Tests\JDI Tests.csproj", "{B60B8A5E-8336-4D4B-A04B-E62878C75373}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDI UIWebTests", "Tests\JDI UIWebTests\JDI UIWebTests\JDI UIWebTests.csproj", "{E49AC2C4-CDC7-4BFE-BFAC-D49830E0E748}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{538C42CB-0E44-4EE4-8BD7-0CA4CF9D2DC4}"
+	ProjectSection(SolutionItems) = preProject
+		JDI\Web\JDI Web\app.config = JDI\Web\JDI Web\app.config
+		packages\Selenium.Chrome.WebDriver.2.30\driver\chromedriver.exe = packages\Selenium.Chrome.WebDriver.2.30\driver\chromedriver.exe
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
+using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -17,7 +18,12 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             HeadersLocator = By.XPath(".//th");
             DefaultTemplate = By.XPath(".//tr/td[{0}]");
         }
-        
+
+        protected List<IWebElement> GetHeadersAction()
+        {
+            return Table.WebElements.FindAll(el => el.Equals(HeadersLocator));
+        }
+
         protected override IList<IWebElement> GetFirstLine => Table.Rows.GetLineAction(1);
         
         public Dictionary<string, ICell> GetColumn(string colName)
@@ -91,6 +97,16 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 return result.Where(el => Table.Rows.Headers.Contains(el.Key)).ToDictionary();
             }, ex => $"Can't Get Column '{colNum}'. Reason: {ex}");
         }
+
+        /*private Dictionary<string, Dictionary<string, ICell>> WithValueByRule(
+            Row row, JFuncTTREx<string, string, bool> func)
+        {
+            List<string> rowNames = row.HasName
+                ? Table.Rows.GetRowAsText(row.Name).where(func).keys()
+                : Table.Rows.GetRowAsText(row.Name).where(func).keys();
+            return new Dictionary<>(rowNames, key=>key, this::getColumn);
+        }*/
+
         private void AddRows(Dictionary<string, ICell> result, IList<string> headers, IList<IWebElement> webColumn, int colNum)
         {
             for (var i = 0; i < headers.Count; i++)

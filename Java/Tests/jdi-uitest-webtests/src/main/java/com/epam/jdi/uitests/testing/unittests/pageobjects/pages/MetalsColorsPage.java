@@ -15,10 +15,12 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.CheckBox;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
+import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -67,8 +69,13 @@ public class MetalsColorsPage extends WebPage {
 
     public Text c1alculateText;
 
-    @FindBy(css = "#elements-checklist label")
-    public ICheckList<Nature> nature;
+    @FindBy(css = "#elements-checklist p")
+    public ICheckList<Nature> nature = new CheckList<Nature>() {
+        @Override
+        protected boolean isSelectedAction(WebElement el) {
+            return el.findElement(By.tagName("input")).getAttribute("checked") != null;
+        }
+    };
 
     public CheckListOfTypeOne natureExtended = new CheckListOfTypeOne("//section[@id='elements-checklist']/p[@class='checkbox']", "/label", "/input");
 
