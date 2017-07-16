@@ -9,9 +9,11 @@ import org.openqa.selenium.support.FindBy;
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class TextPage extends WebPage {
-    @FindBy(id="textarea")
+    @FindBy(xpath="//textarea[@id='Description']")
     public TextArea textArea;
-    @FindBy(id="input")
-    public Input field;
+    @FindBy(xpath="//input[@id='Name']")
+    public Input field1;
+    @FindBy(xpath="//input[@id='LastName']")
+    public Input field2;
 
 }

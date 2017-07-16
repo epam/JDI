@@ -26,17 +26,18 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static org.mytests.epam.site.selenide.PageJobDescription.pageJobDescription;
 import static org.mytests.epam.site.site.EpamSite.jobDescriptionPage;
 import static org.mytests.epam.site.site.EpamSite.jobsPage;
+import org.mytests.epam.site.testdata.CVData;
 
 /**
  * Created by Alexander_Petrovskiy on 5/23/2016.
  */
 public class TableFormTests extends InitTestsTableForm {
 
-    //It was so. Commented 29/06/2017
+    //It was so.  before 29/06/2017
     //private static BinaryOperator<Netapi32Util.User> op;
 
 
-    //It was so. Commented 29/06/2017
+    //It was so. before 29/06/2017
     //Test takes two parameters but the dataprovider has three
 
 /*
@@ -51,17 +52,7 @@ public class TableFormTests extends InitTestsTableForm {
     }*/
 
 
-    @DataProvider
-    public static Object[][] cvData() {
-        return new Object[][]{
-            { new Attendee(),
-              new Job("QA Specialist",
-                    "Software Test Engineering"),
-                   }
-        };
-    }
-
-    @Test(dataProvider = "cvData")
+    @Test(dataProviderClass=CVData.class, dataProvider = "cvData")
     public void tableFormTest(Attendee attendee, Job job) {
         jobsPage.open();
         jobsPage.jobs.firstRow(r ->
@@ -70,31 +61,10 @@ public class TableFormTests extends InitTestsTableForm {
             .apply.click();
         jobDescriptionPage.addCVForm.submit(attendee);
         jobDescriptionPage.addCVForm.check(attendee);
-        Assert.isTrue(jobDescriptionPage.addCVForm.verify(attendee).size() == 0);
+        Assert.isTrue(jobDescriptionPage.addCVForm.verify(attendee).size() != 0);
         Assert.entitiesAreEquals(
             jobDescriptionPage.addCVForm.getEntity(),
             attendee);
 
     }
-
-    // Selenide looks like tests written on JDI using J SelenideElement wrapper
-    @Test(dataProvider = "cvData")
-    public void selenideTest(Attendee attendee, Job job) {
-
-       System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
-       Configuration.browser="chrome";
-
-
-        open(PageJobs.url); // download and put geckodriver because Selenide not support driver auto loading
-        PageJobs.applyLinkFor(job.name, job.category).click();
-
-        WebSettings.useDriver(()->getWebDriver());
-
-        pageJobDescription.submitForm(attendee);
-
-
-        pageJobDescription.verifyCVForm(attendee);
-    }
-
-
 }

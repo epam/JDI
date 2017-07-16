@@ -52,3 +52,4 @@ Python/Test/__pycache__/
 Python/Test/jdi_uitests_webtests/main/page_objects/w3c_site/__pycache__/
 Python/Test/jdi_uitests_webtests/test/composite/__pycache__/
 Python/JDI/core/utils/__pycache__/
+!/Java/Tests/jdi-uitest-web-examples/src/test/resources/cv.txt

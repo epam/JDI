@@ -9,7 +9,10 @@ import org.mytests.textsSite.site.pages.TextPage;
  */
 public class TextSite extends WebSite {
 
-    @JPage(url = "file:///D:/Work/EPAM/Presentations/SeleniumCamp/images/divInputField.html")
+
+
+    @JPage(url = "file:///C:/Users/Aleksandr_Shiganov/IdeaProjects/JDI/Java/Tests/jdi-uitest-web-examples/src/test/resources/Contact%20Form.html")
+    //@JPage(url = "file:///D:/Work/EPAM/Presentations/SeleniumCamp/images/divInputField.html")
     //@JPage(url = "file:///D:/Work/EPAM/Presentations/SeleniumCamp/images/inputField.html")
     public static TextPage textsPage;
 }
