@@ -12,6 +12,7 @@ class RadioButtonTests(InitTests):
     radio_buttons = EpamJDISite.metals_colors_page.summary.odds_radio_buttons
 
     def setUp(self):
+        super(RadioButtonTests, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def test_select_string(self):

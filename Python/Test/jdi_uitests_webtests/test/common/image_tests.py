@@ -11,6 +11,7 @@ class ImageTests(InitTests):
     clickable_item = EpamJDISite.home_page.logo_image
 
     def setUp(self):
+        super(ImageTests, self).setUp(self.id().split(".")[-1])
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_click(self):
@@ -22,10 +23,10 @@ class ImageTests(InitTests):
         attribute_name = "testAttr"
         value = "testValue"
         self.clickable_item.set_attribute(attribute_name, value)
-        Assert.check_text(self.clickable_item.get_element().get_attribute(attribute_name), value)
+        Assert.assert_equal(self.clickable_item.get_element().get_attribute(attribute_name), value)
 
     def test_get_source(self):
-        Assert.check_text(self.clickable_item.get_source(), self.SRC)
+        Assert.assert_equal(self.clickable_item.get_source(), self.SRC)
 
     def test_get_tip(self):
-        Assert.check_text(self.clickable_item.get_alt(), self.ALT)
+        Assert.assert_equal(self.clickable_item.get_alt(), self.ALT)

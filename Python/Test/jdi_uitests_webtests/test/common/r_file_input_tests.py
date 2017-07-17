@@ -10,6 +10,7 @@ class RFileInputTests(InitTests):
     uploaded_file_name = EpamJDISite.dates_page.uploaded_file_name
 
     def setUp(self):
+        super(RFileInputTests, self).setUp(self.id().split(".")[-1])
         Preconditions.DATES_PAGE.is_in_state()
 
     def test_input(self):

@@ -3,19 +3,26 @@ from JDI.core.settings.jdi_settings import JDISettings
 from JDI.core.utils.decorators import scenario
 from JDI.jdi_assert.testing.assertion import Assert
 from JDI.web.selenium.elements.base.base_element import BaseElement
+from JDI.web.selenium.settings.web_settings import WebSettings
 
 
 class WebPage(BaseElement):
-    checkUrlType = CheckPageTypes.EQUAL
-    checkTitleType = CheckPageTypes.EQUAL
+    check_url_type = CheckPageTypes.EQUAL
+    check_title_type = CheckPageTypes.EQUAL
 
     url = None
+    url_template = None
     title = None
     domain = None
 
-    def __init__(self, url, title=None, domain=None):
+    def __init__(self, url, title=None, domain=None, url_template=None, url_check_type=None, title_check_type=None):
         self.url = (JDISettings.get_domain() if domain is None else domain) + url
         self.title = title
+        self.url_template = url_template
+        if url_check_type is not None:
+            self.check_url_type = url_check_type
+        if title_check_type is not None:
+            self.check_title_type = title_check_type
         super(WebPage, self).__init__()
 
     @scenario(action_name="Add cookie")
@@ -40,10 +47,10 @@ class WebPage(BaseElement):
         JDISettings.get_driver_factory().get_driver().delete_all_cookies()
 
     def contains_title(self):
-        return JDISettings.get_driver_factory().get_driver().current_title in self.title
+        return JDISettings.get_driver_factory().get_driver().title in self.title
 
     def contains_url(self):
-        return JDISettings.get_driver_factory().get_driver().current_url in self.url
+        return self.url_template in JDISettings.get_driver_factory().get_driver().current_url
 
     @scenario(action_name="Go forward to next page")
     def forward(self):
@@ -65,20 +72,35 @@ class WebPage(BaseElement):
 
     def verify_opened(self):
         result = False
-        if self.checkUrlType == CheckPageTypes.EQUAL:
+        if self.check_url_type == CheckPageTypes.EQUAL:
             result = self.check_url()
-        elif self.checkUrlType == CheckPageTypes.MATCH:
+        elif self.check_url_type == CheckPageTypes.MATCH:
             result = self.match_url()
-        elif self.checkUrlType == CheckPageTypes.CONTAINS:
+        elif self.check_url_type == CheckPageTypes.CONTAINS:
             result = self.contains_url()
         if not result:
             return False
 
-        if self.checkTitleType == CheckPageTypes.EQUAL:
+        if self.title is None:
+            return True
+
+        if self.check_title_type == CheckPageTypes.EQUAL:
             return self.check_title()
-        if self.checkTitleType == CheckPageTypes.MATCH:
+        if self.check_title_type == CheckPageTypes.MATCH:
             return self.match_title()
-        if self.checkTitleType == CheckPageTypes.CONTAINS:
+        if self.check_title_type == CheckPageTypes.CONTAINS:
             return self.contains_title()
 
         return False
+
+    def should_be_opened(self):
+        try:
+            WebSettings.logger.info("Page '{0}' should be opened".format(self.get_name()))
+            if self.verify_opened(): return
+            self.open()
+            self.check_opened()
+        except Exception as ex:
+            msg = "Can't open page '{0}'. Reason: {1}".format(self.get_name(), str(ex))
+            WebSettings.logger.info(msg)
+            raise Exception(msg)
+

@@ -18,6 +18,7 @@ class CheckListTests(InitTests):
     check_list = EpamJDISite.metals_colors_page.nature_check_list
 
     def setUp(self):
+        super(CheckListTests, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     @data("Fire", 4, Nature.FIRE)
@@ -121,13 +122,13 @@ class CheckListTests(InitTests):
         driver = JDISettings.get_driver_factory().get_driver()
         els = driver.find_elements(By.CSS_SELECTOR, value="#elements-checklist input")
         for el in els:
-            Assert.is_true(el.get_attribute("checked") == "true")
+            Assert.assert_true(el.get_attribute("checked") == "true")
 
     def check_all_unchecked(self):
         driver = JDISettings.get_driver_factory().get_driver()
         els = driver.find_elements(By.CSS_SELECTOR, value="#elements-checklist input")
         for el in els:
-            Assert.is_true(el.get_attribute("checked") in ["false", None])
+            Assert.assert_true(el.get_attribute("checked") in ["false", None])
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ class LabelTests(InitTests):
     label = EpamJDISite.metals_colors_page.calculate_label
 
     def setUp(self):
+        super(LabelTests, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def test_click(self):

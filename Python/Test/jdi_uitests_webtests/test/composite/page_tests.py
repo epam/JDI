@@ -4,7 +4,7 @@ import unittest
 from JDI.core.settings.jdi_settings import JDISettings
 from JDI.jdi_assert.testing.assertion import Assert
 from JDI.web.selenium.elements.composite.web_site import WebSite
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 from Test.jdi_uitests_webtests.main.entities.user import User
 from Test.jdi_uitests_webtests.main.enums.preconditions import Preconditions
 from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISite
@@ -12,6 +12,7 @@ from Test.jdi_uitests_webtests.main.page_objects.epam_jdi_site import EpamJDISit
 
 class PageTests(unittest.TestCase):
     def setUp(self):
+        WebSettings.logger.info("Run Test %s" % self.id().split(".")[-1])
         WebSite.init(EpamJDISite, "chrome")
         WebSettings.logger.info("Run Tests")
         EpamJDISite.home_page.open()
@@ -42,16 +43,16 @@ class PageTests(unittest.TestCase):
     def test_add_cookie(self):
         cookie = {'name': 'key', 'value': 'value'}
         self.get_driver().delete_all_cookies()
-        Assert.is_true(not len(self.get_driver().get_cookies()))
+        Assert.assert_true(not len(self.get_driver().get_cookies()))
         EpamJDISite.contact_form_page.add_cookie(cookie)
         Assert.assert_equal(self.get_driver().get_cookie(cookie["name"])["value"], cookie["value"])
 
     def test_clear_cache(self):
         cookie = {'name': 'key', 'value': 'value'}
         EpamJDISite.contact_form_page.add_cookie(cookie)
-        Assert.is_false(not len(self.get_driver().get_cookies()))
+        Assert.assert_false(not len(self.get_driver().get_cookies()))
         EpamJDISite.contact_form_page.clear_cache()
-        Assert.is_true(not len(self.get_driver().get_cookies()))
+        Assert.assert_true(not len(self.get_driver().get_cookies()))
 
     def tearDown(self):
         WebSettings.quit_browser()

@@ -17,6 +17,7 @@ class TextTests(InitTests):
     contains = "ENIM AD MINIM VENIAM, QUIS NOSTRUD"
 
     def setUp(self):
+        super(TextTests, self).setUp(self.id().split(".")[-1])
         Preconditions.HOME_PAGE.is_in_state()
 
     def test_get_text(self):
@@ -26,10 +27,10 @@ class TextTests(InitTests):
         Assert.assert_equal(self.text_item.get_value(), self.expected_text)
 
     def test_wait_match_text(self):
-        Assert.is_true(self.text_item.wait_match_text(self.reg_ex))
+        Assert.assert_true(self.text_item.wait_match_text(self.reg_ex))
 
     def test_wait_text(self):
-        Assert.is_true(self.text_item.wait_contain_text(self.contains))
+        Assert.assert_true(self.text_item.wait_contain_text(self.contains))
 
     def test_set_attribute(self):
         attribute_name = "testAttr"

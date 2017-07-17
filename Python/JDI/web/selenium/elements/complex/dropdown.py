@@ -5,6 +5,7 @@ from selenium.webdriver.support.select import Select
 
 from JDI.core.utils.decorators import scenario
 from JDI.web.selenium.elements.base.clickable import Clickable
+from JDI.web.selenium.elements.base.element import Element
 from JDI.web.selenium.elements.common.label import Label
 from JDI.web.selenium.elements.common.text import Text
 from JDI.web.selenium.elements.complex.selector import Selector
@@ -16,14 +17,22 @@ class Dropdown(Selector, Clickable, Text):
 
     element = None
     expander = None
+    root = None
 
-    def __init__(self, select_locator=None, option_names_locator=None, all_options_locator=None):
-        if select_locator is not None and option_names_locator is None and all_options_locator is None:
-            super(Dropdown, self).__init__(select_locator)
-        elif select_locator is not None and option_names_locator is not None and all_options_locator is None:
-            super(Dropdown, self).__init__(option_names_locator, all_options_locator)
-            self.element = GetElementType(select_locator, self)
-            self.expander = GetElementType(select_locator, self)
+    def __init__(self, by_select_locator=None, by_option_locator_template=None, by_option_locator_all=None, root=None):
+        if by_select_locator is not None and by_option_locator_template is None and by_option_locator_all is None:
+            super(Dropdown, self).__init__(by_option_locator_all=by_select_locator)
+        elif by_select_locator is not None and by_option_locator_template is not None and by_option_locator_all is None:
+            super(Dropdown, self).__init__(by_option_locator_template, by_option_locator_all)
+            self.element = GetElementType(by_select_locator, self)
+            self.expander = GetElementType(by_select_locator, self)
+        elif by_select_locator is not None and by_option_locator_all is not None and by_option_locator_template is None:
+            super(Dropdown, self).__init__(by_option_locator_all=by_option_locator_all)
+        if root is not None:
+            el = Element(by_locator=root)
+            el.set_parent(self.get_parent())
+            self.set_parent(el)
+            self.set_avatar(el.avatar)
 
     def click_action(self):
         self._element().click()
@@ -39,7 +48,7 @@ class Dropdown(Selector, Clickable, Text):
 
     def expand_action(self, value):
         if isinstance(value, Number):
-            if not self.is_displayed_in_list(1):
+           # if not self.is_displayed_in_list(1):
                 self._get_expander().avatar.get_element().click()
 
     def is_displayed_action(self, name):
@@ -71,7 +80,7 @@ class Dropdown(Selector, Clickable, Text):
 
     def select_action(self, name):
         if isinstance(name, str):
-            if str(self._element().get_locator()[1]).find("select") != -1:
+            if str(self._element().get_locator()[1]).find(" select") != -1:
                 try:
                     Select(self._element().get_web_element()).select_by_visible_text(name)
                 except:
@@ -79,7 +88,7 @@ class Dropdown(Selector, Clickable, Text):
             self.expand()
             super(Dropdown, self).select_action(name)
         elif isinstance(name, Enum):
-            if str(self._element().get_locator()[1]).find("select") != -1:
+            if str(self._element().get_locator()[1]).find(" select") != -1:
                 try:
                     Select(self._element().get_web_element()).select_by_visible_text(name.value)
                 except:
@@ -102,5 +111,5 @@ class Dropdown(Selector, Clickable, Text):
         if self.expander is None:
             if self.get_locator() is not None and not self.get_locator() == "":
                 return GetElementType(self.get_locator(), self).get(Label)
-            raise Exception("'Expand' element for dropdown not defined")
+            raise Exception("'expander' element for dropdown not defined")
         return self.expander.get(Label)

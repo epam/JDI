@@ -15,6 +15,8 @@ from Test.jdi_uitests_webtests.test.complex.combo_box_tests import ComboBoxTests
 from Test.jdi_uitests_webtests.test.complex.dropdown_expanded_tests import DropdownExpandedTests
 from Test.jdi_uitests_webtests.test.complex.dropdown_tests import DropdownTests
 from Test.jdi_uitests_webtests.test.complex.radio_button_tests import RadioButtonTests
+from Test.jdi_uitests_webtests.test.complex.table.search_rows_columns_tests import SearchRowsColumnsTests
+from Test.jdi_uitests_webtests.test.complex.table.smoke_table_tests import SmokeTableTests
 
 from Test.jdi_uitests_webtests.test.composite.form_tests import FormTests
 from Test.jdi_uitests_webtests.test.composite.frame_tests import FrameTests
@@ -22,6 +24,7 @@ from Test.jdi_uitests_webtests.test.composite.form_two_buttons_tests import Form
 from Test.jdi_uitests_webtests.test.composite.page_tests import PageTests
 from Test.jdi_uitests_webtests.test.composite.pagination_tests import PaginationTests
 from Test.jdi_uitests_webtests.test.composite.search_tests import SearchTests
+
 
 
 if __name__ == "__main__":

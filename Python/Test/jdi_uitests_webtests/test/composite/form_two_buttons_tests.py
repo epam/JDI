@@ -10,8 +10,9 @@ class FormTwoButtonsTests(InitTests):
     contact = Contact("Ivan", "Ivanov", "Smart Man")
 
     def setUp(self):
+        super(FormTwoButtonsTests, self).setUp(self.id().split(".")[-1])
         Preconditions.CONTACT_PAGE.is_in_state()
 
     def test_submit_spec_button_string(self):
         self.form.submit_form(self.contact, "calculate")
-        Assert.assert_equal(EpamJDISite.contact_form_page.result.get_text(), "Summary: 3")
+        Assert.wait_assert_equal(lambda: EpamJDISite.contact_form_page.result.get_text(), "Summary: 3")

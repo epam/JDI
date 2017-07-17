@@ -13,6 +13,7 @@ class WebCascadeInit:
                 if WebCascadeInit.is_element(el):
                     if str.startswith(el_name, "i_frame"):
                         el.avatar.frame_locator = el.avatar.by_locator
+                        el.avatar.by_locator = None
                     el.name = el_name
                     el.parent = site
                     if WebCascadeInit.is_page(el): el.parent = site

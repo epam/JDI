@@ -16,6 +16,20 @@ class PropertyPath:
 
     path = property(get_property_file)
 
+class log:
+    val = True
+
+    @property
+    def to_do_info_logging(self):
+        return self.val
+
+    @to_do_info_logging.setter
+    def set_value(self, value):
+        self.val = value
+    @to_do_info_logging.getter
+    def get_value(self):
+        return self.val
+
 
 class JDISettings(object):
 

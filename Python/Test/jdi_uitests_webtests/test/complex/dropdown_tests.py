@@ -13,6 +13,7 @@ class DropdownTests(InitTests):
     dropdown = EpamJDISite.metals_colors_page.color_dropdown
 
     def setUp(self):
+        super(DropdownTests, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def test_select_string(self):

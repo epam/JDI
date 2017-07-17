@@ -1,6 +1,6 @@
 from JDI.core.interfaces.application import Application
 from JDI.web.selenium.elements.web_cascade_init import WebCascadeInit
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 
 
 class WebSite(Application):

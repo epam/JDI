@@ -24,8 +24,9 @@ class CheckListMetalColor(CheckList):
 
 
 class ComboBoxMetalColor(ComboBox):
-    def get_text(self):
+    def get_text_action(self):
         return Text(By.css(".metals .filter-option")).get_text()
+
 
 class MetalColorPage(WebPage):
     def __init__(self, url, title):

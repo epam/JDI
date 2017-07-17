@@ -12,6 +12,7 @@ class FormTests(InitTests):
     contact = Contact("Ivan", "Ivanov", "Smart Man")
 
     def setUp(self):
+        super(FormTests, self).setUp(self.id().split(".")[-1])
         Preconditions.CONTACT_PAGE.is_in_state()
 
     def test_fill(self):
@@ -36,7 +37,7 @@ class FormTests(InitTests):
 
     def test_verify(self):
         self.form.fill(self.contact)
-        Assert.is_true(self.form.verify(self.contact))
+        Assert.assert_true(self.form.verify(self.contact))
 
     def test_check(self):
         self.form.fill(self.contact)

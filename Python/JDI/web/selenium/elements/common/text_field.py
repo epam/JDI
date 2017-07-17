@@ -31,3 +31,6 @@ class TextField(Text):
 
     def focus_action(self):
         self.get_web_element().click()
+
+    def set_value_action(self, text):
+        self.input(text)

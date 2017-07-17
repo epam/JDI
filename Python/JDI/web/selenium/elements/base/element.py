@@ -7,9 +7,15 @@ from JDI.web.selenium.elements.base.base_element import BaseElement
 
 class Element(BaseElement):
 
-    def __init__(self, by_locator=None):
+    def __init__(self, by_locator=None, web_element=None):
         self.parent = None
-        super(Element, self).__init__(by_locator)
+        if by_locator is not None:
+            super(Element, self).__init__(by_locator=by_locator)
+        elif web_element is not None:
+            super(Element, self).__init__()
+            self.avatar.set_web_element(web_element)
+        else:
+            super(Element, self).__init__()
 
     def get_element(self):
         return self.avatar.get_element()
@@ -69,3 +75,9 @@ class Element(BaseElement):
 
     def is_displayed_action(self):
         return self.get_web_element().is_displayed()
+
+    def set_value(self, val):
+        self.set_value_action(val)
+
+    def set_value_action(self, val):
+        raise NotImplementedError("'set_value_action' not implemented in subclasses")

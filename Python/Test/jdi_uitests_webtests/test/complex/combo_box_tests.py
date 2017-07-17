@@ -14,6 +14,7 @@ class ComboBoxTests(InitTests):
     combo_box = EpamJDISite.metals_colors_page.combo_box
 
     def setUp(self):
+        super(ComboBoxTests, self).setUp(self.id().split(".")[-1])
         Preconditions.METALS_AND_COLORS_PAGE.is_in_state()
 
     def test_select_string(self):

@@ -1,7 +1,7 @@
 from JDI.web.selenium.elements.api_interact.get_element_module import GetElementModule
 
-class BaseElement(object):
 
+class BaseElement(object):
     name = None
     parent = None
     avatar = None
@@ -42,9 +42,16 @@ class BaseElement(object):
         return self.avatar.by_locator
 
     def __str__(self):
-        try:
-            return "; ".join({self.parent.avatar.by_locator[0] + ":" + self.parent.avatar.by_locator[1],
-                          self.avatar.by_locator[0] + ":" + self.avatar.by_locator[1],
-                           self.parent.__class__.__name__+"."+self.__class__.__name__})
-        except:
-            return ""
+        str = "Name " + self.__class__.__name__
+        if "by_locator" in dir(self.avatar):
+            if self.avatar.by_locator is not None:
+                str += "; Locator: %s:'%s'" % (self.avatar.by_locator[0], self.avatar.by_locator[1])
+        if self.parent is not None:
+            if "avatar" in dir(self.parent):
+                if self.parent.avatar.by_locator is not None:
+                    str += "; Parent: %s:'%s'" % (self.parent.avatar.by_locator[0], self.parent.avatar.by_locator[1])
+
+        return str
+
+    def has_locator(self):
+        return self.avatar.has_locator()

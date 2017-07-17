@@ -1,4 +1,4 @@
-from JDI.web.selenium.settings.WebSettings import WebSettings
+from JDI.web.selenium.settings.web_settings import WebSettings
 from re import match
 
 
