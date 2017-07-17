@@ -1,12 +1,12 @@
 Feature: checkbox
 
   Scenario: checkbox base
-    Given I'm open "metalsColorsPage"
-    And I'm check "cbWater"
+    Given I open "metalsColorsPage"
+    And I check "cbWater"
     Then Checkbox "cbWater" is checked
 
   Scenario: checkbox base
-    Given I'm open "metalsColorsPage"
+    Given I open "metalsColorsPage"
     And I'm click on "cbWater"
     Then Checkbox "cbWater" is checked
 

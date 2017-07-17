@@ -25,7 +25,6 @@ import com.epam.commons.pairs.Pair;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
@@ -190,7 +189,9 @@ public final class LinqUtils {
     public static <T> boolean any(Collection<T> list, JFuncTREx<T, Boolean> func) {
         return first(list, func) != null;
     }
-
+    public static <T> boolean any(T[] list, JFuncTREx<T, Boolean> func) {
+        return first(list, func) != null;
+    }
     public static <T> int firstIndex(List<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)
             throw new RuntimeException("Can't get firstIndex. Collection is Null");
