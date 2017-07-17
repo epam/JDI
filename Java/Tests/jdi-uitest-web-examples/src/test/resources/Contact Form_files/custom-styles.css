@@ -1,0 +1,926 @@
+/*CONTENTS
+
+|_General
+|
+|_Type and Scaffolding
+|
+|_Helper Classes (row 101)
+|
+|_Header (row 119)
+|   |_Custom Header Styles
+|   |_Header Search
+|
+|_Left Menu Custom Styles (row 230)
+|
+|_Right Menu Custom Styles (row 286)
+|   |_Panels
+|
+|_Content (row 334)
+|   |_Main Page (row 350)
+|   |_Forms (row 413)
+|   |   |_Checkbox and radio custom styles (row 436)
+|   |   |_Dropdowm Menu (row 475)
+|   |   |_Horizontal Form (Login Form) row 589
+|   |_Tables Custom Styles and Styles for Page 3 (row 526)
+|   |_Datapicker, Timepicker Custom Styles (row 555)
+|   |_Pagination (row 609)
+|   |_Image Upload (row 636)
+|   |_Range (tow 661)
+|
+|_Footer (row 714)
+|
+|_Here you can write another styles
+
+*/
+
+/*General*/
+
+html {
+    height: 100%;
+}
+
+body {
+    color: #666;
+    height: calc(100% - 60px);
+    min-width: 1200px;
+}
+
+.wrapper{
+    min-height: 100%;
+}
+
+.pattern-top {
+    background: url("../images/pattern-top.png") 0 0 no-repeat;
+    height: 264px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 459px;
+}
+
+.uui-main-container {
+    background: url("../images/pattern-bottom.png") right bottom+64px no-repeat;
+    height: 100%;
+    position: relative;
+}
+    .uui-main-container main,
+    .uui-main-container main .main-content {
+        height: 100%;
+    }
+        .uui-main-container.page-inside {
+            background: none;
+            margin-right: 374px;
+        }
+            .uui-main-container.page-inside .pattern-top {
+                display: none;
+            }
+            .uui-main-container.page-inside .main-content {
+                max-width: 780px;
+            }
+
+/*Type and Scaffolding*/
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+h3.main-title {
+    margin-top: 45px;
+}
+
+.uui-button {
+    font: 14px 'Oswald Regular',Tahoma,sans-serif;
+    padding: 0 20px;
+    text-transform: uppercase;
+}
+    .uui-button.btn-login {
+        font-size: 16px;
+        width: 100%;
+    }
+        .uui-button.btn-login i {
+            font-size: 25px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .uui-button.btn-login span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+/*Helper Classes*/
+
+.overflow {
+    overflow: hidden;
+}
+
+.m-l8 {
+    margin-left: 8px !important;
+}
+
+.m-t20 {
+    margin-top: 20px;
+}
+
+.m-t35 {
+    margin-top: 35px;
+}
+
+.hidden {
+    display: none;
+}
+
+/*------HEADER-----*/
+
+header {
+    min-width: 1200px;
+}
+    /*Custom Header styles*/
+
+    .uui-header.dark-gray .epam-logo {
+        background: transparent;
+        padding: 0 20px;
+    }
+        .uui-header.dark-gray .epam-logo span {
+            color: #39c2d7;
+            float: right;
+            font: 12px 'Source Sans Pro Regular';
+            line-height: 1;
+            margin: 19px 0 0 12px;
+            text-transform: uppercase;
+        }
+
+    header .uui-header .uui-navigation.navbar-nav > li > a,
+    header .uui-header .uui-navigation.navbar-nav >li > a span.caret {
+        color: #ccc;
+    }
+    header .uui-header .uui-navigation.navbar-nav > li > a:hover,
+    header .uui-header .uui-navigation.navbar-nav > li > a:hover span.caret,
+    .uui-header.dark-gray .uui-navigation > li.open > a,
+    .uui-header.dark-gray .uui-navigation > li.open > a span.caret,
+    header .uui-header .uui-navigation.navbar-nav > li .dropdown-menu > li > a:hover {
+        color: #fff;
+    }
+    header .uui-header .uui-navigation.navbar-nav > li .dropdown-menu {
+        background-color: #323132;
+        border: 0 none;
+        min-width: 242px;
+    }
+        header .uui-header .uui-navigation.navbar-nav > li .dropdown-menu > li {
+            border-top: 1px solid #505050;
+        }
+        header .uui-header .uui-navigation.navbar-nav >li .dropdown-menu > li:first-child {
+            border-top: 0 none;
+        }
+            header .uui-header .uui-navigation.navbar-nav>li .dropdown-menu > li > a,
+            header .uui-header .uui-navigation.navbar-nav>li .dropdown-menu > li.title {
+                color: #ccc;
+                font-family: 'Oswald Regular',Tahoma,sans-serif;
+                text-transform: uppercase;
+            }
+            header .uui-header .uui-navigation.navbar-nav>li .dropdown-menu > li.title {
+                background-color: #39c2d7;
+                color: #fff;
+            }
+    header .uui-header .uui-navigation.navbar-nav > li.uui-profile-menu > a:hover,
+    header .uui-header .uui-navigation.navbar-nav > li.uui-profile-menu > a:hover span.caret,
+    .uui-header.dark-gray .uui-navigation > li.uui-profile-menu.open > a span.caret{
+        background: transparent;
+    }
+
+    .uui-profile-menu > a .profile-photo {
+        height: auto;
+        margin: 0 5px 0 0;
+        width: auto;
+    }
+        .uui-profile-menu > a .profile-photo > img {
+            height: 30px;
+            margin-top: 15px;
+            width: 30px;
+        }
+        .uui-profile-menu > a .profile-photo > i {
+            font-size: 22px;
+            margin-right: 5px;
+        }
+        .uui-profile-menu > a .caret {
+            margin-top: -3px;
+        }
+
+    /*Header Search*/
+
+    .search {
+        float: right;
+    }
+        .icon-search {
+            background: url("../images/sprite.png") -292px -2px no-repeat;
+            cursor: pointer;
+            height: 20px;
+            float: right;
+            margin: 20px 15px 0 0;
+            width: 20px;
+        }
+            .icon-search.active, .icon-search:hover {
+                background-position: 0 -2px;
+            }
+        .search-active {
+            background-color: #323132;
+            height: 60px;
+            width: 457px;
+        }
+        .search-title {
+            border-right: 1px solid #fff;
+            color: #fff;
+            font: 16px 'Source Sans Pro Light';
+            float: left;
+            margin-top: 19px;
+            padding: 0 10px 0 20px;
+        }
+        .search-field {
+            margin: 0 45px 0 150px;
+        }
+            .search-field input {
+                background: transparent;
+                border: 0 none;
+                box-sizing: border-box;
+                color: #fff;
+                height: 40px;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+/*------LEFT MENU CUSTOM STYLES-----*/
+
+.uui-side-bar{
+    background-color: #f5f5f5;
+    width: 200px;
+}
+.uui-side-bar .sidebar-menu {
+    margin-top: 89px;
+}
+    .uui-side-bar .sidebar-menu > li {
+        margin-bottom: 2px;
+    }
+        .uui-side-bar .sidebar-menu > li > a {
+            box-shadow: none;
+            height: auto;
+            line-height: normal;
+            padding: 10px 20px;
+        }
+            .uui-side-bar .sidebar-menu > li > a span {
+                color: #464547;
+                font-family: 'Source Sans Pro Bold';
+                text-transform: none;
+            }
+        .uui-side-bar .sidebar-menu > li.active > a,
+        .uui-side-bar .sidebar-menu > li > a:hover {
+            background-color: #39c2d7;
+        }
+            .uui-side-bar .sidebar-menu > li > a:hover span,
+            .uui-side-bar .sidebar-menu>li.active>a .arrow,
+            .uui-side-bar .sidebar-menu>li>a:hover .arrow {
+                color: #fff;
+            }
+        .uui-side-bar .sidebar-menu > li > a .arrow {
+            color: #464547;
+            margin: 4px 0 0;
+        }
+
+    .uui-side-bar .sidebar-menu .sub {
+        background: transparent;
+    }
+        .uui-side-bar .sidebar-menu .sub > li > a {
+            padding: 10px 20px 10px 40px;
+            text-transform: none;
+        }
+            .uui-side-bar .sidebar-menu .sub > li > a p span {
+                color: #666;
+                font-family: 'Source Sans Pro Regular';
+            }
+        .uui-side-bar .sidebar-menu .sub > li > a:hover {
+            background: transparent;
+        }
+            .uui-side-bar .sidebar-menu .sub > li > a:hover span,
+            .uui-side-bar .sidebar-menu .sub > li.active > a span {
+                color: #1a9cb0;
+            }
+
+/*------RIGHT MENU CUSTOM STYLES-----*/
+
+.uui-side-bar.right-fix-panel {
+    background-color: #e8f4f6;
+    right: 0;
+    padding: 100px 25px 25px;
+    width: 374px;
+}
+    /*Panels*/
+    .uui-info-panel-horizontal {
+        margin-bottom: 25px;
+    }
+        .uui-info-panel-horizontal .info-panel-header {
+            background-color: #a3c644;
+            color: #fff;
+            padding: 8px 12px;
+        }
+        .uui-info-panel-horizontal .info-panel-body {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-top: 0 none;
+            display: block;
+            height: 225px;
+        }
+        .info-panel-body.info-panel-body-log {
+            overflow-y: auto;
+        }
+            .uui-info-panel-horizontal .info-panel-body .info-panel-section {
+                color: #464547;
+                display: block;
+                font-family: 'Source Sans Pro Light';
+                padding: 12px;
+            }
+            .panel-body-list {
+                list-style: none;
+            }
+                .panel-body-list > li {
+                    padding: 4px 0;
+                }
+                .panel-body-list > li:first-child {
+                    padding-top: 0;
+                }
+    .uui-info-panel-horizontal.panel-gray {
+        margin-bottom: 30px;
+    }
+        .uui-info-panel-horizontal.panel-gray .info-panel-header {
+            background-color: #7d7d7d;
+        }
+        .uui-info-panel-horizontal.panel-gray .info-panel-body {
+            height: 155px;
+        }
+
+/*------CONTENT-----*/
+
+.main-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 40px 104px;
+    position: relative;
+    width: 100%;
+    z-index: 500;
+}
+
+.main-content-hg {
+    min-height: 100%;
+    padding-bottom: 32px;
+}
+
+.centercol {
+    margin-right: 374px;
+    padding: 40px;
+}
+
+    /*Main Page */
+    .main-txt {
+        padding: 0 90px;
+        text-transform: uppercase;
+    }
+    .benefits {
+        margin-top: 130px;
+    }
+        .benefit {
+            border: 1px solid #a3c644;
+            min-height: 225px;
+            position: relative;
+            text-align: center;
+        }
+            .benefit-icon {
+                background-color: #a3c644;
+                border-radius: 6px;
+                box-sizing: border-box;
+                left: 50%;
+                margin-left: -71px;
+                position: absolute;
+                padding: 10px;
+                top: -52px;
+                width: 142px;
+            }
+            .icons-benefit {
+                background: url("../images/sprite.png") no-repeat;
+                display: block;
+                height: 84px;
+                margin: 0 auto;
+            }
+                .icons-benefit.icon-practise {
+                    background-position: -1px -22px;
+                    width: 64px;
+                }
+                .icons-benefit.icon-custom {
+                    background-position: -69px -22px;
+                    width: 77px;
+                }
+                .icons-benefit.icon-multi {
+                    background-position: -152px -22px;
+                    width: 85px;
+                }
+                .icons-benefit.icon-base {
+                    background-position: -242px -22px;
+                    width: 45px;
+                }
+            .benefit-icon:after {
+                background: url("../images/sprite.png") -24px -2px no-repeat;
+                bottom: -12px;
+                content: "";
+                height: 13px;
+                left: 50%;
+                margin-left: -13px;
+                position:absolute;
+                width: 26px;
+            }
+            .benefit-txt {
+                display: block;
+                font: 18px 'Oswald Regular',Tahoma,sans-serif;
+                padding-top: 90px;
+            }
+
+    /*Forms*/
+    label {
+        color: #464547;
+        font-family: 'Source Sans Pro Light';
+        font-weight: normal;
+    }
+    textarea {
+        resize: none;
+    }
+    .uui-form-element {
+        color: #464547;
+    }
+    .form .form-group {
+        margin-bottom: 30px;
+    }
+        .form-group.form-group10 {
+            margin-bottom: 10px;
+        }
+    .horizontal-group p {
+        margin-right: 40px;
+        margin-bottom: 5px;
+    }
+
+        /*Checkbox and radio custom styles*/
+        .main-content .radio label,
+        .main-content .checkbox label {
+            padding-left: 25px;
+        }
+        .main-content .radio label:before,
+        .main-content .radio label:after,
+        .main-content .checkbox label:before,
+        .main-content .checkbox label:after {
+            margin-left: 0;
+        }
+        .main-content .radio label:after {
+            background-color: #d2d2d2;
+        }
+        input[type=radio].uui-form-element+label, input[type=checkbox].uui-form-element+label {
+            color: #464547;
+        }
+        .uui-info-panel-horizontal.panel-gray .vertical-group .checkbox label:after,
+        .form-group .dropdown .dropdown-menu > li.selected .checkbox input[type=checkbox].uui-form-element.blue:checked+label:after {
+            color: #d2d2d2 !important;
+        }
+        .uui-info-panel-horizontal.panel-gray .vertical-group .checkbox label:after {
+            padding-top: 3px !important;
+        }
+        .uui-info-panel-horizontal.panel-gray .vertical-group .checkbox input[type=checkbox].uui-form-element:checked+label:before {
+            background-color: transparent;
+            border-color: #ccc;
+        }
+        .form-group .dropdown .dropdown-menu > li.selected .checkbox input[type=checkbox].uui-form-element.blue:checked+label:before,
+        .form-group .dropdown .dropdown-menu > li .checkbox:hover input[type=checkbox].uui-form-element.blue:checked+label:before {
+            background-color: transparent !important;
+        }
+        .form-group .dropdown .dropdown-menu > li.selected .checkbox input[type=checkbox].uui-form-element.blue:checked+label:before {
+            border-color: #ccc;
+        }
+        .form-group .dropdown .dropdown-menu > li a.checkbox:hover input[type=checkbox].uui-form-element.blue:checked+label:before {
+            border-color: #fff;
+        }
+
+        /*Dropdown Menu (Page 2)*/
+        .form-group .bootstrap-select:not([class*=span]):not([class*=col-]):not([class*=form-control]):not(.input-group-btn),
+        .form-group .dropdown,
+        .form-group .dropdown  .btn.dropdown-toggle {
+            margin-bottom: 0;
+            width: 100%;
+        }
+            .form-group .btn.dropdown-toggle {
+                border-radius: 0;
+                box-shadow: none;
+                text-align: left;
+            }
+            .form-group .btn.dropdown-toggle .caret {
+                float: right;
+                margin-top: 8px;
+            }
+                .form-group .dropdown .dropdown-menu {
+                    border-radius: 0;
+                    margin: 0;
+                    width: 100%;
+                }
+                    .form-group .dropdown .dropdown-menu > li > a {
+                        margin: 0;
+                        padding: 6px 12px;
+                        text-decoration: none;
+                    }
+                        .form-group .dropdown .dropdown-menu > li > a label {
+                            display: block !important;
+                        }
+                    .uui-form-element.bootstrap-select .dropdown-menu li a:hover,
+                    .uui-form-element.bootstrap-select .dropdown-menu li.selected a,
+                    .form-group .dropdown .dropdown-menu > li > a:hover {
+                        background-color: #39c2d7;
+                    }
+                    .uui-form-element.bootstrap-select .dropdown-menu li a:hover,
+                    .uui-form-element.bootstrap-select .dropdown-menu li.selected a,
+                    .form-group .dropdown .dropdown-menu > li > a:hover label,
+                    .form-group .dropdown .dropdown-menu > li > a:hover label:after {
+                        color: #fff;
+                    }
+            .btn-default:hover, .btn-default:focus,
+            .btn-default:active, .btn-default.active,
+            .open>.dropdown-toggle.btn-default {
+                background: transparent;
+            }
+            .uui-form-element.bootstrap-select .btn span,
+            .dropdown-menu > li > a {
+                color: #464547;
+            }
+
+        /*Horizontal Form (Login Form)*/
+        .uui-navigation .dropdown.uui-profile-menu .dropdown-menu.dropdown-menu-login {
+            background-color: #575658;
+            min-width: 0;
+            width: 220px;
+        }
+            .form-horizontal-pad {
+                padding: 20px 10px 10px;
+            }
+            .form-horizontal label {
+                color: #ccc;
+                font: 14px "Oswald Regular";
+                margin-bottom: 0;
+                padding-top: 3px;
+                text-align: right;
+            }
+            .form-horizontal input {
+                background-color: #eaeaea;
+                border-color: #eaeaea;
+                height: 25px;
+                outline: none;
+            }
+                .form-horizontal input:focus {
+                    border-color: #eaeaea;
+                }
+        .login-txt {
+            color: #c64744;
+            font: 14px "Oswald Regular";
+            margin-left: 57px;
+        }
+
+    /*Tables Custom Styles and styles Page 3*/
+    .support-title {
+        color: #39c2d7;
+        font: 18px 'Oswald Regular', Tahoma, sans-serif;
+        margin-bottom: 15px;
+    }
+        .support-title > i {
+            margin-right: 8px;
+        }
+    .uui-table {
+        border: 0 none;
+    }
+        .uui-table tr {
+            border-color: #efefef;
+        }
+        .uui-table thead tr {
+            border: 0 none;
+        }
+            .uui-table thead tr th {
+                background-color: #efefef;
+                text-align: center;
+                font-family: 'Oswald Regular', Tahoma, sans-serif;
+            }
+        .uui-table.stripe tbody tr:nth-child(odd) {
+            background-color: transparent;
+        }
+        .uui-table.stripe tbody tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+
+    /*Datapicker, Timepicker Custom Styles*/
+    .label-date {
+        float: left;
+        padding-top: 5px;
+        margin-right: 25px;
+    }
+    .uui-datepicker .uui-button,
+    .uui-timepicker .uui-button {
+        background: transparent;
+        border-left: 0 none;
+        border-color: #ccc;
+    }
+        .uui-datepicker .uui-button i,
+        .uui-timepicker .uui-button i {
+            color: #000;
+        }
+    .datepicker.dropdown-menu {
+        border-radius: 0 !important;
+        padding: 0 !important;
+    }
+        .datepicker table tr td,
+        .datepicker table tr th {
+            border-radius: 0 !important;
+        }
+        .datepicker table tr th {
+            color: #1a9cb0;
+        }
+            .datepicker table thead tr:first-child th:hover {
+                background: #999 !important;
+            }
+        .datepicker table tr th.dow {
+            background-color: #f5f6f7;
+        }
+        .datepicker table tr td.day.active {
+            background-color: #1a9cb0 !important;
+            color: #fff;
+        }
+        .datepicker table tr td.day:hover {
+            background-color: #39c2d7 !important;
+            color: #fff;
+        }
+
+    .bootstrap-timepicker-widget.dropdown-menu table tr td a i {
+        color: #e4e4e4;
+        font-size: 12px;
+    }
+    .bootstrap-timepicker-widget.dropdown-menu table tr td a i:hover {
+        background-color: transparent !important;
+    }
+    .bootstrap-timepicker-widget.dropdown-menu table tr td input {
+        background-color: #f5f6f7;
+        border-radius: 4px;
+    }
+
+    /*Pagination Custom Styles*/
+    .uui-pagination {
+        margin-top: -32px;
+        height: 32px;
+        left: 50%;
+        margin-left: -153px;
+        position: relative;
+    }
+        .uui-pagination > li > a{
+            color: #464547;
+        }
+            .uui-pagination > li > a i {
+                color: #39c2d7;
+            }
+        .uui-pagination > li.active > a,
+        .uui-pagination > li > a:hover {
+            background: #39c2d7;
+            color: #fff;
+        }
+        .uui-pagination > li:first-child > a,
+        .uui-pagination > li:last-child > a,
+        .uui-pagination > li.last > a,
+        .uui-pagination > li.first > a {
+            background-color: transparent;
+        }
+            .uui-pagination > li.last > a:hover,
+            .uui-pagination > li.first > a:hover {
+                color: #464547;
+            }
+            .uui-pagination > li.disable > a i,
+            .uui-pagination > li.last.disable > a:hover,
+            .uui-pagination > li.first.disable > a:hover {
+                color: #ccc;
+            }
+
+    /*Image Upload*/
+    .image-upload {
+        margin-top: 30px;
+    }
+        .image-upload .thumbnail {
+            border-style: dashed;
+            border-radius: 0;
+            margin-bottom: 30px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .image-upload .thumbnail > span {
+            color: #cdcccb;
+            display: block;
+            padding: 12px 0;
+        }
+            .image-upload .thumbnail > span > span {
+                display: block;
+                font: 14px 'Oswald Regular', Tahoma, sans-serif;
+                text-transform: uppercase;
+            }
+            .image-upload .thumbnail > span > i {
+                font-size: 25px;
+            }
+
+    /*Range*/
+    .range-from {
+        margin-top: 4px;
+    }
+        .range-from > span,
+        .range-from > input {
+            float: left;
+        }
+        .range-from > input[type=text] {
+            background-color: #f5f6f7;
+            border-radius: 4px;
+            height: 23px;
+            margin: 0 5px;
+            padding: 5px;
+            text-align: center;
+            width: 36px;
+        }
+        .range-from > span {
+            padding-top: 2px;
+        }
+
+    .range {
+        background: #1a9cb0;
+        border-radius: 8px;
+        height: 7px;
+        margin-top: 25px;
+        position: relative;
+    }
+        .range-circle {
+            background: url("../images/sprite.png") -65px -2px no-repeat;
+            cursor: pointer;
+            height: 16px;
+            position: absolute;
+            top: -5px;
+            width: 16px;
+            z-index: 100;
+        }
+            .range-circle > span {
+                font-size: 14px;
+                position: absolute;
+                top: -20px;
+            }
+        .range-line-light {
+            background-color: #39c2d7;
+            border-radius: 8px;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            z-index: 50;
+        }
+
+    /*Tables Styles*/
+    .tbl-without-header td {
+        cursor: pointer;
+    }
+    .uui-table.stripe tr.active {
+        background-color: #F6FBFC !important;
+    }
+
+    .tbl-scroll > tbody > tr:first-child > td {
+        padding: 0;
+    }
+
+    .tbl-height {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+        .tbl-height table td {
+            border-left: 1px dashed #ddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .tbl-height table td.title-col {
+            border-right: 1px solid #ddd;
+            color: #39c2d7;
+            text-align: left;
+
+        }
+        .tbl-height table td.title-col span {
+            cursor: pointer;
+        }
+        .tbl-height table tbody tr td:first-child {
+            border-left: 0 none;
+        }
+            .tbl-height table td p {
+                margin: 0;
+            }
+
+    .select-multiple {
+        margin-top: 20px;
+    }
+        .select-multiple > p {
+            font-family: 'Source Sans Pro Bold';
+        }
+        .select-multiple button {
+            margin-right: 10px;
+        }
+        .select-multiple .uui-form-element.bootstrap-select.raspberry-color .btn {
+            background-color: #39c2d7;
+            border-color: #39c2d7;
+        }
+        .select-multiple .uui-form-element.bootstrap-select.raspberry-color .dropdown-menu>li.selected>a .check-mark {
+            color: #fff;
+        }
+        .select-multiple .uui-form-element.bootstrap-select.raspberry-color .dropdown-menu>li>a:hover,
+        .select-multiple .uui-form-element.bootstrap-select.raspberry-color .dropdown-menu>li>a:focus {
+            background-color: #39c2d7;
+        }
+        table.dataTable.dynamic thead th {
+            font-weight: normal !important;
+            padding: 10px;
+        }
+        table.dataTable.stripe.dynamic tbody tr.odd, table.dataTable.display tbody tr.odd {
+            background-color: #fff;
+        }
+
+    /*Different Elements*/
+    .label-checkbox,
+    .label-radio {
+        cursor: pointer;
+        margin-right: 20px;
+    }
+    .checkbox-row {
+        margin-bottom: 20px;
+    }
+    .different-elements button {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .different-elements p {
+        font-family: 'Source Sans Pro Bold';
+        margin: 20px 0 10px;
+    }
+
+/*------FOOTER-----*/
+
+footer {
+    bottom: 0;
+    margin-top: -64px;
+    position: fixed;
+    z-index: 1000;
+}
+    .footer-bg {
+        background-color: #464547;
+        color: #ccc;
+        font-size: 12px;
+        height: 64px;
+    }
+    .footer-content {
+        padding: 0 20px;
+        width: 100%;
+    }
+        .footer-content div {
+            float: left;
+            line-height: 64px;
+        }
+        .footer-menu {
+            float: right;
+            list-style: none;
+            margin-top: 25px;
+        }
+            .footer-menu > li {
+                float: left;
+                margin-left: 15px;
+            }
+                .footer-menu > li > a {
+                    color: #ccc;
+                    text-decoration: none;
+                }
+                .footer-menu > li > a:hover {
+                    color: #fff;
+                }
+
+/*From Safari*/
+body:first-of-type .main-content-hg {
+    height: 100%;
+}
+body:first-of-type .wrapper {
+    height: 100%;
+}
+
+.metals input {
+    position: absolute;
+    z-index: 10000;
+    border: none;
+    margin: 1px;
+    height: 32px;
+    width: 80%;
+    padding-left: 10px;
+}
+.uui-table td.active{
+    background-color: #39c2d7;
+    border-color: #39c2d7;
+    color:#FFF;
+}
+/*------Here you can write another styles-----*/

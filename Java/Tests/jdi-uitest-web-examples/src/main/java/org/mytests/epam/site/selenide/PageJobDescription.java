@@ -1,13 +1,24 @@
 package org.mytests.epam.site.selenide;
 
+import com.epam.jdi.uitests.web.robot.JRobot;
+import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.junit.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
+import javax.jws.WebService;
+import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.epam.jdi.uitests.web.robot.JRobot.pasteText;
 import static com.epam.jdi.uitests.web.selenium.elements.base.JdiStatic.*;
 
 
@@ -37,12 +48,30 @@ public class PageJobDescription {
         lastNameTextField.sendKeys(attendee.lastName);
         emailField.sendKeys(attendee.email);
         counryValue.click();
-        find(counryList, attendee.country).click();
+        find(counryList, attendee.country);
         cityValue.click();
-        find(cityList, attendee.city).click();
-        cvTextField.sendKeys(attendee.cv);
+        find(cityList, attendee.city);
+
+        cvTextField.click();
+
+        //It works:
+        JRobot.pasteText(new File(attendee.cv).getAbsolutePath());
+
+        //But more natural way does not work here. If for the case above we try:
+        //cvTextField.sendKeys(new File(attendee.cv).getAbsolutePath());
+        //Then we have "org.openqa.selenium.WebDriverException: unknown error: cannot focus element"
+
+        /* NB!
+        Since in some cases WebDriver is not able to focus to proper windows text field to enter a file path
+        solution also could be found in usage of AutoIt script.
+        The script will contain three commands ControlFocus(..., ControlSetText(..., ControlClick(...
+        and may be executed in the test:
+        RunTime.getRunTime().exec("C:\\ThePath\\AutoITScript.exe")
+        For more info: https://ru.wikipedia.org/wiki/AutoIt  https://www.autoscript.com
+        */
+
+        commentTextField.click();
         commentTextField.sendKeys(attendee.comment);
-        submitButton.click();
     }
 
     public void verifyCVForm(Attendee attendee) {
@@ -53,4 +82,5 @@ public class PageJobDescription {
         Assert.areEquals(cityValue.getText(), attendee.city);
         Assert.areEquals(commentTextField.getValue(), attendee.comment);
     }
+
 }
