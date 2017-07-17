@@ -1,24 +1,30 @@
 package org.mytests.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.epam.jdi.uitests.core.settings.JDISettings;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.mytests.InitSelenideTestsTableForm;
 import org.mytests.InitTestsTableForm;
 import org.mytests.epam.site.entities.Attendee;
 import org.mytests.epam.site.entities.Job;
 import org.mytests.epam.site.selenide.PageJobs;
+import org.mytests.epam.site.site.EpamSite;
 import org.testng.annotations.Test;
 import org.mytests.epam.site.testdata.CVData;
 
+import java.io.IOException;
+
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.epam.jdi.uitests.core.settings.JDISettings.initFromProperties;
 import static org.mytests.epam.site.selenide.PageJobDescription.pageJobDescription;
 
 public class TableFormSelenideTest extends InitTestsTableForm {
 
     // Selenide looks like tests written on JDI using J SelenideElement wrapper
     @Test(dataProviderClass=CVData.class, dataProvider = "cvData")
-    public void selenideTest(Attendee attendee, Job job) {
+    public void selenideTest(Attendee attendee, Job job) throws IOException {
 
         System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
         Configuration.browser="chrome";
@@ -30,5 +36,8 @@ public class TableFormSelenideTest extends InitTestsTableForm {
 
         pageJobDescription.submitForm(attendee);
         pageJobDescription.verifyCVForm(attendee);
-    }
-}
+
+        WebSettings.initFromProperties();
+        }
+
+      }
