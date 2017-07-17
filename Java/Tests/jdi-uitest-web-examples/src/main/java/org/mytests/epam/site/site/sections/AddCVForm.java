@@ -4,12 +4,17 @@ import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextArea;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.web.robot.JRobot;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.web.matcher.testng.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.support.FindBy;
+
+import java.io.File;
+
+import static com.epam.jdi.uitests.web.selenium.elements.base.JdiStatic.find;
 
 /**
  * Created by Roman_Iovlev on 10/23/2015.
@@ -41,6 +46,8 @@ public class AddCVForm extends Form<Attendee> {
 
     @FindBy(xpath = "//*[.='Submit']")
     IButton submit;
+
+
 
     @Override
     public void check(Attendee attendee){

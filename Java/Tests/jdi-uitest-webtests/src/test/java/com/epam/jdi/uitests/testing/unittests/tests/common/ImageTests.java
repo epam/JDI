@@ -20,7 +20,7 @@ import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActions
 public class ImageTests extends InitTests {
     private static final String ALT = "ALT";
     //private static final String SRC = "https://jdi-framework.github.io/tests/label/Logo_Epam_Color.svg";
-    private static final String SRC = "https://jdi-framework.github.io/tests/images/Logo_Epam_Color.svg";
+    private static final String SRC = "https://epam.github.io/JDI/images/Logo_Epam_Color.svg";
     private IImage clickableItem() { return homePage.logoImage; }
 
     @BeforeMethod

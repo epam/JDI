@@ -2,6 +2,7 @@ package org.mytests.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.epam.jdi.uitests.web.settings.WebSettings;
+import org.mytests.InitSelenideTestsTableForm;
 import org.mytests.InitTestsTableForm;
 import org.mytests.epam.site.entities.Attendee;
 import org.mytests.epam.site.entities.Job;
