@@ -53,3 +53,5 @@ Python/Test/jdi_uitests_webtests/main/page_objects/w3c_site/__pycache__/
 Python/Test/jdi_uitests_webtests/test/composite/__pycache__/
 Python/JDI/core/utils/__pycache__/
 Python/JDI/web/selenium/driver/utils/__pycache__/web_driver_by_utils.cpython-35.pyc
+Python/Test/jdi_uitests_webtests/test/complex/table/__pycache__/
+Python/JDI/web/selenium/elements/complex/table/__pycache__/

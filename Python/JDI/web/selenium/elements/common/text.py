@@ -7,7 +7,12 @@ from JDI.web.selenium.elements.base.element import Element
 class Text(Element):
 
     def __init__(self, by_locator=None, web_element=None):
-        super(Text, self).__init__(by_locator)
+        if by_locator is not None:
+            super(Text, self).__init__(by_locator=by_locator)
+        elif web_element is not None:
+            super(Text, self).__init__(web_element=web_element)
+        else:
+            super(Text, self).__init__()
 
     def get_text_action(self):
         el = self.get_web_element()

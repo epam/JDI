@@ -1,5 +1,7 @@
 import unittest
 
+import time
+
 from JDI.web.selenium.elements.composite.web_site import WebSite
 from JDI.web.selenium.settings.web_settings import WebSettings
 from Test.jdi_uitest_web_examples.main.entities.entities import Attendee
@@ -23,12 +25,12 @@ class CareerTests(unittest.TestCase):
         EpamSite.header_menu.select(HeaderMenu.CAREERS)
 
         EpamSite.career_page.check_opened()
-        #EpamSite.career_page.job_filter.search(attendee.filter)
-        #
-        # EpamSite.job_listing_page.check_opened()
+        EpamSite.career_page.job_filter.search(attendee.filter)
+
+        EpamSite.job_listing_page.check_opened()
         # # new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
         #
-        # EpamSite.job_listing_page.get_job_row_by_name("QA Specialist")
+        EpamSite.job_listing_page.get_job_row_by_name("QA Specialist")
         # EpamSite.job_description_page.add_cv_form.submit_form(attendee)
         # # Check("Captcha class contains 'form-field-error'").contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
 

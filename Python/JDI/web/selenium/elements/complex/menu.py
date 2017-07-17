@@ -17,11 +17,13 @@ class Menu(Selector):
                  by_all_options_names_locator=None,
                  by_menu_levels_locators=None,
                  parametrized_class=None):
-        super(Menu, self).__init__(by_options_name_locator_template=by_options_name_locator_template,
-                                   by_all_options_names_locator=by_all_options_names_locator)
+        super(Menu, self).__init__(by_option_locator_template=by_options_name_locator_template,
+                                   by_option_locator_all=by_all_options_names_locator)
         if by_all_options_names_locator is not None:
             self.menu_levels_locators.append(by_all_options_names_locator)
         if by_menu_levels_locators is not None:
+            if not isinstance(by_menu_levels_locators, list):
+                raise TypeError("Please supply 'by_menu_levels_locators' param as list")
             self.menu_levels_locators = by_menu_levels_locators
         if parametrized_class is not None:
             self.parametrized_class = parametrized_class

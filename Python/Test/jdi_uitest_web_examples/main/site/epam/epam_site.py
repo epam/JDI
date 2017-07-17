@@ -12,17 +12,17 @@ class EpamSite(WebSite):
     home_page = HomePage(url="/", title="EPAM | Software Product Development Services")
     career_page = CareerPage(url="/careers", title="Careers")
     product_development_page = ProductDevelopmentPage(url="/solutions/core-engineering/product-development")
-    job_listing_page = None #JobListingPage(
-        # url="/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
-        # urlTemplate="/careers/job-listings", title="Job Listings",
-        # urlCheckType=CheckPageTypes.CONTAINS, titleCheckType=CheckPageTypes.CONTAINS)
+    job_listing_page = JobListingPage(
+         url="/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
+         url_template="/careers/job-listings", title="Job Listings",
+         url_check_type=CheckPageTypes.CONTAINS, title_check_type=CheckPageTypes.CONTAINS)
     job_description_page = None #JobDescriptionPage(
         # url="/careers/job-listings/job.11584#apply", urlTemplate=".*/careers/job-listings/job\\.\\d*#apply",
         # urlCheckType=CheckPageTypes.MATCH)
 
     header_menu = Menu(by_all_options_names_locator=By.css(".tile-menu>li>a"), parametrized_class=HeaderMenu)
-    multiple_header_menu = Menu(by_menu_levels_locators={By.css(".tile-menu>li>a"),
-                                                         By.xpath("//*[@class='tile-menu']//*[@href='/solutions']//..//li")})
+    multiple_header_menu = Menu(by_menu_levels_locators=[By.css(".tile-menu>li>a"),
+                                                         By.xpath("//*[@class='tile-menu']//*[@href='/solutions']//..//li")])
 
     line_menu = None#JDIElements(By.css(".tile-menu>li>a"), Button)
 

@@ -30,3 +30,4 @@ class JobListHeaders(Enum):
 
 class Locations(Enum):
     SAINT_PETERSBURG = "Russian Federation > Saint-Petersburg"
+    MOSCOW = "Russian Federation > Moscow"

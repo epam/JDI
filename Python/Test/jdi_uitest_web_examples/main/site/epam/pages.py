@@ -27,8 +27,8 @@ class JobDescriptionPage(WebPage):
 
 
 class JobListingPage(WebPage):
-    def __init__(self, url, title):
-        super(JobListingPage, self).__init__(url=url, title=title)
+    def __init__(self, url, title, url_template=None, url_check_type=None, title_check_type=None):
+        super(JobListingPage, self).__init__(url=url, title=title, url_template=url_template, url_check_type=url_check_type, title_check_type=title_check_type)
 
         jobs_list = None#Table(root=By.css(".search-result-list"),
                     #      row=By.xpath(".//li[%s]//div"),

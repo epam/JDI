@@ -1,24 +1,25 @@
 from Test.jdi_uitest_web_examples.main.enums.enums import JobCategories, Locations
 
 
-class JobSearchFilter:
+class JobSearchFilter(object):
 
-    def __init__(self): pass
-    keywords = "QA"
-    category = JobCategories.QA
-    location = Locations.SAINT_PETERSBURG
+    def __init__(self):
+        self.keyword = "QA"
+        self.category = JobCategories.QA
+        self.location = Locations.MOSCOW
 
 
-class Attendee:
-    filter = JobSearchFilter()
+class Attendee(object):
 
-    name = "Roman"
-    last_name = "Iovlev"
-    email = "roman_iovlev@epam.com"
-    country = "Russian Federation"
-    city = "Saint-Petersburg"
-    ca = ""
-    comment = "I WANT TO WORK IN EPAM!!!"
+    def __init__(self):
+        self.filter = JobSearchFilter()
+        self.first_name = "Roman"
+        self.last_name = "Iovlev"
+        self.email = "roman_iovlev@epam.com"
+        self.country = "Russian Federation"
+        self.city = "Moscow"
+        self.ca = ""
+        self.comment = "I WANT TO WORK IN EPAM!!!"
 
     def __str__(self):
         return self.name + " " + self.last_name
