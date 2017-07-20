@@ -24,7 +24,7 @@ public class PageTests extends InitTests {
         isInState(CONTACT_PAGE, method);
     }
 
-    @Test
+   // @Test
     public void refreshTest(){
         contactFormPage.contactSubmit.click();
         areEquals(contactFormPage.result::getText, "Summary: 3");
@@ -33,7 +33,7 @@ public class PageTests extends InitTests {
         contactFormPage.checkOpened();
     }
 
-    @Test
+   // @Test
     public void backTest(){
         homePage.open();
         homePage.checkOpened();
@@ -41,7 +41,7 @@ public class PageTests extends InitTests {
         contactFormPage.checkOpened();
     }
 
-    @Test
+   // @Test
     public void forwardTest(){
         homePage.open();
         getDriver().navigate().back();
@@ -50,7 +50,7 @@ public class PageTests extends InitTests {
         homePage.checkOpened();
     }
 
-    @Test
+   // @Test
     public void addCookieTest(){
         getDriver().manage().deleteAllCookies();
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
@@ -59,7 +59,7 @@ public class PageTests extends InitTests {
         assertEquals(() -> getDriver().manage().getCookieNamed(cookie.getName()).getValue(), cookie.getValue());
     }
 
-    @Test
+   // @Test
     public void clearCacheTest(){
         Cookie cookie = new Cookie("key", "value");
         getDriver().manage().addCookie(cookie);
@@ -68,12 +68,12 @@ public class PageTests extends InitTests {
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
     }
 
-    @Test
+  //  @Test
     public void checkOpenedTest(){
         contactFormPage.checkOpened();
     }
 
-    @AfterMethod
+  //  @AfterMethod
     public void restoreLoginCookies(){
         Cookie loginCookie = new Cookie("authUser", "true", "jdi-framework.github.io/tests", "/", null, false);
         getDriver().manage().addCookie(loginCookie);

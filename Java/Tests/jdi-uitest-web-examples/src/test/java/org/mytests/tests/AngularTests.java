@@ -2,6 +2,7 @@ package org.mytests.tests;
 
 import com.epam.web.matcher.testng.Assert;
 import org.mytests.InitTestsAngular;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
 
 import static org.mytests.angular.site.AngularSite.angularPage;
@@ -20,6 +21,4 @@ public class AngularTests extends InitTestsAngular {
         angularPage.specialOptions.check();
         Assert.isTrue(angularPage.specialOptions.isChecked());
     }
-
-
 }

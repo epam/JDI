@@ -24,8 +24,8 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static org.mytests.epam.site.selenide.PageJobDescription.pageJobDescription;
-import static org.mytests.epam.site.site.EpamSite.jobDescriptionPage;
-import static org.mytests.epam.site.site.EpamSite.jobsPage;
+import static org.mytests.epam.site.site.EpamSite.*;
+
 import org.mytests.epam.site.testdata.CVData;
 
 /**
