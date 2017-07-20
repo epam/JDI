@@ -1,24 +1,14 @@
 package org.mytests.epam.site.selenide;
 
 import com.epam.jdi.uitests.web.robot.JRobot;
-import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.junit.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
-import javax.jws.WebService;
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.epam.jdi.uitests.web.robot.JRobot.pasteText;
 import static com.epam.jdi.uitests.web.selenium.elements.base.JdiStatic.*;
 
 

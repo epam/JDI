@@ -1,9 +1,6 @@
 package com.epam.jdi.entities;
 
 import com.epam.commons.DataClass;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 
 

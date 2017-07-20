@@ -2,8 +2,6 @@ package com.epam.jdi.entities;
 
 import com.epam.commons.DataClass;
 import com.epam.jdi.enums.JobCategories;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 import static com.epam.jdi.enums.JobCategories.QA;
 import static com.epam.jdi.enums.Locations.SAINT_PETERSBURG;

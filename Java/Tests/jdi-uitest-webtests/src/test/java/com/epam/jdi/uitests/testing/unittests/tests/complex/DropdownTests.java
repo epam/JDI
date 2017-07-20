@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.tests.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.testing.unittests.enums.Colors;
 import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import com.epam.web.matcher.testng.Check;

@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
@@ -24,7 +23,6 @@ import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActions
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static com.epam.web.matcher.testng.Assert.*;
 import static java.util.Arrays.asList;
-import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 
 /**
  * Created by Roman_Iovlev on 9/15/2015.

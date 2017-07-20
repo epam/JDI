@@ -18,10 +18,8 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  */
 
 
-import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
-import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.settings.WebSettings;
@@ -32,16 +30,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.epam.commons.LinqUtils.foreach;
-import static com.epam.commons.ReflectionUtils.*;
-import static com.epam.commons.StringUtils.namesEqual;
+import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**

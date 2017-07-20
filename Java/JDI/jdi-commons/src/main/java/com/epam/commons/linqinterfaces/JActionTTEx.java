@@ -17,8 +17,6 @@ package com.epam.commons.linqinterfaces;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.function.Consumer;
-
 /**
  * Created by roman.i on 01.10.2014.
  */

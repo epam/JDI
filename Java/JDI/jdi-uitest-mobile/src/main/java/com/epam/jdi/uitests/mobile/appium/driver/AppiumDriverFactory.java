@@ -36,7 +36,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.io.File;
 import java.net.URL;
 import java.util.Properties;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;

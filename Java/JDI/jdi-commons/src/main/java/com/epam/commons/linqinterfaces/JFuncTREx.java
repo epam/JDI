@@ -17,8 +17,6 @@ package com.epam.commons.linqinterfaces;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.function.Function;
-
 /**
  * Created by 12345 on 30.09.2014.
  */

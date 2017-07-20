@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * Created by roman.i on 20.10.2014.

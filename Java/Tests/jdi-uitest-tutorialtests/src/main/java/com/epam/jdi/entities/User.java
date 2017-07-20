@@ -1,7 +1,6 @@
 package com.epam.jdi.entities;
 
 import com.epam.commons.DataClass;
-import lombok.AllArgsConstructor;
 
 /**
  * Created by Roman_Iovlev on 5/21/2015.
