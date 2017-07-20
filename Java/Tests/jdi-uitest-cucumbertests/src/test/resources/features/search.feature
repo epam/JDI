@@ -1,6 +1,7 @@
 Feature: search
 
-  Scenario: search base
-    Given I'm open "homePage"
-    And I'm find "find string"
-    Then I'm on "supportPage"
+#  @todo
+#  Scenario: search base
+#    Given I open "homePage"
+#    And I find "find string"
+#    Then I'm on "supportPage"

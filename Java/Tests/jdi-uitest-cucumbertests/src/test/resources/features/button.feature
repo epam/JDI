@@ -8,5 +8,5 @@ Feature: button
 
   Scenario: button contains and match
     Given I open "metalsColorsPage"
-    Then Button "calculateButton" contains "CUL"
-    And Button "calculateButton" mach ".*LCU.*"
+    Then button "calculateButton" contains "CUL"
+    And button "calculateButton" match ".*LCU.*"

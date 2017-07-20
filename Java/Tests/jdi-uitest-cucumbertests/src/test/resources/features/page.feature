@@ -1,28 +1,28 @@
 Feature: page
 
   Scenario: page base
-    Given I'm open "homePage"
-    And I'm go back
-    And I'm go forward
+    Given I open "homePage"
+    And I go back
+    And I go forward
     Then I'm on "homePage"
-    And Check page url match
-    And Check page url contains
+    And I check that page url match
+    And I check that page url contains
 
   Scenario: page back
-    Given I'm open "homePage"
-    And I'm open "contactFormPage"
-    And I'm go back
+    Given I open "homePage"
+    And I open "contactFormPage"
+    And I go back
     Then I'm on "homePage"
 
   Scenario: Page forward
-    Given I'm open "homePage"
-    And I'm open "contactFormPage"
-    And I'm go back
-    And I'm go forward
+    Given I open "homePage"
+    And I open "contactFormPage"
+    And I go back
+    And I go forward
     Then I'm on "contactFormPage"
 
   Scenario: page refresh
-    Given I'm open "contactFormPage"
-    And I'm fill field "name" by text "John"
-    And I'm refresh page
+    Given I open "contactFormPage"
+    And I fill field "name" by text "John"
+    And I refresh page
     Then Log is empty

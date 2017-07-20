@@ -7,7 +7,7 @@ import org.junit.Assert;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class ElementFrameworkStepdefs {
+public class ElementStepsEN {
 
     @When("^for element \"([^\"]*)\" I set attribute \"([^\"]*)\" on \"([^\"]*)\"$")
     public void forElementISetAttributeOn(String fieldName, String attributeName, String attributeValue) {
@@ -15,7 +15,7 @@ public class ElementFrameworkStepdefs {
         el.setAttribute(attributeName, attributeValue);
     }
 
-    @Then("^element \"([^\"]*)\" has /attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
+    @Then("^element \"([^\"]*)\" has attribute \"([^\"]*)\" with value \"([^\"]*)\"$")
     public void elementHasAttributeWithValue(String fieldName, String attributeName, String attributeValue) {
         IElement el = getElementByName(fieldName);
         Assert.assertTrue(el.getAttribute(attributeName).equals(attributeValue));

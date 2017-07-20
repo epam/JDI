@@ -1,29 +1,28 @@
-package com.epam.jdi.cucumber.stepdefs.en;
+package com.epam.jdi.cucumber.stepdefs.ru;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import cucumber.api.java.ru.Когда;
+import cucumber.api.java.ru.Тогда;
 
 import static com.epam.jdi.cucumber.Utils.createFromJSON;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class FormFrameworkStepdefs {
-
-    @When("^I submit form \"([^\"]*)\" data \"([^\"]*)\"$")
+public class FormStepsRU {
+    @Когда("^я отправляю форму \"([^\"]*)\" с данными \"([^\"]*)\"$")
     public void iSubmitFormData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);
         form.submit(entity);
     }
 
-    @When("^I fill form \"([^\"]*)\" data \"([^\"]*)\"$")
+    @Когда("^я заполняю форму \"([^\"]*)\" данными \"([^\"]*)\"$")
     public void iFillFormData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);
         form.fill(entity);
     }
 
-    @Then("^form \"([^\"]*)\" contains data \"([^\"]*)\"$")
+    @Тогда("^форма \"([^\"]*)\" заполнена данными \"([^\"]*)\"$")
     public void formContainsData(String formName, String json) {
         IForm form = getElementByName(formName);
         Object entity = createFromJSON(json, form);

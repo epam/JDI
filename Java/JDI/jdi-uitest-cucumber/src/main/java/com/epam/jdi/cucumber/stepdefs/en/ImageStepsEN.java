@@ -6,17 +6,17 @@ import cucumber.api.java.en.Then;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static org.junit.Assert.assertEquals;
 
-public class ImageFrameworkStepdefs {
+public class ImageStepsEN {
 
     @Then("^image \"([^\"]*)\" has source \"([^\"]*)\"$")
     public void imageSourceIs(String fieldName, String source) {
         Image img = getElementByName(fieldName);
-        assertEquals(img.getSource(), source);
+        assertEquals(source, img.getSource());
     }
 
     @Then("^image \"([^\"]*)\" has alt \"([^\"]*)\"$")
     public void imageTooltipIs(String fieldName, String alt) {
         Image img = getElementByName(fieldName);
-        assertEquals(img.getAlt(), alt);
+        assertEquals(alt, img.getAlt());
     }
 }

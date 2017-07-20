@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
-public class PaginationFrameworkStepdefs {
+public class PaginationStepsRU {
 
     @When("^я использую постраничную навигацию \"([^\"]*)\", чтобы перейти на следующую страницу$")
     public void iMUsePaginationToGoNext(String paginationName) {

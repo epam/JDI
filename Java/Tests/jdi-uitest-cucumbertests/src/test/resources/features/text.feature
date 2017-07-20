@@ -1,12 +1,12 @@
 Feature: text
   Scenario: text
-    Given I'm open "homePage"
-    Then Text "text" contains "ENIM AD MINIM VENIAM, QUIS NOSTRUD"
-    And Text "text" mach ".* IPSUM DOLOR SIT AMET.*"
+    Given I open "homePage"
+    Then text "text" contains "ENIM AD MINIM VENIAM, QUIS NOSTRUD"
+    And text "text" match ".* IPSUM DOLOR SIT AMET.*"
 
   Scenario: textField
-    Given I'm open "contactFormPage"
-    And I'm fill field "name" by text "John"
-    And I'm fill field "lastName" by text "Doe"
-    Then Text "name" contains "John"
-    And Text "lastName" contains "Doe"
+    Given I open "contactFormPage"
+    And I fill field "name" by text "John"
+    And I fill field "lastName" by text "Doe"
+    Then text "name" contains "John"
+    And text "lastName" contains "Doe"

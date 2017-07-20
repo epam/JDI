@@ -7,7 +7,7 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class TextFrameworkStepdefs {
+public class TextStepsRU {
 
     @And("^я заполняю поле \"([^\"]*)\" текстом \"([^\"]*)\"$")
     public void iMFillFieldByText(String fieldName, String text) {

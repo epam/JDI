@@ -5,7 +5,7 @@ import cucumber.api.java.en.Then;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class LinkFrameworkStepdefs {
+public class LinkStepsRU {
 
     @Then("^ссылка \"([^\"]*)\" из \"([^\"]*)\" содержит \"([^\"]*)\"$")
     public void linkFromContains(String linkName, String containerName, String contains) {

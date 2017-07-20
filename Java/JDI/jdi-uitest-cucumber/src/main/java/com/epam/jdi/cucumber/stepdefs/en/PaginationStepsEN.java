@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
-public class PaginationFrameworkStepdefs {
+public class PaginationStepsEN {
 
     @When("^On pagination \"([^\"]*)\" I press next$")
     public void iMUsePaginationToGoNext(String paginationName) {

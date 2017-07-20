@@ -6,7 +6,7 @@ import cucumber.api.java.en.Then;
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static org.junit.Assert.assertEquals;
 
-public class ImageFrameworkStepdefs {
+public class ImageStepsRU {
 
     @Then("^у картинки \"([^\"]*)\" атрибут source равен \"([^\"]*)\"$")
     public void imageSourceIs(String fieldName, String source) {

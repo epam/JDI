@@ -7,7 +7,7 @@ import org.junit.Assert;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class ElementFrameworkStepdefs {
+public class ElementStepsRU {
 
     @When("^у элемента \"([^\"]*)\" я устанавливаю атрибуту \"([^\"]*)\" значение \"([^\"]*)\"$")
     public void forElementISetAttributeOn(String fieldName, String attributeName, String attributeValue) {

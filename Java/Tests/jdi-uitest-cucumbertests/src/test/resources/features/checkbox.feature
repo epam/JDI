@@ -3,15 +3,15 @@ Feature: checkbox
   Scenario: checkbox base
     Given I open "metalsColorsPage"
     And I check "cbWater"
-    Then Checkbox "cbWater" is checked
+    Then checkbox "cbWater" is checked
 
   Scenario: checkbox base
     Given I open "metalsColorsPage"
-    And I'm click on "cbWater"
-    Then Checkbox "cbWater" is checked
+    And I click on "cbWater"
+    Then checkbox "cbWater" is checked
 
   Scenario: checkbox base
-    Given I'm open "metalsColorsPage"
-    And I'm check "cbWater"
-    And I'm unchecked "cbWater"
-    Then Checkbox "cbWater" is unchecked
+    Given I open "metalsColorsPage"
+    And I check "cbWater"
+    And I uncheck "cbWater"
+    Then checkbox "cbWater" is unchecked

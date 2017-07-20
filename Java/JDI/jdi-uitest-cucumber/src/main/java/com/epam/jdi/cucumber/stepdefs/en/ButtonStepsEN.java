@@ -5,7 +5,7 @@ import cucumber.api.java.en.When;
 
 import static com.epam.jdi.cucumber.Utils.getElementByName;
 
-public class ButtonFrameworkStepdefs {
+public class ButtonStepsEN {
 
     @When("^I click on \"([^\"]*)\"(?:(?: button|link)$|$)")
     public void iMClickOnButton(String buttonName) {

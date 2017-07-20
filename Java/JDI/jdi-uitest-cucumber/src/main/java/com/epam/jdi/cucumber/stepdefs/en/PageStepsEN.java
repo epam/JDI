@@ -8,7 +8,7 @@ import static com.epam.jdi.cucumber.Utils.getElementByName;
 import static com.epam.jdi.uitests.core.interfaces.Application.currentSite;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.currentPage;
 
-public class PageFrameworkStepdefs {
+public class PageStepsEN {
 
     @Given("^I open \"(.*?)\"$")
     public void iMOpen(String pageName) {
