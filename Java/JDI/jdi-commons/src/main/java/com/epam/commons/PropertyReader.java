@@ -45,6 +45,10 @@ public final class PropertyReader {
         } catch (Exception ex) {
             if (inputStream != null) inputStream.close();
         }
+        if(properties.getProperty("config_file")!=null){
+            Properties additionalProperties = getProperties(properties.getProperty("config_file"));
+            properties.putAll(additionalProperties);
+        }
         return properties;
     }
 
