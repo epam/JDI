@@ -5,19 +5,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.epam.http.RestLoad.loadService;
-import static com.epam.jdi.httptests.EpamService.main;
+import static com.epam.http.requests.ServiceInit.init;
+import static com.epam.jdi.httptests.ServiceExample.getMethod;
 
 
-public class HttpTests {
+public class PerformanceTests {
 
     @Test
     public void isAliveTest() {
-        Assert.assertTrue(main.isAlive());
+        init(ServiceExample.class);
+        Assert.assertTrue(getMethod.isAlive());
     }
     @Test
     public void printTest() {
-        Assert.assertTrue(!main.get().body.equals(""));
-        PerformanceResult pr = loadService(2000, main);
+        init(ServiceExample.class);
+        PerformanceResult pr = loadService(20000, getMethod);
         Assert.assertTrue(pr.NoFails());
         System.out.println(pr.AverangeResponseTime);
         System.out.println(pr.NumberOfRquests);

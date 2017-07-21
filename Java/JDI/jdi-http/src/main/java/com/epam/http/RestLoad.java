@@ -14,10 +14,11 @@ public class RestLoad {
 
     public static PerformanceResult loadService(long liveTimeMSec, RestMethod... requests) {
         Random rnd = new Random();
-        long start = currentTimeMillis();
-        PerformanceResult pr = new PerformanceResult();
         int Length = requests.length;
-        do { pr.addResult(requests[rnd.nextInt(Length)].get());
+        PerformanceResult pr = new PerformanceResult();
+        //pr.addResult(requests[0].get());
+        long start = currentTimeMillis();
+        do { pr.addResult(requests[rnd.nextInt(Length)].GET());
         } while (currentTimeMillis() - start < liveTimeMSec);
         return pr;
     }
@@ -29,7 +30,7 @@ public class RestLoad {
         long start = currentTimeMillis();
         PerformanceResult pr = new PerformanceResult();
         int Length = getLength(weightRequests);
-        do { pr.addResult(getRequest(weightRequests, Math.round(rnd.nextFloat()*Length)).get());
+        do { pr.addResult(getRequest(weightRequests, Math.round(rnd.nextFloat()*Length)).GET());
         } while (currentTimeMillis() - start < liveTimeMSec);
         return pr;
     }

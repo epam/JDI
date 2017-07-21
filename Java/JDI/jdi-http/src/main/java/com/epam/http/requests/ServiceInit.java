@@ -1,28 +1,63 @@
 package com.epam.http.requests;
 
 import com.epam.http.annotations.*;
+import com.epam.http.requests.RestMethod;
+import com.epam.http.requests.RestMethodData;
+import com.epam.http.requests.RestMethodTypes;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.http.ExceptionHandler.exception;
+import static java.lang.reflect.Modifier.*;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.
  */
-public class ServiceInit {
-    public static void init(Class<?> c){
+public class ServiceInit {/*
+    public static <T> T init(Class<T> c){
         String domain = null;
         if (c.isAnnotationPresent(ServiceDomain.class))
             domain = c.getAnnotation(ServiceDomain.class).value();
-        List<Field> methods = where(c.getDeclaredFields(), f -> f.getType().equals(RestMethod.class));
+        List<Field> methods = where(c.getDeclaredFields(),
+                f -> f.getType().equals(RestMethod.class) && isStatic(f.getModifiers()));
         for (Field method: methods) {
             try {
-                method.set(null, new RestMethod(getMethodParams(method, domain)));
+                method.setAccessible(true);
+                if (method.get(null) == null)
+                    method.set(null, new RestMethod(getMethodParams(method, domain)));
             } catch (IllegalAccessException ex) {
                 throw exception("Can't init method %s for class %s", method.getName(), c.getName()); }
         }
+    }*/
+    public static <T> T init(Class<T> c) {
+        String domain = null;
+        if (c.isAnnotationPresent(ServiceDomain.class))
+            domain = c.getAnnotation(ServiceDomain.class).value();
+        List<Field> methods = where(c.getDeclaredFields(),
+                f -> f.getType().equals(RestMethod.class));
+        for (Field method: methods) {
+            try {
+                method.setAccessible(true);
+                if (isStatic(method.getModifiers()) && method.get(null) == null)
+                    method.set(null, new RestMethod(getMethodParams(method, domain)));
+                if (!isStatic(method.getModifiers()) && method.get(getService(c)) == null)
+                    method.set(getService(c), new RestMethod(getMethodParams(method, domain)));
+            } catch (IllegalAccessException ex) {
+                throw exception("Can't init method %s for class %s", method.getName(), c.getName()); }
+        }
+        return getService(c);
+    }
+    private static Object service;
+    private static <T> T getService(Class<T> c) {
+        if (service != null) return (T) service;
+        try {
+            return (T) (service = c.newInstance());
+        } catch (IllegalAccessException|InstantiationException ex) {
+            throw exception(
+                "Can't instantiate class %s, Service class should have empty constructor",
+                c.getName()); }
     }
 
     private static String getUrlFromDomain(String domain, String uri) {

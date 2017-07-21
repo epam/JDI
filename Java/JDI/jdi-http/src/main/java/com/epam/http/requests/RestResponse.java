@@ -1,5 +1,8 @@
 package com.epam.http.requests;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jayway.restassured.response.Response;
 
 import java.util.function.Function;
@@ -15,12 +18,16 @@ public class RestResponse {
     public int status;
     public String body;
     public RestStatusType statusType;
-    public long responseTImeMSec;
+    public long responseTimeMSec;
 
     public RestResponse(Response response) {
+        this(response, 0);
+    }
+    public RestResponse(Response response, long time) {
         status = response.statusCode();
         body = response.body().print();
         statusType = RestStatusType.getStatusType(status);
+        responseTimeMSec = time;
     }
     public void validate(Function<RestResponse, Boolean> validator) {
         if (!verify(validator))
@@ -34,5 +41,21 @@ public class RestResponse {
     }
     public void hasError() {
         validate(r -> statusType == ERROR);
+    }
+    public JsonObject jsonBody() {
+        return (JsonObject) new JsonParser().parse(body);
+    }
+    public String jsonBody(String path) {
+        if (path == null || path.equals(""))
+            return jsonBody().toString();
+        String[] steps = path.split("\\.");
+        JsonObject json = jsonBody();
+        for (int i = 0; i < steps.length - 1; i++)
+            json = json.getAsJsonObject(steps[i]);
+        try {
+            return json.getAsJsonPrimitive(steps[steps.length-1]).getAsString();
+        } catch (Exception ignore) {
+            return json.getAsJsonObject(steps[steps.length - 1]).toString();
+        }
     }
 }

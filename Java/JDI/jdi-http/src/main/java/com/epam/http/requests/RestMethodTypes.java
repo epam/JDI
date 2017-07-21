@@ -12,7 +12,8 @@ public enum RestMethodTypes {
     GET((rs, url) -> rs.get(url)),
     POST((rs, url) -> rs.post(url)),
     PUT((rs, url) -> rs.put(url)),
-    DELETE((rs, url) -> rs.delete(url));
+    DELETE((rs, url) -> rs.delete(url)),
+    PATCH((rs, url) -> rs.patch(url));
 
     public BiFunction<RequestSpecification, String, Response> method;
     RestMethodTypes(BiFunction<RequestSpecification, String, Response> method) {

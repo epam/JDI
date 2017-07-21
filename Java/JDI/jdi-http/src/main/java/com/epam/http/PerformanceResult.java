@@ -17,7 +17,7 @@ public class PerformanceResult {
     }
 
     public void addResult(RestResponse response) {
-        AverangeResponseTime = (AverangeResponseTime * NumberOfRquests + response.responseTImeMSec)
+        AverangeResponseTime = (AverangeResponseTime * NumberOfRquests + response.responseTimeMSec)
                 / (NumberOfRquests + 1);
         NumberOfRquests++;
         if (response.statusType == ERROR)
