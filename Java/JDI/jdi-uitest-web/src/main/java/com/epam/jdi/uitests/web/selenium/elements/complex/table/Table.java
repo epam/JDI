@@ -137,7 +137,9 @@ public class Table extends Text implements ITable, Cloneable {
     public List<ICell> getCells() {
         List<ICell> result = new ArrayList<>();
         for (String columnName : columns().headers())
-            headers().forEach(rowName
+            //it was so
+            // columns().headers().forEach(rowName-> result.add(cell(columnName, rowName)))
+            rows().headers().forEach(rowName
                 -> result.add(cell(columnName, rowName)));
         if (cache)
             allCells = result;

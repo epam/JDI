@@ -20,11 +20,14 @@ public class IndexesDP {
     }
 
     @DataProvider(name = "indexes")
-    public static Object[][] indexes() {
+    public static Object[][] indexesLess() {
         return new Object[][]{
-                {-10},
+                {10},
+                {1000},
+                {1000000000},
                 {0},
-                {10}
+                {-1},
+                {-1000},
         };
     }
 }

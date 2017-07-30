@@ -19,25 +19,25 @@ public class DynamicTable extends Table implements ITable {
                 By.xpath(".//table//tr[%s]/td"),
                 //By.xpath(".//tr[*[.='%s']]/td[position()>1]"),
                 By.xpath(".//table//tr/td[position() > 1][%s]"), -1, 2);
-        this.cellLocatorTemplate = By.xpath(".//table//tr[{1}]/td[{0}]");
+        this.cellLocatorTemplate = By.xpath(".//table//tr[{0}]/td[{1}]");
     }
 
     public Link getCellLink(int columnIndex, int rowIndex) {
         ICell cell = this.cell(columnIndex, rowIndex);
-
-        return cell.get(new Link(By.xpath(".//tr[{0}]/td[{1}]//a")));
+        return cell.get(new Link(By.xpath(".//tr[{1}]/td[{0}]//a")));
+        //return cell.get(new Link(By.xpath(".//tr[{0}]/td[{1}]//a")));
     }
 
     public void clickCellCheckBox(int columnIndex, int rowIndex) {
         ICell cell = this.cell(columnIndex, rowIndex);
 
-        cell.get(new CellCheckBox(By.xpath(".//tr[{0}]/td[{1}]//label"))).click();
+        cell.get(new CellCheckBox(By.xpath(".//tr[{1}]/td[{0}]//label"))).click();
     }
 
     public boolean isCellCheckBoxChecked(int columnIndex, int rowIndex) {
         ICell cell = this.cell(columnIndex, rowIndex);
 
-        return cell.get(new CellCheckBox(By.xpath(".//tr[{0}]/td[{1}]//label"))).isChecked();
+        return cell.get(new CellCheckBox(By.xpath(".//tr[{1}]/td[{0}]//label"))).isChecked();
     }
 
 }

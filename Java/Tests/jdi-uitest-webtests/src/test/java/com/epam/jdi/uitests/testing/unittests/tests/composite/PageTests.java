@@ -1,19 +1,25 @@
 package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
+import com.epam.jdi.uitests.core.logger.ILogger;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
+import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
+import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static com.epam.web.matcher.testng.Assert.*;
+
 
 /**
  * Created by Dmitry_Lebedev1 on 22/12/2015.
@@ -24,7 +30,7 @@ public class PageTests extends InitTests {
         isInState(CONTACT_PAGE, method);
     }
 
-   // @Test
+    @Test
     public void refreshTest(){
         contactFormPage.contactSubmit.click();
         areEquals(contactFormPage.result::getText, "Summary: 3");
@@ -33,7 +39,7 @@ public class PageTests extends InitTests {
         contactFormPage.checkOpened();
     }
 
-   // @Test
+    @Test
     public void backTest(){
         homePage.open();
         homePage.checkOpened();
@@ -41,7 +47,7 @@ public class PageTests extends InitTests {
         contactFormPage.checkOpened();
     }
 
-   // @Test
+    @Test
     public void forwardTest(){
         homePage.open();
         getDriver().navigate().back();
@@ -50,8 +56,8 @@ public class PageTests extends InitTests {
         homePage.checkOpened();
     }
 
-   // @Test
-    public void addCookieTest(){
+    @Test
+    public void addCookieTest() throws Exception{
         getDriver().manage().deleteAllCookies();
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
         Cookie cookie = new Cookie("key", "value");
@@ -59,23 +65,25 @@ public class PageTests extends InitTests {
         assertEquals(() -> getDriver().manage().getCookieNamed(cookie.getName()).getValue(), cookie.getValue());
     }
 
-   // @Test
-    public void clearCacheTest(){
+    @Test
+    public void clearCacheTest()throws Exception{
         Cookie cookie = new Cookie("key", "value");
         getDriver().manage().addCookie(cookie);
         assertFalse(() -> getDriver().manage().getCookies().isEmpty());
         contactFormPage.clearCache();
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
+
     }
 
-  //  @Test
+    @Test
     public void checkOpenedTest(){
-        contactFormPage.checkOpened();
+         contactFormPage.checkOpened();
     }
 
-  //  @AfterMethod
+    @AfterMethod
     public void restoreLoginCookies(){
-        Cookie loginCookie = new Cookie("authUser", "true", "jdi-framework.github.io/tests", "/", null, false);
+        getDriver().manage().deleteAllCookies();
+        Cookie loginCookie = new Cookie("authUser", "true", "epam.github.io", "/", null, false);
         getDriver().manage().addCookie(loginCookie);
     }
 
