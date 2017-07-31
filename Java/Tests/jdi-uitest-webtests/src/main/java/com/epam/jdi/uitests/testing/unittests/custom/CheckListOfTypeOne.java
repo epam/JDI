@@ -3,14 +3,10 @@ package com.epam.jdi.uitests.testing.unittests.custom;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
 import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
 
 /**
  * Created by Aleksandr_Shiganov on 6/21/2017.

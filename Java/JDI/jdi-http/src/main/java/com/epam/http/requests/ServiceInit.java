@@ -1,16 +1,13 @@
 package com.epam.http.requests;
 
 import com.epam.http.annotations.*;
-import com.epam.http.requests.RestMethod;
-import com.epam.http.requests.RestMethodData;
-import com.epam.http.requests.RestMethodTypes;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.http.ExceptionHandler.exception;
-import static java.lang.reflect.Modifier.*;
+import static java.lang.reflect.Modifier.isStatic;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

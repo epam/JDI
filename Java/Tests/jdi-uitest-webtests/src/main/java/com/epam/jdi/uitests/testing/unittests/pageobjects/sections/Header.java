@@ -3,13 +3,8 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.sections;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IImage;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
-import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-
-import static org.openqa.selenium.By.xpath;
 
 /**
  * Created by Maksim_Palchevskii on 9/11/2015.

@@ -15,7 +15,6 @@ import java.util.List;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Nature.*;
-import static com.epam.jdi.uitests.testing.unittests.enums.Nature.WATER;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.actionsLog;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;

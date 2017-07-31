@@ -14,7 +14,8 @@ import static com.epam.jdi.uitests.testing.unittests.enums.Buttons.SUBMIT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.checkResult;
-import static com.epam.web.matcher.testng.Assert.hasNoExceptions;
+import static com.epam.web.matcher.testng.Assert.*;
+import static java.lang.String.format;
 
 /**
  * Created by Dmitry_Lebedev1 on 10/15/2015.

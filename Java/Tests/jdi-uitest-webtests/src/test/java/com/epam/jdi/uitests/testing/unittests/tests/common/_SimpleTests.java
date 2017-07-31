@@ -1,7 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.tests.common;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.testing.unittests.enums.Colors;
+import com.epam.jdi.uitests.testing.unittests.enums.ColorsList;
 import com.epam.jdi.uitests.testing.unittests.enums.Even;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
 import org.testng.annotations.BeforeMethod;
@@ -30,7 +30,7 @@ public class _SimpleTests extends InitTests {
         metalsColorsPage.summary.even.select(Even.FOUR);
         metalsColorsPage.calculateButton.click();
         assertContains(() -> resultsLog.getFirstText(), "Summary: 9");
-        metalsColorsPage.colors.select(Colors.Blue);
+        metalsColorsPage.colors.select(ColorsList.Blue);
         metalsColorsPage.nature.select(Nature.FIRE, Nature.EARTH);
         assertContains(actionsLog::getFirstText, "Earth: condition changed to true");
     }

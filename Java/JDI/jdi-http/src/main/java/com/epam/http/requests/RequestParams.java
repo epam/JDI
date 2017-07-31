@@ -1,7 +1,5 @@
 package com.epam.http.requests;
 
-import java.util.Map;
-
 /**
  * Created by Roman_Iovlev on 7/21/2017.
  */

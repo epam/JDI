@@ -1,18 +1,15 @@
 package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
-import com.epam.jdi.uitests.core.logger.ILogger;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import org.openqa.selenium.Cookie;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
-import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
-import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
@@ -70,7 +67,6 @@ public class PageTests extends InitTests {
         assertFalse(() -> getDriver().manage().getCookies().isEmpty());
         contactFormPage.clearCache();
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
-
     }
 
     @Test

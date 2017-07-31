@@ -1,17 +1,12 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.dataproviders.IndexesDP;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.testng.annotations.Test;
-
-import java.util.stream.Collectors;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SORTING_TABLE_PAGE;
-import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.sortingTablePage;
 
 /**

@@ -6,7 +6,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.testing.unittests.custom.CheckListOfTypeOne;
-import com.epam.jdi.uitests.testing.unittests.enums.Colors;
+import com.epam.jdi.uitests.testing.unittests.enums.ColorsList;
 import com.epam.jdi.uitests.testing.unittests.enums.Metals;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Summary;
@@ -39,14 +39,14 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(id = "calculate-button")
     public ILabel calculateLabel;
 
-   /* public IDropDown<Colors> colors = new Dropdown<Colors>(By.cssSelector(".colors .filter-option"),
+   /* public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"),
             By.cssSelector(".colors li span")){
 
     };
 */
 
 
-    public IDropDown<Colors> colors = new Dropdown<Colors>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {
+    public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {
         @Override
         protected void selectAction(String name) {
             expand();
