@@ -22,7 +22,7 @@ public class SearchTests extends InitTests {
 
     @Test
     public void fillTest() {
-        header.search.find("something");
+        header.jdiSearch.find("Jenkins, Allure, Custom");
         supportPage.checkOpened();
     }
 }

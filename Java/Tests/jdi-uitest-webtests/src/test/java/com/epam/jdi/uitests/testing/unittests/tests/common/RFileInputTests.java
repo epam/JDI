@@ -3,6 +3,9 @@ package com.epam.jdi.uitests.testing.unittests.tests.common;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.web.robot.RFileInput;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
+import com.epam.jdi.uitests.web.settings.WebSettings;
+import com.epam.web.matcher.base.BaseMatcher;
 import com.epam.web.matcher.junit.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,6 +28,7 @@ public class RFileInputTests extends InitTests {
     @BeforeMethod
     public void before(final Method method) {
         isInState(DATES_PAGE_FILLED, method);
+        BaseMatcher.setDefaultTimeout(10);
     }
 
     @Test
@@ -44,7 +48,6 @@ public class RFileInputTests extends InitTests {
         textField().newInput(getFPath());
         checkFileLoaded(fileName());
     }
-
 
 
     private void checkFileLoaded(String fileName) {

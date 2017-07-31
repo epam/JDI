@@ -12,7 +12,8 @@ import org.openqa.selenium.support.FindBy;
  * Created by Maksim_Palchevskii on 8/17/2015.
  */
 public class SupportPage extends WebPage {
-    @FindBy(css = ".uui-table")
+    //@FindBy(css = ".uui-table")
+@FindBy(css = "table[class='uui-table stripe']")
     public ITable supportTable;
     @FindBy(css = ".uui-table")
     public ITable tableWithHeaders = new Table().hasAllHeaders();

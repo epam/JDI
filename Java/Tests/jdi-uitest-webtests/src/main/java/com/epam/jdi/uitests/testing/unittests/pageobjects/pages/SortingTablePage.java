@@ -42,5 +42,6 @@ public class SortingTablePage extends WebPage {
 
     public void search(String value) {
         search.input(value);
+
     }
 }

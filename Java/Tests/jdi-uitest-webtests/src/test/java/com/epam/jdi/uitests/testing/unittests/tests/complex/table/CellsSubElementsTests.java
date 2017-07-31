@@ -26,8 +26,11 @@ public class CellsSubElementsTests extends DynamicTableTestBase {
 
     @Test
     public void clickHiddenCellLinkTest() {
+
+        dynamic().clickCellCheckBox(2, 8);
         dynamic().getCellLink(2, 8).click();
         new Check("Actual Log Info").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} :See More link clicked");
+        //new Check("Actual Log Info").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} Select: condition changed to true");
     }
 
     @Test
@@ -40,13 +43,16 @@ public class CellsSubElementsTests extends DynamicTableTestBase {
     }
 
     @Test
-    public void clickableCellTest(){
+    public void clickableCellTest1(){
         isInState(SIMPLE_PAGE);
-
         simpleTablePage.getTable(false, false).cell(2, 2).click();
+        new Check("Actual Log").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} :value=MSTest, NUnit, Epam; cell has been selected");
+    }
 
-        new Check("Actual Log").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} :value=TestNG, JUnit Custom; cell has been selected");
+    @Test
+    public void clickableCellTest2(){
+        isInState(SIMPLE_PAGE);
+        simpleTablePage.getTable(false, false).cell(1, 1).click();
+        new Check("Actual Log").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} :value=Selenium Custom; cell has been selected");
     }
 }
-
-

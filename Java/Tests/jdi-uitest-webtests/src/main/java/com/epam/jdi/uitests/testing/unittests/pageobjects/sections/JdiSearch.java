@@ -13,14 +13,16 @@ import org.openqa.selenium.support.FindBy;
 public class JdiSearch extends Search {
     @FindBy(css = ".search-field input")
     public ITextField searchInput;
-
-    @FindBy(css = ".search .search-active .icon-search")
+    //It does not work for now
+    @FindBy(xpath = "//span[@class='icon-search active']")
     public IButton searchButton;
 
     @Override
     public void findAction(String text) {
         new Button(By.cssSelector(".search>.icon-search")).click();
-        super.findAction(text);
+        searchInput.newInput(text);
+        //super.findAction(text);
+        searchButton.click();
     }
 
 }
