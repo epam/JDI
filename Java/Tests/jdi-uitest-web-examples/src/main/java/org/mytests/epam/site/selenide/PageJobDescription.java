@@ -2,7 +2,7 @@ package org.mytests.epam.site.selenide;
 
 import com.epam.jdi.uitests.web.robot.JRobot;
 import com.epam.jdi.uitests.web.selenium.elements.base.J;
-import com.epam.web.matcher.junit.Assert;
+import com.epam.web.matcher.testng.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.By;
 

@@ -20,7 +20,7 @@ public class CareerTests extends TestsBase {
         careerPage.jobFilter.search(attendee.filter);
         jobListingPage.checkOpened();
         new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
-        jobListingPage.getJobRowByName("QA Specialist");
+        jobListingPage.getJobRowByName("Test Automation Engineer (back-end)");
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha class contains 'form-field-error'")
             .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");

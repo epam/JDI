@@ -16,9 +16,7 @@ import static com.epam.jdi.uitests.testing.unittests.enums.Metals.Gold;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
 import static com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData.*;
-import static com.epam.web.matcher.junit.Assert.exception;
-import static com.epam.web.matcher.testng.Assert.areEquals;
-import static com.epam.web.matcher.testng.Assert.listEquals;
+import static com.epam.web.matcher.testng.Assert.*;
 import static java.util.Arrays.asList;
 
 /**

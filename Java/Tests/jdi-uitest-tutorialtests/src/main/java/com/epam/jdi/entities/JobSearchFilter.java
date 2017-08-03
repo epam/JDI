@@ -13,7 +13,7 @@ import static com.epam.jdi.enums.Locations.SAINT_PETERSBURG;
 /*@AllArgsConstructor
 @NoArgsConstructor*/
 public class JobSearchFilter extends DataClass {
-    public CharSequence keywords = "QA";
+    public CharSequence keywords = "Test";
     public JobCategories category = QA;
     public String location = SAINT_PETERSBURG.value;
 

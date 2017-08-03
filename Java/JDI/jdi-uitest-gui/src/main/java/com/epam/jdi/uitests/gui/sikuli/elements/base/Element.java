@@ -123,7 +123,7 @@ public class Element extends BaseElement implements IElement {
      */
     @Override
     public void waitDisplayed() {
-        if (timer().wait(() -> isHidden()))
+        if (timer().wait(this::isHidden))
             throw new RuntimeException(String.format("Element '%s' not displayed after timeout", this.getName()));
     }
 

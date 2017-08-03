@@ -10,7 +10,8 @@ import org.mytests.epam.site.site.pages.JobsPage;
  */
 public class EpamSite extends WebSite {
 
-    @JPage(url = "https://www.epam.com/careers/job-listings?query=qa&department%5B%5D=all&city=St-Petersburg&country=Russia")
+    @JPage(url = "https://www.epam.com/careers/job-listings?query=testD:\\Work\\Projects\\Java\\JDI\\GitHub\\Java\\Tests\\jdi-uitest-web-examples\\src\\test\\resources\\cv.txt" +
+            "&department%5B%5D=all&city=St-Petersburg&country=Russia")
     public static JobsPage jobsPage;
     @JPage
     public static JobDescriptionPage jobDescriptionPage;

@@ -24,7 +24,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import org.openqa.selenium.By;
 
-import static com.epam.web.matcher.junit.Assert.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 /**
  * ComboBox control implementation

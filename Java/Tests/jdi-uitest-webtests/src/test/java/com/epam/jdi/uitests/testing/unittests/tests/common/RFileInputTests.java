@@ -4,7 +4,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.web.matcher.base.BaseMatcher;
-import com.epam.web.matcher.junit.Assert;
+import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

@@ -12,6 +12,17 @@
 
     <artifactId>jdi-commons</artifactId>
 
+    <properties>
+        <aspectj.version>1.8.3</aspectj.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -74,6 +85,43 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
+            </plugin>
+
+            <!-- AOP Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <showWeaveInfo>true</showWeaveInfo>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <Xlint>ignore</Xlint>
+                    <complianceLevel>1.8</complianceLevel>
+                    <encoding>UTF-8</encoding>
+                    <verbose>false</verbose>
+                    <outxml>true</outxml>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

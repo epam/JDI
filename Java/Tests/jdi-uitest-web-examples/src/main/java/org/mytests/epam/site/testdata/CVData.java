@@ -9,7 +9,7 @@ public class CVData {
     public static Object[][] cvData() {
         return new Object[][]{
                 { new Attendee(),
-                        new Job("QA Specialist",
+                        new Job("Test Automation Engineer (back-end)",
                                 "Software Test Engineering")
                 }
         };

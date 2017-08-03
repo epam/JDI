@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
  * Created by Roman_Iovlev on 2/21/2017.
  */
 public class PageJobs {
-    public static String url = "https://www.epam.com/careers/job-listings?query=qa&department%5B%5D=all&city=St-Petersburg&country=Russia";
+    public static String url = "https://www.epam.com/careers/job-listings?query=test&department%5B%5D=all&city=St-Petersburg&country=Russia";
 
     public static SelenideElement applyLinkFor(String name, String category) {
         return $(By.xpath(String.format("//li[@class='search-result-item' and div[a[.='%s']] " +
