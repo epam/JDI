@@ -15,9 +15,6 @@
     <name>EPAM JDI UI Testing Tutorial Tests</name>
 
     <properties>
-        <selenium.version>3.0.1</selenium.version>
-        <allure.version>1.4.5</allure.version>
-        <aspectj.version>1.8.10</aspectj.version>
         <driver>chrome</driver>
     </properties>
 
@@ -25,28 +22,28 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>${parent.version}</version>
+            <version>LATEST</version>
         </dependency>
         <!--Allure-->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>${allure.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.12</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 

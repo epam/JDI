@@ -195,7 +195,7 @@ public class GetElementModule implements IAvatar {
                 : locator;
         By frame = bElement.avatar.frameLocator;
         if (frame != null)
-            getDriver().switchTo().frame(getDriver().findElement(frame));
+            getDriver().switchTo().frame((WebElement)getDriver().findElement(frame));
         return locator != null
                 ? searchContext.findElement(correctXPaths(locator))
                 : searchContext;
@@ -210,7 +210,7 @@ public class GetElementModule implements IAvatar {
                 ? trimRoot(getLocator())
                 : getLocator();
         if (frameLocator != null)
-            getDriver().switchTo().frame(getDriver().findElement(frameLocator));
+            getDriver().switchTo().frame((WebElement)getDriver().findElement(frameLocator));
         return searchContext.findElements(correctXPaths(locator));
     }
 

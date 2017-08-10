@@ -466,7 +466,7 @@ public class J extends Element implements SelenideElement {
     }
 
     public void selectOptionContainingText(String s) {
-        first(findAll(s), el -> el.text().contains(s)).click();
+        first(getSelectedOptions(), o -> o.text().contains(s)).click();
     }
 
 

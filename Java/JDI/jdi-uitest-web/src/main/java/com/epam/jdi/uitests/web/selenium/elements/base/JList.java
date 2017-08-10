@@ -7,6 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.impl.BySelectorCollection;
 import com.codeborne.selenide.impl.DownloadFileWithHttpRequest;
 import com.codeborne.selenide.impl.WebElementsCollection;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+
+import static com.epam.commons.LinqUtils.first;
 
 /**
  * Created by Sergey_Mishanin on 12/14/16.
@@ -341,7 +344,15 @@ public class JList extends Element implements SelenideElement {
         return find(by, index);
     }
 
-    
+    public SelenideElement $x(String s) {
+        return find(By.xpath(s));
+    }
+
+    public SelenideElement $x(String s, int i) {
+        return findAll(By.xpath(s)).get(i);
+    }
+
+
     public ElementsCollection findAll(String cssSelector) {
         return new ElementsCollection(new BySelectorCollection(By.cssSelector(cssSelector)));
     }
@@ -361,7 +372,11 @@ public class JList extends Element implements SelenideElement {
         return findAll(by);
     }
 
-    
+    public ElementsCollection $$x(String s) {
+        return findAll(By.xpath(s));
+    }
+
+
     public File uploadFromClasspath(String... fileName) {
         File[] files = new File[fileName.length];
         for (int i = 0; i < fileName.length; i++) {
@@ -449,7 +464,11 @@ public class JList extends Element implements SelenideElement {
         }
     }
 
-    
+    public void selectOptionContainingText(String s) {
+        first(getSelectedOptions(), o -> o.text().contains(s)).click();
+    }
+
+
     public void selectOptionByValue(String... values) {
         Select selectField = new Select(getWebElement());
         for (String value: values) {
@@ -509,7 +528,11 @@ public class JList extends Element implements SelenideElement {
         }
     }
 
-    
+    public String getSearchCriteria() {
+        return null;
+    }
+
+
     public WebElement toWebElement() {
         return getWebElement();
     }
@@ -524,7 +547,11 @@ public class JList extends Element implements SelenideElement {
         clickCenter();
     }
 
-    
+    public void click(int i, int i1) {
+        throw new NotImplementedException("Method click(int i, int i1) not implemented in JDI-selinide");
+    }
+
+
     public void submit() {
         getWebElement().submit();
     }

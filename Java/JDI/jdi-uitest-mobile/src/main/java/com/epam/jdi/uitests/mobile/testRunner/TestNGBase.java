@@ -30,7 +30,6 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.mobile.WebSettings.useDriver;
 import static com.epam.jdi.uitests.mobile.appium.driver.DriverTypes.ANDROID;
-import static com.epam.jdi.uitests.mobile.appium.driver.WebDriverUtils.killAllRunWebDrivers;
 
 /**
  * Created by Roman_Iovlev on 9/3/2015.
@@ -46,7 +45,6 @@ public class TestNGBase {
     public static void jdiSetUp() throws Exception {
         WebSettings.init();
         logger.info("Init test run");
-        killAllRunWebDrivers();
         initFromProperties();
         if (!driverFactory.hasDrivers())
             useDriver(ANDROID);
@@ -57,5 +55,4 @@ public class TestNGBase {
     public static void jdiTearDown() {
         logger.info("Test run finished. " + LINE_BREAK + "Total test run time: "
                 + new SimpleDateFormat("HH:mm:ss.S").format(new Date(21 * 3600000 + getTestRunTime())));
-        killAllRunWebDrivers();
     }}

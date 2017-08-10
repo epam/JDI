@@ -12,26 +12,21 @@
 
     <artifactId>jdi-uitest-guitests</artifactId>
 
-    <properties>
-        <selenium.version>3.0.1</selenium.version>
-        <allure.version>1.4.5</allure.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-gui</artifactId>
-            <version>${parent.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>${selenium.version}</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 

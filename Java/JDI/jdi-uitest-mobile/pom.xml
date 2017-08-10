@@ -12,50 +12,41 @@
 
     <artifactId>jdi-uitest-mobile</artifactId>
 
-    <properties>
-        <selenium.version>3.0.1</selenium.version>
-        <testng.version>6.8.1</testng.version>
-        <log4j.version>1.2.17</log4j.version>
-        <saucelab.version>2.1.19</saucelab.version>
-        <junit.version>4.11</junit.version>
-        <appium.version>3.3.0</appium.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_junit</artifactId>
-            <version>${saucelab.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-core</artifactId>
-            <version>${parent.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>${parent.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>${appium.version}</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 

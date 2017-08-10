@@ -14,21 +14,16 @@
     <artifactId>jdi-httpTests</artifactId>
     <name>EPAM JDI HTTP Tests</name>
 
-    <properties>
-        <jdi.http.version>1.0.1</jdi.http.version>
-        <testng.version>6.8.1</testng.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-http</artifactId>
-            <version>${jdi.http.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 

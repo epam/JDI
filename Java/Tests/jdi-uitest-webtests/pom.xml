@@ -25,26 +25,21 @@
         </developer>
     </developers>
 
-    <properties>
-        <selenium.version>3.0.1</selenium.version>
-        <allure.version>1.4.5</allure.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>${parent.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>${allure.version}</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 
