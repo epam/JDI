@@ -49,7 +49,6 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
-import static com.epam.commons.PropertyReader.getProperties;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
@@ -99,7 +98,6 @@ public class WebSettings extends JDISettings {
         asserter.doScreenshot("screen_on_fail");
         screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
         timeouts = new WebTimeoutSettings();
-        getProperties(jdiSettingsPath);
         MapInterfaceToElement.init(defaultInterfacesMap);
         driverFactory = new SeleniumDriverFactory();
     }
