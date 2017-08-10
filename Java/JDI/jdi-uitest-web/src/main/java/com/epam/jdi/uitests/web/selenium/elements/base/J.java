@@ -23,6 +23,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
+import static com.epam.commons.LinqUtils.first;
+import static com.epam.commons.LinqUtils.where;
+
 /**
  * Created by Sergey_Mishanin on 12/14/16.
  */
@@ -342,7 +345,15 @@ public class J extends Element implements SelenideElement {
         return find(by, index);
     }
 
-    
+    public SelenideElement $x(String s) {
+        return find(By.xpath(s));
+    }
+
+    public SelenideElement $x(String s, int i) {
+        return findAll(By.xpath(s)).get(i);
+    }
+
+
     public ElementsCollection findAll(String cssSelector) {
         return new ElementsCollection(new BySelectorCollection(By.cssSelector(cssSelector)));
     }
@@ -362,7 +373,11 @@ public class J extends Element implements SelenideElement {
         return findAll(by);
     }
 
-    
+    public ElementsCollection $$x(String s) {
+        return findAll(By.xpath(s));
+    }
+
+
     public File uploadFromClasspath(String... fileName) {
         File[] files = new File[fileName.length];
         for (int i = 0; i < fileName.length; i++) {
@@ -450,7 +465,11 @@ public class J extends Element implements SelenideElement {
         }
     }
 
-    
+    public void selectOptionContainingText(String s) {
+        first(findAll(s), el -> el.text().contains(s)).click();
+    }
+
+
     public void selectOptionByValue(String... values) {
         Select selectField = new Select(getWebElement());
         for (String value: values) {
@@ -510,7 +529,11 @@ public class J extends Element implements SelenideElement {
         }
     }
 
-    
+    public String getSearchCriteria() {
+        return "NOT IMPLEMENTED";
+    }
+
+
     public WebElement toWebElement() {
         return getWebElement();
     }
@@ -525,7 +548,11 @@ public class J extends Element implements SelenideElement {
         clickCenter();
     }
 
-    
+    public void click(int i, int i1) {
+
+    }
+
+
     public void submit() {
         getWebElement().submit();
     }
