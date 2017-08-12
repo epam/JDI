@@ -16,7 +16,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>LATEST</version>
+            <version>6.11</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
@@ -32,11 +32,6 @@
             <groupId>com.sikulix</groupId>
             <artifactId>sikulixapi</artifactId>
             <version>1.1.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-api</artifactId>
-            <version>LATEST</version>
         </dependency>
     </dependencies>
 
