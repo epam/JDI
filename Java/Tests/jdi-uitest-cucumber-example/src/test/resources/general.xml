@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test suite" parallel="methods" thread-count="1">
+    <test name="Tests" preserve-order="true">
+        <classes>
+            <class name="org.mytests.tests.EpamSiteTests"/>
+            <class name="org.mytests.tests.JDIExampleSiteTests"/>
+            <class name="org.mytests.tests.W3CSiteTests"/>
+        </classes>
+    </test>
+</suite>
+
+        <!--CucumberTestNG-->
+<dependency>
+<groupId>info.cukes</groupId>
+<artifactId>cucumber-testng</artifactId>
+<version>${cucumber.version}</version>
+</dependency>
+
+        <!--CucumberJava-->
+<dependency>
+<groupId>info.cukes</groupId>
+<artifactId>cucumber-java</artifactId>
+<version>${cucumber.version}</version>
+</dependency>
