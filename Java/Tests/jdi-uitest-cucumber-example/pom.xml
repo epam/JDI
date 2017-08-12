@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>jdi.examples</groupId>
-    <artifactId>jdi.cucumber.allure.example</artifactId>
+    <artifactId>jdi-uitest-cucumber-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -21,28 +21,28 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>${jdi.version}</version>
+            <version>LATEST</version>
         </dependency>
 
         <!--Allure-->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>${allure.version}</version>
+            <version>LATEST</version>
         </dependency>
 
         <!--CucumberTestNG-->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <version>${cucumber.version}</version>
+            <version>LATEST</version>
         </dependency>
 
         <!--CucumberJava-->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 
