@@ -41,12 +41,22 @@ html {
 
 body {
     color: #666;
-    // height: calc(100% - 60px);
+    /*height: calc(100% - 60px);*/
+    min-height: 100%;
     min-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .wrapper{
-    min-height: 100%;
+    /*min-height: 100%;*/
+    /*position: absolute;*/
+    /*top: 60px;*/
+    /*bottom: 64px;*/
+    display: flex;
+    flex-direction: row;
+    flex-grow: 2;
 }
 
 .pattern-top {
@@ -59,9 +69,12 @@ body {
 }
 
 .uui-main-container {
-    background: url("../images/pattern-bottom.png") right bottom+64px no-repeat;
-    height: 100%;
-    position: relative;
+    background: url("../images/pattern-bottom.png") right bottom no-repeat;
+    /*height: 100%;*/
+    /*position: relative;*/
+    margin: 0 !important;
+    /*width: 100%;*/
+    flex-grow: 2;
 }
     .uui-main-container main,
     .uui-main-container main .main-content {
@@ -134,6 +147,10 @@ h3.main-title {
 
 header {
     min-width: 1200px;
+    min-height: 60px;
+    max-height: 60px;
+    width: 100%;
+    flex-grow: 1;
 }
     /*Custom Header styles*/
 
@@ -253,9 +270,10 @@ header {
 .uui-side-bar{
     background-color: #f5f5f5;
     width: 200px;
+    min-width: 200px;
 }
 .uui-side-bar .sidebar-menu {
-    margin-top: 89px;
+    /*margin-top: 89px;*/
 }
     .uui-side-bar .sidebar-menu > li {
         margin-bottom: 2px;
@@ -367,7 +385,7 @@ header {
 /*------CONTENT-----*/
 
 .main-content {
-    max-width: 1080px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 40px 40px 104px;
     position: relative;
@@ -872,9 +890,14 @@ header {
 /*------FOOTER-----*/
 
 footer {
-    bottom: 0;
-    position: relative;
-    z-index: 1000;
+    /*bottom: 0;*/
+    /*position: absolute;*/
+    /*z-index: 1000;*/
+    width: 100%;
+    min-height: 50px;
+    max-height: 64px;
+    font-size: 16px;
+    flex-grow: 1;
 }
     .footer-bg {
         background-color: #464547;
@@ -912,7 +935,8 @@ body:first-of-type .main-content-hg {
     height: 100%;
 }
 body:first-of-type .wrapper {
-    height: 100%;
+    min-height: 100%;
+    min-width: 100%;
 }
 
 .metals input {
@@ -930,3 +954,7 @@ body:first-of-type .wrapper {
     color:#FFF;
 }
 /*------Here you can write another styles-----*/
+main{
+    margin: 0;
+    position: relative;
+}
