@@ -192,7 +192,6 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
             runDrivers.add(driverName, resultDriver);
             if (resultDriver == null)
                 throw exception("Can't get Webdriver '%s'. This Driver name not registered", driverName);
-            resultDriver.manage().window().maximize();
             resultDriver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
             return resultDriver;
         } catch (Exception ex) {
