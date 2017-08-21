@@ -40,7 +40,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/updateUser/{id}")
     public void updateUserField(@RequestParam Map<String, String> allRequestParams, @PathVariable String id) {
-        //System.out.println(allRequestParams);
         userService.updateUserField(id, allRequestParams);
     }
 

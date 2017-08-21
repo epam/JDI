@@ -45,16 +45,9 @@ public class UserService {
     }
 
     public void updateUser(String id, User user) {
-        repository.delete(id);
-        repository.save(user);
-    }
-
-    public void deleteUser(String id) {
-        repository.delete(id);
-    }
-
-    public void deleteUsers() {
-        repository.deleteAll();
+        if (id.equals(user.getId())) {
+            repository.save(user);
+        }
     }
 
     public void updateUserField(String id, Map<String, String> requestParams) {
@@ -67,6 +60,15 @@ public class UserService {
         if (requestParams.get("role") != null) {
             user.setRole(requestParams.get("role"));
         }
+
         repository.save(user);
+    }
+
+    public void deleteUser(String id) {
+        repository.delete(id);
+    }
+
+    public void deleteUsers() {
+        repository.deleteAll();
     }
 }
