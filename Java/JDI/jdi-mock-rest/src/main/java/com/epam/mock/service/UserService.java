@@ -4,6 +4,7 @@ import com.epam.mock.model.User;
 import com.epam.mock.persistence.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,18 @@ public class UserService {
 
     public void deleteUsers() {
         repository.deleteAll();
+    }
+
+    public void updateUserField(String id, Map<String, String> requestParams) {
+        User user = repository.findOne(id);
+
+        if (requestParams.get("name") != null) {
+            user.setName(requestParams.get("name"));
+        }
+
+        if (requestParams.get("role") != null) {
+            user.setRole(requestParams.get("role"));
+        }
+        repository.save(user);
     }
 }
