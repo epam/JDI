@@ -22,9 +22,11 @@ import com.epam.commons.PrintUtils;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.ITextList;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTextList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
@@ -32,6 +34,8 @@ import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 import static java.lang.String.format;
 
 /**
@@ -60,6 +64,20 @@ public class TextList<TEnum extends Enum> extends BaseElement implements ITextLi
                         if (el.isDisplayed()) return false;
                     return true;
                 }), false);
+    }
+
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JTextList.class, ITextList.class))
+            return;
+        ((TextList) el).setUp(field.getAnnotation(JTextList.class));
+    }
+
+    public ITextList setUp(JTextList jTextList) {
+        By root = findByToBy(jTextList.root());
+        if (root == null)
+            root = findByToBy(jTextList.jRoot());
+        setAvatar(root);
+        return this;
     }
 
     protected boolean isDisplayedAction() {
