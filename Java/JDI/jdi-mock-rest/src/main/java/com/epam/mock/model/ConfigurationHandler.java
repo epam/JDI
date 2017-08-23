@@ -2,6 +2,9 @@ package com.epam.mock.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Response template class.
+ */
 public class ConfigurationHandler {
 
     @JsonProperty("method") private String method;

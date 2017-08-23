@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
+/**
+ * Response service class.
+ */
 @Service
 public class ConfigurationHandlerService {
 
@@ -20,34 +23,67 @@ public class ConfigurationHandlerService {
         configurationHandlerMap.put("clearall", new ConfigurationHandler("clearall", 200, ""));
     }
 
+    /**
+     * Responses to controller call for all users.
+     * @return Our representation of response with JSON format.
+     */
     public ConfigurationHandler getUsers() {
         return configurationHandlerMap.get("getusers");
     }
 
+    /**
+     * Responses to controller call for specified user.
+     * @return Our representation of response with JSON format or 'user no found' error.
+     */
     public ConfigurationHandler getUser() {
         return configurationHandlerMap.get("getuser");
     }
 
+    /**
+     * Responses to controller call for adding new user.
+     * @return Our representation of response with JSON format  with status result (success or not) and user id.
+     */
     public ConfigurationHandler addUser() {
         return configurationHandlerMap.get("registeruser");
     }
 
+    /**
+     * Responses to controller call for updating user.
+     * @return Our representation of response with status result (success or not).
+     */
     public ConfigurationHandler updateUser() {
         return configurationHandlerMap.get("updateuser");
     }
 
+    /**
+     * Responses to controller call for updating user's field(s).
+     * @return Our representation of response with status result (success or not).
+     */
     public ConfigurationHandler updateUserField() {
         return configurationHandlerMap.get("updateuserfield");
     }
 
+    /**
+     * Responses to controller call for removing user.
+     * @return Our representation of response with status result (success or not).
+     */
     public ConfigurationHandler deleteUser() {
         return configurationHandlerMap.get("clearuser");
     }
 
+    /**
+     * Responses to controller call for removing all users.
+     * @return Our representation of response with status result (success or not).
+     */
     public ConfigurationHandler deleteUsers() {
         return configurationHandlerMap.get("clearall");
     }
 
+    /**
+     * Edit representation for method specified in sent parameter after controller calls for it.
+     * @param configurationHandler Our representation of response.
+     * @return True if mock-service contains sent method, false otherwise.
+     */
     public boolean editMap(ConfigurationHandler configurationHandler) {
         String method = configurationHandler.getMethod().toLowerCase();
 
