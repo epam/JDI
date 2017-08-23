@@ -21,12 +21,12 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-core</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sikulix</groupId>
