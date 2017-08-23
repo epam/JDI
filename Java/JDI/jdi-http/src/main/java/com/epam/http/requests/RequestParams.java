@@ -14,7 +14,7 @@ public class RequestParams {
     public RequestParams(String[] stringParams) {
         this.stringParams = stringParams;
     }
-    public RequestParams(Headers urlParams) {
+    public RequestParams(Headers headers) {
         this.headers = headers;
     }
 }

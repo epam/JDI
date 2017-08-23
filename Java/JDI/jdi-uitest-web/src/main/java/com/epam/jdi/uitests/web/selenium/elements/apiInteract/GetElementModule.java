@@ -190,16 +190,17 @@ public class GetElementModule implements IAvatar {
     }
 
     private SearchContext getSearchContext(Object element) {
-        Object p;
-        BaseElement bElement;
-        Element el;
-        if (element == null || !isClass(element.getClass(), BaseElement.class)
-                || ((p = (bElement = (BaseElement) element).getParent()) == null
-                && bElement.avatar.frameLocator == null))
+        if (element == null || !isClass(element.getClass(), BaseElement.class))
             return getDriver().switchTo().defaultContent();
-        if (isClass(bElement.getClass(), Element.class)
-            && (el = (Element) bElement).avatar.hasWebElement())
-            return el.getWebElement();
+        BaseElement bElement = (BaseElement) element;
+        if (bElement.useCache && isClass(bElement.getClass(), Element.class)) {
+            Element el = (Element) bElement;
+            if (el.avatar.hasWebElement())
+                return el.getWebElement();
+        }
+        Object p = bElement.getParent();
+        if (p == null && bElement.avatar.frameLocator == null)
+            return getDriver().switchTo().defaultContent();
         By locator = bElement.getLocator();
         SearchContext searchContext = containsRoot(locator)
                 ? getDriver().switchTo().defaultContent()
