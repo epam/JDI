@@ -1,15 +1,17 @@
 package com.epam.mock.model;
 
-public class JSONResponse {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private String method;
-    private int result;
-    private String bodyAnswer;
+public class ConfigurationHandler {
 
-    public JSONResponse() {
+    @JsonProperty("method") private String method;
+    @JsonProperty("result") private int result;
+    @JsonProperty("body-answer") private String bodyAnswer;
+
+    public ConfigurationHandler() {
     }
 
-    public JSONResponse(String method, int result, String bodyAnswer) {
+    public ConfigurationHandler(String method, int result, String bodyAnswer) {
         this.method = method;
         this.result = result;
         this.bodyAnswer = bodyAnswer;
