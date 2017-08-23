@@ -23,8 +23,7 @@ public class FillFromAnnotationRules {
         = asList(Table::setUp,
                  Dropdown::setUp,
                  Search::setUp,
-                 Menu::setUp,
-                 TextList::setUp
+                 Menu::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
