@@ -18,8 +18,21 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.commons.LinqUtils;
+import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JRadioButtons;
 import org.openqa.selenium.By;
+
+import java.lang.reflect.Field;
+
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
+import static java.util.Arrays.asList;
 
 /**
  * RadioButtons control implementation
@@ -39,4 +52,22 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
         super(optionsNamesLocatorTemplate, allOptionsNamesLocator);
     }
 
+
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JRadioButtons.class, IRadioButtons.class))
+            return;
+        ((RadioButtons) el).setUp(field.getAnnotation(JRadioButtons.class));
+    }
+
+    public RadioButtons setUp(JRadioButtons jRadioButtons) {
+        By root = findByToBy(jRadioButtons.root());
+        if (root == null) root = findByToBy(jRadioButtons.jRoot());
+        setAvatar(root);
+
+        By allLabels = findByToBy(jRadioButtons.allLabels());
+        if(allLabels == null) allLabels = findByToBy(jRadioButtons.jAllLabelsLocator());
+        this.allLabels = new GetElementType(allLabels,this);
+
+        return this;
+    }
 }

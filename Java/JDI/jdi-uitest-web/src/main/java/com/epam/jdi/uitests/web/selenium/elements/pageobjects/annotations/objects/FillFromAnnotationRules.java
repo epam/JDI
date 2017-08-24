@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
@@ -23,7 +24,8 @@ public class FillFromAnnotationRules {
         = asList(Table::setUp,
                  Dropdown::setUp,
                  Search::setUp,
-                 Menu::setUp
+                 Menu::setUp,
+                 RadioButtons::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
