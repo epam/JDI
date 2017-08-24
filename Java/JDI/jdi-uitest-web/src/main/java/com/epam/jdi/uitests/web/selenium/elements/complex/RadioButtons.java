@@ -54,18 +54,28 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
 
 
     public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JRadioButtons.class, IRadioButtons.class))
+        if (!fieldHasAnnotation(field, JRadioButtons.class, IRadioButtons.class)) {
             return;
+        }
+
         ((RadioButtons) el).setUp(field.getAnnotation(JRadioButtons.class));
     }
 
     public RadioButtons setUp(JRadioButtons jRadioButtons) {
         By root = findByToBy(jRadioButtons.root());
-        if (root == null) root = findByToBy(jRadioButtons.jRoot());
+
+        if (root == null) {
+            root = findByToBy(jRadioButtons.jRoot());
+        }
+
         setAvatar(root);
 
         By allLabels = findByToBy(jRadioButtons.allLabels());
-        if(allLabels == null) allLabels = findByToBy(jRadioButtons.jAllLabelsLocator());
+
+        if (allLabels == null) {
+            allLabels = findByToBy(jRadioButtons.jAllLabelsLocator());
+        }
+
         this.allLabels = new GetElementType(allLabels,this);
 
         return this;
