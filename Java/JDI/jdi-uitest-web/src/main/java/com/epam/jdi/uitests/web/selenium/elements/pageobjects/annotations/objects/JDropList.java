@@ -12,13 +12,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JDropList {
     FindBy root() default @FindBy();
-    FindBy allLabels() default @FindBy();
+    FindBy list() default @FindBy();
     String separator() default ", ";
     FindBy button() default @FindBy();
     FindBy valueLocator() default @FindBy();
 
     JFindBy jRoot() default @JFindBy();
-    JFindBy jAllLabels() default @JFindBy();
+    JFindBy jList() default @JFindBy();
     JFindBy jButton() default @JFindBy();
     JFindBy jValueLocator() default @JFindBy();
 }

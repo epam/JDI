@@ -72,9 +72,9 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             root = findByToBy(jDropList.jRoot());
         }
 
-        By allLabels = findByToBy(jDropList.allLabels());
-        if (allLabels == null) {
-            allLabels = findByToBy(jDropList.jAllLabels());
+        By list = findByToBy(jDropList.list());
+        if (list == null) {
+            list = findByToBy(jDropList.jList());
         }
 
         By valueLocator = findByToBy(jDropList.valueLocator());
@@ -84,7 +84,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
         By button = findByToBy(jDropList.button());
         if (button == null) {
-            allLabels = findByToBy(jDropList.jButton());
+            button = findByToBy(jDropList.jButton());
         }
 
         String separator = jDropList.separator();
