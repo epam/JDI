@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objec
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.DynamicTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 
@@ -19,10 +20,11 @@ import static java.util.Arrays.asList;
 public class FillFromAnnotationRules {
 
     public static List<BiConsumer<BaseElement, Field>> setUpFromAnnotation
-        = asList(Table::setUp,
-                 Dropdown::setUp,
-                 Search::setUp,
-                 Menu::setUp
+            = asList(Table::setUp,
+            Dropdown::setUp,
+            Search::setUp,
+            Menu::setUp,
+            DynamicTable::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
