@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
@@ -22,7 +23,8 @@ public class FillFromAnnotationRules {
         = asList(Table::setUp,
                  Dropdown::setUp,
                  Search::setUp,
-                 Menu::setUp
+                 Menu::setUp,
+                 ComboBox::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
