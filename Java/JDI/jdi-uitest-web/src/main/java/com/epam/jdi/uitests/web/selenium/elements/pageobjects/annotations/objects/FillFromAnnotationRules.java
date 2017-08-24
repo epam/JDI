@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 
@@ -25,6 +26,7 @@ public class FillFromAnnotationRules {
                  Search::setUp,
                  Menu::setUp,
                  RadioButtons::setUp
+                 Selector::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
