@@ -54,22 +54,26 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
     }
 
     public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JSelector.class, ISelector.class))
+        if (!fieldHasAnnotation(field, JSelector.class, ISelector.class)) {
             return;
+        }
         ((Selector) el).setUp(field.getAnnotation(JSelector.class));
     }
 
     public ISelector setUp(JSelector jSelector) {
         By root = findByToBy(jSelector.root());
-        if (root == null)
+        if (root == null) {
             root = findByToBy(jSelector.jRoot());
+        }
         setAvatar(root);
 
         By list = findByToBy(jSelector.list());
-        if (list == null)
+        if (list == null) {
             list = findByToBy(jSelector.jList());
-        if (list != null)
+        }
+        if (list != null) {
             this.allLabels = new GetElementType(list, this);
+        }
 
         return this;
     }
