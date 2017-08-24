@@ -60,27 +60,32 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JDropList.class, IDropList.class))
+        if (!fieldHasAnnotation(field, JDropList.class, IDropList.class)) {
             return;
+        }
         ((DropList) el).setUp(field.getAnnotation(JDropList.class));
     }
 
     public DropList setUp(JDropList jDropList) {
         By root = findByToBy(jDropList.root());
-        if (root == null)
+        if (root == null) {
             root = findByToBy(jDropList.jRoot());
+        }
 
         By allLabels = findByToBy(jDropList.allLabels());
-        if (allLabels == null)
+        if (allLabels == null) {
             allLabels = findByToBy(jDropList.jAllLabels());
+        }
 
         By valueLocator = findByToBy(jDropList.valueLocator());
-        if (valueLocator == null)
+        if (valueLocator == null) {
             valueLocator = findByToBy(jDropList.jValueLocator());
+        }
 
         By button = findByToBy(jDropList.button());
-        if (button == null)
+        if (button == null) {
             allLabels = findByToBy(jDropList.jButton());
+        }
 
         String separator = jDropList.separator();
         setValuesSeparator(separator);
@@ -108,8 +113,9 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     @Override
     protected void selectListAction(String... names) {
-        if (names == null || names.length == 0)
+        if (names == null || names.length == 0) {
             return;
+        }
         if (button() != null) {
             expandAction(names[0]);
             super.selectListAction(names);
