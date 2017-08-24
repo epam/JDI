@@ -25,8 +25,6 @@ import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JEntityTable;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -43,8 +41,6 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
-import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
