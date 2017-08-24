@@ -4,24 +4,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.epam.jdi</groupId>
-    <artifactId>jdi-mock-rest</artifactId>
+    <parent>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <groupId>com.epam.jdi</groupId>
+        <version>1.0.70</version>
+        <relativePath>../..</relativePath>
+    </parent>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-    </properties>
+    <artifactId>jdi-mock-rest</artifactId>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-releasetrain</artifactId>
-                <version>Fowler-SR2</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

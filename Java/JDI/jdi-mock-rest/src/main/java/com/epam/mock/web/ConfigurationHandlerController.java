@@ -38,7 +38,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping("/getUsers")
     public ResponseEntity<String> getUsers() {
-        ConfigurationHandler response =  configurationHandlerService.getUsers();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForGetUsers();
 
         return new ResponseEntity<>(response.getBodyAnswer(), httpHeaders, HttpStatus.valueOf(response.getResult()));
     }
@@ -49,7 +49,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping("/getUser")
     public ResponseEntity<String> getUser() {
-        ConfigurationHandler response =  configurationHandlerService.getUser();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForGetUser();
 
         return new ResponseEntity<>(response.getBodyAnswer(), httpHeaders, HttpStatus.valueOf(response.getResult()));
     }
@@ -59,8 +59,8 @@ public class ConfigurationHandlerController {
      * @return ResponseEntity with string in JSON format with http status result (success or not) and user id.
      */
     @RequestMapping(method = RequestMethod.POST, value = "/registerUser")
-    public ResponseEntity<String> addUser() {
-        ConfigurationHandler response =  configurationHandlerService.addUser();
+    public ResponseEntity<String> registerUser() {
+        ConfigurationHandler response =  configurationHandlerService.getConfigForRegisterUser();
 
         return new ResponseEntity<>(response.getBodyAnswer(), httpHeaders, HttpStatus.valueOf(response.getResult()));
     }
@@ -71,7 +71,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/updateUser")
     public ResponseEntity<Void> updateUser() {
-        ConfigurationHandler response =  configurationHandlerService.updateUser();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForUpdateUser();
 
         return new ResponseEntity<>(HttpStatus.valueOf(response.getResult()));
     }
@@ -82,7 +82,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping(method = RequestMethod.PATCH, value = "/updateUserField")
     public ResponseEntity<Void> updateUserField() {
-        ConfigurationHandler response =  configurationHandlerService.updateUserField();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForUpdateUserField();
 
         return new ResponseEntity<>(HttpStatus.valueOf(response.getResult()));
     }
@@ -93,7 +93,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/clearUser")
     public ResponseEntity<Void> deleteUser() {
-        ConfigurationHandler response =  configurationHandlerService.deleteUser();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForDeleteUser();
 
         return new ResponseEntity<>(HttpStatus.valueOf(response.getResult()));
     }
@@ -104,7 +104,7 @@ public class ConfigurationHandlerController {
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/clearAll")
     public ResponseEntity<Void> deleteUsers() {
-        ConfigurationHandler response =  configurationHandlerService.deleteUsers();
+        ConfigurationHandler response =  configurationHandlerService.getConfigForDeleteUsers();
 
         return new ResponseEntity<>(HttpStatus.valueOf(response.getResult()));
     }
