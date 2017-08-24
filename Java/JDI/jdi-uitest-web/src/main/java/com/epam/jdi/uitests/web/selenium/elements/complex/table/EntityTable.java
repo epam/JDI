@@ -65,29 +65,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         this.rowClass = rowClass;
     }
 
-    public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JEntityTable.class, IEntityTable.class))
-            return;
-        ((EntityTable) el).setUp(field.getAnnotation(JEntityTable.class));
-    }
 
-    public IEntityTable<E,R> setUp(JEntityTable jEntityTable) {
-        this.entityClass = jEntityTable.entityClass().length > 0
-                ? LinqUtils.select(asList(
-                jEntityTable.entityClass()), WebAnnotationsUtil::findByToBy)
-                : LinqUtils.select(asList(
-                jEntityTable.entityClass()), WebAnnotationsUtil::findByToBy);
-
-        this.rowClass = jEntityTable.rowClass().length > 0
-                ? LinqUtils.select(asList(
-                jEntityTable.rowClass()), WebAnnotationsUtil::findByToBy)
-                : LinqUtils.select(asList(
-                jEntityTable.rowClass()), WebAnnotationsUtil::findByToBy);
-
-
-
-        return this;
-    }
 
 
     private R newRow(){
