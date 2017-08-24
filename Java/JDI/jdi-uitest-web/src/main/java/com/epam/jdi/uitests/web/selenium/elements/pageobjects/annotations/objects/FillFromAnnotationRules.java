@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.DropList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
@@ -28,7 +29,8 @@ public class FillFromAnnotationRules {
                  Menu::setUp,
                  DropList::setUp
                  RadioButtons::setUp
-                 Selector::setUp
+                 Selector::setUp,
+                 CheckList::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {

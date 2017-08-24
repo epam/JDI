@@ -19,7 +19,14 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JCheckList;
 import org.openqa.selenium.By;
+import java.lang.reflect.Field;
+
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * Select control implementation
@@ -39,4 +46,33 @@ public class CheckList<TEnum extends Enum> extends MultiSelector<TEnum> implemen
     public CheckList(By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
     }
+
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JCheckList.class, ICheckList.class)) {
+            return;
+        }
+        ((CheckList) el).setUp(field.getAnnotation(JCheckList.class));
+    }
+
+    private ICheckList setUp(JCheckList jCheckList) {
+        By root = findByToBy(jCheckList.root());
+        if (root == null) {
+            root = findByToBy(jCheckList.jRoot());
+        }
+        setAvatar(root);
+        String separator = jCheckList.separator();
+        setValuesSeparator(separator);
+        By allLabels = findByToBy(jCheckList.list());
+
+        if (allLabels == null) {
+            allLabels = findByToBy(jCheckList.jList());
+        }
+        if (allLabels != null) {
+            this.allLabels = new GetElementType(allLabels, this);
+        }
+
+        return this;
+    }
+
+
 }
