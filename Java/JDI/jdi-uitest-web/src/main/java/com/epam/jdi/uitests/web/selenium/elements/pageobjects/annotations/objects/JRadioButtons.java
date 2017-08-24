@@ -14,10 +14,7 @@ import java.lang.annotation.Target;
 public @interface JRadioButtons {
 
     FindBy root() default @FindBy();
-
     JFindBy jRoot() default @JFindBy();
-
-    FindBy allLabels() default @FindBy();
-
-    JFindBy jAllLabelsLocator() default @JFindBy();
+    FindBy list() default @FindBy();
+    JFindBy jList() default @JFindBy();
 }

@@ -18,13 +18,9 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
-import com.epam.commons.LinqUtils;
-import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JRadioButtons;
 import org.openqa.selenium.By;
 
@@ -32,7 +28,6 @@ import java.lang.reflect.Field;
 
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
-import static java.util.Arrays.asList;
 
 /**
  * RadioButtons control implementation
@@ -70,13 +65,13 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
 
         setAvatar(root);
 
-        By allLabels = findByToBy(jRadioButtons.allLabels());
+        By list = findByToBy(jRadioButtons.list());
 
-        if (allLabels == null) {
-            allLabels = findByToBy(jRadioButtons.jAllLabelsLocator());
+        if (list == null) {
+            list = findByToBy(jRadioButtons.jList());
         }
 
-        this.allLabels = new GetElementType(allLabels,this);
+        this.allLabels = new GetElementType(list,this);
 
         return this;
     }
