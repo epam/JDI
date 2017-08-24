@@ -12,9 +12,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JCheckList {
     String separator() default ", ";
-    FindBy allLabels() default @FindBy();
+
+    FindBy list() default @FindBy();
     FindBy root() default @FindBy();
 
-    JFindBy jAllLabels() default @JFindBy();
+    JFindBy jList() default @JFindBy();
     JFindBy jRoot() default @JFindBy();
 }
+
