@@ -25,6 +25,8 @@ import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JEntityTable;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -41,6 +43,8 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
+import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
@@ -60,6 +64,31 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         this(entityClass);
         this.rowClass = rowClass;
     }
+
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JEntityTable.class, IEntityTable.class))
+            return;
+        ((EntityTable) el).setUp(field.getAnnotation(JEntityTable.class));
+    }
+
+    public IEntityTable<E,R> setUp(JEntityTable jEntityTable) {
+        this.entityClass = jEntityTable.entityClass().length > 0
+                ? LinqUtils.select(asList(
+                jEntityTable.entityClass()), WebAnnotationsUtil::findByToBy)
+                : LinqUtils.select(asList(
+                jEntityTable.entityClass()), WebAnnotationsUtil::findByToBy);
+
+        this.rowClass = jEntityTable.rowClass().length > 0
+                ? LinqUtils.select(asList(
+                jEntityTable.rowClass()), WebAnnotationsUtil::findByToBy)
+                : LinqUtils.select(asList(
+                jEntityTable.rowClass()), WebAnnotationsUtil::findByToBy);
+
+
+
+        return this;
+    }
+
 
     private R newRow(){
         if (rowClass == null)
