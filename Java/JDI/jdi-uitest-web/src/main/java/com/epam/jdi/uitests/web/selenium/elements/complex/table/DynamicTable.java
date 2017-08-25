@@ -95,12 +95,16 @@ public class DynamicTable extends Table {
         switch (jDynamicTable.headerType()) {
             case COLUMNS_HEADERS:
                 hasOnlyColumnHeaders();
+                break;
             case ROWS_HEADERS:
                 hasOnlyRowHeaders();
+                break;
             case ALL_HEADERS:
                 hasAllHeaders();
+                break;
             case NO_HEADERS:
                 hasNoHeaders();
+                break;
         }
         useCache(false);
         return this;
