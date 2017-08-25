@@ -64,8 +64,9 @@ public class Tabs<TEnum extends Enum> extends Selector<TEnum> implements ITabs<T
     }
 
     public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JTabs.class, ITabs.class))
+        if (!fieldHasAnnotation(field, JTabs.class, ITabs.class)) {
             return;
+        }
         ((Tabs) el).setUp(field.getAnnotation(JTabs.class));
     }
 

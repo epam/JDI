@@ -28,7 +28,7 @@ public class FillFromAnnotationRules {
                  Dropdown::setUp,
                  Search::setUp,
                  Menu::setUp,
-                 Tabs::setUp
+                 Tabs::setUp,
                  DropList::setUp,
                  RadioButtons::setUp,
                  Selector::setUp,
