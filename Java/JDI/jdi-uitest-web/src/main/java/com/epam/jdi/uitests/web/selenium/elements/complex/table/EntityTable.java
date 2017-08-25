@@ -25,14 +25,12 @@ import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Function;
-
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.PrintUtils.print;

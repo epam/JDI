@@ -20,11 +20,18 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.function.Function;
+
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * Select control implementation
@@ -52,6 +59,46 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         this.button = new GetElementType(valueLocator, this);
     }
 
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JDropList.class, IDropList.class)) {
+            return;
+        }
+        ((DropList) el).setUp(field.getAnnotation(JDropList.class));
+    }
+
+    public DropList setUp(JDropList jDropList) {
+        By root = findByToBy(jDropList.root());
+        if (root == null) {
+            root = findByToBy(jDropList.jRoot());
+        }
+
+        By list = findByToBy(jDropList.list());
+        if (list == null) {
+            list = findByToBy(jDropList.jList());
+        }
+
+        By valueLocator = findByToBy(jDropList.valueLocator());
+        if (valueLocator == null) {
+            valueLocator = findByToBy(jDropList.jValueLocator());
+        }
+
+        By button = findByToBy(jDropList.button());
+        if (button == null) {
+            button = findByToBy(jDropList.jButton());
+        }
+
+        String separator = jDropList.separator();
+        setValuesSeparator(separator);
+
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
+        return this;
+    }
+
     protected Clickable button() {
         return button.get(Clickable.class);
     }
@@ -66,8 +113,9 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     @Override
     protected void selectListAction(String... names) {
-        if (names == null || names.length == 0)
+        if (names == null || names.length == 0) {
             return;
+        }
         if (button() != null) {
             expandAction(names[0]);
             super.selectListAction(names);
