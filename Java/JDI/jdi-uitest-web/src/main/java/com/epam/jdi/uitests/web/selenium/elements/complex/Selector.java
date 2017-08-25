@@ -65,7 +65,12 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
         if (root == null) {
             root = findByToBy(jSelector.jRoot());
         }
-        setAvatar(root);
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
 
         By list = findByToBy(jSelector.list());
         if (list == null) {
