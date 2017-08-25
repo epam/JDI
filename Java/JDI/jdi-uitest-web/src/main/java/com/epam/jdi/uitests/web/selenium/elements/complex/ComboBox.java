@@ -75,8 +75,9 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
     }
 
     public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JComboBox.class, IComboBox.class))
+        if (!fieldHasAnnotation(field, JComboBox.class, IComboBox.class)) {
             return;
+        }
         ((ComboBox) el).setUp(field.getAnnotation(JComboBox.class));
     }
 
@@ -122,7 +123,9 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
 
         if (value != null) {
             this.element = new GetElementType(value, this);
-            if (expander == null) this.expander = element;
+            if (expander == null){
+                this.expander = element;
+            }
         }
 
         if (list != null) {
@@ -131,7 +134,9 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
 
         if (expand != null) {
             this.expander = new GetElementType(expand, this);
-            if (element == null) this.element = expander;
+            if (element == null){
+                this.element = expander;
+            }
         }
 
         if (textField != null) {
