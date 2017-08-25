@@ -113,7 +113,6 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             labelLocator = findByToBy(jComboBox.jLabelLocator());
         }
 
-
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
