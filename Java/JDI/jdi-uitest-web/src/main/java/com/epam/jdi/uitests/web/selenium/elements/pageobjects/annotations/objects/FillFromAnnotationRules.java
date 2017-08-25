@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.DropList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
@@ -28,6 +29,7 @@ public class FillFromAnnotationRules {
                  Search::setUp,
                  Menu::setUp,
                  DropList::setUp,
+                 Elements::setUp,
                  RadioButtons::setUp,
                  Selector::setUp,
                  CheckList::setUp
