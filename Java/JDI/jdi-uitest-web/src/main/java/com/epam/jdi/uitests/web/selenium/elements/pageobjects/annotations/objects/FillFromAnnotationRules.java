@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.DropList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
@@ -29,6 +30,7 @@ public class FillFromAnnotationRules {
                  Dropdown::setUp,
                  Search::setUp,
                  Menu::setUp,
+                 ComboBox::setUp,
                  Tabs::setUp,
                  DropList::setUp,
                  Elements::setUp,
