@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.DropList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.DynamicTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Tabs;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
@@ -36,7 +37,8 @@ public class FillFromAnnotationRules {
                  Elements::setUp,
                  RadioButtons::setUp,
                  Selector::setUp,
-                 CheckList::setUp
+                 CheckList::setUp,
+                 DynamicTable::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
