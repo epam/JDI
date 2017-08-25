@@ -40,7 +40,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
  * @author Belousov Andrey
  */
 public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implements IDropList<TEnum> {
-    private GetElementType button = new GetElementType();
+    private GetElementType value = new GetElementType();
 
     public DropList() {
         super();
@@ -56,7 +56,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     public DropList(By valueLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.button = new GetElementType(valueLocator, this);
+        this.value = new GetElementType(valueLocator, this);
     }
 
     public static void setUp(BaseElement el, Field field) {
@@ -76,15 +76,15 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         if (list == null) {
             list = findByToBy(jDropList.jList());
         }
+        if (list != null)
+            this.allLabels = new GetElementType(list, this);
 
-        By valueLocator = findByToBy(jDropList.valueLocator());
-        if (valueLocator == null) {
-            valueLocator = findByToBy(jDropList.jValueLocator());
+        By value = findByToBy(jDropList.value());
+        if (value == null) {
+            value = findByToBy(jDropList.jValue());
         }
-
-        By button = findByToBy(jDropList.button());
-        if (button == null) {
-            button = findByToBy(jDropList.jButton());
+        if(value != null) {
+            this.value = new GetElementType(value, this);
         }
 
         String separator = jDropList.separator();
@@ -100,7 +100,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     protected Clickable button() {
-        return button.get(Clickable.class);
+        return value.get(Clickable.class);
     }
 
     protected void expandAction(String name) {

@@ -14,11 +14,9 @@ public @interface JDropList {
     FindBy root() default @FindBy();
     FindBy list() default @FindBy();
     String separator() default ", ";
-    FindBy button() default @FindBy();
-    FindBy valueLocator() default @FindBy();
+    FindBy value() default @FindBy();
 
     JFindBy jRoot() default @JFindBy();
     JFindBy jList() default @JFindBy();
-    JFindBy jButton() default @JFindBy();
-    JFindBy jValueLocator() default @JFindBy();
+    JFindBy jValue() default @JFindBy();
 }

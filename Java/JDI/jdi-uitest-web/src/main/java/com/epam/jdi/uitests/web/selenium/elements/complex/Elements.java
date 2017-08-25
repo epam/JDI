@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.core.annotations.Title;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -74,18 +75,21 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
         if (root == null) {
             root = findByToBy(jElements.jRoot());
         }
-
-        By list = findByToBy(jElements.list());
-        if (list == null) {
-            list = findByToBy(jElements.jList());
-        }
-
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
             setAvatar(root);
         }
+
+        By list = findByToBy(jElements.list());
+        if (list == null) {
+            list = findByToBy(jElements.jList());
+        }
+        if (list != null) {
+            this.allLabels = new GetElementType(list, this);
+        }
+
         return this;
     }
 
