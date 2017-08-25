@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.ITabs;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTabs;
 import org.openqa.selenium.By;
 
@@ -41,17 +42,23 @@ public class Tabs<TEnum extends Enum> extends Selector<TEnum> implements ITabs<T
 
     public ITabs setUp(JTabs jTabs) {
         By root = findByToBy(jTabs.root());
-        if(root==null){
+        if (root == null) {
             root = findByToBy(jTabs.jRoot());
         }
-        setAvatar(root);
+
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
 
         By list = findByToBy(jTabs.list());
-        if(list==null){
+        if (list == null) {
             list = findByToBy(jTabs.jList());
         }
-        if(list!=null){
-            this.allLabels = new GetElementType(list,this);
+        if (list != null) {
+            this.allLabels = new GetElementType(list, this);
         }
         return this;
     }
