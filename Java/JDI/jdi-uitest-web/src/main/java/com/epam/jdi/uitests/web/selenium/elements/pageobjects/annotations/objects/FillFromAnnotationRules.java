@@ -1,11 +1,14 @@
 package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects;
 
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.DropList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.DynamicTable;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Tabs;
 import com.epam.jdi.uitests.web.selenium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Selector;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
@@ -28,9 +31,10 @@ public class FillFromAnnotationRules {
                  Dropdown::setUp,
                  Search::setUp,
                  Menu::setUp,
-                 RadioButtons::setUp,
-                 Selector::setUp,
+                 ComboBox::setUp,
+                 Tabs::setUp,
                  DropList::setUp,
+                 Elements::setUp,
                  RadioButtons::setUp,
                  Selector::setUp,
                  CheckList::setUp,

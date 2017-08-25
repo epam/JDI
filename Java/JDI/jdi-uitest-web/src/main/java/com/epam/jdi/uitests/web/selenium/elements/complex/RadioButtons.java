@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JRadioButtons;
 import org.openqa.selenium.By;
 
@@ -58,20 +59,23 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
 
     public RadioButtons setUp(JRadioButtons jRadioButtons) {
         By root = findByToBy(jRadioButtons.root());
-
         if (root == null) {
             root = findByToBy(jRadioButtons.jRoot());
         }
-
-        setAvatar(root);
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
 
         By list = findByToBy(jRadioButtons.list());
-
         if (list == null) {
             list = findByToBy(jRadioButtons.jList());
         }
-
-        this.allLabels = new GetElementType(list,this);
+        if (list != null) {
+            this.allLabels = new GetElementType(list, this);
+        }
 
         return this;
     }

@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JCheckList;
 import org.openqa.selenium.By;
 import java.lang.reflect.Field;
@@ -59,11 +60,17 @@ public class CheckList<TEnum extends Enum> extends MultiSelector<TEnum> implemen
         if (root == null) {
             root = findByToBy(jCheckList.jRoot());
         }
-        setAvatar(root);
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
+
         String separator = jCheckList.separator();
         setValuesSeparator(separator);
-        By allLabels = findByToBy(jCheckList.list());
 
+        By allLabels = findByToBy(jCheckList.list());
         if (allLabels == null) {
             allLabels = findByToBy(jCheckList.jList());
         }
