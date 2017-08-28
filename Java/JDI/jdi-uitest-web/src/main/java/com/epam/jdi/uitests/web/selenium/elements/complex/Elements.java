@@ -72,6 +72,8 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public Elements setUp(JElements jElements) {
         By root = findByToBy(jElements.root());
+        By list = findByToBy(jElements.list());
+
         if (root == null) {
             root = findByToBy(jElements.jRoot());
         }
@@ -82,7 +84,6 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
             setAvatar(root);
         }
 
-        By list = findByToBy(jElements.list());
         if (list == null) {
             list = findByToBy(jElements.jList());
         }

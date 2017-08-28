@@ -37,8 +37,7 @@ public class FillFromAnnotationRules {
                  Elements::setUp,
                  RadioButtons::setUp,
                  Selector::setUp,
-                 CheckList::setUp,
-                 DynamicTable::setUp
+                 CheckList::setUp
     );
 
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {

@@ -59,6 +59,8 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
 
     public RadioButtons setUp(JRadioButtons jRadioButtons) {
         By root = findByToBy(jRadioButtons.root());
+        By list = findByToBy(jRadioButtons.list());
+
         if (root == null) {
             root = findByToBy(jRadioButtons.jRoot());
         }
@@ -69,7 +71,6 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
             setAvatar(root);
         }
 
-        By list = findByToBy(jRadioButtons.list());
         if (list == null) {
             list = findByToBy(jRadioButtons.jList());
         }

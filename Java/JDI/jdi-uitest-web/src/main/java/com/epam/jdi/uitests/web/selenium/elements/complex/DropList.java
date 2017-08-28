@@ -68,18 +68,27 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     public DropList setUp(JDropList jDropList) {
         By root = findByToBy(jDropList.root());
+        By list = findByToBy(jDropList.list());
+        By value = findByToBy(jDropList.value());
+        String separator = jDropList.separator();
+
         if (root == null) {
             root = findByToBy(jDropList.jRoot());
         }
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
 
-        By list = findByToBy(jDropList.list());
         if (list == null) {
             list = findByToBy(jDropList.jList());
         }
-        if (list != null)
+        if (list != null) {
             this.allLabels = new GetElementType(list, this);
+        }
 
-        By value = findByToBy(jDropList.value());
         if (value == null) {
             value = findByToBy(jDropList.jValue());
         }
@@ -87,15 +96,8 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             this.value = new GetElementType(value, this);
         }
 
-        String separator = jDropList.separator();
         setValuesSeparator(separator);
 
-        if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
-            setAvatar(root);
-        }
         return this;
     }
 

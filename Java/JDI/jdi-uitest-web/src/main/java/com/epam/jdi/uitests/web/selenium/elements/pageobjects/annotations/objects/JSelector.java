@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 public @interface JSelector {
     FindBy root() default @FindBy();
     FindBy list() default @FindBy();
+
     JFindBy jRoot() default @JFindBy();
     JFindBy jList() default @JFindBy();
 }

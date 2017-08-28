@@ -40,12 +40,20 @@ public class Tabs<TEnum extends Enum> extends Selector<TEnum> implements ITabs<T
         super();
     }
 
+    public static void setUp(BaseElement el, Field field) {
+        if (!fieldHasAnnotation(field, JTabs.class, ITabs.class)) {
+            return;
+        }
+        ((Tabs) el).setUp(field.getAnnotation(JTabs.class));
+    }
+
     public ITabs setUp(JTabs jTabs) {
         By root = findByToBy(jTabs.root());
+        By list = findByToBy(jTabs.list());
+
         if (root == null) {
             root = findByToBy(jTabs.jRoot());
         }
-
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
@@ -53,21 +61,14 @@ public class Tabs<TEnum extends Enum> extends Selector<TEnum> implements ITabs<T
             setAvatar(root);
         }
 
-        By list = findByToBy(jTabs.list());
         if (list == null) {
             list = findByToBy(jTabs.jList());
         }
         if (list != null) {
             this.allLabels = new GetElementType(list, this);
         }
-        return this;
-    }
 
-    public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JTabs.class, ITabs.class)) {
-            return;
-        }
-        ((Tabs) el).setUp(field.getAnnotation(JTabs.class));
+        return this;
     }
 
     public Tabs(By optionsNamesLocatorTemplate) {

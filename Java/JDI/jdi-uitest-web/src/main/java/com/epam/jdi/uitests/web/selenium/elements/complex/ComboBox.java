@@ -86,27 +86,10 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         By value = findByToBy(jComboBox.value());
         By list = findByToBy(jComboBox.list());
         By expand = findByToBy(jComboBox.expand());
-        By textField = findByToBy(jComboBox.textField());
         By labelLocator = findByToBy(jComboBox.labelLocator());
-
 
         if (root == null) {
             root = findByToBy(jComboBox.jRoot());
-        }
-        if (value == null) {
-            value = findByToBy(jComboBox.jValue());
-        }
-        if (list == null) {
-            list = findByToBy(jComboBox.jList());
-        }
-        if (expand == null) {
-            expand = findByToBy(jComboBox.jExpand());
-        }
-        if (textField == null) {
-            textField = findByToBy(jComboBox.jTextField());
-        }
-        if (labelLocator == null) {
-            labelLocator = findByToBy(jComboBox.jLabelLocator());
         }
         if (root != null) {
             Element el = new Element(root);
@@ -114,25 +97,39 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             setParent(el);
             setAvatar(root);
         }
+
+        if (value == null) {
+            value = findByToBy(jComboBox.jValue());
+        }
         if (value != null) {
             this.element = new GetElementType(value, this);
             if (expander == null){
                 this.expander = element;
             }
+            textField = new GetElementType(value, this);
+        }
+
+        if (list == null) {
+            list = findByToBy(jComboBox.jList());
         }
         if (list != null) {
             this.allLabels = new GetElementType(list, this);
         }
+
+        if (expand == null) {
+            expand = findByToBy(jComboBox.jExpand());
+        }
         if (expand != null) {
             this.expander = new GetElementType(expand, this);
-            if (element == null){
+            if (element == null) {
                 this.element = expander;
             }
         }
-        if (textField != null) {
-            this.textField = new GetElementType(textField, this);
+
+        if (labelLocator == null) {
+            labelLocator = findByToBy(jComboBox.jLabelLocator());
         }
-        if(labelLocator != null){
+        if(labelLocator != null) {
             this.labelLocator = labelLocator;
         }
 

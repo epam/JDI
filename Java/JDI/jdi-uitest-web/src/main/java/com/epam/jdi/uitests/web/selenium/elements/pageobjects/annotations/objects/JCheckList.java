@@ -19,4 +19,3 @@ public @interface JCheckList {
     JFindBy jList() default @JFindBy();
     JFindBy jRoot() default @JFindBy();
 }
-

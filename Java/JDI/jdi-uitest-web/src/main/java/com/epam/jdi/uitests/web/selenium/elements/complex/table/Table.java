@@ -205,12 +205,16 @@ public class Table extends Text implements ITable, Cloneable {
         switch (jTable.headerType()) {
             case COLUMNS_HEADERS:
                 hasOnlyColumnHeaders();
+                break;
             case ROWS_HEADERS:
                 hasOnlyRowHeaders();
+                break;
             case ALL_HEADERS:
                 hasAllHeaders();
+                break;
             case NO_HEADERS:
                 hasNoHeaders();
+                break;
         }
         useCache(jTable.useCache());
         return this;

@@ -57,6 +57,9 @@ public class CheckList<TEnum extends Enum> extends MultiSelector<TEnum> implemen
 
     private ICheckList setUp(JCheckList jCheckList) {
         By root = findByToBy(jCheckList.root());
+        By list = findByToBy(jCheckList.list());
+        String separator = jCheckList.separator();
+
         if (root == null) {
             root = findByToBy(jCheckList.jRoot());
         }
@@ -67,19 +70,15 @@ public class CheckList<TEnum extends Enum> extends MultiSelector<TEnum> implemen
             setAvatar(root);
         }
 
-        String separator = jCheckList.separator();
-        setValuesSeparator(separator);
+        if (list == null) {
+            list = findByToBy(jCheckList.jList());
+        }
+        if (list != null) {
+            this.allLabels = new GetElementType(list, this);
+        }
 
-        By allLabels = findByToBy(jCheckList.list());
-        if (allLabels == null) {
-            allLabels = findByToBy(jCheckList.jList());
-        }
-        if (allLabels != null) {
-            this.allLabels = new GetElementType(allLabels, this);
-        }
+        setValuesSeparator(separator);
 
         return this;
     }
-
-
 }

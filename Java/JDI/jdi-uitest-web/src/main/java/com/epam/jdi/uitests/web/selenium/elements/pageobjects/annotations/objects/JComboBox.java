@@ -15,13 +15,11 @@ public @interface JComboBox {
     FindBy value() default @FindBy();
     FindBy list() default @FindBy();
     FindBy expand() default @FindBy();
-    FindBy textField() default @FindBy();
     FindBy labelLocator() default @FindBy();
 
     JFindBy jRoot() default @JFindBy();
     JFindBy jValue() default @JFindBy();
     JFindBy jList() default @JFindBy();
     JFindBy jExpand() default @JFindBy();
-    JFindBy jTextField() default @JFindBy();
     JFindBy jLabelLocator() default @JFindBy();
 }

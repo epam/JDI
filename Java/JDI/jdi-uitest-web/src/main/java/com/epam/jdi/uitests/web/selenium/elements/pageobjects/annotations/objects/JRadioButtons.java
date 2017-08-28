@@ -12,9 +12,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JRadioButtons {
-
     FindBy root() default @FindBy();
-    JFindBy jRoot() default @JFindBy();
     FindBy list() default @FindBy();
+
+    JFindBy jRoot() default @JFindBy();
     JFindBy jList() default @JFindBy();
 }
