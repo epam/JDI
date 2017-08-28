@@ -12,16 +12,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConfigurationHandlerService {
 
-    private static Map<String, ConfigurationHandler> configurationHandlerMap = new HashMap<>();
+    private static Map<Method, ConfigurationHandler> configurationHandlerMap = new HashMap<>();
 
     static {
-        configurationHandlerMap.put(Method.GETUSERS.toString(), new ConfigurationHandler("getusers", 200, "{\"name\":\"roman\", \"id\":\"300\",\"role\":\"admin\"}"));
-        configurationHandlerMap.put(Method.GETUSER.toString(), new ConfigurationHandler("getuser", 200, "{\"name\":\"roman\", \"id\":\"300\",\"role\":\"admin\"}"));
-        configurationHandlerMap.put(Method.REGISTERUSER.toString(), new ConfigurationHandler("registeruser", 404, ""));
-        configurationHandlerMap.put(Method.UPDATEUSER.toString(), new ConfigurationHandler("updateuser", 200, ""));
-        configurationHandlerMap.put(Method.UPDATEUSERFIELD.toString(), new ConfigurationHandler("updateuserfield", 200, ""));
-        configurationHandlerMap.put(Method.CLEARUSER.toString(), new ConfigurationHandler("clearuser", 404, ""));
-        configurationHandlerMap.put(Method.CLEARALL.toString(), new ConfigurationHandler("clearall", 200, ""));
+        configurationHandlerMap.put(Method.GETUSERS, new ConfigurationHandler("getusers", 200, "{\"name\":\"roman\", \"id\":\"300\",\"role\":\"admin\"}"));
+        configurationHandlerMap.put(Method.GETUSER, new ConfigurationHandler("getuser", 200, "{\"name\":\"roman\", \"id\":\"300\",\"role\":\"admin\"}"));
+        configurationHandlerMap.put(Method.REGISTERUSER, new ConfigurationHandler("registeruser", 404, ""));
+        configurationHandlerMap.put(Method.UPDATEUSER, new ConfigurationHandler("updateuser", 200, ""));
+        configurationHandlerMap.put(Method.UPDATEUSERFIELD, new ConfigurationHandler("updateuserfield", 200, ""));
+        configurationHandlerMap.put(Method.CLEARUSER, new ConfigurationHandler("clearuser", 404, ""));
+        configurationHandlerMap.put(Method.CLEARALL, new ConfigurationHandler("clearall", 200, ""));
     }
 
     /**
@@ -29,7 +29,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with JSON format.
      */
     public ConfigurationHandler getConfigForGetUsers() {
-        return configurationHandlerMap.get(Method.GETUSERS.toString());
+        return configurationHandlerMap.get(Method.GETUSERS);
     }
 
     /**
@@ -37,7 +37,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with JSON format or 'user no found' error.
      */
     public ConfigurationHandler getConfigForGetUser() {
-        return configurationHandlerMap.get(Method.GETUSER.toString());
+        return configurationHandlerMap.get(Method.GETUSER);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with JSON format  with status result (success or not) and user id.
      */
     public ConfigurationHandler getConfigForRegisterUser() {
-        return configurationHandlerMap.get(Method.REGISTERUSER.toString());
+        return configurationHandlerMap.get(Method.REGISTERUSER);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with status result (success or not).
      */
     public ConfigurationHandler getConfigForUpdateUser() {
-        return configurationHandlerMap.get(Method.UPDATEUSER.toString());
+        return configurationHandlerMap.get(Method.UPDATEUSER);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with status result (success or not).
      */
     public ConfigurationHandler getConfigForUpdateUserField() {
-        return configurationHandlerMap.get(Method.UPDATEUSERFIELD.toString());
+        return configurationHandlerMap.get(Method.UPDATEUSERFIELD);
     }
 
     /**
@@ -69,7 +69,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with status result (success or not).
      */
     public ConfigurationHandler getConfigForDeleteUser() {
-        return configurationHandlerMap.get(Method.CLEARUSER.toString());
+        return configurationHandlerMap.get(Method.CLEARUSER);
     }
 
     /**
@@ -77,7 +77,7 @@ public class ConfigurationHandlerService {
      * @return Our representation of response with status result (success or not).
      */
     public ConfigurationHandler getConfigForDeleteUsers() {
-        return configurationHandlerMap.get(Method.CLEARALL.toString());
+        return configurationHandlerMap.get(Method.CLEARALL);
     }
 
     /**
@@ -88,8 +88,8 @@ public class ConfigurationHandlerService {
     public boolean editMap(ConfigurationHandler configurationHandler) {
         String method = configurationHandler.getMethod().toUpperCase();
 
-        if (configurationHandlerMap.containsKey(method)) {
-            configurationHandlerMap.put(method, configurationHandler);
+        if (configurationHandlerMap.containsKey(Method.valueOf(method))) {
+            configurationHandlerMap.put(Method.valueOf(method), configurationHandler);
 
             return true;
         }
