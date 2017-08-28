@@ -74,6 +74,7 @@ public abstract class BaseElement implements IBaseElement {
     private String varName;
     private String typeName;
     private Object parent;
+    public boolean useCache;
 
     public BaseElement() {
         this(By.id("EMPTY"));
@@ -83,6 +84,7 @@ public abstract class BaseElement implements IBaseElement {
         avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY")
             ? null
             : byLocator, this);
+        useCache = USE_CACHE;
     }
 
     public static void setActionScenarios(ActionScenrios actionScenrios) {

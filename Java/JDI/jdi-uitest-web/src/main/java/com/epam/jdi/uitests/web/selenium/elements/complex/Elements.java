@@ -22,6 +22,7 @@ import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.Title;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
@@ -35,7 +36,6 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
@@ -70,6 +70,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
         super(byLocator);
         this.classType = classType != null ? classType : (Class<T>) Button.class;
         elements = new ArrayList<>();
+        useCache = true;
     }
 
     protected boolean getElementByNameAction(WebElement element, String name) {
@@ -80,18 +81,19 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public List<T> listOfElements() {
         return useCache && !elements.isEmpty()
-            ? elements
-            : (elements = select(getElements(), el -> {
-                try {
-                    T element = classType.newInstance();
-                    element.setWebElement(el);
-                    element.setParent(this);
-                    new WebCascadeInit().initElements(element, avatar.getDriverName());
-                    return element;
-                } catch (Exception ex) {
-                    throw exception("Can't instantiate list element");
-                }
-            }));
+                ? elements
+                : (elements = select(getElements(), el -> {
+            try {
+                T element = classType.newInstance();
+                element.setWebElement(el);
+                ((BaseElement)element).useCache = useCache;
+                element.setParent(null);
+                new WebCascadeInit().initElements(element, avatar.getDriverName());
+                return element;
+            } catch (Exception ex) {
+                throw exception("Can't instantiate list element");
+            }
+        }));
     }
 
     public <E> List<E> asData(Class<E> entityClass) {

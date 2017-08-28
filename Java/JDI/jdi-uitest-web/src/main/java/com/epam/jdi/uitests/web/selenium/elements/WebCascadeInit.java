@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -51,7 +52,6 @@ import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.setUpFromAnnotation;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
 
 /**
@@ -172,8 +172,10 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
-        for (BiConsumer<BaseElement, Field> setUp : setUpFromAnnotation)
-            setUp.accept(instance, field);
+        try {
+            ISetup setup = (ISetup) instance;
+            setup.setup(field);
+        } catch (Exception ignore) {}
     }
 
 }

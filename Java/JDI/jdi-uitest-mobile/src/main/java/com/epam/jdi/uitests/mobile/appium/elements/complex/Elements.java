@@ -29,8 +29,8 @@ import java.util.*;
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
+import static com.epam.jdi.uitests.core.settings.JDISettings.USE_CACHE;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
 
 
 /**
@@ -75,7 +75,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
     private List<T> elements;
 
     public List<T> listOfElements() {
-        return useCache && !elements.isEmpty()
+        return USE_CACHE && !elements.isEmpty()
             ? elements
             : (elements = select(getElements(), el -> {
                 try {
