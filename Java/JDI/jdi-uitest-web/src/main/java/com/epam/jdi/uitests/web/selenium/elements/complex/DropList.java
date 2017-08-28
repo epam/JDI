@@ -40,7 +40,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
  * @author Belousov Andrey
  */
 public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implements IDropList<TEnum> {
-    private GetElementType value = new GetElementType();
+    private GetElementType button = new GetElementType();
 
     public DropList() {
         super();
@@ -56,7 +56,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
     public DropList(By valueLocator, By optionsNamesLocator, By allOptionsNamesLocator) {
         super(optionsNamesLocator, allOptionsNamesLocator);
-        this.value = new GetElementType(valueLocator, this);
+        this.button = new GetElementType(valueLocator, this);
     }
 
     public static void setUp(BaseElement el, Field field) {
@@ -93,7 +93,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             value = findByToBy(jDropList.jValue());
         }
         if(value != null) {
-            this.value = new GetElementType(value, this);
+            this.button = new GetElementType(value, this);
         }
 
         setValuesSeparator(separator);
@@ -102,7 +102,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     protected Clickable button() {
-        return value.get(Clickable.class);
+        return button.get(Clickable.class);
     }
 
     protected void expandAction(String name) {
