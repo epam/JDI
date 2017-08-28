@@ -18,6 +18,7 @@ package com.epam.commons;
  */
 
 import com.epam.commons.linqinterfaces.JActionTEx;
+import com.epam.commons.linqinterfaces.JFuncTR;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
@@ -97,6 +98,12 @@ public final class LinqUtils {
         } catch (Exception ex) {
             throw new RuntimeException("Can't do select. Exception: " + ex.getMessage());
         }
+    }
+    public static <N, T> Map<N, T> toMap(List<T> list, JFuncTR<T, N> nameFunc) {
+        Map<N, T> map = new HashMap<>();
+        for(T el : list)
+            map.put(nameFunc.invoke(el), el);
+        return map;
     }
 
     public static <T> List<T> where(Collection<T> list, JFuncTREx<T, Boolean> func) {

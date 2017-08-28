@@ -18,13 +18,6 @@ import static java.util.Arrays.asList;
  */
 public class FillFromAnnotationRules {
 
-    public static List<BiConsumer<BaseElement, Field>> setUpFromAnnotation
-        = asList(Table::setUp,
-                 Dropdown::setUp,
-                 Search::setUp,
-                 Menu::setUp
-    );
-
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
         boolean isAnnotation = field.isAnnotationPresent(annotationClass);
         return isAnnotation && isInterface(field, interfaceClass);

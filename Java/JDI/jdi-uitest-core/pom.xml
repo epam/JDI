@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-commons</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

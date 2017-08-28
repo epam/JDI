@@ -23,18 +23,27 @@ package com.epam.jdi.site.epam.CustomElements;
  */
 
 import com.epam.commons.LinqUtils;
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
+import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.correctXPaths;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
-public class TreeDropdown<T extends Enum> extends Dropdown<T> {
+public class TreeDropdown<T extends Enum> extends Dropdown<T> implements ISetup {
     private List<By> treeLocators;
     public TreeDropdown() {
         super();
@@ -80,4 +89,18 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> {
             ((WebElement) context).click();
         }
     }
+    @Override
+    public void setup(Field field) {
+        if (!fieldHasAnnotation(field, JTree.class, IDropDown.class))
+            return;
+        JTree jTree = field.getAnnotation(JTree.class);
+        By selectLocator = findByToBy(jTree.select());
+        avatar = new GetElementModule(selectLocator, this);
+        element = new GetElementType(selectLocator, this);
+        expander = new GetElementType(selectLocator, this);
+        treeLocators = new ArrayList<>();
+        for (FindBy fBy : jTree.levels())
+            treeLocators.add(findByToBy(fBy));
+    }
+
 }
