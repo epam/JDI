@@ -19,12 +19,14 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
+import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.By;
 
 import java.lang.reflect.Field;
@@ -74,23 +76,16 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         return label.getText();
     }
 
-    public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JComboBox.class, IComboBox.class)) {
+    public void setup(Field field) {
+        if (!fieldHasAnnotation(field, JComboBox.class, IComboBox.class))
             return;
-        }
-        ((ComboBox) el).setUp(field.getAnnotation(JComboBox.class));
-    }
-
-    public ComboBox<TEnum> setUp(JComboBox jComboBox) {
+        JComboBox jComboBox = field.getAnnotation(JComboBox.class);
         By root = findByToBy(jComboBox.root());
         By value = findByToBy(jComboBox.value());
         By list = findByToBy(jComboBox.list());
         By expand = findByToBy(jComboBox.expand());
         By labelLocator = findByToBy(jComboBox.labelLocator());
 
-        if (root == null) {
-            root = findByToBy(jComboBox.jRoot());
-        }
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
@@ -98,9 +93,6 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             setAvatar(root);
         }
 
-        if (value == null) {
-            value = findByToBy(jComboBox.jValue());
-        }
         if (value != null) {
             this.element = new GetElementType(value, this);
             if (expander == null){
@@ -109,16 +101,10 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             textField = new GetElementType(value, this);
         }
 
-        if (list == null) {
-            list = findByToBy(jComboBox.jList());
-        }
         if (list != null) {
             this.allLabels = new GetElementType(list, this);
         }
 
-        if (expand == null) {
-            expand = findByToBy(jComboBox.jExpand());
-        }
         if (expand != null) {
             this.expander = new GetElementType(expand, this);
             if (element == null) {
@@ -126,14 +112,9 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             }
         }
 
-        if (labelLocator == null) {
-            labelLocator = findByToBy(jComboBox.jLabelLocator());
-        }
         if(labelLocator != null) {
             this.labelLocator = labelLocator;
         }
-
-        return this;
     }
 
     protected TextField textField() {

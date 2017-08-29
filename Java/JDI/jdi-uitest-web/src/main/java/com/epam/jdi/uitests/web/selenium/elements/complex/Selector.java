@@ -22,7 +22,6 @@ import com.epam.jdi.uitests.core.interfaces.complex.ISelector;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -51,37 +50,6 @@ public class Selector<TEnum extends Enum> extends BaseSelector<TEnum> implements
 
     public Selector(By optionsNamesLocatorTemplate, By allOptionsNamesLocator) {
         super(optionsNamesLocatorTemplate, allOptionsNamesLocator);
-    }
-
-    public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JSelector.class, ISelector.class)) {
-            return;
-        }
-        ((Selector) el).setUp(field.getAnnotation(JSelector.class));
-    }
-
-    public ISelector setUp(JSelector jSelector) {
-        By root = findByToBy(jSelector.root());
-        By list = findByToBy(jSelector.list());
-
-        if (root == null) {
-            root = findByToBy(jSelector.jRoot());
-        }
-        if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
-            setAvatar(root);
-        }
-
-        if (list == null) {
-            list = findByToBy(jSelector.jList());
-        }
-        if (list != null) {
-            this.allLabels = new GetElementType(list, this);
-        }
-
-        return this;
     }
 
     /**
