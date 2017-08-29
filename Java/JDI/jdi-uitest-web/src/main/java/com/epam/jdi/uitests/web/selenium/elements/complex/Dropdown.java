@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -42,7 +43,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
  *
  * @author Alexeenko Yan
  */
-public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum> {
+public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDropDown<TEnum>, ISetup {
     protected GetElementType element;
     protected GetElementType expander;
 
@@ -64,13 +65,11 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         expander = new GetElementType(selectLocator, this);
     }
 
-    public static void setUp(BaseElement el, Field field) {
+
+    public void setup(Field field) {
         if (!fieldHasAnnotation(field, JDropdown.class, IDropDown.class))
             return;
-        ((Dropdown) el).setUp(field.getAnnotation(JDropdown.class));
-    }
-
-    public Dropdown<TEnum> setUp(JDropdown jDropdown) {
+        JDropdown jDropdown = field.getAnnotation(JDropdown.class);
         By root = findByToBy(jDropdown.root());
         By value = findByToBy(jDropdown.value());
         By list = findByToBy(jDropdown.list());
@@ -100,7 +99,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             this.expander = new GetElementType(expand, this);
             if (element == null) this.element = expander;
         }
-        return this;
     }
 
     protected Label element() {

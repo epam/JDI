@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.commons.LinqUtils;
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
@@ -45,7 +46,7 @@ import static java.util.Arrays.copyOfRange;
  *
  * @author Alexeenko Yan
  */
-public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum> {
+public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<TEnum>, ISetup {
     private List<By> menuLevelsLocators = new ArrayList<>();
     private String separator = "\\|";
     public <T extends IMenu<TEnum>> T useSeparator(String separator) {
@@ -139,13 +140,10 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
         }
     }
 
-    public static void setUp(BaseElement el, Field field) {
+    public void setup(Field field) {
         if (!fieldHasAnnotation(field, JMenu.class, IMenu.class))
             return;
-        ((Menu) el).setUp(field.getAnnotation(JMenu.class));
-    }
-
-    public Menu<TEnum> setUp(JMenu jMenu) {
+        JMenu jMenu = field.getAnnotation(JMenu.class);
         this.menuLevelsLocators = jMenu.levelLocators().length > 0
         ? LinqUtils.select(asList(
             jMenu.levelLocators()), WebAnnotationsUtil::findByToBy)
@@ -153,6 +151,5 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
             jMenu.jLevelLocators()), WebAnnotationsUtil::findByToBy);
         if (!jMenu.separator().equals(""))
             separator = jMenu.separator();
-        return this;
     }
 }

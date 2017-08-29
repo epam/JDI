@@ -25,21 +25,6 @@ import static java.util.Arrays.asList;
  * Created by 12345 on 17.05.2016.
  */
 public class FillFromAnnotationRules {
-
-    public static List<BiConsumer<BaseElement, Field>> setUpFromAnnotation
-        = asList(Table::setUp,
-                 Dropdown::setUp,
-                 Search::setUp,
-                 Menu::setUp,
-                 ComboBox::setUp,
-                 Tabs::setUp,
-                 DropList::setUp,
-                 Elements::setUp,
-                 RadioButtons::setUp,
-                 Selector::setUp,
-                 CheckList::setUp
-    );
-
     public static boolean fieldHasAnnotation(Field field, Class annotationClass, Class interfaceClass) {
         boolean isAnnotation = field.isAnnotationPresent(annotationClass);
         return isAnnotation && isInterface(field, interfaceClass);

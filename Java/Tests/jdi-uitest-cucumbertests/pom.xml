@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-cucumber</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>

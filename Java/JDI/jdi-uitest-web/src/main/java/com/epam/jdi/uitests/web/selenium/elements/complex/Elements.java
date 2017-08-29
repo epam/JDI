@@ -110,6 +110,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
         super(byLocator);
         this.classType = classType != null ? classType : (Class<T>) Button.class;
         elements = new ArrayList<>();
+        useCache = true;
     }
 
     protected boolean getElementByNameAction(WebElement element, String name) {
@@ -120,18 +121,19 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public List<T> listOfElements() {
         return useCache && !elements.isEmpty()
-            ? elements
-            : (elements = select(getElements(), el -> {
-                try {
-                    T element = classType.newInstance();
-                    element.setWebElement(el);
-                    element.setParent(this);
-                    new WebCascadeInit().initElements(element, avatar.getDriverName());
-                    return element;
-                } catch (Exception ex) {
-                    throw exception("Can't instantiate list element");
-                }
-            }));
+                ? elements
+                : (elements = select(getElements(), el -> {
+            try {
+                T element = classType.newInstance();
+                element.setWebElement(el);
+                ((BaseElement)element).useCache = useCache;
+                element.setParent(null);
+                new WebCascadeInit().initElements(element, avatar.getDriverName());
+                return element;
+            } catch (Exception ex) {
+                throw exception("Can't instantiate list element");
+            }
+        }));
     }
 
     public <E> List<E> asData(Class<E> entityClass) {

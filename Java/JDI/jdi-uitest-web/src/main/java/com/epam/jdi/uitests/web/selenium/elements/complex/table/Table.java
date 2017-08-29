@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -29,6 +30,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.object
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,7 +53,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 /**
  * Created by Roman_Iovlev on 6/2/2015.
  */
-public class Table extends Text implements ITable, Cloneable {
+public class Table extends Text implements ITable, Cloneable, ISetup {
     public boolean cache = true;
     protected List<String> footer;
     protected By cellLocatorTemplate;
@@ -146,13 +148,10 @@ public class Table extends Text implements ITable, Cloneable {
         return result;
     }
 
-    public static void setUp(BaseElement el, Field field) {
+    public void setup(Field field) {
         if (!fieldHasAnnotation(field, JTable.class, ITable.class))
             return;
-        ((Table) el).setUp(field.getAnnotation(JTable.class));
-    }
-
-    public ITable setUp(JTable jTable) {
+        JTable jTable = field.getAnnotation(JTable.class);
         By root = findByToBy(jTable.root());
         if (root == null)
             root = findByToBy(jTable.jRoot());
@@ -217,7 +216,6 @@ public class Table extends Text implements ITable, Cloneable {
                 break;
         }
         useCache(jTable.useCache());
-        return this;
     }
 
     public ITable useCache(boolean value) {

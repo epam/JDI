@@ -4,13 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.epam.jdi</groupId>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <version>1.0.70</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
     <groupId>jdi.examples</groupId>
     <artifactId>jdi-uitest-cucumber-example</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdi.version>1.0.71</jdi.version>
         <allure.version>1.4.23</allure.version>
         <aspectj.version>1.8.5</aspectj.version>
         <cucumber.version>1.2.5</cucumber.version>
@@ -21,7 +27,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
 
         <!--Allure-->

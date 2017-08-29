@@ -87,6 +87,6 @@ public class WaiterTests extends SupportTableTestsBase {
         isFalse(table().waitRows(7));
         tableWaitTomeOut -= timer.timePassedInMSec();
 
-        new Check("Wait Row time out").isTrue(-tableWaitTomeOut < 5200);
+        new Check("Wait Row time out").isTrue(-tableWaitTomeOut < 6000);
     }
 }

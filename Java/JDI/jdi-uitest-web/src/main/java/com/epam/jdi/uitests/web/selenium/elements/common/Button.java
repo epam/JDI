@@ -22,6 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.web.selenium.elements.base.ClickableText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 /**
  * Button control implementation
@@ -40,4 +41,7 @@ public class Button extends ClickableText implements IButton {
         super(webElement);
     }
 
+    public void checkTitle(String t) {
+        Assert.assertEquals(getText(), t);
+    }
 }

@@ -40,7 +40,7 @@ public abstract class JDISettings {
     public static boolean shortLogMessagesFormat = true;
     public static String jdiSettingsPath = "test.properties";
     public static IDriver driverFactory;
-    public static boolean useCache = false;
+    public static boolean USE_CACHE = false;
 
     protected JDISettings() {
     }
@@ -67,7 +67,7 @@ public abstract class JDISettings {
         fillAction(driverFactory::registerDriver, "driver");
         fillAction(driverFactory::setRunType, "run.type");
         fillAction(p -> shortLogMessagesFormat = p.toLowerCase().equals("short"), "log.message.format");
-        fillAction(p -> useCache =
+        fillAction(p -> USE_CACHE =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
         fillAction(p -> isDemoMode =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");

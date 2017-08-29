@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>LATEST</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
