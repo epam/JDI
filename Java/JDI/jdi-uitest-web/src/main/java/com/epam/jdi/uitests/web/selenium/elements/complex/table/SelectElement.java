@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.base;
+package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
 
 
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.web.selenium.elements.base.ClickableText;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
