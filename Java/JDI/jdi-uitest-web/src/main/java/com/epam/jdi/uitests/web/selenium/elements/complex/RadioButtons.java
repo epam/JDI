@@ -21,6 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
 import org.openqa.selenium.By;
 
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+
 /**
  * RadioButtons control implementation
  *
@@ -38,5 +40,4 @@ public class RadioButtons<TEnum extends Enum> extends Selector<TEnum> implements
     public RadioButtons(By optionsNamesLocatorTemplate, By allOptionsNamesLocator) {
         super(optionsNamesLocatorTemplate, allOptionsNamesLocator);
     }
-
 }

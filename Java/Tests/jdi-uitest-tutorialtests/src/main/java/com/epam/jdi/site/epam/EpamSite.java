@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
@@ -40,10 +41,8 @@ public class EpamSite extends WebSite {
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu(levelLocators = {
-        @FindBy(css = ".tile-menu>li>a"),
-        @FindBy(css = "ul.tile-menu>li li")
-    })
+    @JMenu( level1 = @JFindBy(css = ".tile-menu>li>a"),
+            level2 = @JFindBy(css = "ul.tile-menu>li li"))
     public static Menu multipleHeaderMenu;
 
     @FindBy(css = ".tile-menu>li>a")

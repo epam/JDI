@@ -24,7 +24,6 @@ import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ElementIndexType;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.base.SelectElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

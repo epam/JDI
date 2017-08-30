@@ -174,9 +174,10 @@ public class Search extends TextField implements ISearch, ISetup {
     }
 
     public void setup(Field field) {
-        if (!fieldHasAnnotation(field, JSearch.class, ITable.class))
+        if (!fieldHasAnnotation(field, JSearch.class, ISearch.class))
             return;
         JSearch jSearch = field.getAnnotation(JSearch.class);
+        By root = findByToBy(jSearch.root());
         By input = findByToBy(jSearch.input());
         By searchButton = findByToBy(jSearch.searchButton());
         By suggestions = findByToBy(jSearch.suggestions());

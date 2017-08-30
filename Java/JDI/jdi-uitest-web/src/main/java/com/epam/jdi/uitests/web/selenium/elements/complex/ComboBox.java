@@ -19,12 +19,21 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
+import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
+import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.By;
 
+import java.lang.reflect.Field;
+
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * ComboBox control implementation
@@ -32,6 +41,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
  * @author Alexeenko Yan
  */
 public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements IComboBox<TEnum> {
+    public By labelLocator;
     private GetElementType textField = new GetElementType();
 
     public ComboBox() {
@@ -57,7 +67,6 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         super(selectorLocator, optionsNamesLocatorTemplate, allOptionsNamesLocator);
         textField = new GetElementType(valueLocator, this);
     }
-    public By labelLocator;
 
     public String label() {
         if (labelLocator == null)
@@ -65,6 +74,47 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         Label label = new Label(labelLocator);
         label.setParent(getParent());
         return label.getText();
+    }
+
+    public void setup(Field field) {
+        if (!fieldHasAnnotation(field, JComboBox.class, IComboBox.class))
+            return;
+        JComboBox jComboBox = field.getAnnotation(JComboBox.class);
+        By root = findByToBy(jComboBox.root());
+        By value = findByToBy(jComboBox.value());
+        By list = findByToBy(jComboBox.list());
+        By expand = findByToBy(jComboBox.expand());
+        By labelLocator = findByToBy(jComboBox.labelLocator());
+
+        if (root != null) {
+            Element el = new Element(root);
+            el.setParent(getParent());
+            setParent(el);
+            setAvatar(root);
+        }
+
+        if (value != null) {
+            this.element = new GetElementType(value, this);
+            if (expander == null){
+                this.expander = element;
+            }
+            textField = new GetElementType(value, this);
+        }
+
+        if (list != null) {
+            this.allLabels = new GetElementType(list, this);
+        }
+
+        if (expand != null) {
+            this.expander = new GetElementType(expand, this);
+            if (element == null) {
+                this.element = expander;
+            }
+        }
+
+        if(labelLocator != null) {
+            this.labelLocator = labelLocator;
+        }
     }
 
     protected TextField textField() {

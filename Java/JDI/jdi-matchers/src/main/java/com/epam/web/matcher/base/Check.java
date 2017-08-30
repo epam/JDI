@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.complex;
+package com.epam.web.matcher.base;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,27 +18,24 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
-import org.openqa.selenium.By;
+import org.testng.Assert;
 
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import java.util.function.Consumer;
 
 /**
- * Select control implementation
- *
- * @author Alexeenko Yan
- * @author Belousov Andrey
+ * Created by Roman_Iovlev on 6/9/2015.
  */
-public class CheckList<TEnum extends Enum> extends MultiSelector<TEnum> implements ICheckList<TEnum> {
-    public CheckList() {
+public class Check extends BaseMatcher {
+    public Check() {
         super();
     }
 
-    public CheckList(By optionsNamesLocator) {
-        super(optionsNamesLocator);
+    public Check(String checkMessage) {
+        super(checkMessage);
     }
 
-    public CheckList(By optionsNamesLocator, By allOptionsNamesLocator) {
-        super(optionsNamesLocator, allOptionsNamesLocator);
+    @Override
+    protected Consumer<String> throwFail() {
+        return RuntimeException::new;
     }
 }

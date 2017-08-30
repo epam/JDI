@@ -182,6 +182,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             case FIREFOX:
                 return registerDriver(driverType,
                         () -> {
+                            if (getLatestDriver)
+                                downloadFirefoxDriver(driversPath);
                             DesiredCapabilities capabilities =firefox();
                             capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
                             setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
@@ -189,10 +191,10 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                         });
             case IE:
                 return registerDriver(driverType, () -> {
-                    DesiredCapabilities capabilities = internetExplorer();
-                    capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                     if (getLatestDriver)
                         downloadIEDriver(driversPath);
+                    DesiredCapabilities capabilities = internetExplorer();
+                    capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                     setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
                     return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
                 });

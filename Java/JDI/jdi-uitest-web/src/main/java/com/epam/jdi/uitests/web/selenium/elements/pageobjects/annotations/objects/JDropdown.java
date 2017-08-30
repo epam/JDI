@@ -32,13 +32,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JDropdown {
-    FindBy root() default @FindBy();
-    FindBy value() default @FindBy();
-    FindBy list() default @FindBy();
-    FindBy expand() default @FindBy();
-    JFindBy jRoot() default @JFindBy();
-    JFindBy jValue() default @JFindBy();
-    JFindBy jList() default @JFindBy();
-    JFindBy jExpand() default @JFindBy();
+    JFindBy root() default   @JFindBy();
+    JFindBy value() default  @JFindBy();
+    JFindBy list() default   @JFindBy();
+    JFindBy expand() default @JFindBy();
 
 }
