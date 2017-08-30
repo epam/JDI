@@ -22,11 +22,20 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
@@ -143,6 +152,43 @@ public class WebPage extends BaseElement implements IPage {
         } catch (Exception ex) {
             throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
         }
+    }
+
+    /**
+     * Searches for a match on a web browser layout for a single file.
+     *
+     * @param pathToFile path to file: C:/Screenshots/file.png
+     * @return <tt>true</tt>, if match was found.
+     */
+    public boolean verifyLayout(String pathToFile) {
+        if (LayoutVerifier.verifyImageFormat(pathToFile)) {
+            return LayoutVerifier.findMatch(pathToFile) != null;
+        }
+        logger.info(format("'%s' is not .jpg, ,jpeg or .png file.", pathToFile));
+        return false;
+    }
+
+    /**
+     * Searches for a match on a web browser layout for all images in dir.
+     *
+     * @param pathToDir path to a directory: C:/Screenshots/
+     * @return a list of names for all matched images.
+     */
+    public List<String> verifyLayoutMatches(String pathToDir) {
+        List<String> matchedFiles = new ArrayList<>();
+        try {
+            Stream<Path> paths = Files.walk(Paths.get(pathToDir));
+            paths
+                    .filter(Files::isRegularFile)
+                    .map(Path::toString)
+                    .filter(LayoutVerifier::verifyImageFormat)
+                    .map(LayoutVerifier::findMatch)
+                    .filter(Objects::nonNull)
+                    .forEach(m -> matchedFiles.add(m.getImageFilename()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return matchedFiles;
     }
 
     /**
