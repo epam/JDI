@@ -26,7 +26,6 @@ import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
@@ -42,9 +41,6 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
