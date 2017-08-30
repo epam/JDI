@@ -33,7 +33,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JMenu {
-    FindBy[] levelLocators() default {};
-    JFindBy[] jLevelLocators() default {};
-    String separator() default "";
+    JFindBy level1();
+    JFindBy level2() default @JFindBy();
+    JFindBy level3() default @JFindBy();
+    JFindBy level4() default @JFindBy();
+    JFindBy level5() default @JFindBy();
 }

@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.support.FindBy;
 
@@ -22,15 +23,15 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
     @JDropdown(
-        root = @FindBy(className = "country-wrapper"),
-        value = @FindBy(className = "arrow"),
-        list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
+        root = @JFindBy(className = "country-wrapper"),
+        value = @JFindBy(className = "arrow"),
+        list = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
     IDropDown country;
 
     @JDropdown(
-        root = @FindBy(className = "city-wrapper"),
-        expand = @FindBy(className = "arrow"),
-        list = @FindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+        root = @JFindBy(className = "city-wrapper"),
+        expand = @JFindBy(className = "arrow"),
+        list = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
     )
     IDropDown city;
 

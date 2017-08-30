@@ -6,6 +6,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.web.matcher.testng.Assert;
 import org.mytests.epam.site.entities.Attendee;
@@ -24,14 +25,14 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(css = "[placeholder='Email']")
     ITextField email;
     @JDropdown(
-        value = @FindBy(css = ".country-wrapper [id$=-container]"),
+        value = @JFindBy(css = ".country-wrapper [id$=-container]"),
             // %s template daster with method in 200 times
-        list = @FindBy(xpath = "//*[contains(@id,'applicantCountry')]//li[.='%s']"))
+        list = @JFindBy(xpath = "//*[contains(@id,'applicantCountry')]//li[.='%s']"))
     IDropDown country;
 
     @JDropdown(
-        value = @FindBy(css = ".city-wrapper [id$=-container]"),
-        list = @FindBy(css = "[id*='applicantCity'] li"))
+        value = @JFindBy(css = ".city-wrapper [id$=-container]"),
+        list = @JFindBy(css = "[id*='applicantCity'] li"))
     IDropDown city;
 
     @FindBy(css = ".file-upload")
