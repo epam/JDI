@@ -40,6 +40,7 @@ public class SmokeTest {
         driver.quit();
     }
 
+    @Ignore
     @Test
     @Ignore
     public void addContact(){
@@ -48,9 +49,10 @@ public class SmokeTest {
         List<AndroidElement> textFieldsList = driver.findElementsByClassName("android.widget.EditText");
         textFieldsList.get(0).sendKeys("Some Name");
         textFieldsList.get(1).sendKeys("Some@example.com");
-//        driver.swipe(100, 500, 100, 100, 2);
+//        driver.swipe(100, 500, 100, 100, 2);      //deleted in java-client 5.0.1
         driver.findElementByName("Save").click();
     }
+    @Ignore
     @Test
     @Ignore
     public void addContact2(){
@@ -59,7 +61,7 @@ public class SmokeTest {
         List<AndroidElement> textFieldsList = driver.findElementsByClassName("android.widget.EditText");
         textFieldsList.get(0).sendKeys("Some Name");
         textFieldsList.get(1).sendKeys("Some@example.com");
-//        driver.swipe(100, 500, 100, 100, 2);
+//        driver.swipe(100, 500, 100, 100, 2);      //deleted in java-client 5.0.1
         driver.findElementByName("Save").click();
     }
 
