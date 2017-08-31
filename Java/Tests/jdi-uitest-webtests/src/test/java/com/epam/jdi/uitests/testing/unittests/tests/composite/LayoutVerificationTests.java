@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class LayoutVerificationTests extends InitTests {
     private static String imgDirPath;
 
     @BeforeClass
-    public static void verifyImagesExist() throws URISyntaxException {
+    public static void verifyImagesExist() {
         imgDirPath = verifyResourceExists(IMG_DIR_NAME);
         jdiHomepageBlock1 = verifyResourceExists(HOMEPAGE_BLOCK_1);
         jdiHomepageBlock2 = verifyResourceExists(HOMEPAGE_BLOCK_2);
@@ -64,7 +63,7 @@ public class LayoutVerificationTests extends InitTests {
     }
 
     @Test
-    public void layoutVerificationForSeveralFilesTest() throws URISyntaxException {
+    public void layoutVerificationForSeveralFilesTest() {
         homePage.open();
         List<String> matchedImages = homePage.verifyLayoutMatches(imgDirPath);
         assertTrue(matchedImages.contains(jdiHomepageBlock1)
