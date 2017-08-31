@@ -42,6 +42,7 @@ public class SmokeTest {
 
     @Ignore
     @Test
+    @Ignore
     public void addContact(){
         WebElement el = driver.findElement(By.name("Add Contact"));
         el.click();
@@ -53,6 +54,7 @@ public class SmokeTest {
     }
     @Ignore
     @Test
+    @Ignore
     public void addContact2(){
         WebElement el = driver.findElement(By.name("Add Contact"));
         el.click();
