@@ -6,8 +6,7 @@ Feature: Menu item select and text input
   Scenario: Navigation and input
     Given I am on Home page
     When I select CAREERS tab
-      And I input TestAutomation
+    And I input TestAutomation
     Then Career page is opened
-      And TestAutomation is typed
-      And Closing driver
-
+    And TestAutomation is typed
+    And Closing driver
