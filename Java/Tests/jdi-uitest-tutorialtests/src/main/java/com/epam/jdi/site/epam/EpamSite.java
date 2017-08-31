@@ -34,7 +34,7 @@ public class EpamSite extends WebSite {
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
-    @JPage(url = "/careers/job-listings/job.11584#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
+    @JPage(url = "/careers/job-listings/job.24696#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
             urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
 
