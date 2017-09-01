@@ -9,7 +9,7 @@ public class Case implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
-
+  
     private CaseType type;
 
     private String feature;
