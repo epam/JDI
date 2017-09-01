@@ -1,8 +1,10 @@
 package com.epam.test_generator.services;
 
+import com.epam.test_generator.dao.SuitDAOImpl;
 import com.epam.test_generator.dao.interfaces.EntitiesDAO;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.interfaces.EntitiesService;
+import com.epam.test_generator.services.interfaces.SuitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,39 +12,33 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class SuitsService implements EntitiesService<Suit>{
+public class SuitsService implements SuitService {
 
     @Autowired
-    private EntitiesDAO<Suit> suitDAO;
+    private SuitDAOImpl suitDAO;
 
     @Override
-    @Transactional
-    public void addTestEntity(Suit ts) {
-        suitDAO.addTestEntity(ts);
-    }
-
-    @Override
-    @Transactional
-    public List<Suit> getAllTestEntities() {
+    public List<Suit> getTestSuits() {
         return suitDAO.getAllTestEntities();
     }
 
     @Override
-    public Suit getEntity(Long id) {
+    public Suit getTestSuit(long id) {
         return suitDAO.getEntity(id);
     }
 
-    @Transactional
-    void editTestSuite (TestSuit testSuit) {
-        TestSuit ts = testSuitDAO.getEntity(testSuit.getId());
-        if (!((ts.getName().equals(testSuit.getName())) && (ts.getDescription().equals(testSuit.getDescription())))) {
-            testSuitDAO.addTestEntity(ts);
-        }
+    @Override
+    public void editTestSuit(Suit testSuit) {
+        suitDAO.editTestEntity(testSuit);
     }
 
     @Override
-    @Transactional
-    public void removeTestEntity(Long id) {
+    public void removeTestSuit(long id) {
         suitDAO.removeTestEntity(id);
+    }
+
+    @Override
+    public Suit addTestSuit(Suit suit) {
+        return suitDAO.addTestEntity(suit);
     }
 }

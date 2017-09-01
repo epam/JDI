@@ -4,6 +4,9 @@ package com.epam.test_generator.controllers;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +26,7 @@ public class SuitController {
         return model;
     }
 
-    @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET)
+    @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Suit> getTestSuits(){
         return suitsService.getTestSuits();
     }
@@ -34,21 +37,21 @@ public class SuitController {
         return suitsService.getTestSuit(id);
     }
 
-    @RequestMapping(value="/editTestSuit", method = RequestMethod.POST)
+    @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
     public void editTestSuit(@RequestBody Suit suit){
-        return suitsService.editTestSuit(suit);
+        suitsService.editTestSuit(suit);
     }
 
-    @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET, produces = "application/json")
     public void removeTestSuit(@PathVariable("id") long id){
-        return suitsService.removeTestSuit(id);
+        suitsService.removeTestSuit(id);
     }
 
     @RequestMapping(value="/addTestSuit", method = RequestMethod.POST)
-    public @ResponseBody
-    Suit addTestSuit(@RequestParam(value="name") String name,
-                     @RequestParam(value="txtEmail") String description){
-        return suitsService.addTestSuit(new Suit(name, description));
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addTestSuit(@RequestBody Suit suit){
+        System.out.println(suit);
+        suitsService.addTestSuit(suit);
     }
 
 }

@@ -5,11 +5,12 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity
-public class Suit {
+public class Suit implements Serializable {
 
     @Id
     @GeneratedValue
@@ -21,6 +22,13 @@ public class Suit {
 
     @OneToMany
     private List<Case> cases;
+
+    public Suit(Long id, String name, String description, List<Case> cases) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.cases = cases;
+    }
 
     public Suit(String name, String description) {
         this.name = name;
@@ -39,6 +47,10 @@ public class Suit {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -53,5 +65,15 @@ public class Suit {
 
     public void setCases(List<Case> cases) {
         this.cases = cases;
+    }
+
+    @Override
+    public String toString() {
+        return "Suit{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", cases=" + cases +
+                '}';
     }
 }
