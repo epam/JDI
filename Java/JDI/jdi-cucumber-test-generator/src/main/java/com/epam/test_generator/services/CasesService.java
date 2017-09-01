@@ -1,7 +1,7 @@
 package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.EntitiesDAO;
-import com.epam.test_generator.entities.TestSuit;
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.services.interfaces.EntitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,31 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class TestSuitsService implements EntitiesService<TestSuit>{
+public class CasesService implements EntitiesService<Case>{
 
     @Autowired
-    private EntitiesDAO<TestSuit> testSuitDAO;
+    private EntitiesDAO<Case> caseDAO;
 
     @Override
     @Transactional
-    public void addTestEntity(TestSuit ts) {
-        testSuitDAO.addTestEntity(ts);
+    public void addTestEntity(Case ts) {
+        caseDAO.addTestEntity(ts);
+
     }
 
     @Override
     @Transactional
-    public List<TestSuit> getAllTestEntities() {
-        return testSuitDAO.getAllTestEntities();
+    public List<Case> getAllTestEntities() {
+        return caseDAO.getAllTestEntities();
     }
 
     @Override
-    public TestSuit getEntity(Long id) {
-        return testSuitDAO.getEntity(id);
+    public Case getEntity(Long id) {
+        return caseDAO.getEntity(id);
     }
 
     @Override
     @Transactional
     public void removeTestEntity(Long id) {
-        testSuitDAO.removeTestEntity(id);
+        caseDAO.removeTestEntity(id);
     }
 }
