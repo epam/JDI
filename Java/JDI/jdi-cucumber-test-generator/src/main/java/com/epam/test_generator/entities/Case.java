@@ -9,8 +9,7 @@ public class Case implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
-
-
+  
     private CaseType type;
 
     private String feature;
@@ -26,6 +25,10 @@ public class Case implements Serializable{
         this.feature = feature;
         this.scenario = scenario;
         this.suit = suit;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public CaseType getType() {
@@ -54,10 +57,6 @@ public class Case implements Serializable{
 
     public String getScenario() {
         return scenario;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public void setScenario(String scenario) {
