@@ -32,6 +32,14 @@ public class TestSuitsService implements EntitiesService<TestSuit>{
         return testSuitDAO.getEntity(id);
     }
 
+    @Transactional
+    void editTestSuite (TestSuit testSuit) {
+        TestSuit ts = testSuitDAO.getEntity(testSuit.getId());
+        if (!((ts.getName().equals(testSuit.getName())) && (ts.getDescription().equals(testSuit.getDescription())))) {
+            testSuitDAO.addTestEntity(ts);
+        }
+    }
+
     @Override
     @Transactional
     public void removeTestEntity(Long id) {
