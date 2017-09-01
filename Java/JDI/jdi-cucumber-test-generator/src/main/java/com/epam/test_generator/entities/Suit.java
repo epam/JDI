@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Entity
-public class TestSuit {
+public class Suit {
 
     @Id
     @GeneratedValue
@@ -20,7 +20,12 @@ public class TestSuit {
     private String description;
 
     @OneToMany
-    private List<TestCase> cases;
+    private List<Case> cases;
+
+    public Suit(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public String getDescription() {
         return description;
@@ -42,11 +47,11 @@ public class TestSuit {
         this.name = name;
     }
 
-    public List<TestCase> getCases() {
+    public List<Case> getCases() {
         return cases;
     }
 
-    public void setCases(List<TestCase> cases) {
+    public void setCases(List<Case> cases) {
         this.cases = cases;
     }
 }
