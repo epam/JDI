@@ -1,32 +1,32 @@
 package com.epam.test_generator.dao;
 
 import com.epam.test_generator.dao.interfaces.EntitiesDAO;
-import com.epam.test_generator.entities.TestSuit;
+import com.epam.test_generator.entities.Suit;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class TestSuitDAOImpl implements EntitiesDAO<TestSuit>{
+public class SuitDAOImpl implements EntitiesDAO<Suit>{
 
 
     @Override
-    public void addTestEntity(TestSuit ts) {
+    public void addEntity(Suit ts) {
 
     }
 
     @Override
-    public List<TestSuit> getAllTestEntities() {
+    public List<Suit> getAllEntities() {
         return null;
     }
 
     @Override
-    public TestSuit getEntity(Long id) {
+    public Suit getEntity(Long id) {
         return null;
     }
 
     @Override
-    public void removeTestEntity(Long id) {
+    public void removeEntity(Long id) {
 
     }
 
