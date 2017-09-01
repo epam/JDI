@@ -36,7 +36,7 @@ public class Case implements Serializable{
         this.type = type;
     }
 
-    public Suit getTestSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
