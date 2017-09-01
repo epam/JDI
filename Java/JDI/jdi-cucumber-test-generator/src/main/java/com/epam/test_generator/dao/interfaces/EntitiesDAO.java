@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface EntitiesDAO<T> {
 
-    void addTestEntity(T ts);
+    void addEntity(T ts);
 
-    List<T> getAllTestEntities();
+    List<T> getAllEntities();
     T getEntity(Long id);
 
-    void removeTestEntity(Long id);
+    void removeEntity(Long id);
 }
