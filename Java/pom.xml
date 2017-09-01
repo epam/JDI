@@ -57,6 +57,7 @@
         <module>JDI/jdi-uitest-cucumber</module>
         <module>JDI/jdi-http</module>
         <module>JDI/jdi-mock-rest</module>
+        <module>JDI/jdi-cucumber-test-generator</module>
 
         <module>Tests/jdi-uitest-tutorialtests</module>
         <module>Tests/jdi-uitest-webtests</module>
