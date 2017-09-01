@@ -4,7 +4,7 @@ import com.epam.test_generator.entities.Suit;
 
 import java.util.List;
 
-public interface SuitService {
+public interface SuitsService {
 
        List<Suit> getTestSuits();
 

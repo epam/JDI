@@ -1,18 +1,15 @@
 package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.SuitDAOImpl;
-import com.epam.test_generator.dao.interfaces.EntitiesDAO;
 import com.epam.test_generator.entities.Suit;
-import com.epam.test_generator.services.interfaces.EntitiesService;
-import com.epam.test_generator.services.interfaces.SuitService;
+import com.epam.test_generator.services.interfaces.SuitsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class SuitsService implements SuitService {
+public class SuitsServiceImpl implements SuitsService {
 
     @Autowired
     private SuitDAOImpl suitDAO;

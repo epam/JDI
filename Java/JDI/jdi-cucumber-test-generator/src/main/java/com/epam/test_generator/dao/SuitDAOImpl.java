@@ -1,12 +1,10 @@
 package com.epam.test_generator.dao;
 
 import com.epam.test_generator.dao.interfaces.EntitiesDAO;
-import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
