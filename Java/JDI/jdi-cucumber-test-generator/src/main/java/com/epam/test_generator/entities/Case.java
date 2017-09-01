@@ -5,13 +5,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class TestCase implements Serializable{
+public class Case implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
 
-
-    private TestCaseType type;
+    private CaseType type;
 
     private String feature;
 
@@ -19,29 +18,33 @@ public class TestCase implements Serializable{
     private String scenario;
 
     @ManyToOne
-    private TestSuit testSuit;
+    private Suit suit;
 
-    public TestCase(Long id, String feature, String scenario, TestSuit testSuit) {
+    public Case(Long id, String feature, String scenario, Suit suit) {
         this.id = id;
         this.feature = feature;
         this.scenario = scenario;
-        this.testSuit = testSuit;
+        this.suit = suit;
     }
 
-    public TestCaseType getType() {
+    public Long getId() {
+        return id;
+    }
+
+    public CaseType getType() {
         return type;
     }
 
-    public void setType(TestCaseType type) {
+    public void setType(CaseType type) {
         this.type = type;
     }
 
-    public TestSuit getTestSuit() {
-        return testSuit;
+    public Suit getSuit() {
+        return suit;
     }
 
-    public void setTestSuit(TestSuit testSuit) {
-        this.testSuit = testSuit;
+    public void setSuit(Suit suit) {
+        this.suit = suit;
     }
 
     public String getFeature() {
@@ -54,10 +57,6 @@ public class TestCase implements Serializable{
 
     public String getScenario() {
         return scenario;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public void setScenario(String scenario) {
@@ -75,11 +74,11 @@ public class TestCase implements Serializable{
             return true;
         }
 
-        if (!(o instanceof TestCase)) {
+        if (!(o instanceof Case)) {
             return false;
         } else {
-            String f = ((TestCase)o).getFeature();
-            String s = ((TestCase)o).getScenario();
+            String f = ((Case)o).getFeature();
+            String s = ((Case)o).getScenario();
             if ( f.equals(feature) && s.equals(scenario)){
                 return true;
             }
