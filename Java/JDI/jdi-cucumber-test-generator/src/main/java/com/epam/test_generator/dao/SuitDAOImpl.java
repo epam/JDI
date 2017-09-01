@@ -13,8 +13,13 @@ import java.util.List;
 public class SuitDAOImpl implements EntitiesDAO<Suit>{
 
 
-    List<Suit> suitList =  Arrays.asList(new Suit(new Long(2), "Mai suit", "First suit", new ArrayList<>()),
-            new Suit(new Long(1), "Mai suit", "First suit", new ArrayList<>()));
+    List<Suit> suitList = new ArrayList<>();
+
+
+    {
+        suitList.add( new Suit(new Long(1), "Mai suit", "First suit", new ArrayList<>()));
+        suitList.add( new Suit(new Long(2), "Mai suit", "First suit", new ArrayList<>()));
+    }
 
     Long counter = new Long(2);
 
@@ -37,11 +42,11 @@ public class SuitDAOImpl implements EntitiesDAO<Suit>{
 
     @Override
     public void removeTestEntity(Long id) {
-        suitList.remove(id);
+        suitList.remove(id.intValue() - 1);
     }
 
     @Override
     public void editTestEntity(Suit ts) {
-        suitList.set(Math.toIntExact(ts.getId()), ts);
+        suitList.set(ts.getId().intValue() - 1, ts);
     }
 }

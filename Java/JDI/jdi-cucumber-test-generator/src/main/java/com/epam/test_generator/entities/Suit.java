@@ -23,6 +23,9 @@ public class Suit implements Serializable {
     @OneToMany
     private List<Case> cases;
 
+    public Suit() {
+    }
+
     public Suit(Long id, String name, String description, List<Case> cases) {
         this.id = id;
         this.name = name;
