@@ -11,7 +11,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JDropList {
-    JFindBy root() default  @JFindBy();
-    JFindBy list() default  @JFindBy();
-    JFindBy value() default @JFindBy();
+    FindBy root() default  @FindBy();
+    FindBy list() default  @FindBy();
+    FindBy value() default @FindBy();
+
+    JFindBy jroot() default  @JFindBy();
+    JFindBy jlist() default  @JFindBy();
+    JFindBy jvalue() default @JFindBy();
 }

@@ -40,7 +40,6 @@ public class SmokeTest {
         driver.quit();
     }
 
-    @Ignore
     @Test
     @Ignore
     public void addContact(){
@@ -52,7 +51,6 @@ public class SmokeTest {
 //        driver.swipe(100, 500, 100, 100, 2);      //deleted in java-client 5.0.1
         driver.findElementByName("Save").click();
     }
-    @Ignore
     @Test
     @Ignore
     public void addContact2(){

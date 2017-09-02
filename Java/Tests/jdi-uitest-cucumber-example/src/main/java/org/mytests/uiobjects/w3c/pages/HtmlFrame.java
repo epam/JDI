@@ -11,8 +11,8 @@ import org.openqa.selenium.support.FindBy;
  */
 public class HtmlFrame extends Section {
     @JDropdown(
-            value = @JFindBy(tagName = "select"),
-            list = @JFindBy(css = "select option")
+            value = @FindBy(tagName = "select"),
+            list = @FindBy(css = "select option")
     )
     public IDropDown cars;
 

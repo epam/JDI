@@ -5,11 +5,14 @@ package com.epam.jdi.uitests.web.selenium.utils;
  */
 
 import org.sikuli.script.App;
-import org.sikuli.script.Match;
 import org.sikuli.script.Region;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 
 public class LayoutVerifier {
 
@@ -35,11 +38,13 @@ public class LayoutVerifier {
      *
      * @return null, if match was not found.
      */
-    public static Match findMatch(String pathToFile) {
-        String browserName = driverFactory.currentDriverName();
-        assert !browserName.isEmpty();
-        App.focus(browserName);
+    public static boolean findMatch(String pathToFile) {
+        if (driverFactory.hasRunDrivers()) {
+            logger.info("Driver not run");
+            return false;
+        }
+        //App.focus(driverFactory.currentDriverName());
         Region r = App.focusedWindow();
-        return r.exists(pathToFile);
+        return r.exists(pathToFile) != null;
     }
 }

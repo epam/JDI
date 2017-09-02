@@ -22,22 +22,20 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier.findMatch;
+import static com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier.verifyImageFormat;
 import static java.lang.String.format;
 
 /**
@@ -160,12 +158,15 @@ public class WebPage extends BaseElement implements IPage {
      * @param pathToFile path to file: C:/Screenshots/file.png
      * @return <tt>true</tt>, if match was found.
      */
-    public boolean verifyLayout(String pathToFile) {
-        if (LayoutVerifier.verifyImageFormat(pathToFile)) {
-            return LayoutVerifier.findMatch(pathToFile) != null;
+    public boolean verifyElementOnPage(String pathToFile) {
+        if (!verifyImageFormat(pathToFile)) {
+            logger.info(format("'%s' is not .jpg, ,jpeg or .png file.", pathToFile));
+            return false;
         }
-        logger.info(format("'%s' is not .jpg, ,jpeg or .png file.", pathToFile));
-        return false;
+        return findMatch(pathToFile);
+    }
+    public void checkThatElementOnPage(String pathToFile) {
+        asserter.isTrue(!verifyElementOnPage(pathToFile));
     }
 
     /**
@@ -174,21 +175,25 @@ public class WebPage extends BaseElement implements IPage {
      * @param pathToDir path to a directory: C:/Screenshots/
      * @return a list of names for all matched images.
      */
-    public List<String> verifyLayoutMatches(String pathToDir) {
-        List<String> matchedFiles = new ArrayList<>();
+    public boolean verifyElementsOnPage(String pathToDir) {
+        List<String> paths;
         try {
-            Stream<Path> paths = Files.walk(Paths.get(pathToDir));
-            paths
-                    .filter(Files::isRegularFile)
-                    .map(Path::toString)
-                    .filter(LayoutVerifier::verifyImageFormat)
-                    .map(LayoutVerifier::findMatch)
-                    .filter(Objects::nonNull)
-                    .forEach(m -> matchedFiles.add(m.getImageFilename()));
-        } catch (IOException e) {
-            e.printStackTrace();
+            paths = Files.walk(Paths.get(pathToDir))
+                    .filter(Files::isRegularFile).map(Path::toString)
+                    .collect(Collectors.toList());;
         }
-        return matchedFiles;
+        catch (Exception ex) {
+            logger.info("VerifyLayout can't get paths from dir " + pathToDir + ". " + ex.getMessage());
+            return false;
+        }
+        boolean result = true;
+        for (String path : paths)
+            if (!verifyElementOnPage(path))
+                result = false;
+        return result;
+    }
+    public void checkElementsOnPage(String pathToDir) {
+        asserter.isTrue(!verifyElementsOnPage(pathToDir));
     }
 
     /**
