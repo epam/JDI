@@ -22,20 +22,15 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
+import static com.epam.commons.FileUtils.getFiles;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
-import static com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier.findMatch;
-import static com.epam.jdi.uitests.web.selenium.utils.LayoutVerifier.verifyImageFormat;
 import static java.lang.String.format;
 
 /**
@@ -159,14 +154,10 @@ public class WebPage extends BaseElement implements IPage {
      * @return <tt>true</tt>, if match was found.
      */
     public boolean verifyElementOnPage(String pathToFile) {
-        if (!verifyImageFormat(pathToFile)) {
-            logger.info(format("'%s' is not .jpg, ,jpeg or .png file.", pathToFile));
-            return false;
-        }
-        return findMatch(pathToFile);
+        return Layout.verify(pathToFile);
     }
     public void checkThatElementOnPage(String pathToFile) {
-        asserter.isTrue(!verifyElementOnPage(pathToFile));
+        asserter.isTrue(verifyElementOnPage(pathToFile));
     }
 
     /**
@@ -176,20 +167,12 @@ public class WebPage extends BaseElement implements IPage {
      * @return a list of names for all matched images.
      */
     public boolean verifyElementsOnPage(String pathToDir) {
-        List<String> paths;
-        try {
-            paths = Files.walk(Paths.get(pathToDir))
-                    .filter(Files::isRegularFile).map(Path::toString)
-                    .collect(Collectors.toList());;
-        }
-        catch (Exception ex) {
-            logger.info("VerifyLayout can't get paths from dir " + pathToDir + ". " + ex.getMessage());
-            return false;
-        }
         boolean result = true;
-        for (String path : paths)
-            if (!verifyElementOnPage(path))
+        for (String path : getFiles(pathToDir))
+            if (!verifyElementOnPage(path)) {
+                logger.info(format("Can't find image '%s'", path));
                 result = false;
+            }
         return result;
     }
     public void checkElementsOnPage(String pathToDir) {

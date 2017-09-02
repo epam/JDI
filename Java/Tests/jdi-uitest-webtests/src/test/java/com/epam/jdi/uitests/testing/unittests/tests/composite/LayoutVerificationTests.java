@@ -5,6 +5,7 @@ import com.epam.web.matcher.testng.Assert;
 import org.apache.commons.lang3.SystemUtils;
 import org.sikuli.script.App;
 import org.sikuli.script.Region;
+import org.sikuli.script.Screen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,6 +15,7 @@ import java.net.URL;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.web.matcher.testng.Assert.assertFalse;
@@ -22,21 +24,15 @@ import static com.epam.web.matcher.testng.Assert.assertTrue;
 public class LayoutVerificationTests extends InitTests {
 
     private static final ClassLoader loader = LayoutVerificationTests.class.getClassLoader();
-    private static final String IMG_DIR_NAME = "img/";
-    private static final String HOMEPAGE_BLOCK_1 = "img/jdi_homepage_block1.png";
-    private static final String HOMEPAGE_BLOCK_2 = "img/jdi_homepage_block2.png";
-    private static final String NOT_JDI_HOMEPAGE = "img/not_jdi_homepage.png";
     private static String jdiHomepageBlock1;
-    private static String jdiHomepageBlock2;
     private static String notJdiHomepage;
     private static String imgDirPath;
 
     @BeforeClass
     public static void verifyImagesExist() {
-        imgDirPath = verifyResourceExists(IMG_DIR_NAME);
-        jdiHomepageBlock1 = verifyResourceExists(HOMEPAGE_BLOCK_1);
-        jdiHomepageBlock2 = verifyResourceExists(HOMEPAGE_BLOCK_2);
-        notJdiHomepage = verifyResourceExists(NOT_JDI_HOMEPAGE);
+        imgDirPath = verifyResourceExists("imgs/");
+        jdiHomepageBlock1 = verifyResourceExists("img/jdi_homepage_block1.png");
+        notJdiHomepage = verifyResourceExists("img/not_jdi_homepage.png");
     }
 
     private static String verifyResourceExists(String resourceName) {
@@ -53,27 +49,23 @@ public class LayoutVerificationTests extends InitTests {
         isInState(HOME_PAGE, method);
     }
 
-    //@Test
+    @Test
     public void layoutVerificationPositiveTest() {
         homePage.open();
-        assertTrue(homePage.verifyElementOnPage(jdiHomepageBlock1));
+        assertTrue(() ->homePage.verifyElementOnPage(jdiHomepageBlock1));
         homePage.checkThatElementOnPage(jdiHomepageBlock1);
     }
 
-    //@Test
+    @Test
     public void layoutVerificationNegativeTest() {
         homePage.open();
-        assertFalse(homePage.verifyElementOnPage(notJdiHomepage));
-        homePage.checkThatElementOnPage(notJdiHomepage);
+        assertFalse(() -> homePage.verifyElementOnPage(notJdiHomepage));
     }
 
-    //@Test
-    public void layoutVerificationForSeveralFilesTest() {
+    @Test
+    public void layoutVerificationForSeveralFilesTest() throws InterruptedException {
         homePage.open();
-        App.focus("Chrome");
-        Region r = App.focusedWindow();
-        boolean f = r.exists("D:\\Work\\Projects\\Java\\JDI\\GitHub\\Java\\Tests\\jdi-uitest-webtests\\target\\test-classes\\img\\jdi_homepage_block1.png") != null;
-        Assert.assertTrue(homePage.verifyElementsOnPage(imgDirPath));
-        homePage.checkElementsOnPage(imgDirPath);
+        Assert.assertTrue(() -> homePage.verifyElementsOnPage(imgDirPath));
+        //homePage.checkElementsOnPage(imgDirPath);
     }
 }
