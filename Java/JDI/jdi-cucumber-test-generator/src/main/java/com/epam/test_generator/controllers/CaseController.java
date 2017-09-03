@@ -15,12 +15,11 @@ public class CaseController {
     @Autowired
     private CasesService testCasesService;
 
-
     //It works
     @RequestMapping(value = "/suits/{suitId}/cases")
     public ModelAndView getCasesForSuit(@PathVariable String suitId){
         ModelAndView model = new ModelAndView("");
-        model.addObject("cases", testCasesService.getCasesBySuitId(Long.parseLong(suitId)));
+        model.addObject("cases", testCasesService.getEntity(Long.parseLong(suitId)));
         return model;
     }
 
@@ -46,9 +45,4 @@ public class CaseController {
         testCasesService.removeEntity(caseId);
         testCasesService.addEntity(caseArg);
     }
-
-
-
-
-
 }
