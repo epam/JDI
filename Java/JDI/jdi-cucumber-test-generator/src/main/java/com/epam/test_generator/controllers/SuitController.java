@@ -1,7 +1,7 @@
 package com.epam.test_generator.controllers;
 
 
-import com.epam.test_generator.services.SuitsService;
+import com.epam.test_generator.services.interfaces.CaseExService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class SuitController {
 
     @Autowired
-    public SuitsService testSuitsService;
+    public CaseExService testSuitsService;
 
     @RequestMapping("/")
     public ModelAndView getSuits(){
