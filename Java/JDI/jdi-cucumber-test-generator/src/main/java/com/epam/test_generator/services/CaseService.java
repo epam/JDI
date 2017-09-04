@@ -1,6 +1,7 @@
 package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.CaseDAO;
+import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.entities.Case;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,34 +10,32 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CasesService{
+public class CaseService{
 
     @Autowired
     private CaseDAO caseDAO;
 
-    @Transactional
-    public void addCase(Case cs) { caseDAO.addCase(cs); }
+    @Autowired
+    private SuitDAO suitDAO;
 
     @Transactional
-    public List<Case> getCasesBySuitId(long suitId){ return caseDAO.getCasesBySuitId(suitId); }
-    
+    public void addCase(Case cs) { caseDAO.save(cs); }
+
     @Transactional
-    public List<Case> getAllCases() {
-        return caseDAO.getAllCases();
-    }
+    public List<Case> getCasesBySuitId(long suitId){ return suitDAO.findOne(suitId).getCases(); }
 
     public Case getCase(Long id) {
-        return caseDAO.getCase(id);
+        return caseDAO.findOne(id);
     }
 
     @Transactional
     public void removeCase(Long id) {
-        caseDAO.removeCase(id);
+        caseDAO.delete(id);
     }
 
     @Transactional
     public void updateCase(Case cs){
-      caseDAO.updateCase(cs);
+        caseDAO.save(cs);
     }
-  
+
 }

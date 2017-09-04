@@ -1,7 +1,7 @@
 package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.services.CasesService;
+import com.epam.test_generator.services.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CaseController {
     @Autowired
-    private CasesService casesService;
+    private CaseService casesService;
 
     //It works
     @RequestMapping(value = "/suits/{suitId}/cases")
