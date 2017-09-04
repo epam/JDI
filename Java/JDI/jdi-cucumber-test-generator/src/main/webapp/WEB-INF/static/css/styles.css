@@ -19,7 +19,7 @@ header {
     padding: 10px;
 }
 
-header a {
+header>a {
     white-space: normal;
     text-decoration: none;
     font-family: 'Sedgwick Ave', cursive;
@@ -30,7 +30,7 @@ header a {
     color: #009933;
 }
 
-header a:visited {
+header>a:visited {
 
 }
 
@@ -44,7 +44,7 @@ body {
     padding: 1%;
 }
 
-.section-title h2 {
+.section-title>h2 {
     padding-top: 30px;
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 50px;
@@ -70,6 +70,7 @@ body {
     -webkit-margin-end: auto;
     border: 0 inset;
     text-align: center;
+
 }
 
 a.delete-suit-button {
@@ -192,7 +193,7 @@ a.edit-suit-button:hover {
 }
 
 a.delete-cases-button {
-    float: left;
+    float: right;
     margin: 5px;
     background-color: #e54b36;
     border-color: #e54b36;
@@ -221,7 +222,7 @@ a.delete-cases-button:hover {
 
 
 a.generate-feature-button {
-    float: left;
+    float: right;
     background-color: #379b55;
     margin: 5px;
     border-color: #377b37;
@@ -278,8 +279,39 @@ a.edit-case-button:hover {
 
 }
 
+a.add-case-button {
+    display: inline-block;
+    background-color: #379b55;
+    float: right;
+    margin: 5px;
+    border-color: #377b37;
+    min-width: 50px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    /*font-size: 10px;*/
+    /*font-weight: bold;*/
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    /*font-feature-settings: 'kern', 'liga', 'pnum';*/
+    /*font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+}
+
+a.add-case-button:hover {
+    background-color: #308649;
+}
+
+
 .suit-info-table {
+    border: 1px solid red;
     border-spacing: 5px;
+    width: 100%;
     -webkit-border-horizontal-spacing: 10px;
 }
 
@@ -297,37 +329,38 @@ a.edit-case-button:hover {
 
 .suit-info-container {
     display: inline;
-    width: 75%;
-    /*border: 1px solid yellow;*/
+    width: 40%;
+    border: 1px solid #ff3d46;
     float: left;
-    margin: 5px
+    margin: 0;
+    padding: 5px;
 }
 
 .suit-buttons-container {
-    display: inline;
-    width: 20%;
+    border: 1px solid red;
+    /*display: inline;*/
+    width: 100%;
     float: right;
-    margin: 5px
+    margin: 5px auto;
 }
 
 
 .cases-table {
-    /*border: 1px solid black;*/
-    /*margin: 0 10px;*/
-    /*padding: 5px;*/
-    width: 98%;
-    /*min-width: 200px;*/
+    border: 1px solid #ff3d46;
+    width: 100%;
+    margin: 5px 0;
 }
 
-.cases-table td {
+.cases-table>td {
     padding: 2px;
 }
 
 .cases-table-title {
-    margin: 20px 10px 5px 10px;
-    width: 76%;
+    border: 1px solid red;
+    margin: 20px 0 0 0;
+    width: 100%;
 }
-.cases-table-title h3 {
+.cases-table-title>h3 {
     padding: 5px;
     min-width: 100px;
     background-color: #379b55;
@@ -337,21 +370,23 @@ a.edit-case-button:hover {
 }
 
 .cases-table-container{
-    margin: 0 10px;
-    padding: 5px;
-    width: 75%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
     min-width: 200px;
     overflow-y: scroll;
     max-height: 500px;
 }
 
 .cases-table tr:hover {
-    background-color: #f5f5f5
+    background-color: rgba(0, 171, 255, 0.2)
 }
 
 .generate-button-container {
-    margin: 20px 10px 5px 10px;
-    width: 71%;
+    overflow: hidden;
+    margin: 5px 0;
+    border: 1px solid red;
+    width: 100%;
 }
 
 
@@ -465,10 +500,13 @@ a.edit-case-button:hover {
 }
 
 
+input[type="radio"]{display: none; opacity: 0; visibility: hidden;}
+
+
 /* Стили для активной вкладки */
 .tabs>input:checked+label {
     color: #555;
-    border-top: 1px solid #009933;
+    border-top: 1px solid #ffffff;
     border-bottom: 1px solid #fff;
     background: #fff;
 }
@@ -520,7 +558,7 @@ a.edit-case-button:hover {
 }
 
 
-.add-suit-table tr td {
+.add-suit-table>tr>td {
     vertical-align: top;
     font-feature-settings: 'kern', 'liga', 'pnum';
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -529,45 +567,45 @@ a.edit-case-button:hover {
     /*border: 1px solid #a52a2a;*/
 }
 
-.add-suit-table tr .key-column {
+.add-suit-table>tr>.key-column {
     width: 10%;
     min-width: 100px;
 }
 
-.add-suit-table tr .value-column {
+.add-suit-table>tr>.value-column {
     width: 65%;
     min-width: 200px;
 }
 
-.add-suit-table tr td span {
+.add-suit-table>tr>td span {
     font-weight: 500;
     color: #379b55;
 }
 
-.add-suit-table tr td input {
+.add-suit-table>tr>td input {
     font-size: 0.9em;
     border-radius: 3px;
     width: 95%;
 
 }
 
-.add-suit-table tr td .description-text-box {
-    font-size: 0.9em;
-    height: 150px;
+.add-suit-table>tr>td>.description-text-box {
+    /*font-size: 0.9em;*/
+    /*height: 150px;*/
 }
 
-.add-suit-table .save-suit-button-row {
+.add-suit-table>.save-suit-button-row {
     text-align: center;
 }
 
 .description-text-box {
+    font-size: 0.9em;
+    height: 150px;
     margin: 0;
     border-radius: 3px;
-    border: 2px solid;
-    border-top-color: #9a9a9a;
-    border-left-color:#9a9a9a;
-    border-right-color:#f1f1f1;
-    border-bottom-color:#f1f1f1;
+    border: 2px solid #9a9a9a;
+    border-right-color: #f1f1f1;
+    border-bottom-color: #f1f1f1;
     overflow: hidden;
     /*max-width: 350px;*/
     width: 95%;
@@ -610,4 +648,150 @@ button.save-suit-button:hover {
     /*border: 1px solid yellow;*/
     width: 45%;
     min-width: 200px;
+}
+
+
+
+
+
+
+
+
+/*Код для работы вкладок*/
+/* DEMO */
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    padding:0;
+    font:0.875em/1.48 arial,tahoma;
+}
+.container-tab{
+    margin:auto;
+    width: 100%;
+    max-width:1300px;
+    padding:0 20px;
+}
+/* TABS */
+.accordion-tabs {
+    *zoom: 1;
+    width: 100%;
+    border: 1px solid #dddddd;
+    border-radius: 0.1875em;
+    margin-bottom: 1.5em;
+    margin-left:0;
+    padding-left:0;
+}
+.accordion-tabs:before,
+.accordion-tabs:after {
+    content: " ";
+    display: table;
+}
+.accordion-tabs:after {
+    clear: both;
+}
+.accordion-tabs>li{
+    list-style:none;
+}
+.accordion-tabs>li.tab-head-cont:first-child>a {
+    border-top-left-radius: 0.1875em;
+    border-top-right-radius: 0.1875em;
+    border-top: 0;
+}
+.accordion-tabs>li.tab-head-cont:last-child>a {
+    border-bottom-left-radius: 0.1875em;
+    border-bottom-right-radius: 0.1875em;
+}
+.accordion-tabs>li.tab-head-cont>a {
+    text-decoration:none;
+    border-top: 1px solid #dddddd;
+    color: #888888;
+    display: block;
+    padding: 0.75em 0.809em;
+}
+.accordion-tabs>li.tab-head-cont>a:hover {
+    color: #000000;
+}
+.accordion-tabs>li.tab-head-cont>a:focus {
+    outline: none;
+}
+.accordion-tabs>li.tab-head-cont>a.is-active {
+    background-color: #f7f7f7;
+    border-bottom: 0;
+    color:#333333;
+}
+.accordion-tabs>li.tab-head-cont>section {
+    padding: 1.5em 1.618em;
+    background: #f7f7f7;
+    display: none;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* RESPONSIVE */
+@media screen and (min-width: 40em) {
+    .accordion-tabs {
+        border: none;
+        position: relative;
+    }
+    .accordion-tabs>li.tab-head-cont {
+        display: inline;
+    }
+    .accordion-tabs>li.tab-head-cont:last-child a {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .accordion-tabs>li.tab-head-cont>a {
+        display: inline-block;
+        vertical-align: baseline;
+        zoom: 1;
+        *display: inline;
+        *vertical-align: auto;
+        border-top: 0;
+        border-top-right-radius: 0.1875em;
+        border-top-left-radius: 0.1875em;
+    }
+    .accordion-tabs>li.tab-head-cont>a.is-active {
+        background-color: #f7f7f7;
+        border: 1px solid #dddddd;
+        border-bottom: 1px solid #f7f7f7;
+        margin-bottom: -1px;
+    }
+    .accordion-tabs>li.tab-head-cont>section {
+        border-bottom-left-radius: 0.1875em;
+        border-bottom-right-radius: 0.1875em;
+        border: 1px solid #dddddd;
+        float: left;
+        left: 0;
+        padding: 0.75em 0.809em;
+    }
+    .accordion-tabs>li.tab-head-cont>section p {
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        columns: 2;
+    }
+}
+
+.case-editor-container {
+    display: inline;
+    border: 1px solid #ff3d46;
+    width: 60%;
+    margin:0;
+    float: right;
+    padding: 5px;
+}
+
+.inner-generate-button-container {
+    margin: 20px auto;
+    border: 1px solid blue;
+    width: 320px;
+}
+
+.suit-table-container {
+    width: 100%;
 }
