@@ -497,3 +497,117 @@ a.edit-case-button:hover {
         padding: 15px;
     }
 }
+
+
+.add-suit-container {
+    /*border: 1px solid yellow;*/
+    width: 90%;
+    padding: 5px;
+    overflow: hidden;
+    min-width: 350px;
+}
+
+.add-suit-table {
+    /*border: 1px solid blue;*/
+    border-spacing: 10px;
+    margin: 5px;
+    padding: 5px;
+    width: 70%;
+    /*width: 500px;*/
+    min-width: 500px;
+    max-width: 800px;
+
+}
+
+
+.add-suit-table tr td {
+    vertical-align: top;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    /*border: 1px solid #a52a2a;*/
+}
+
+.add-suit-table tr .key-column {
+    width: 10%;
+    min-width: 100px;
+}
+
+.add-suit-table tr .value-column {
+    width: 65%;
+    min-width: 200px;
+}
+
+.add-suit-table tr td span {
+    font-weight: 500;
+    color: #379b55;
+}
+
+.add-suit-table tr td input {
+    font-size: 0.9em;
+    border-radius: 3px;
+    width: 95%;
+
+}
+
+.add-suit-table tr td .description-text-box {
+    font-size: 0.9em;
+    height: 150px;
+}
+
+.add-suit-table .save-suit-button-row {
+    text-align: center;
+}
+
+.description-text-box {
+    margin: 0;
+    border-radius: 3px;
+    border: 2px solid;
+    border-top-color: #9a9a9a;
+    border-left-color:#9a9a9a;
+    border-right-color:#f1f1f1;
+    border-bottom-color:#f1f1f1;
+    overflow: hidden;
+    /*max-width: 350px;*/
+    width: 95%;
+    resize: vertical;
+    max-height: 250px;
+}
+
+button.save-suit-button {
+    background-color: #379b55;
+    margin: auto;
+    /*border-color: #377b37;*/
+    border:none;
+    min-width: 180px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+button.save-suit-button:hover {
+    background-color: #308649;
+}
+
+.save-suit-button-container {
+    margin:5px;
+    padding: 5px;
+    text-align: center;
+    /*border: 1px solid yellow;*/
+    width: 45%;
+    min-width: 200px;
+}

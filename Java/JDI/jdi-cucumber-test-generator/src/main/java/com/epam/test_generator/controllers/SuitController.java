@@ -15,7 +15,7 @@ public class SuitController {
 
     @RequestMapping("/")
     public ModelAndView getSuits(){
-        ModelAndView model = new ModelAndView("index");
+        ModelAndView model = new ModelAndView("suits");
         //model.addObject("suits", testSuitsService.getAllTestEntities());
         return model;
     }
