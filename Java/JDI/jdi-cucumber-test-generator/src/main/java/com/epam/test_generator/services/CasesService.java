@@ -19,6 +19,7 @@ public class CasesService{
 
     @Transactional
     public List<Case> getCasesBySuitId(long suitId){ return caseDAO.getCasesBySuitId(suitId); }
+    
     @Transactional
     public List<Case> getAllCases() {
         return caseDAO.getAllCases();
@@ -32,4 +33,9 @@ public class CasesService{
     public void removeCase(Long id) {
         caseDAO.removeCase(id);
     }
+  
+    public void updateCase(Case cs){
+      caseDAO.updateCase(cs);
+    }
+  
 }

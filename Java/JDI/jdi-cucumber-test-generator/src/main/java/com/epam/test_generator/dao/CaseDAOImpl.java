@@ -29,4 +29,9 @@ public class CaseDAOImpl implements CaseDAO {
     public List<Case> getCasesBySuitId(long suitId){
         return null;
     }
+    
+    @Override
+    public void editEntity(Case ts) {
+
+    } 
 }

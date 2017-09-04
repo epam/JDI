@@ -15,7 +15,6 @@ public class CaseController {
     @Autowired
     private CasesService casesService;
 
-
     //It works
     @RequestMapping(value = "/suits/{suitId}/cases")
     public ModelAndView getCasesForSuit(@PathVariable String suitId){
@@ -46,9 +45,4 @@ public class CaseController {
         casesService.removeCase(caseId);
         casesService.addCase(caseArg);
     }
-
-
-
-
-
 }
