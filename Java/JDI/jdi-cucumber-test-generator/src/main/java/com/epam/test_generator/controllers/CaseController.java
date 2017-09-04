@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CaseController {
     @Autowired
-    private CasesService testCasesService;
+    private CasesService casesService;
 
 
     //It works
     @RequestMapping(value = "/suits/{suitId}/cases")
     public ModelAndView getCasesForSuit(@PathVariable String suitId){
         ModelAndView model = new ModelAndView("");
-        model.addObject("cases", testCasesService.getCasesBySuitId(Long.parseLong(suitId)));
+        model.addObject("cases", casesService.getCasesBySuitId(Long.parseLong(suitId)));
         return model;
     }
 
@@ -28,14 +28,14 @@ public class CaseController {
     @RequestMapping(value = "/suits/{suitId}/add", method = RequestMethod.POST, consumes = "application/json")
     public void addNewCaseToSuit(@PathVariable String suitId, @RequestBody Case caseArg){
         System.out.println(suitId + " " + caseArg);
-        testCasesService.addEntity(caseArg);
+        casesService.addCase(caseArg);
     }
 
     //It works
     @RequestMapping(value = "/suits/{suitId}/cases/{caseId}")
     public ModelAndView getCaseById(@PathVariable String caseId) {
         ModelAndView model = new ModelAndView();
-        model.addObject("case", testCasesService.getEntity(Long.parseLong(caseId)));
+        model.addObject("case", casesService.getCase(Long.parseLong(caseId)));
         return model;
     }
 
@@ -43,8 +43,8 @@ public class CaseController {
     @RequestMapping(value = "/suits/{suitId}/cases/{caseId}", method = RequestMethod.PUT)
     public void updateCaseById(@PathVariable Long caseId, @RequestBody Case caseArg) {
         System.out.println(caseId + " " + caseArg);
-        testCasesService.removeEntity(caseId);
-        testCasesService.addEntity(caseArg);
+        casesService.removeCase(caseId);
+        casesService.addCase(caseArg);
     }
 
 
