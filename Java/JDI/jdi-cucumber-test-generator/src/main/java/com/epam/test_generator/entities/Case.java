@@ -10,7 +10,6 @@ public class Case implements Serializable{
     @GeneratedValue
     private Long id;
 
-
     private CaseType type;
 
     private String feature;
@@ -36,7 +35,7 @@ public class Case implements Serializable{
         this.type = type;
     }
 
-    public Suit getTestSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
@@ -89,7 +88,7 @@ public class Case implements Serializable{
 
     @Override
     public String toString() {
-        return "TestCase{" +
+        return "Case{" +
                 "feature='" + feature + '\'' +
                 ", scenario='" + scenario + '\'' +
                 '}';
