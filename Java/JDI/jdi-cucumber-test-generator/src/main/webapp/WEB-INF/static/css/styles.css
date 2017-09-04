@@ -1,0 +1,613 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: white;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+    position: static;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    display: block;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    color: #009933;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 10px;
+}
+
+header a {
+    white-space: normal;
+    text-decoration: none;
+    font-family: 'Sedgwick Ave', cursive;
+    font-size: 2em;
+    min-height: 60px;
+    cursor: pointer;
+    text-align: center;
+    color: #009933;
+}
+
+header a:visited {
+
+}
+
+body {
+    background: rgb(238, 238, 238);
+}
+
+.page-contents {
+    /*border: 1px solid black;*/
+    margin-top: 10px;
+    padding: 1%;
+}
+
+.section-title h2 {
+    padding-top: 30px;
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 50px;
+    color: white;
+    font-weight: lighter;
+    line-height: 1.1;
+    margin: 0 0 0.25em 0;
+    display: block;
+    text-align: center
+}
+
+.under-subtitle-hatch {
+    background-color: white;
+    box-sizing: content-box;
+    color: black;
+    height: 2px;
+    margin-bottom: 1em;
+    width: 50px;
+    display: block;
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: auto;
+    -webkit-margin-end: auto;
+    border: 0 inset;
+    text-align: center;
+}
+
+a.delete-suit-button {
+    float: right;
+    margin: 5px;
+    background-color: #e54b36;
+    border-color: #e54b36;
+    min-width: 50px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.delete-case-button:hover {
+    background-color: #d6402f;
+}
+
+
+a.delete-case-button {
+    float: right;
+    margin: 2px;
+    background-color: #e54b36;
+    border-color: #e54b36;
+    min-width: 10px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 6px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 120px;
+    padding: 4px 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.delete-suit-button:hover {
+    background-color: #d6402f;
+}
+
+a.save-suit-button {
+    background-color: #379b55;
+    margin: 5px;
+    border-color: #377b37;
+    min-width: 180px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.save-suit-button:hover {
+    background-color: #308649;
+}
+
+a.edit-suit-button {
+    float: right;
+    margin: 5px;
+    background-color: #287fb8;
+    border-color: #287fb8;
+    min-width: 150px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.edit-suit-button:hover {
+    background-color: #2774aa;
+
+}
+
+.suits-section {
+    background: rgb(0, 162, 80);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding-bottom: 20px;
+}
+
+a.delete-cases-button {
+    float: left;
+    margin: 5px;
+    background-color: #e54b36;
+    border-color: #e54b36;
+    min-width: 50px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.delete-cases-button:hover {
+    background-color: #d6402f;
+}
+
+
+a.generate-feature-button {
+    float: left;
+    background-color: #379b55;
+    margin: 5px;
+    border-color: #377b37;
+    min-width: 180px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.generate-feature-button:hover {
+    background-color: #308649;
+}
+
+
+a.edit-case-button {
+    float: right;
+    margin: 2px;
+    background-color: #287fb8;
+    border-color: #287fb8;
+    min-width: 60px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 100px;
+    padding: 3px 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a.edit-case-button:hover {
+    background-color: #2774aa;
+
+}
+
+.suit-info-table {
+    border-spacing: 5px;
+    -webkit-border-horizontal-spacing: 10px;
+}
+
+.suit-info-table tr {
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.suit-info-table tr span {
+    font-weight: 500;
+    color: #379b55;
+}
+
+.suit-info-container {
+    display: inline;
+    width: 75%;
+    /*border: 1px solid yellow;*/
+    float: left;
+    margin: 5px
+}
+
+.suit-buttons-container {
+    display: inline;
+    width: 20%;
+    float: right;
+    margin: 5px
+}
+
+
+.cases-table {
+    /*border: 1px solid black;*/
+    /*margin: 0 10px;*/
+    /*padding: 5px;*/
+    width: 98%;
+    /*min-width: 200px;*/
+}
+
+.cases-table td {
+    padding: 2px;
+}
+
+.cases-table-title {
+    margin: 20px 10px 5px 10px;
+    width: 76%;
+}
+.cases-table-title h3 {
+    padding: 5px;
+    min-width: 100px;
+    background-color: #379b55;
+    color: white;
+    font-weight: 500;
+    text-align: left;
+}
+
+.cases-table-container{
+    margin: 0 10px;
+    padding: 5px;
+    width: 75%;
+    min-width: 200px;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+.cases-table tr:hover {
+    background-color: #f5f5f5
+}
+
+.generate-button-container {
+    margin: 20px 10px 5px 10px;
+    width: 71%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Базовый контейнер табов */
+.tabs {
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    min-width: 320px;
+    max-width: 2000px;
+    width: 96%;
+    padding: 0;
+    margin: 10px auto;
+}
+/* Стили секций с содержанием */
+.tabs>section {
+    display: none;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+.tabs>section>p {
+    margin: 0 0 5px;
+    line-height: 1.5;
+    color: #383838;
+    /* прикрутим анимацию */
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+/* Описываем анимацию свойства opacity */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* Прячем чекбоксы */
+.tabs>input {
+    display: none;
+    position: absolute;
+}
+/* Стили переключателей вкладок (табов) */
+.tabs>label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 5px 20px 5px 10px;
+    font-weight: 600;
+    text-align: center;
+    color: #aaa;
+    border: 0px solid #ddd;
+    border-width: 1px 1px 1px 1px;
+    background: #f1f1f1;
+    border-radius: 3px 3px 0 0;
+}
+
+/* Шрифт-иконки от Font Awesome в формате Unicode */
+.tabs>label:before {
+    font-family: fontawesome;
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+.tabs>label[for*="1"]:before {
+    content: "\f19a";
+}
+.tabs>label[for*="2"]:before {
+    content: "\f17a";
+}
+.tabs>label[for*="3"]:before {
+    content: "\f13b";
+}
+.tabs>label[for*="4"]:before {
+    content: "\f13c";
+}
+/* Изменения стиля переключателей вкладок при наведении */
+
+.tabs>label:hover {
+    color: #888;
+    cursor: pointer;
+}
+
+#addSuitLabel {
+    background: #379b55;
+}
+
+#addSuitLabel:hover {
+    background: #308649;
+}
+
+
+/* Стили для активной вкладки */
+.tabs>input:checked+label {
+    color: #555;
+    border-top: 1px solid #009933;
+    border-bottom: 1px solid #fff;
+    background: #fff;
+}
+/* Активация секций с помощью псевдокласса :checked */
+#tab1:checked~#content-tab1, #tab2:checked~#content-tab2, #tab3:checked~#content-tab3, #tab4:checked~#content-tab4, #addSuitTab:checked~#content-addSuitTab{
+    display: block;
+}
+/* Убираем текст с переключателей
+* и оставляем иконки на малых экранах
+*/
+
+@media screen and (max-width: 680px) {
+    .tabs>label {
+        font-size: 0;
+    }
+    .tabs>label:before {
+        margin: 0;
+        font-size: 18px;
+    }
+}
+/* Изменяем внутренние отступы
+*  переключателей для малых экранов
+*/
+@media screen and (max-width: 400px) {
+    .tabs>label {
+        padding: 15px;
+    }
+}
+
+
+.add-suit-container {
+    /*border: 1px solid yellow;*/
+    width: 90%;
+    padding: 5px;
+    overflow: hidden;
+    min-width: 350px;
+}
+
+.add-suit-table {
+    /*border: 1px solid blue;*/
+    border-spacing: 10px;
+    margin: 5px;
+    padding: 5px;
+    width: 70%;
+    /*width: 500px;*/
+    min-width: 500px;
+    max-width: 800px;
+
+}
+
+
+.add-suit-table tr td {
+    vertical-align: top;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    /*border: 1px solid #a52a2a;*/
+}
+
+.add-suit-table tr .key-column {
+    width: 10%;
+    min-width: 100px;
+}
+
+.add-suit-table tr .value-column {
+    width: 65%;
+    min-width: 200px;
+}
+
+.add-suit-table tr td span {
+    font-weight: 500;
+    color: #379b55;
+}
+
+.add-suit-table tr td input {
+    font-size: 0.9em;
+    border-radius: 3px;
+    width: 95%;
+
+}
+
+.add-suit-table tr td .description-text-box {
+    font-size: 0.9em;
+    height: 150px;
+}
+
+.add-suit-table .save-suit-button-row {
+    text-align: center;
+}
+
+.description-text-box {
+    margin: 0;
+    border-radius: 3px;
+    border: 2px solid;
+    border-top-color: #9a9a9a;
+    border-left-color:#9a9a9a;
+    border-right-color:#f1f1f1;
+    border-bottom-color:#f1f1f1;
+    overflow: hidden;
+    /*max-width: 350px;*/
+    width: 95%;
+    resize: vertical;
+    max-height: 250px;
+}
+
+button.save-suit-button {
+    background-color: #379b55;
+    margin: auto;
+    /*border-color: #377b37;*/
+    border:none;
+    min-width: 180px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+button.save-suit-button:hover {
+    background-color: #308649;
+}
+
+.save-suit-button-container {
+    margin:5px;
+    padding: 5px;
+    text-align: center;
+    /*border: 1px solid yellow;*/
+    width: 45%;
+    min-width: 200px;
+}

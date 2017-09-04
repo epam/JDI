@@ -27,6 +27,10 @@ public class Case implements Serializable{
         this.suit = suit;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public CaseType getType() {
         return type;
     }
@@ -53,10 +57,6 @@ public class Case implements Serializable{
 
     public String getScenario() {
         return scenario;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public void setScenario(String scenario) {

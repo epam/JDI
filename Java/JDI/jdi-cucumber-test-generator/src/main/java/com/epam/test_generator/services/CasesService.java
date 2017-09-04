@@ -1,8 +1,7 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.dao.interfaces.EntitiesDAO;
+import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.services.interfaces.EntitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,37 +9,34 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CasesService implements EntitiesService<Case>{
+public class CasesService{
 
     @Autowired
-    private EntitiesDAO<Case> caseDAO;
+    private CaseDAO caseDAO;
 
-    @Override
     @Transactional
-    public Case addEntity(Case ts) {
-        return caseDAO.addEntity(ts);
-    }
+    public void addCase(Case cs) { caseDAO.addCase(cs); }
 
-    @Override
     @Transactional
-    public List<Case> getAllEntities() {
-        return caseDAO.getAllEntities();
-    }
-
-    @Override
-    public Case getEntity(Long id) {
-        return caseDAO.getEntity(id);
-    }
-
-    @Override
+    public List<Case> getCasesBySuitId(long suitId){ return caseDAO.getCasesBySuitId(suitId); }
+    
     @Transactional
-    public void removeEntity(Long id) {
-        caseDAO.removeEntity(id);
+    public List<Case> getAllCases() {
+        return caseDAO.getAllCases();
     }
-  
-    @Override
-    public void editEntity(Case ts){
-      caseDAO.editEntity(ts);
+
+    public Case getCase(Long id) {
+        return caseDAO.getCase(id);
+    }
+
+    @Transactional
+    public void removeCase(Long id) {
+        caseDAO.removeCase(id);
+    }
+
+    @Transactional
+    public void updateCase(Case cs){
+      caseDAO.updateCase(cs);
     }
   
 }
