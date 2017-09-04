@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suits</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="suits.html">Cucumber test generator</a>
+    </header>
+
+    <div class="page-contents">
+        <section class="suits-section">
+
+            <!-- Заголовок страницы -->
+            <div class = "section-title">
+                <h2>Suits</h2>
+            </div>
+
+            <!-- Разделительная линия -->
+            <hr class="under-subtitle-hatch">
+
+            <!-- Окно с вкладками -->
+            <div class="container-tab" id="newSuitsApp">
+
+                <ul class="accordion-tabs" v-for="suit in suits">
+
+                    <li class="tab-head-cont">
+                        <a href="#">Вкладка</a>
+                        <section>
+
+                            <table class="suit-table-container">
+                                <tr>
+                                    <td class="suit-info-container">
+                                        <table class="suit-info-table">
+                                            <tr>
+                                                <td><span>Name: </span></td>
+                                                <td>{{suit.name}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><span>Description: </span></td>
+                                                <td>Here should be the description of this suit.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><span>Date of creation: </span></td>
+                                                <td>Feb 02, 2013</td>
+                                            </tr>
+
+                                        </table>
+
+                                        <div style="width: 100%;">
+                                            <div class="suit-buttons-container">
+                                                <a class="edit-suit-button">Edit</a>
+                                                <a class="delete-suit-button"><img src="../images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;"></div>
+
+
+                                        <div class="cases-table-title">
+                                            <h3>{{getCasesAmount(suit)}} Tests</h3>
+                                        </div>
+
+                                        <div class="cases-table-container">
+                                            <table class="cases-table">
+                                                <tr v-for="caze in suit.cases">
+                                                    <td>Case '{{caze.name}}' description</td>
+                                                    <td><input type="checkbox"/></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div style="width: 100%;">
+                                            <div class="suit-buttons-container">
+                                                <a class="generate-feature-button" style="color: white;">Generate</a>
+                                                <a class="delete-cases-button"><img src="../images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
+                                                <a class="add-case-button"><img src="../images/plus-icon.png" style="height: 20px; margin: -5px;"></a>
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;"></div>
+
+
+                                    </td>
+
+                                    <td class="case-editor-container" style="border: 3px dashed #00a250;">
+
+                                        <div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="clear: both;"></div>
+
+                        </section>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </section>
+    </div>
+
+<!--<footer>-->
+<!--</footer>-->
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
+                $('.accordion-tabs').on('click', 'li > a', function(event) {
+                    if (!$(this).hasClass('is-active')) {
+                        event.preventDefault();
+                        $('.accordion-tabs .is-open').removeClass('is-open').hide();
+                        $(this).next().toggleClass('is-open').toggle();
+                        $('.accordion-tabs').find('.is-active').removeClass('is-active');
+                        $(this).addClass('is-active');
+                    } else {
+                        event.preventDefault();
+                    }
+                });
+            });
+    </script>
+    <script type="text/javascript" src="../js/axios.min.js"></script>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="../js/newSuits.js"></script>
+</body>
+</html>
