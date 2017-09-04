@@ -1,33 +1,14 @@
 new Vue({
     el: '#newSuitsApp',
     data: {
-        suits: [
-            {
-                name: 'Suit 1',
-                cases: [
-                    { name: 'Case 1'}, { name: 'Case 2'}
-                ]
-            },
-            {
-                name: 'Suit 2',
-                cases: [
-                    { name: 'Case 1'}, { name: 'Case 2'}
-                ]
-            },
-            {
-                name: 'Suit 3',
-                cases: [
-                    { name: 'Case 1'}, { name: 'Case 2'}
-                ]
-            }
-        ]
+        suits: []
     },
     methods: {
         getCasesAmount: function(suit) {
-            return suit.cases.length;
+            return suit.cases === null ? 0 : suit.cases.length;
         },
         getSuits: function() {
-            axios.get("/suits").then(function(response) {
+            axios.get("/getTestSuits").then(function(response) {
                 this.suits = response.data;
             }.bind(this));
         }
@@ -38,6 +19,6 @@ new Vue({
         }
     },
     mounted: function() {
-        //this.getSuits();
+        this.getSuits();
     }
 });

@@ -25,7 +25,7 @@ function PopUpAddingSuit(){
 
     };
     createPopUp(400, 170, "Adding suit", func);
-    $(".popup_container").append("<table><tr><td>Name:</td><td><input type='text'/></td></tr><tr><td>Description:</td><td><input type='text'/></td></tr></table>");
+    $(".popup_container").append("<table><tr><td>Name:</td><td><input id='nameSuit' v-model='name' type='text'/></td></tr><tr><td>Description:</td><td><input id='descriptionSuit' v-model='description' type='text'/></td></tr></table>");
     $("#popup_add").show();
     $(".popup_ok").append("<div id='createSuitButton'>Create</div>");
     $(".popup_cancel").append("<div>Cancel</div>");

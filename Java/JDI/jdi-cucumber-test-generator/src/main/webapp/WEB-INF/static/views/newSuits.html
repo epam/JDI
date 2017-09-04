@@ -12,7 +12,7 @@
         <a href="suits.html">Cucumber test generator</a>
     </header>
 
-    <div class="page-contents">
+    <div class="page-contents"  id="newSuitsApp">
         <section class="suits-section">
 
             <!-- Заголовок страницы -->
@@ -24,7 +24,7 @@
             <hr class="under-subtitle-hatch">
 
             <!-- Окно с вкладками -->
-            <div class="container-tab" id="newSuitsApp">
+            <div class="container-tab">
 
                 <ul class="accordion-tabs">
 
@@ -43,7 +43,7 @@
 
                                             <tr>
                                                 <td><span>Description: </span></td>
-                                                <td>Here should be the description of this suit.</td>
+                                                <td>{{suit.description}}</td>
                                             </tr>
 
                                             <tr>
@@ -110,27 +110,28 @@
             </div>
 
         </section>
+
     </div>
 
-<!--<footer>-->
-<!--</footer>-->
-    <div class="b-popup" id="popup_add">
-        <div class="b-popup-content">
-            <div class="popup_header">
-                <div class="popup_name"></div>
-                <a href="javascript:PopUpHide()"><div class="popup_close">X</div></a>
-            </div>
-            <div class="popup_container">
+    <div id="addSuit">
+        <div class="b-popup" id="popup_add">
+            <div class="b-popup-content">
+                <div class="popup_header">
+                    <div class="popup_name"></div>
+                    <a href="javascript:PopUpHide()"><div class="popup_close">X</div></a>
+                </div>
+                <div class="popup_container">
 
-            </div>
-            <div class="popup_buttons">
-                <div class="popup_ok"></div>
-                <div class="free_space"></div>
-                <div class="popup_cancel" onclick='javascript:PopUpHide()'></div>
+                </div>
+                <div class="popup_buttons">
+                    <h1>{{name}}</h1>
+                    <div class="popup_ok" v-on:click="addSuit"></div>
+                    <div class="free_space"></div>
+                    <div class="popup_cancel" onclick='javascript:PopUpHide()'></div>
+                </div>
             </div>
         </div>
     </div>
-
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
@@ -149,10 +150,11 @@
                 });
             });
     </script>
-    <script type="text/javascript" src="/static/js/axios.min.js"></script>
-    <script type="text/javascript" src="/static/js/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <script type="text/javascript" src="/static/js/newSuits.js"></script>
     <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/addSuit.js"></script>
     <script type="text/javascript" src="/static/js/popup.js"></script>
 </body>
 </html>
