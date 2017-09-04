@@ -11,7 +11,7 @@ public class CaseDAOImpl implements EntitiesDAO<Case>{
 
     @Override
     public Case addEntity(Case ts) {
-
+        return null;
     }
 
     @Override

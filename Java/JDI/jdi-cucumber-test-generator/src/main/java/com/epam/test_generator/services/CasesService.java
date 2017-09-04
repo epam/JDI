@@ -39,8 +39,8 @@ public class CasesService implements EntitiesService<Case>{
     }
   
     @Override
-    public void editEntity(Case case){
-      caseDAO.editEntity(case);
+    public void editEntity(Case ts){
+      caseDAO.editEntity(ts);
     }
   
 }

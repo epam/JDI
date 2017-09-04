@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class SuitDAOImpl implements EntitiesDAO<Suit>{
+public class SuitDaoMockImlp implements EntitiesDAO<Suit>{
 
     List<Suit> suitList = new ArrayList<>();
 
