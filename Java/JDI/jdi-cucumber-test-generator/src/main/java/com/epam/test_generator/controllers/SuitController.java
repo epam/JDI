@@ -17,7 +17,7 @@ public class SuitController {
 
     @RequestMapping(value = "/")
     public String getMainPage(){
-        return "/WEB-INF/static/views/suits";
+        return "/WEB-INF/static/views/newSuits";
     }
 
     @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET, produces = "application/json")
