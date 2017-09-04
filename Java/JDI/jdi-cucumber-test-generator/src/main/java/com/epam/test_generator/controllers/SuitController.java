@@ -1,19 +1,44 @@
 package com.epam.test_generator.controllers;
 
 
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class SuitController {
 
-    List<Suit> list = new ArrayList<>();
+    static List<Suit> list = new ArrayList<>();
+    static List<Case> caseList1 = new ArrayList<>();
+    static List<Case> caseList2 = new ArrayList<>();
+
+    static {
+        Suit suit1 = new Suit("Suit 1", "Some description");
+        Suit suit2 = new Suit("Suit 2", "Some description");
+        Suit suit3 = new Suit("Suit 3", "Some description");
+
+//        for (int i = 0; i < 30; i++) {
+//            caseList1.add(new Case((long) i, "test description", "", suit1));
+//        }
+//        suit1.setCases(caseList1);
+//
+//        for (int i = 0; i < 25; i++) {
+//            caseList2.add(new Case((long) i, "test description", "", suit2));
+//        }
+//        suit2.setCases(caseList2);
+
+        list.add(suit1);
+        list.add(suit2);
+        list.add(suit3);
+    }
+
+
 
     @Autowired
     public SuitService suitService;
@@ -25,8 +50,6 @@ public class SuitController {
 
     @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Suit> getSuits() {
-        list.add(new Suit("Suit 1", "kek"));
-
         return list;
     }
 

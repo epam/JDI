@@ -309,7 +309,7 @@ a.add-case-button:hover {
 
 
 .suit-info-table {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     border-spacing: 5px;
     width: 100%;
     -webkit-border-horizontal-spacing: 10px;
@@ -328,16 +328,16 @@ a.add-case-button:hover {
 }
 
 .suit-info-container {
-    display: inline;
+    /*display: inline;*/
     width: 40%;
     border: 1px solid #ff3d46;
-    float: left;
+    /*float: left;*/
     margin: 0;
     padding: 5px;
 }
 
 .suit-buttons-container {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     /*display: inline;*/
     width: 100%;
     float: right;
@@ -346,7 +346,7 @@ a.add-case-button:hover {
 
 
 .cases-table {
-    border: 1px solid #ff3d46;
+    /*border: 1px solid #ff3d46;*/
     width: 100%;
     margin: 5px 0;
 }
@@ -356,7 +356,7 @@ a.add-case-button:hover {
 }
 
 .cases-table-title {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     margin: 20px 0 0 0;
     width: 100%;
 }
@@ -385,7 +385,7 @@ a.add-case-button:hover {
 .generate-button-container {
     overflow: hidden;
     margin: 5px 0;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     width: 100%;
 }
 
@@ -778,11 +778,9 @@ body{
 }
 
 .case-editor-container {
-    display: inline;
-    border: 1px solid #ff3d46;
+    /*border: 1px solid #ff3d46;*/
     width: 60%;
     margin:0;
-    float: right;
     padding: 5px;
 }
 
@@ -794,4 +792,59 @@ body{
 
 .suit-table-container {
     width: 100%;
+    padding: 5px;
+}
+
+
+
+
+
+
+
+
+
+/*Сомнительный код*/
+* {font:13px arial,sans-serif;}
+p {margin:28px 0 3px 0;}
+.divFixHeaderCol {
+    position:relative;
+    border:0;
+    border-left:1px solid #d0d0d0;
+    border-bottom:1px solid #d0d0d0;
+    overflow:hidden;
+}
+.divFixHeaderCol table {border-collapse:collapse;}
+.divFixHeaderCol td {
+    font:400 11px tahoma,arial,sans-serif;
+    padding:2px;
+    border:1px solid #d0d0d0;
+    border-left:0;
+    background:#fff;
+    min-height:14px;
+}
+.divFixHeaderCol .fixRegion td {
+    background:#fff no-repeat;
+    background-image:linear-gradient(#eee,#eee);
+    background-position:1px 1px;
+}
+.cntr {text-align:center;}
+
+.suit-table-container tr {
+    /*border: 1px solid black;*/
+}
+.suit-table-container td {
+    /*border: 1px solid black;*/
+}
+
+.cucumber-test-editor-container {
+    /*border: 1px solid red;*/
+}
+
+.cucumber-test-editor {
+    width: 100%;
+    height: 200px;
+}
+
+.codemirror-textarea {
+    height: 10px;
 }
