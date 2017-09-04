@@ -31,7 +31,5 @@ public class CaseDAOImpl implements CaseDAO {
     }
     
     @Override
-    public void editEntity(Case ts) {
-
-    } 
+    public void updateCase(Case cs) { }
 }

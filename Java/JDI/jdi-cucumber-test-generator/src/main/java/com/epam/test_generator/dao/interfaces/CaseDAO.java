@@ -15,4 +15,6 @@ public interface CaseDAO {
     void removeCase(long id);
 
     List<Case> getCasesBySuitId(long suitId);
+
+    void updateCase(Case cs);
 }

@@ -33,7 +33,8 @@ public class CasesService{
     public void removeCase(Long id) {
         caseDAO.removeCase(id);
     }
-  
+
+    @Transactional
     public void updateCase(Case cs){
       caseDAO.updateCase(cs);
     }
