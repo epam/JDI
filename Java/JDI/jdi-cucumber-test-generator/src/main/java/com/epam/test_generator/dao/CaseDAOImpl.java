@@ -1,36 +1,35 @@
 package com.epam.test_generator.dao;
 
-import com.epam.test_generator.dao.interfaces.EntitiesDAO;
+import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.entities.Case;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class CaseDAOImpl implements EntitiesDAO<Case>{
+public class CaseDAOImpl implements CaseDAO {
 
     @Override
-    public Case addEntity(Case ts) {
+    public void addCase(Case cs) { }
+
+    @Override
+    public List<Case> getAllCases() {
         return null;
     }
 
     @Override
-    public List<Case> getAllEntities() {
+    public Case getCase(long id) {
         return null;
     }
 
     @Override
-    public Case getEntity(Long id) {
-        return null;
-    }
+    public void removeCase(long id) { }
 
     @Override
-    public void removeEntity(Long id) {
-
+    public List<Case> getCasesBySuitId(long suitId){
+        return null;
     }
     
     @Override
-    public void editEntity(Case ts) {
-
-    } 
+    public void updateCase(Case cs) { }
 }
