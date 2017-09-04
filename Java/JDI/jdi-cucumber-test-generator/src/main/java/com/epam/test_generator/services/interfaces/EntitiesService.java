@@ -4,12 +4,14 @@ import java.util.List;
 
 public interface EntitiesService<T> {
 
-    void addEntity(T ts);
+    T addEntity(T ts);
 
     List<T> getAllEntities();
 
     T getEntity(Long id);
 
     void removeEntity(Long id);
+
+    void editEntity(T ts);
 
 }
