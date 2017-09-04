@@ -10,12 +10,12 @@ import java.util.List;
 public class CaseDAOImpl implements EntitiesDAO<Case>{
 
     @Override
-    public Case addTestEntity(Case ts) {
-        return null;
+    public Case addEntity(Case ts) {
+
     }
 
     @Override
-    public List<Case> getAllTestEntities() {
+    public List<Case> getAllEntities() {
         return null;
     }
 
@@ -25,12 +25,12 @@ public class CaseDAOImpl implements EntitiesDAO<Case>{
     }
 
     @Override
-    public void removeTestEntity(Long id) {
+    public void removeEntity(Long id) {
 
     }
-
+    
     @Override
-    public void editTestEntity(Case ts) {
+    public void editEntity(Case ts) {
 
-    }
+    } 
 }

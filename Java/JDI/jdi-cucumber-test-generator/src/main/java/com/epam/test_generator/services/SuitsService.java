@@ -13,23 +13,23 @@ public class SuitsService {
     @Autowired
     private SuitDAOImpl suitDAO;
 
-    public List<Suit> getTestSuits() {
-        return suitDAO.getAllTestEntities();
+    public List<Suit> getSuits() {
+        return suitDAO.getAllEntities();
     }
 
     public Suit getTestSuit(long id) {
         return suitDAO.getEntity(id);
     }
 
-    public void editTestSuit(Suit testSuit) {
-        suitDAO.editTestEntity(testSuit);
+    public void editSuit(Suit suit) {
+        suitDAO.editEntity(suit);
     }
 
-    public void removeTestSuit(long id) {
-        suitDAO.removeTestEntity(id);
+    public void removeSuit(long id) {
+        suitDAO.removeEntity(id);
     }
 
-    public Suit addTestSuit(Suit suit) {
-        return suitDAO.addTestEntity(suit);
+    public Suit addSuit(Suit suit) {
+        return suitDAO.addEntity(suit);
     }
 }

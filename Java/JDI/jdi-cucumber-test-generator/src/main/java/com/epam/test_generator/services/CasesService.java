@@ -17,15 +17,14 @@ public class CasesService implements EntitiesService<Case>{
 
     @Override
     @Transactional
-    public void addTestEntity(Case ts) {
-        caseDAO.addTestEntity(ts);
-
+    public Case addEntity(Case ts) {
+        return caseDAO.addEntity(ts);
     }
 
     @Override
     @Transactional
-    public List<Case> getAllTestEntities() {
-        return caseDAO.getAllTestEntities();
+    public List<Case> getAllEntities() {
+        return caseDAO.getAllEntities();
     }
 
     @Override
@@ -35,7 +34,13 @@ public class CasesService implements EntitiesService<Case>{
 
     @Override
     @Transactional
-    public void removeTestEntity(Long id) {
-        caseDAO.removeTestEntity(id);
+    public void removeEntity(Long id) {
+        caseDAO.removeEntity(id);
     }
+  
+    @Override
+    public void editEntity(Case case){
+      caseDAO.editEntity(case);
+    }
+  
 }
