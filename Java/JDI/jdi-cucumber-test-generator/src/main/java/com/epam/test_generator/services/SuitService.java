@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SuitsService {
+public class SuitService {
 
     @Autowired
     private SuitDAOImpl suitDAO;
@@ -17,7 +17,7 @@ public class SuitsService {
         return suitDAO.getAllEntities();
     }
 
-    public Suit getTestSuit(long id) {
+    public Suit getSuit(long id) {
         return suitDAO.getEntity(id);
     }
 
