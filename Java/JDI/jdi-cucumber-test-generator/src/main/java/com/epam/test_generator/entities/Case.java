@@ -11,33 +11,27 @@ public class Case implements Serializable{
     @GeneratedValue
     private Long id;
 
-    private CaseType type;
-
-    private String feature;
+    private String description;
 
     //Описание сценария
-    private String scenario;
+    private String steps;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
     private Suit suit;
 
-    public Case(Long id, String feature, String scenario, Suit suit) {
+    public Case(){
+
+    }
+
+    public Case(Long id, String description, String steps, Suit suit) {
         this.id = id;
-        this.feature = feature;
-        this.scenario = scenario;
+        this.description = description;
+        this.steps = steps;
         this.suit = suit;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public CaseType getType() {
-        return type;
-    }
-
-    public void setType(CaseType type) {
-        this.type = type;
     }
 
     public Suit getSuit() {
@@ -48,25 +42,25 @@ public class Case implements Serializable{
         this.suit = suit;
     }
 
-    public String getFeature() {
-        return feature;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFeature(String feature) {
-        this.feature = feature;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getScenario() {
-        return scenario;
+    public String getSteps() {
+        return steps;
     }
 
-    public void setScenario(String scenario) {
-        this.scenario = scenario;
+    public void setSteps(String steps) {
+        this.steps = steps;
     }
 
     @Override
     public int hashCode() {
-        return feature.hashCode() + 31 * scenario.hashCode();
+        return description.hashCode() + 31 * steps.hashCode();
     }
 
     @Override
@@ -78,9 +72,9 @@ public class Case implements Serializable{
         if (!(o instanceof Case)) {
             return false;
         } else {
-            String f = ((Case)o).getFeature();
-            String s = ((Case)o).getScenario();
-            if ( f.equals(feature) && s.equals(scenario)){
+            String f = ((Case)o).getDescription();
+            String s = ((Case)o).getSteps();
+            if ( f.equals(description) && s.equals(steps)){
                 return true;
             }
         }
@@ -90,8 +84,8 @@ public class Case implements Serializable{
     @Override
     public String toString() {
         return "Case{" +
-                "feature='" + feature + '\'' +
-                ", scenario='" + scenario + '\'' +
+                "feature='" + description + '\'' +
+                ", scenario='" + steps + '\'' +
                 '}';
     }
 }
