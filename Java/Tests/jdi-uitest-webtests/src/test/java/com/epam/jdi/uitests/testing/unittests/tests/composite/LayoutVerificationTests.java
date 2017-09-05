@@ -52,20 +52,20 @@ public class LayoutVerificationTests extends InitTests {
     @Test
     public void layoutVerificationPositiveTest() {
         homePage.open();
-        assertTrue(() ->homePage.verifyElementOnPage(jdiHomepageBlock1));
+        assertTrue(homePage.verifyElementOnPage(jdiHomepageBlock1));
         homePage.checkThatElementOnPage(jdiHomepageBlock1);
     }
 
     @Test
     public void layoutVerificationNegativeTest() {
         homePage.open();
-        assertFalse(() -> homePage.verifyElementOnPage(notJdiHomepage));
+        assertFalse(homePage.verifyElementOnPage(notJdiHomepage));
     }
 
     @Test
     public void layoutVerificationForSeveralFilesTest() throws InterruptedException {
         homePage.open();
-        Assert.assertTrue(() -> homePage.verifyElementsOnPage(imgDirPath));
+        Assert.assertTrue(homePage.verifyElementsOnPage(imgDirPath));
         //homePage.checkElementsOnPage(imgDirPath);
     }
 }
