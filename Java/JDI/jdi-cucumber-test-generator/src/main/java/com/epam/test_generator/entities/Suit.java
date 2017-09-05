@@ -1,9 +1,6 @@
 package com.epam.test_generator.entities;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class Suit implements Serializable {
 
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "suit")
     private List<Case> cases;
 
     public Suit() {

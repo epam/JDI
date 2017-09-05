@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
@@ -36,6 +35,7 @@ public class DatabaseConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+
         entityManager.setDataSource(dataSource());
         entityManager.setPackagesToScan(environment.getRequiredProperty("db.entity.package"));
         entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
@@ -50,12 +50,14 @@ public class DatabaseConfig {
         EmbeddedDatabase db = builder
                 .setType(EmbeddedDatabaseType.H2) //.H2 or .DERBY
                 .build();
+
         return db;
     }
 
     @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager manager = new JpaTransactionManager();
+
         manager.setEntityManagerFactory(entityManagerFactory().getObject());
 
         return manager;
@@ -65,6 +67,7 @@ public class DatabaseConfig {
         try {
             Properties properties = new Properties();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hibernate.properties");
+
             properties.load(inputStream);
 
             return properties;

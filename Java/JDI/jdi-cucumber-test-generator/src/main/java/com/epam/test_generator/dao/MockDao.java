@@ -52,9 +52,11 @@ public class MockDao {
 
     public Suit getSuit(long id){
         for (Suit suit : list) {
-            if(suit.getId() == id)
-                return suit;
+            if (suit.getId() == id) {
+				return suit;
+			}
         }
+
         return null;
     }
 
@@ -68,12 +70,14 @@ public class MockDao {
 
     public void removeSuit(long id){
         Suit suitFromList = getSuit(id);
+
         list.remove(suitFromList);
     }
 
     public Suit addSuit(Suit suit) {
         suit.setId(++counter);
         list.add(suit);
+
         return suit;
     }
 }

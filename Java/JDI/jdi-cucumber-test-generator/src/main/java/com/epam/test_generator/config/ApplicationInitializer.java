@@ -10,11 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 public class ApplicationInitializer implements WebApplicationInitializer{
+
     private final static String DISPATCHER = "dispatcher";
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx= new AnnotationConfigWebApplicationContext();
+
         ctx.register(WebConfig.class);
 
         servletContext.addListener(new ContextLoaderListener(ctx));
