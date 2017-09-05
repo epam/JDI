@@ -1,4 +1,4 @@
-new Vue({
+var getSuits = new Vue({
     el: '#newSuitsApp',
     data: {
         suits: []

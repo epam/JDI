@@ -715,7 +715,7 @@ body{
     padding: 0.75em 0.809em;
 }
 .accordion-tabs>li.tab-head-cont>a:hover {
-    color: #000000;
+    color: #ffffff;
 }
 .accordion-tabs>li.tab-head-cont>a:focus {
     outline: none;

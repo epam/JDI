@@ -1,4 +1,4 @@
-new Vue({
+var addSuit = new Vue({
     el: '#addSuit',
     data() {
         return {
@@ -11,7 +11,11 @@ new Vue({
             this.name = $("#nameSuit").val();
             this.description = $("#descriptionSuit").val();
 
-            axios.post('/addTestSuit', {name: this.name, description: this.description}).then(function(response) {}).catch(function(error) {});
+            axios.post('/addTestSuit', {name: this.name, description: this.description}).then(function(response) {
+                PopUpHide("#popup_add");
+                getSuits.getSuits();
+            }).catch(function(error) {
+            });
         }
     },
     watch: {

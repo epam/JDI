@@ -37,6 +37,12 @@ public class Suit implements Serializable {
         this.description = description;
     }
 
+    public Suit(long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public String getDescription() {
         return description;
     }

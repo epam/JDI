@@ -1,5 +1,6 @@
-#popup_add{
+#popup_add, #popup_delete{
     display: none;
+    z-index: 5;
 }
 .b-container{
     width: 600px;
@@ -71,7 +72,7 @@
 }
 .popup_buttons .popup_ok{
     width: 40%;
-    height: 32px;
+    height: 28px;
     float: left;
     text-align: center;
     background-color: #00a250;
@@ -94,7 +95,7 @@
 }
 .popup_buttons .popup_cancel{
     width: 40%;
-    height: 32px;
+    height: 28px;
     float: left;
     text-align: center;
     background-color: #00a250;
