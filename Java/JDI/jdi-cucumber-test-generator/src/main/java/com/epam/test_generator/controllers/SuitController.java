@@ -48,10 +48,10 @@ public class SuitController {
     }
 
     @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<> editSuit(@RequestBody Suit suit){
+    public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
         suitService.editSuit(suit);
       
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET)
