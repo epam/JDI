@@ -59,8 +59,11 @@ public class MockDao {
     }
 
     public void editSuit(Suit suit){
-        Suit suirFromList = getSuit(suit.getId());
-        suirFromList = suit;
+        Suit suitFromList = getSuit(suit.getId());
+        suitFromList.setDescription(suit.getDescription());
+        suitFromList.setName(suit.getName());
+        int i = list.indexOf(suitFromList);
+        list.set(i, suitFromList);
     }
 
     public void removeSuit(long id){

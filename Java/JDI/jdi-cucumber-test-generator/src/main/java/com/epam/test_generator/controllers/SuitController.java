@@ -40,8 +40,9 @@ public class SuitController {
     }
 
     @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
-    public void editSuit(@RequestBody Suit suit){
+    public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
         mockDao.editSuit(suit);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET)

@@ -1,4 +1,4 @@
-#popup_add, #popup_delete{
+#popup_add, #popup_delete, #popup_edit{
     display: none;
     z-index: 5;
 }

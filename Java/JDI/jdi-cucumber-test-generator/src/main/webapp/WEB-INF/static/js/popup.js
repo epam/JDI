@@ -4,7 +4,6 @@ function createPopUp(width, height, title){
     $(".b-popup-content").css("margin-top", ($(window).height() / 2 - $(".b-popup-content").height() / 2) + "px");
     $(".popup_name").empty();
     $(".popup_name").html(title);
-    $(".popup_container").empty();
     $(".popup_ok").empty();
     $(".popup_cancel").empty();
 }
@@ -23,8 +22,17 @@ function PopUpAddingSuit(){
 
 function PopUpDeleteSuit(){
     createPopUp(400, 120, "Deleting suit");
-    $(".popup_container").append("<p>Do you want to delete this suit?</p>");
     $("#popup_delete").show();
-    $(".popup_ok").append("<div id='createSuitButton'>Delete</div>");
+    $(".popup_ok").append("<div id='deleteSuitButton'>Delete</div>");
+    $(".popup_cancel").append("<div>Cancel</div>");
+}
+
+
+function PopUpEditSuit(){
+    createPopUp(400, 150, "Edit suit");
+    $("#editNameSuit").val($("#nameSuit").text());
+    $("#editDescriptionSuit").val($("#descriptionSuit").text());
+    $("#popup_edit").show();
+    $(".popup_ok").append("<div id='editSuitButton'>Edit</div>");
     $(".popup_cancel").append("<div>Cancel</div>");
 }
