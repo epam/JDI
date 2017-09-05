@@ -31,8 +31,10 @@
                 <ul class="accordion-tabs">
 
                     <li class="tab-head-cont" v-for="suit in suits">
-                        <a href="#">Вкладка</a>
+
+                        <a class="tab_name" href="#">{{suit.name}}</a>
                         <section>
+                            <div id="suitId" style="visibility: hidden;">{{suit.id}}</div>
 
                             <table class="suit-table-container">
                                 <tr>
@@ -58,7 +60,7 @@
                                         <div style="width: 100%;">
                                             <div class="suit-buttons-container">
                                                 <a class="edit-suit-button">Edit</a>
-                                                <a class="delete-suit-button"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
+                                                <a class="delete-suit-button" onclick="javascript:PopUpDeleteSuit()"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
                                             </div>
                                         </div>
                                         <div style="clear: both;"></div>
@@ -71,8 +73,8 @@
                                         <div class="cases-table-container">
                                             <table class="cases-table">
                                                 <tr v-for="caze in suit.cases">
+                                                    <td style="width: 15px;"><input type="checkbox"/></td>
                                                     <td>Case '{{caze.name}}' description</td>
-                                                    <td><input type="checkbox"/></td>
                                                     <td></td>
                                                 </tr>
                                             </table>
@@ -105,7 +107,7 @@
                     </li>
 
                     <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
-                        <img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px;">
+                        <img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px 5px; cursor: pointer;">
                     </li>
                 </ul>
 
@@ -120,23 +122,44 @@
             <div class="b-popup-content">
                 <div class="popup_header">
                     <div class="popup_name"></div>
-                    <a href="javascript:PopUpHide()"><div class="popup_close">X</div></a>
+                    <a href="javascript:PopUpHide('#popup_add')"><div class="popup_close">X</div></a>
                 </div>
                 <div class="popup_container">
 
                 </div>
                 <div class="popup_buttons">
-                    <h1>{{name}}</h1>
                     <div class="popup_ok" v-on:click="addSuit"></div>
                     <div class="free_space"></div>
-                    <div class="popup_cancel" onclick='javascript:PopUpHide()'></div>
+                    <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add')"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteSuit">
+        <div class="b-popup" id="popup_delete">
+            <div class="b-popup-content">
+                <div class="popup_header">
+                    <div class="popup_name"></div>
+                    <a href="javascript:PopUpHide('#popup_delete')"><div class="popup_close">X</div></a>
+                </div>
+                <div class="popup_container">
+
+                </div>
+                <div class="popup_buttons">
+                    <div class="popup_ok" v-on:click="deleteSuit"></div>
+                    <div class="free_space"></div>
+                    <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete')"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script>
+        var suit_id = -1;
+
         $(document).ready(function () {
             $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
             $('.accordion-tabs').on('click', 'li > a', function(event) {
@@ -150,25 +173,43 @@
                     event.preventDefault();
                 }
             });
+
+            var code = $(".codemirror-textarea")[0];
+            var editor = CodeMirror.fromTextArea(code, {
+                lineNumbers: true,
+                value: "function myScript(){return 100;}\n",
+                mode:  "gherkin",
+                extraKeys: {"Ctrl-Space": "autocomplete"}
+            })
+
+            $( ".tab_name" ).click(function() {
+                console.log(suit_id);
+                suit_id = $(".is-active").parent().children("section").children("#suitId").text();
+            });
+
         });
+
+
     </script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-    <script type="text/javascript" src="/static/js/newSuits.js"></script>
+    <script type="text/javascript" src="/static/js/getSuits.js"></script>
+    <script type="text/javascript" src="/static/js/deleteSuit.js"></script>
 
-    <!--<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>-->
-    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/addSuit.js"></script>
     <script type="text/javascript" src="/static/js/popup.js"></script>
 
-
-
-    <script type="text/javascript" src="../static/plugin/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="/static/plugin/codemirror/lib/codemirror.js"></script>
     <script src="/static/plugin/codemirror/mode/gherkin/gherkin.js"></script>
-    <script type="text/javascript" src="/static/js/default.js"></script>
     <script src="/static/plugin/codemirror/addon/hint/show-hint.js"></script>
     <script src="/static/plugin/codemirror/addon/hint/css-hint.js"></script>
+
+    <script type="text/javascript" src="/static/js/default.js"></script>
+
+
+
 
 </body>
 </html>

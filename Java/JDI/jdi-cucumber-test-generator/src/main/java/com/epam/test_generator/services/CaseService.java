@@ -1,5 +1,6 @@
 package com.epam.test_generator.services;
 
+import com.epam.test_generator.dao.MockDao;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.entities.Case;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Service
 public class CaseService{
+
+    @Autowired
+    MockDao mockDao;
 
     @Autowired
     private CaseDAO caseDAO;
