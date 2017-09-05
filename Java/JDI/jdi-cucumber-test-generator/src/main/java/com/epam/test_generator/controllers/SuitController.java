@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SuitController {
 
-    private MockDao mockDao;
+  private MockDao mockDao;
 	private SuitService suitService;
 
 	@Autowired
@@ -48,8 +48,10 @@ public class SuitController {
     }
 
     @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
-    public void editSuit(@RequestBody Suit suit){
+    public ResponseEntity<> editSuit(@RequestBody Suit suit){
         suitService.editSuit(suit);
+      
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET)
