@@ -10,205 +10,227 @@
     <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <a href="suits.html">Cucumber test generator</a>
-    </header>
+<header>
+    <a href="suits.html">Cucumber test generator</a>
+</header>
 
-    <div class="page-contents"  id="newSuitsApp">
-        <section class="suits-section">
+<div class="page-contents"  id="newSuitsApp">
+    <section class="suits-section">
 
-            <!-- Заголовок страницы -->
-            <div class = "section-title">
-                <h2>Suits</h2>
-            </div>
+        <!-- Заголовок страницы -->
+        <div class = "section-title">
+            <h2>Suits</h2>
+        </div>
 
-            <!-- Разделительная линия -->
-            <hr class="under-subtitle-hatch">
+        <!-- Разделительная линия -->
+        <hr class="under-subtitle-hatch">
 
-            <!-- Окно с вкладками -->
-            <div class="container-tab">
+        <!-- Окно с вкладками -->
+        <div class="container-tab">
 
-                <ul class="accordion-tabs">
+            <ul class="accordion-tabs">
 
-                    <li class="tab-head-cont" v-for="suit in suits">
+                <li class="tab-head-cont" v-for="suit in suits">
 
-                        <a class="tab_name" href="#">{{suit.name}}</a>
-                        <section>
-                            <div id="suitId" style="visibility: hidden;">{{suit.id}}</div>
+                    <a class="tab_name" href="#">{{suit.name}}</a>
+                    <section>
+                        <div id="suitId" style="visibility: hidden;">{{suit.id}}</div>
 
-                            <table class="suit-table-container">
-                                <tr>
-                                    <td class="suit-info-container">
-                                        <table class="suit-info-table">
-                                            <tr>
-                                                <td><span>Name: </span></td>
-                                                <td>{{suit.name}}</td>
+                        <table class="suit-table-container">
+                            <tr>
+                                <td class="suit-info-container">
+                                    <table class="suit-info-table">
+                                        <tr>
+                                            <td><span>Name: </span></td>
+                                            <td>{{suit.name}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><span>Description: </span></td>
+                                            <td>{{suit.description}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><span>Date of creation: </span></td>
+                                            <td>Feb 02, 2013</td>
+                                        </tr>
+
+                                    </table>
+
+                                    <div style="width: 100%;">
+                                        <div class="suit-buttons-container">
+                                            <a class="edit-suit-button">Edit</a>
+                                            <a class="delete-suit-button" onclick="javascript:PopUpDeleteSuit()"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+
+
+                                    <div class="cases-table-title">
+                                        <h3>{{getCasesAmount(suit)}} Tests</h3>
+                                    </div>
+
+                                    <div class="cases-table-container">
+                                        <table class="cases-table">
+                                            <tr v-for="caze in suit.cases">
+                                                <td style="width: 15px;"><input type="checkbox"/></td>
+                                                <td>Case '{{caze.name}}' description</td>
+                                                <td></td>
                                             </tr>
-
-                                            <tr>
-                                                <td><span>Description: </span></td>
-                                                <td>{{suit.description}}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td><span>Date of creation: </span></td>
-                                                <td>Feb 02, 2013</td>
-                                            </tr>
-
                                         </table>
+                                    </div>
 
-                                        <div style="width: 100%;">
-                                            <div class="suit-buttons-container">
-                                                <a class="edit-suit-button">Edit</a>
-                                                <a class="delete-suit-button" onclick="javascript:PopUpDeleteSuit()"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
-                                            </div>
+                                    <div style="width: 100%;">
+                                        <div class="suit-buttons-container">
+                                            <a class="generate-feature-button" style="color: white;">Generate</a>
+                                            <a class="delete-cases-button"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
+                                            <a class="add-case-button"><img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px;"></a>
                                         </div>
-                                        <div style="clear: both;"></div>
+                                    </div>
+                                    <div style="clear: both;"></div>
 
 
-                                        <div class="cases-table-title">
-                                            <h3>{{getCasesAmount(suit)}} Tests</h3>
-                                        </div>
+                                </td>
 
-                                        <div class="cases-table-container">
-                                            <table class="cases-table">
-                                                <tr v-for="caze in suit.cases">
-                                                    <td style="width: 15px;"><input type="checkbox"/></td>
-                                                    <td>Case '{{caze.name}}' description</td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                                <td class="case-editor-container" style="border: 3px dashed #00a250;">
 
-                                        <div style="width: 100%;">
-                                            <div class="suit-buttons-container">
-                                                <a class="generate-feature-button" style="color: white;">Generate</a>
-                                                <a class="delete-cases-button"><img src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></a>
-                                                <a class="add-case-button"><img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px;"></a>
-                                            </div>
-                                        </div>
-                                        <div style="clear: both;"></div>
+                                    <table class="case-info-table">
+                                        <tr>
+                                            <td><span>Case description</span></td>
+                                            <td><input type="text" id="case-description-textfield"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Case priority</span></td>
+                                            <td><input type="text" id="case-priority-textfield"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Number of steps</span></td>
+                                            <td><input type="text" id="case-stepsnum-textfield"></td>
+                                        </tr>
+                                    </table>
 
 
-                                    </td>
 
-                                    <td class="case-editor-container" style="border: 3px dashed #00a250;">
+                                    <div class="cucumber-test-editor-container" style="border: 1px solid red;">
+                                        <textarea id="code-textarea"></textarea>
+                                    </div>
 
-                                        <div class="cucumber-test-editor-container">
-                                            <textarea class="codemirror-textarea"></textarea>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
 
-                            <div style="clear: both;"></div>
+                                    <div class="case-buttons-container">
+                                        <a class="save-case-button" onclick="saveCase()">Save</a>
+                                        <a class="save-case-button" onclick="cancelCaseEditing()">Cancel</a>
+                                    </div>
 
-                        </section>
-                    </li>
+                                </td>
+                            </tr>
+                        </table>
 
-                    <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
-                        <img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px 5px; cursor: pointer;">
-                    </li>
-                </ul>
+                        <div style="clear: both;"></div>
+
+                    </section>
+                </li>
+
+                <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
+                    <img src="/static/images/plus-icon.png" style="height: 20px; margin: -5px 5px; cursor: pointer;">
+                </li>
+            </ul>
+
+        </div>
+
+    </section>
+
+</div>
+
+<div id="addSuit">
+    <div class="b-popup" id="popup_add">
+        <div class="b-popup-content">
+            <div class="popup_header">
+                <div class="popup_name"></div>
+                <a href="javascript:PopUpHide('#popup_add')"><div class="popup_close">X</div></a>
+            </div>
+            <div class="popup_container">
 
             </div>
-
-        </section>
-
-    </div>
-
-    <div id="addSuit">
-        <div class="b-popup" id="popup_add">
-            <div class="b-popup-content">
-                <div class="popup_header">
-                    <div class="popup_name"></div>
-                    <a href="javascript:PopUpHide('#popup_add')"><div class="popup_close">X</div></a>
-                </div>
-                <div class="popup_container">
-
-                </div>
-                <div class="popup_buttons">
-                    <div class="popup_ok" v-on:click="addSuit"></div>
-                    <div class="free_space"></div>
-                    <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add')"></div>
-                </div>
+            <div class="popup_buttons">
+                <div class="popup_ok" v-on:click="addSuit"></div>
+                <div class="free_space"></div>
+                <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add')"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="deleteSuit">
-        <div class="b-popup" id="popup_delete">
-            <div class="b-popup-content">
-                <div class="popup_header">
-                    <div class="popup_name"></div>
-                    <a href="javascript:PopUpHide('#popup_delete')"><div class="popup_close">X</div></a>
-                </div>
-                <div class="popup_container">
+<div id="deleteSuit">
+    <div class="b-popup" id="popup_delete">
+        <div class="b-popup-content">
+            <div class="popup_header">
+                <div class="popup_name"></div>
+                <a href="javascript:PopUpHide('#popup_delete')"><div class="popup_close">X</div></a>
+            </div>
+            <div class="popup_container">
 
-                </div>
-                <div class="popup_buttons">
-                    <div class="popup_ok" v-on:click="deleteSuit"></div>
-                    <div class="free_space"></div>
-                    <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete')"></div>
-                </div>
+            </div>
+            <div class="popup_buttons">
+                <div class="popup_ok" v-on:click="deleteSuit"></div>
+                <div class="free_space"></div>
+                <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete')"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/static/js/jquery-3.2.1.min.js"></script>
-    <script>
-        var suit_id = -1;
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script>
+    var suit_id = 0;
 
-        $(document).ready(function () {
-            $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
-            $('.accordion-tabs').on('click', 'li > a', function(event) {
-                if (!$(this).hasClass('is-active')) {
-                    event.preventDefault();
-                    $('.accordion-tabs .is-open').removeClass('is-open').hide();
-                    $(this).next().toggleClass('is-open').toggle();
-                    $('.accordion-tabs').find('.is-active').removeClass('is-active');
-                    $(this).addClass('is-active');
-                } else {
-                    event.preventDefault();
-                }
-            });
-
-            var code = $(".codemirror-textarea")[0];
-            var editor = CodeMirror.fromTextArea(code, {
-                lineNumbers: true,
-                value: "function myScript(){return 100;}\n",
-                mode:  "gherkin",
-                extraKeys: {"Ctrl-Space": "autocomplete"}
-            })
-
-            $( ".tab_name" ).click(function() {
-                console.log(suit_id);
-                suit_id = $(".is-active").parent().children("section").children("#suitId").text();
-            });
-
+    $(document).ready(function () {
+        $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
+        $('.accordion-tabs').on('click', 'li > a', function(event) {
+            if (!$(this).hasClass('is-active')) {
+                event.preventDefault();
+                $('.accordion-tabs .is-open').removeClass('is-open').hide();
+                $(this).next().toggleClass('is-open').toggle();
+                $('.accordion-tabs').find('.is-active').removeClass('is-active');
+                $(this).addClass('is-active');
+            } else {
+                event.preventDefault();
+            }
         });
 
+        var code = $(".codemirror-textarea")[0];
+        var editor = CodeMirror.fromTextArea(code, {
+            lineNumbers: true,
+            value: "function myScript(){return 100;}\n",
+            mode:  "gherkin",
+            extraKeys: {"Ctrl-Space": "autocomplete"}
+        })
 
-    </script>
+        $( ".tab_name" ).click(function() {
+            alert("sdjfhsdkfhskd");
+            console.log(suit_id);
+            suit_id = $(".is-active").parent().children("section").children("#suitId").text();
+        });
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue"></script>
-    <script type="text/javascript" src="/static/js/getSuits.js"></script>
-    <script type="text/javascript" src="/static/js/deleteSuit.js"></script>
+    });
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/addSuit.js"></script>
-    <script type="text/javascript" src="/static/js/popup.js"></script>
+</script>
 
-    <script type="text/javascript" src="/static/plugin/codemirror/lib/codemirror.js"></script>
-    <script src="/static/plugin/codemirror/mode/gherkin/gherkin.js"></script>
-    <script src="/static/plugin/codemirror/addon/hint/show-hint.js"></script>
-    <script src="/static/plugin/codemirror/addon/hint/css-hint.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript" src="/static/js/getSuits.js"></script>
+<script type="text/javascript" src="/static/js/deleteSuit.js"></script>
 
-    <script type="text/javascript" src="/static/js/default.js"></script>
+<script type="text/javascript" src="/static/js/addSuit.js"></script>
+<script type="text/javascript" src="/static/js/popup.js"></script>
+<script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
 
+<script type="text/javascript" src="/static/plugin/codemirror/lib/codemirror.js"></script>
+<script src="/static/plugin/codemirror/mode/gherkin/gherkin.js"></script>
+<script src="/static/plugin/codemirror/addon/hint/show-hint.js"></script>
+<script src="/static/plugin/codemirror/addon/hint/css-hint.js"></script>
 
+<script type="text/javascript" src="/static/js/default.js"></script>
 
 
 </body>

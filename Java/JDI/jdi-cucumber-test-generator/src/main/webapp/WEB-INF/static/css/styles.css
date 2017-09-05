@@ -315,14 +315,14 @@ a.add-case-button:hover {
     -webkit-border-horizontal-spacing: 10px;
 }
 
-.suit-info-table tr {
+.suit-info-table>tr {
     font-feature-settings: 'kern', 'liga', 'pnum';
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 1em;
     line-height: 1.5;
 }
 
-.suit-info-table tr span {
+.suit-info-table>tr>span {
     font-weight: 500;
     color: #379b55;
 }
@@ -337,6 +337,14 @@ a.add-case-button:hover {
 }
 
 .suit-buttons-container {
+    /*border: 1px solid red;*/
+    /*display: inline;*/
+    width: 100%;
+    float: right;
+    margin: 5px auto;
+}
+
+.case-buttons-container {
     /*border: 1px solid red;*/
     /*display: inline;*/
     width: 100%;
@@ -829,15 +837,18 @@ p {margin:28px 0 3px 0;}
 }
 .cntr {text-align:center;}
 
-.suit-table-container tr {
+.suit-table-container>tr {
     /*border: 1px solid black;*/
 }
-.suit-table-container td {
+.suit-table-container>td {
     /*border: 1px solid black;*/
 }
 
 .cucumber-test-editor-container {
-    /*border: 1px solid red;*/
+    border: 1px solid red;
+    width: 100%;
+    margin: 0;
+    padding: 5px;
 }
 
 .cucumber-test-editor {
@@ -847,4 +858,60 @@ p {margin:28px 0 3px 0;}
 
 .codemirror-textarea {
     height: 10px;
+}
+
+
+.save-case-button {
+    float: right;
+    background-color: #379b55;
+    margin: 5px;
+    /*border-color: #377b37;*/
+    min-width: 180px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.save-case-button:hover {
+    background-color: #308649;
+}
+
+textarea {
+    height: 200px;
+    width: 100%;
+    max-width: 100%;
+    resize: vertical;
+}
+
+
+.case-info-table {
+    /*border: 1px solid red;*/
+    border-spacing: 5px;
+    width: 100%;
+    -webkit-border-horizontal-spacing: 10px;
+}
+
+.case-info-table>tr {
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.case-info-table>tr>span {
+    font-weight: 500;
+    color: #379b55;
 }

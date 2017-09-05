@@ -3,11 +3,9 @@ package com.epam.test_generator.controllers;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.services.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -39,10 +37,33 @@ public class CaseController {
     }
 
     //It doesn't work
-    @RequestMapping(value = "/suits/{suitId}/cases/{caseId}", method = RequestMethod.PUT)
-    public void updateCaseById(@PathVariable Long caseId, @RequestBody Case caseArg) {
-        System.out.println(caseId + " " + caseArg);
-        casesService.removeCase(caseId);
-        casesService.addCase(caseArg);
+//    @RequestMapping(value = "/saveCase", method = RequestMethod.POST)
+//    public @ResponseBody String updateCaseById(@RequestBody String msg1) {
+//        System.out.println(msg1);
+//        return "{}";
+//    }
+
+    @RequestMapping(value = "/saveCase", method = RequestMethod.POST,produces = MediaType.TEXT_PLAIN_VALUE)
+    public @ResponseBody
+    String Submit(@RequestParam("suitID") String suitId, @RequestParam("description") String caseDescription, @RequestParam("priority") String casePriority,
+                  @RequestParam("numOfSteps") String numberOfStepsInCase, @RequestParam("code") String caseScenarioCode) {
+
+
+        System.out.println(suitId);
+        System.out.println(caseDescription);
+        System.out.println(casePriority);
+        System.out.println(numberOfStepsInCase);
+        System.out.println(caseScenarioCode);
+
+        //Тут, наверное, нужно явно кастить некоторые переменные и делать защиту от тупости пользователя
+        //Во-первых, непонятно, зачем передовать в конструктор ID, он ведь должен назначаться автоматически
+        //Во-вторых, в конструкторе нет поля приоритет
+        //Во-третьих, нужно как-то получить Suit по его ID и тоже вставить в конструктор,
+        // но эта функция доступна в другом контроллере
+        //casesService.updateCase(new Case(suitId, caseDescription, caseScenarioCode, ));
+
+
+        return "" ;
     }
+
 }
