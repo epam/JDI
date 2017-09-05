@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
@@ -26,6 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
         resourceViewResolver.setPrefix("");
         resourceViewResolver.setSuffix(".html");
+
         return resourceViewResolver;
     }
 
@@ -33,5 +33,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
     }
-
 }

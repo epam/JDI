@@ -20,7 +20,6 @@ public class Case implements Serializable{
     private Suit suit;
 
     public Case(){
-
     }
 
     public Case(Long id, String description, String steps, Suit suit) {
@@ -74,7 +73,8 @@ public class Case implements Serializable{
         } else {
             String f = ((Case)o).getDescription();
             String s = ((Case)o).getSteps();
-            if ( f.equals(description) && s.equals(steps)){
+
+            if ( f.equals(description) && s.equals(steps)) {
                 return true;
             }
         }
