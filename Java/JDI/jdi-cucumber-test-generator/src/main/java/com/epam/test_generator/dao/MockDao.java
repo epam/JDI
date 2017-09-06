@@ -52,25 +52,32 @@ public class MockDao {
 
     public Suit getSuit(long id){
         for (Suit suit : list) {
-            if(suit.getId() == id)
-                return suit;
+            if (suit.getId() == id) {
+				return suit;
+			}
         }
+
         return null;
     }
 
     public void editSuit(Suit suit){
-        Suit suirFromList = getSuit(suit.getId());
-        suirFromList = suit;
+        Suit suitFromList = getSuit(suit.getId());
+        suitFromList.setDescription(suit.getDescription());
+        suitFromList.setName(suit.getName());
+        int i = list.indexOf(suitFromList);
+        list.set(i, suitFromList);
     }
 
     public void removeSuit(long id){
         Suit suitFromList = getSuit(id);
+
         list.remove(suitFromList);
     }
 
     public Suit addSuit(Suit suit) {
         suit.setId(++counter);
         list.add(suit);
+
         return suit;
     }
 }

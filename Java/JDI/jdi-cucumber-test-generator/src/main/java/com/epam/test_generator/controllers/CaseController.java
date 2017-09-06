@@ -15,13 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CaseController {
+
     @Autowired
     private CaseService casesService;
 
     @RequestMapping(value = "/suits/{suitId}/cases")
     public ModelAndView getCasesForSuit(@PathVariable String suitId){
         ModelAndView model = new ModelAndView("");
+
         model.addObject("cases", casesService.getCasesBySuitId(Long.parseLong(suitId)));
+
         return model;
     }
 
@@ -34,7 +37,9 @@ public class CaseController {
     @RequestMapping(value = "/suits/{suitId}/cases/{caseId}")
     public ModelAndView getCaseById(@PathVariable String caseId) {
         ModelAndView model = new ModelAndView();
+
         model.addObject("case", casesService.getCase(Long.parseLong(caseId)));
+
         return model;
     }
 
@@ -57,5 +62,4 @@ public class CaseController {
 
         return "" ;
     }
-
 }
