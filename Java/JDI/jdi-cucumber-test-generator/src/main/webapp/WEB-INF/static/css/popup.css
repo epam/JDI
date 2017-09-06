@@ -1,4 +1,9 @@
-#popup_add, #popup_delete, #popup_edit{
+#popup_add,
+#popup_delete,
+#popup_edit,
+#popup_add_case,
+#popup_edit_case,
+#popup_delete_case{
     display: none;
     z-index: 5;
 }

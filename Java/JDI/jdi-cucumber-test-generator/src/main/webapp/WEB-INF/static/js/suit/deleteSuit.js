@@ -1,21 +1,20 @@
 var deleteSuit = new Vue({
     el: '#deleteSuit',
     data() {
-        return {
-            id: -1,
-        }
+        return {}
     },
     methods: {
         deleteSuit: function() {
-            this.id = suit_id;
-
-            axios.get('/removeTestSuit/' + this.id).then(function(response) {
+            axios.get('/removeTestSuit/' + $("#suitId").text()).then(function(response) {
                 PopUpHide("#popup_delete");
-                suit_id = -1;
                 getSuits.getSuits();
+                $("#suitId").empty();
+                $("#nameSuit").empty();
+                $("#descriptionSuit").empty();
+                $("#countCases").text("0");
+
             }).catch(function(error) {
                 PopUpHide("#popup_delete");
-                suit_id = -1;
                 getSuits.getSuits();
             });
         }

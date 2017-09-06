@@ -1,6 +1,5 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.dao.MockDao;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.entities.Case;
@@ -14,16 +13,16 @@ import java.util.List;
 public class CaseService{
 
     @Autowired
-    MockDao mockDao;
-
-    @Autowired
     private CaseDAO caseDAO;
 
     @Autowired
     private SuitDAO suitDAO;
 
     @Transactional
-    public void addCase(Case cs) { caseDAO.save(cs); }
+    public Case addCaseToSuit(Case cs,long suitId) {
+        cs.setSuit(suitDAO.getOne(suitId));
+        return caseDAO.save(cs);
+    }
 
     @Transactional
     public List<Case> getCasesBySuitId(long suitId){ return suitDAO.findOne(suitId).getCases(); }
@@ -33,13 +32,11 @@ public class CaseService{
     }
 
     @Transactional
-    public void removeCase(Long id) {
-        caseDAO.delete(id);
-    }
+    public void removeCase(Long id) { caseDAO.delete(id); }
 
     @Transactional
-    public void updateCase(Case cs){
-        caseDAO.save(cs);
+    public Case updateCase(Case cs){
+        return caseDAO.save(cs);
     }
 
 }

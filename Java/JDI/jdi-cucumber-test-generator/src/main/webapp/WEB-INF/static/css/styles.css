@@ -73,7 +73,7 @@ body {
 
 }
 
-a.delete-suit-button {
+div.delete-suit-button {
     float: right;
     margin: 5px;
     background-color: #e54b36;
@@ -97,12 +97,12 @@ a.delete-suit-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.delete-case-button:hover {
+div.delete-case-button:hover {
     background-color: #d6402f;
 }
 
 
-a.delete-case-button {
+div.delete-case-button {
     float: right;
     margin: 2px;
     background-color: #e54b36;
@@ -126,11 +126,11 @@ a.delete-case-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.delete-suit-button:hover {
+div.delete-suit-button:hover {
     background-color: #d6402f;
 }
 
-a.save-suit-button {
+div.save-suit-button {
     background-color: #379b55;
     margin: 5px;
     border-color: #377b37;
@@ -153,16 +153,16 @@ a.save-suit-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.save-suit-button:hover {
+div.save-suit-button:hover {
     background-color: #308649;
 }
 
-a.edit-suit-button {
+div.edit-suit-button {
     float: right;
     margin: 5px;
     background-color: #287fb8;
     border-color: #287fb8;
-    min-width: 150px;
+    min-width: 100px;
     border-radius: 3px;
     color: white;
     cursor: pointer;
@@ -181,7 +181,7 @@ a.edit-suit-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.edit-suit-button:hover {
+div.edit-suit-button:hover {
     background-color: #2774aa;
 
 }
@@ -192,7 +192,7 @@ a.edit-suit-button:hover {
     padding-bottom: 20px;
 }
 
-a.delete-cases-button {
+div.delete-cases-button {
     float: right;
     margin: 5px;
     background-color: #e54b36;
@@ -216,17 +216,46 @@ a.delete-cases-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.delete-cases-button:hover {
+div.delete-cases-button:hover {
     background-color: #d6402f;
+    cursor: pointer;
 }
 
+
+div.save-case-button {
+    float: left;
+    background-color: #379b55;
+    margin: 5px;
+    border-color: #377b37;
+    min-width: 120px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+div.save-case-button:hover {
+    background-color: #308649;
+    cursor: pointer;
+}
 
 a.generate-feature-button {
     float: right;
     background-color: #379b55;
     margin: 5px;
     border-color: #377b37;
-    min-width: 180px;
+    min-width: 120px;
     border-radius: 3px;
     color: white;
     cursor: pointer;
@@ -279,7 +308,7 @@ a.edit-case-button:hover {
 
 }
 
-a.add-case-button {
+div.add-case-button {
     display: inline-block;
     background-color: #379b55;
     float: right;
@@ -303,8 +332,9 @@ a.add-case-button {
     /*font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
 }
 
-a.add-case-button:hover {
+div.add-case-button:hover {
     background-color: #308649;
+    cursor: pointer;
 }
 
 
@@ -649,8 +679,29 @@ button.save-suit-button:hover {
     width: 45%;
     min-width: 200px;
 }
-
-
+.wrapper_content{
+    padding: 0 1.618em;
+    background: #f7f7f7;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+}
+.small_td{
+    width: 15px;
+}
+.titlesTable{
+    width: 20%;
+}
+#countCases{
+    float: left;
+    overflow: hidden;
+    margin-right: 5px;
+}
+#code-textarea{
+    width: 100%;
+    min-height: 200px;
+}
 
 
 
@@ -683,9 +734,9 @@ body{
     width: 100%;
     border: 1px solid #dddddd;
     border-radius: 0.1875em;
-    margin-bottom: 1.5em;
     margin-left:0;
     padding-left:0;
+    min-height: 35px;
 }
 .accordion-tabs:before,
 .accordion-tabs:after {
@@ -698,29 +749,30 @@ body{
 .accordion-tabs>li{
     list-style:none;
 }
-.accordion-tabs>li.tab-head-cont:first-child>a {
+.accordion-tabs>li.tab-head-cont:first-child>div {
     border-top-left-radius: 0.1875em;
     border-top-right-radius: 0.1875em;
     border-top: 0;
 }
-.accordion-tabs>li.tab-head-cont:last-child>a {
+.accordion-tabs>li.tab-head-cont:last-child>div {
     border-bottom-left-radius: 0.1875em;
     border-bottom-right-radius: 0.1875em;
 }
-.accordion-tabs>li.tab-head-cont>a {
+.accordion-tabs>li.tab-head-cont>div {
     text-decoration:none;
     border-top: 1px solid #dddddd;
     color: #888888;
     display: block;
     padding: 0.75em 0.809em;
 }
-.accordion-tabs>li.tab-head-cont>a:hover {
+.accordion-tabs>li.tab-head-cont>div:hover {
     color: #ffffff;
+    cursor: pointer;
 }
-.accordion-tabs>li.tab-head-cont>a:focus {
+.accordion-tabs>li.tab-head-cont>div:focus {
     outline: none;
 }
-.accordion-tabs>li.tab-head-cont>a.is-active {
+.accordion-tabs>li.tab-head-cont>div.is-active {
     background-color: #f7f7f7;
     border-bottom: 0;
     color:#333333;
@@ -742,11 +794,11 @@ body{
     .accordion-tabs>li.tab-head-cont {
         display: inline;
     }
-    .accordion-tabs>li.tab-head-cont:last-child a {
+    .accordion-tabs>li.tab-head-cont:last-child div {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .accordion-tabs>li.tab-head-cont>a {
+    .accordion-tabs>li.tab-head-cont>div {
         display: inline-block;
         vertical-align: baseline;
         zoom: 1;
@@ -756,7 +808,7 @@ body{
         border-top-right-radius: 0.1875em;
         border-top-left-radius: 0.1875em;
     }
-    .accordion-tabs>li.tab-head-cont>a.is-active {
+    .accordion-tabs>li.tab-head-cont>div.is-active {
         background-color: #f7f7f7;
         border: 1px solid #dddddd;
         border-bottom: 1px solid #f7f7f7;

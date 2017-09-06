@@ -1,7 +1,5 @@
 package com.epam.test_generator.controllers;
 
-
-import com.epam.test_generator.dao.MockDao;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
 import java.util.List;
@@ -18,18 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SuitController {
 
-  private MockDao mockDao;
-	private SuitService suitService;
-
-	@Autowired
-	public void setMockDao(MockDao mockDao) {
-		this.mockDao = mockDao;
-	}
-
-	@Autowired
-	public void setSuitService(SuitService suitService) {
-		this.suitService = suitService;
-	}
+    @Autowired
+    SuitService suitService;
 
 	@RequestMapping(value = "/")
     public String getMainPage(){
@@ -45,6 +33,12 @@ public class SuitController {
     @ResponseBody
     public Suit getSuit(@PathVariable("id") long id){
         return suitService.getSuit(id);
+    }
+
+    @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public Suit getSuitByName(@PathVariable("name") String name){
+        return suitService.getSuitByName(name);
     }
 
     @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")

@@ -1,15 +1,14 @@
 var addSuit = new Vue({
     el: '#addSuit',
     data() {
-        return {
-            name: '',
-            description: ''
-        }
+        return{}
     },
     methods: {
         addSuit: function() {
-            axios.post('/addTestSuit', {name: this.name, description: this.description}).then(function(response) {
+            axios.post('/addTestSuit', {name: $("#addNameSuit").val(), description: $("#addDescriptionSuit").val()}).then(function(response) {
                 PopUpHide("#popup_add");
+                $("#addNameSuit").val("");
+                $("#addDescriptionSuit").val("");
                 getSuits.getSuits();
             }).catch(function(error) {
             });
