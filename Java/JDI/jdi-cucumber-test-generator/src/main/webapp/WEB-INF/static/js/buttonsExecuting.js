@@ -18,14 +18,6 @@ function saveCase() {
         return;
     }
 
-//            alert(description);
-//            alert(priority);
-//            alert(numOfSteps);
-//            alert(code);
-//                alert(suit_id);
-//            var suitId = $(".is-active")
-
-
     $.ajax({
         type: "POST",
         url: "/saveCase",
