@@ -88,9 +88,33 @@
 
                                         <td class="case-editor-container" style="border: 3px dashed #00a250;">
 
-                                            <div class="cucumber-test-editor-container">
-                                                <textarea class="codemirror-textarea"></textarea>
+                                            <table class="case-info-table">
+                                                <tr>
+                                                    <td><span>Case description</span></td>
+                                                    <td><input type="text" id="case-description-textfield"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Case priority</span></td>
+                                                    <td><input type="text" id="case-priority-textfield"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Number of steps</span></td>
+                                                    <td><input type="text" id="case-stepsnum-textfield"></td>
+                                                </tr>
+                                            </table>
+
+
+
+                                            <div class="cucumber-test-editor-container" style="border: 1px solid red;">
+                                                <textarea id="code-textarea"></textarea>
                                             </div>
+
+
+                                            <div class="case-buttons-container">
+                                                <a class="save-case-button" onclick="saveCase()">Save</a>
+                                                <a class="save-case-button" onclick="cancelCaseEditing()">Cancel</a>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 </table>
@@ -197,8 +221,8 @@
         <script type="text/javascript" src="/static/js/suit/editSuit.js"></script>
         <script type="text/javascript" src="/static/js/suit/deleteSuit.js"></script>
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="/static/js/popup.js"></script>
+        <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
 
         <script type="text/javascript" src="/static/plugin/codemirror/lib/codemirror.js"></script>
         <script src="/static/plugin/codemirror/mode/gherkin/gherkin.js"></script>
