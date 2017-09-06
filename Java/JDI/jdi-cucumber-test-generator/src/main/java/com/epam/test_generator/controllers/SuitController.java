@@ -35,6 +35,12 @@ public class SuitController {
         return suitService.getSuit(id);
     }
 
+    @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public Suit getSuitByName(@PathVariable("name") String name){
+        return suitService.getSuitByName(name);
+    }
+
     @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
         suitService.editSuit(suit);

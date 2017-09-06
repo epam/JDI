@@ -32,4 +32,8 @@ public class SuitService {
     public Suit addSuit(Suit suit) {
         return suitDAO.save(suit);
     }
+
+    public Suit getSuitByName(String name) {
+        return suitDAO.getSuitByName(name);
+    }
 }

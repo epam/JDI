@@ -1,8 +1,8 @@
  var suit_id = -1;
 
 $(document).ready(function () {
-    $('.accordion-tabs').children('li').first().children('a').addClass('is-active').next().addClass('is-open').show();
-    $('.accordion-tabs').on('click', 'li > a', function(event) {
+    $('.accordion-tabs').children('li').first().children('div').addClass('is-active').next().addClass('is-open').show();
+    $('.accordion-tabs').on('click', 'li > div', function(event) {
         if (!$(this).hasClass('is-active')) {
             event.preventDefault();
             $('.accordion-tabs .is-open').removeClass('is-open').hide();
@@ -13,20 +13,28 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
-
-    var code = $(".codemirror-textarea")[0];
-    var editor = CodeMirror.fromTextArea(code, {
-        lineNumbers: true,
-        value: "function myScript(){return 100;}\n",
-        mode:  "gherkin",
-        extraKeys: {"Ctrl-Space": "autocomplete"}
-    })
-
-    $( ".tab_name" ).click(function() {
-        console.log(suit_id);
-        suit_id = $(".is-active").parent().children("section").children("#suitId").text();
-    });
-
-
-
 });
+
+function getSuitInfo(suit_name){
+    $.get("/getSuitByName/" + suit_name, function(response){
+        $("#suitId").text(response.id);
+        $("#nameSuit").text(response.name);
+        $("#descriptionSuit").text(response.description);
+        $("#countCases").text(response.cases.length);
+        console.log(response);
+        for(var i = 0; i < response.cases.length; i++){
+            $("#tableCases").append($('<tr>')
+                                .append($("<td>")
+                                    .addClass("small_td")
+                                    .append($('<input>')
+                                        .attr('type', 'checkbox')
+                                    )
+                                )
+                                .append($("<td>")
+                                    .text("Case fljsdnfls")
+                                )
+                            );
+        }
+
+    });
+}
