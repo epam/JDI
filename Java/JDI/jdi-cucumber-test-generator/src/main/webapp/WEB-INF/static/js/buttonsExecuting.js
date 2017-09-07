@@ -7,32 +7,39 @@ function cancelCaseEditing() {
 
 function saveCase() {
     var description = $("#case-description-textfield").val();
-    var priority = $("#case-priority-textfield").val();
+    // var priority = $("#case-priority-textfield").val();
     var code = $("#code-textarea").val();
     var suit_id = $("#suitId").text();
     var case_id = $("#caseId").text();
 
     alert(description);
-    alert(priority);
+    //alert(priority);
     alert(code);
     alert(case_id);
 
-    if (description === null || description === "" ||
-        priority === null || priority === "") {
+    // if (description === null || description === "" ||
+    //     priority === null || priority === "") {
+    //     alert("Fill in all required entry field!");
+    //     return;
+    // }
+
+    if (description === null || description === "") {
         alert("Fill in all required entry field!");
         return;
     }
 
+
+    var formData = {
+        "id": case_id,
+        "description": description,
+        "steps": code
+    };
+
     $.ajax({
         type: "POST",
         url: "/updateCase",
-        data: {
-            suitID: suit_id,
-            caseID: case_id,
-            description: description,
-            priority: priority,
-            code: code
-        }, // parameters
+        contentType : 'application/json',
+        data: JSON.stringify(formData),
         success : function(response) {
             alert("Success");
         },
