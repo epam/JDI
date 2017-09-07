@@ -86,13 +86,27 @@
                             <td class="case-editor-container">
                                 <div id="caseId" style="visibility: hidden;"></div>
 
-                                <div class="cucumber-test-editor-container">
+                                <table class="case-info-table">
+                                    <tr>
+                                        <td><span>Case description</span></td>
+                                        <td><input type="text" id="case-description-textfield"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Case priority</span></td>
+                                        <td><input type="text" id="case-priority-textfield"></td>
+                                    </tr>
+                                </table>
+
+
+
+                                <div class="cucumber-test-editor-container" style="border: 1px solid red;">
                                     <textarea id="code-textarea"></textarea>
                                 </div>
 
+
                                 <div class="case-buttons-container">
-                                    <div class="save-case-button" onclick="saveCase()">Save</div>
-                                    <div class="save-case-button" onclick="cancelCaseEditing()">Cancel</div>
+                                    <a class="save-case-button" onclick="saveCase()">Save</a>
+                                    <a class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</a>
                                 </div>
                             </td>
                         </tr>

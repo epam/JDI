@@ -19,7 +19,7 @@ public class Case implements Serializable{
     private String steps;
 
     @JsonBackReference
-    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "suit_id")
     private Suit suit;
 
