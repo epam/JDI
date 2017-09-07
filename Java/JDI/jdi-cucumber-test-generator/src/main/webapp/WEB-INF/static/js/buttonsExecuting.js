@@ -12,10 +12,10 @@ function saveCase() {
     var suit_id = $("#suitId").text();
     var case_id = $("#caseId").text();
 
-    alert(description);
-    //alert(priority);
-    alert(code);
-    alert(case_id);
+    // alert(description);
+    // alert(priority);
+    // alert(code);
+    // alert(case_id);
 
     // if (description === null || description === "" ||
     //     priority === null || priority === "") {
