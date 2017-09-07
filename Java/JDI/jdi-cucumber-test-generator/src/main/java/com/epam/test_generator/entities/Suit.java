@@ -1,5 +1,8 @@
 package com.epam.test_generator.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +19,7 @@ public class Suit implements Serializable {
 
     private String description;
 
+    @JsonManagedReference
     @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "suit")
     private List<Case> cases;
 

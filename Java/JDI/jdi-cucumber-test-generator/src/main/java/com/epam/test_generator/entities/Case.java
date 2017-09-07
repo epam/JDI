@@ -1,6 +1,9 @@
 package com.epam.test_generator.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +19,7 @@ public class Case implements Serializable{
     //Описание сценария
     private String steps;
 
+    @JsonBackReference
     @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
     private Suit suit;
 
