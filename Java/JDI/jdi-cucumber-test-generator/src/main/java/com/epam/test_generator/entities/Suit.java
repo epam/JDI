@@ -19,7 +19,7 @@ public class Suit implements Serializable {
     private String description;
 
     @JsonManagedReference
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "suit")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
     private List<Case> cases;
 
     public Suit() {

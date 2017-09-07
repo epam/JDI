@@ -1,13 +1,14 @@
 function cancelCaseEditing() {
-    $("#case-description-textfield").val('');
-    $("#case-priority-textfield").val('');
-    $("#case-stepsnum-textfield").val('');
-    $("#code-textarea").val('');
+    $.get("/getCase/" + $("#caseId").text(), function(response){
+        $("#code-textarea").val(response.steps);
+        $("#case-description-textfield").val(response.description);
+        $("#case-priority-textfield").val(response.priority);
+    });
 }
 
 function saveCase() {
     var description = $("#case-description-textfield").val();
-    // var priority = $("#case-priority-textfield").val();
+//    var priority = $("#case-priority-textfield").val();
     var code = $("#code-textarea").val();
     var suit_id = $("#suitId").text();
     var case_id = $("#caseId").text();
@@ -17,16 +18,10 @@ function saveCase() {
     // alert(code);
     // alert(case_id);
 
-    // if (description === null || description === "" ||
-    //     priority === null || priority === "") {
-    //     alert("Fill in all required entry field!");
-    //     return;
-    // }
-
     if (description === null || description === "") {
-        alert("Fill in all required entry field!");
-        return;
-    }
+            alert("Fill in all required entry field!");
+            return;
+        }
 
 
     var formData = {
@@ -50,9 +45,6 @@ function saveCase() {
 }
 
 function removeCases() {
-
-
-
     var description = $("#case-description-textfield").val();
     var priority = $("#case-priority-textfield").val();
     var code = $("#code-textarea").val();
