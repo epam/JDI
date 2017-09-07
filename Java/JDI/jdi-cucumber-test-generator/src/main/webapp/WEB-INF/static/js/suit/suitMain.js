@@ -18,9 +18,13 @@ $(document).ready(function () {
         $("#tableCases").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
         $("#caseId").text($(this).children("td.small_td").children(".particular_caseId").val());
-        $("#code-textarea").empty();
+        $("#code-textarea").val("");
+        $("#case-description-textfield").val("");
+        $("#case-priority-textfield").val("");
         $.get("/getCase/" + $("#caseId").text(), function(response){
-            $("#code-textarea").text(response.steps);
+            $("#code-textarea").val(response.steps);
+            $("#case-description-textfield").val(response.description);
+            $("#case-priority-textfield").val(response.priority);
         });
     });
 });

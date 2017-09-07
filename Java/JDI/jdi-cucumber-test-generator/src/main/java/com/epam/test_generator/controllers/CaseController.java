@@ -44,4 +44,5 @@ public class CaseController {
 
         return new ResponseEntity<Case>(casesService.getCase(caseId), HttpStatus.OK);
     }
+
 }
