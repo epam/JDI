@@ -7,6 +7,8 @@ var deleteCase = new Vue({
         deleteCase: function() {
             axios.get('/removeCase/' + $("#caseId").text()).then(function(response) {
                 PopUpHide("#popup_delete_case");
+                $("#code-textarea").empty();
+                getSuitInfo($(".is-active").text());
             }).catch(function(error) {
                 PopUpHide("#popup_delete_case");
             });

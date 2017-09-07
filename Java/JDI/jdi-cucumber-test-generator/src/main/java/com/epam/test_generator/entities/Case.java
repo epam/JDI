@@ -2,7 +2,6 @@ package com.epam.test_generator.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +20,7 @@ public class Case implements Serializable{
 
     @JsonBackReference
     @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
+    @JoinColumn(name = "suit_id")
     private Suit suit;
 
     public Case(){

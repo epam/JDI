@@ -360,7 +360,7 @@ div.add-case-button:hover {
 .suit-info-container {
     /*display: inline;*/
     width: 40%;
-    border: 1px solid #ff3d46;
+    /*border: 1px solid #ff3d46;*/
     /*float: left;*/
     margin: 0;
     padding: 5px;
@@ -417,6 +417,9 @@ div.add-case-button:hover {
     margin: 5px 0;
     /*border: 1px solid red;*/
     width: 100%;
+}
+#tableCases tr.is_active{
+    background-color: rgba(0, 171, 255, 0.2);
 }
 
 
@@ -776,6 +779,7 @@ body{
     background-color: #f7f7f7;
     border-bottom: 0;
     color:#333333;
+    border-radius: 10px 10px 0 0;
 }
 .accordion-tabs>li.tab-head-cont>section {
     padding: 1.5em 1.618em;

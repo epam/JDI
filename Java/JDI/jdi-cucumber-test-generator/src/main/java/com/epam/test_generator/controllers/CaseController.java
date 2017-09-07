@@ -41,4 +41,11 @@ public class CaseController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
+    public ResponseEntity<Case> getCase(@PathVariable long caseId){
+
+        return new ResponseEntity<Case>(casesService.getCase(caseId), HttpStatus.OK);
+    }
+
 }

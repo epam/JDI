@@ -13,6 +13,16 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
+
+    $("#tableCases").on("click", "tr", function(){
+        $("#tableCases").children("tr").removeClass("is_active");
+        $(this).addClass("is_active");
+        $("#caseId").text($(this).children("td.small_td").children(".particular_caseId").val());
+
+        $.get("/getCase/" + $("#caseId").text(), function(response){
+            $("#code-textarea").text(response.steps);
+        });
+    });
 });
 
 function getSuitInfo(suit_name){
@@ -21,20 +31,24 @@ function getSuitInfo(suit_name){
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text(response.description);
         $("#countCases").text(response.cases.length);
-        console.log(response);
+        $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
             $("#tableCases").append($('<tr>')
-                                .append($("<td>")
-                                    .addClass("small_td")
+                                .append($('<td>')
+                                    .addClass('small_td')
                                     .append($('<input>')
                                         .attr('type', 'checkbox')
                                     )
+                                    .append($('<input>')
+                                        .addClass('particular_caseId')
+                                        .attr('type', 'hidden')
+                                        .val(response.cases[i].id)
+                                    )
                                 )
-                                .append($("<td>")
-                                    .text("Case fljsdnfls")
+                                .append($('<td>')
+                                    .text(response.cases[i].description)
                                 )
                             );
         }
-
     });
 }
