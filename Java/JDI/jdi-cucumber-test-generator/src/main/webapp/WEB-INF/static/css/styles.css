@@ -222,8 +222,8 @@ div.delete-cases-button:hover {
 }
 
 
-div.save-case-button {
-    float: left;
+.save-case-button {
+    float: right;
     background-color: #379b55;
     margin: 5px;
     border-color: #377b37;
@@ -245,8 +245,37 @@ div.save-case-button {
     font-feature-settings: 'kern', 'liga', 'pnum';
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
-div.save-case-button:hover {
+.save-case-button:hover {
     background-color: #308649;
+    cursor: pointer;
+}
+
+.cancel-case-button {
+    float: right;
+    background-color: #e54b36;
+    border-color: #e54b36;
+    margin: 5px;
+    border-color: #377b37;
+    min-width: 120px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+.cancel-case-button:hover {
+    background-color: #d6402f;
     cursor: pointer;
 }
 
@@ -313,16 +342,17 @@ div.add-case-button {
     background-color: #379b55;
     float: right;
     margin: 5px;
+    height: 38px;
     border-color: #377b37;
     min-width: 50px;
     border-radius: 3px;
     color: white;
     cursor: pointer;
-    /*font-size: 10px;*/
-    /*font-weight: bold;*/
+    font-size: 10px;
+    font-weight: bold;
     line-height: 1.5;
     max-width: 240px;
-    padding: 8px 12px;
+    padding: 10px 12px;
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s ease, border-color 0.3s ease;
