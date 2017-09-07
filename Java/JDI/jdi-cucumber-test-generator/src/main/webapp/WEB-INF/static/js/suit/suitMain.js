@@ -35,6 +35,36 @@ function getSuitInfo(suit_name){
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text(response.description);
         $("#countCases").text(response.cases.length);
+        $("#code-textarea").val("");
+        $("#case-description-textfield").val("");
+        $("#tableCases").empty();
+        for(var i = 0; i < response.cases.length; i++){
+            $("#tableCases").append($('<tr>')
+                                .append($('<td>')
+                                    .addClass('small_td')
+                                    .append($('<input>')
+                                        .attr('type', 'checkbox')
+                                    )
+                                    .append($('<input>')
+                                        .addClass('particular_caseId')
+                                        .attr('type', 'hidden')
+                                        .val(response.cases[i].id)
+                                    )
+                                )
+                                .append($('<td>')
+                                    .text(response.cases[i].description)
+                                )
+                            );
+        }
+    });
+}
+
+function getSuitInfoWithOutCleanCases(suit_name){
+    $.get("/getSuitByName/" + suit_name, function(response){
+        $("#suitId").text(response.id);
+        $("#nameSuit").text(response.name);
+        $("#descriptionSuit").text(response.description);
+        $("#countCases").text(response.cases.length);
         $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
             $("#tableCases").append($('<tr>')

@@ -36,7 +36,7 @@ function saveCase() {
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
-            alert("Success");
+            getSuitInfoWithOutCleanCases($(".is-active").text());
         },
         error: function( xhr, textStatus ) {
             alert( [ xhr.status, textStatus ] );
@@ -67,7 +67,7 @@ function removeCases() {
             code: code
         }, // parameters
         success : function(response) {
-            alert("Success");
+            getSuitInfo($(".is-active").text());
         },
         error: function( xhr, textStatus ) {
             alert( [ xhr.status, textStatus ] );

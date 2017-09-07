@@ -11,18 +11,6 @@ var editCase = new Vue({
             }).catch(function(error) {
             });
         },
-        saveCase: function(){
-            axios.post('/updateCase/' + $("#suitId").text(), {id: $("#caseId").text(), description: $("#editDescriptionCase").val(), steps: $("#code-textarea").val()}).then(function(response) {
-                getSuits.getSuits();
-            }).catch(function(error) {
-            });
-        },
-        cancelCase: function(){
-            axios.post('/', {id: $("#caseId").text(), description: $("#editDescriptionCase").val(), steps: $("#code-textarea").val()}).then(function(response) {
-                getSuits.getSuits();
-            }).catch(function(error) {
-            });
-        }
     },
     watch: {
         message: function() {
@@ -30,7 +18,3 @@ var editCase = new Vue({
         }
     }
 });
-
-function saveCase(){
-    editCase.saveCase();
-}
