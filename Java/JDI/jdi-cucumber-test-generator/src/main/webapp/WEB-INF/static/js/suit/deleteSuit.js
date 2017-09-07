@@ -13,6 +13,8 @@ var deleteSuit = new Vue({
                 $("#descriptionSuit").empty();
                 $("#countCases").text("0");
                 $("#tableCases").empty();
+                $("#code-textarea").val("");
+                $("#case-description-textfield").val("");
             }).catch(function(error) {
                 PopUpHide("#popup_delete");
                 getSuits.getSuits();
