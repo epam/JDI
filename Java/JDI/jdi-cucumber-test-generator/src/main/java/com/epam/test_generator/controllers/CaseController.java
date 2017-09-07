@@ -51,7 +51,8 @@ public class CaseController {
     String Submit(@RequestParam("suitID") String suitId,
                   @RequestParam("caseID") String caseId,
                   @RequestParam("description") String caseDescription,
-                  @RequestParam("priority") String casePriority, @RequestParam("code") String caseScenarioCode) {
+//                  @RequestParam("priority") String casePriority,
+                  @RequestParam("code") String caseScenarioCode) {
 
         System.out.println("We're inside controller");
         casesService.updateCase(new Case(Long.parseLong(caseId), caseDescription,caseScenarioCode, suitService.getSuit(Long.parseLong(suitId))));
