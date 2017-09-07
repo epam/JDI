@@ -18,7 +18,7 @@ $(document).ready(function () {
         $("#tableCases").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
         $("#caseId").text($(this).children("td.small_td").children(".particular_caseId").val());
-
+        $("#code-textarea").empty();
         $.get("/getCase/" + $("#caseId").text(), function(response){
             $("#code-textarea").text(response.steps);
         });
