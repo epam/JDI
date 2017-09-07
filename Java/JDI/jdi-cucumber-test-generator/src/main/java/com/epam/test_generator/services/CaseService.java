@@ -36,6 +36,7 @@ public class CaseService{
 
     @Transactional
     public Case updateCase(Case cs){
+        cs.setSuit(caseDAO.getOne(cs.getId()).getSuit());
         return caseDAO.save(cs);
     }
 
