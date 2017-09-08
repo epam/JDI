@@ -11,7 +11,6 @@ import org.mytests.uiobjects.wwwepam.EpamSite;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import ru.yandex.qatools.allure.annotations.Attachment;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +28,6 @@ public class Steps {
         logger.info("Run EPAM site tests");
     }
 
-    @Step("Opening Home page.")
     @Given("^I am on ([^\\\"]*) page$")
     public void preconditionExecute(String pageName) throws Exception {
         if (pageName.equals("Home")) {
@@ -40,25 +38,21 @@ public class Steps {
         Assert.assertTrue(homePage.verifyOpened());
     }
 
-    @Step("Select tab process.")
     @When("^I select ([^\\\"]*) tab$")
     public void selectExecute(String tab) throws Exception {
 
-        if(tab.equals("CAREERS")){
+        if (tab.equals("CAREERS")) {
             headerMenu.select(CAREERS);
         } else {
             throw new Exception("Trying to select tab for unspecified page.");
         }
     }
 
-
-    @Step("Input process.")
     @When("^I input ([^\\\"]*)$")
     public void inputText(String text) throws Throwable {
         careerPage.keywords.newInput(text);
     }
 
-    @Step("Checking selected item in simple dropdown.")
     @Then("^([^\\\"]*) page is opened$")
     public void checkOpenedPage(String pageName) throws Throwable {
         if (pageName.equals("Career")) {
@@ -69,7 +63,6 @@ public class Steps {
         }
     }
 
-    @Step("Checking typed text.")
     @Then("^([^\\\"]*) is typed$")
     public void checkForInput(String input) throws Throwable {
         Assert.areEquals(careerPage.keywords.getText(), input);
@@ -83,7 +76,7 @@ public class Steps {
 
     @Attachment(type = "image/png")
     public byte[] screenshot() throws IOException {
-        File scrFile = ((TakesScreenshot)WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
         return Files.toByteArray(scrFile);
     }
 

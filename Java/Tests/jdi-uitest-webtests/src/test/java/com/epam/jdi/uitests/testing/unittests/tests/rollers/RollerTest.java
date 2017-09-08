@@ -34,7 +34,7 @@ public class RollerTest extends InitTests {
     }
 
 
-    @Test(dataProvider = "leftRollerDP", dataProviderClass = RollerDP.class)
+    //@Test(dataProvider = "leftRollerDP", dataProviderClass = RollerDP.class)
     public void leftRollerChangeTest(int rollerPosition) {
         ContactForm contactForm = (ContactForm) form.get();
         contactForm.setLeftRollerPosition(rollerPosition);
@@ -42,7 +42,7 @@ public class RollerTest extends InitTests {
     }
 
 
-    @Test(dataProvider = "rightRollerDP", dataProviderClass = RollerDP.class)
+    //@Test(dataProvider = "rightRollerDP", dataProviderClass = RollerDP.class)
     public void rightRollerChangeTest(int rollerPosition) {
         ContactForm contactForm = (ContactForm) form.get();
         contactForm.setRightRollerPosition(rollerPosition);

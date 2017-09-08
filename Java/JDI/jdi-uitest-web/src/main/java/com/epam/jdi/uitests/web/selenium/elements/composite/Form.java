@@ -214,6 +214,10 @@ public class Form<T> extends Element implements IForm<T> {
                 ((IHasValue) getValueField(field, this)).getValue()));
     }
 
+    @Override
+    public void setValue(String value) {
+        invoker.doJAction("Get value", () -> setValueAction(value, this), this.toString());
+    }
     /**
      * @return Get value of Element
      */
