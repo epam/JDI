@@ -10,7 +10,7 @@ public class Step implements Serializable {
     @GeneratedValue
     private Long id;
 
-    //no need to pass this field to StepDTO
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Case parentCase;
 
     private int rowNumber;
@@ -18,7 +18,6 @@ public class Step implements Serializable {
     private String description;
 
     private StepType type;
-
 
     public Step() {
     }
@@ -74,4 +73,6 @@ public class Step implements Serializable {
     public String getKeyword(){
         return type.getStepType();
     }
+
+
 }

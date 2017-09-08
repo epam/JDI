@@ -1,22 +1,22 @@
-package com.epam.test_generator.entities;
+package com.epam.test_generator.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.epam.test_generator.entities.Case;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+public class SuitDTO {
 
-@Entity
-public class Suit implements Serializable {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
     private String description;
+
+     @JsonManagedReference
+     private List<Case> cases;
 
     private Integer priority;
 
@@ -24,33 +24,6 @@ public class Suit implements Serializable {
 
     private String tags;
 
-    //    @JsonManagedReference
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
-    private List<Case> cases;
-
-    public Suit() {
-    }
-
-    public Suit(Long id, String name, String description, List<Case> cases, Integer priority, Date creationDate, String tags) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.cases = cases;
-        this.priority = priority;
-        this.creationDate = creationDate;
-        this.tags = tags;
-    }
-
-    public Suit(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Suit(long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
 
     public String getDescription() {
         return description;
@@ -114,12 +87,8 @@ public class Suit implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", priority=" + priority +
-                ", creationDate=" + creationDate +
-                ", tags='" + tags + '\'' +
                 ", cases=" + cases +
                 '}';
     }
-
-
 }
+

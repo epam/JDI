@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Case implements Serializable{
@@ -15,17 +17,23 @@ public class Case implements Serializable{
 
     private String description;
 
-    //Описание сценария
-    private String steps;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "parentCase")
+    private List<Step> steps;
 
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
     private Suit suit;
+
+    private int priority;
+
+    private Date creationDate;
+
+    private String tags;
 
     public Case(){
     }
 
-    public Case(Long id, String description, String steps, Suit suit) {
+    public Case(Long id, String description, List<Step> steps, Suit suit) {
         this.id = id;
         this.description = description;
         this.steps = steps;
@@ -52,36 +60,36 @@ public class Case implements Serializable{
         this.description = description;
     }
 
-    public String getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(String steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
-    @Override
-    public int hashCode() {
-        return description.hashCode() + 31 * steps.hashCode();
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-        if (!(o instanceof Case)) {
-            return false;
-        } else {
-            String f = ((Case)o).getDescription();
-            String s = ((Case)o).getSteps();
+    public int getPriority() {
+        return priority;
+    }
 
-            if ( f.equals(description) && s.equals(steps)) {
-                return true;
-            }
-        }
-        return false;
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     @Override

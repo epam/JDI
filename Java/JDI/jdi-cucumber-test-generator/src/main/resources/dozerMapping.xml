@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://dozer.sourceforge.net
+        http://dozer.soundforge.net/schema/beanmapping.xsd">
+    <mapping>
+        <class-a>com.epam.test_generator.entities.Step</class-a>
+        <class-b>com.epam.test_generator.dto.StepDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.epam.test_generator.entities.Case</class-a>
+        <class-b>com.epam.test_generator.dto.CaseDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>com.epam.test_generator.entities.Suit</class-a>
+        <class-b>com.epam.test_generator.dto.SuitDTO</class-b>
+    </mapping>
+</mappings>
