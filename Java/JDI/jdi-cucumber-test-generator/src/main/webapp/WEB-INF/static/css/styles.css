@@ -451,9 +451,11 @@ div.add-case-button:hover {
 #tableCases tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
 }
-
-
-
+#case-save-exception{
+    padding: 10px;
+    text-align: center;
+    color: red;
+}
 
 
 
@@ -731,9 +733,15 @@ button.save-suit-button:hover {
     overflow: hidden;
     margin-right: 5px;
 }
-#code-textarea{
-    width: 100%;
-    min-height: 200px;
+.mandatory_field{
+    color: red;
+    font-size: 18px;
+}
+.case-info-table span{
+    color: #379b55;
+}
+.case-info-table span.mandatory_field{
+    color: red;
 }
 
 
@@ -810,6 +818,11 @@ body{
     border-bottom: 0;
     color:#333333;
     border-radius: 10px 10px 0 0;
+}
+.accordion-tabs>li.tab-head-cont>div.suitId{
+    padding: 0;
+    width: 0px;
+    visibility: hidden;
 }
 .accordion-tabs>li.tab-head-cont>section {
     padding: 1.5em 1.618em;

@@ -5,11 +5,20 @@ var addCase = new Vue({
     },
     methods: {
         addCase: function() {
-            axios.post('/addCase/' + $("#suitId").text(), {description: $("#addDescriptionCase").val()}).then(function(response) {
+            var descriptionCase = $("#addDescriptionCase").val();
+            var priorityCase = $("#addPriorityCase").val();
+            var tagsCase = $("#addTagsCase").val();
+
+            if(descriptionCase == "" || priorityCase == ""){
+                $("#popup_add_case .popup_exception").text("Not filled mandatory fields!");
+                return;
+            }
+
+            axios.post('/addCase/' + suit_id, {description: descriptionCase, priority: priorityCase, tags: tagsCase}).then(function(response) {
                 PopUpHide("#popup_add_case");
-                getSuitInfo($(".is-active").text());
-                $("#addDescriptionCase").val("");
+                getSuitInfo(suit_id);
             }).catch(function(error) {
+                $("#popup_add_case .popup_exception").text("Try again later!");
             });
         }
     },

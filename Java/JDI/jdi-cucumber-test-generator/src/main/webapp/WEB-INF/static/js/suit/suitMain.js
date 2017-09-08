@@ -1,4 +1,5 @@
- var suit_id = -1;
+var suit_id = -1;
+var case_id = -1;
 
 $(document).ready(function () {
     $('.accordion-tabs').children('li').first().children('div').addClass('is-active').next().addClass('is-open').show();
@@ -17,11 +18,11 @@ $(document).ready(function () {
     $("#tableCases").on("click", "tr", function(){
         $("#tableCases").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
-        $("#caseId").text($(this).children("td.small_td").children(".particular_caseId").val());
+        case_id = $(this).children("td.small_td").children(".particular_caseId").val();
         $("#code-textarea").val("");
         $("#case-description-textfield").val("");
         $("#case-priority-textfield").val("");
-        $.get("/getCase/" + $("#caseId").text(), function(response){
+        $.get("/getCase/" + case_id, function(response){
             $("#code-textarea").val(response.steps);
             $("#case-description-textfield").val(response.description);
             $("#case-priority-textfield").val(response.priority);
@@ -29,9 +30,9 @@ $(document).ready(function () {
     });
 });
 
-function getSuitInfo(suit_name){
-    $.get("/getSuitByName/" + suit_name, function(response){
-        $("#suitId").text(response.id);
+function getSuitInfo(suitId){
+    $.get("/getSuit/" + suitId, function(response){
+        suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text(response.description);
         $("#countCases").text(response.cases.length);
@@ -59,9 +60,9 @@ function getSuitInfo(suit_name){
     });
 }
 
-function getSuitInfoWithOutCleanCases(suit_name){
-    $.get("/getSuitByName/" + suit_name, function(response){
-        $("#suitId").text(response.id);
+function getSuitInfoWithOutCleanCases(suitId){
+    $.get("/getSuit/" + suitId, function(response){
+        suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text(response.description);
         $("#countCases").text(response.cases.length);
