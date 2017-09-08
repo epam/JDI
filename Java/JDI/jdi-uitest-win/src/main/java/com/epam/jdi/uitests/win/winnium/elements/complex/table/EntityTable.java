@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
@@ -11,9 +12,12 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.convertStringToType;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
@@ -31,11 +35,20 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
         this(entityClass);
         this.rowClass = rowClass;
     }
-
-    @Override
-    public List<R> getRows(String... colNames) {
-        return Arrays.asList(colNames).stream().map(colName -> castToRow(new MapArray<>(size(),
-                i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
+    public List<R> getRows() {
+        return select(rows().get(), row -> castToRow(row.value));
+    }
+    public List<R> getRows(JFuncTREx<R, Boolean> colNames) {
+        List<R> rows = where(getRows(), colNames);
+        if (rows.size() == 0)
+            logger.info("Can't find any rows that meat criterias");
+        return rows;
+    }
+    public R firstRow(JFuncTREx<R, Boolean> colNames) {
+        List<R> rows = getRows(colNames);
+        return rows.size() > 0
+                ? rows.get(0)
+                : null;
     }
 
     private R castToRow(MapArray<String, ICell> row) {

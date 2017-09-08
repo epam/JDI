@@ -1,5 +1,8 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
+import com.epam.commons.linqinterfaces.JFuncTTR;
+import com.epam.commons.linqinterfaces.JFuncTTREx;
+import com.epam.commons.linqinterfaces.JFuncTTTR;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
@@ -48,7 +51,7 @@ public class Rows extends TableLine implements IRow {
     }
 
     private MapArray<String, MapArray<String, ICell>> withValueByRule(Column column,
-                                                                      BiFunction<String, String, Boolean> func) {
+                                                                      JFuncTTREx<String, String, Boolean> func) {
         Collection<String> rowNames = column.hasName()
                 ? table.columns().getColumnAsText(column.getName()).where(func).keys()
                 : table.columns().getColumnAsText(column.getNum()).where(func).keys();

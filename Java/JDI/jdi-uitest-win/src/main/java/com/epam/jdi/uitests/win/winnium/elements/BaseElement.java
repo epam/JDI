@@ -1,9 +1,11 @@
 package com.epam.jdi.uitests.win.winnium.elements;
 
+import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.actions.ActionInvoker;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
@@ -11,7 +13,15 @@ import org.openqa.selenium.By;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
+import static com.epam.commons.LinqUtils.foreach;
+import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.commons.ReflectionUtils.getValueField;
+import static com.epam.commons.ReflectionUtils.newEntity;
+import static com.epam.commons.StringUtils.namesEqual;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
 
 public abstract class BaseElement implements IBaseElement {
@@ -85,6 +95,27 @@ public abstract class BaseElement implements IBaseElement {
                         ? "{1} ''{0}'' ({2}.{3}; {4})"
                         : "Name: ''{0}'', Type: ''{1}'' In: ''{2}'', {4}",
                 getName(), getTypeName(), getParentName(), getVarName(), avatar);
+    }
+    public static BiConsumer<String, Consumer<String>> doActionRule = (text, action) -> {
+        if (text == null) return;
+        action.accept(text);
+    };
+    public <T> T asEntity(Class<T> entityClass) {
+        try {
+            T data = newEntity(entityClass);
+            foreach(getFields(this, IHasValue.class), item -> {
+                Field field = LinqUtils.first(getFields(data, String.class), f ->
+                        namesEqual(f.getName(), item.getName()));
+                if (field == null)
+                    return;
+                try {
+                    field.set(data, ((IHasValue) getValueField(item, this)).getValue());
+                } catch (Exception ignore) { }
+            });
+            return data;
+        } catch (Exception ex) {
+            throw exception("Can't get entity from Form" + getName() + " for class: " + entityClass.getClass());
+        }
     }
 
     private String getParentName() {

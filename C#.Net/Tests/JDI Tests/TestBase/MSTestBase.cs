@@ -1,5 +1,7 @@
-﻿using JDI_Commons;
+﻿using Epam.JDI.Core.Settings;
+using JDI_Commons;
 using JDI_Tests.Epam_UIObjects;
+using JDI_Web.Settings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Tests.Epam_UIObjects.EpamSite;

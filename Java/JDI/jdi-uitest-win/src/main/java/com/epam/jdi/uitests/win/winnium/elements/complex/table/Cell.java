@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
@@ -44,7 +45,7 @@ public class Cell extends Element implements ICell {
     }
 
     @Override
-    public <T extends IClickable & IText> T get(Class<T> clazz) {
+    public <T extends IBaseElement> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -58,7 +59,7 @@ public class Cell extends Element implements ICell {
     }
 
     @Override
-    public <T extends IClickable & IText> T get(T element) {
+    public <T extends IBaseElement> T get(T element) {
         element.setParent(this);
 
         new WinCascadeInit().initElements(element, JDISettings.driverFactory.currentDriverName());

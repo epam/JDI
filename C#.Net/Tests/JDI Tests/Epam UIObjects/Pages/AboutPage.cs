@@ -31,7 +31,7 @@ namespace JDI_Tests.Epam_UIObjects.Pages
         public Link HeaderMenuCrumbs2;
 
         [FindBy(Css = ".job-search-input")]
-        public  TextField JobSearchInput;
+        public TextField JobSearchInput;
 
         [FindBy(XPath = "//li[@class='autocomplete-suggestion' and @data-index='0']")]
         public WebElement AutocompleteSuggestList;

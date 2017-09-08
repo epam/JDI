@@ -5,13 +5,12 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.39</version>
+        <version>1.0.70</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-uitest-win</artifactId>
-    <version>1.0.39</version>
     <name>EPAM JDI UI Testing Desktop</name>
     <packaging>jar</packaging>
 
@@ -33,7 +32,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>6.8.1</testng.version>
         <log4j.version>1.2.17</log4j.version>
-        <jdi.version>1.0.39</jdi.version>
         <winium.version>0.1.0-1</winium.version>
     </properties>
 
@@ -41,12 +39,12 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-core</artifactId>
-            <version>${jdi.version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-matchers</artifactId>
-            <version>${jdi.version}</version>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
