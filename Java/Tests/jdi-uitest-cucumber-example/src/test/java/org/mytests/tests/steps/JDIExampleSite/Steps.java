@@ -12,7 +12,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Attachment;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,10 +29,9 @@ public class Steps {
         logger.info("Run JDIExample site tests");
     }
 
-    @Step("Opening Home page.")
     @Given("^I am on ([^\\\"]*) page$")
     public void preconditionExecute(String pageName) throws Exception {
-        if(pageName.equals("Home")){
+        if (pageName.equals("Home")) {
             homePage.shouldBeOpened();
         } else {
             throw new Exception("Page not specified");
@@ -41,14 +39,11 @@ public class Steps {
         Assert.assertTrue(homePage.verifyOpened());
     }
 
-    @Step("Login process.")
     @When("^I login as ([^\\\"]*)/([^\\\"]*)$")
     public void loginExecute(String userName, String userPassword) throws IOException {
         login(new User(userName, userPassword));
     }
 
-
-    @Step("Checking Login status.")
     @Then("^Login ([^\\\"]*)$")
     public void checkStatus(String status) throws Throwable {
         Boolean isCorrect = status.equals("succeeded");
@@ -57,13 +52,13 @@ public class Steps {
     }
 
     @Then("Closing driver")
-    public void closeBrowser(){
+    public void closeBrowser() {
         WebSettings.getDriver().quit();
     }
 
     @Attachment(type = "image/png")
     public byte[] screenshot() throws IOException {
-        File scrFile = ((TakesScreenshot)WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
         return Files.toByteArray(scrFile);
     }
 
