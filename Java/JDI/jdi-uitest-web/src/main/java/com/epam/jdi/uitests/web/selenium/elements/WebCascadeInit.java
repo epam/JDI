@@ -98,8 +98,12 @@ public class WebCascadeInit extends CascadeInit {
         T page;
         try {
             page = clazz.newInstance();
-        } catch (Exception ex) {
-            throw new RuntimeException("Can't init PageObject: " + clazz.getName());
+        } catch (Exception ignore) {
+            try {
+                page = clazz.getDeclaredConstructor(WebDriver.class).newInstance(getDriver());
+            } catch (Exception ex) {
+                throw new RuntimeException("Can't init PageObject: " + clazz.getName() + ". Exception: " + ex.getMessage());
+            }
         }
         new WebCascadeInit().initElements(page, driverName);
         return page;

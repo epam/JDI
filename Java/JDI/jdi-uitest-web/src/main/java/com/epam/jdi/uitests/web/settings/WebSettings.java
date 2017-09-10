@@ -85,6 +85,8 @@ public class WebSettings extends JDISettings {
     }
 
     public static JavascriptExecutor getJSExecutor() {
+        if (!initialized)
+            try { initFromProperties(); } catch (Exception ex) { throw new RuntimeException(ex); }
         if (driverFactory.getDriver() instanceof JavascriptExecutor)
             return (JavascriptExecutor) driverFactory.getDriver();
         else
