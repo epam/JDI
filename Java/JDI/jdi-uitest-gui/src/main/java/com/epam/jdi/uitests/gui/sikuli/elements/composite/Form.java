@@ -20,6 +20,9 @@ import static com.epam.jdi.uitests.core.interfaces.complex.FormFilters.ALL;
 public class Form<T> extends Element implements IForm<T> {
 
     protected Class<T> entityClass;
+    protected void setValueAction(String text, ISetValue element) {
+        element.setValue(text);
+    }
     public Form() {}
     public Form(Class<T> clazz) {
         this.entityClass = checkEntityIsNotNull(clazz);
@@ -135,5 +138,9 @@ public class Form<T> extends Element implements IForm<T> {
     @Override
     public String getValue() {
         return null;
+    }
+    @Override
+    public void setValue(String value) {
+        invoker.doJAction("Get value", () -> setValueAction(value, this));
     }
 }

@@ -23,15 +23,16 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
     @JDropdown(
-        jroot = @JFindBy(className = "country-wrapper"),
-        jvalue = @JFindBy(className = "arrow"),
-        jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
+            jroot = @JFindBy(className = "country-wrapper"),
+            jvalue = @JFindBy(className = "arrow"),
+            jlist = @JFindBy(xpath = "*root*//li[contains(@id,'applicantCountry') and .='%s']"))
     IDropDown country;
 
     @JDropdown(
-        jroot = @JFindBy(className = "city-wrapper"),
-        jexpand = @JFindBy(className = "arrow"),
-        jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+            jroot = @JFindBy(className = "city-wrapper"),
+            jexpand = @JFindBy(className = "arrow"),
+            jlist = @JFindBy(css = "*root*li[id*=applicantCity]")
+        //jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
     )
     IDropDown city;
 

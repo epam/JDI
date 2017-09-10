@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
+import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -88,6 +89,10 @@ public class WebCascadeInit extends CascadeInit {
     public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
         initDriver();
         return initPageObject(clazz, useDriver(() -> driver));
+    }
+    public static <T> T initPageObject(Class<T> clazz, DriverTypes driver) {
+        initDriver();
+        return initPageObject(clazz, useDriver(driver));
     }
     public static <T> T initPageObject(Class<T> clazz, String driverName) {
         T page;
