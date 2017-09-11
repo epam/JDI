@@ -67,9 +67,6 @@ public class CaseDTO {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
 
     public String getTags() {
         return tags;

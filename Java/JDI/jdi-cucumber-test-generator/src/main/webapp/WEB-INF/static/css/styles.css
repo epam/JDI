@@ -1045,10 +1045,8 @@ p {margin:28px 0 3px 0;}
     opacity: 1;
     transition: 0.6s;
 }
-
 .disabled-link {
     pointer-events: none;
     cursor: default;
     opacity: 0.7;
 }
-

@@ -2,23 +2,23 @@ package com.epam.test_generator;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DozerMapper {
 
-    private static Mapper mapper;
+    private Mapper mapper;
 
-    static {
+    public DozerMapper(){
         List cfg = new ArrayList();
         cfg.add("dozerMapping.xml");
         mapper = new DozerBeanMapper(cfg);
     }
 
-    public static void map(Object source, Object dest) {
-        mapper.map(dest, source);
+    public void map(Object source, Object dest) {
+        mapper.map(source, dest);
     }
-
-
 }

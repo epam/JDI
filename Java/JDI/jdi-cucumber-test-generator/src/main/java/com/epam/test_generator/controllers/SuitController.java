@@ -1,5 +1,6 @@
 package com.epam.test_generator.controllers;
 
+import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
 
@@ -27,28 +28,31 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
-    @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    List<Suit> getSuits() {
-        return suitService.getSuits();
+    @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<List<SuitDTO>> getSuits() {
+
+        return new ResponseEntity<>(suitService.getSuits(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Suit getSuit(@PathVariable("id") long id) {
-        return suitService.getSuit(id);
+    public ResponseEntity<SuitDTO> getSuit(@PathVariable("id") long id){
+
+        return new ResponseEntity<>(suitService.getSuit(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public Suit getSuitByName(@PathVariable("name") String name) {
-        return suitService.getSuitByName(name);
+    public ResponseEntity<SuitDTO> getSuitByName(@PathVariable("name") String name){
+
+        return new ResponseEntity<>(suitService.getSuitByName(name),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> editSuit(@RequestBody Suit suit) {
-        suitService.editSuit(suit);
-
+    @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suit){
+        suitService.updateSuit(suit);
+      
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -61,6 +65,7 @@ public class SuitController {
 
     @RequestMapping(value = "/addTestSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
+    public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
     public Suit addSuit(@RequestBody Suit suit) {
         return suitService.addSuit(suit);
     }
