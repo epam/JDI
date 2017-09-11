@@ -5,12 +5,21 @@ var addSuit = new Vue({
     },
     methods: {
         addSuit: function() {
-            axios.post('/addTestSuit', {name: $("#addNameSuit").val(), description: $("#addDescriptionSuit").val()}).then(function(response) {
+            var nameSuit = $("#addNameSuit").val();
+            var descriptionSuit = $("#addDescriptionSuit").val();
+            var prioritySuit = $("#addPrioritySuit").val();
+            var tagsSuit = $("#addTagsSuit").val();
+
+            if(nameSuit == "" || prioritySuit == ""){
+                $("#popup_add .popup_exception").text("Not filled mandatory fields!");
+                return;
+            }
+
+            axios.post('/addTestSuit', {name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_add");
-                $("#addNameSuit").val("");
-                $("#addDescriptionSuit").val("");
                 getSuits.getSuits();
             }).catch(function(error) {
+                $("#popup_add .popup_exception").text("Try again later!");
             });
         }
     },
