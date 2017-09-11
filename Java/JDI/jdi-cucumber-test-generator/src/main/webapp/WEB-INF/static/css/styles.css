@@ -734,9 +734,20 @@ button.save-suit-button:hover {
     overflow: hidden;
     margin-right: 5px;
 }
-#code-textarea{
+#code-textarea {
     width: 100%;
     min-height: 200px;
+}
+.mandatory_field{
+    color: red;
+    font-size: 18px;
+}
+.case-info-table span{
+    color: #379b55;
+}
+.case-info-table span.mandatory_field{
+    color: red;
+}
 .mandatory_field{
     color: red;
     font-size: 18px;
