@@ -3,6 +3,7 @@ package com.epam.test_generator.controllers;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +40,16 @@ public class SuitControllerTest {
 	}
 
 	@Test
+	public void getSuits_return500whenGetSuits() {
+		when(suitService.getSuits()).thenThrow(new RuntimeException());
+
+		ResponseEntity<List<SuitDTO>> response = suitController.getSuits();
+
+		assert(response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR));
+		verify(suitService).getSuits();
+	}
+
+	@Test
 	public void getSuit_return200whenGetSuit() {
 		SuitDTO suitDTO = new SuitDTO();
 
@@ -70,6 +81,16 @@ public class SuitControllerTest {
 		ResponseEntity<Void> response = suitController.removeSuit(1L);
 
 		assert(response.getStatusCode().equals(HttpStatus.OK));
+		verify(suitService).removeSuit(1L);
+	}
+
+	@Test
+	public void getSuits_return500whenRemoveSuit() {
+		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
+
+		ResponseEntity<Void> response = suitController.removeSuit(1L);
+
+		assert(response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR));
 		verify(suitService).removeSuit(1L);
 	}
 
