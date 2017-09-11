@@ -255,7 +255,7 @@ div.delete-cases-button:hover {
     background-color: #e54b36;
     border-color: #e54b36;
     margin: 5px;
-    border-color: #377b37;
+    /*border-color: #377b37;*/
     min-width: 120px;
     border-radius: 3px;
     color: white;
@@ -934,3 +934,88 @@ p {margin:28px 0 3px 0;}
 .codemirror-textarea {
     height: 10px;
 }
+
+
+
+/*Для step-ов*/
+
+#steps_container {
+    width: 100%;
+    padding: 5px;
+    /*border: 4px solid black;*/
+}
+
+.sortable-step-container {
+    width: 100%;
+    /*border: 1px solid red;*/
+}
+
+.select-step-type-container {
+    height: 27px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 100px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+}
+
+.select-step-type-container>.step-type-select-tag {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.step-code-line {
+    margin-left: 5px;
+    width: 500px;
+    height: 27px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 3px;
+}
+
+.adding-new-step-div {
+    opacity: 0;
+    height: 10px;
+    width: 665px;
+    /*border: 1px solid red;*/
+}
+
+.adding-new-step-div:hover {
+    opacity: 1;
+    transition: 0.6s;
+    /*background-color: green;*/
+}
+
+.step-info-handle {
+    width: 660px;
+    /*border: 1px solid #379b55;*/
+    margin: 0;
+    padding: 5px;
+}
+
+.delete-step-icon {
+    opacity: 0;
+    margin-left: 10px;
+    position: absolute;
+    height: 38px;
+    float: right;
+    overflow: hidden;
+    margin-top: -5px;
+}
+
+.add-step-icon {
+    height: 40px;
+    margin-top: -16px;
+    float: right;
+}
+
+.step-info-handle:hover>.delete-step-icon {
+    opacity: 1;
+    transition: 0.6s;
+}
+
