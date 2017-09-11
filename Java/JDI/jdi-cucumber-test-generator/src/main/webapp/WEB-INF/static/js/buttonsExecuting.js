@@ -1,33 +1,27 @@
 function cancelCaseEditing() {
-    $.get("/getCase/" + $("#caseId").text(), function(response){
-        $("#code-textarea").val(response.steps);
+    $.get("/getCase/" + case_id, function(response){
         $("#case-description-textfield").val(response.description);
-        $("#case-priority-textfield").val(response.priority);
+        $("#case-priority-selector").val(response.priority);
+        $("#case-create-date").val(response.creationDate);
+        $("#case-tags").val(response.tags);
+        $("#case-save-exception").text("");
     });
 }
 
 function saveCase() {
     var description = $("#case-description-textfield").val();
-//    var priority = $("#case-priority-textfield").val();
-    var code = $("#code-textarea").val();
-    var suit_id = $("#suitId").text();
-    var case_id = $("#caseId").text();
-
-    // alert(description);
-    // alert(priority);
-    // alert(code);
-    // alert(case_id);
+    var priority = $("#case-priority-selector").val();
+    var tags = $("#case-tags").val();
 
     if (description === null || description === "") {
-            alert("Fill in all required entry field!");
-            return;
-        }
-
+        $("#case-save-exception").text("Not filled mandatory fields!");
+        return;
+    }
 
     var formData = {
         "id": case_id,
         "description": description,
-        "steps": code
+        "tags": tags
     };
 
     $.ajax({
@@ -36,7 +30,8 @@ function saveCase() {
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
-            getSuitInfoWithOutCleanCases($(".is-active").text());
+            getSuitInfoWithOutCleanCases(suit_id);
+            $("#case-save-exception").text("");
         },
         error: function( xhr, textStatus ) {
             alert( [ xhr.status, textStatus ] );
@@ -46,9 +41,7 @@ function saveCase() {
 
 function removeCases() {
     var description = $("#case-description-textfield").val();
-    var priority = $("#case-priority-textfield").val();
-    var code = $("#code-textarea").val();
-
+    var priority = $("#case-priority-selector").val();
 
     if (description === null || description === "" ||
         priority === null || priority === "") {
@@ -64,10 +57,10 @@ function removeCases() {
             caseId: case_id,
             description: description,
             priority: priority,
-            code: code
         }, // parameters
         success : function(response) {
-            getSuitInfo($(".is-active").text());
+            getSuitInfo(suit_id);
+            $("#case-save-exception").text("");
         },
         error: function( xhr, textStatus ) {
             alert( [ xhr.status, textStatus ] );

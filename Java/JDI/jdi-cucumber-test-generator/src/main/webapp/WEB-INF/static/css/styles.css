@@ -255,7 +255,7 @@ div.delete-cases-button:hover {
     background-color: #e54b36;
     border-color: #e54b36;
     margin: 5px;
-    /*border-color: #377b37;*/
+    border-color: #377b37;
     min-width: 120px;
     border-radius: 3px;
     color: white;
@@ -452,9 +452,11 @@ div.add-case-button:hover {
 #tableCases tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
 }
-
-
-
+#case-save-exception{
+    padding: 10px;
+    text-align: center;
+    color: red;
+}
 
 
 
@@ -735,6 +737,15 @@ button.save-suit-button:hover {
 #code-textarea{
     width: 100%;
     min-height: 200px;
+.mandatory_field{
+    color: red;
+    font-size: 18px;
+}
+.case-info-table span{
+    color: #379b55;
+}
+.case-info-table span.mandatory_field{
+    color: red;
 }
 
 

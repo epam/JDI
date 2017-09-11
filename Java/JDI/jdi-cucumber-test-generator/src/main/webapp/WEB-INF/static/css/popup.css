@@ -1,0 +1,130 @@
+#popup_add,
+#popup_delete,
+#popup_edit,
+#popup_add_case,
+#popup_edit_case,
+#popup_delete_case{
+    display: none;
+    z-index: 5;
+}
+.b-container{
+    width: 600px;
+    height: 200px;
+    background-color: #ccc;
+    margin: 0px auto;
+    padding: 10px;
+    font-size: 30px;
+    color: #fff;
+}
+.b-popup{
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+}
+.b-popup .b-popup-content{
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 0px 10px #000;
+    border: 1px solid #00a250;
+    font-family: sans-serif;
+}
+
+.popup_header{
+    margin: 10px 0px 5px 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.popup_name{
+    color: rgb(0, 162, 80);
+    font-size: 20px;
+    width: 80%;
+    float: left;
+}
+.popup_close{
+    text-align: right;
+    float: left;
+    width: 20%;
+    font-size: 12px;
+}
+.popup_close > span{
+    color: rgb(0, 162, 80);
+}
+.popup_close > span:hover{
+    color: red;
+    cursor: pointer;
+}
+.popup_name_field{
+    float: left;
+
+}
+.popup_text_field{
+    float: left;
+    width: 100%;
+}
+.popup_text_field input{
+    width: 100%;
+}
+.popup_container table{
+    width: 80%;
+    margin: 10px auto;
+}
+.popup_container table input{
+    width: 100%;
+}
+.popup_buttons{
+    margin: 10px auto;
+    overflow: hidden;
+    width: 70%;
+}
+.popup_buttons .popup_ok{
+    width: 40%;
+    height: 28px;
+    float: left;
+    text-align: center;
+    background-color: #00a250;
+    padding: 5px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+.popup_buttons .popup_ok:hover{
+   cursor: pointer;
+   border: 1px solid #00a250;
+   background-color: white;
+   color: #00a250;
+   transition: all 0.2s;
+}
+.free_space{
+    float: left;
+    width: 18%;
+    height: 1px;
+}
+.popup_buttons .popup_cancel{
+    width: 40%;
+    height: 28px;
+    float: left;
+    text-align: center;
+    background-color: #00a250;
+    padding: 5px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+.popup_buttons .popup_cancel:hover{
+    cursor: pointer;
+    border: 1px solid #00a250;
+    background-color: white;
+    color: #00a250;
+    transition: all 0.2s;
+}
+.popup_exception{
+    text-align: center;
+    color: red;
+}
