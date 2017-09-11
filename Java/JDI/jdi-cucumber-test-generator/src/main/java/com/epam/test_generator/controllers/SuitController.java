@@ -24,7 +24,7 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
-    @RequestMapping(value = "/getTestSuits", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/getSuits", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Suit> getSuits() {
         return suitService.getSuits();
     }
@@ -41,21 +41,21 @@ public class SuitController {
         return suitService.getSuitByName(name);
     }
 
-    @RequestMapping(value="/editTestSuit", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="/editSuit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
         suitService.editSuit(suit);
       
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/removeTestSuit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/removeSuit/{id}", method = RequestMethod.GET)
     public ResponseEntity<Void> removeSuit(@PathVariable("id") long id){
         suitService.removeSuit(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/addTestSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public Suit addSuit(@RequestBody Suit suit) {
         return suitService.addSuit(suit);

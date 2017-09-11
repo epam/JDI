@@ -15,7 +15,7 @@ var editSuit = new Vue({
                 return;
             }
 
-            axios.post('/editTestSuit', {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
+            axios.post('/editSuit', {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_edit");
                 getSuits.getSuits();
                 getSuitInfo(suit_id);
