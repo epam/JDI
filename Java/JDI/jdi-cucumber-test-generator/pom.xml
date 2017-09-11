@@ -101,6 +101,12 @@
             <artifactId>slf4j-nop</artifactId>
         </dependency>
 
+        <!--DTO to Entity mapping-->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

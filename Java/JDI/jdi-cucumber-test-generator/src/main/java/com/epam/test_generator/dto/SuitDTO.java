@@ -1,23 +1,22 @@
-package com.epam.test_generator.entities;
+package com.epam.test_generator.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.epam.test_generator.entities.Case;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+public class SuitDTO {
 
-@Entity
-public class Suit implements Serializable {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
     private String description;
+
+     @JsonManagedReference
+     private List<CaseDTO> cases;
 
     private Integer priority;
 
@@ -25,32 +24,6 @@ public class Suit implements Serializable {
 
     private String tags;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
-    private List<Case> cases;
-
-    public Suit() {
-    }
-
-    public Suit(Long id, String name, String description, List<Case> cases, Integer priority, String tags) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.cases = cases;
-        this.priority = priority;
-        this.creationDate = Calendar.getInstance().getTime();
-        this.tags = tags;
-    }
-
-    public Suit(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Suit(long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
 
     public String getDescription() {
         return description;
@@ -76,11 +49,11 @@ public class Suit implements Serializable {
         this.name = name;
     }
 
-    public List<Case> getCases() {
+    public List<CaseDTO> getCases() {
         return cases;
     }
 
-    public void setCases(List<Case> cases) {
+    public void setCases(List<CaseDTO> cases) {
         this.cases = cases;
     }
 
@@ -108,19 +81,14 @@ public class Suit implements Serializable {
         this.tags = tags;
     }
 
-
     @Override
     public String toString() {
         return "Suit{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", priority=" + priority +
-                ", creationDate=" + creationDate +
-                ", tags='" + tags + '\'' +
                 ", cases=" + cases +
                 '}';
     }
-
-
 }
+
