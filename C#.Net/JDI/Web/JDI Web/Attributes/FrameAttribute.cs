@@ -8,28 +8,28 @@ namespace JDI_Web.Attributes
     public class FrameAttribute : Attribute
     {
         private By _frameLocator;
-        public string ById { set => _frameLocator = By.Id(value);
+        public string Id { set => _frameLocator = By.Id(value);
             get => "";
         }
-        public string ByName { set => _frameLocator = By.Name(value);
+        public string Name { set => _frameLocator = By.Name(value);
             get => "";
         }
-        public string ByClassName { set => _frameLocator = By.ClassName(value);
+        public string Class { set => _frameLocator = By.ClassName(value);
             get => "";
         }
-        public string ByCssSelector { set => _frameLocator = By.CssSelector(value);
+        public string Css { set => _frameLocator = By.CssSelector(value);
             get => "";
         }
-        public string ByXPath { set => _frameLocator = By.XPath(value);
+        public string XPath { set => _frameLocator = By.XPath(value);
             get => "";
         }
-        public string ByTagName { set => _frameLocator = By.TagName(value);
+        public string Tag { set => _frameLocator = By.TagName(value);
             get => "";
         }
-        public string ByLinkText { set => _frameLocator = By.LinkText(value);
+        public string LinkText { set => _frameLocator = By.LinkText(value);
             get => "";
         }
-        public string ByPartialLinkText { set => _frameLocator = By.PartialLinkText(value);
+        public string PartialLinkText { set => _frameLocator = By.PartialLinkText(value);
             get => "";
         }
 

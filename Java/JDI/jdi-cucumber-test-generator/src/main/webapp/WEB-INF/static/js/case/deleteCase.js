@@ -5,11 +5,11 @@ var deleteCase = new Vue({
     },
     methods: {
         deleteCase: function() {
-            axios.get('/removeCase/' + $("#caseId").text()).then(function(response) {
+            axios.get('/removeCase/' + case_id).then(function(response) {
                 PopUpHide("#popup_delete_case");
-                getSuitInfo($(".is-active").text());
+                getSuitInfo(suit_id);
             }).catch(function(error) {
-                PopUpHide("#popup_delete_case");
+                $("#popup_delete_case .popup_exception").text("Try again later!");
             });
         }
     },

@@ -20,7 +20,7 @@ public class SearchTests extends InitTests {
         isInState(HOME_PAGE, method);
     }
 
-    @Test
+    //@Test
     public void fillTest() {
         header.jdiSearch.find("Jenkins, Allure, Custom");
         supportPage.checkOpened();

@@ -8,17 +8,15 @@ import java.util.List;
 
 public class DozerMapper {
 
-    private static Mapper mapper;
+    private Mapper mapper;
 
-    static {
+    public DozerMapper(){
         List cfg = new ArrayList();
         cfg.add("dozerMapping.xml");
         mapper = new DozerBeanMapper(cfg);
     }
 
-    public static void map(Object source, Object dest) {
+    public void map(Object source, Object dest) {
         mapper.map(dest, source);
     }
-
-
 }

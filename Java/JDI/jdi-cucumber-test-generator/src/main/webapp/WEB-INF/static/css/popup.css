@@ -42,6 +42,7 @@
 }
 
 .popup_name{
+    color: rgb(0, 162, 80);
     font-size: 20px;
     width: 80%;
     float: left;
@@ -51,6 +52,13 @@
     float: left;
     width: 20%;
     font-size: 12px;
+}
+.popup_close > span{
+    color: rgb(0, 162, 80);
+}
+.popup_close > span:hover{
+    color: red;
+    cursor: pointer;
 }
 .popup_name_field{
     float: left;
@@ -115,4 +123,8 @@
     background-color: white;
     color: #00a250;
     transition: all 0.2s;
+}
+.popup_exception{
+    text-align: center;
+    color: red;
 }

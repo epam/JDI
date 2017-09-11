@@ -48,7 +48,7 @@ namespace JDI_Tests.Tests.W3C
 
     public class W3CPageWithFrame : WebPage
     {
-        [Frame(ByXPath = "//iframe[@src='default.asp']")]
+        [Frame(XPath = "//iframe[@src='default.asp']")]
         public ExampleFrame Frame;
     }
     public class TablePage : WebPage

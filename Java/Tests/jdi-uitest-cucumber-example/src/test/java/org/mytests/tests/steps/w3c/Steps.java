@@ -11,7 +11,6 @@ import org.mytests.uiobjects.w3c.W3CSite;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import ru.yandex.qatools.allure.annotations.Attachment;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +27,6 @@ public class Steps {
         logger.info("Run W3C site tests");
     }
 
-    @Step("Opening DropDown page.")
     @Given("^I am on ([^\\\"]*) page$")
     public void preconditionExecute(String pageName) throws Exception {
         if (pageName.equals("DropDown")) {
@@ -39,27 +37,21 @@ public class Steps {
         Assert.assertTrue(dropDownPage.verifyOpened());
     }
 
-    @Step("Select process.")
     @When("^I select ([^\\\"]*) item$")
     public void selectExecute(String item) {
         dropDownPage.frame.cars.select(item);
     }
 
-
-    @Step("Checking selected item.")
     @Then("^([^\\\"]*) item is selected$")
     public void checkSelected(String selectedItem) throws Throwable {
         Assert.areEquals(dropDownPage.frame.cars.getSelected(), selectedItem);
     }
 
-    @Step("Select process (simple dropdown).")
     @When("^I select ([^\\\"]*) item using simple dropdown$")
     public void selectExecuteSimple(String item) {
         dropDownPage.frame.carsSimple.select(item);
     }
 
-
-    @Step("Checking selected item in simple dropdown.")
     @Then("^([^\\\"]*) item is selected using simple dropdown$")
     public void checkSelectedSimple(String selectedItem) throws Throwable {
         Assert.areEquals(dropDownPage.frame.carsSimple.getSelected(), selectedItem);
@@ -73,7 +65,7 @@ public class Steps {
 
     @Attachment(type = "image/png")
     public byte[] screenshot() throws IOException {
-        File scrFile = ((TakesScreenshot)WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) WebSettings.getDriver()).getScreenshotAs(OutputType.FILE);
         return Files.toByteArray(scrFile);
     }
 
