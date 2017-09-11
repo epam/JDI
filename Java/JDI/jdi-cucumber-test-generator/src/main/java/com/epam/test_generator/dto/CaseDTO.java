@@ -1,26 +1,21 @@
-package com.epam.test_generator.entities;
+package com.epam.test_generator.dto;
 
+import com.epam.test_generator.entities.Step;
+import com.epam.test_generator.entities.Suit;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Case implements Serializable{
-
-    @Id
-    @GeneratedValue
+public class CaseDTO {
     private Long id;
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "parentCase")
     private List<Step> steps;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
+  @JsonBackReference
+
     private Suit suit;
 
     private Date creationDate;
@@ -30,20 +25,6 @@ public class Case implements Serializable{
     private String tags;
 
 
-
-    public Case(){
-    }
-
-    public Case(Long id, String description, List<Step> steps, Suit suit, Integer priority, String tags) {
-        this.id = id;
-        this.description = description;
-        this.steps = steps;
-        this.suit = suit;
-        this.priority = priority;
-        this.tags = tags;
-        this.creationDate = Calendar.getInstance().getTime();
-
-    }
 
     public Long getId() {
         return id;
@@ -114,3 +95,6 @@ public class Case implements Serializable{
                 '}';
     }
 }
+
+
+

@@ -3,6 +3,7 @@ package com.epam.test_generator.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,13 +32,13 @@ public class Suit implements Serializable {
     public Suit() {
     }
 
-    public Suit(Long id, String name, String description, List<Case> cases, Integer priority, Date creationDate, String tags) {
+    public Suit(Long id, String name, String description, List<Case> cases, Integer priority, String tags) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.cases = cases;
         this.priority = priority;
-        this.creationDate = creationDate;
+        this.creationDate = Calendar.getInstance().getTime();
         this.tags = tags;
     }
 
@@ -107,6 +108,7 @@ public class Suit implements Serializable {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
 
     @Override
     public String toString() {

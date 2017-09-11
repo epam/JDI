@@ -20,27 +20,27 @@ public class CaseController {
     private SuitService suitService;
 
     @RequestMapping(value = "/addCase/{suitId}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> addCaseToSuit(@PathVariable int suitId, @RequestBody Case caseArg){
-        casesService.addCaseToSuit(caseArg,suitId);
+    public ResponseEntity<Void> addCaseToSuit(@PathVariable int suitId, @RequestBody Case caseArg) {
+        casesService.addCaseToSuit(caseArg, suitId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/removeCase/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<Void> removeCase(@PathVariable long caseId){
+    public ResponseEntity<Void> removeCase(@PathVariable long caseId) {
         casesService.removeCase(caseId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/updateCase", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> updateCase(@RequestBody Case caseArg){
+    public ResponseEntity<Void> updateCase(@RequestBody Case caseArg) {
         casesService.updateCase(caseArg);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<Case> getCase(@PathVariable long caseId){
+    public ResponseEntity<Case> getCase(@PathVariable long caseId) {
 
         return new ResponseEntity<Case>(casesService.getCase(caseId), HttpStatus.OK);
     }
