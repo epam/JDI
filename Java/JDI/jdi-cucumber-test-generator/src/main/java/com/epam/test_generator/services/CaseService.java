@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 @Transactional
 public class CaseService{
@@ -19,7 +20,7 @@ public class CaseService{
     @Autowired
     private SuitDAO suitDAO;
 
-    public Case addCaseToSuit(Case cs,long suitId) {
+    public Case addCaseToSuit(Case cs, long suitId) {
         cs.setSuit(suitDAO.getOne(suitId));
         return caseDAO.save(cs);
     }
