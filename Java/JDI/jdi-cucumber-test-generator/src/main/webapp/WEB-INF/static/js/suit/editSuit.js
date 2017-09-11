@@ -5,11 +5,22 @@ var editSuit = new Vue({
     },
     methods: {
         editSuit: function() {
-            axios.post('/editTestSuit', {id: $("#suitId").text(), name: $("#editNameSuit").val(), description: $("#editDescriptionSuit").val()}).then(function(response) {
+            var nameSuit = $("#editNameSuit").val();
+            var descriptionSuit = $("#editDescriptionSuit").val();
+            var prioritySuit = $("#editPrioritySuit").val();
+            var tagsSuit = $("#editTagsSuit").val();
+
+            if(nameSuit == "" || prioritySuit === null){
+                $("#popup_edit .popup_exception").text("Not filled mandatory fields!");
+                return;
+            }
+
+            axios.post('/updateSuit', {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_edit");
                 getSuits.getSuits();
-                getSuitInfo($("#editNameSuit").val());
+                getSuitInfo(suit_id);
             }).catch(function(error) {
+                $("#popup_edit .popup_exception").text("Try again later!");
             });
         }
     },

@@ -5,10 +5,10 @@ var deleteSuit = new Vue({
     },
     methods: {
         deleteSuit: function() {
-            axios.get('/removeTestSuit/' + $("#suitId").text()).then(function(response) {
+            axios.get('/removeSuit/' + suit_id).then(function(response) {
                 PopUpHide("#popup_delete");
                 getSuits.getSuits();
-                $("#suitId").empty();
+                suit_id = -1;
                 $("#nameSuit").empty();
                 $("#descriptionSuit").empty();
                 $("#countCases").text("0");
@@ -16,8 +16,7 @@ var deleteSuit = new Vue({
                 $("#code-textarea").val("");
                 $("#case-description-textfield").val("");
             }).catch(function(error) {
-                PopUpHide("#popup_delete");
-                getSuits.getSuits();
+                $("#popup_delete .popup_exception").text("Try again later!");
             });
         }
     },

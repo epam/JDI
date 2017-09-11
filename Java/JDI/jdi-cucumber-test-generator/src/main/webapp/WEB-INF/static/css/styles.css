@@ -255,7 +255,7 @@ div.delete-cases-button:hover {
     background-color: #e54b36;
     border-color: #e54b36;
     margin: 5px;
-    /*border-color: #377b37;*/
+    border-color: #377b37;
     min-width: 120px;
     border-radius: 3px;
     color: white;
@@ -393,6 +393,7 @@ div.add-case-button:hover {
     /*border: 1px solid #ff3d46;*/
     /*float: left;*/
     margin: 0;
+    vertical-align: top;
     padding: 5px;
 }
 
@@ -451,9 +452,17 @@ div.add-case-button:hover {
 #tableCases tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
 }
-
-
-
+#case-save-exception{
+    padding: 10px;
+    text-align: center;
+    color: red;
+}
+.accordion-tabs>li.tab-head-cont>div.suitId{
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -731,9 +740,29 @@ button.save-suit-button:hover {
     overflow: hidden;
     margin-right: 5px;
 }
-#code-textarea{
+#code-textarea {
     width: 100%;
     min-height: 200px;
+}
+.mandatory_field{
+    color: red;
+    font-size: 18px;
+}
+.case-info-table span{
+    color: #379b55;
+}
+.case-info-table span.mandatory_field{
+    color: red;
+}
+.mandatory_field{
+    color: red;
+    font-size: 18px;
+}
+.case-info-table span{
+    color: #379b55;
+}
+.case-info-table span.mandatory_field{
+    color: red;
 }
 
 
@@ -865,6 +894,7 @@ body{
 
 .case-editor-container {
     /*border: 1px solid #ff3d46;*/
+    vertical-align: top;
     width: 60%;
     margin:0;
     padding: 5px;
@@ -881,13 +911,9 @@ body{
     padding: 5px;
 }
 
-
-
-
-
-
-
-
+.suit-table-container>tr>td {
+    vertical-align: top;
+}
 
 /*Сомнительный код*/
 * {font:13px arial,sans-serif;}
@@ -992,6 +1018,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .step-info-handle {
+    cursor: move;
     width: 660px;
     /*border: 1px solid #379b55;*/
     margin: 0;
@@ -1017,5 +1044,11 @@ p {margin:28px 0 3px 0;}
 .step-info-handle:hover>.delete-step-icon {
     opacity: 1;
     transition: 0.6s;
+}
+
+.disabled-link {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.7;
 }
 

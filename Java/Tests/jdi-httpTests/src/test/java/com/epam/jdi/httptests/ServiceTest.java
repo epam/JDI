@@ -22,11 +22,11 @@ public class ServiceTest {
                 "http://httpbin.org/get");
         Assert.assertEquals(resp.jsonBody("headers.Host"),
                 "httpbin.org");
-        Assert.assertEquals(resp.jsonBody("headers"),
+        Assert.assertEquals(resp.jsonBody("headers").replaceAll(regexpJava, "(Java)"),
                 getHeaders);
-        Assert.assertEquals(trim(resp.jsonBody(null)),
+        Assert.assertEquals(trim(resp.jsonBody(null).replaceAll(regexpOriginIp, "\"origin\"").replaceAll(regexpJava, "(Java)")),
                 trim(getBody));
-        Assert.assertEquals(trim(resp.jsonBody("")),
+        Assert.assertEquals(trim(resp.jsonBody("").replaceAll(regexpOriginIp, "\"origin\"").replaceAll(regexpJava, "(Java)")),
                 trim(getBody));
     }
     private String trim(String s) {
@@ -45,7 +45,7 @@ public class ServiceTest {
         RestResponse response = ServiceExample.getMethod.call();
         Assert.assertEquals(response.status, 200);
         Assert.assertEquals(response.statusType, OK);
-        Assert.assertEquals(response.body, getBody);
+        Assert.assertEquals(trim(response.body.replaceAll(regexpOriginIp, "\"origin\"").replaceAll(regexpJava, "(Java)")), trim(getBody));
     }
     @Test
     public void serviceInitTest() {
@@ -53,9 +53,12 @@ public class ServiceTest {
         RestResponse response = service.postMethod.call();
         Assert.assertEquals(response.status, 200);
         Assert.assertEquals(response.statusType, OK);
-        Assert.assertEquals(response.body, postBody);
+        Assert.assertEquals(trim(response.body.replaceAll(regexpOriginIp, "\"origin\"").replaceAll(regexpJava, "(Java)")), trim(postBody));
     }
 
+
+    String regexpOriginIp = "\"origin\":*.\"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\"";
+    String regexpJava = "(\\(Java.*\\))";
     String getBody = "{\n" +
             "  \"args\": {}, \n" +
             "  \"headers\": {\n" +
@@ -63,16 +66,16 @@ public class ServiceTest {
             "    \"Accept-Encoding\": \"gzip,deflate\", \n" +
             "    \"Connection\": \"close\", \n" +
             "    \"Host\": \"httpbin.org\", \n" +
-            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"\n" +
+            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java)\"\n" +
             "  }, \n" +
-            "  \"origin\": \"188.187.12.6\", \n" +
+            "  \"origin\", \n" +
             "  \"url\": \"http://httpbin.org/get\"\n" +
             "}\n";
     String getHeaders = "{\"Accept\":\"*/*\"," +
             "\"Accept-Encoding\":\"gzip,deflate\"," +
             "\"Connection\":\"close\"," +
             "\"Host\":\"httpbin.org\"," +
-            "\"User-Agent\":\"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"}";
+            "\"User-Agent\":\"Apache-HttpClient/4.5.2 (Java)\"}";
     String postBody = "{\n" +
             "  \"args\": {}, \n" +
             "  \"data\": \"\", \n" +
@@ -85,10 +88,10 @@ public class ServiceTest {
             "    \"Content-Length\": \"0\", \n" +
             "    \"Content-Type\": \"application/x-www-form-urlencoded; charset=ISO-8859-1\", \n" +
             "    \"Host\": \"httpbin.org\", \n" +
-            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"\n" +
+            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java)\"\n" +
             "  }, \n" +
             "  \"json\": null, \n" +
-            "  \"origin\": \"188.187.12.6\", \n" +
+            "  \"origin\", \n" +
             "  \"url\": \"http://httpbin.org/post\"\n" +
             "}\n";
 }

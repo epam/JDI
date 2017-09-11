@@ -75,13 +75,13 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         By list = findByToBy(jDropdown.list());
         By expand = findByToBy(jDropdown.expand());
         if (root == null)
-            root = findByToBy(jDropdown.root());
+            root = findByToBy(jDropdown.jroot());
         if (value == null)
-            value = findByToBy(jDropdown.value());
+            value = findByToBy(jDropdown.jvalue());
         if (list == null)
-            list = findByToBy(jDropdown.list());
+            list = findByToBy(jDropdown.jlist());
         if (expand == null)
-            expand = findByToBy(jDropdown.expand());
+            expand = findByToBy(jDropdown.jexpand());
 
         if (root != null) {
             Element el = new Element(root);
