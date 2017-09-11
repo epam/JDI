@@ -255,7 +255,7 @@ div.delete-cases-button:hover {
     background-color: #e54b36;
     border-color: #e54b36;
     margin: 5px;
-    border-color: #377b37;
+    /*border-color: #377b37;*/
     min-width: 120px;
     border-radius: 3px;
     color: white;
@@ -1051,4 +1051,3 @@ p {margin:28px 0 3px 0;}
     cursor: default;
     opacity: 0.7;
 }
-
