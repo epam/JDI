@@ -3,6 +3,7 @@ package com.epam.test_generator.dto;
 import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.Suit;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.Date;
 import java.util.List;
@@ -12,10 +13,10 @@ public class CaseDTO {
 
     private String description;
 
+    @JsonManagedReference
     private List<Step> steps;
 
-  @JsonBackReference
-
+    @JsonBackReference
     private Suit suit;
 
     private Date creationDate;
@@ -23,7 +24,6 @@ public class CaseDTO {
     private Integer priority;
 
     private String tags;
-
 
 
     public Long getId() {

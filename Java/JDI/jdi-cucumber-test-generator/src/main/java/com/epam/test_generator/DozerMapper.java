@@ -2,6 +2,7 @@ package com.epam.test_generator;
 
 import com.epam.test_generator.dto.StepDTO;
 import com.epam.test_generator.entities.Step;
+import com.epam.test_generator.entities.StepType;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
@@ -23,12 +24,13 @@ public class DozerMapper {
     }
 
     public static void main(String[] args) {
-        Step dest = new Step();
-        StepDTO src = new StepDTO();
+        Step src = new Step();
+        StepDTO dest = new StepDTO();
 
         src.setId(1L);
         src.setRowNumber(1);
         src.setDescription("description of step");
+        src.setType(StepType.BUT);
 
 
 

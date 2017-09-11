@@ -15,7 +15,7 @@ public class StepDTO {
 
     private String description;
 
-    private StepType type;
+    private String type;
 
 
     public Long getId() {
@@ -42,11 +42,11 @@ public class StepDTO {
         this.description = description;
     }
 
-    public StepType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(StepType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
