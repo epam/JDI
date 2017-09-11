@@ -63,11 +63,11 @@ public class SuitController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/addTestSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
-    public Suit addSuit(@RequestBody Suit suit) {
-        return suitService.addSuit(suit);
+
+        return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.GET)
