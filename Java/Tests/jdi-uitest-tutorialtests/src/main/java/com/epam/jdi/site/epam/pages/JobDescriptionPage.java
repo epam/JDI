@@ -3,6 +3,8 @@ package com.epam.jdi.site.epam.pages;
 import com.epam.jdi.site.epam.sections.AddCVForm;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Css;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Name;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -10,10 +12,10 @@ import org.openqa.selenium.support.FindBy;
  */
 public class JobDescriptionPage extends WebPage {
 
-    @FindBy(css = ".form-constructor")
+    @Css(".form-constructor")
     public AddCVForm addCVForm;
 
-    @FindBy(name = "captcha")
+    @Name("captcha")
     public IElement captcha;
 
 }

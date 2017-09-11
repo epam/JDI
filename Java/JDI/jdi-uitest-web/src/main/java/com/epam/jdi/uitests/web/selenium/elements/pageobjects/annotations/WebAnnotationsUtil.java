@@ -24,7 +24,9 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Quotes;
+import org.testng.annotations.Test;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Consumer;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
@@ -105,6 +107,80 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         By by = findByToBy(value);
         if (by != null)
             action.accept(by);
+    }
+
+    public static By findByToBy(Css locator){
+        if (locator == null) return null;
+        return By.cssSelector(locator.value());
+    }
+
+    public static By findByToBy(Attribute locator){
+        if (locator == null) return null;
+        return getAttribute(locator.name(), locator.value());
+    }
+
+    public static By findByToBy(ClassName locator){
+        if (locator == null) return null;
+        return By.className(locator.value());
+    }
+
+    public static By findByToBy(Id locator){
+        if (locator == null) return null;
+        return By.id(locator.value());
+    }
+
+    public static By findByToBy(Name locator){
+        if (locator == null) return null;
+        return By.name(locator.value());
+    }
+
+
+    public static By findByToBy(Type locator){
+        if (locator == null) return null;
+        return By.tagName(locator.value());
+    }
+
+    public static By findByToBy(Text locator){
+        if (locator == null) return null;
+         return By.xpath(".//*/text()[normalize-space(.) = " +
+                Quotes.escape(locator.value()) + "]/parent::*");
+    }
+
+    public static By findByToBy(NgModel locator){
+        if (locator == null) return null;
+        return By.cssSelector(format("[ng-model='%s']", locator.value()));
+    }
+    public static By findByToBy(NgBinding locator){
+        if (locator == null) return null;
+        return By.cssSelector(format("[ng-binding='%s']", locator.value()));
+    }
+
+    public static By findByToBy(NgRepeat locator){
+        if (locator == null) return null;
+        return By.cssSelector(format("[ng-repeat='%s']", locator.value()));
+    }
+
+    public static By findByToBy(Title locator){
+        if (locator == null) return null;
+        return getAttribute("title", locator.value());
+    }
+
+    public static By findByToBy(Value locator){
+        if (locator == null) return null;
+        return getAttribute("value", locator.value());
+    }
+
+    public static By findByToBy(Xpath locator){
+        if (locator == null) return null;
+        return By.xpath(locator.value());
+    }
+
+    public static By findByToBy(Annotation annotation){
+        if (annotation == null) return null;
+        if (annotation instanceof Css)
+            return By.cssSelector(((Css) annotation).value());
+
+        return null;
     }
 
     public static By findByToBy(JFindBy locator) {
