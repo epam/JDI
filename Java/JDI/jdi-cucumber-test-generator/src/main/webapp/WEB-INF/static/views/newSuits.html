@@ -27,7 +27,8 @@
                 <div class="container-tab" id="newSuitsApp">
                     <ul class="accordion-tabs">
                         <li class="tab-head-cont" v-for="suit in suits">
-                            <div class="tab_name" onclick="getSuitInfo($(this).text())">{{suit.name}}</div>
+                            <div class="suitId">{{suit.id}}</div>
+                            <div class="tab_name" onclick="getSuitInfo($(this).parent().children('div.suitId').text())">{{suit.name}}</div>
                         </li>
                         <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
                             <img src="/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
@@ -36,7 +37,6 @@
                 </div>
 
                 <div class="wrapper_content">
-                    <div id="suitId" style="visibility: hidden;"></div>
                     <table class="suit-table-container">
                         <tr>
                             <td class="suit-info-container">
@@ -45,10 +45,21 @@
                                         <td class="titlesTable"><span>Name: </span></td>
                                         <td><div id="nameSuit"></div></td>
                                     </tr>
-
                                     <tr>
                                         <td><span>Description: </span></td>
                                         <td><div id="descriptionSuit"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Priority: </span></td>
+                                        <td><div id="prioritySuit"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Create date: </span></td>
+                                        <td><div id="createDateSuit"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Tags: </span></td>
+                                        <td><div id="tagsSuit"></div></td>
                                     </tr>
                                 </table>
 
@@ -84,20 +95,35 @@
                             </td>
 
                             <td class="case-editor-container">
-                                <div id="caseId" style="visibility: hidden;"></div>
-
                                 <table class="case-info-table">
                                     <tr>
-                                        <td><span>Case description</span></td>
-                                        <td><input type="text" id="case-description-textfield"></td>
+                                        <td><span>Case description:</span><span class="mandatory_field">*</span></td>
+                                        <td><input id="case-description-textfield" maxlength='255' placeholder='Case description'></td>
                                     </tr>
-                                    <!--<tr>-->
-                                        <!--<td><span>Case priority</span></td>-->
-                                        <!--<td><input type="text" id="case-priority-textfield"></td>-->
-                                    <!--</tr>-->
+                                    <tr>
+                                        <td><span>Case priority:</span><span class="mandatory_field">*</span></td>
+                                        <td>
+                                            <select id='case-priority-selector'>
+                                                <option value="1" selected>1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Case created date:</span></td>
+                                        <td><input id="case-create-date" readonly></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Case tags:</span></td>
+                                        <td><input id="case-tags" placeholder='tag1, tag2'></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="case-save-exception" colspan="2"></td>
+                                    </tr>
                                 </table>
-
-
 
                                 <div class="cucumber-test-editor-container" >
                                     <div id="steps_container">
@@ -114,9 +140,9 @@
                                                         <option>But</option>
                                                     </select>
                                                 </div>
-
-                                                <input type="text" class="step-code-line">
-
+                                              
+                                               <input type="text" class="step-code-line">
+                                              
                                                 <img src="/static/images/deleteStep-icon.png" class="delete-step-icon">
                                             </div>
 
@@ -179,10 +205,9 @@
                                     </div>
                                 </div>
 
-
                                 <div class="case-buttons-container">
-                                    <a class="save-case-button" onclick="saveCase()">Save</a>
-                                    <a class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</a>
+                                    <div class="save-case-button" onclick="saveCase()">Save</div>
+                                    <div class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</div>
                                 </div>
                             </td>
                         </tr>
@@ -199,17 +224,35 @@
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_add')"><div class="popup_close">X</div></a>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_add')">X</span>
+                        </div>
                     </div>
                     <div class="popup_container">
                         <table>
                             <tr>
-                                <td>Name:</td>
-                                <td><input id='addNameSuit' type='text'/></td>
+                                <td>Name:<span class="mandatory_field">*</span></td>
+                                <td><input id='addNameSuit' maxlength='255' placeholder='Suit name'/></td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td><input id='addDescriptionSuit' type='text'/></td>
+                                <td><input id='addDescriptionSuit' maxlength='255' placeholder='Suit description'/></td>
+                            </tr>
+                            <tr>
+                                <td>Priority:<span class="mandatory_field">*</span></td>
+                                <td>
+                                    <select id='addPrioritySuit'>
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tags:</td>
+                                <td><input id='addTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -218,6 +261,7 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add')"></div>
                     </div>
+                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -227,7 +271,9 @@
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_delete')"><div class="popup_close">X</div></a>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_delete')">X</span>
+                        </div>
                     </div>
                     <div class="popup_container">
                         <p>Do you want to delete this suit?</p>
@@ -237,6 +283,7 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete')"></div>
                     </div>
+                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -246,17 +293,35 @@
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_edit')"><div class="popup_close">X</div></a>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_edit')">X</span>
+                        </div>
                     </div>
                     <div class="popup_container">
                         <table>
                             <tr>
-                                <td>Name:</td>
-                                <td><input id='editNameSuit' type='text'/></td>
+                                <td>Name:<span class="mandatory_field">*</span></td>
+                                <td><input id='editNameSuit' maxlength='255' placeholder='Suit name'/></td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td><input id='editDescriptionSuit' type='text'/></td>
+                                <td><input id='editDescriptionSuit' maxlength='255' placeholder='Suit description'/></td>
+                            </tr>
+                            <tr>
+                                <td>Priority:<span class="mandatory_field">*</span></td>
+                                <td>
+                                    <select id='editPrioritySuit'>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tags:</td>
+                                <td><input id='editTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -265,6 +330,7 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_edit')"></div>
                     </div>
+                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -274,13 +340,31 @@
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_add_case')"><div class="popup_close">X</div></a>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_add_case')">X</span>
+                        </div>
                     </div>
                     <div class="popup_container">
                         <table>
                             <tr>
-                                <td>Description:</td>
-                                <td><input id='addDescriptionCase' type='text'/></td>
+                                <td>Description:<span class="mandatory_field">*</span></td>
+                                <td><input id='addDescriptionCase' maxlength='255' placeholder='Case description'/></td>
+                            </tr>
+                            <tr>
+                                <td>Priority:<span class="mandatory_field">*</span></td>
+                                <td>
+                                    <select id='addPriorityCase'>
+                                        <option value="1" selected>1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tags:</td>
+                                <td><input id='addTagsCase' maxlength='255' placeholder='tag1, tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -289,30 +373,7 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add_case')"></div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="editCase">
-            <div class="b-popup" id="popup_edit_case">
-                <div class="b-popup-content">
-                    <div class="popup_header">
-                        <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_edit_case')"><div class="popup_close">X</div></a>
-                    </div>
-                    <div class="popup_container">
-                        <table>
-                            <tr>
-                                <td>Description:</td>
-                                <td><input id='editDescriptionCase' type='text'/></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="popup_buttons">
-                        <div class="popup_ok" v-on:click="editCase"></div>
-                        <div class="free_space"></div>
-                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_edit_case')"></div>
-                    </div>
+                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -322,7 +383,9 @@
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
-                        <a href="javascript:PopUpHide('#popup_delete_case')"><div class="popup_close">X</div></a>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_delete_case')">X</span>
+                        </div>
                     </div>
                     <div class="popup_container">
                         <p>Do you want to delete this case?</p>
@@ -332,13 +395,13 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete_case')"></div>
                     </div>
+                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
 
         <script src="/static/js/jquery-3.2.1.min.js"></script>
         <script src="/static/js/jquery-ui.js"></script>
-
         <script type="text/javascript" src="/static/js/suit/suitMain.js"></script>
 
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -349,7 +412,6 @@
         <script type="text/javascript" src="/static/js/suit/deleteSuit.js"></script>
 
         <script type="text/javascript" src="/static/js/case/addCase.js"></script>
-        <script type="text/javascript" src="/static/js/case/editCase.js"></script>
         <script type="text/javascript" src="/static/js/case/deleteCase.js"></script>
 
         <script type="text/javascript" src="/static/js/popup.js"></script>

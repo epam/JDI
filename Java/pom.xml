@@ -183,6 +183,7 @@
         <module>JDI/jdi-uitest-cucumber</module>
         <module>JDI/jdi-http</module>
         <module>JDI/jdi-mock-rest</module>
+        <module>JDI/jdi-uitest-win</module>
         <module>JDI/jdi-cucumber-test-generator</module>
 
         <module>Tests/jdi-uitest-tutorialtests</module>
@@ -193,6 +194,7 @@
         <module>Tests/jdi-httpTests</module>
         <module>Tests/jdi-uitest-web-examples</module>
         <module>Tests/jdi-uitest-cucumber-example</module>
+        <module>Tests/jdi-uitest-wintests</module>
     </modules>
 
     <!--<dependencies>
