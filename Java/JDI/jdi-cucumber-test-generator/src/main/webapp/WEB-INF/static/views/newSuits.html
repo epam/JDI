@@ -103,13 +103,15 @@
                                     <tr>
                                         <td><span>Case priority:</span><span class="mandatory_field">*</span></td>
                                         <td>
-                                            <select id='case-priority-selector'>
-                                                <option value="1" selected>1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <div class="style-case-priority-selector">
+                                                <select id='case-priority-selector'>
+                                                    <option value="1" selected>1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -206,8 +208,8 @@
                                 </div>
 
                                 <div class="case-buttons-container">
-                                    <a class="save-case-button" onclick="saveCase()">Save</a>
-                                    <a class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</a>
+                                    <div class="save-case-button" onclick="saveCase()">Save</div>
+                                    <div class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</div>
                                 </div>
                             </td>
                         </tr>
@@ -241,13 +243,15 @@
                             <tr>
                                 <td>Priority:<span class="mandatory_field">*</span></td>
                                 <td>
-                                    <select id='addPrioritySuit'>
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                    <div class="wrapper_addPrioritySuit">
+                                        <select id='addPrioritySuit'>
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -310,13 +314,15 @@
                             <tr>
                                 <td>Priority:<span class="mandatory_field">*</span></td>
                                 <td>
-                                    <select id='editPrioritySuit'>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                    <div class="wrapper_editPrioritySuit">
+                                        <select id='editPrioritySuit'>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

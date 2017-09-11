@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SuitDAO extends JpaRepository<Suit,Long> {
 
-    @Query("SELECT suit FROM Suit suit where suit.name = :name")
-    Suit getSuitByName(@Param("name") String name);
 }
