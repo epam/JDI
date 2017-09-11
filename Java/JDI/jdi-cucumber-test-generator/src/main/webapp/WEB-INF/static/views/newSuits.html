@@ -132,12 +132,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
                                               
@@ -158,12 +158,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
 
@@ -184,12 +184,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
 
@@ -206,8 +206,8 @@
                                 </div>
 
                                 <div class="case-buttons-container">
-                                    <div class="save-case-button" onclick="saveCase()">Save</div>
-                                    <div class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</div>
+                                    <a class="save-case-button" onclick="saveCase()">Save</a>
+                                    <a class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</a>
                                 </div>
                             </td>
                         </tr>
@@ -416,7 +416,7 @@
 
         <script type="text/javascript" src="/static/js/popup.js"></script>
         <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
-        <script type="text/javascript" src="static/js/stepsEditing.js"></script>
 
+        <script type="text/javascript" src="static/js/step/stepsEditing.js"></script>
     </body>
 </html>

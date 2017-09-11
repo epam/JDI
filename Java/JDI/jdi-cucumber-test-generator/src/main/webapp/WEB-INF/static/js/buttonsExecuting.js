@@ -9,9 +9,24 @@ function cancelCaseEditing() {
 }
 
 function saveCase() {
+
     var description = $("#case-description-textfield").val();
     var priority = $("#case-priority-selector").val();
     var tags = $("#case-tags").val();
+
+    var keyWordsArray = $(".step-type-select-tag");
+    var stepsArray = $(".step-code-line");
+
+
+    var elemsTotal = stepsArray.length;
+    for (var i  = 0; i < elemsTotal; i++) {
+        if ($(keyWordsArray[i]).val() === null) {
+            alert("Пустое поле");
+            return;
+        }
+    }
+
+    //$(keyWordsArray[i]).val() + " " + $(stepsArray[i]).val()
 
     if (description === null || description === "") {
         $("#case-save-exception").text("Not filled mandatory fields!");
