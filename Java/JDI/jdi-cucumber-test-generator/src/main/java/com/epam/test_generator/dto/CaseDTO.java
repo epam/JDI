@@ -1,27 +1,23 @@
-package com.epam.test_generator.entities;
+package com.epam.test_generator.dto;
 
+import com.epam.test_generator.entities.Step;
+import com.epam.test_generator.entities.Suit;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Case implements Serializable{
-
-    @Id
-    @GeneratedValue
+public class CaseDTO {
     private Long id;
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "parentCase")
-    private List<Step> steps;
+    @JsonManagedReference
+    private List<StepDTO> steps;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
-    private Suit suit;
+    @JsonBackReference
+    private SuitDTO suit;
 
     private Date creationDate;
 
@@ -30,30 +26,15 @@ public class Case implements Serializable{
     private String tags;
 
 
-
-    public Case(){
-    }
-
-    public Case(Long id, String description, List<Step> steps, Suit suit, Integer priority, String tags) {
-        this.id = id;
-        this.description = description;
-        this.steps = steps;
-        this.suit = suit;
-        this.priority = priority;
-        this.tags = tags;
-        this.creationDate = Calendar.getInstance().getTime();
-
-    }
-
     public Long getId() {
         return id;
     }
 
-    public Suit getSuit() {
+    public SuitDTO getSuit() {
         return suit;
     }
 
-    public void setSuit(Suit suit) {
+    public void setSuit(SuitDTO suit) {
         this.suit = suit;
     }
 
@@ -65,11 +46,11 @@ public class Case implements Serializable{
         this.description = description;
     }
 
-    public List<Step> getSteps() {
+    public List<StepDTO> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<StepDTO> steps) {
         this.steps = steps;
     }
 
@@ -114,3 +95,6 @@ public class Case implements Serializable{
                 '}';
     }
 }
+
+
+
