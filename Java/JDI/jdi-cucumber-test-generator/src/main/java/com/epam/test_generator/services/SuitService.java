@@ -5,10 +5,12 @@ import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.List;
 
+@Transactional
 @Service
 public class SuitService {
 

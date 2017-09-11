@@ -19,7 +19,6 @@ public class UserStepdefs {
         Assert.assertTrue(true);
     }
 
-
     @When("^I'm input lines to \"([^\"]*)\"$")
     public void iMInputLinesTo(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions

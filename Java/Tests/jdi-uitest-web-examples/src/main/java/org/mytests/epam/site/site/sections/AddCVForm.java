@@ -25,14 +25,14 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(css = "[placeholder='Email']")
     ITextField email;
     @JDropdown(
-        value = @JFindBy(css = ".country-wrapper [id$=-container]"),
+        value = @FindBy(css = ".country-wrapper [id$=-container]"),
             // %s template daster with method in 200 times
-        list = @JFindBy(xpath = "//*[contains(@id,'applicantCountry')]//li[.='%s']"))
+        list = @FindBy(xpath = "//*[contains(@id,'applicantCountry')]//li[.='%s']"))
     IDropDown country;
 
     @JDropdown(
-        value = @JFindBy(css = ".city-wrapper [id$=-container]"),
-        list = @JFindBy(css = "[id*='applicantCity'] li"))
+        value = @FindBy(css = ".city-wrapper [id$=-container]"),
+        list = @FindBy(css = "[id*='applicantCity'] li"))
     IDropDown city;
 
     @FindBy(css = ".file-upload")
