@@ -1,37 +1,20 @@
 package com.epam.test_generator.entities;
 
 public enum StepType {
+    GIVEN ("Given"),
+    WHEN ("When"),
+    THEN ("Then"),
+    AND ("And"),
+    BUT ("But"),
+    ANY ("*");
 
-    GIVEN {
-        public String getStepType() {
-            return "Given";
-        }
-    },
-    WHEN {
-        public String getStepType() {
-            return "When";
-        }
-    },
-    THEN {
-        public String getStepType() {
-            return "Then";
-        }
-    },
-    AND {
-        public String getStepType() {
-            return "And";
-        }
-    },
-    BUT {
-        public String getStepType() {
-            return "But";
-        }
-    },
-    ANY {
-        public String getStepType() {
-            return "*";
-        }
-    };
+    private String typeName;
 
-    public abstract String getStepType();
+    StepType(String typeName){
+        this.typeName = typeName;
+    }
+
+    public String getStepType(){
+        return typeName;
+    }
 }

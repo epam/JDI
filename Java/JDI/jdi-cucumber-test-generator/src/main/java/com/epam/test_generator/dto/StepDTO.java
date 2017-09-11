@@ -2,7 +2,6 @@ package com.epam.test_generator.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.StepType;
 
 public class StepDTO {
 
