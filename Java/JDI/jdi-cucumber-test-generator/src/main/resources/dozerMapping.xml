@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://dozer.sourceforge.net
-        http://dozer.soundforge.net/schema/beanmapping.xsd">
+<mappings xmlns="http://dozer.sourceforge.net">
     <mapping>
         <class-a>com.epam.test_generator.entities.Step</class-a>
         <class-b>com.epam.test_generator.dto.StepDTO</class-b>

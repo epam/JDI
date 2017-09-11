@@ -16,7 +16,7 @@ public class SuitDTO {
     private String description;
 
      @JsonManagedReference
-     private List<Case> cases;
+     private List<CaseDTO> cases;
 
     private Integer priority;
 
@@ -49,11 +49,11 @@ public class SuitDTO {
         this.name = name;
     }
 
-    public List<Case> getCases() {
+    public List<CaseDTO> getCases() {
         return cases;
     }
 
-    public void setCases(List<Case> cases) {
+    public void setCases(List<CaseDTO> cases) {
         this.cases = cases;
     }
 

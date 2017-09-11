@@ -19,4 +19,7 @@ public class DozerMapper {
     public static void map(Object source, Object dest) {
         mapper.map(dest, source);
     }
+
+    public static void main(String[] args) {
+    }
 }

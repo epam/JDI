@@ -25,7 +25,6 @@ public class Suit implements Serializable {
 
     private String tags;
 
-    //    @JsonManagedReference
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
     private List<Case> cases;
 

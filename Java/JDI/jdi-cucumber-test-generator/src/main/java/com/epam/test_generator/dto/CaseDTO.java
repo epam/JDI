@@ -14,10 +14,10 @@ public class CaseDTO {
     private String description;
 
     @JsonManagedReference
-    private List<Step> steps;
+    private List<StepDTO> steps;
 
     @JsonBackReference
-    private Suit suit;
+    private SuitDTO suit;
 
     private Date creationDate;
 
@@ -30,11 +30,11 @@ public class CaseDTO {
         return id;
     }
 
-    public Suit getSuit() {
+    public SuitDTO getSuit() {
         return suit;
     }
 
-    public void setSuit(Suit suit) {
+    public void setSuit(SuitDTO suit) {
         this.suit = suit;
     }
 
@@ -46,11 +46,11 @@ public class CaseDTO {
         this.description = description;
     }
 
-    public List<Step> getSteps() {
+    public List<StepDTO> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<StepDTO> steps) {
         this.steps = steps;
     }
 

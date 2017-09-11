@@ -10,7 +10,7 @@ public class StepDTO {
     private int rowNumber;
 
     @JsonBackReference
-    private Case parentCase;
+    private CaseDTO parentCase;
 
     private String description;
 
