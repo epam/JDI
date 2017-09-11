@@ -20,4 +20,5 @@ public class DozerMapper {
         mapper.map(dest, source);
     }
 
+
 }
