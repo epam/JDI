@@ -63,7 +63,6 @@ public class SuitController {
     @ResponseBody
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
 
-        System.out.println(suit);
         return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
 }

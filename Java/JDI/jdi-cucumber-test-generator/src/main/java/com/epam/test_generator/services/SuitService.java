@@ -54,9 +54,7 @@ public class SuitService {
     public SuitDTO addSuit(SuitDTO suitDTO) {
         Suit suit = new Suit();
         mapper.map(suitDTO,suit);
-        System.out.println(suit);
         suit = suitDAO.save(suit);
-        System.out.println(suit);
         mapper.map(suit, suitDTO);
 
         return suitDTO;
