@@ -24,24 +24,28 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
-    @RequestMapping(value = "/getSuits", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<Suit> getSuits() {
-        return suitService.getSuits();
+    @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<List<Suit>> getSuits() {
+
+        return new ResponseEntity<>(suitService.getSuits(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Suit getSuit(@PathVariable("id") long id){
-        return suitService.getSuit(id);
+    public ResponseEntity<Suit> getSuit(@PathVariable("id") long id){
+
+        return new ResponseEntity<>(suitService.getSuit(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public Suit getSuitByName(@PathVariable("name") String name){
-        return suitService.getSuitByName(name);
+    public ResponseEntity<Suit> getSuitByName(@PathVariable("name") String name){
+
+        return new ResponseEntity<>(suitService.getSuitByName(name),HttpStatus.OK);
     }
 
-    @RequestMapping(value="/editSuit", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
         suitService.editSuit(suit);
       
@@ -57,7 +61,8 @@ public class SuitController {
 
     @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public Suit addSuit(@RequestBody Suit suit) {
-        return suitService.addSuit(suit);
+    public ResponseEntity<Suit> addSuit(@RequestBody Suit suit) {
+
+        return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
 }

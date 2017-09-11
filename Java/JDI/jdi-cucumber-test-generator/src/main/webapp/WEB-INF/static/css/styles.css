@@ -457,6 +457,12 @@ div.add-case-button:hover {
     text-align: center;
     color: red;
 }
+.accordion-tabs>li.tab-head-cont>div.suitId{
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+    padding: 0;
+}
 
 
 
