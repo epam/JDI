@@ -1026,6 +1026,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .delete-step-icon {
+    cursor: pointer;
     opacity: 0;
     margin-left: 10px;
     position: absolute;
@@ -1036,6 +1037,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .add-step-icon {
+    cursor: pointer;
     height: 40px;
     margin-top: -16px;
     float: right;
