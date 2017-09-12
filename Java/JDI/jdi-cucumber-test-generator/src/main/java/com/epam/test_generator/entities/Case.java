@@ -2,8 +2,8 @@ package com.epam.test_generator.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,13 +18,15 @@ public class Case implements Serializable{
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Step> steps;
 
-    private Date creationDate;
+    private String creationDate;
 
     private Integer priority;
 
     private String tags;
 
     public Case(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
@@ -33,7 +35,6 @@ public class Case implements Serializable{
         this.steps = steps;
         this.priority = priority;
         this.tags = tags;
-        this.creationDate = Calendar.getInstance().getTime();
     }
 
     public Long getId() {
@@ -60,11 +61,11 @@ public class Case implements Serializable{
         this.steps = steps;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

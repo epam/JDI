@@ -1,6 +1,5 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.StepDAO;
@@ -33,7 +32,6 @@ public class StepService {
 
     public List<StepDTO> getStepsByCaseId(Long caseId) {
         List<StepDTO> list = new ArrayList<StepDTO>();
-//        mapper.map(caseDAO.findOne(caseId).getSteps(), list);
         for (Step step : caseDAO.findOne(caseId).getSteps()) {
             StepDTO toAdd = new StepDTO();
             mapper.map(step,toAdd);
@@ -68,7 +66,6 @@ public class StepService {
 
     public void addSteps(Long caseId, List<StepDTO> steps) {
         for (StepDTO st : steps) {
-
             addStep(st, caseId);
         }
     }

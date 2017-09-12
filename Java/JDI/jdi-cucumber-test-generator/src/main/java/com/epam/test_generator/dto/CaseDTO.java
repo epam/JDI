@@ -1,6 +1,7 @@
 package com.epam.test_generator.dto;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class CaseDTO {
@@ -10,12 +11,16 @@ public class CaseDTO {
 
     private List<StepDTO> steps;
 
-    private Date creationDate;
+    private String creationDate;
 
     private Integer priority;
 
     private String tags;
 
+    public CaseDTO() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
+    }
 
     public Long getId() {
         return id;
@@ -41,11 +46,11 @@ public class CaseDTO {
         this.steps = steps;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

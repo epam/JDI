@@ -1,7 +1,7 @@
 package com.epam.test_generator.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class SuitDTO {
@@ -17,12 +17,13 @@ public class SuitDTO {
 
     private Integer priority;
 
-    private Date creationDate;
+    private String creationDate;
 
     private String tags;
 
     public SuitDTO() {
-        creationDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Long getId() {
@@ -65,11 +66,11 @@ public class SuitDTO {
         this.priority = priority;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 

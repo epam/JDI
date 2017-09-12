@@ -2,8 +2,8 @@ package com.epam.test_generator.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -20,7 +20,7 @@ public class Suit implements Serializable {
 
     private Integer priority;
 
-    private Date creationDate;
+    private String creationDate;
 
     private String tags;
 
@@ -28,7 +28,8 @@ public class Suit implements Serializable {
     private List<Case> cases;
 
     public Suit() {
-        creationDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Suit(Long id, String name, String description, List<Case> cases, Integer priority, String tags) {
@@ -37,7 +38,6 @@ public class Suit implements Serializable {
         this.description = description;
         this.cases = cases;
         this.priority = priority;
-        this.creationDate = Calendar.getInstance().getTime();
         this.tags = tags;
     }
 
@@ -84,11 +84,11 @@ public class Suit implements Serializable {
         this.priority = priority;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
