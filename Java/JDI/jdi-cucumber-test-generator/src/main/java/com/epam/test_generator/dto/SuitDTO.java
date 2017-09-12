@@ -3,6 +3,7 @@ package com.epam.test_generator.dto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.epam.test_generator.entities.Case;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,19 @@ public class SuitDTO {
     private Date creationDate;
 
     private String tags;
+
+    public SuitDTO(String name, String description, Integer priority, String tags){
+        this.name = name;
+        this.description = description;
+        this.priority = priority;
+        this.creationDate = Calendar.getInstance().getTime();
+        this.tags = tags;
+    }
+
+    public SuitDTO(){
+
+    }
+
 
 
     public String getDescription() {

@@ -1,6 +1,6 @@
 package com.epam.test_generator.controllers;
 
-import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.services.CaseService;
 import com.epam.test_generator.services.SuitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,8 @@ public class CaseController {
     @Autowired
     private CaseService casesService;
 
-    @Autowired
-    private SuitService suitService;
-
     @RequestMapping(value = "/addCase/{suitId}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> addCaseToSuit(@PathVariable int suitId, @RequestBody Case caseArg) {
+    public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
         casesService.addCaseToSuit(caseArg, suitId);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -33,15 +30,15 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/updateCase", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> updateCase(@RequestBody Case caseArg) {
+    public ResponseEntity<Void> updateCase(@RequestBody CaseDTO caseArg) {
         casesService.updateCase(caseArg);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<Case> getCase(@PathVariable long caseId) {
+    public ResponseEntity<CaseDTO> getCase(@PathVariable long caseId) {
 
-        return new ResponseEntity<Case>(casesService.getCase(caseId), HttpStatus.OK);
+        return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
     }
 
 }
