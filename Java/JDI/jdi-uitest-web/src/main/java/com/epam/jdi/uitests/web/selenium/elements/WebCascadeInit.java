@@ -31,10 +31,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,6 +39,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -170,6 +168,78 @@ public class WebCascadeInit extends CascadeInit {
 
     protected By getNewLocatorFromField(Field field) {
         String locatorGroup = APP_VERSION;
+
+        ArrayList<Class> annotationsClasses = new ArrayList<>();
+        annotationsClasses.add(FindBy.class);
+        annotationsClasses.add(JFindBy.class);
+        annotationsClasses.add(Css.class);
+        annotationsClasses.add(Attribute.class);
+        annotationsClasses.add(Id.class);
+        annotationsClasses.add(Name.class);
+        annotationsClasses.add(NgBinding.class);
+        annotationsClasses.add(NgRepeat.class);
+        annotationsClasses.add(NgModel.class);
+        annotationsClasses.add(Text.class);
+        annotationsClasses.add(Title.class);
+        annotationsClasses.add(Type.class);
+        annotationsClasses.add(Value.class);
+        annotationsClasses.add(Xpath.class);
+        annotationsClasses.add(ClassName.class);
+
+        /*for (Class clazz: annotationsClasses){
+            if (field.isAnnotationPresent(clazz)){
+                return findByToBy(field.getAnnotation(clazz));
+            }
+        }
+        return findByToBy(field.getAnnotation(FindBy.class));
+        */
+
+            if (field.isAnnotationPresent(JFindBy.class)){
+                return findByToBy(field.getAnnotation(JFindBy.class));
+            }
+            if (field.isAnnotationPresent(Css.class)){
+               return  findByToBy(field.getAnnotation(Css.class));
+            }
+            if (field.isAnnotationPresent(Xpath.class)){
+               return findByToBy(field.getAnnotation(Xpath.class));
+            }
+            if (field.isAnnotationPresent(Attribute.class)){
+                return findByToBy(field.getAnnotation(Attribute.class));
+            }
+            if (field.isAnnotationPresent(ClassName.class)){
+                return findByToBy(field.getAnnotation(ClassName.class));
+            }
+            if (field.isAnnotationPresent(Id.class)){
+                return findByToBy(field.getAnnotation(Id.class));
+            }
+            if (field.isAnnotationPresent(Name.class)){
+                return findByToBy(field.getAnnotation(Name.class));
+            }
+            if (field.isAnnotationPresent(NgRepeat.class)){
+                return findByToBy(field.getAnnotation(NgRepeat.class));
+            }
+            if (field.isAnnotationPresent(NgBinding.class)){
+                return findByToBy(field.getAnnotation(NgBinding.class));
+            }
+            if (field.isAnnotationPresent(NgModel.class)){
+                return findByToBy(field.getAnnotation(NgModel.class));
+            }
+            if (field.isAnnotationPresent(Text.class)){
+                return findByToBy(field.getAnnotation(Text.class));
+            }
+            if (field.isAnnotationPresent(Title.class)){
+                return findByToBy(field.getAnnotation(Title.class));
+            }
+            if (field.isAnnotationPresent(Type.class)){
+                return findByToBy(field.getAnnotation(Type.class));
+            }
+            if (field.isAnnotationPresent(Value.class)){
+                return findByToBy(field.getAnnotation(Value.class));
+            }
+
+            return findByToBy(field.getAnnotation(FindBy.class));
+
+        /*
         if (locatorGroup.equals("DEFAULT"))
             return field.isAnnotationPresent(FindBy.class)
                 ? findByToBy(field.getAnnotation(FindBy.class))
@@ -178,6 +248,8 @@ public class WebCascadeInit extends CascadeInit {
         return jFindBy != null && locatorGroup.equals(jFindBy.group())
             ? WebAnnotationsUtil.findByToBy(jFindBy)
             : findByToBy(field.getAnnotation(FindBy.class));
+        */
+
     }
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
