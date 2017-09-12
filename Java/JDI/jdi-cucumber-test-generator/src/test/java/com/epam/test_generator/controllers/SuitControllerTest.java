@@ -6,11 +6,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,15 +21,24 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuitControllerTest {
+
+	private MockMvc mockMvc;
 
 	@Mock
 	private SuitService suitService;
 
 	@InjectMocks
 	private SuitController suitController;
+
+	@Before
+	public void setup() {
+		this.mockMvc = MockMvcBuilders.standaloneSetup(suitController).build();
+	}
 
 	@Test
 	public void getSuits_return200whenGetSuits() {
@@ -85,13 +97,11 @@ public class SuitControllerTest {
 	}
 
 	@Test
-	public void getSuits_return500whenRemoveSuit() {
+	public void getSuits_return500whenRemoveSuit() throws Exception {
 		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
 
-		ResponseEntity<Void> response = suitController.removeSuit(1L);
-
-		assert(response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR));
-		verify(suitService).removeSuit(1L);
+		mockMvc.perform(get("/removeSuit/1"))
+			.andExpect(status().isInternalServerError());
 	}
 
 	@Test

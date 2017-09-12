@@ -73,8 +73,8 @@ public class SuitController {
         return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<Void> handleRunTimeException(RuntimeException ex) {
+    @ExceptionHandler(Exception.class)
+	public ResponseEntity<Void> handleRunTimeException(Exception ex) {
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
