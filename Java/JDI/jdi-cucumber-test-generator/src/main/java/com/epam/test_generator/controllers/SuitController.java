@@ -1,6 +1,6 @@
 package com.epam.test_generator.controllers;
 
-import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,28 +26,28 @@ public class SuitController {
 
     @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<List<Suit>> getSuits() {
+    public ResponseEntity<List<SuitDTO>> getSuits() {
 
         return new ResponseEntity<>(suitService.getSuits(),HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Suit> getSuit(@PathVariable("id") long id){
+    public ResponseEntity<SuitDTO> getSuit(@PathVariable("id") long id){
 
         return new ResponseEntity<>(suitService.getSuit(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Suit> getSuitByName(@PathVariable("name") String name){
+    public ResponseEntity<SuitDTO> getSuitByName(@PathVariable("name") String name){
 
         return new ResponseEntity<>(suitService.getSuitByName(name),HttpStatus.OK);
     }
 
     @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> editSuit(@RequestBody Suit suit){
-        suitService.editSuit(suit);
+    public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suit){
+        suitService.updateSuit(suit);
       
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -61,7 +61,7 @@ public class SuitController {
 
     @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Suit> addSuit(@RequestBody Suit suit) {
+    public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
 
         return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
