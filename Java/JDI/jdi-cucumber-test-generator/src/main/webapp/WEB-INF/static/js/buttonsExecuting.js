@@ -139,7 +139,7 @@ function generateFile(){
     });
 
      $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/downloadFeatureFile",
             data: {
                 suitId: suit_id,
