@@ -59,11 +59,4 @@ public class SuitService {
 
         return suitDTO;
     }
-
-    public SuitDTO getSuitByName(String name) {
-        SuitDTO suitDTO = new SuitDTO();
-        mapper.map(suitDAO.getSuitByName(name),suitDTO);
-
-        return suitDTO;
-    }
 }
