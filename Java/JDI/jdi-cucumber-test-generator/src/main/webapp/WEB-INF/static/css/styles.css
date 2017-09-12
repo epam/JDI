@@ -764,6 +764,36 @@ button.save-suit-button:hover {
 .case-info-table span.mandatory_field{
     color: red;
 }
+.style-case-priority-selector{
+    height: 21px;
+    border: 1px solid #aaa;
+    width: 40px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+}
+#case-priority-selector {
+    padding: 2px 8px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+#case-description-textfield{
+    border: 1px solid #aaaaaa;
+    outline: 2px solid transparent;
+    transition: all 0.2s;
+}
+#case-description-textfield.emptyField{
+    -moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
+    -webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
+    box-shadow: 0 0 2px 1px rgba(255,0,0,1);
+    outline: 1px solid red;
+    border: none;
+}
+
 
 
 
@@ -1026,6 +1056,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .delete-step-icon {
+    cursor: pointer;
     opacity: 0;
     margin-left: 10px;
     position: absolute;
@@ -1036,6 +1067,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .add-step-icon {
+    cursor: pointer;
     height: 40px;
     margin-top: -16px;
     float: right;
@@ -1045,8 +1077,9 @@ p {margin:28px 0 3px 0;}
     opacity: 1;
     transition: 0.6s;
 }
+
 .disabled-link {
     pointer-events: none;
     cursor: default;
-    opacity: 0.7;
+    opacity: 0.65;
 }

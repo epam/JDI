@@ -5,6 +5,7 @@
         <title>Suits</title>
         <link rel="stylesheet" href="/static/css/styles.css">
         <link rel="stylesheet" href="/static/css/popup.css">
+        <link rel="stylesheet" href="/static/css/info.css">
         <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
     </head>
     <body>
@@ -103,13 +104,15 @@
                                     <tr>
                                         <td><span>Case priority:</span><span class="mandatory_field">*</span></td>
                                         <td>
-                                            <select id='case-priority-selector'>
-                                                <option value="1" selected>1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                            <div class="style-case-priority-selector">
+                                                <select id='case-priority-selector'>
+                                                    <option value="1" selected>1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -132,12 +135,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
 
@@ -158,12 +161,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
 
@@ -184,12 +187,12 @@
                                             <div class="step-info-handle">
                                                 <div class="select-step-type-container">
                                                     <select class="step-type-select-tag">
-                                                        <option disabled selected>-----</option>
-                                                        <option>Given</option>
-                                                        <option>When</option>
-                                                        <option>Then</option>
-                                                        <option>And</option>
-                                                        <option>But</option>
+                                                        <option value="0" disabled selected>-----</option>
+                                                        <option value="1">Given</option>
+                                                        <option value="2">When</option>
+                                                        <option value="3">Then</option>
+                                                        <option value="4">And</option>
+                                                        <option value="5">But</option>
                                                     </select>
                                                 </div>
 
@@ -241,13 +244,15 @@
                             <tr>
                                 <td>Priority:<span class="mandatory_field">*</span></td>
                                 <td>
-                                    <select id='addPrioritySuit'>
-                                        <option value="1" selected>1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                    <div class="wrapper_addPrioritySuit">
+                                        <select id='addPrioritySuit'>
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -310,13 +315,15 @@
                             <tr>
                                 <td>Priority:<span class="mandatory_field">*</span></td>
                                 <td>
-                                    <select id='editPrioritySuit'>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                    <div class="wrapper_editPrioritySuit">
+                                        <select id='editPrioritySuit'>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -388,7 +395,7 @@
                         </div>
                     </div>
                     <div class="popup_container">
-                        <p>Do you want to delete this case?</p>
+                        <p>Do you want to delete these cases?</p>
                     </div>
                     <div class="popup_buttons">
                         <div class="popup_ok" v-on:click="deleteCases"></div>
@@ -397,6 +404,39 @@
                     </div>
                     <div class="popup_exception"></div>
                 </div>
+            </div>
+        </div>
+
+        <div id="wrapper_info_block_success" class="hidden_info_block">
+            <div id="picture_info_block_success">
+                <div class="info">
+                    <div class="icon icon_success">
+                        <span class="icon_success_line icon_success_line_tip"></span>
+                        <span class="icon_success_line icon_success_line_long"></span>
+                        <div class="icon_success_ring"></div>
+                        <div class="icon_success_hide_corners"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="element_info_block_success">
+                Success updating!
+            </div>
+        </div>
+
+        <div id="wrapper_info_block_error" class="hidden_info_block">
+            <div id="picture_info_block_error">
+                <div class="info">
+                    <div class="icon icon_error">
+                        <div class="icon_error_ring">
+                            <span class="icon_error_line icon_error_line_left"></span>
+                            <span class="icon_error_line icon_error_line_right"></span>
+                        </div>
+                        <div class="icon_error_hide_ring"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="element_info_block_error">
+                Fail updating!<br/>Try again later!
             </div>
         </div>
 
@@ -416,7 +456,7 @@
 
         <script type="text/javascript" src="/static/js/popup.js"></script>
         <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
-        <script type="text/javascript" src="static/js/stepsEditing.js"></script>
-
+        <script type="text/javascript" src="/static/js/info.js"></script>
+        <script type="text/javascript" src="static/js/step/stepsEditing.js"></script>
     </body>
 </html>
