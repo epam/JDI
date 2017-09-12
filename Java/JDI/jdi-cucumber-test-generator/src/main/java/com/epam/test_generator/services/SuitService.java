@@ -4,6 +4,7 @@ import com.epam.test_generator.DozerMapper;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.dto.SuitDTO;
+import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.Suit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,15 +77,14 @@ public class SuitService {
                     writer.print("Scenario: ");
                     writer.print(caze.getDescription());
                     writer.println();
-//            For new Step from branch 112
-//
-//            for (Step step: caze.getSteps()) {
-//                buf = new StringBuilder(step.getKeyword());
-//                buf.append(" ");
-//                buf.append(step.getDescription);
-//                outputFile.write(buf.toString());
-//                outputFile.newLine();
-//            }
+
+            for (Step step: caze.getSteps()) {
+                StringBuilder buf = new StringBuilder(step.getKeyword());
+                buf.append(" ");
+                buf.append(step.getDescription());
+                writer.print(buf.toString());
+                writer.println();
+            }
                 }
             }
         }
