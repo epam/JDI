@@ -1,10 +1,7 @@
 package com.epam.test_generator.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.epam.test_generator.entities.Case;
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class SuitDTO {
@@ -16,35 +13,17 @@ public class SuitDTO {
 
     private String description;
 
-     @JsonManagedReference
      private List<CaseDTO> cases;
 
     private Integer priority;
 
-    private Date creationDate;
+    private String creationDate;
 
     private String tags;
 
-    public SuitDTO(String name, String description, Integer priority, String tags){
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-        this.creationDate = Calendar.getInstance().getTime();
-        this.tags = tags;
-    }
-
-    public SuitDTO(){
-
-    }
-
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public SuitDTO() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Long getId() {
@@ -63,6 +42,14 @@ public class SuitDTO {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<CaseDTO> getCases() {
         return cases;
     }
@@ -79,11 +66,11 @@ public class SuitDTO {
         this.priority = priority;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
