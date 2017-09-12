@@ -279,7 +279,7 @@ div.delete-cases-button:hover {
     cursor: pointer;
 }
 
-a.generate-feature-button {
+div.generate-feature-button {
     float: right;
     background-color: #379b55;
     margin: 5px;
@@ -303,7 +303,7 @@ a.generate-feature-button {
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-a.generate-feature-button:hover {
+div.generate-feature-button:hover {
     background-color: #308649;
 }
 

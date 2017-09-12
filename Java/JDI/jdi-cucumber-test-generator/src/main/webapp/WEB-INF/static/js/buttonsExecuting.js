@@ -121,3 +121,27 @@ $("#tableCases").on("change", "input", function(){
         $(".generate-feature-button").removeClass("disabled-link");
     }
 });
+
+function generateFile(){
+    var arrayCasesId = new Array();
+    var i = 0;
+    $('#tableCases input:checkbox').each(function() {
+        var caseId = $(this).parent().children(".particular_caseId").val();
+        arrayCasesId[i++] = caseId;
+    });
+
+     $.ajax({
+            type: "POST",
+            url: "/downloadFeatureFile",
+            data: {
+                suitId: suit_id,
+                caseIds: arrayCasesId
+            }, // parameters
+            success : function(response) {
+                alert("Success!");
+            },
+            error: function( xhr, textStatus ) {
+                alert( [ xhr.status, textStatus ] );
+            }
+        });
+}
