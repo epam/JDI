@@ -1050,10 +1050,14 @@ p {margin:28px 0 3px 0;}
     /*border: 1px solid red;*/
 }
 
-.adding-new-step-div:hover {
+.adding-new-step-div:hover{
     opacity: 1;
     transition: 0.6s;
     /*background-color: green;*/
+}
+
+.adding-new-step-div:hover .add-step-icon {
+    pointer-events: auto;
 }
 
 .step-info-handle {
@@ -1067,6 +1071,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .delete-step-icon {
+    pointer-events: none;
     position: absolute;
     cursor: pointer;
     opacity: 0;
@@ -1077,6 +1082,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .add-step-icon {
+    pointer-events: none;
     display: inline-block;
     cursor: pointer;
     height: 35px;
@@ -1086,6 +1092,7 @@ p {margin:28px 0 3px 0;}
 
 
 .step-info-handle:hover .delete-step-icon {
+    pointer-events: auto;
     opacity: 1;
     transition: 0.6s;
 }
