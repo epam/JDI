@@ -1,5 +1,6 @@
 package com.epam.test_generator.services;
 
+import com.epam.test_generator.DozerMapper;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.StepDAO;
 import com.epam.test_generator.entities.Step;
@@ -18,6 +19,8 @@ public class StepService {
 
     @Autowired
     private CaseDAO caseDAO;
+    @Autowired
+    private DozerMapper mapper;
 
     public Step addStepToCase(Step st, Long caseId) {
         st.setParentCase(caseDAO.getOne(caseId));

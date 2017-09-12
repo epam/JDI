@@ -17,21 +17,24 @@ function saveCase() {
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
 
-
-    var elemsTotal = stepsArray.length;
-    for (var i  = 0; i < elemsTotal; i++) {
-        if ($(keyWordsArray[i]).val() === null) {
-            alert("Пустое поле");
-            return;
-        }
-    }
-
     //$(keyWordsArray[i]).val() + " " + $(stepsArray[i]).val()
 
     if (description === null || description === "") {
+        if(description === null || description === ""){
+            $('#case-description-textfield').addClass("emptyField");
+            setTimeout(function() {$("#case-description-textfield").removeClass("emptyField");}, 1000);
+        }
         $("#case-save-exception").text("Not filled mandatory fields!");
         return;
     }
+
+     var elemsTotal = stepsArray.length;
+     for (var i  = 0; i < elemsTotal; i++) {
+         if ($(keyWordsArray[i]).val() === null) {
+             alert("Пустое поле");
+             return;
+         }
+     }
 
     var formData = {
         "id": case_id,
