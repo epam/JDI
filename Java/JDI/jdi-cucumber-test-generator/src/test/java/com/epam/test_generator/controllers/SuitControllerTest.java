@@ -32,6 +32,10 @@ public class SuitControllerTest {
 
 	private MockMvc mockMvc;
 
+	private SuitDTO suitDTO;
+
+	private final long TEST_SUIT_ID = 1L;
+
 	@Mock
 	private SuitService suitService;
 
@@ -41,6 +45,11 @@ public class SuitControllerTest {
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(suitController).build();
+		suitDTO = new SuitDTO();
+		suitDTO.setId(TEST_SUIT_ID);
+		suitDTO.setName("Suit name");
+		suitDTO.setPriority(1);
+		suitDTO.setDescription("Suit description");
 	}
 
 	@Test
@@ -63,9 +72,9 @@ public class SuitControllerTest {
 
 	@Test
 	public void getSuit_return200whenGetSuit() throws Exception {
-		when(suitService.getSuit(anyLong())).thenReturn(new SuitDTO());
+		when(suitService.getSuit(anyLong())).thenReturn(suitDTO);
 
-		mockMvc.perform(get("/getSuit/1"))
+		mockMvc.perform(get("/getSuit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
@@ -74,20 +83,18 @@ public class SuitControllerTest {
 	public void getSuit_return500whenGetSuit() throws Exception {
 		when(suitService.getSuit(anyLong())).thenThrow(new RuntimeException());
 
-		mockMvc.perform(get("/getSuit/1"))
+		mockMvc.perform(get("/getSuit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
 
 	@Test
 	public void editSuit_return200whenEditSuit() throws Exception {
-		SuitDTO suitDTO = new SuitDTO();
-
 		when(suitService.updateSuit(any(SuitDTO.class))).thenReturn(suitDTO);
 
 		mockMvc.perform(post("/updateSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(mapper.writeValueAsString(new SuitDTO())))
+			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
@@ -98,16 +105,17 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/updateSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(mapper.writeValueAsString(new SuitDTO())))
+			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
 
 	@Test
 	public void removeSuit_return200whenRemoveSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenReturn(suitDTO);
 		doNothing().when(suitService).removeSuit(anyLong());
 
-		mockMvc.perform(get("/removeSuit/1"))
+		mockMvc.perform(get("/removeSuit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
@@ -116,16 +124,13 @@ public class SuitControllerTest {
 	public void getSuits_return500whenRemoveSuit() throws Exception {
 		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
 
-		mockMvc.perform(get("/removeSuit/1"))
+		mockMvc.perform(get("/removeSuit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
 
 	@Test
 	public void addSuit_return200whenAddSuit() throws Exception {
-		SuitDTO suitDTO = new SuitDTO();
-
-		suitDTO.setId(1L);
 		when(suitService.addSuit(any(SuitDTO.class))).thenReturn(suitDTO);
 
 		mockMvc.perform(post("/addSuit")
@@ -142,7 +147,7 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/addSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(mapper.writeValueAsString(new SuitDTO())))
+			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
