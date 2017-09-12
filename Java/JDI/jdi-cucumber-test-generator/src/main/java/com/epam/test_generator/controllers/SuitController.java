@@ -64,6 +64,7 @@ public class SuitController {
     }
 
     @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.GET)
+    @ResponseBody
     public String downloadFile(@RequestParam(name = "suitId") Long suitId,
                              @RequestParam(name = "caseIds") List<Long> caseIds,
                              HttpServletResponse response) throws IOException {
