@@ -132,6 +132,7 @@ $("#tableCases").on("change", "input", function(){
 function generateFile(){
     var arrayCasesId = new Array();
     var i = 0;
+
     $('#tableCases input:checkbox').each(function() {
         var caseId = $(this).parent().children(".particular_caseId").val();
         arrayCasesId[i++] = caseId;
@@ -145,6 +146,9 @@ function generateFile(){
                 caseIds: arrayCasesId
             }, // parameters
             success : function(response) {
+            // Add in Blob text for .feature file
+                var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
+                saveAs(blob, "main.feature");
                 alert("Success!");
             },
             error: function( xhr, textStatus ) {

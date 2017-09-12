@@ -281,29 +281,26 @@ div.delete-cases-button:hover {
 
 div.generate-feature-button {
     float: right;
-    width: 140px;
-    height: 38px;
     background-color: #379b55;
     margin: 5px;
     border-color: #377b37;
+    min-width: 120px;
     border-radius: 3px;
     color: white;
     cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
     text-align: center;
+    text-decoration: none;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     white-space: normal;
     box-sizing: border-box;
     font-feature-settings: 'kern', 'liga', 'pnum';
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
-div.generate-feature-button>label{
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    width: 140px;
-    display: block;
-    height: 40px;
-    padding: 8px 12px;
 }
 div.generate-feature-button:hover {
     background-color: #308649;
