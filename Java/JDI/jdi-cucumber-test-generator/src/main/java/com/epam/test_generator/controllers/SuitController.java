@@ -42,13 +42,6 @@ public class SuitController {
         return new ResponseEntity<>(suitService.getSuit(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSuitByName/{name}", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<SuitDTO> getSuitByName(@PathVariable("name") String name){
-
-        return new ResponseEntity<>(suitService.getSuitByName(name),HttpStatus.OK);
-    }
-
     @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suit){
         suitService.updateSuit(suit);
