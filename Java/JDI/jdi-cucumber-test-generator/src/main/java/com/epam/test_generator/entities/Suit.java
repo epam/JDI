@@ -1,6 +1,5 @@
 package com.epam.test_generator.entities;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -25,10 +24,11 @@ public class Suit implements Serializable {
 
     private String tags;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER)
     private List<Case> cases;
 
     public Suit() {
+        creationDate = Calendar.getInstance().getTime();
     }
 
     public Suit(Long id, String name, String description, List<Case> cases, Integer priority, String tags) {
@@ -52,14 +52,6 @@ public class Suit implements Serializable {
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Long getId() {
         return id;
     }
@@ -76,12 +68,12 @@ public class Suit implements Serializable {
         this.name = name;
     }
 
-    public List<Case> getCases() {
-        return cases;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCases(List<Case> cases) {
-        this.cases = cases;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getPriority() {
@@ -108,6 +100,13 @@ public class Suit implements Serializable {
         this.tags = tags;
     }
 
+    public List<Case> getCases() {
+        return cases;
+    }
+
+    public void setCases(List<Case> cases) {
+        this.cases = cases;
+    }
 
     @Override
     public String toString() {
@@ -121,6 +120,5 @@ public class Suit implements Serializable {
                 ", cases=" + cases +
                 '}';
     }
-
 
 }

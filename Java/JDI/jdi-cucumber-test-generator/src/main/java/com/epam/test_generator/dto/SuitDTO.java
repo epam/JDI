@@ -1,8 +1,5 @@
 package com.epam.test_generator.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.epam.test_generator.entities.Case;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +13,6 @@ public class SuitDTO {
 
     private String description;
 
-     @JsonManagedReference
      private List<CaseDTO> cases;
 
     private Integer priority;
@@ -25,26 +21,8 @@ public class SuitDTO {
 
     private String tags;
 
-    public SuitDTO(String name, String description, Integer priority, String tags){
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-        this.creationDate = Calendar.getInstance().getTime();
-        this.tags = tags;
-    }
-
-    public SuitDTO(){
-
-    }
-
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public SuitDTO() {
+        creationDate = Calendar.getInstance().getTime();
     }
 
     public Long getId() {
@@ -61,6 +39,14 @@ public class SuitDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<CaseDTO> getCases() {

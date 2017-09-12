@@ -1,8 +1,9 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.DozerMapper;
+import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.StepDAO;
+import com.epam.test_generator.dto.StepDTO;
 import com.epam.test_generator.entities.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class StepService {
     private DozerMapper mapper;
 
     public Step addStepToCase(Step st, Long caseId) {
-        st.setParentCase(caseDAO.getOne(caseId));
+        caseDAO.getOne(caseId).getSteps().add(st);
         return stepDAO.save(st);
     }
 
@@ -36,7 +37,12 @@ public class StepService {
     }
 
     public Step updateStep(Step step) {
-        step.setParentCase(stepDAO.getOne(step.getId()).getParentCase());
         return stepDAO.save(step);
+    }
+
+    public void addStep(StepDTO stepDTO, Long caseID){
+        Step step = new Step();
+        mapper.map(stepDTO, step);
+        addStepToCase(step, caseID);
     }
 }

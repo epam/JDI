@@ -31,14 +31,15 @@ public class CaseController {
 
     @RequestMapping(value = "/updateCase", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@RequestBody CaseDTO caseArg) {
-        casesService.updateCase(caseArg);
+//        casesService.updateCase(caseArg);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<CaseDTO> getCase(@PathVariable long caseId) {
 
-        return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
+//        return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
+        return null;
     }
 
 }

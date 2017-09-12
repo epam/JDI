@@ -1,7 +1,5 @@
 package com.epam.test_generator.entities;
 
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -17,11 +15,8 @@ public class Case implements Serializable{
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "parentCase")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Step> steps;
-
-    @ManyToOne(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
-    private Suit suit;
 
     private Date creationDate;
 
@@ -29,32 +24,24 @@ public class Case implements Serializable{
 
     private String tags;
 
-
-
     public Case(){
     }
 
-    public Case(Long id, String description, List<Step> steps, Suit suit, Integer priority, String tags) {
+    public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
         this.id = id;
         this.description = description;
         this.steps = steps;
-        this.suit = suit;
         this.priority = priority;
         this.tags = tags;
         this.creationDate = Calendar.getInstance().getTime();
-
     }
 
     public Long getId() {
         return id;
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public void setSuit(Suit suit) {
-        this.suit = suit;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -81,11 +68,13 @@ public class Case implements Serializable{
         this.creationDate = creationDate;
     }
 
-
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
     public String getTags() {
         return tags;
@@ -95,19 +84,16 @@ public class Case implements Serializable{
         this.tags = tags;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
 
     @Override
     public String toString() {
         return "Case{" +
-                "feature='" + description + '\'' +
-                ", scenario='" + steps + '\'' +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", steps=" + steps +
+                ", creationDate=" + creationDate +
+                ", priority=" + priority +
+                ", tags='" + tags + '\'' +
                 '}';
     }
 }
