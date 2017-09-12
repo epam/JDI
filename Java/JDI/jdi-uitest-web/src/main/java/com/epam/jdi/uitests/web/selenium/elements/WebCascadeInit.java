@@ -169,7 +169,7 @@ public class WebCascadeInit extends CascadeInit {
     protected By getNewLocatorFromField(Field field) {
         String locatorGroup = APP_VERSION;
 
-        ArrayList<Class> annotationsClasses = new ArrayList<>();
+       /* ArrayList<Class> annotationsClasses = new ArrayList<>();
         annotationsClasses.add(FindBy.class);
         annotationsClasses.add(JFindBy.class);
         annotationsClasses.add(Css.class);
@@ -186,7 +186,7 @@ public class WebCascadeInit extends CascadeInit {
         annotationsClasses.add(Xpath.class);
         annotationsClasses.add(ClassName.class);
 
-        /*for (Class clazz: annotationsClasses){
+        for (Class clazz: annotationsClasses){
             if (field.isAnnotationPresent(clazz)){
                 return findByToBy(field.getAnnotation(clazz));
             }

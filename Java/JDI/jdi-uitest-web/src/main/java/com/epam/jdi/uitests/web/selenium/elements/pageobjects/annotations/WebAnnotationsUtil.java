@@ -175,13 +175,20 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return By.xpath(locator.value());
     }
 
-    public static By findByToBy(Annotation annotation){
+   /* public static By findByToBy(Annotation annotation){
         if (annotation == null) return null;
         if (annotation instanceof Css)
             return By.cssSelector(((Css) annotation).value());
+        if (annotation instanceof Attribute)
+            return getAttribute(((Attribute)annotation).name(), ((Attribute)annotation).value());
+        if (annotation instanceof ClassName)
+            return By.className(((ClassName) annotation).value());
+        if (annotation instanceof FindBy)
+            return findByToBy(annotation);
 
         return null;
     }
+    */
 
     public static By findByToBy(JFindBy locator) {
         if (locator == null) return null;
