@@ -2,7 +2,6 @@ package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
-import com.google.common.collect.ImmutableList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,13 +28,7 @@ public class SuitController {
     @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<SuitDTO>> getSuits() {
-		try {
-			return new ResponseEntity<>(suitService.getSuits(), HttpStatus.OK);
-		} catch (RuntimeException ex) {
-			ex.printStackTrace();
-		}
-
-		return new ResponseEntity<>(ImmutableList.of(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(suitService.getSuits(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)

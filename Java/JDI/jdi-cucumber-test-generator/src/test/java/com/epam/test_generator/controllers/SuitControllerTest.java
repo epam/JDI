@@ -4,23 +4,23 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
 import com.google.common.collect.ImmutableList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -41,59 +41,72 @@ public class SuitControllerTest {
 	}
 
 	@Test
-	public void getSuits_return200whenGetSuits() {
+	public void getSuits_return200whenGetSuits() throws Exception {
 		when(suitService.getSuits()).thenReturn(ImmutableList.of());
 
-		ResponseEntity<List<SuitDTO>> response = suitController.getSuits();
-
-		assert(response.getStatusCode().equals(HttpStatus.OK));
-		assert(response.getBody().equals(ImmutableList.of()));
-		verify(suitService).getSuits();
+		mockMvc.perform(get("/getAllSuits"))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void getSuits_return500whenGetSuits() {
+	public void getSuits_return500whenGetSuits() throws Exception {
 		when(suitService.getSuits()).thenThrow(new RuntimeException());
 
-		ResponseEntity<List<SuitDTO>> response = suitController.getSuits();
-
-		assert(response.getStatusCode().equals(HttpStatus.INTERNAL_SERVER_ERROR));
-		verify(suitService).getSuits();
+		mockMvc.perform(get("/getAllSuits"))
+			.andDo(print())
+			.andExpect(status().isInternalServerError());
 	}
 
 	@Test
-	public void getSuit_return200whenGetSuit() {
-		SuitDTO suitDTO = new SuitDTO();
+	public void getSuit_return200whenGetSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenReturn(new SuitDTO());
 
-		when(suitService.getSuit(anyLong())).thenReturn(suitDTO);
-
-		ResponseEntity<SuitDTO> response = suitController.getSuit(1L);
-
-		assert(response.getStatusCode().equals(HttpStatus.OK));
-		assert(response.getBody().equals(suitDTO));
-		verify(suitService).getSuit(1L);
+		mockMvc.perform(get("/getSuit/1"))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void editSuit_return200whenEditSuit() {
+	public void getSuit_return500whenGetSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenThrow(new RuntimeException());
+
+		mockMvc.perform(get("/getSuit/1"))
+			.andDo(print())
+			.andExpect(status().isInternalServerError());
+	}
+
+	@Test
+	public void editSuit_return200whenEditSuit() throws Exception {
 		SuitDTO suitDTO = new SuitDTO();
 
 		when(suitService.updateSuit(any(SuitDTO.class))).thenReturn(suitDTO);
 
-		ResponseEntity<Void> response = suitController.editSuit(suitDTO);
-
-		assert(response.getStatusCode().equals(HttpStatus.OK));
-		verify(suitService).updateSuit(suitDTO);
+		mockMvc.perform(post("/updateSuit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void removeSuit_return200whenRemoveSuit() {
+	public void editSuit_return500whenEditSuit() throws Exception {
+		when(suitService.updateSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
+
+		mockMvc.perform(post("/updateSuit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.andDo(print())
+			.andExpect(status().isInternalServerError());
+	}
+
+	@Test
+	public void removeSuit_return200whenRemoveSuit() throws Exception {
 		doNothing().when(suitService).removeSuit(anyLong());
 
-		ResponseEntity<Void> response = suitController.removeSuit(1L);
-
-		assert(response.getStatusCode().equals(HttpStatus.OK));
-		verify(suitService).removeSuit(1L);
+		mockMvc.perform(get("/removeSuit/1"))
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 
 	@Test
@@ -101,19 +114,34 @@ public class SuitControllerTest {
 		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
 
 		mockMvc.perform(get("/removeSuit/1"))
+			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
 
 	@Test
-	public void addSuit_return200whenAddSuit() {
+	public void addSuit_return200whenAddSuit() throws Exception {
 		SuitDTO suitDTO = new SuitDTO();
 
+		suitDTO.setId(1L);
 		when(suitService.addSuit(any(SuitDTO.class))).thenReturn(suitDTO);
 
-		ResponseEntity<SuitDTO> response = suitController.addSuit(suitDTO);
+		mockMvc.perform(post("/addSuit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"id\":1,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(content().string("{\"id\":1,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"));
+	}
 
-		assert(response.getStatusCode().equals(HttpStatus.OK));
-		verify(suitService).addSuit(suitDTO);
+	@Test
+	public void addSuit_return500whenAddSuit() throws Exception {
+		when(suitService.addSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
+
+		mockMvc.perform(post("/addSuit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.andDo(print())
+			.andExpect(status().isInternalServerError());
 	}
 
 }
