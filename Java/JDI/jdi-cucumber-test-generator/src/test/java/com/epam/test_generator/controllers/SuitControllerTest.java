@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuitControllerTest {
+
+	private ObjectMapper mapper = new ObjectMapper();
 
 	private MockMvc mockMvc;
 
@@ -84,7 +87,7 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/updateSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.content(mapper.writeValueAsString(new SuitDTO())))
 			.andDo(print())
 			.andExpect(status().isOk());
 	}
@@ -95,7 +98,7 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/updateSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.content(mapper.writeValueAsString(new SuitDTO())))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
@@ -127,10 +130,10 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/addSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"id\":1,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isOk())
-			.andExpect(content().string("{\"id\":1,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"));
+			.andExpect(content().string(mapper.writeValueAsString(suitDTO)));
 	}
 
 	@Test
@@ -139,7 +142,7 @@ public class SuitControllerTest {
 
 		mockMvc.perform(post("/addSuit")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content("{\"id\":null,\"name\":null,\"description\":null,\"cases\":null,\"priority\":null,\"creationDate\":null,\"tags\":null}"))
+			.content(mapper.writeValueAsString(new SuitDTO())))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
 	}
