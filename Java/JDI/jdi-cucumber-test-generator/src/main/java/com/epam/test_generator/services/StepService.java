@@ -1,14 +1,17 @@
 package com.epam.test_generator.services;
 
+import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.StepDAO;
 import com.epam.test_generator.dto.StepDTO;
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -28,8 +31,10 @@ public class StepService {
         return stepDAO.save(st);
     }
 
-    public List<Step> getStepsByCaseId(Long caseId) {
-        return caseDAO.findOne(caseId).getSteps();
+    public List<StepDTO> getStepsByCaseId(Long caseId) {
+        List<StepDTO> list = new ArrayList<StepDTO>();
+        mapper.map(caseDAO.findOne(caseId).getSteps(), list);
+        return list;
     }
 
     public void removeStep(Long id) {
@@ -40,9 +45,27 @@ public class StepService {
         return stepDAO.save(step);
     }
 
-    public void addStep(StepDTO stepDTO, Long caseID){
+    public void addStep(StepDTO stepDTO, Long caseID) {
         Step step = new Step();
         mapper.map(stepDTO, step);
         addStepToCase(step, caseID);
+    }
+
+    public void removeAllSteps(Long caseId) {
+       Case caze = caseDAO.getOne(caseId);
+       List<Step> stepList = caze.getSteps();
+       for(Step st: stepList){
+           stepDAO.delete(st.getId());
+       }
+       caze.setSteps(null);
+
+    }
+
+    public void addSteps(Long caseId, List<StepDTO> steps) {
+       for(StepDTO st: steps){
+           addStep(st, caseId);
+       }
+
+
     }
 }
