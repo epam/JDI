@@ -786,15 +786,20 @@ button.save-suit-button:hover {
     outline: 2px solid transparent;
     transition: all 0.2s;
 }
-#case-description-textfield.emptyField{
+/*#case-description-textfield.emptyField{*/
+    /*-moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*-webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*outline: 1px solid red;*/
+    /*border: none;*/
+/*}*/
+.emptyField {
     -moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     -webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     outline: 1px solid red;
     border: none;
 }
-
-
 
 
 
@@ -1080,8 +1085,7 @@ p {margin:28px 0 3px 0;}
 }
 
 
-
-.step-info-handle:hover>.delete-step-icon {
+.step-info-handle:hover .delete-step-icon {
     opacity: 1;
     transition: 0.6s;
 }
@@ -1090,4 +1094,25 @@ p {margin:28px 0 3px 0;}
     pointer-events: none;
     cursor: default;
     opacity: 0.65;
+}
+
+.step-handle {
+    cursor: move;
+    margin: 0;
+    border: 1px dotted gray;
+    width: 620px;
+    float: left;
+    padding: 5px;
+}
+
+.delete-step-img-container {
+    height: 40px;
+    float: left;
+    width: 40px;
+    border: 1px solid red;
+}
+
+.step-handle:hover .delete-step-icon, .delete-step-img-container:hover>.delete-step-icon {
+    opacity: 1;
+    transition: 0.6s;
 }
