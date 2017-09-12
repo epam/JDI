@@ -44,7 +44,9 @@ public class SuitControllerTest {
 
 	@Before
 	public void setup() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(suitController).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(suitController)
+			.setControllerAdvice(new GlobalExceptionController())
+			.build();
 		suitDTO = new SuitDTO();
 		suitDTO.setId(TEST_SUIT_ID);
 		suitDTO.setName("Suit name");
