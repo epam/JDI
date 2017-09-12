@@ -11,6 +11,14 @@ var editSuit = new Vue({
             var tagsSuit = $("#editTagsSuit").val();
 
             if(nameSuit == "" || prioritySuit === null){
+                if(nameSuit == ""){
+                    $('#editNameSuit').addClass("emptyField");
+                    setTimeout(function() {$("#editNameSuit").removeClass("emptyField");}, 1000);
+                }
+                if(prioritySuit == null){
+                    $('.wrapper_editPrioritySuit').addClass("emptyField");
+                    setTimeout(function() {$(".wrapper_editPrioritySuit").removeClass("emptyField");}, 1000);
+                }
                 $("#popup_edit .popup_exception").text("Not filled mandatory fields!");
                 return;
             }
