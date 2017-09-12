@@ -24,8 +24,9 @@ public class CaseController {
 
     @RequestMapping(value = "/removeCase/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<Void> removeCase(@PathVariable long caseId) {
-        casesService.removeCase(caseId);
 
+
+        casesService.removeCase(caseId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

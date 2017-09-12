@@ -15,7 +15,7 @@ public class Case implements Serializable{
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Step> steps;
 
     private Date creationDate;

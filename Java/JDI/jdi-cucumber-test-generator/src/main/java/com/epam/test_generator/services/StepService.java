@@ -33,7 +33,12 @@ public class StepService {
 
     public List<StepDTO> getStepsByCaseId(Long caseId) {
         List<StepDTO> list = new ArrayList<StepDTO>();
-        mapper.map(caseDAO.findOne(caseId).getSteps(), list);
+//        mapper.map(caseDAO.findOne(caseId).getSteps(), list);
+        for (Step step : caseDAO.findOne(caseId).getSteps()) {
+            StepDTO toAdd = new StepDTO();
+            mapper.map(step,toAdd);
+            list.add(toAdd);
+        }
         return list;
     }
 
@@ -52,20 +57,19 @@ public class StepService {
     }
 
     public void removeAllSteps(Long caseId) {
-       Case caze = caseDAO.getOne(caseId);
-       List<Step> stepList = caze.getSteps();
-       for(Step st: stepList){
-           stepDAO.delete(st.getId());
-       }
-       caze.setSteps(null);
-
+        Case caze = caseDAO.getOne(caseId);
+        List<Step> stepList = caze.getSteps();
+        for (Step st : stepList) {
+            stepDAO.delete(st.getId());
+        }
+        caze.setSteps(null);
+        caseDAO.save(caze);
     }
 
     public void addSteps(Long caseId, List<StepDTO> steps) {
-       for(StepDTO st: steps){
-           addStep(st, caseId);
-       }
+        for (StepDTO st : steps) {
 
-
+            addStep(st, caseId);
+        }
     }
 }

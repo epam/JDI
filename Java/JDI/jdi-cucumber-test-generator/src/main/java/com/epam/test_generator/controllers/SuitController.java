@@ -41,21 +41,18 @@ public class SuitController {
     @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suit){
         suitService.updateSuit(suit);
-      
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/removeSuit/{id}", method = RequestMethod.GET)
     public ResponseEntity<Void> removeSuit(@PathVariable("id") long id){
         suitService.removeSuit(id);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
-
         return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);
     }
 }

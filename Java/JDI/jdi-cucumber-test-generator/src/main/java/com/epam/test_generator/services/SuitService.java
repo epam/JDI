@@ -28,14 +28,12 @@ public class SuitService {
             mapper.map(suit, suitDTO);
             suitDTOlist.add(suitDTO);
         }
-
         return suitDTOlist;
     }
 
     public SuitDTO getSuit(long id) {
         SuitDTO suitDTO = new SuitDTO();
         mapper.map(suitDAO.findOne(id), suitDTO);
-
         return suitDTO;
     }
 
@@ -43,7 +41,6 @@ public class SuitService {
         Suit suit = new Suit();
         mapper.map(suitDTO, suit);
         mapper.map(suitDAO.save(suit), suitDTO);
-
         return suitDTO;
     }
 
@@ -56,7 +53,6 @@ public class SuitService {
         mapper.map(suitDTO,suit);
         suit = suitDAO.save(suit);
         mapper.map(suit, suitDTO);
-
         return suitDTO;
     }
 }

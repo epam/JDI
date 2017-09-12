@@ -25,12 +25,12 @@ public class StepController {
 
     @RequestMapping(value = "/getSteps/{caseId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<StepDTO> getStepsByCaseId(@PathVariable("caseId")Long caseId) {
+    public List<StepDTO> getStepsByCaseId(@PathVariable Long caseId) {
         return stepService.getStepsByCaseId(caseId);
     }
 
     @RequestMapping(value = "/saveSteps/{caseId}", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> saveStepsForCaseId(@PathVariable("caseId")Long caseId, @RequestBody List<StepDTO> steps) {
+    public ResponseEntity<Void> saveStepsForCaseId(@PathVariable Long caseId, @RequestBody List<StepDTO> steps) {
         stepService.removeAllSteps(caseId);
         stepService.addSteps(caseId, steps);
         return new ResponseEntity<>(HttpStatus.OK);

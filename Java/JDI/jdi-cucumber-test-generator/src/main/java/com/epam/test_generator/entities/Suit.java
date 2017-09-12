@@ -24,7 +24,7 @@ public class Suit implements Serializable {
 
     private String tags;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Case> cases;
 
     public Suit() {
