@@ -63,32 +63,28 @@ public class SuitService {
         return suitDTO;
     }
 
-    public ByteArrayInputStream generateStream(Long suitId, List<Long> CaseIds) throws IOException {
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    public String generateStream(Long suitId, List<Long> CaseIds) throws IOException {
         Suit suit = suitDAO.findOne(suitId);
 
-        try (PrintWriter writer = new PrintWriter(stream)) {
-            writer.print("Feature: ");
-            writer.print(suit.getName());
-            writer.println();
+        StringBuilder output = new StringBuilder("Feature: ");
+            output.append(suit.getName());
+            output.append("\n");
             for (Case caze : suit.getCases()) {
                 if (CaseIds.contains(caze.getId())) {
-                    writer.print("Scenario: ");
-                    writer.print(caze.getDescription());
-                    writer.println();
+                    output.append("Scenario: ");
+                    output.append(caze.getDescription());
+                    output.append("\n");
 
                     for (Step step: caze.getSteps()) {
-                        writer.print(step.getKeyword());
-                        writer.print(" ");
-                        writer.print(step.getDescription());
-                        writer.println();
+                        output.append("\t");
+                        output.append(step.getKeyword());
+                        output.append(" ");
+                        output.append(step.getDescription());
+                        output.append("\n");
                     }
                 }
             }
-        }
 
-        stream.close();
-        return new ByteArrayInputStream(stream.toByteArray());
+        return output.toString();
     }
 }

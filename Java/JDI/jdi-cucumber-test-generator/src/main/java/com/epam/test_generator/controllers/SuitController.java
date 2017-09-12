@@ -64,7 +64,7 @@ public class SuitController {
     }
 
     @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.GET)
-    public void downloadFile(@RequestParam(name = "suitId") Long suitId,
+    public String downloadFile(@RequestParam(name = "suitId") Long suitId,
                              @RequestParam(name = "caseIds") List<Long> caseIds,
                              HttpServletResponse response) throws IOException {
 
@@ -73,9 +73,10 @@ public class SuitController {
         response.setContentType(mimeType);
         response.setHeader("Content-Disposition", "inline; filename=\"" + "File.feature" + "\"");
 
-        ByteArrayInputStream inputStream = suitService.generateStream(suitId, caseIds);
-        response.setContentLength(inputStream.available());
-        FileCopyUtils.copy(inputStream, response.getOutputStream());
-        inputStream.close();
+        return  suitService.generateStream(suitId, caseIds);
+//        ByteArrayInputStream inputStream = suitService.generateStream(suitId, caseIds);
+//        response.setContentLength(inputStream.available());
+//        FileCopyUtils.copy(inputStream, response.getOutputStream());
+//        inputStream.close();
     }
 }
