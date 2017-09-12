@@ -85,7 +85,10 @@
 
                                 <div style="width: 100%;">
                                     <div class="suit-buttons-container">
-                                        <div class="generate-feature-button" style="color: white;" onclick="generateFile()">Generate</div>
+                                        <div class="generate-feature-button">
+                                            <label for="files">Generate</label>
+                                            <input id="files" style="visibility:hidden;" type="file" webkitdirectory directory>
+                                        </div>
                                         <div class="delete-cases-button" onclick="javascript:PopUpDeleteCase()"><img src="/static/images/trash-icon.png"
                                                                             style="height: 25px; margin: -5px;"></div>
                                         <div class="add-case-button" onclick="javascript:PopUpAddCase()"><img src="/static/images/plus-icon.png"
@@ -458,5 +461,6 @@
         <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/static/js/info.js"></script>
         <script type="text/javascript" src="static/js/step/stepsEditing.js"></script>
+        <script type="text/javascript" src="static/js/FileSaver.min.js"></script>
     </body>
 </html>
