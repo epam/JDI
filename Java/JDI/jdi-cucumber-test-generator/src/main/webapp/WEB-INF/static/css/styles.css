@@ -788,15 +788,20 @@ button.save-suit-button:hover {
     outline: 2px solid transparent;
     transition: all 0.2s;
 }
-#case-description-textfield.emptyField{
+/*#case-description-textfield.emptyField{*/
+    /*-moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*-webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*box-shadow: 0 0 2px 1px rgba(255,0,0,1);*/
+    /*outline: 1px solid red;*/
+    /*border: none;*/
+/*}*/
+.emptyField {
     -moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     -webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     outline: 1px solid red;
     border: none;
 }
-
-
 
 
 
@@ -981,7 +986,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .cucumber-test-editor-container {
-    /*border: 1px solid red;*/
+    width: 680px;
 }
 
 .cucumber-test-editor {
@@ -1006,21 +1011,23 @@ p {margin:28px 0 3px 0;}
 .sortable-step-container {
     width: 100%;
     /*border: 1px solid red;*/
+    padding: 0;
 }
 
 .select-step-type-container {
+    float: left;
     height: 27px;
     display: inline-block;
     border: 1px solid #ccc;
     width: 100px;
     border-radius: 3px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
 }
 
 .select-step-type-container>.step-type-select-tag {
     padding: 5px 8px;
-    width: 130%;
+    width: 100%;
     border: none;
     box-shadow: none;
     background: transparent;
@@ -1029,6 +1036,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .step-code-line {
+    float: left;
     margin-left: 5px;
     width: 500px;
     height: 27px;
@@ -1037,8 +1045,9 @@ p {margin:28px 0 3px 0;}
 }
 
 .adding-new-step-div {
+    display: block;
     opacity: 0;
-    height: 10px;
+    height: 15px;
     width: 665px;
     /*border: 1px solid red;*/
 }
@@ -1050,32 +1059,34 @@ p {margin:28px 0 3px 0;}
 }
 
 .step-info-handle {
+    display: block;
     cursor: move;
-    width: 660px;
+    width: 100%;
     /*border: 1px solid #379b55;*/
+    height: 49px;
     margin: 0;
-    padding: 5px;
+    padding: 0;
 }
 
 .delete-step-icon {
     cursor: pointer;
     opacity: 0;
-    margin-left: 10px;
-    position: absolute;
-    height: 38px;
+    margin-left: 5px;
+    height: 30px;
     float: right;
-    overflow: hidden;
-    margin-top: -5px;
+    margin-top: 5px;
 }
 
 .add-step-icon {
+    display: inline-block;
     cursor: pointer;
-    height: 40px;
-    margin-top: -16px;
+    height: 35px;
+    margin-top: -10px;
     float: right;
 }
 
-.step-info-handle:hover>.delete-step-icon {
+
+.step-info-handle:hover .delete-step-icon {
     opacity: 1;
     transition: 0.6s;
 }
@@ -1084,4 +1095,25 @@ p {margin:28px 0 3px 0;}
     pointer-events: none;
     cursor: default;
     opacity: 0.65;
+}
+
+.step-handle {
+    cursor: move;
+    margin: 0;
+    border: 1px dotted gray;
+    width: 620px;
+    float: left;
+    padding: 5px;
+}
+
+.delete-step-img-container {
+    height: 40px;
+    float: left;
+    width: 40px;
+    border: 1px solid red;
+}
+
+.step-handle:hover .delete-step-icon, .delete-step-img-container:hover>.delete-step-icon {
+    opacity: 1;
+    transition: 0.6s;
 }

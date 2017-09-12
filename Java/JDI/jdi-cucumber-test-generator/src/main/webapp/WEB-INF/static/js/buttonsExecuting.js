@@ -17,23 +17,30 @@ function saveCase() {
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
 
-    //$(keyWordsArray[i]).val() + " " + $(stepsArray[i]).val()
+
+    var descriptionIsEmpty = false;
+    var someDropdownsAreEmpty = false;
+
 
     if (description === null || description === "") {
         if(description === null || description === ""){
             $('#case-description-textfield').addClass("emptyField");
-            setTimeout(function() {$("#case-description-textfield").removeClass("emptyField");}, 1000);
         }
         $("#case-save-exception").text("Not filled mandatory fields!");
-        return;
+        descriptionIsEmpty = true;
     }
 
      var elemsTotal = stepsArray.length;
      for (var i  = 0; i < elemsTotal; i++) {
          if ($(keyWordsArray[i]).val() === null) {
-             alert("Пустое поле");
-             return;
+             $(keyWordsArray[i]).parent().addClass("emptyField");
+             someDropdownsAreEmpty = true;
          }
+     }
+
+     if (someDropdownsAreEmpty || descriptionIsEmpty) {
+         setTimeout(function() {$(".emptyField").removeClass("emptyField");}, 2000);
+         return;
      }
 
     var formData = {
@@ -52,7 +59,7 @@ function saveCase() {
             $("#case-save-exception").text("");
         },
         error: function( xhr, textStatus ) {
-            alert( [ xhr.status, textStatus ] );
+            //alert( [ xhr.status, textStatus ] );
         }
     });
 }
