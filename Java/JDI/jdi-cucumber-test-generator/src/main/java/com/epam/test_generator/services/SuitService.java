@@ -78,13 +78,12 @@ public class SuitService {
                     writer.print(caze.getDescription());
                     writer.println();
 
-            for (Step step: caze.getSteps()) {
-                StringBuilder buf = new StringBuilder(step.getKeyword());
-                buf.append(" ");
-                buf.append(step.getDescription());
-                writer.print(buf.toString());
-                writer.println();
-            }
+                    for (Step step: caze.getSteps()) {
+                        writer.print(step.getKeyword());
+                        writer.print(" ");
+                        writer.print(step.getDescription());
+                        writer.println();
+                    }
                 }
             }
         }
