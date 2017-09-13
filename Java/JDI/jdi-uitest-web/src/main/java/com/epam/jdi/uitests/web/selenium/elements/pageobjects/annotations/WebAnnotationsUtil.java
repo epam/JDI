@@ -133,10 +133,13 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return By.name(locator.value());
     }
 
-
-    public static By findByToBy(Type locator){
+    public static By findByToBy(Tag locator){
         if (locator == null) return null;
         return By.tagName(locator.value());
+    }
+    public static By findByToBy(Type locator){
+        if (locator == null) return null;
+        return getAttribute("type", locator.value());
     }
 
     public static By findByToBy(Text locator){
@@ -219,6 +222,8 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             return getAttribute("value", locator.value());
         if (!"".equals(locator.title()))
             return getAttribute("title", locator.title());
+        if (!"".equals(locator.type()))
+            return getAttribute("type", locator.title());
 
         if (!"".equals(locator.model()))
             return By.cssSelector(format("[ng-model='%s']", locator.model()));
