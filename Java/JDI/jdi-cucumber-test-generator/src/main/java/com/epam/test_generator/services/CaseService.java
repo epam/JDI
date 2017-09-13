@@ -62,6 +62,7 @@ public class CaseService {
         Case caze = suit.getCaseById(cs.getId());
         if (caze != null) {
             suit.getCases().remove(caze);
+            caze.setSteps(new ArrayList<>());
             mapper.map(cs, caze);
             suit.getCases().add(caze);
             suitDAO.save(suit);
