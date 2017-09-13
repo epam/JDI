@@ -1,11 +1,7 @@
 package com.epam.test_generator.dto;
 
-import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.Suit;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class CaseDTO {
@@ -13,29 +9,25 @@ public class CaseDTO {
 
     private String description;
 
-    @JsonManagedReference
     private List<StepDTO> steps;
 
-    @JsonBackReference
-    private SuitDTO suit;
-
-    private Date creationDate;
+    private String creationDate;
 
     private Integer priority;
 
     private String tags;
 
+    public CaseDTO() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
+    }
 
     public Long getId() {
         return id;
     }
 
-    public SuitDTO getSuit() {
-        return suit;
-    }
-
-    public void setSuit(SuitDTO suit) {
-        this.suit = suit;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -54,19 +46,21 @@ public class CaseDTO {
         this.steps = steps;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
     public String getTags() {
         return tags;
@@ -76,19 +70,15 @@ public class CaseDTO {
         this.tags = tags;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
     @Override
     public String toString() {
-        return "Case{" +
-                "feature='" + description + '\'' +
-                ", scenario='" + steps + '\'' +
+        return "CaseDTO{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", steps=" + steps +
+                ", creationDate=" + creationDate +
+                ", priority=" + priority +
+                ", tags='" + tags + '\'' +
                 '}';
     }
 }

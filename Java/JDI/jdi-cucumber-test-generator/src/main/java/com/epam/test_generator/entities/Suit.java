@@ -1,10 +1,9 @@
 package com.epam.test_generator.entities;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -21,14 +20,16 @@ public class Suit implements Serializable {
 
     private Integer priority;
 
-    private Date creationDate;
+    private String creationDate;
 
     private String tags;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE},fetch= FetchType.EAGER, mappedBy = "suit")
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Case> cases;
 
     public Suit() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Suit(Long id, String name, String description, List<Case> cases, Integer priority, String tags) {
@@ -37,7 +38,6 @@ public class Suit implements Serializable {
         this.description = description;
         this.cases = cases;
         this.priority = priority;
-        this.creationDate = Calendar.getInstance().getTime();
         this.tags = tags;
     }
 
@@ -49,14 +49,6 @@ public class Suit implements Serializable {
     public Suit(long id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -76,12 +68,12 @@ public class Suit implements Serializable {
         this.name = name;
     }
 
-    public List<Case> getCases() {
-        return cases;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCases(List<Case> cases) {
-        this.cases = cases;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getPriority() {
@@ -92,11 +84,11 @@ public class Suit implements Serializable {
         this.priority = priority;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -108,6 +100,13 @@ public class Suit implements Serializable {
         this.tags = tags;
     }
 
+    public List<Case> getCases() {
+        return cases;
+    }
+
+    public void setCases(List<Case> cases) {
+        this.cases = cases;
+    }
 
     @Override
     public String toString() {
@@ -121,6 +120,5 @@ public class Suit implements Serializable {
                 ", cases=" + cases +
                 '}';
     }
-
 
 }

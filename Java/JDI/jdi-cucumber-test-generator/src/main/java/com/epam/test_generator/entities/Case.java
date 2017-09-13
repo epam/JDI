@@ -1,11 +1,9 @@
 package com.epam.test_generator.entities;
 
-
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,44 +15,34 @@ public class Case implements Serializable{
 
     private String description;
 
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "parentCase")
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Step> steps;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
-    private Suit suit;
-
-    private Date creationDate;
+    private String creationDate;
 
     private Integer priority;
 
     private String tags;
 
-
-
     public Case(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
-    public Case(Long id, String description, List<Step> steps, Suit suit, Integer priority, String tags) {
+    public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
         this.id = id;
         this.description = description;
         this.steps = steps;
-        this.suit = suit;
         this.priority = priority;
         this.tags = tags;
-        this.creationDate = Calendar.getInstance().getTime();
-
     }
 
     public Long getId() {
         return id;
     }
 
-    public Suit getSuit() {
-        return suit;
-    }
-
-    public void setSuit(Suit suit) {
-        this.suit = suit;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -73,19 +61,21 @@ public class Case implements Serializable{
         this.steps = steps;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
-
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
     public String getTags() {
         return tags;
@@ -95,19 +85,16 @@ public class Case implements Serializable{
         this.tags = tags;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
 
     @Override
     public String toString() {
         return "Case{" +
-                "feature='" + description + '\'' +
-                ", scenario='" + steps + '\'' +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", steps=" + steps +
+                ", creationDate=" + creationDate +
+                ", priority=" + priority +
+                ", tags='" + tags + '\'' +
                 '}';
     }
 }
