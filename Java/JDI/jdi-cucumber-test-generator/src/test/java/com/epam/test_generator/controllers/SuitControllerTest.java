@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.SuitService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.ImmutableList;
+import java.util.Collections;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +61,7 @@ public class SuitControllerTest {
 
 	@Test
 	public void getSuits_return200whenGetSuits() throws Exception {
-		when(suitService.getSuits()).thenReturn(ImmutableList.of());
+		when(suitService.getSuits()).thenReturn(Collections.emptyList());
 
 		mockMvc.perform(get("/suits"))
 			.andDo(print())
