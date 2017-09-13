@@ -187,7 +187,7 @@ public class CaseControllerTest {
                 .content(mapper.writeValueAsString(caseDTO)))
                 .andExpect(status().isOk());
 
-        verify(casesService).updateCase(eq(SIMPLE_CASE_ID), any(CaseDTO.class));
+        verify(casesService).updateCase(eq(SIMPLE_SUIT_ID), any(CaseDTO.class));
     }
 
     @Test
@@ -272,7 +272,7 @@ public class CaseControllerTest {
                 .content(mapper.writeValueAsString(caseDTO)))
                 .andExpect(status().isInternalServerError());
 
-        verify(casesService, times(0)).updateCase(anyLong(),any(CaseDTO.class));
+        verify(casesService).updateCase(anyLong(),any(CaseDTO.class));
     }
 
     @Test
