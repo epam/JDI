@@ -27,8 +27,11 @@ public class MultipleSitesExample {
         YandexSite.homePage.open();
         Assert.areEquals(YandexSite.homePage.getDriver().getCurrentUrl(),
             "https://ya.ru/");
+        YandexSite.homePage.search("JDI framework");
+
         GoogleSite.homePage.open();
         Assert.contains(GoogleSite.homePage.getDriver().getCurrentUrl(),
                 "https://www.google.");
+        GoogleSite.homePage.search("JDI framework");
     }
 }
