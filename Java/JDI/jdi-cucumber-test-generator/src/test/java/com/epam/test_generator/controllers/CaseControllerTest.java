@@ -2,7 +2,6 @@ package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.services.CaseService;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Ignore;
