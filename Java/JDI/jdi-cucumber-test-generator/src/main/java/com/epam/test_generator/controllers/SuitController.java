@@ -35,11 +35,11 @@ public class SuitController {
     public ResponseEntity<SuitDTO> getSuit(@PathVariable("suitId") long id){
         SuitDTO suitDTO = suitService.getSuit(id);
 
-        if (suitDTO.getId() == id) {
+		if (suitDTO != null) {
 			return new ResponseEntity<>(suitDTO, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(suitDTO, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value="/suit/{suitId}", method = RequestMethod.PUT, consumes = "application/json")
@@ -58,7 +58,7 @@ public class SuitController {
     public ResponseEntity<Void> removeSuit(@PathVariable("suitId") long id){
         SuitDTO suitDTO = suitService.getSuit(id);
 
-        if (suitDTO.getId() == id) {
+        if (suitDTO != null) {
             suitService.removeSuit(id);
 
             return new ResponseEntity<>(HttpStatus.OK);

@@ -5,6 +5,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -92,6 +93,17 @@ public class SuitControllerTest {
 	}
 
 	@Test
+	public void getSuit_return404whenGetSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenReturn(null);
+
+		mockMvc.perform(get("/suit/" + TEST_SUIT_ID))
+			.andDo(print())
+			.andExpect(status().isNotFound());
+
+		verify(suitService).getSuit(eq(TEST_SUIT_ID));
+	}
+
+	@Test
 	public void getSuit_return500whenGetSuit() throws Exception {
 		when(suitService.getSuit(anyLong())).thenThrow(new RuntimeException());
 
@@ -113,6 +125,48 @@ public class SuitControllerTest {
 			.andExpect(status().isOk());
 
 		verify(suitService).updateSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void editSuit_return422whenEditSuitWithNullName() throws Exception {
+		suitDTO.setName(null);
+		when(suitService.updateSuit(any(SuitDTO.class))).thenReturn(suitDTO);
+
+		mockMvc.perform(put("/suit/" + TEST_SUIT_ID)
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).updateSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void editSuit_return422whenEditWithMoreThanTheRequiredPriority() throws Exception {
+		suitDTO.setPriority(6);
+		when(suitService.updateSuit(any(SuitDTO.class))).thenReturn(suitDTO);
+
+		mockMvc.perform(put("/suit/" + TEST_SUIT_ID)
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).updateSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void editSuit_return422whenEditWithLessThanTheRequiredPriority() throws Exception {
+		suitDTO.setPriority(-1);
+		when(suitService.updateSuit(any(SuitDTO.class))).thenReturn(suitDTO);
+
+		mockMvc.perform(put("/suit/" + TEST_SUIT_ID)
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).updateSuit(any(SuitDTO.class));
 	}
 
 	@Test
@@ -141,7 +195,19 @@ public class SuitControllerTest {
 	}
 
 	@Test
-	public void getSuits_return500whenRemoveSuit() throws Exception {
+	public void removeSuit_return404whenRemoveSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenReturn(null);
+		doNothing().when(suitService).removeSuit(anyLong());
+
+		mockMvc.perform(delete("/suit/" + TEST_SUIT_ID))
+			.andDo(print())
+			.andExpect(status().isNotFound());
+
+		verify(suitService, times(0)).removeSuit(anyLong());
+	}
+
+	@Test
+	public void removeSuit_return500whenRemoveSuit() throws Exception {
 		when(suitService.getSuit(anyLong())).thenReturn(suitDTO);
 		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
 
@@ -165,6 +231,51 @@ public class SuitControllerTest {
 			.andExpect(content().string(mapper.writeValueAsString(suitDTO)));
 
 		verify(suitService).addSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void addSuit_return422whenAddSuitWithNullName() throws Exception {
+		suitDTO.setId(null);
+		suitDTO.setName(null);
+		when(suitService.addSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
+
+		mockMvc.perform(post("/suit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).addSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void addSuit_return422whenAddSuitWithMoreThanTheRequiredPriority() throws Exception {
+		suitDTO.setId(null);
+		suitDTO.setPriority(6);
+		when(suitService.addSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
+
+		mockMvc.perform(post("/suit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).addSuit(any(SuitDTO.class));
+	}
+
+	@Test
+	public void addSuit_return422whenAddSuitWithLessThanTheRequiredPriority() throws Exception {
+		suitDTO.setId(null);
+		suitDTO.setPriority(-1);
+		when(suitService.addSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
+
+		mockMvc.perform(post("/suit")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(mapper.writeValueAsString(suitDTO)))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+
+		verify(suitService, times(0)).addSuit(any(SuitDTO.class));
 	}
 
 	@Test
