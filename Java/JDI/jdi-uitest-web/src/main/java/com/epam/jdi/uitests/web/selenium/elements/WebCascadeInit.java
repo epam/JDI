@@ -32,6 +32,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.*;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,9 +40,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
