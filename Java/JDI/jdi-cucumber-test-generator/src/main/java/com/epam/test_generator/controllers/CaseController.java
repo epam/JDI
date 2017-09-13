@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class CaseController {
 
@@ -31,6 +33,13 @@ public class CaseController {
     @RequestMapping(value = "/updateCase/suit/{suitId}", method = RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@PathVariable("suitId") long suitId, @RequestBody CaseDTO caseArg) {
         casesService.updateCase(suitId, caseArg);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/suit/{suitId}/removeCases", method = RequestMethod.PATCH)
+    public ResponseEntity<Void> removeCases(@PathVariable long suitId, @RequestBody List<CaseDTO> casesToRemove){
+        casesService.removeCases(suitId, casesToRemove);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
