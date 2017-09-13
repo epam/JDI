@@ -24,59 +24,59 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
-    @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/suits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<SuitDTO>> getSuits() {
 
 	    return new ResponseEntity<>(suitService.getSuits(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<SuitDTO> getSuit(@PathVariable("id") long id) {
-    	SuitDTO suitDTO = suitService.getSuit(id);
+    public ResponseEntity<SuitDTO> getSuit(@PathVariable("suitId") long id){
+        SuitDTO suitDTO = suitService.getSuit(id);
         if (suitDTO.getId() == id) {
 
-    	    return new ResponseEntity<>(suitDTO, HttpStatus.OK);
-		}
+            return new ResponseEntity<>(suitDTO, HttpStatus.OK);
+        }
 
         return new ResponseEntity<>(suitDTO, HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value="/updateSuit", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suitDTO) {
-		if (isNameValid(suitDTO.getName()) && isPriorityValid(suitDTO.getPriority()) &&
-			isDescriptionValid(suitDTO.getDescription()) && isTagsValid(suitDTO.getTags())) {
-			suitService.updateSuit(suitDTO);
+    @RequestMapping(value="/suit/{suitId}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<Void> editSuit( @PathVariable("suitId") long id, @RequestBody SuitDTO suitDTO){
+        if (isNameValid(suitDTO.getName()) && isPriorityValid(suitDTO.getPriority()) &&
+                isDescriptionValid(suitDTO.getDescription()) && isTagsValid(suitDTO.getTags())) {
+            suitService.updateSuit(suitDTO);
 
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-      
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/removeSuit/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Void> removeSuit(@PathVariable("id") long id) {
-		SuitDTO suitDTO = suitService.getSuit(id);
+    @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> removeSuit(@PathVariable("suitId") long id){
+        SuitDTO suitDTO = suitService.getSuit(id);
         if (suitDTO.getId() == id) {
-			suitService.removeSuit(id);
+            suitService.removeSuit(id);
 
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value="/addSuit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value="/suit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suitDTO) {
-		if (isNameValid(suitDTO.getName()) && isPriorityValid(suitDTO.getPriority()) &&
-			isDescriptionValid(suitDTO.getDescription()) && isTagsValid(suitDTO.getTags())) {
+        if (isNameValid(suitDTO.getName()) && isPriorityValid(suitDTO.getPriority()) &&
+                isDescriptionValid(suitDTO.getDescription()) && isTagsValid(suitDTO.getTags())) {
 
-		    return new ResponseEntity<>(suitService.addSuit(suitDTO), HttpStatus.OK);
-		}
+            return new ResponseEntity<>(suitService.addSuit(suitDTO), HttpStatus.OK);
+        }
 
-		return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
 

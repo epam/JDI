@@ -1,5 +1,5 @@
 function cancelCaseEditing() {
-    $.get("/getCase/" + case_id, function(response){
+    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
         $("#case-description-textfield").val(response.description);
         $("#case-priority-selector").val(response.priority);
         $("#case-create-date").val(response.creationDate);
@@ -9,14 +9,39 @@ function cancelCaseEditing() {
 }
 
 function saveCase() {
+
     var description = $("#case-description-textfield").val();
     var priority = $("#case-priority-selector").val();
     var tags = $("#case-tags").val();
 
+    var keyWordsArray = $(".step-type-select-tag");
+    var stepsArray = $(".step-code-line");
+
+
+    var descriptionIsEmpty = false;
+    var someDropdownsAreEmpty = false;
+
+
     if (description === null || description === "") {
+        if(description === null || description === ""){
+            $('#case-description-textfield').addClass("emptyField");
+        }
         $("#case-save-exception").text("Not filled mandatory fields!");
-        return;
+        descriptionIsEmpty = true;
     }
+
+     var elemsTotal = stepsArray.length;
+     for (var i  = 0; i < elemsTotal; i++) {
+         if ($(keyWordsArray[i]).val() === null) {
+             $(keyWordsArray[i]).parent().addClass("emptyField");
+             someDropdownsAreEmpty = true;
+         }
+     }
+
+     if (someDropdownsAreEmpty || descriptionIsEmpty) {
+         setTimeout(function() {$(".emptyField").removeClass("emptyField");}, 2000);
+         return;
+     }
 
     var formData = {
         "id": case_id,
@@ -25,8 +50,8 @@ function saveCase() {
     };
 
     $.ajax({
-        type: "POST",
-        url: "/updateCase",
+        type: "PUT",
+        url: "/suit/" + suit_id + "/case/" + case_id,
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
@@ -34,7 +59,7 @@ function saveCase() {
             $("#case-save-exception").text("");
         },
         error: function( xhr, textStatus ) {
-            alert( [ xhr.status, textStatus ] );
+            //alert( [ xhr.status, textStatus ] );
         }
     });
 }

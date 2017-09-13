@@ -14,7 +14,7 @@ public class CaseController {
     @Autowired
     private CaseService casesService;
 
-    @RequestMapping(value = "/addCase/{suitId}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
         if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
             casesService.addCaseToSuit(caseArg, suitId);
@@ -25,17 +25,17 @@ public class CaseController {
         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/removeCase/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<Void> removeCase(@PathVariable long caseId) {
-        casesService.removeCase(caseId);
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> removeCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
+        casesService.removeCase(suitId, caseId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/updateCase", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> updateCase(@RequestBody CaseDTO caseArg) {
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<Void> updateCase(@PathVariable("caseId") long caseId, @PathVariable("suitId") long suitId, @RequestBody CaseDTO caseArg) {
         if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
-            casesService.updateCase(caseArg);
+            casesService.updateCase(suitId, caseArg);
 
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -43,17 +43,16 @@ public class CaseController {
         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<CaseDTO> getCase(@PathVariable long caseId) {
+    @RequestMapping(value = "suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
+    public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
         CaseDTO caseDTO = casesService.getCase(caseId);
-        if(caseDTO != null){
+        if (caseDTO != null) {
 
             return new ResponseEntity<>(caseDTO, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 
     private boolean isPriorityValid(Integer priority){
 
@@ -64,5 +63,4 @@ public class CaseController {
 
         return description != null && description.length()>0 && description.length()<=255;
     }
-
 }
