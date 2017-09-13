@@ -16,12 +16,13 @@ public class CaseController {
 
     @RequestMapping(value = "/addCase/{suitId}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
-        if(isPriorityWrong(caseArg.getPriority()) || isDescriptionEmpty(caseArg.getDescription())){
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-        casesService.addCaseToSuit(caseArg, suitId);
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+            casesService.addCaseToSuit(caseArg, suitId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @RequestMapping(value = "/removeCase/{caseId}", method = RequestMethod.GET)
@@ -33,35 +34,35 @@ public class CaseController {
 
     @RequestMapping(value = "/updateCase", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@RequestBody CaseDTO caseArg) {
-        if(isPriorityWrong(caseArg.getPriority()) || isDescriptionEmpty(caseArg.getDescription())){
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+            casesService.updateCase(caseArg);
 
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        casesService.updateCase(caseArg);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @RequestMapping(value = "/getCase/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<CaseDTO> getCase(@PathVariable long caseId) {
         CaseDTO caseDTO = casesService.getCase(caseId);
-        if(caseDTO == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(caseDTO != null){
+
+            return new ResponseEntity<>(caseDTO, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(caseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
+    private boolean isPriorityValid(Integer priority){
 
-    private boolean isPriorityWrong(int priority){
-
-        return (priority < 1) || (priority > 5);
+        return (priority != null) && (priority >= 1) && (priority <= 5);
     }
 
-    private boolean isDescriptionEmpty(String description){
+    private boolean isDescriptionValid(String description){
 
-        return description == null || description.length()==0;
+        return description != null && description.length()>0 && description.length()<=255;
     }
 
 }

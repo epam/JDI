@@ -63,7 +63,7 @@ public class CaseDTO {
     }
 
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 

@@ -2,6 +2,7 @@ package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.services.CaseService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -19,9 +20,7 @@ import java.util.ArrayList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -46,7 +45,9 @@ public class CaseControllerTest {
 
     @Before
     public void setUp(){
-        this.mockMvc = MockMvcBuilders.standaloneSetup(caseController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(caseController)
+                .setControllerAdvice(new GlobalExceptionController())
+                .build();
         caseDTO = new CaseDTO();
         caseDTO.setId(SIMPLE_CASE_ID);
         caseDTO.setDescription("case1");
@@ -90,7 +91,6 @@ public class CaseControllerTest {
     }
 
     @Test
-    @Ignore
     public void testAddCase_return422whenAddCaseWithNullPriority() throws Exception {
         caseDTO.setId(null);
         caseDTO.setPriority(null);
@@ -135,9 +135,30 @@ public class CaseControllerTest {
     }
 
     @Test
+    public void testAddCase_return500whenAddNewCase() throws Exception {
+        when(casesService.addCaseToSuit(any(CaseDTO.class), anyLong())).thenThrow(new RuntimeException());
+
+        mockMvc.perform(post("/addCase/"+SIMPLE_SUIT_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(caseDTO)))
+                .andExpect(status().isInternalServerError());
+
+        verify(casesService).addCaseToSuit(any(CaseDTO.class), eq(SIMPLE_SUIT_ID));
+    }
+
+    @Test
     public void testRemoveCase_return200whenRemoveCase() throws Exception {
         mockMvc.perform(get("/removeCase/"+SIMPLE_CASE_ID))
                 .andExpect(status().isOk());
+
+        verify(casesService).removeCase(eq(SIMPLE_CASE_ID));
+    }
+
+    @Test
+    public void testRemoveCase_return500whenRemoveCase() throws Exception {
+        doThrow(RuntimeException.class).when(casesService).removeCase(anyLong());
+        mockMvc.perform(get("/removeCase/"+SIMPLE_CASE_ID))
+                .andExpect(status().isInternalServerError());
 
         verify(casesService).removeCase(eq(SIMPLE_CASE_ID));
     }
@@ -155,7 +176,6 @@ public class CaseControllerTest {
     }
 
     @Test
-    @Ignore
     public void testUpdateCase_return422whenUpdateCaseWithNullPriority() throws Exception {
         caseDTO.setPriority(null);
         mockMvc.perform(post("/updateCase/")
@@ -196,22 +216,35 @@ public class CaseControllerTest {
     }
 
     @Test
-    public void testUpdateCase_return422whenUpdateCaseWithoutDescription() throws Exception {
-        when(casesService.updateCase(any(CaseDTO.class))).thenReturn(caseDTO);
-
+    public void testUpdateCase_return422whenUpdateCaseWithNullDescription() throws Exception {
         caseDTO.setDescription(null);
         mockMvc.perform(post("/updateCase/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(caseDTO)))
                 .andExpect(status().isUnprocessableEntity());
         verify(casesService, times(0)).updateCase(any(CaseDTO.class));
+    }
 
+    @Test
+    public void testUpdateCase_return422whenUpdateCaseWithEmptyDescription() throws Exception {
         caseDTO.setDescription("");
         mockMvc.perform(post("/updateCase/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(caseDTO)))
                 .andExpect(status().isUnprocessableEntity());
         verify(casesService, times(0)).updateCase(any(CaseDTO.class));
+    }
+
+    @Test
+    public void testUpdateCase_return500whenUpdateCase() throws Exception {
+        when(casesService.updateCase(any(CaseDTO.class))).thenThrow(new RuntimeException());
+
+        mockMvc.perform(post("/updateCase/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(caseDTO)))
+                .andExpect(status().isInternalServerError());
+
+        verify(casesService).updateCase(any(CaseDTO.class));
     }
 
     @Test
@@ -231,6 +264,16 @@ public class CaseControllerTest {
 
         mockMvc.perform(get("/getCase/"+SIMPLE_CASE_ID))
                 .andExpect(status().isNotFound());
+
+        verify(casesService).getCase(eq(SIMPLE_CASE_ID));
+    }
+
+    @Test
+    public void testGetCase_return500whenGetCase() throws Exception {
+        when(casesService.getCase(anyLong())).thenThrow(new RuntimeException());
+
+        mockMvc.perform(get("/getCase/"+SIMPLE_CASE_ID))
+                .andExpect(status().isInternalServerError());
 
         verify(casesService).getCase(eq(SIMPLE_CASE_ID));
     }
