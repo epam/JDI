@@ -2,8 +2,10 @@ package com.epam.test_generator.controllers;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,7 +38,7 @@ public class SuitControllerTest {
 
 	private SuitDTO suitDTO;
 
-	private final long TEST_SUIT_ID = 1L;
+	private static final long TEST_SUIT_ID = 1L;
 
 	@Mock
 	private SuitService suitService;
@@ -63,6 +65,8 @@ public class SuitControllerTest {
 		mockMvc.perform(get("/suits"))
 			.andDo(print())
 			.andExpect(status().isOk());
+
+		verify(suitService).getSuits();
 	}
 
 	@Test
@@ -72,6 +76,8 @@ public class SuitControllerTest {
 		mockMvc.perform(get("/suits"))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
+
+		verify(suitService).getSuits();
 	}
 
 	@Test
@@ -81,6 +87,8 @@ public class SuitControllerTest {
 		mockMvc.perform(get("/suit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isOk());
+
+		verify(suitService).getSuit(eq(TEST_SUIT_ID));
 	}
 
 	@Test
@@ -90,6 +98,8 @@ public class SuitControllerTest {
 		mockMvc.perform(get("/suit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
+
+		verify(suitService).getSuit(eq(TEST_SUIT_ID));
 	}
 
 	@Test
@@ -101,6 +111,8 @@ public class SuitControllerTest {
 			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isOk());
+
+		verify(suitService).updateSuit(any(SuitDTO.class));
 	}
 
 	@Test
@@ -112,6 +124,8 @@ public class SuitControllerTest {
 			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
+
+		verify(suitService).updateSuit(any(SuitDTO.class));
 	}
 
 	@Test
@@ -122,19 +136,25 @@ public class SuitControllerTest {
 		mockMvc.perform(delete("/suit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isOk());
+
+		verify(suitService).removeSuit(anyLong());
 	}
 
 	@Test
 	public void getSuits_return500whenRemoveSuit() throws Exception {
+		when(suitService.getSuit(anyLong())).thenReturn(suitDTO);
 		doThrow(RuntimeException.class).when(suitService).removeSuit(anyLong());
 
 		mockMvc.perform(delete("/suit/" + TEST_SUIT_ID))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
+
+		verify(suitService).removeSuit(anyLong());
 	}
 
 	@Test
 	public void addSuit_return200whenAddSuit() throws Exception {
+		suitDTO.setId(null);
 		when(suitService.addSuit(any(SuitDTO.class))).thenReturn(suitDTO);
 
 		mockMvc.perform(post("/suit")
@@ -143,10 +163,13 @@ public class SuitControllerTest {
 			.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(content().string(mapper.writeValueAsString(suitDTO)));
+
+		verify(suitService).addSuit(any(SuitDTO.class));
 	}
 
 	@Test
 	public void addSuit_return500whenAddSuit() throws Exception {
+		suitDTO.setId(null);
 		when(suitService.addSuit(any(SuitDTO.class))).thenThrow(new RuntimeException());
 
 		mockMvc.perform(post("/suit")
@@ -154,5 +177,7 @@ public class SuitControllerTest {
 			.content(mapper.writeValueAsString(suitDTO)))
 			.andDo(print())
 			.andExpect(status().isInternalServerError());
+
+		verify(suitService).addSuit(any(SuitDTO.class));
 	}
 }

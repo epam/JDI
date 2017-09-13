@@ -1,10 +1,24 @@
 package com.epam.test_generator.controllers;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.services.CaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,35 +28,23 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(MockitoJUnitRunner.class)
 public class CaseControllerTest {
 
-    public static final long SIMPLE_SUIT_ID = 1L;
-    public static final long SIMPLE_CASE_ID = 2L;
+	private ObjectMapper mapper = new ObjectMapper();
 
-    private MockMvc mockMvc;
-    private ObjectMapper mapper = new ObjectMapper();
+	private MockMvc mockMvc;
 
-    @Mock
+	private CaseDTO caseDTO;
+
+	private static final long SIMPLE_SUIT_ID = 1L;
+	private static final long SIMPLE_CASE_ID = 2L;
+
+	@Mock
     private CaseService casesService;
 
     @InjectMocks
     private CaseController caseController;
-
-    private CaseDTO caseDTO;
 
     @Before
     public void setUp(){

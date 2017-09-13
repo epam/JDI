@@ -27,17 +27,16 @@ public class SuitController {
     @RequestMapping(value = "/suits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<SuitDTO>> getSuits() {
-
-	    return new ResponseEntity<>(suitService.getSuits(), HttpStatus.OK);
+		return new ResponseEntity<>(suitService.getSuits(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<SuitDTO> getSuit(@PathVariable("suitId") long id){
         SuitDTO suitDTO = suitService.getSuit(id);
-        if (suitDTO.getId() == id) {
 
-            return new ResponseEntity<>(suitDTO, HttpStatus.OK);
+        if (suitDTO.getId() == id) {
+			return new ResponseEntity<>(suitDTO, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(suitDTO, HttpStatus.NOT_FOUND);
@@ -58,6 +57,7 @@ public class SuitController {
     @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> removeSuit(@PathVariable("suitId") long id){
         SuitDTO suitDTO = suitService.getSuit(id);
+
         if (suitDTO.getId() == id) {
             suitService.removeSuit(id);
 
@@ -72,31 +72,25 @@ public class SuitController {
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suitDTO) {
         if (isNameValid(suitDTO.getName()) && isPriorityValid(suitDTO.getPriority()) &&
                 isDescriptionValid(suitDTO.getDescription()) && isTagsValid(suitDTO.getTags())) {
-
-            return new ResponseEntity<>(suitService.addSuit(suitDTO), HttpStatus.OK);
+			return new ResponseEntity<>(suitService.addSuit(suitDTO), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-
     private boolean isPriorityValid(Integer priority) {
-
         return priority != null && priority >= 1 && priority <= 5;
     }
 
     private boolean isNameValid(String name) {
-
         return name != null && name.length() >= 1 && name.length() <= 255;
     }
 
     private boolean isDescriptionValid(String description) {
-
         return description == null || description.length() <= 255;
     }
 
     private boolean isTagsValid(String tags) {
-
         return tags == null || tags.length() <= 255;
     }
 
