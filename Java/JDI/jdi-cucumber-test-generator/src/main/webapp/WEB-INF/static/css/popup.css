@@ -1,9 +1,9 @@
 #popup_add,
-#popup_delete,
-#popup_edit,
+#popup_remove,
+#popup_update,
 #popup_add_case,
 #popup_edit_case,
-#popup_delete_case{
+#popup_remove_cases{
     display: none;
     z-index: 5;
 }
@@ -88,7 +88,7 @@
     outline: 1px solid red;
     border: none;
 }
-.wrapper_editPrioritySuit.emptyField{
+.wrapper_updatePrioritySuit.emptyField{
     -moz-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     -webkit-box-shadow: 0 0 2px 1px rgba(255,0,0,1);
     box-shadow: 0 0 2px 1px rgba(255,0,0,1);
@@ -146,7 +146,7 @@
     color: red;
 }
 .wrapper_addPrioritySuit,
-.wrapper_editPrioritySuit{
+.wrapper_updatePrioritySuit{
     height: 21px;
     border: 1px solid #aaaaaa;
     outline: 2px solid transparent;
@@ -157,7 +157,7 @@
     background: #fff url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
 }
 #addPrioritySuit,
-#editPrioritySuit{
+#updatePrioritySuit{
     padding: 2px 8px;
     width: 100%;
     border: none;

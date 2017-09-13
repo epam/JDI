@@ -24,33 +24,33 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
-    @RequestMapping(value = "/getAllSuits", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/suits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<SuitDTO>> getSuits() {
 
         return new ResponseEntity<>(suitService.getSuits(),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSuit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<SuitDTO> getSuit(@PathVariable("id") long id){
+    public ResponseEntity<SuitDTO> getSuit(@PathVariable("suitId") long id){
 
         return new ResponseEntity<>(suitService.getSuit(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/updateSuit", method = RequestMethod.PATCH, consumes = "application/json")
-    public ResponseEntity<Void> editSuit(@RequestBody SuitDTO suit){
+    @RequestMapping(value="/suit/{suitId}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<Void> editSuit( @PathVariable("suitId") long id, @RequestBody SuitDTO suit){
         suitService.updateSuit(suit);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/removeSuit/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> removeSuit(@PathVariable("id") long id){
+    @RequestMapping(value = "/suit/{suitId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> removeSuit(@PathVariable("suitId") long id){
         suitService.removeSuit(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/addSuit", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value="/suit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public ResponseEntity<SuitDTO> addSuit(@RequestBody SuitDTO suit) {
         return new ResponseEntity<>(suitService.addSuit(suit), HttpStatus.OK);

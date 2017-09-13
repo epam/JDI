@@ -34,42 +34,42 @@ function PopUpAddingSuit(){
     $("#popup_add").show();
 }
 
-// Create popUp form for edit current Suit
-function PopUpEditSuit(){
+// Create popUp form for update current Suit
+function PopUpUpdateSuit(){
     // Create base form
     createPopUp(400, 200, "Edit suit");
 
     // Clear field with exceptions
-    $("#popup_add .popup_exception").empty();
+    $("#popup_update .popup_exception").empty();
 
     // Filling out the fields in accordance with the current Suit
-    $("#editNameSuit").val($("#nameSuit").text());
-    $("#editDescriptionSuit").val($("#descriptionSuit").text());
-    $("#editPrioritySuit").val($("#prioritySuit").text());
-    $("#editTagsSuit").val($("#tagsSuit").text());
+    $("#updateNameSuit").val($("#nameSuit").text());
+    $("#updateDescriptionSuit").val($("#descriptionSuit").text());
+    $("#updatePrioritySuit").val($("#prioritySuit").text());
+    $("#updateTagsSuit").val($("#tagsSuit").text());
 
     // Add two buttons (Edit and Cancel)
-    $(".popup_ok").append("<div id='editSuitButton'>Edit</div>");
+    $(".popup_ok").append("<div id='updateSuitButton'>Edit</div>");
     $(".popup_cancel").append("<div>Cancel</div>");
 
     // Show popUp form
-    $("#popup_edit").show();
+    $("#popup_update").show();
 }
 
 // Create popUp form for delete current Suit
-function PopUpDeleteSuit(){
+function PopUpRemoveSuit(){
     // Create base form
     createPopUp(400, 150, "Delete suit");
 
     // Clear field with exceptions
-    $("#popup_delete .popup_exception").empty();
+    $("#popup_remove .popup_exception").empty();
 
     // Add two buttons (Delete and Cancel)
-    $(".popup_ok").append("<div id='deleteSuitButton'>Delete</div>");
+    $(".popup_ok").append("<div id='removeSuitButton'>Delete</div>");
     $(".popup_cancel").append("<div>Cancel</div>");
 
     // Show popUp form
-    $("#popup_delete").show();
+    $("#popup_remove").show();
 }
 
 // Create popUp form for create new Case
@@ -80,7 +80,7 @@ function PopUpAddCase(){
     // Cleat all fields
     $("#popup_add_case .popup_exception").empty();
     $("#addDescriptionCase").val("");
-    $("#addPriorityCase").val("1");
+    $("#addPriorityCase").val($("#prioritySuit").text());
     $("#addTagsCase").val("");
 
     // Add two buttons (Create and Cancel)
@@ -91,17 +91,17 @@ function PopUpAddCase(){
     $("#popup_add_case").show();
 }
 
-function PopUpDeleteCase(){
+function PopUpRemoveCases(){
     // Create base form
     createPopUp(400, 140, "Delete case");
 
     // Clear field with exceptions
-    $("#popup_delete_case .popup_exception").empty();
+    $("#popup_remove_cases .popup_exception").empty();
 
     // Add two buttons (Delete and Cancel)
     $(".popup_ok").append("<div id='deleteCaseButton'>Delete</div>");
     $(".popup_cancel").append("<div>Cancel</div>");
 
     // Show popUp form
-    $("#popup_delete_case").show();
+    $("#popup_remove_cases").show();
 }

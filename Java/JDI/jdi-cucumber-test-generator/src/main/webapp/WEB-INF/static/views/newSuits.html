@@ -66,8 +66,8 @@
 
                                 <div style="width: 100%;">
                                     <div class="suit-buttons-container">
-                                        <div class="edit-suit-button" onclick="javascript:PopUpEditSuit()">Edit</div>
-                                        <div class="delete-suit-button" onclick="javascript:PopUpDeleteSuit()"><img
+                                        <div class="edit-suit-button" onclick="javascript:PopUpUpdateSuit()">Edit</div>
+                                        <div class="delete-suit-button" onclick="javascript:PopUpRemoveSuit()"><img
                                             src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                 <div style="width: 100%;">
                                     <div class="suit-buttons-container">
                                         <a class="generate-feature-button" style="color: white;">Generate</a>
-                                        <div class="delete-cases-button" onclick="javascript:PopUpDeleteCase()"><img src="/static/images/trash-icon.png"
+                                        <div class="delete-cases-button" onclick="javascript:PopUpRemoveCases()"><img src="/static/images/trash-icon.png"
                                                                             style="height: 25px; margin: -5px;"></div>
                                         <div class="add-case-button" onclick="javascript:PopUpAddCase()"><img src="/static/images/plus-icon.png"
                                                                         style="height: 20px; margin: -5px;"></div>
@@ -230,52 +230,52 @@
             </div>
         </div>
 
-        <div id="deleteSuit">
-            <div class="b-popup" id="popup_delete">
+        <div id="removeSuit">
+            <div class="b-popup" id="popup_remove">
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
                         <div class="popup_close">
-                            <span onclick="PopUpHide('#popup_delete')">X</span>
+                            <span onclick="PopUpHide('#popup_remove')">X</span>
                         </div>
                     </div>
                     <div class="popup_container">
                         <p>Do you want to delete this suit?</p>
                     </div>
                     <div class="popup_buttons">
-                        <div class="popup_ok" v-on:click="deleteSuit"></div>
+                        <div class="popup_ok" v-on:click="removeSuit"></div>
                         <div class="free_space"></div>
-                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete')"></div>
+                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_remove')"></div>
                     </div>
                     <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
 
-        <div id="editSuit">
-            <div class="b-popup" id="popup_edit">
+        <div id="updateSuit">
+            <div class="b-popup" id="popup_update">
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
                         <div class="popup_close">
-                            <span onclick="PopUpHide('#popup_edit')">X</span>
+                            <span onclick="PopUpHide('#popup_update')">X</span>
                         </div>
                     </div>
                     <div class="popup_container">
                         <table>
                             <tr>
                                 <td>Name:<span class="mandatory_field">*</span></td>
-                                <td><input id='editNameSuit' maxlength='255' placeholder='Suit name'/></td>
+                                <td><input id='updateNameSuit' maxlength='255' placeholder='Suit name'/></td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td><input id='editDescriptionSuit' maxlength='255' placeholder='Suit description'/></td>
+                                <td><input id='updateDescriptionSuit' maxlength='255' placeholder='Suit description'/></td>
                             </tr>
                             <tr>
                                 <td>Priority:<span class="mandatory_field">*</span></td>
                                 <td>
-                                    <div class="wrapper_editPrioritySuit">
-                                        <select id='editPrioritySuit'>
+                                    <div class="wrapper_updatePrioritySuit">
+                                        <select id='updatePrioritySuit'>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -287,14 +287,14 @@
                             </tr>
                             <tr>
                                 <td>Tags:</td>
-                                <td><input id='editTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
+                                <td><input id='updateTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
                             </tr>
                         </table>
                     </div>
                     <div class="popup_buttons">
-                        <div class="popup_ok" v-on:click="editSuit"></div>
+                        <div class="popup_ok" v-on:click="updateSuit"></div>
                         <div class="free_space"></div>
-                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_edit')"></div>
+                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_update')"></div>
                     </div>
                     <div class="popup_exception"></div>
                 </div>
@@ -344,22 +344,22 @@
             </div>
         </div>
 
-        <div id="deleteCases">
-            <div class="b-popup" id="popup_delete_case">
+        <div id="removeCases">
+            <div class="b-popup" id="popup_remove_cases">
                 <div class="b-popup-content">
                     <div class="popup_header">
                         <div class="popup_name"></div>
                         <div class="popup_close">
-                            <span onclick="PopUpHide('#popup_delete_case')">X</span>
+                            <span onclick="PopUpHide('#popup_remove_cases')">X</span>
                         </div>
                     </div>
                     <div class="popup_container">
                         <p>Do you want to delete these cases?</p>
                     </div>
                     <div class="popup_buttons">
-                        <div class="popup_ok" v-on:click="deleteCases"></div>
+                        <div class="popup_ok" v-on:click="removeCases"></div>
                         <div class="free_space"></div>
-                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_delete_case')"></div>
+                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_remove_cases')"></div>
                     </div>
                     <div class="popup_exception"></div>
                 </div>
@@ -407,11 +407,11 @@
         <script src="https://unpkg.com/vue"></script>
         <script type="text/javascript" src="/static/js/suit/getSuits.js"></script>
         <script type="text/javascript" src="/static/js/suit/addSuit.js"></script>
-        <script type="text/javascript" src="/static/js/suit/editSuit.js"></script>
-        <script type="text/javascript" src="/static/js/suit/deleteSuit.js"></script>
+        <script type="text/javascript" src="/static/js/suit/updateSuit.js"></script>
+        <script type="text/javascript" src="/static/js/suit/removeSuit.js"></script>
 
         <script type="text/javascript" src="/static/js/case/addCase.js"></script>
-        <script type="text/javascript" src="/static/js/case/deleteCases.js"></script>
+        <script type="text/javascript" src="/static/js/case/removeCases.js"></script>
 
         <script type="text/javascript" src="/static/js/popup.js"></script>
         <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>

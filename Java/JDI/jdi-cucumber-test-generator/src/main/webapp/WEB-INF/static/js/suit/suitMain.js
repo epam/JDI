@@ -23,9 +23,10 @@ $(document).ready(function () {
         $("#case-description-textfield").val("");
         $("#case-priority-textfield").val("");
         $.get("/getCase/" + case_id, function(response){
-            $("#code-textarea").val(response.steps);
             $("#case-description-textfield").val(response.description);
-            $("#case-priority-textfield").val(response.priority);
+            $("#case-priority-selector").val(response.priority);
+            $("#case-create-date").val(response.creationDate);
+            $("#case-tags").val(response.tags);
         });
     });
 });
@@ -34,10 +35,16 @@ function getSuitInfo(suitId){
     $.get("/getSuit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
-        $("#descriptionSuit").text(response.description);
+        $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
+        $("#prioritySuit").text(response.priority);
+        $("#createDateSuit").text(response.creationDate);
+        $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
         $("#code-textarea").val("");
         $("#case-description-textfield").val("");
+        $("#case-priority-selector").val("");
+        $("#case-create-date").val("");
+        $("#case-tags").val("");
         $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
             $("#tableCases").append($('<tr>')
@@ -58,7 +65,6 @@ function getSuitInfo(suitId){
                             );
         }
     });
-
     disableCaseButtons();
 }
 
@@ -66,7 +72,10 @@ function getSuitInfoWithOutCleanCases(suitId){
     $.get("/getSuit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
-        $("#descriptionSuit").text(response.description);
+        $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
+        $("#prioritySuit").text(response.priority);
+        $("#createDateSuit").text(response.creationDate);
+        $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
         $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
@@ -88,6 +97,5 @@ function getSuitInfoWithOutCleanCases(suitId){
                             );
         }
     });
-
     disableCaseButtons();
 }

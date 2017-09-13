@@ -17,19 +17,19 @@ public class StepController {
     @Autowired
     private StepService stepService;
 
-    @RequestMapping(value = "/addStep/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
+    @RequestMapping(value = "/step/case/{caseId}", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addStepToCase(@RequestBody StepDTO stepDTO, @PathVariable("caseId")Long caseID){
         stepService.addStep(stepDTO, caseID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getSteps/case/{caseId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/steps/case/{caseId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<StepDTO> getStepsByCaseId(@PathVariable Long caseId) {
         return stepService.getStepsByCaseId(caseId);
     }
 
-    @RequestMapping(value = "/saveSteps/case/{caseId}", method = RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value = "/steps/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<Void> saveStepsForCaseId(@PathVariable Long caseId, @RequestBody List<StepDTO> steps) {
         stepService.removeAllSteps(caseId);
         stepService.addSteps(caseId, steps);
