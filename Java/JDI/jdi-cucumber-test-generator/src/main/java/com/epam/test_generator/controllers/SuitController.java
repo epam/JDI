@@ -82,7 +82,7 @@ public class SuitController {
 
     private boolean isPriorityValid(Integer priority) {
 
-        return (priority!=null) && (priority >= 1) && (priority <= 5);
+        return priority != null && priority >= 1 && priority <= 5;
     }
 
     private boolean isNameValid(String name) {

@@ -14,7 +14,7 @@ public class CaseController {
     @Autowired
     private CaseService casesService;
 
-    @RequestMapping(value = "suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
         if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
             casesService.addCaseToSuit(caseArg, suitId);
@@ -43,7 +43,7 @@ public class CaseController {
         return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
         CaseDTO caseDTO = casesService.getCase(caseId);
         if (caseDTO != null) {
