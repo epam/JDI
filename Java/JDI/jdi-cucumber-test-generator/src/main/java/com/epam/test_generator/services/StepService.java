@@ -25,9 +25,11 @@ public class StepService {
     @Autowired
     private DozerMapper mapper;
 
-    public Step addStepToCase(Step st, Long caseId) {
+    public StepDTO addStepToCase(Step st, Long caseId) {
         caseDAO.getOne(caseId).getSteps().add(st);
-        return stepDAO.save(st);
+        StepDTO stepDTO = new StepDTO();
+        mapper.map(stepDAO.save(st), stepDTO);
+        return stepDTO;
     }
 
     public List<StepDTO> getStepsByCaseId(Long caseId) {
@@ -44,8 +46,10 @@ public class StepService {
         stepDAO.delete(id);
     }
 
-    public Step updateStep(Step step) {
-        return stepDAO.save(step);
+    public StepDTO updateStep(Step step) {
+        StepDTO stepDTO = new StepDTO();
+        mapper.map(stepDAO.save(step), stepDTO);
+        return stepDTO;
     }
 
     public void addStep(StepDTO stepDTO, Long caseID) {

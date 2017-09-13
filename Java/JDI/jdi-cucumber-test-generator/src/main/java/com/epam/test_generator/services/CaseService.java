@@ -36,11 +36,12 @@ public class CaseService {
     @Autowired
     private StepService stepService;
 
-    public Case addCaseToSuit(CaseDTO cs, long suitId) {
+    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
         mapper.map(cs, caze);
         suitDAO.getOne(suitId).getCases().add(caze);
-        return caseDAO.save(caze);
+        mapper.map(caseDAO.save(caze), cs);
+        return cs;
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
