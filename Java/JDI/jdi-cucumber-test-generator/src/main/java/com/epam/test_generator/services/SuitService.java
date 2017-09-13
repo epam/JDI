@@ -120,7 +120,7 @@ public class SuitService {
 
                     for (Step step: caze.getSteps()) {
                         output.append('\t');
-                        output.append(step.getKeyword());
+                        output.append(step.getType());
                         output.append(' ');
                         output.append(step.getDescription());
                         output.append('\n');

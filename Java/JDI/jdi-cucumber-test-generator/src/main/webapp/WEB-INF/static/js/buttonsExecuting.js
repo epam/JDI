@@ -147,7 +147,7 @@ function generateFile(){
             }, // parameters
             success : function(response) {
             // Add in Blob text for .feature file
-                var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
+                var blob = new Blob([response], {type: "text/plain;charset=utf-8"});
                 saveAs(blob, "main.feature");
                 alert("Success!");
             },
