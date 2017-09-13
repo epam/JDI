@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.core.interfaces.common.ILink;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Type;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -14,7 +15,7 @@ public class SearchResult extends Section {
     public ILabel name;
     @FindBy(className = "st")
     public IText description;
-    @FindBy(tagName = "cite")
+    @Type("cite")
     public ILink link;
 
     public String print() {

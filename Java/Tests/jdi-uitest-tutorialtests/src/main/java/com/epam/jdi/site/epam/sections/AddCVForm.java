@@ -9,17 +9,18 @@ import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by Roman_Iovlev on 10/23/2015.
  */
 public class AddCVForm extends Form<Attendee> {
-    @FindBy(css = "[placeholder='First Name']")
+    @Css("[placeholder='First Name']")
     ITextField name;
-    @FindBy(css = "[placeholder='Last Name']")
+    @Css("[placeholder='Last Name']")
     ITextField lastName;
-    @FindBy(css = "[placeholder='Email']")
+    @Attribute(name ="placeholder", value="Email")
     ITextField email;
 
     @JDropdown(
@@ -36,13 +37,16 @@ public class AddCVForm extends Form<Attendee> {
     )
     IDropDown city;
 
-    @FindBy(css = ".file-upload")
+    @Css(".file-upload")
     RFileInput cv;
-    @FindBy(css = ".comment-input")
+    @Css(".comment-input")
     ITextArea comment;
 
-    @FindBy(xpath = "//*[.='Submit']")
+    @Xpath( "//*[.='Submit']")
     IButton submit;
-    @FindBy(xpath = "//*[.='Cancel']")
+    @Xpath("//*[.='Cancel']")
     IButton cancel;
+
+    @Title("Reload")
+    public IButton reload;
 }
