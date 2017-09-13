@@ -5,14 +5,12 @@ import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.Suit;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Transactional
 @Service
@@ -64,9 +62,7 @@ public class CaseService {
         Case caze = suit.getCaseById(cs.getId());
         if (caze != null) {
             suit.getCases().remove(caze);
-            List<Step> steps = caze.getSteps();
             mapper.map(cs, caze);
-            caze.setSteps(steps);
             suit.getCases().add(caze);
             suitDAO.save(suit);
             mapper.map(caze, cs);
