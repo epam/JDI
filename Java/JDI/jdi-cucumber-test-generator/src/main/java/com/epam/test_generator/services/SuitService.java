@@ -4,6 +4,7 @@ import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.dto.SuitDTO;
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.entities.Suit;
@@ -42,8 +43,10 @@ public class SuitService {
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
-        Suit suit = new Suit();
+        Suit suit = suitDAO.getOne(suitDTO.getId());
+        List<Case> cases = suit.getCases();
         mapper.map(suitDTO, suit);
+        suit.setCases(cases);
         mapper.map(suitDAO.save(suit), suitDTO);
         return suitDTO;
     }
