@@ -17,7 +17,7 @@ function PopUpHide(id){
 // Create popUp form for create new Suit
 function PopUpAddingSuit(){
     // Create base form
-    createPopUp(400, 200, "Add suit");
+    createPopUp(400, 180, "Add suit");
 
     // Cleat all fields
     $("#popup_add .popup_exception").empty();
@@ -37,7 +37,7 @@ function PopUpAddingSuit(){
 // Create popUp form for update current Suit
 function PopUpUpdateSuit(){
     // Create base form
-    createPopUp(400, 200, "Edit suit");
+    createPopUp(400, 180, "Edit suit");
 
     // Clear field with exceptions
     $("#popup_update .popup_exception").empty();
@@ -59,7 +59,7 @@ function PopUpUpdateSuit(){
 // Create popUp form for delete current Suit
 function PopUpRemoveSuit(){
     // Create base form
-    createPopUp(400, 150, "Delete suit");
+    createPopUp(400, 120, "Delete suit");
 
     // Clear field with exceptions
     $("#popup_remove .popup_exception").empty();

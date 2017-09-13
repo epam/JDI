@@ -123,48 +123,10 @@
                                         <td><span>Case tags:</span></td>
                                         <td><input id="case-tags" placeholder='tag1, tag2'></td>
                                     </tr>
-                                    <tr>
-                                        <td id="case-save-exception" colspan="2"></td>
-                                    </tr>
                                 </table>
 
                                 <div class="cucumber-test-editor-container" >
-                                    <div id="steps_container">
-
-                                        <div class="sortable-step-container">
-
-                                            <div class="step-info-handle">
-                                                <div style="margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;">
-                                                    <div class="select-step-type-container">
-                                                        <select class="step-type-select-tag">
-                                                            <option value="0" disabled selected>-----</option>
-                                                            <option value="1">Given</option>
-                                                            <option value="2">When</option>
-                                                            <option value="3">Then</option>
-                                                            <option value="4">And</option>
-                                                            <option value="5">But</option>
-                                                        </select>
-                                                    </div>
-
-                                                   <input type="text" class="step-code-line">
-
-                                                    <div style="clear: both; width: 0px;"></div>
-                                                </div>
-
-                                                <img src="/static/images/deleteStep-icon.png" class="delete-step-icon">
-                                            </div>
-                                            <div style="clear: both"></div>
-
-                                            <div class="adding-new-step-div">
-                                                <img src="/static/images/addRow-icon.png" class="add-step-icon">
-                                            </div>
-                                        </div>
-
-
-
-
-
-                                    </div>
+                                    <div id="steps_container"></div>
                                 </div>
 
                                 <div class="case-buttons-container">
@@ -225,7 +187,6 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add')"></div>
                     </div>
-                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -247,7 +208,6 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_remove')"></div>
                     </div>
-                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -296,7 +256,6 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_update')"></div>
                     </div>
-                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -339,7 +298,6 @@
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add_case')"></div>
                     </div>
-                    <div class="popup_exception"></div>
                 </div>
             </div>
         </div>
@@ -414,8 +372,8 @@
         <script type="text/javascript" src="/static/js/case/removeCases.js"></script>
 
         <script type="text/javascript" src="/static/js/popup.js"></script>
-        <script type="text/javascript" src="static/js/buttonsExecuting.js"></script>
+        <script type="text/javascript" src="/static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/static/js/info.js"></script>
-        <script type="text/javascript" src="static/js/step/stepsEditing.js"></script>
+        <script type="text/javascript" src="/static/js/step/stepsEditing.js"></script>
     </body>
 </html>

@@ -1,15 +1,8 @@
 function cancelCaseEditing() {
-    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
-        $("#case-description-textfield").val(response.description);
-        $("#case-priority-selector").val(response.priority);
-        $("#case-create-date").val(response.creationDate);
-        $("#case-tags").val(response.tags);
-        $("#case-save-exception").text("");
-    });
+    getCaseInfo();
 }
 
 function saveCase() {
-
     var description = $("#case-description-textfield").val();
     var priority = $("#case-priority-selector").val();
     var tags = $("#case-tags").val();
@@ -17,16 +10,13 @@ function saveCase() {
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
 
-
     var descriptionIsEmpty = false;
     var someDropdownsAreEmpty = false;
-
 
     if (description === null || description === "") {
         if(description === null || description === ""){
             $('#case-description-textfield').addClass("emptyField");
         }
-        $("#case-save-exception").text("Not filled mandatory fields!");
         descriptionIsEmpty = true;
     }
 
@@ -40,13 +30,27 @@ function saveCase() {
 
      if (someDropdownsAreEmpty || descriptionIsEmpty) {
          setTimeout(function() {$(".emptyField").removeClass("emptyField");}, 2000);
+         errorInfoBlock("Not filled mandatory fields!");
          return;
      }
 
+    var steps = new Array($(".step-code-line").length);
+    for(var i = 0; i < steps.length; i++){
+        var step_line = $($(".step-code-line")[i]).val();
+        var step_type = $($(".step-type-select-tag")[i]).val();
+        steps[i] = {
+            "description": step_line,
+            "rowNumber": i,
+            "type": parseInt(step_type)
+        };
+    }
+
     var formData = {
-        "id": case_id,
-        "description": description,
-        "tags": tags
+        id: case_id,
+        description: description,
+        priority: priority,
+        tags: tags,
+        steps: steps
     };
 
     $.ajax({
@@ -56,10 +60,10 @@ function saveCase() {
         data: JSON.stringify(formData),
         success : function(response) {
             getSuitInfoWithOutCleanCases(suit_id);
-            $("#case-save-exception").text("");
+            successInfoBlock();
         },
         error: function( xhr, textStatus ) {
-            //alert( [ xhr.status, textStatus ] );
+            errorInfoBlock("Fail updating! Try again later!");
         }
     });
 }
@@ -82,7 +86,7 @@ function removeCases() {
             caseId: case_id,
             description: description,
             priority: priority,
-        }, // parameters
+        },
         success : function(response) {
             getSuitInfo(suit_id);
             $("#case-save-exception").text("");
@@ -102,7 +106,7 @@ function disableCaseButtons () {
         }
     });
 
-    if (!flag) { // если ни один checkbox не отмечен
+    if (!flag) {
         $(".delete-cases-button").addClass("disabled-link");
         $(".generate-feature-button").addClass("disabled-link");
     } else {
@@ -120,7 +124,7 @@ $("#tableCases").on("change", "input", function(){
         }
     });
 
-    if (!flag) { // если ни один checkbox не отмечен
+    if (!flag) {
         $(".delete-cases-button").addClass("disabled-link");
         $(".generate-feature-button").addClass("disabled-link");
     } else {

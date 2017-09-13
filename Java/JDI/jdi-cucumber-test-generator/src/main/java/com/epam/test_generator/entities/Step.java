@@ -54,8 +54,8 @@ public class Step implements Serializable {
         return type.ordinal();
     }
 
-    public void setType(StepType type) {
-        this.type = type;
+    public void setType(Integer type) {
+        this.type = StepType.values()[type];
     }
 
 

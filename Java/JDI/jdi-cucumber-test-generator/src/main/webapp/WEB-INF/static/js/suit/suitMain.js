@@ -22,12 +22,7 @@ $(document).ready(function () {
         $("#code-textarea").val("");
         $("#case-description-textfield").val("");
         $("#case-priority-textfield").val("");
-        $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
-            $("#case-description-textfield").val(response.description);
-            $("#case-priority-selector").val(response.priority);
-            $("#case-create-date").val(response.creationDate);
-            $("#case-tags").val(response.tags);
-        });
+        getCaseInfo();
     });
 });
 
@@ -45,6 +40,7 @@ function getSuitInfo(suitId){
         $("#case-priority-selector").val("");
         $("#case-create-date").val("");
         $("#case-tags").val("");
+        $("#steps_container").empty();
         $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
             $("#tableCases").append($('<tr>')
@@ -64,6 +60,8 @@ function getSuitInfo(suitId){
                                 )
                             );
         }
+
+
     });
     disableCaseButtons();
 }
@@ -98,4 +96,75 @@ function getSuitInfoWithOutCleanCases(suitId){
         }
     });
     disableCaseButtons();
+}
+
+function getCaseInfo(){
+    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
+        $("#case-description-textfield").val(response.description);
+        $("#case-priority-selector").val(response.priority);
+        $("#case-create-date").val(response.creationDate);
+        $("#case-tags").val(response.tags);
+        $("#steps_container").empty();
+        for(var i = 0; i < response.steps.length; i++){
+            $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
+            "\n" +
+            "                                            <div class=\"step-info-handle\">\n" +
+            "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
+            "                                                    <div class=\"select-step-type-container\">\n" +
+            "                                                        <select class=\"step-type-select-tag\">\n" +
+            "                                                            <option value=\"0\" disabled selected>-----</option>\n" +
+            "                                                            <option value=\"1\">Given</option>\n" +
+            "                                                            <option value=\"2\">When</option>\n" +
+            "                                                            <option value=\"3\">Then</option>\n" +
+            "                                                            <option value=\"4\">And</option>\n" +
+            "                                                            <option value=\"5\">But</option>\n" +
+            "                                                        </select>\n" +
+            "                                                    </div>\n" +
+            "\n" +
+            "                                                   <input type=\"text\" class=\"step-code-line\" value='" + response.steps[i].description + "'>\n" +
+            "\n" +
+            "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
+            "                                                </div>\n" +
+            "\n" +
+            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+            "                                            </div>\n" +
+            "                                            <div style=\"clear: both\"></div>\n" +
+            "\n" +
+            "                                            <div class=\"adding-new-step-div\">\n" +
+            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+            "                                            </div>\n" +
+            "                                        </div>");
+            $($(".step-type-select-tag")[i]).val(response.steps[i].type);
+        }
+        if(response.steps.length == 0){
+            $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
+                            "\n" +
+                            "                                            <div class=\"step-info-handle\">\n" +
+                            "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
+                            "                                                    <div class=\"select-step-type-container\">\n" +
+                            "                                                        <select class=\"step-type-select-tag\">\n" +
+                            "                                                            <option value=\"0\" disabled selected>-----</option>\n" +
+                            "                                                            <option value=\"1\">Given</option>\n" +
+                            "                                                            <option value=\"2\">When</option>\n" +
+                            "                                                            <option value=\"3\">Then</option>\n" +
+                            "                                                            <option value=\"4\">And</option>\n" +
+                            "                                                            <option value=\"5\">But</option>\n" +
+                            "                                                        </select>\n" +
+                            "                                                    </div>\n" +
+                            "\n" +
+                            "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
+                            "\n" +
+                            "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
+                            "                                                </div>\n" +
+                            "\n" +
+                            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+                            "                                            </div>\n" +
+                            "                                            <div style=\"clear: both\"></div>\n" +
+                            "\n" +
+                            "                                            <div class=\"adding-new-step-div\">\n" +
+                            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+                            "                                            </div>\n" +
+                            "                                        </div>");
+            }
+    });
 }

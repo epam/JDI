@@ -10,15 +10,24 @@ var addCase = new Vue({
             var tagsCase = $("#addTagsCase").val();
 
             if(descriptionCase == "" || priorityCase == ""){
-                $("#popup_add_case .popup_exception").text("Not filled mandatory fields!");
+                if(descriptionCase == ""){
+                    $('#addDescriptionCase').addClass("emptyField");
+                    setTimeout(function() {$("#addDescriptionCase").removeClass("emptyField");}, 1000);
+                }
+                if(priorityCase == ""){
+                    $('#addPriorityCase').addClass("emptyField");
+                    setTimeout(function() {$("#addPriorityCase").removeClass("emptyField");}, 1000);
+                }
+                errorInfoBlock("Not filled mandatory fields!");
                 return;
             }
 
             axios.post('/suit/' + suit_id + '/case', {description: descriptionCase, priority: priorityCase, tags: tagsCase}).then(function(response) {
                 PopUpHide("#popup_add_case");
                 getSuitInfo(suit_id);
+                successInfoBlock();
             }).catch(function(error) {
-                $("#popup_add_case .popup_exception").text("Try again later!");
+                errorInfoBlock("Fail updating! Try again later!");
             });
         }
     },

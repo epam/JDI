@@ -19,7 +19,7 @@ var updateSuit = new Vue({
                     $('.wrapper_updatePrioritySuit').addClass("emptyField");
                     setTimeout(function() {$(".wrapper_updatePrioritySuit").removeClass("emptyField");}, 1000);
                 }
-                $("#popup_update .popup_exception").text("Not filled mandatory fields!");
+                errorInfoBlock("Not filled mandatory fields!");
                 return;
             }
 
@@ -27,8 +27,9 @@ var updateSuit = new Vue({
                 PopUpHide("#popup_update");
                 getSuits.getSuits();
                 getSuitInfo(suit_id);
+                successInfoBlock();
             }).catch(function(error) {
-                $("#popup_update .popup_exception").text("Try again later!");
+                errorInfoBlock("Fail updating! Try again later!");
             });
         }
     },

@@ -19,8 +19,14 @@ var removeSuit = new Vue({
                 $("#tableCases").empty();
                 $("#code-textarea").val("");
                 $("#case-description-textfield").val("");
+                $("#case-priority-selector").val("");
+                $("#case-create-date").val("");
+                $("#case-tags").val("");
+                $("#steps_container").empty();
+                $("#tableCases").empty();
+                successInfoBlock();
             }).catch(function(error) {
-                $("#popup_remove .popup_exception").text("Try again later!");
+                errorInfoBlock("Fail updating! Try again later!");
             });
         }
     },

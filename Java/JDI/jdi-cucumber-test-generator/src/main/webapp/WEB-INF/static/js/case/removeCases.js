@@ -12,8 +12,9 @@ var removeCases = new Vue({
                     var caseId = $(this).parent().children(".particular_caseId").val();
                     axios.delete('/suit/' + suit_id + '/case/' + caseId).then(function(response) {
                         getSuitInfo(suit_id);
+                        successInfoBlock();
                     }).catch(function(error) {
-                        $("#popup_remove_cases .popup_exception").text("Try again later!");
+                        errorInfoBlock("Fail updating! Try again later!");
                     });
                 }
             });
