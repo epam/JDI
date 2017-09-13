@@ -10,7 +10,7 @@ var removeCases = new Vue({
             $('#tableCases input:checkbox').each(function() {
                 if ($(this).prop("checked")) {
                     var caseId = $(this).parent().children(".particular_caseId").val();
-                    axios.delete('/removeCase/suit/' + suit_id + '/case/' + caseId).then(function(response) {
+                    axios.delete('/suit/' + suit_id + '/case/' + caseId).then(function(response) {
                         getSuitInfo(suit_id);
                     }).catch(function(error) {
                         $("#popup_remove_cases .popup_exception").text("Try again later!");

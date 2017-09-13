@@ -14,7 +14,7 @@ var addCase = new Vue({
                 return;
             }
 
-            axios.put('/addCase/suit/' + suit_id, {description: descriptionCase, priority: priorityCase, tags: tagsCase}).then(function(response) {
+            axios.post('/suit/' + suit_id + '/case', {description: descriptionCase, priority: priorityCase, tags: tagsCase}).then(function(response) {
                 PopUpHide("#popup_add_case");
                 getSuitInfo(suit_id);
             }).catch(function(error) {

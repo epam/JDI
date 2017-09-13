@@ -14,29 +14,29 @@ public class CaseController {
     @Autowired
     private CaseService casesService;
 
-    @RequestMapping(value = "/case/suit/{suitId}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
         casesService.addCaseToSuit(caseArg, suitId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/case/{caseId}/suit/{suitId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> removeCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
         casesService.removeCase(suitId, caseId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/case/{caseId}/suit/{suitId}", method = RequestMethod.PUT, consumes = "application/json")
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@PathVariable("caseId") long caseId, @PathVariable("suitId") long suitId, @RequestBody CaseDTO caseArg) {
         casesService.updateCase(suitId, caseArg);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/case/{caseId}", method = RequestMethod.GET)
-    public ResponseEntity<CaseDTO> getCase(@PathVariable long caseId) {
+    @RequestMapping(value = "suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
+    public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
 
         return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
     }

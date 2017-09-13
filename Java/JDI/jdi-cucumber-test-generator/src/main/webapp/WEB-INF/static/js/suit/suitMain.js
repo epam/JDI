@@ -22,7 +22,7 @@ $(document).ready(function () {
         $("#code-textarea").val("");
         $("#case-description-textfield").val("");
         $("#case-priority-textfield").val("");
-        $.get("/getCase/" + case_id, function(response){
+        $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
             $("#case-description-textfield").val(response.description);
             $("#case-priority-selector").val(response.priority);
             $("#case-create-date").val(response.creationDate);
@@ -32,7 +32,7 @@ $(document).ready(function () {
 });
 
 function getSuitInfo(suitId){
-    $.get("/getSuit/" + suitId, function(response){
+    $.get("/suit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
@@ -69,7 +69,7 @@ function getSuitInfo(suitId){
 }
 
 function getSuitInfoWithOutCleanCases(suitId){
-    $.get("/getSuit/" + suitId, function(response){
+    $.get("/suit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );

@@ -1,5 +1,5 @@
 function cancelCaseEditing() {
-    $.get("/getCase/" + case_id, function(response){
+    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
         $("#case-description-textfield").val(response.description);
         $("#case-priority-selector").val(response.priority);
         $("#case-create-date").val(response.creationDate);
@@ -50,8 +50,8 @@ function saveCase() {
     };
 
     $.ajax({
-        type: "POST",
-        url: "/updateCase",
+        type: "PUT",
+        url: "/suit/" + suit_id + "/case/" + case_id,
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {

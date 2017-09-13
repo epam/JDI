@@ -5,7 +5,7 @@ var removeSuit = new Vue({
     },
     methods: {
         removeSuit: function() {
-            axios.delete('/removeSuit/' + suit_id).then(function(response) {
+            axios.delete('/suit/' + suit_id).then(function(response) {
                 PopUpHide("#popup_remove");
                 getSuits.getSuits();
                 suit_id = -1;
