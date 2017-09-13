@@ -36,8 +36,8 @@ public class StepDTO {
         this.description = description;
     }
 
-    public StepType getType() {
-        return StepType.values()[type];
+    public Integer getType() {
+        return type;
     }
 
     public void setType(Integer type) {

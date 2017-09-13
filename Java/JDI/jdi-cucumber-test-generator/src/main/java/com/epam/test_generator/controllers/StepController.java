@@ -31,8 +31,7 @@ public class StepController {
 
     @RequestMapping(value = "/saveSteps/case/{caseId}", method = RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity<Void> saveStepsForCaseId(@PathVariable Long caseId, @RequestBody List<StepDTO> steps) {
-        stepService.removeAllSteps(caseId);
-        stepService.addSteps(caseId, steps);
+        stepService.saveSteps(caseId, steps);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.epam.test_generator.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,6 +55,9 @@ public class Case implements Serializable{
     }
 
     public List<Step> getSteps() {
+        if (steps == null){
+            steps = new ArrayList<>();
+        }
         return steps;
     }
 

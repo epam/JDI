@@ -91,4 +91,18 @@ public class CaseService {
         return cs;
     }
 
+    public void removeCases(long suitId, List<CaseDTO> casesToRemove) {
+        SuitDTO suitDTO = suitService.getSuit(suitId);
+        suitDTO.getCases().removeIf((c) -> {
+            for (CaseDTO caseDTO : casesToRemove) {
+                if (c.getId().equals(caseDTO.getId())){
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        suitService.updateSuit(suitDTO);
+    }
+
 }
