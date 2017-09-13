@@ -23,8 +23,7 @@ public class SuitController {
     @Autowired
     SuitService suitService;
 
-    @RequestMapping(value = "/")
-    public String getMainPage() {
+
 	@RequestMapping(value = "/")
     public String getMainPage() {
         return "/WEB-INF/static/views/newSuits";

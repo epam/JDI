@@ -58,7 +58,7 @@ public class StepService {
         addStepToCase(step, caseID);
     }
 
-    private void removeAllSteps(Long caseId) {
+    public void removeAllSteps(Long caseId) {
         Case caze = caseDAO.getOne(caseId);
         List<Step> stepList = caze.getSteps();
         for (Step st : stepList) {
@@ -68,7 +68,7 @@ public class StepService {
         caseDAO.save(caze);
     }
 
-    private void addSteps(Long caseId, List<StepDTO> steps) {
+    public void addSteps(Long caseId, List<StepDTO> steps) {
         for (StepDTO st : steps) {
             addStep(st, caseId);
         }
