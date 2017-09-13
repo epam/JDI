@@ -1,7 +1,6 @@
 package com.epam.test_generator.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.entities.StepType;
 
 public class StepDTO {
 
@@ -9,13 +8,9 @@ public class StepDTO {
 
     private int rowNumber;
 
-    @JsonBackReference
-    private CaseDTO parentCase;
-
     private String description;
 
-    private String type;
-
+    private Integer type;
 
     public Long getId() {
         return id;
@@ -41,11 +36,11 @@ public class StepDTO {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public StepType getType() {
+        return StepType.values()[type];
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -55,7 +50,7 @@ public class StepDTO {
                 "id=" + id +
                 ", rowNumber=" + rowNumber +
                 ", description='" + description + '\'' +
-                ", type=" + type +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

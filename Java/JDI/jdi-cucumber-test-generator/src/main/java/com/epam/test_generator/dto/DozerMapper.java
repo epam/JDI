@@ -1,4 +1,4 @@
-package com.epam.test_generator;
+package com.epam.test_generator.dto;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -12,7 +12,7 @@ public class DozerMapper {
 
     private Mapper mapper;
 
-    public DozerMapper(){
+    public DozerMapper() {
         List cfg = new ArrayList();
         cfg.add("dozerMapping.xml");
         mapper = new DozerBeanMapper(cfg);
