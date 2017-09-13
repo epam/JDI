@@ -16,9 +16,13 @@ public class CaseController {
 
     @RequestMapping(value = "/suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
-        casesService.addCaseToSuit(caseArg, suitId);
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+            casesService.addCaseToSuit(caseArg, suitId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.DELETE)
@@ -30,15 +34,33 @@ public class CaseController {
 
     @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@PathVariable("caseId") long caseId, @PathVariable("suitId") long suitId, @RequestBody CaseDTO caseArg) {
-        casesService.updateCase(suitId, caseArg);
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+            casesService.updateCase(suitId, caseArg);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
+        CaseDTO caseDTO = casesService.getCase(caseId);
+        if (caseDTO != null) {
 
-        return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
+            return new ResponseEntity<>(caseDTO, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    private boolean isPriorityValid(Integer priority){
+
+        return (priority != null) && (priority >= 1) && (priority <= 5);
+    }
+
+    private boolean isDescriptionValid(String description){
+
+        return description != null && description.length()>0 && description.length()<=255;
+    }
 }

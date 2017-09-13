@@ -1,17 +1,13 @@
 package com.epam.test_generator.config;
 
-import org.hibernate.cfg.Configuration;
-import org.hibernate.SessionFactory;
-
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-
-import javax.servlet.*;
-
-public class ApplicationInitializer implements WebApplicationInitializer{
+public class ApplicationInitializer implements WebApplicationInitializer {
 
     private final static String DISPATCHER = "dispatcher";
 
@@ -21,11 +17,7 @@ public class ApplicationInitializer implements WebApplicationInitializer{
 
         ctx.register(WebConfig.class);
 
-
         ServletRegistration.Dynamic servlet =servletContext.addServlet(DISPATCHER,new DispatcherServlet(ctx));
         servlet.addMapping("/*");
-
-
-
     }
 }
