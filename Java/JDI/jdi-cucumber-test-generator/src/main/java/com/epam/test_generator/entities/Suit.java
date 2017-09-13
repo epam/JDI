@@ -108,6 +108,18 @@ public class Suit implements Serializable {
         this.cases = cases;
     }
 
+    public Case getCaseById(Long id){
+        Case result = null;
+        for (Case caze : cases) {
+            if (caze.getId().equals(id)){
+                result = caze;
+                break;
+            }
+        }
+
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Suit{" +

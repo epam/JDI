@@ -4,25 +4,17 @@ import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
-import com.epam.test_generator.dto.StepDTO;
-import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.Suit;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 @Transactional
 @Service
 public class CaseService {
-
-    @Autowired
-    private SuitService suitService;
 
     @Autowired
     private DozerMapper mapper;
@@ -33,14 +25,13 @@ public class CaseService {
     @Autowired
     private SuitDAO suitDAO;
 
-    @Autowired
-    private StepService stepService;
 
-    public Case addCaseToSuit(CaseDTO cs, long suitId) {
+    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
         mapper.map(cs, caze);
         suitDAO.getOne(suitId).getCases().add(caze);
-        return caseDAO.save(caze);
+        mapper.map(caseDAO.save(caze), cs);
+        return cs;
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
@@ -57,37 +48,27 @@ public class CaseService {
     }
 
     public void removeCase(long suitId, long caseId) {
-        SuitDTO suit = suitService.getSuit(suitId);
-        List<CaseDTO> cases = suit.getCases();
-        for (int i = 0; i < cases.size(); i++) {
-            CaseDTO cd = new CaseDTO();
-            mapper.map(cases.get(i), cd);
-            if (cd.getId() == caseId) {
-                cases.remove(i);
-                suit.setCases(cases);
-                break;
-            }
+        Suit suit = suitDAO.getOne(suitId);
+        Case caze = suit.getCaseById(caseId);
+        if (caze != null) {
+            suit.getCases().remove(caze);
+            suitDAO.save(suit);
+            caseDAO.delete(caseId);
         }
-        suitService.updateSuit(suit);
-        caseDAO.delete(caseId);
     }
 
     public CaseDTO updateCase(long suitId, CaseDTO cs) {
-        Case caze = new Case();
-        mapper.map(cs, caze);
-
-        SuitDTO suit = suitService.getSuit(suitId);
-        List<CaseDTO> cases = suit.getCases();
-        for (int i = 0; i < cases.size(); i++) {
-            CaseDTO cd = new CaseDTO();
-            mapper.map(cases.get(i), cd);
-            if (cd.getId().equals(cs.getId())) {
-                cases.get(i).setSteps(null);
-                mapper.map(caze, cases.get(i));
-                break;
-            }
+        Suit suit = suitDAO.getOne(suitId);
+        Case caze = suit.getCaseById(cs.getId());
+        if (caze != null) {
+            suit.getCases().remove(caze);
+            caze.setSteps(new ArrayList<>());
+            mapper.map(cs, caze);
+            suit.getCases().add(caze);
+            suitDAO.save(suit);
+            mapper.map(caze, cs);
         }
-        suitService.updateSuit(suit);
+
         return cs;
     }
 
