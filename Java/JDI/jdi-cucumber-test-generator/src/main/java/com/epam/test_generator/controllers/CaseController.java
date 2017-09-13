@@ -14,7 +14,7 @@ public class CaseController {
     @Autowired
     private CaseService casesService;
 
-    @RequestMapping(value = "suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
         casesService.addCaseToSuit(caseArg, suitId);
 
@@ -35,7 +35,7 @@ public class CaseController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.GET)
     public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
 
         return new ResponseEntity<>(casesService.getCase(caseId), HttpStatus.OK);
