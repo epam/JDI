@@ -138,22 +138,26 @@ function generateFile(){
     var i = 0;
 
     $('#tableCases input:checkbox').each(function() {
-        var caseId = $(this).parent().children(".particular_caseId").val();
-        arrayCasesId[i++] = caseId;
+        if ($(this).prop("checked")) {
+            var caseId = $(this).parent().children(".particular_caseId").val();
+            arrayCasesId[i++] = { id: parseInt(caseId) };
+        }
     });
 
+    var formData = {
+        id: suit_id,
+        cases: arrayCasesId
+    };
+
      $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/downloadFeatureFile",
-            data: {
-                suitId: suit_id,
-                caseIds: arrayCasesId
-            }, // parameters
+            contentType : 'application/json',
+            data: JSON.stringify(formData), // parameters
             success : function(response) {
             // Add in Blob text for .feature file
                 var blob = new Blob([response], {type: "text/plain;charset=utf-8"});
                 saveAs(blob, "main.feature");
-                alert("Success!");
             },
             error: function( xhr, textStatus ) {
                 alert( [ xhr.status, textStatus ] );

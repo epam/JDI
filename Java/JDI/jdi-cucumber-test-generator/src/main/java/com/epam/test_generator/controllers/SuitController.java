@@ -1,11 +1,16 @@
 package com.epam.test_generator.controllers;
 
+import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.SuitDTO;
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,16 +88,16 @@ public class SuitController {
         return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.GET)
+    @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public String downloadFile(@RequestParam(name = "suitId") Long suitId,
-                               @RequestParam(name = "caseIds") List<Long> caseIds,
-                               HttpServletResponse response) throws IOException {
-        String mimeType = "application/octet-stream";
-        response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", "inline; filename=\"" + "File.feature" + "\"");
+    public ResponseEntity<String> downloadFile(@RequestBody SuitDTO suitDTO) throws IOException {
+        List<Long> longList = new ArrayList<>();
 
-        return  suitService.generateStream(suitId, caseIds);
+        for (CaseDTO caseDTO : suitDTO.getCases()) {
+            longList.add(caseDTO.getId());
+        }
+
+        return  new ResponseEntity<>(suitService.generateStream(suitDTO.getId(), longList), HttpStatus.OK);
     }
 
     private boolean isPriorityValid(Integer priority) {
