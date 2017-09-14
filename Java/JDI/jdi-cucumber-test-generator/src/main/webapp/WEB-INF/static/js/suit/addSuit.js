@@ -19,17 +19,16 @@ var addSuit = new Vue({
                     $('#addPrioritySuit').addClass("emptyField");
                     setTimeout(function() {$("#addPrioritySuit").removeClass("emptyField");}, 1000);
                 }
-                $("#popup_add .popup_exception").text("Not filled mandatory fields!");
+                errorInfoBlock("Not filled mandatory fields!");
                 return;
             }
 
-            axios.post('/addSuit', {name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
+            axios.post('/suit', {name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_add");
                 successInfoBlock();
                 getSuits.getSuits();
             }).catch(function(error) {
-                errorInfoBlock();
-                $("#popup_add .popup_exception").text("Try again later!");
+                errorInfoBlock("Fail updating! Try again later!");
             });
         }
     },

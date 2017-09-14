@@ -6,6 +6,10 @@
     <mapping>
         <class-a>com.epam.test_generator.entities.Step</class-a>
         <class-b>com.epam.test_generator.dto.StepDTO</class-b>
+        <field>
+            <a set-method="setType" get-method="getType">type</a>
+            <b set-method="setType" get-method="getType">type</b>
+        </field>
     </mapping>
     <mapping>
         <class-a>com.epam.test_generator.entities.Case</class-a>

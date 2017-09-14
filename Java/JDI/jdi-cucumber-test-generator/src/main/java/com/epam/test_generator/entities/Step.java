@@ -10,9 +10,6 @@ public class Step implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Case parentCase;
-
     private int rowNumber;
 
     private String description;
@@ -22,9 +19,8 @@ public class Step implements Serializable {
     public Step() {
     }
 
-    public Step(Long id, Case parentCase, int rowNumber, String description, StepType type) {
+    public Step(Long id, int rowNumber, String description, StepType type) {
         this.id = id;
-        this.parentCase = parentCase;
         this.rowNumber = rowNumber;
         this.description = description;
         this.type = type;
@@ -38,12 +34,12 @@ public class Step implements Serializable {
         this.id = id;
     }
 
-    public Case getParentCase() {
-        return parentCase;
+    public int getRowNumber() {
+        return rowNumber;
     }
 
-    public void setParentCase(Case parentCase) {
-        this.parentCase = parentCase;
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
     }
 
     public String getDescription() {
@@ -54,25 +50,22 @@ public class Step implements Serializable {
         this.description = description;
     }
 
-    public StepType getType() {
-        return type;
+    public Integer getType() {
+        return type.ordinal();
     }
 
-    public void setType(StepType type) {
-        this.type = type;
-    }
-
-    public int getRowNumber() {
-        return rowNumber;
-    }
-
-    public void setRowNumber(int rowNumber) {
-        this.rowNumber = rowNumber;
-    }
-
-    public String getKeyword(){
-        return type.getStepType();
+    public void setType(Integer type) {
+        this.type = StepType.values()[type];
     }
 
 
+    @Override
+    public String toString() {
+        return "Step{" +
+                "id=" + id +
+                ", rowNumber=" + rowNumber +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

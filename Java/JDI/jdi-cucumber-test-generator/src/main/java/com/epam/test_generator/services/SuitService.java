@@ -1,8 +1,9 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.DozerMapper;
+import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.SuitDTO;
+import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,22 +29,21 @@ public class SuitService {
             mapper.map(suit, suitDTO);
             suitDTOlist.add(suitDTO);
         }
-
         return suitDTOlist;
     }
 
     public SuitDTO getSuit(long id) {
         SuitDTO suitDTO = new SuitDTO();
         mapper.map(suitDAO.findOne(id), suitDTO);
-
         return suitDTO;
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
-        Suit suit = new Suit();
+        Suit suit = suitDAO.getOne(suitDTO.getId());
+        List<Case> cases = suit.getCases();
         mapper.map(suitDTO, suit);
+        suit.setCases(cases);
         mapper.map(suitDAO.save(suit), suitDTO);
-
         return suitDTO;
     }
 
@@ -56,7 +56,6 @@ public class SuitService {
         mapper.map(suitDTO,suit);
         suit = suitDAO.save(suit);
         mapper.map(suit, suitDTO);
-
         return suitDTO;
     }
 }

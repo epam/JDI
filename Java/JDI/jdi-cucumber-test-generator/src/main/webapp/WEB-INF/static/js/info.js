@@ -44,7 +44,8 @@ function successInfoBlock(){
     });
 }
 
-function errorInfoBlock(){
+function errorInfoBlock(text){
+    $("#element_info_block_error").text(text);
     $("#wrapper_info_block_error").animate({
     	right: '0',
     }, 800, function(){
