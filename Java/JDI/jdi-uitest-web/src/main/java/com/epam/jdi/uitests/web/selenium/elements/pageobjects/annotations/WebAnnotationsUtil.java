@@ -128,7 +128,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return By.id(locator.value());
     }
 
-    public static By findByToBy(Name locator){
+    public static By findByToBy(ByName locator){
         if (locator == null) return null;
         return By.name(locator.value());
     }
@@ -150,47 +150,32 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static By findByToBy(NgModel locator){
         if (locator == null) return null;
-        return By.cssSelector(format("[ng-model='%s']", locator.value()));
+            return getAttribute("ng-model", locator.value());
     }
     public static By findByToBy(NgBinding locator){
         if (locator == null) return null;
-        return By.cssSelector(format("[ng-binding='%s']", locator.value()));
+            return getAttribute("ng-binding", locator.value());
     }
 
     public static By findByToBy(NgRepeat locator){
         if (locator == null) return null;
-        return By.cssSelector(format("[ng-repeat='%s']", locator.value()));
+            return getAttribute("ng-repeat", locator.value());
     }
 
     public static By findByToBy(Title locator){
         if (locator == null) return null;
-        return getAttribute("title", locator.value());
+            return getAttribute("title", locator.value());
     }
 
     public static By findByToBy(Value locator){
         if (locator == null) return null;
-        return getAttribute("value", locator.value());
+            return getAttribute("value", locator.value());
     }
 
     public static By findByToBy(Xpath locator){
         if (locator == null) return null;
-        return By.xpath(locator.value());
+            return By.xpath(locator.value());
     }
-
-   /* public static By findByToBy(Annotation annotation){
-        if (annotation == null) return null;
-        if (annotation instanceof Css)
-            return By.cssSelector(((Css) annotation).value());
-        if (annotation instanceof Attribute)
-            return getAttribute(((Attribute)annotation).name(), ((Attribute)annotation).value());
-        if (annotation instanceof ClassName)
-            return By.className(((ClassName) annotation).value());
-        if (annotation instanceof FindBy)
-            return findByToBy(annotation);
-
-        return null;
-    }
-    */
 
     public static By findByToBy(JFindBy locator) {
         if (locator == null) return null;
@@ -224,18 +209,16 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             return getAttribute("title", locator.title());
         if (!"".equals(locator.type()))
             return getAttribute("type", locator.title());
-
         if (!"".equals(locator.model()))
-            return By.cssSelector(format("[ng-model='%s']", locator.model()));
+            return getAttribute("ng-model", locator.model());
         if (!"".equals(locator.binding()))
-            return By.cssSelector(format("[ng-binding='%s']", locator.binding()));
+            return getAttribute("ng-binding", locator.binding());
         if (!"".equals(locator.repeat()))
-            return By.cssSelector(format("[ng-repeat='%s']", locator.repeat()));
-
+            return getAttribute("ng-repeat", locator.repeat());
         return null;
     }
 
     private static By getAttribute(String name, String value) {
-        return By.xpath(".//*[@" + name + '=' + Quotes.escape(value) + ']');
+        return By.cssSelector(format("[%s='%s']", name, value));
     }
 }

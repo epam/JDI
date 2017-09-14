@@ -1,8 +1,6 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
-import com.epam.commons.linqinterfaces.JFuncTTR;
 import com.epam.commons.linqinterfaces.JFuncTTREx;
-import com.epam.commons.linqinterfaces.JFuncTTTR;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
@@ -13,7 +11,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;

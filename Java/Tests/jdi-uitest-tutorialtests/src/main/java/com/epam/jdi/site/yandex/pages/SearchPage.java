@@ -8,6 +8,5 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class SearchPage extends WebPage {
-    @Text("Картинки")
-    public IButton pictures;
+    @Text("Картинки") public IButton pictures;
 }

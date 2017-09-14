@@ -11,8 +11,6 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
  */
 @JSite(domain = "http://google.com")
 public class GoogleSite extends WebSite {
-    @JPage(url = "/")
-    public static HomePage homePage;
-    @JPage(url = "/search")
-    public static SearchPage searchPage;
+    @JPage(url = "/") public static HomePage homePage;
+    @JPage(url = "/search") public static SearchPage searchPage;
 }

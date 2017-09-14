@@ -21,8 +21,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
 import org.openqa.selenium.By;
 
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
-
 /**
  * RadioButtons control implementation
  *

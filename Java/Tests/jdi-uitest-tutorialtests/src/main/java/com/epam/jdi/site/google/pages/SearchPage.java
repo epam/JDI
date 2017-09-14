@@ -13,11 +13,8 @@ import java.util.List;
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class SearchPage extends WebPage {
-    @FindBy(css = ".srg>.g")
-    public List<SearchResult> jobsL;
-    @FindBy(css = ".srg>.g")
-    public Elements<SearchResult> jobsE;
-    @Text("GitHub - epam/JDI: JDI")
-    public Element gitHubJdi;
+    @FindBy(css = ".srg>.g") public List<SearchResult> jobsL;
+    @FindBy(css = ".srg>.g") public Elements<SearchResult> jobsE;
+    @Text("GitHub - epam/JDI: JDI") public Element gitHubJdi;
 
 }

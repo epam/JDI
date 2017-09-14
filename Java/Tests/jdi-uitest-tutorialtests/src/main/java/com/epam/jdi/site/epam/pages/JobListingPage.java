@@ -10,8 +10,6 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static com.epam.jdi.enums.JobListHeaders.apply;
 import static com.epam.jdi.enums.JobListHeaders.name;
 import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
