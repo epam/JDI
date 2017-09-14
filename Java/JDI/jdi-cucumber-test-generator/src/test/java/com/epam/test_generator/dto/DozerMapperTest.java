@@ -63,14 +63,14 @@ public class DozerMapperTest {
 		StepDTO stepDTO = new StepDTO();
 
 		step.setId(1L);
-		step.setType(StepType.GIVEN);
+		step.setType(StepType.GIVEN.ordinal());
 		step.setDescription("Case description");
 		step.setRowNumber(1);
 
 		dozerMapper.map(step, stepDTO);
 
 		assertThat(step.getId(), is(equalTo(stepDTO.getId())));
-		assertThat(StepType.values()[step.getType()], is(equalTo(stepDTO.getType())));
+		assertThat(StepType.values()[step.getType()].ordinal(), is(equalTo(stepDTO.getType())));
 		assertThat(step.getDescription(), is(equalTo(stepDTO.getDescription())));
 		assertThat(step.getRowNumber(), is(equalTo(stepDTO.getRowNumber())));
 	}
