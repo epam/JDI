@@ -83,6 +83,16 @@ public class SuitController {
         return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    public String downloadFile(@RequestParam(name = "suitId") Long suitId,
+                               @RequestParam(name = "caseIds") List<Long> caseIds,
+                               HttpServletResponse response) throws IOException {
+        String mimeType = "application/octet-stream";
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", "inline; filename=\"" + "File.feature" + "\"");
+
+        return  suitService.generateStream(suitId, caseIds);
+    }
+
     private boolean isPriorityValid(Integer priority) {
         return priority != null && priority >= 1 && priority <= 5;
     }
