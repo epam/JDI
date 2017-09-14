@@ -19,6 +19,9 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,6 +47,33 @@ public class MetalsColorsPage extends WebPage {
 
     };
 */
+
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".form-group.colors"),
+            jexpand = @JFindBy(css = ".btn.dropdown-toggle.selectpicker.btn-default"),
+            jlist = @JFindBy(tagName = "li")
+    ) public IDropDown colorsRootExpandList;
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".form-group.colors"),
+            jexpand = @JFindBy(css = ".btn.dropdown-toggle.selectpicker.btn-default")
+            //  jlist = @JFindBy(tagName = "li")
+    ) public IDropDown colorsRootExpand;
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".form-group.colors")
+    ) public IDropDown colorsRoot;
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".form-group.colors"),
+            jvalue = @JFindBy(css = ".dropdown-menu.inner.selectpicker")
+    ) public IDropDown colorsValue;
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".form-group.colors"),
+            jlist = @JFindBy(tagName = "li")
+    ) public IDropDown colorsRootList;
 
 
     public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {
