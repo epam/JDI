@@ -84,18 +84,16 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     public static <T> T initPageObject(Class<T> clazz) {
-        initDriver();
         return initPageObject(clazz, currentDriverName);
     }
     public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
-        initDriver();
         return initPageObject(clazz, useDriver(() -> driver));
     }
-    public static <T> T initPageObject(Class<T> clazz, DriverTypes driver) {
-        initDriver();
+    public static <T> T initPageObject(Class<T> clazz, DriverTypes driver){
         return initPageObject(clazz, useDriver(driver));
     }
     public static <T> T initPageObject(Class<T> clazz, String driverName) {
+        initDriver();
         T page;
         try {
             page = clazz.newInstance();
@@ -108,6 +106,20 @@ public class WebCascadeInit extends CascadeInit {
         }
         new WebCascadeInit().initElements(page, driverName);
         return page;
+    }
+
+    public static <T> void initPageObject(Class<T>... clazz) {
+        initPageObject(currentDriverName, clazz);
+    }
+    public static <T> void initPageObject(WebDriver driver, Class<T>... clazz) {
+        initPageObject(useDriver(() -> driver), clazz);
+    }
+    public static <T> void initPageObject(DriverTypes driver, Class<T>... clazz){
+        initPageObject(useDriver(driver), clazz);
+    }
+    public static <T> void initPageObject(String driverName, Class<T>... classes) {
+        for(Class<T> clazz : classes)
+            initPageObject(driverName, clazz);
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
