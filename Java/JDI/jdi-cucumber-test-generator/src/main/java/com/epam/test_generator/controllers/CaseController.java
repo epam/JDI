@@ -18,7 +18,7 @@ public class CaseController {
 
     @RequestMapping(value = "/suit/{suitId}/case", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> addCaseToSuit(@PathVariable long suitId, @RequestBody CaseDTO caseArg) {
-        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())) {
             casesService.addCaseToSuit(caseArg, suitId);
 
             return new ResponseEntity<>(HttpStatus.OK);
@@ -36,7 +36,7 @@ public class CaseController {
 
     @RequestMapping(value = "/suit/{suitId}/case/{caseId}", method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<Void> updateCase(@PathVariable("caseId") long caseId, @PathVariable("suitId") long suitId, @RequestBody CaseDTO caseArg) {
-        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())){
+        if(isPriorityValid(caseArg.getPriority()) && isDescriptionValid(caseArg.getDescription())) {
             casesService.updateCase(suitId, caseArg);
 
             return new ResponseEntity<>(HttpStatus.OK);
@@ -49,7 +49,6 @@ public class CaseController {
     public ResponseEntity<CaseDTO> getCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId) {
         CaseDTO caseDTO = casesService.getCase(caseId);
         if (caseDTO != null) {
-
             return new ResponseEntity<>(caseDTO, HttpStatus.OK);
         }
 
@@ -57,12 +56,11 @@ public class CaseController {
     }
 
     private boolean isPriorityValid(Integer priority){
-
-        return (priority != null) && (priority >= 1) && (priority <= 5);
+		return (priority != null) && (priority >= 1) && (priority <= 5);
     }
 
     private boolean isDescriptionValid(String description){
-
-        return description != null && description.length()>0 && description.length()<=255;
+		return description != null && description.length()>0 && description.length()<=255;
     }
+
 }

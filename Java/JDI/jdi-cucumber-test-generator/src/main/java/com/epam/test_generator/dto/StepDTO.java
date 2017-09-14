@@ -1,7 +1,5 @@
 package com.epam.test_generator.dto;
 
-import com.epam.test_generator.entities.StepType;
-
 public class StepDTO {
 
     private Long id;
@@ -53,4 +51,5 @@ public class StepDTO {
                 ", type='" + type + '\'' +
                 '}';
     }
+
 }

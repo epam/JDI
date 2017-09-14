@@ -14,6 +14,7 @@ public class DozerMapper {
 
     public DozerMapper() {
         List cfg = new ArrayList();
+
         cfg.add("dozerMapping.xml");
         mapper = new DozerBeanMapper(cfg);
     }
@@ -21,4 +22,5 @@ public class DozerMapper {
     public void map(Object source, Object dest) {
         mapper.map(source, dest);
     }
+
 }

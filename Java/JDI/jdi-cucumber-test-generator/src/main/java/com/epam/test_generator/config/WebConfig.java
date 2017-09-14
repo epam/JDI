@@ -23,6 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean(name="viewResolver")
     public ViewResolver getViewResolver(){
         InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
+
         resourceViewResolver.setPrefix("");
         resourceViewResolver.setSuffix(".html");
 
@@ -33,4 +34,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/static/");
     }
+
 }

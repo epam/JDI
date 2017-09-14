@@ -34,8 +34,13 @@ $(function()
             "                                        </div>");
     }).on('click', '.delete-step-icon', function(e)
     {
-        var clickedEntry = $(this).parent().parent();
-        clickedEntry.remove();
+
+        var steps = $(".sortable-step-container");
+
+        if (steps.length > 1) {
+            var clickedEntry = $(this).parent().parent();
+            clickedEntry.remove();
+        }
     });
 });
 

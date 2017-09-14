@@ -26,19 +26,24 @@ public class StepService {
     private DozerMapper mapper;
 
     public StepDTO addStepToCase(Step st, Long caseId) {
-        caseDAO.getOne(caseId).getSteps().add(st);
-        StepDTO stepDTO = new StepDTO();
+		StepDTO stepDTO = new StepDTO();
+
+    	caseDAO.getOne(caseId).getSteps().add(st);
         mapper.map(stepDAO.save(st), stepDTO);
+
         return stepDTO;
     }
 
     public List<StepDTO> getStepsByCaseId(Long caseId) {
-        List<StepDTO> list = new ArrayList<StepDTO>();
-        for (Step step : caseDAO.findOne(caseId).getSteps()) {
+        List<StepDTO> list = new ArrayList<>();
+
+        for (Step step: caseDAO.findOne(caseId).getSteps()) {
             StepDTO toAdd = new StepDTO();
+
             mapper.map(step,toAdd);
             list.add(toAdd);
         }
+
         return list;
     }
 
@@ -48,12 +53,15 @@ public class StepService {
 
     public StepDTO updateStep(Step step) {
         StepDTO stepDTO = new StepDTO();
+
         mapper.map(stepDAO.save(step), stepDTO);
+
         return stepDTO;
     }
 
     public void addStep(StepDTO stepDTO, Long caseID) {
         Step step = new Step();
+
         mapper.map(stepDTO, step);
         addStepToCase(step, caseID);
     }
@@ -61,7 +69,8 @@ public class StepService {
     public void removeAllSteps(Long caseId) {
         Case caze = caseDAO.getOne(caseId);
         List<Step> stepList = caze.getSteps();
-        for (Step st : stepList) {
+
+        for (Step st: stepList) {
             stepDAO.delete(st.getId());
         }
         caze.setSteps(null);
@@ -69,13 +78,8 @@ public class StepService {
     }
 
     public void addSteps(Long caseId, List<StepDTO> steps) {
-        for (StepDTO st : steps) {
+        for (StepDTO st: steps) {
             addStep(st, caseId);
         }
-    }
-
-    public void saveSteps(Long caseId, List<StepDTO> steps){
-        removeAllSteps(caseId);
-        addSteps(caseId, steps);
     }
 }

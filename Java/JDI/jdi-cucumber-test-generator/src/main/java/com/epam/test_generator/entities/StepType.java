@@ -1,7 +1,8 @@
 package com.epam.test_generator.entities;
 
 public enum StepType {
-    GIVEN ("Given"),
+
+	GIVEN ("Given"),
     WHEN ("When"),
     THEN ("Then"),
     AND ("And"),
@@ -17,4 +18,5 @@ public enum StepType {
     public String getStepType(){
         return typeName;
     }
+
 }

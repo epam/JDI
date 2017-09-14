@@ -291,4 +291,5 @@ public class SuitControllerTest {
 
 		verify(suitService).addSuit(any(SuitDTO.class));
 	}
+
 }

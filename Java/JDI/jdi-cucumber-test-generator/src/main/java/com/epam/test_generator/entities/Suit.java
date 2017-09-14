@@ -29,6 +29,7 @@ public class Suit implements Serializable {
 
     public Suit() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
         creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
@@ -108,10 +109,11 @@ public class Suit implements Serializable {
         this.cases = cases;
     }
 
-    public Case getCaseById(Long id){
+    public Case getCaseById(Long id) {
         Case result = null;
-        for (Case caze : cases) {
-            if (caze.getId().equals(id)){
+
+        for (Case caze: cases) {
+            if (caze.getId().equals(id)) {
                 result = caze;
                 break;
             }
