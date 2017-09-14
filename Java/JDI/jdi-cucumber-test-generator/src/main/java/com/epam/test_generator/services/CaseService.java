@@ -28,28 +28,35 @@ public class CaseService {
 
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
+
         mapper.map(cs, caze);
         suitDAO.getOne(suitId).getCases().add(caze);
         mapper.map(caseDAO.save(caze), cs);
+
         return cs;
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
         List<CaseDTO> listDTO = new ArrayList<>();
         List<Case> list = suitDAO.findOne(suitId).getCases();
+
         mapper.map(list, listDTO);
+
         return listDTO;
     }
 
     public CaseDTO getCase(Long id) {
         CaseDTO dto = new CaseDTO();
+
         mapper.map(caseDAO.getOne(id), dto);
+
         return dto;
     }
 
     public void removeCase(long suitId, long caseId) {
         Suit suit = suitDAO.getOne(suitId);
         Case caze = suit.getCaseById(caseId);
+
         if (caze != null) {
             suit.getCases().remove(caze);
             suitDAO.save(suit);
@@ -60,6 +67,7 @@ public class CaseService {
     public CaseDTO updateCase(long suitId, CaseDTO cs) {
         Suit suit = suitDAO.getOne(suitId);
         Case caze = suit.getCaseById(cs.getId());
+
         if (caze != null) {
             suit.getCases().remove(caze);
             caze.setSteps(new ArrayList<>());

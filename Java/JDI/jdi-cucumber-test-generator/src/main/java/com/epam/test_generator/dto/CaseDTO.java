@@ -19,6 +19,7 @@ public class CaseDTO {
 
     public CaseDTO() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
         creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
@@ -81,6 +82,7 @@ public class CaseDTO {
                 ", tags='" + tags + '\'' +
                 '}';
     }
+
 }
 
 

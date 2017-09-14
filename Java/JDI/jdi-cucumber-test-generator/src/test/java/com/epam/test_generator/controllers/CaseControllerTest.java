@@ -47,7 +47,7 @@ public class CaseControllerTest {
     private CaseController caseController;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(caseController)
                 .setControllerAdvice(new GlobalExceptionController())
                 .build();

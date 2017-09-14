@@ -24,26 +24,33 @@ public class SuitService {
 
     public List<SuitDTO> getSuits() {
         List<SuitDTO> suitDTOlist = new ArrayList<>();
-        for(Suit suit : suitDAO.findAll()){
+
+        for(Suit suit: suitDAO.findAll()){
             SuitDTO suitDTO = new SuitDTO();
+
             mapper.map(suit, suitDTO);
             suitDTOlist.add(suitDTO);
         }
+
         return suitDTOlist;
     }
 
     public SuitDTO getSuit(long id) {
         SuitDTO suitDTO = new SuitDTO();
+
         mapper.map(suitDAO.findOne(id), suitDTO);
+
         return suitDTO;
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
         Suit suit = suitDAO.getOne(suitDTO.getId());
         List<Case> cases = suit.getCases();
+
         mapper.map(suitDTO, suit);
         suit.setCases(cases);
         mapper.map(suitDAO.save(suit), suitDTO);
+
         return suitDTO;
     }
 
@@ -53,9 +60,12 @@ public class SuitService {
 
     public SuitDTO addSuit(SuitDTO suitDTO) {
         Suit suit = new Suit();
+
         mapper.map(suitDTO,suit);
         suit = suitDAO.save(suit);
         mapper.map(suit, suitDTO);
+
         return suitDTO;
     }
+
 }

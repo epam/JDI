@@ -44,6 +44,7 @@ public class DatabaseConfig {
     @Bean
     public DataSource dataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
         dataSource.setDriverClassName("org.h2.Driver");
         dataSource.setUrl("jdbc:h2:file:~/h2/app_db");
 
@@ -71,8 +72,5 @@ public class DatabaseConfig {
             throw  new IllegalArgumentException("Cannot find 'hibernate.properties' file in classpath!");
         }
     }
-
-
-
 
 }

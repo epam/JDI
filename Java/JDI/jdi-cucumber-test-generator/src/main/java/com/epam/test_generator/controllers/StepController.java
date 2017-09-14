@@ -18,8 +18,9 @@ public class StepController {
     private StepService stepService;
 
     @RequestMapping(value = "/suit/{suitId}/case/{caseId}/step", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> addStepToCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId, @RequestBody StepDTO stepDTO){
+    public ResponseEntity<Void> addStepToCase(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId, @RequestBody StepDTO stepDTO) {
         stepService.addStep(stepDTO, caseId);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -33,6 +34,8 @@ public class StepController {
     public ResponseEntity<Void> saveStepsForCaseId(@PathVariable("suitId") long suitId, @PathVariable("caseId") long caseId, @RequestBody List<StepDTO> steps) {
         stepService.removeAllSteps(caseId);
         stepService.addSteps(caseId, steps);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
