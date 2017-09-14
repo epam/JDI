@@ -1,9 +1,7 @@
 package com.epam.test_generator.services;
 
-import com.epam.test_generator.dto.CaseDTO;
-import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
-import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Step;
@@ -13,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +75,7 @@ public class SuitService {
 
                     for (Step step: caze.getSteps()) {
                         output.append('\t');
-                        output.append(step.getType());
+                        output.append(String.valueOf(StepType.values()[step.getType() - 1]));
                         output.append(' ');
                         output.append(step.getDescription());
                         output.append('\n');
