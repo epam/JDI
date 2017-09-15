@@ -41,39 +41,6 @@
                     <table class="suit-table-container">
                         <tr>
                             <td class="suit-info-container">
-                                <table class="suit-info-table">
-                                    <tr>
-                                        <td class="titlesTable"><span>Name: </span></td>
-                                        <td><div id="nameSuit"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Description: </span></td>
-                                        <td><div id="descriptionSuit"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Priority: </span></td>
-                                        <td><div id="prioritySuit"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Create date: </span></td>
-                                        <td><div id="createDateSuit"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Tags: </span></td>
-                                        <td><div id="tagsSuit"></div></td>
-                                    </tr>
-                                </table>
-
-                                <div style="width: 100%;">
-                                    <div class="suit-buttons-container">
-                                        <div class="edit-suit-button" onclick="javascript:PopUpUpdateSuit()">Edit</div>
-                                        <div class="delete-suit-button" onclick="javascript:PopUpRemoveSuit()"><img
-                                            src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></div>
-                                    </div>
-                                </div>
-                                <div style="clear: both;"></div>
-
-
                                 <div class="cases-table-title">
                                     <h3><div id="countCases"></div>Tests</h3>
                                 </div>
@@ -96,42 +63,49 @@
                             </td>
 
                             <td class="case-editor-container">
-                                <table class="case-info-table">
-                                    <tr>
-                                        <td><span>Case description:</span><span class="mandatory_field">*</span></td>
-                                        <td><input id="case-description-textfield" maxlength='255'></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Case priority:</span><span class="mandatory_field">*</span></td>
-                                        <td>
-                                            <div class="style-case-priority-selector">
-                                                <select id='case-priority-selector'>
-                                                    <option value="1" selected>1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Case created date:</span></td>
-                                        <td><input id="case-create-date" readonly></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span>Case tags:</span></td>
-                                        <td><input id="case-tags"></td>
-                                    </tr>
-                                </table>
+                                <div id="suit_or_case_info">
+                                    <table class="info_table">
+                                        <tr id="suit_name_info">
+                                            <td id="name_info">Suit name: </td>
+                                            <td><input maxlength="255" id="value_of_name_info" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id="description_info">Suit description: </td>
+                                            <td><input maxlength="255" id="value_of_description_info" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id="priority_info">Suit priority</td>
+                                            <td>
+                                                <div class="wrapper_updatePrioritySuit style-case-priority-selector">
+                                                    <select id="value_of_priority_info">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                     </select>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="create_date_info">Suit create date:</td>
+                                            <td><input readonly id="value_of_create_date_info" ></td>
+                                        </tr>
+                                        <tr>
+                                            <td id="tags_info">Suit tags:</td>
+                                            <td><input maxlength="255" id="value_of_tags_info"></td>
+                                        </tr>
+                                    </table>
+                                </div>
 
                                 <div class="cucumber-test-editor-container" >
                                     <div id="steps_container"></div>
                                 </div>
 
-                                <div class="case-buttons-container">
-                                    <div class="save-case-button" onclick="saveCase()">Save</div>
-                                    <div class="cancel-case-button" onclick="cancelCaseEditing()">Cancel</div>
+                                <div class="buttons-container">
+                                    <div class="edit-suit-button" onclick="updateSuit()">Save</div>
+                                    <div class="delete-suit-button" onclick="javascript:PopUpRemoveSuit()"><img
+                                                src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></div>
                                 </div>
                             </td>
                         </tr>
@@ -207,54 +181,6 @@
                         <div class="popup_ok" v-on:click="removeSuit"></div>
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_remove')"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="updateSuit">
-            <div class="b-popup" id="popup_update">
-                <div class="b-popup-content">
-                    <div class="popup_header">
-                        <div class="popup_name"></div>
-                        <div class="popup_close">
-                            <span onclick="PopUpHide('#popup_update')">X</span>
-                        </div>
-                    </div>
-                    <div class="popup_container">
-                        <table>
-                            <tr>
-                                <td>Name:<span class="mandatory_field">*</span></td>
-                                <td><input id='updateNameSuit' maxlength='255' placeholder='Suit name'/></td>
-                            </tr>
-                            <tr>
-                                <td>Description:</td>
-                                <td><input id='updateDescriptionSuit' maxlength='255' placeholder='Suit description'/></td>
-                            </tr>
-                            <tr>
-                                <td>Priority:<span class="mandatory_field">*</span></td>
-                                <td>
-                                    <div class="wrapper_updatePrioritySuit">
-                                        <select id='updatePrioritySuit'>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tags:</td>
-                                <td><input id='updateTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="popup_buttons">
-                        <div class="popup_ok" v-on:click="updateSuit"></div>
-                        <div class="free_space"></div>
-                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_update')"></div>
                     </div>
                 </div>
             </div>

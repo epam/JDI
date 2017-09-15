@@ -1,6 +1,7 @@
 package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.CaseDTO;
+import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.services.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,13 @@ public class CaseController {
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value="/suit/{suitId}/removeCases", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Void> removeCases(@PathVariable("suitId") long suitId, @RequestBody SuitDTO suitDTO){
+        casesService.removeCases(suitId, suitDTO.getCases());
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private boolean isPriorityValid(Integer priority){

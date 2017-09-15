@@ -1,19 +1,18 @@
 var updateSuit = new Vue({
-    el: '#updateSuit',
     data() {
         return{}
     },
     methods: {
         updateSuit: function() {
-            var nameSuit = $("#updateNameSuit").val();
-            var descriptionSuit = $("#updateDescriptionSuit").val();
-            var prioritySuit = $("#updatePrioritySuit").val();
-            var tagsSuit = $("#updateTagsSuit").val();
+            var nameSuit = $("#value_of_name_info").val();
+            var descriptionSuit = $("#value_of_description_info").val();
+            var prioritySuit = $("#value_of_priority_info").val();
+            var tagsSuit = $("#value_of_tags_info").val();
 
             if(nameSuit == "" || prioritySuit === null){
                 if(nameSuit == ""){
-                    $('#updateNameSuit').addClass("emptyField");
-                    setTimeout(function() {$("#updateNameSuit").removeClass("emptyField");}, 1000);
+                    $('#value_of_name_info').addClass("emptyField");
+                    setTimeout(function() {$("#value_of_name_info").removeClass("emptyField");}, 1000);
                 }
                 if(prioritySuit == null){
                     $('.wrapper_updatePrioritySuit').addClass("emptyField");

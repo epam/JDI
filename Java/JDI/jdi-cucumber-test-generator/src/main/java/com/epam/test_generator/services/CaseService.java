@@ -26,6 +26,8 @@ public class CaseService {
     @Autowired
     private SuitDAO suitDAO;
 
+    @Autowired
+    private SuitService suitService;
 
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
@@ -79,5 +81,19 @@ public class CaseService {
         }
 
         return cs;
+    }
+
+    public void removeCases(long suitId, List<CaseDTO> casesToRemove) {
+        Suit suit = suitDAO.getOne(suitId);
+        suit.getCases().removeIf((c) -> {
+            for (CaseDTO caseDTO : casesToRemove) {
+                if (c.getId().equals(caseDTO.getId())){
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        suitDAO.save(suit);
     }
 }

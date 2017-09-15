@@ -771,7 +771,7 @@ button.save-suit-button:hover {
     overflow: hidden;
     background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
 }
-#case-priority-selector {
+#value_of_priority_info{
     padding: 2px 8px;
     width: 100%;
     border: none;
@@ -983,7 +983,7 @@ p {margin:28px 0 3px 0;}
 }
 
 .cucumber-test-editor-container {
-    width: 680px;
+    width: 100%;
 }
 
 .cucumber-test-editor {
@@ -1043,57 +1043,38 @@ p {margin:28px 0 3px 0;}
 
 .adding-new-step-div {
     display: block;
-    opacity: 0;
     height: 15px;
     width: 665px;
-    /*border: 1px solid red;*/
-}
-
-.adding-new-step-div:hover{
-    opacity: 1;
-    transition: 0.6s;
-    /*background-color: green;*/
-}
-
-.adding-new-step-div:hover .add-step-icon {
-    pointer-events: auto;
 }
 
 .step-info-handle {
-    display: block;
     cursor: move;
     width: 100%;
-    /*border: 1px solid #379b55;*/
-    height: 49px;
-    margin: 0;
+    margin: 5px 0px;
     padding: 0;
+    overflow:hidden;
+}
+
+.handle-icon {
+    cursor: move;
+    height: 17px;
+    float: left;
+    margin: 10px 5px 10px 0px;
 }
 
 .delete-step-icon {
-    pointer-events: none;
-    position: absolute;
     cursor: pointer;
-    opacity: 0;
-    margin-left: 5px;
-    height: 30px;
-    float: right;
-    margin-top: 5px;
+    height: 25px;
+    float: left;
+    margin: 5px 0px;
 }
 
 .add-step-icon {
-    pointer-events: none;
-    display: inline-block;
     cursor: pointer;
-    height: 35px;
-    margin-top: -16px;
-    float: right;
-}
+    height: 25px;
+    float: left;
+    margin: 5px;
 
-
-.step-info-handle:hover .delete-step-icon {
-    pointer-events: auto;
-    opacity: 1;
-    transition: 0.6s;
 }
 
 .disabled-link {

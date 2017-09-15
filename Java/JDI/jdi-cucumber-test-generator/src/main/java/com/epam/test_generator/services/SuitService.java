@@ -42,7 +42,7 @@ public class SuitService {
         SuitDTO suitDTO = new SuitDTO();
 
         mapper.map(
-          uitDAO.findOne(id), suitDTO);
+          suitDAO.findOne(id), suitDTO);
 
         return suitDTO;
     }
