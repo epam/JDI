@@ -3,9 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Suits</title>
-        <link rel="stylesheet" href="/static/css/styles.css">
-        <link rel="stylesheet" href="/static/css/popup.css">
-        <link rel="stylesheet" href="/static/css/info.css">
+        <link rel="stylesheet" href="/cucumber/static/css/styles.css">
+        <link rel="stylesheet" href="/cucumber/static/css/popup.css">
+        <link rel="stylesheet" href="/cucumber/static/css/info.css">
         <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
     </head>
     <body>
@@ -32,7 +32,7 @@
                             <div class="tab_name" onclick="getSuitInfo($(this).parent().children('div.suitId').text())">{{suit.name}}</div>
                         </li>
                         <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
-                            <img src="/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
+                            <img src="/cucumber/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
                         </li>
                     </ul>
                 </div>
@@ -68,7 +68,7 @@
                                     <div class="suit-buttons-container">
                                         <div class="edit-suit-button" onclick="javascript:PopUpUpdateSuit()">Edit</div>
                                         <div class="delete-suit-button" onclick="javascript:PopUpRemoveSuit()"><img
-                                            src="/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></div>
+                                            src="/cucumber/static/images/trash-icon.png" style="height: 25px; margin: -5px;"></div>
                                     </div>
                                 </div>
                                 <div style="clear: both;"></div>
@@ -86,9 +86,9 @@
                                 <div style="width: 100%;">
                                     <div class="suit-buttons-container">
                                         <div class="generate-feature-button" style="color: white;" onclick="generateFile()">Generate</div>
-                                        <div class="delete-cases-button" onclick="javascript:PopUpRemoveCases()"><img src="/static/images/trash-icon.png"
+                                        <div class="delete-cases-button" onclick="javascript:PopUpRemoveCases()"><img src="/cucumber/static/images/trash-icon.png"
                                                                             style="height: 25px; margin: -5px;"></div>
-                                        <div class="add-case-button" onclick="javascript:PopUpAddCase()"><img src="/static/images/plus-icon.png"
+                                        <div class="add-case-button" onclick="javascript:PopUpAddCase()"><img src="/cucumber/static/images/plus-icon.png"
                                                                         style="height: 20px; margin: -5px;"></div>
                                     </div>
                                 </div>
@@ -357,24 +357,24 @@
             </div>
         </div>
 
-        <script src="/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/static/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/static/js/suit/suitMain.js"></script>
+        <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
+        <script src="/cucumber/static/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://unpkg.com/vue"></script>
-        <script type="text/javascript" src="/static/js/suit/getSuits.js"></script>
-        <script type="text/javascript" src="/static/js/suit/addSuit.js"></script>
-        <script type="text/javascript" src="/static/js/suit/updateSuit.js"></script>
-        <script type="text/javascript" src="/static/js/suit/removeSuit.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/suit/getSuits.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/suit/addSuit.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/suit/updateSuit.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/suit/removeSuit.js"></script>
 
-        <script type="text/javascript" src="/static/js/case/addCase.js"></script>
-        <script type="text/javascript" src="/static/js/case/removeCases.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/case/addCase.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/case/removeCases.js"></script>
 
-        <script type="text/javascript" src="/static/js/popup.js"></script>
-        <script type="text/javascript" src="/static/js/buttonsExecuting.js"></script>
-        <script type="text/javascript" src="/static/js/info.js"></script>
-        <script type="text/javascript" src="/static/js/step/stepsEditing.js"></script>
-        <script type="text/javascript" src="/static/js/FileSaver.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/popup.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/buttonsExecuting.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/FileSaver.min.js"></script>
     </body>
 </html>
