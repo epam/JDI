@@ -1125,3 +1125,25 @@ p {margin:28px 0 3px 0;}
     opacity: 1;
     transition: 0.6s;
 }
+
+table.tablesorter th.tablesorter-headerUnSorted {
+    background-image: url(/static/images/unsorted.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+table.tablesorter th.tablesorter-headerAsc {
+    background-image: url(/static/images/asc.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    /*background-color: #4499FF;*/
+}
+
+
+table.tablesorter th.tablesorter-headerDesc {
+    background-image: url(/static/images/desc.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    /*background-color: #3399FF;*/
+}
