@@ -24,6 +24,9 @@ $(document).ready(function () {
         $("#case-priority-textfield").val("");
         getCaseInfo();
     });
+
+    $("#tableCases").tablesorter();
+
 });
 
 function getSuitInfo(suitId){
@@ -44,9 +47,6 @@ function getSuitInfo(suitId){
         $("#cases_table_body").empty();
 
 
-        // Adding table headers
-
-
         for(var i = 0; i < response.cases.length; i++){
             $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
@@ -65,8 +65,9 @@ function getSuitInfo(suitId){
                                 )
                             );
         }
-    });
 
+        $('.tablesorter').trigger('update');
+    });
 
     disableCaseButtons();
 }
@@ -99,7 +100,11 @@ function getSuitInfoWithOutCleanCases(suitId){
                                 )
                             );
         }
+
+        $('.tablesorter').trigger('update');
     });
+
+
     disableCaseButtons();
 }
 
