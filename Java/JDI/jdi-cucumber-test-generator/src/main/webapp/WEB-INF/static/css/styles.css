@@ -439,7 +439,7 @@ div.add-case-button:hover {
     max-height: 500px;
 }
 
-.cases-table tr:hover {
+.cases-table>tbody>tr:hover {
     background-color: rgba(0, 171, 255, 0.2)
 }
 
@@ -449,9 +449,11 @@ div.add-case-button:hover {
     /*border: 1px solid red;*/
     width: 100%;
 }
-#tableCases tr.is_active{
+
+#tableCases>tbody>tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
 }
+
 #case-save-exception{
     padding: 10px;
     text-align: center;

@@ -15,8 +15,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#tableCases").on("click", "tr", function(){
-        $("#tableCases").children("tr").removeClass("is_active");
+    $("#cases_table_body").on("click", "tr", function(){
+        $("#cases_table_body").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
         case_id = $(this).children("td.small_td").children(".particular_caseId").val();
         $("#code-textarea").val("");
@@ -41,9 +41,14 @@ function getSuitInfo(suitId){
         $("#case-create-date").val("");
         $("#case-tags").val("");
         $("#steps_container").empty();
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
+
+
+        // Adding table headers
+
+
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')
@@ -60,9 +65,9 @@ function getSuitInfo(suitId){
                                 )
                             );
         }
-
-
     });
+
+
     disableCaseButtons();
 }
 
@@ -75,9 +80,9 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#createDateSuit").text(response.creationDate);
         $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')

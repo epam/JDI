@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="/static/css/popup.css">
         <link rel="stylesheet" href="/static/css/info.css">
         <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+
+        <script src="/static/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="/static/js/jquery.tablesorter.widgets.js"></script>
     </head>
     <body>
         <header>
@@ -79,7 +83,20 @@
                                 </div>
 
                                 <div class="cases-table-container">
-                                    <table id="tableCases" class="cases-table">
+                                    <table id="tableCases" class="cases-table tablesorter">
+                                        <thead id = "cases_table_head">
+                                            <tr>
+                                                <th></th>
+                                                <th>Description</th>
+                                                <!--<th>Priority</th>-->
+                                                <!--<th>Tag</th>-->
+                                                <!--<th>Date</th>-->
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id = "cases_table_body">
+
+                                        </tbody>
                                     </table>
                                 </div>
 
@@ -375,5 +392,7 @@
         <script type="text/javascript" src="/static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/static/js/info.js"></script>
         <script type="text/javascript" src="/static/js/step/stepsEditing.js"></script>
+
+        <script type="text/javascript" src="/static/js/sortTable.js"></script>
     </body>
 </html>
