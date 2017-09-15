@@ -24,6 +24,14 @@ $(document).ready(function () {
         $("#case-priority-textfield").val("");
         getCaseInfo();
     });
+
+    $("#files").change(function(){
+        var sourceVal = document.getElementById("files").files[0].path;
+        alert(sourceVal);
+//        var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
+//        saveAs(blob, fileName);
+    })
+
 });
 
 function getSuitInfo(suitId){
