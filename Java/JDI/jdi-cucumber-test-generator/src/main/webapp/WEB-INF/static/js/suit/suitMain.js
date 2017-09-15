@@ -62,6 +62,12 @@ function getSuitInfo(suitId){
                                 )
                                 .append($('<td>')
                                     .text(response.cases[i].description)
+                                ).append($('<td>')
+                                    .text(response.cases[i].priority)
+                                ).append($('<td>')
+                                    .text(response.cases[i].tags)
+                                ).append($('<td>')
+                                    .text(response.cases[i].creationDate)
                                 )
                             );
         }
