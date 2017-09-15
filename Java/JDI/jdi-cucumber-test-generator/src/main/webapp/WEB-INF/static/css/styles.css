@@ -433,9 +433,10 @@ div.add-case-button:hover {
 .cases-table-container{
     margin: 0;
     padding: 0;
+    position: relative;
     width: 100%;
     min-width: 200px;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 500px;
 }
 
@@ -1148,4 +1149,9 @@ p {margin:28px 0 3px 0;}
     background-image: url(/static/images/desc.gif);
     background-repeat: no-repeat;
     background-position: center right;
+}
+
+.tablesorter th {
+    align: left;
+    background: rgba(55, 123, 55, 0.8);
 }

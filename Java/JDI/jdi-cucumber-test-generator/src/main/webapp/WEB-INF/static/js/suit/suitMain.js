@@ -25,7 +25,22 @@ $(document).ready(function () {
         getCaseInfo();
     });
 
-    $("#tableCases").tablesorter();
+    $("#tableCases").tablesorter({
+        theme: 'green',
+        headers: {
+            0: {
+                sorter: false
+            },
+            3: {
+                sorter: false
+            }
+        },
+        widgets: ['stickyHeaders', 'zebra'],
+        widgetOptions: {
+            // jQuery selector or object to attach sticky header to
+            stickyHeaders_attachTo : '.cases-table-container' // or $('.wrapper')
+        }
+    });
 
 });
 
