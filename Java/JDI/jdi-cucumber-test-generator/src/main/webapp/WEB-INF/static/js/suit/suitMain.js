@@ -15,8 +15,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#tableCases").on("click", "tr", function(){
-        $("#tableCases").children("tr").removeClass("is_active");
+    $("#cases_table_body").on("click", "tr", function(){
+        $("#cases_table_body").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
         case_id = $(this).children("td.small_td").children(".particular_caseId").val();
         $("#code-textarea").val("");
@@ -31,6 +31,27 @@ $(document).ready(function () {
 //        var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
 //        saveAs(blob, fileName);
     })
+
+
+    $("#tableCases").tablesorter({
+        theme: 'blue',
+        headers: {
+            0: {
+                sorter: false
+            },
+            1: {
+              sorter: "text"
+            },
+            3: {
+                sorter: false
+            }
+        },
+        widgets: ['stickyHeaders', 'zebra'],
+        widgetOptions: {
+            // jQuery selector or object to attach sticky header to
+            stickyHeaders_attachTo : '.cases-table-container' // or $('.wrapper')
+        }
+    });
 
 });
 
@@ -49,9 +70,10 @@ function getSuitInfo(suitId){
         $("#case-create-date").val("");
         $("#case-tags").val("");
         $("#steps_container").empty();
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
+
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')
@@ -65,12 +87,19 @@ function getSuitInfo(suitId){
                                 )
                                 .append($('<td>')
                                     .text(response.cases[i].description)
+                                ).append($('<td>')
+                                    .text(response.cases[i].priority)
+                                ).append($('<td>')
+                                    .text(response.cases[i].tags)
+                                ).append($('<td>')
+                                    .text(response.cases[i].creationDate)
                                 )
                             );
         }
 
-
+        $('.tablesorter').trigger('update');
     });
+
     disableCaseButtons();
 }
 
@@ -83,9 +112,9 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#createDateSuit").text(response.creationDate);
         $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')
@@ -102,7 +131,11 @@ function getSuitInfoWithOutCleanCases(suitId){
                                 )
                             );
         }
+
+        $('.tablesorter').trigger('update');
     });
+
+
     disableCaseButtons();
 }
 
@@ -134,12 +167,12 @@ function getCaseInfo(){
             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
             "                                                </div>\n" +
             "\n" +
-            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
             "                                            <div style=\"clear: both\"></div>\n" +
             "\n" +
             "                                            <div class=\"adding-new-step-div\">\n" +
-            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
             "                                            </div>\n" +
             "                                        </div>");
             $($(".step-type-select-tag")[i]).val(response.steps[i].type);
@@ -165,12 +198,12 @@ function getCaseInfo(){
                             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
                             "                                                </div>\n" +
                             "\n" +
-                            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
                             "                                            </div>\n" +
                             "                                            <div style=\"clear: both\"></div>\n" +
                             "\n" +
                             "                                            <div class=\"adding-new-step-div\">\n" +
-                            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
                             "                                            </div>\n" +
                             "                                        </div>");
             }

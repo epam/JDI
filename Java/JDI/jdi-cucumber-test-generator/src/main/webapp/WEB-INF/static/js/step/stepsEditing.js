@@ -24,12 +24,12 @@ $(function()
             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
             "                                                </div>\n" +
             "\n" +
-            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
             "                                            <div style=\"clear: both\"></div>\n" +
             "\n" +
             "                                            <div class=\"adding-new-step-div\">\n" +
-            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
             "                                            </div>\n" +
             "                                        </div>");
     }).on('click', '.delete-step-icon', function(e)
