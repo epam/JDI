@@ -15,7 +15,7 @@ var removeCases = new Vue({
                 }
             });
 
-            axios.post('/suit/' + suit_id + '/removeCases', {id: suit_id, cases: cases}).then(function(response) {
+            axios.post('/cucumber/suit/' + suit_id + '/removeCases', {id: suit_id, cases: cases}).then(function(response) {
                 successInfoBlock();
                 getSuitInfo(suit_id);
                 $(".delete-cases-button").addClass("disabled-link");

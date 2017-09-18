@@ -24,7 +24,7 @@ $(document).ready(function () {
 });
 
 function getSuitInfo(suitId){
-    $.get("/suit/" + suitId, function(response){
+    $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
 
         $("#suit_name_info").show();
@@ -75,16 +75,15 @@ function getSuitInfo(suitId){
 }
 
 function getSuitInfoWithOutCleanCases(suitId){
-    $.get("/suit/" + suitId, function(response){
+    $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
-        $("#nameSuit").text(response.name);
-        $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
-        $("#prioritySuit").text(response.priority);
-        $("#createDateSuit").text(response.creationDate);
-        $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
+        $("#value_of_name_info").val(response.name);
+        $("#value_of_description_info").val((response.description != "") ? response.description  : "-" );
+        $("#value_of_priority_info").val(response.priority);
+        $("#value_of_create_date_info").val(response.creationDate);
+        $("#value_of_tags_info").val((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
-
-
+      
         $("#tableCases").empty();
         for(var i = 0; i < response.cases.length; i++){
             $("#tableCases").append($('<tr>')
@@ -109,7 +108,7 @@ function getSuitInfoWithOutCleanCases(suitId){
 }
 
 function getCaseInfo(){
-    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
+    $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
 
         $("#suit_name_info").hide();
 
