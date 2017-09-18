@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class CaseController {
@@ -58,7 +59,8 @@ public class CaseController {
 
     @RequestMapping(value="/suit/{suitId}/cases", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> removeCases(@PathVariable("suitId") long suitId, @RequestBody SuitDTO suitDTO){
-        casesService.removeCases(suitId, suitDTO.getCases());
+        List<Long> casesId = suitDTO.getCases().stream().map(c->c.getId()).collect(Collectors.toList());
+        casesService.removeCases(suitId, casesId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

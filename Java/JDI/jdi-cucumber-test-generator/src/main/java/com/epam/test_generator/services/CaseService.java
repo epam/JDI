@@ -4,7 +4,6 @@ import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
-import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
@@ -80,11 +79,11 @@ public class CaseService {
         return cs;
     }
 
-    public void removeCases(long suitId, List<CaseDTO> casesToRemove) {
+    public void removeCases(long suitId, List<Long> casesId) {
         Suit suit = suitDAO.getOne(suitId);
         suit.getCases().removeIf((c) -> {
-            for (CaseDTO caseDTO : casesToRemove) {
-                if (c.getId().equals(caseDTO.getId())){
+            for (Long caseId : casesId) {
+                if (c.getId().equals(caseId)){
                     return true;
                 }
             }
