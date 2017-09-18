@@ -1152,6 +1152,6 @@ p {margin:28px 0 3px 0;}
 }
 
 .tablesorter th {
-    align: left;
+    text-align: left;
     background: rgba(55, 123, 55, 0.8);
 }

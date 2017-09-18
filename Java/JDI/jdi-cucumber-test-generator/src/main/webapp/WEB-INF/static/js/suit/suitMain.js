@@ -26,10 +26,13 @@ $(document).ready(function () {
     });
 
     $("#tableCases").tablesorter({
-        theme: 'green',
+        theme: 'blue',
         headers: {
             0: {
                 sorter: false
+            },
+            1: {
+              sorter: "text"
             },
             3: {
                 sorter: false
