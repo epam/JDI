@@ -5,7 +5,7 @@ var getSuits = new Vue({
     },
     methods: {
         getSuits: function() {
-            axios.get("/suits").then(function(response) {
+            axios.get("/cucumber/suits").then(function(response) {
                 this.suits = response.data;
             }.bind(this));
         }

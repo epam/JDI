@@ -55,7 +55,7 @@ function saveCase() {
 
     $.ajax({
         type: "PUT",
-        url: "/suit/" + suit_id + "/case/" + case_id,
+        url: "/cucumber/suit/" + suit_id + "/case/" + case_id,
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
@@ -80,7 +80,7 @@ function removeCases() {
 
     $.ajax({
         type: "POST",
-        url: "/saveCase",
+        url: "/cucumber/saveCase",
         data: {
             suitID: suit_id,
             caseId: case_id,
@@ -151,7 +151,7 @@ function generateFile(){
 
      $.ajax({
             type: "POST",
-            url: "/downloadFeatureFile",
+            url: "/cucumber/downloadFeatureFile",
             contentType : 'application/json',
             data: JSON.stringify(formData), // parameters
             success : function(response) {
