@@ -71,7 +71,7 @@ function getSuitInfo(suitId){
         $("#case-tags").val("");
         $("#steps_container").empty();
         $("#cases_table_body").empty();
-        
+
         for(var i = 0; i < response.cases.length; i++){
             $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
