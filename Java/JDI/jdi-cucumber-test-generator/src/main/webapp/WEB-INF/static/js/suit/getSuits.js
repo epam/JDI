@@ -5,7 +5,7 @@ var getSuits = new Vue({
     },
     methods: {
         getSuits: function() {
-            axios.get("/suits").then(function(response) {
+            axios.get("/cucumber/suits").then(function(response) {
                 this.suits = response.data;
                 if(this.suits.length > 0){
                     if($("div.tab_name.is-active").length == 0){
