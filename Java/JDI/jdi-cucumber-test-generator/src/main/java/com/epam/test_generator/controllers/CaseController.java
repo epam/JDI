@@ -56,7 +56,7 @@ public class CaseController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value="/suit/{suitId}/removeCases", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="/suit/{suitId}/cases", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> removeCases(@PathVariable("suitId") long suitId, @RequestBody SuitDTO suitDTO){
         casesService.removeCases(suitId, suitDTO.getCases());
 

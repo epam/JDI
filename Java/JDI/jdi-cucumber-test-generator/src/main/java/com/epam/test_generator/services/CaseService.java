@@ -26,9 +26,6 @@ public class CaseService {
     @Autowired
     private SuitDAO suitDAO;
 
-    @Autowired
-    private SuitService suitService;
-
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
 
