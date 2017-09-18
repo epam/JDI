@@ -23,7 +23,7 @@ public class MultipleSitesExample {
         init(useDriver(CHROME), YandexSite.class);
         init(useDriver(CHROME), GoogleSite.class);
     }
-    @Test
+    //@Test
     public void twoSiteExample() {
         YandexSite.homePage.open();
         Assert.areEquals(YandexSite.homePage.getDriver().getCurrentUrl(),
