@@ -35,7 +35,7 @@ public class WebSite extends Application {
             new WebCascadeInit().initStaticPages(site, driverName);
         currentSite = sites[sites.length-1];
     }
-    public static <T> void init(Class<T>[] sites) {
+    public static <T> void init(Class<T>... sites) {
         if (!getDriverFactory().hasDrivers())
             useDriver(CHROME);
         String driverName = getDriverFactory().currentDriverName();

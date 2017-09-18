@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.initFromProperties;
 import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
@@ -19,8 +20,8 @@ public class MultipleSitesExample {
     @BeforeMethod
     public void before(Method method) throws IOException {
         initFromProperties();
-        WebSite.init(YandexSite.class, useDriver(CHROME));
-        WebSite.init(GoogleSite.class, useDriver(CHROME));
+        init(useDriver(CHROME), YandexSite.class);
+        init(useDriver(CHROME), GoogleSite.class);
     }
     @Test
     public void twoSiteExample() {
