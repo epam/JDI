@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,13 +92,9 @@ public class SuitController {
     @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<String> downloadFile(@RequestBody SuitDTO suitDTO) throws IOException {
-        List<Long> longList = new ArrayList<>();
+        List<Long> caseIds = suitDTO.getCases().stream().map(c->c.getId()).collect(Collectors.toList());
 
-        for (CaseDTO caseDTO : suitDTO.getCases()) {
-            longList.add(caseDTO.getId());
-        }
-
-        return  new ResponseEntity<>(suitService.generateFile(suitDTO.getId(), longList), HttpStatus.OK);
+        return  new ResponseEntity<>(suitService.generateFile(suitDTO.getId(), caseIds), HttpStatus.OK);
     }
 
     private boolean isPriorityValid(Integer priority) {

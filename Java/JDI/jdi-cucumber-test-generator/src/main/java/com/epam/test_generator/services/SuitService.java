@@ -8,6 +8,7 @@ import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Step;
 import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.file_generator.FileGenerator;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -23,6 +24,9 @@ import java.util.*;
 @Transactional
 @Service
 public class SuitService {
+
+    @Autowired
+    private FileGenerator fileGenerator;
 
     @Autowired
     private SuitDAO suitDAO;
@@ -81,6 +85,7 @@ public class SuitService {
     }
 
     public String generateFile(Long suitId, List<Long> caseIds) throws IOException {
+
         Configuration configuration = new Configuration();
         configuration.setDefaultEncoding("UTF-8");
         configuration.setLocale(Locale.getDefault());
@@ -97,58 +102,12 @@ public class SuitService {
 
         List<Case> cases = new ArrayList<>();
 
-        for (Long id : caseIds) {
-            cases.add(caseDAO.getOne(id));
-        }
-        suit.setCases(cases);
-        input.put("suit", suit);
-
-        Template template = configuration.getTemplate("featureFileTemplate.ftl");
-
-        StringWriter stringWriter = new StringWriter();
-
-        try {
-            template.process(input, stringWriter);
-
-            stringWriter.flush();
-            return stringWriter.toString();
-
-        } catch (TemplateException e) {
-            e.printStackTrace();
-            return "";
-        } finally {
-            if (stringWriter != null){
-                stringWriter.close();
-            }
+        for (Long caseId : caseIds) {
+            cases.add(caseDAO.getOne(caseId));
         }
 
-//        END OF FREEMARKER TEST
+        String result = fileGenerator.generate(suit, cases);
 
-        /*
-
-        Suit suit = suitDAO.getOne(suitDTO.getId());
-
-        StringBuilder output = new StringBuilder("Feature: ");
-            output.append(suit.getName());
-            output.append('\n');
-            for (Case caze : suit.getCases()) {
-                if (cases.contains(caze.getId())) {
-                    output.append("Scenario: ");
-                    output.append(caze.getDescription());
-                    output.append('\n');
-
-                    for (Step step: caze.getSteps()) {
-                        output.append('\t');
-                        output.append(String.valueOf(StepType.values()[step.getType() - 1]));
-                        output.append(' ');
-                        output.append(step.getDescription());
-                        output.append('\n');
-                    }
-                }
-            }
-
-        return output.toString();
-
-        */
+        return result;
     }
 }
