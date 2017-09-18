@@ -43,7 +43,7 @@ function getSuitInfo(suitId){
         $(".buttons-container").append(
                                         "<div class='edit-suit-button' onclick='javascript:saveSuit()'>Save</div>" +
                                         "<div class='delete-suit-button' onclick='javascript:PopUpRemoveSuit()'>" +
-                                        "<img src='/static/images/trash-icon.png' style='height: 25px; margin: -5px;'></div>"
+                                        "<img src='/cucumber/static/images/trash-icon.png' style='height: 25px; margin: -5px;'></div>"
                                          );
 
 
@@ -131,7 +131,7 @@ function getCaseInfo(){
         for(var i = 0; i < response.steps.length; i++){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
             "                                            <div class=\"step-info-handle\">\n" +
-            "                                                <img src=\"/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
             "                                                    <div class=\"select-step-type-container\">\n" +
             "                                                        <select class=\"step-type-select-tag\">\n" +
@@ -146,8 +146,8 @@ function getCaseInfo(){
             "                                                   <input type=\"text\" class=\"step-code-line\" value='" + response.steps[i].description + "'>\n" +
             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
             "                                                </div>\n" +
-            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
-            "                                                <img src=\"/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
             "                                        </div>");
 
@@ -156,7 +156,7 @@ function getCaseInfo(){
         if(response.steps.length == 0){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
                             "                                            <div class=\"step-info-handle\">\n" +
-                            "                                                <img src=\"/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
                             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
                             "                                                    <div class=\"select-step-type-container\">\n" +
                             "                                                        <select class=\"step-type-select-tag\">\n" +
@@ -171,7 +171,8 @@ function getCaseInfo(){
                             "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
                             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
                             "                                                </div>\n" +
-                            "                                                <img src=\"/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
                             "                                            </div>\n" +
                             "                                        </div>");
             }
