@@ -97,7 +97,7 @@ public class SuitController {
             longList.add(caseDTO.getId());
         }
 
-        return  new ResponseEntity<>(suitService.generateStream(suitDTO.getId(), longList), HttpStatus.OK);
+        return  new ResponseEntity<>(suitService.generateFile(suitDTO.getId(), longList), HttpStatus.OK);
     }
 
     private boolean isPriorityValid(Integer priority) {
