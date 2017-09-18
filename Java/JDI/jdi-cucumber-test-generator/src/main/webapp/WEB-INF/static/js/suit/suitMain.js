@@ -25,6 +25,14 @@ $(document).ready(function () {
         getCaseInfo();
     });
 
+    $("#files").change(function(){
+        var sourceVal = document.getElementById("files").files[0].path;
+        alert(sourceVal);
+//        var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
+//        saveAs(blob, fileName);
+    })
+
+
     $("#tableCases").tablesorter({
         theme: 'blue',
         headers: {
@@ -48,7 +56,7 @@ $(document).ready(function () {
 });
 
 function getSuitInfo(suitId){
-    $.get("/suit/" + suitId, function(response){
+    $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
@@ -97,7 +105,7 @@ function getSuitInfo(suitId){
 }
 
 function getSuitInfoWithOutCleanCases(suitId){
-    $.get("/suit/" + suitId, function(response){
+    $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
         $("#nameSuit").text(response.name);
         $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
@@ -133,7 +141,7 @@ function getSuitInfoWithOutCleanCases(suitId){
 }
 
 function getCaseInfo(){
-    $.get("/suit/" + suit_id + "/case/" + case_id, function(response){
+    $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
         $("#case-description-textfield").val(response.description);
         $("#case-priority-selector").val(response.priority);
         $("#case-create-date").val(response.creationDate);

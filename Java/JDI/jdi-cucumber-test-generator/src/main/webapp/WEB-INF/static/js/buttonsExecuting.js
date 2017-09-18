@@ -55,7 +55,7 @@ function saveCase() {
 
     $.ajax({
         type: "PUT",
-        url: "/suit/" + suit_id + "/case/" + case_id,
+        url: "/cucumber/suit/" + suit_id + "/case/" + case_id,
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
@@ -80,7 +80,7 @@ function removeCases() {
 
     $.ajax({
         type: "POST",
-        url: "/saveCase",
+        url: "/cucumber/saveCase",
         data: {
             suitID: suit_id,
             caseId: case_id,
@@ -132,3 +132,35 @@ $("#tableCases").on("change", "input", function(){
         $(".generate-feature-button").removeClass("disabled-link");
     }
 });
+
+function generateFile(){
+    var arrayCasesId = new Array();
+    var i = 0;
+
+    $('#tableCases input:checkbox').each(function() {
+        if ($(this).prop("checked")) {
+            var caseId = $(this).parent().children(".particular_caseId").val();
+            arrayCasesId[i++] = { id: parseInt(caseId) };
+        }
+    });
+
+    var formData = {
+        id: suit_id,
+        cases: arrayCasesId
+    };
+
+     $.ajax({
+            type: "POST",
+            url: "/cucumber/downloadFeatureFile",
+            contentType : 'application/json',
+            data: JSON.stringify(formData), // parameters
+            success : function(response) {
+            // Add in Blob text for .feature file
+                var blob = new Blob([response], {type: "text/plain;charset=utf-8"});
+                saveAs(blob, "main.feature");
+            },
+            error: function( xhr, textStatus ) {
+                alert( [ xhr.status, textStatus ] );
+            }
+        });
+}

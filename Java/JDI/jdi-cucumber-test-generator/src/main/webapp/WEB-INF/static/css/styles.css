@@ -255,7 +255,7 @@ div.delete-cases-button:hover {
     background-color: #e54b36;
     border-color: #e54b36;
     margin: 5px;
-    /*border-color: #377b37;*/
+    border-color: #377b37;
     min-width: 120px;
     border-radius: 3px;
     color: white;
@@ -279,7 +279,7 @@ div.delete-cases-button:hover {
     cursor: pointer;
 }
 
-a.generate-feature-button {
+div.generate-feature-button {
     float: right;
     background-color: #379b55;
     margin: 5px;
@@ -302,8 +302,7 @@ a.generate-feature-button {
     font-feature-settings: 'kern', 'liga', 'pnum';
     font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
-
-a.generate-feature-button:hover {
+div.generate-feature-button:hover {
     background-color: #308649;
 }
 

@@ -23,7 +23,7 @@ var updateSuit = new Vue({
                 return;
             }
 
-            axios.put('/suit/' + suit_id, {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
+            axios.put('/cucumber/suit/' + suit_id, {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_update");
                 getSuits.getSuits();
                 getSuitInfo(suit_id);

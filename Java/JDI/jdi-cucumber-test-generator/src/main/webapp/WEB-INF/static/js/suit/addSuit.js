@@ -23,7 +23,7 @@ var addSuit = new Vue({
                 return;
             }
 
-            axios.post('/suit', {name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
+            axios.post('/cucumber/suit', {name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_add");
                 successInfoBlock();
                 getSuits.getSuits();
