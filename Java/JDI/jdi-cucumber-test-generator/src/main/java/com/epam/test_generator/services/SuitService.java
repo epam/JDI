@@ -39,16 +39,12 @@ public class SuitService {
             mapper.map(suit, suitDTO);
             suitDTOlist.add(suitDTO);
         }
-
         return suitDTOlist;
     }
 
     public SuitDTO getSuit(long id) {
         SuitDTO suitDTO = new SuitDTO();
-
-        mapper.map(
-          suitDAO.findOne(id), suitDTO);
-
+        mapper.map(suitDAO.findOne(id), suitDTO);
         return suitDTO;
     }
 
@@ -86,7 +82,6 @@ public class SuitService {
         for (Long caseId : caseIds) {
             cases.add(caseDAO.getOne(caseId));
         }
-
         return fileGenerator.generate(suit, cases);
     }
 }

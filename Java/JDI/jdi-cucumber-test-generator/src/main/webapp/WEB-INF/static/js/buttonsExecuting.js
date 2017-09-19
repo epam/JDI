@@ -42,7 +42,7 @@ function saveCase() {
         steps[i] = {
             "description": step_line,
             "rowNumber": i,
-            "type": parseInt(step_type)-1
+            "type": parseInt(step_type)
         };
     }
 
