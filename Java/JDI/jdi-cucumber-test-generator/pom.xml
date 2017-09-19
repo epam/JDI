@@ -112,6 +112,11 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
+        <!--Freemarker template for .feature file generation-->
+        <dependency>
+            <groupId>freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
