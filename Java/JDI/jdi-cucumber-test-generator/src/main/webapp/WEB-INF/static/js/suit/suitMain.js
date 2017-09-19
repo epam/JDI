@@ -182,7 +182,7 @@ function getCaseInfo(){
             "                                            </div>\n" +
             "                                        </div>");
 
-            $($(".step-type-select-tag")[i]).val(response.steps[i].type);
+            $($(".step-type-select-tag")[i]).val(response.steps[i].type+1);
         }
         if(response.steps.length == 0){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
