@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
+import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;
@@ -8,6 +9,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -35,4 +37,23 @@ public class HomePage extends WebPage {
     public Link aboutJ;
 
     public Search search;
+
+    @JFindBy(css = ".search")
+    public IButton openSearch;
+
+    @JSearch(
+            jroot = @JFindBy(css = ".search"),
+            jInput = @JFindBy(tagName = "input"),
+            jSearchButton = @JFindBy(css = ".icon-search")
+    ) public Search jSearchRootInputSearchButton;
+
+    @JSearch(
+            jInput = @JFindBy(tagName = "input"),
+            jSearchButton = @JFindBy(css = ".icon-search")
+    ) public Search jSearchInputSearchButton;
+
+    @JSearch(
+            jroot = @JFindBy(css = ".search"),
+            jInput = @JFindBy(tagName = "input")
+    ) public Search jSearchRootInput;
 }

@@ -50,30 +50,36 @@ public class MetalsColorsPage extends WebPage {
 
 
     @JDropdown(
-            jroot = @JFindBy(css = ".form-group.colors"),
-            jexpand = @JFindBy(css = ".btn.dropdown-toggle.selectpicker.btn-default"),
-            jlist = @JFindBy(tagName = "li")
-    ) public IDropDown colorsRootExpandList;
+            jroot = @JFindBy(css = ".colors"),
+            jexpand = @JFindBy(css = ".caret"),
+            jlist = @JFindBy(tagName = "li"),
+            jvalue = @JFindBy(css = ".filter-option")
+    ) public IDropDown colorsRootExpandListValue;
 
     @JDropdown(
-            jroot = @JFindBy(css = ".form-group.colors"),
-            jexpand = @JFindBy(css = ".btn.dropdown-toggle.selectpicker.btn-default")
-            //  jlist = @JFindBy(tagName = "li")
+            jroot = @JFindBy(css = ".colors"),
+            jexpand = @JFindBy(css = ".caret")
     ) public IDropDown colorsRootExpand;
 
     @JDropdown(
-            jroot = @JFindBy(css = ".form-group.colors")
+            jroot = @JFindBy(css = ".colors")
     ) public IDropDown colorsRoot;
 
     @JDropdown(
-            jroot = @JFindBy(css = ".form-group.colors"),
-            jvalue = @JFindBy(css = ".dropdown-menu.inner.selectpicker")
-    ) public IDropDown colorsValue;
+            jroot = @JFindBy(css = ".colors"),
+            jvalue = @JFindBy(css = ".filter-option")
+    ) public IDropDown colorsRootValue;
 
     @JDropdown(
-            jroot = @JFindBy(css = ".form-group.colors"),
+            jroot = @JFindBy(css = ".colors"),
             jlist = @JFindBy(tagName = "li")
     ) public IDropDown colorsRootList;
+
+    @JDropdown(
+            jroot = @JFindBy(css = ".colors"),
+            jlist = @JFindBy(tagName = "li"),
+            jvalue = @JFindBy(css = ".filter-option")
+    ) public IDropDown colorsRootListValue;
 
 
     public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {

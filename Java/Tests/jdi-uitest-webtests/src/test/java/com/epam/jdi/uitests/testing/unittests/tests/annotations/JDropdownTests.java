@@ -1,6 +1,8 @@
 package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 
+import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
+import com.epam.jdi.uitests.testing.unittests.tests.common.dataProviders.JDropdownDP;
 import com.epam.web.matcher.junit.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,51 +16,14 @@ public class JDropdownTests extends InitTests {
         metalsColorsPage.open();
     }
 
-    @Test //passed
-    public void selectTestForJDropdownWithRootExpandList() throws InterruptedException {
-        metalsColorsPage.colorsRootExpandList.select("Blue");
-        new Check().isTrue(metalsColorsPage.colorsRootExpandList.getSelected().contains("Blue"));
-    }
+    @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
+    public void dropdown(IDropDown dropdown, Boolean selectResult, String text, String options){
+        new Check().isTrue(dropdown.getText().equals(text));
+        dropdown.select("Blue");
+        new Check().areEquals(dropdown.isSelected("Blue"), selectResult);
+        dropdown.expand();
+        new Check().areEquals(dropdown.getOptions(), options);
 
-    @Test //passed
-    public void expandTestForJDropdownWithRootExpandList() {
-        metalsColorsPage.colorsRootExpandList.expand();
-    }
-
-    @Test //passed
-    public void getTextTestForJDropdownWithRootExpandList() {
-       new Check().isTrue(metalsColorsPage.colorsRootExpandList.getText().contains("Colors"));
-    }
-
-    @Test //passed
-    public void getOptionsTestForJDropdownWithRootExpandList() {
-        new Check().areEquals(metalsColorsPage.colorsRootExpandList.getOptions(), "[Colors, Red, Green, Blue, Yellow]");
-    }
-
-    @Test //FAIL
-    public void selectTestForJDropdownWithRootList() {
-        metalsColorsPage.colorsRootList.select("Blue");
-        new Check().isTrue(metalsColorsPage.colorsRootList.getSelected().contains("Blue"));
-    }
-
-    @Test //FAIL
-    public void expandTestForJDropdownWithRootExpand(){
-        metalsColorsPage.colorsRootExpand.expand();
-    }
-
-    @Test //FAIL
-    public void clickTestForJDropdownWithRoot(){
-        metalsColorsPage.colorsRoot.click();
-    }
-
-    @Test //FAIL
-    public void getTextTestForJDropdownWithRoot(){
-        metalsColorsPage.colorsRoot.getText();
-    }
-
-    @Test //FAIL
-    public void clickTestForJDropdownWithValue(){
-        metalsColorsPage.colorsValue.click();
     }
 
 }
