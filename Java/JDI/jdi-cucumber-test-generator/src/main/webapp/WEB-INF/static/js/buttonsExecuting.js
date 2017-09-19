@@ -3,9 +3,9 @@ function cancelCaseEditing() {
 }
 
 function saveCase() {
-    var description = $("#case-description-textfield").val();
-    var priority = $("#case-priority-selector").val();
-    var tags = $("#case-tags").val();
+    var description = $("#value_of_description_info").val();
+    var priority = $("#value_of_priority_info").val();
+    var tags = $("#value_of_tags_info").val();
 
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
