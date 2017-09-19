@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <table id = "steps_table">
+    </table>
+
+
+    <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        $(document).ready(function () {
+
+            $.get("/cucumber/getAutoCompleteList", function(response) {
+                console.log(response);
+                for (var i = 0; i < response.length; i++) {
+                    console.log(response[i].content);
+                    $("#steps_table").append($('<tr>')
+                        .append($('<td>')
+                            .append(response[i].id)
+                            .attr('visibility','hidden')
+                        )
+                        .append($('<td>')
+                            .append(response[i].content)
+                        )
+                        .append($('<td>')
+                            .append("<button class='delete-step'>Delete suit</button>")
+                        )
+                    )
+                }
+            });
+
+        });
+
+        $(document).on('click', 'delete-step', function(e)
+        {
+            var toDelete = $(this).parent().firstChild.val();
+            alert(toDelete);
+
+            axios.delete('/cucumber/removeAutoComplete/' + toDelete).then(function(response) {
+                alert('sucess')
+//                successInfoBlock();
+            }).catch(function(error) {
+                errorInfoBlock("Fail updating! Try again later!");
+            });
+
+        });
+    </script>
+
+</body>
+</html>

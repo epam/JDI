@@ -16,6 +16,12 @@ public class AutoCompleteController {
     @Autowired
     AutoCompleteService autoCompleteService;
 
+    @RequestMapping(value = "/manageSteps")
+    public String getMainPage() {
+        System.out.println("sdfsdf");
+        return "/WEB-INF/static/views/manageSteps";
+    }
+
     @RequestMapping(value = "/getAutoCompleteList", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<AutoCompleteDTO>> getAutoCompleteList() {
