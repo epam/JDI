@@ -55,10 +55,10 @@ function getSuitInfo(suitId){
         $("#create_date_info").text("Suit create date:");
         $("#tags_info").text("Suit tags:");
         $("#value_of_name_info").val(response.name);
-        $("#value_of_description_info").val((response.description != "") ? response.description  : "-" );
+        $("#value_of_description_info").val(response.description);
         $("#value_of_priority_info").val(response.priority);
         $("#value_of_create_date_info").val(response.creationDate);
-        $("#value_of_tags_info").val((response.tags != "") ? response.tags : "-" );
+        $("#value_of_tags_info").val(response.tags);
         $("#countCases").text(response.cases.length);
         $(".buttons-container").empty();
         $(".buttons-container").append(
