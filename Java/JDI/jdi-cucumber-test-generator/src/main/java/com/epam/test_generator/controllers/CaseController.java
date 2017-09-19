@@ -59,8 +59,8 @@ public class CaseController {
 
     @RequestMapping(value="/suit/{suitId}/cases", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> removeCases(@PathVariable("suitId") long suitId, @RequestBody SuitDTO suitDTO){
-        List<Long> casesId = suitDTO.getCases().stream().map(c->c.getId()).collect(Collectors.toList());
-        casesService.removeCases(suitId, casesId);
+        List<Long> caseIds = suitDTO.getCases().stream().map(c->c.getId()).collect(Collectors.toList());
+        casesService.removeCases(suitId, caseIds);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

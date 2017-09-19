@@ -79,10 +79,10 @@ public class CaseService {
         return cs;
     }
 
-    public void removeCases(long suitId, List<Long> casesId) {
+    public void removeCases(long suitId, List<Long> caseIds) {
         Suit suit = suitDAO.getOne(suitId);
         suit.getCases().removeIf((c) -> {
-            for (Long caseId : casesId) {
+            for (Long caseId : caseIds) {
                 if (c.getId().equals(caseId)){
                     return true;
                 }
