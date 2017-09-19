@@ -1010,8 +1010,8 @@ p {margin:28px 0 3px 0;}
 
 .sortable-step-container {
     width: 100%;
-    /*border: 1px solid red;*/
     padding: 0;
+    overflow:hidden;
 }
 
 .select-step-type-container {

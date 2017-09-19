@@ -5,6 +5,7 @@ function cancelCaseEditing() {
 function saveCase() {
     var description = $("#value_of_description_info").val();
     var priority = $("#value_of_priority_info").val();
+    var creationDate = $("#value_of_create_date_info").val();
     var tags = $("#value_of_tags_info").val();
 
     var keyWordsArray = $(".step-type-select-tag");
@@ -49,6 +50,7 @@ function saveCase() {
         id: case_id,
         description: description,
         priority: priority,
+        creationDate: creationDate,
         tags: tags,
         steps: steps
     };
@@ -64,35 +66,6 @@ function saveCase() {
         },
         error: function( xhr, textStatus ) {
             errorInfoBlock("Fail updating! Try again later!");
-        }
-    });
-}
-
-function removeCases() {
-    var description = $("#case-description-textfield").val();
-    var priority = $("#case-priority-selector").val();
-
-    if (description === null || description === "" ||
-        priority === null || priority === "") {
-        alert("Fill in all required entry field!");
-        return;
-    }
-
-    $.ajax({
-        type: "POST",
-        url: "/cucumber/saveCase",
-        data: {
-            suitID: suit_id,
-            caseId: case_id,
-            description: description,
-            priority: priority,
-        },
-        success : function(response) {
-            getSuitInfo(suit_id);
-            $("#case-save-exception").text("");
-        },
-        error: function( xhr, textStatus ) {
-            alert( [ xhr.status, textStatus ] );
         }
     });
 }

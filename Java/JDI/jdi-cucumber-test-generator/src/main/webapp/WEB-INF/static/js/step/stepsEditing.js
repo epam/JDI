@@ -40,7 +40,7 @@ $(function()
 $( function() {
     $( "#steps_container" ).sortable({
         revert: true,
-        handle: '.step-info-handle'
+        handle: '.handle-icon'
 //                cancel: ''
     });
     $( "#steps_container" ).disableSelection();

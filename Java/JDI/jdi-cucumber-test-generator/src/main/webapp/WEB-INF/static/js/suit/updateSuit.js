@@ -7,6 +7,7 @@ var updateSuit = new Vue({
             var nameSuit = $("#value_of_name_info").val();
             var descriptionSuit = $("#value_of_description_info").val();
             var prioritySuit = $("#value_of_priority_info").val();
+            var creationDateSuit = $("#value_of_create_date_info").val();
             var tagsSuit = $("#value_of_tags_info").val();
 
             if(nameSuit == "" || prioritySuit === null){
@@ -22,7 +23,7 @@ var updateSuit = new Vue({
                 return;
             }
 
-            axios.put('/cucumber/suit/' + suit_id, {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, tags: tagsSuit}).then(function(response) {
+            axios.put('/cucumber/suit/' + suit_id, {id: suit_id, name: nameSuit, description: descriptionSuit, priority: prioritySuit, creationDate: creationDateSuit, tags: tagsSuit}).then(function(response) {
                 PopUpHide("#popup_update");
                 getSuits.getSuits();
                 getSuitInfo(suit_id);
