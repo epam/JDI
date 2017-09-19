@@ -12,8 +12,8 @@ $(document).ready(function () {
         }
     });
 
-    $("#tableCases").on("click", "tr", function(){
-        $("#tableCases").children("tr").removeClass("is_active");
+    $("#cases_table_body").on("click", "tr", function(){
+        $("#cases_table_body").children("tr").removeClass("is_active");
         $(this).addClass("is_active");
         case_id = $(this).children("td.small_td").children(".particular_caseId").val();
         $("#code-textarea").val("");
@@ -21,6 +21,27 @@ $(document).ready(function () {
         $("#case-priority-textfield").val("");
         getCaseInfo();
     });
+
+    $("#tableCases").tablesorter({
+        theme: 'blue',
+        headers: {
+            0: {
+                sorter: false
+            },
+            1: {
+              sorter: "text"
+            },
+            3: {
+                sorter: false
+            }
+        },
+        widgets: ['stickyHeaders', 'zebra'],
+        widgetOptions: {
+            // jQuery selector or object to attach sticky header to
+            stickyHeaders_attachTo : '.cases-table-container' // or $('.wrapper')
+        }
+    });
+
 });
 
 function getSuitInfo(suitId){
@@ -49,9 +70,10 @@ function getSuitInfo(suitId){
 
 
         $("#steps_container").empty();
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
+
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')
@@ -65,12 +87,19 @@ function getSuitInfo(suitId){
                                 )
                                 .append($('<td>')
                                     .text(response.cases[i].description)
+                                ).append($('<td>')
+                                    .text(response.cases[i].priority)
+                                ).append($('<td>')
+                                    .text(response.cases[i].tags)
+                                ).append($('<td>')
+                                    .text(response.cases[i].creationDate)
                                 )
                             );
         }
 
-
+        $('.tablesorter').trigger('update');
     });
+
     disableCaseButtons();
 }
 
@@ -83,10 +112,10 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#value_of_create_date_info").val(response.creationDate);
         $("#value_of_tags_info").val((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
-      
-        $("#tableCases").empty();
+        $("#cases_table_body").empty();
+
         for(var i = 0; i < response.cases.length; i++){
-            $("#tableCases").append($('<tr>')
+            $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
                                     .append($('<input>')
@@ -103,7 +132,11 @@ function getSuitInfoWithOutCleanCases(suitId){
                                 )
                             );
         }
+
+        $('.tablesorter').trigger('update');
     });
+
+
     disableCaseButtons();
 }
 
