@@ -14,6 +14,9 @@ public class AutoCompleteDTO {
         this.content = content;
     }
 
+    public AutoCompleteDTO() {
+    }
+
     public Long getId() {
         return id;
     }

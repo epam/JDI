@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @Service
 public class AutoCompleteService {
@@ -18,8 +21,29 @@ public class AutoCompleteService {
     @Autowired
     private AutoCompleteDAO autoCompleteDAO;
 
-    public AutoCompleteDTO addAutoComplete (AutoCompleteDTO autoCompleteDTO, Long id) {
-        AutoComplete  autoComplete = new AutoComplete();
+    public List<AutoCompleteDTO> getAutoCompleteList() {
+        List<AutoCompleteDTO> autoCompleteDTOList = new ArrayList<>();
+
+        for(AutoComplete autoComplete: autoCompleteDAO.findAll()){
+            AutoCompleteDTO autoCompleteDTO = new AutoCompleteDTO();
+
+            dozerMapper.map(autoComplete, autoCompleteDTO);
+            autoCompleteDTOList.add(autoCompleteDTO);
+        }
+
+        return autoCompleteDTOList;
+    }
+
+    public AutoCompleteDTO getAutoComplete(long id) {
+        AutoCompleteDTO autoCompleteDTO = new AutoCompleteDTO();
+
+        dozerMapper.map(autoCompleteDAO.getOne(id), autoCompleteDTO);
+
+        return autoCompleteDTO;
+    }
+
+    public AutoCompleteDTO addAutoComplete (AutoCompleteDTO autoCompleteDTO) {
+        AutoComplete autoComplete = new AutoComplete();
 
         dozerMapper.map(autoCompleteDTO, autoComplete);
         autoComplete = autoCompleteDAO.save(autoComplete);
