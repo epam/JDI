@@ -1,9 +1,10 @@
-Feature: Suit1 Description
+Feature: description2
 
-    Scenario: Case1
-         Given given1
-         When when1
-         Then then1
+    @safdsdfg
+    Scenario: case 4
+         Given cxgbgghhhjhh55
 
-    Scenario: Case2
-         Given given2
+
+    Scenario: case 3
+         Given fghfgh
+         When sdgfjyuikuyky
