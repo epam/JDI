@@ -67,6 +67,7 @@ public class Form<T> extends Element implements IForm<T> {
     public void filter(FormFilters filter) {
         this.filter = filter;
     }
+
     private List<Field> allFields() {
         switch (filter) {
             case MANDATORY:

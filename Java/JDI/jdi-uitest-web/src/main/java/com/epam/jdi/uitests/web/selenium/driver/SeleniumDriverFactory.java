@@ -258,6 +258,10 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 runDrivers.set(rDrivers);
             }
             WebDriver result = runDrivers.get().get(driverName);
+            if (result.toString().contains("(null)")) {
+                result = drivers.get(driverName).get();
+                runDrivers.get().update(driverName, result);
+            }
             lock.unlock();
             return result;
         } catch (Exception ex) {
