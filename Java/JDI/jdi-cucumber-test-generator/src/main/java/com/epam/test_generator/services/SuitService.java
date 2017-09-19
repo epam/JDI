@@ -5,18 +5,11 @@ import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.file_generator.FileGenerator;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.*;
 import java.util.*;
@@ -86,18 +79,6 @@ public class SuitService {
 
     public String generateFile(Long suitId, List<Long> caseIds) throws IOException {
 
-        Configuration configuration = new Configuration();
-        configuration.setDefaultEncoding("UTF-8");
-        configuration.setLocale(Locale.getDefault());
-
-        configuration.setClassForTemplateLoading(SuitService.class, "/templates/");
-        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-
-        Map<String, Object> input = new HashMap<>();
-
-        StepType[] type = StepType.values();
-        input.put("types", type);
-
         Suit suit = suitDAO.getOne(suitId);
 
         List<Case> cases = new ArrayList<>();
@@ -106,8 +87,6 @@ public class SuitService {
             cases.add(caseDAO.getOne(caseId));
         }
 
-        String result = fileGenerator.generate(suit, cases);
-
-        return result;
+        return fileGenerator.generate(suit, cases);
     }
 }

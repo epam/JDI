@@ -1,0 +1,9 @@
+Feature: Suit1 Description
+
+    Scenario: Case1
+         Given given1
+         When when1
+         Then then1
+
+    Scenario: Case2
+         Given given2
