@@ -34,13 +34,6 @@ public class AutoCompleteService {
         return autoCompleteDTOList;
     }
 
-    public AutoCompleteDTO getAutoComplete(long id) {
-        AutoCompleteDTO autoCompleteDTO = new AutoCompleteDTO();
-
-        dozerMapper.map(autoCompleteDAO.getOne(id), autoCompleteDTO);
-
-        return autoCompleteDTO;
-    }
 
     public AutoCompleteDTO addAutoComplete (AutoCompleteDTO autoCompleteDTO) {
         AutoComplete autoComplete = new AutoComplete();
