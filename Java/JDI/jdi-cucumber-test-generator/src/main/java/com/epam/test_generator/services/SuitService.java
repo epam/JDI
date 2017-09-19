@@ -1,26 +1,31 @@
 package com.epam.test_generator.services;
 
+import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.file_generator.FileGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 @Transactional
 @Service
 public class SuitService {
 
     @Autowired
+    private FileGenerator fileGenerator;
+
+    @Autowired
     private SuitDAO suitDAO;
+
+    @Autowired
+    private CaseDAO caseDAO;
 
     @Autowired
     private DozerMapper mapper;
@@ -72,27 +77,16 @@ public class SuitService {
         return suitDTO;
     }
 
-    public String generateStream(Long suitId, List<Long> CaseIds) throws IOException {
-        Suit suit = suitDAO.findOne(suitId);
-        StringBuilder output = new StringBuilder("Feature: ");
-            output.append(suit.getName());
-            output.append('\n');
-            for (Case caze : suit.getCases()) {
-                if (CaseIds.contains(caze.getId())) {
-                    output.append("Scenario: ");
-                    output.append(caze.getDescription());
-                    output.append('\n');
+    public String generateFile(Long suitId, List<Long> caseIds) throws IOException {
 
-                    for (Step step: caze.getSteps()) {
-                        output.append('\t');
-                        output.append(String.valueOf(StepType.values()[step.getType() - 1]));
-                        output.append(' ');
-                        output.append(step.getDescription());
-                        output.append('\n');
-                    }
-                }
-            }
+        Suit suit = suitDAO.getOne(suitId);
 
-        return output.toString();
+        List<Case> cases = new ArrayList<>();
+
+        for (Long caseId : caseIds) {
+            cases.add(caseDAO.getOne(caseId));
+        }
+
+        return fileGenerator.generate(suit, cases);
     }
 }

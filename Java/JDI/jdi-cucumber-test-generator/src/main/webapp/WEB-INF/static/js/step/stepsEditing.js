@@ -5,8 +5,8 @@ $(function()
         var clickedEntry = $(this).parent().parent();
 
         $(clickedEntry).after("<div class=\"sortable-step-container\">\n" +
-            "\n" +
-            "                                            <div class=\"step-info-handle\">\n" +
+            "                                            <div>\n" +
+            "                                                <img src=\"/cucumber/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
             "                                                    <div class=\"select-step-type-container\">\n" +
             "                                                        <select class=\"step-type-select-tag\">\n" +
@@ -18,18 +18,11 @@ $(function()
             "                                                            <option value=\"5\">But</option>\n" +
             "                                                        </select>\n" +
             "                                                    </div>\n" +
-            "\n" +
             "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
-            "\n" +
-            "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
+            "                                                <div style=\"clear: both; width: 0px;\"></div>\n" +
             "                                                </div>\n" +
-            "\n" +
-            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
-            "                                            </div>\n" +
-            "                                            <div style=\"clear: both\"></div>\n" +
-            "\n" +
-            "                                            <div class=\"adding-new-step-div\">\n" +
             "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
             "                                        </div>");
     }).on('click', '.delete-step-icon', function(e)
@@ -47,7 +40,7 @@ $(function()
 $( function() {
     $( "#steps_container" ).sortable({
         revert: true,
-        handle: '.step-info-handle'
+        handle: '.handle-icon'
 //                cancel: ''
     });
     $( "#steps_container" ).disableSelection();

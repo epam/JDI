@@ -2,12 +2,9 @@ var suit_id = -1;
 var case_id = -1;
 
 $(document).ready(function () {
-    $('.accordion-tabs').children('li').first().children('div').addClass('is-active').next().addClass('is-open').show();
     $('.accordion-tabs').on('click', 'li > div', function(event) {
         if (!$(this).hasClass('is-active')) {
             event.preventDefault();
-            $('.accordion-tabs .is-open').removeClass('is-open').hide();
-            $(this).next().toggleClass('is-open').toggle();
             $('.accordion-tabs').find('.is-active').removeClass('is-active');
             $(this).addClass('is-active');
         } else {
@@ -24,14 +21,6 @@ $(document).ready(function () {
         $("#case-priority-textfield").val("");
         getCaseInfo();
     });
-
-    $("#files").change(function(){
-        var sourceVal = document.getElementById("files").files[0].path;
-        alert(sourceVal);
-//        var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
-//        saveAs(blob, fileName);
-    })
-
 
     $("#tableCases").tablesorter({
         theme: 'blue',
@@ -58,17 +47,25 @@ $(document).ready(function () {
 function getSuitInfo(suitId){
     $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
-        $("#nameSuit").text(response.name);
-        $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
-        $("#prioritySuit").text(response.priority);
-        $("#createDateSuit").text(response.creationDate);
-        $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
+
+        $("#suit_name_info").show();
+
+        $("#description_info").text("Suit description:");
+        $("#priority_info").text("Suit priority:");
+        $("#create_date_info").text("Suit create date:");
+        $("#tags_info").text("Suit tags:");
+        $("#value_of_name_info").val(response.name);
+        $("#value_of_description_info").val(response.description);
+        $("#value_of_priority_info").val(response.priority);
+        $("#value_of_create_date_info").val(response.creationDate);
+        $("#value_of_tags_info").val(response.tags);
         $("#countCases").text(response.cases.length);
-        $("#code-textarea").val("");
-        $("#case-description-textfield").val("");
-        $("#case-priority-selector").val("");
-        $("#case-create-date").val("");
-        $("#case-tags").val("");
+        $(".buttons-container").empty();
+        $(".buttons-container").append(
+                                        "<div class='edit-suit-button' onclick='javascript:saveSuit()'>Save</div>" +
+                                        "<div class='delete-suit-button' onclick='javascript:PopUpRemoveSuit()'>" +
+                                        "<img src='/cucumber/static/images/trash-icon.png' style='height: 25px; margin: -5px;'></div>"
+                                         );
         $("#steps_container").empty();
         $("#cases_table_body").empty();
 
@@ -106,31 +103,33 @@ function getSuitInfo(suitId){
 function getSuitInfoWithOutCleanCases(suitId){
     $.get("/cucumber/suit/" + suitId, function(response){
         suit_id = response.id;
-        $("#nameSuit").text(response.name);
-        $("#descriptionSuit").text((response.description != "") ? response.description  : "-" );
-        $("#prioritySuit").text(response.priority);
-        $("#createDateSuit").text(response.creationDate);
-        $("#tagsSuit").text((response.tags != "") ? response.tags : "-" );
         $("#countCases").text(response.cases.length);
         $("#cases_table_body").empty();
-        for(var i = 0; i < response.cases.length; i++){
-            $("#cases_table_body").append($('<tr>')
-                                .append($('<td>')
-                                    .addClass('small_td')
-                                    .append($('<input>')
-                                        .attr('type', 'checkbox')
-                                    )
-                                    .append($('<input>')
-                                        .addClass('particular_caseId')
-                                        .attr('type', 'hidden')
-                                        .val(response.cases[i].id)
-                                    )
-                                )
-                                .append($('<td>')
-                                    .text(response.cases[i].description)
-                                )
-                            );
-        }
+
+         for(var i = 0; i < response.cases.length; i++){
+                    $("#cases_table_body").append($('<tr>')
+                                        .append($('<td>')
+                                            .addClass('small_td')
+                                            .append($('<input>')
+                                                .attr('type', 'checkbox')
+                                            )
+                                            .append($('<input>')
+                                                .addClass('particular_caseId')
+                                                .attr('type', 'hidden')
+                                                .val(response.cases[i].id)
+                                            )
+                                        )
+                                        .append($('<td>')
+                                            .text(response.cases[i].description)
+                                        ).append($('<td>')
+                                            .text(response.cases[i].priority)
+                                        ).append($('<td>')
+                                            .text(response.cases[i].tags)
+                                        ).append($('<td>')
+                                            .text(response.cases[i].creationDate)
+                                        )
+                                    );
+                }
 
         $('.tablesorter').trigger('update');
     });
@@ -141,15 +140,29 @@ function getSuitInfoWithOutCleanCases(suitId){
 
 function getCaseInfo(){
     $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
-        $("#case-description-textfield").val(response.description);
-        $("#case-priority-selector").val(response.priority);
-        $("#case-create-date").val(response.creationDate);
-        $("#case-tags").val(response.tags);
+
+        $("#suit_name_info").hide();
+
+        $("#description_info").text("Case description:");
+        $("#priority_info").text("Case priority:");
+        $("#create_date_info").text("Case create date:");
+        $("#tags_info").text("Case tags:");
+        $("#value_of_description_info").val(response.description);
+        $("#value_of_priority_info").val(response.priority);
+        $("#value_of_create_date_info").val(response.creationDate);
+        $("#value_of_tags_info").val(response.tags);
         $("#steps_container").empty();
+
+         $(".buttons-container").empty();
+                $(".buttons-container").append(
+                                                "<div class='save-case-button' onclick='saveCase()'>Save</div>" +
+                                                "<div class='cancel-case-button' onclick='cancelCaseEditing()'>Cancel</div>"
+                                               );
+
         for(var i = 0; i < response.steps.length; i++){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
-            "\n" +
-            "                                            <div class=\"step-info-handle\">\n" +
+            "                                            <div>\n" +
+            "                                                <img class=\"handle-icon\" src=\"/cucumber/static/images/handle-icon.png\">\n" +
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
             "                                                    <div class=\"select-step-type-container\">\n" +
             "                                                        <select class=\"step-type-select-tag\">\n" +
@@ -161,26 +174,20 @@ function getCaseInfo(){
             "                                                            <option value=\"5\">But</option>\n" +
             "                                                        </select>\n" +
             "                                                    </div>\n" +
-            "\n" +
             "                                                   <input type=\"text\" class=\"step-code-line\" value='" + response.steps[i].description + "'>\n" +
-            "\n" +
             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
             "                                                </div>\n" +
-            "\n" +
+            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
             "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
-            "                                            <div style=\"clear: both\"></div>\n" +
-            "\n" +
-            "                                            <div class=\"adding-new-step-div\">\n" +
-            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
-            "                                            </div>\n" +
             "                                        </div>");
+
             $($(".step-type-select-tag")[i]).val(response.steps[i].type);
         }
         if(response.steps.length == 0){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
-                            "\n" +
-                            "                                            <div class=\"step-info-handle\">\n" +
+                            "                                            <div>\n" +
+                            "                                                <img  class=\"handle-icon\" src=\"/cucumber/static/images/handle-icon.png\">\n" +
                             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
                             "                                                    <div class=\"select-step-type-container\">\n" +
                             "                                                        <select class=\"step-type-select-tag\">\n" +
@@ -192,20 +199,17 @@ function getCaseInfo(){
                             "                                                            <option value=\"5\">But</option>\n" +
                             "                                                        </select>\n" +
                             "                                                    </div>\n" +
-                            "\n" +
                             "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
-                            "\n" +
                             "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
                             "                                                </div>\n" +
-                            "\n" +
-                            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
-                            "                                            </div>\n" +
-                            "                                            <div style=\"clear: both\"></div>\n" +
-                            "\n" +
-                            "                                            <div class=\"adding-new-step-div\">\n" +
                             "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
+                            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
                             "                                            </div>\n" +
                             "                                        </div>");
             }
     });
+}
+
+function saveSuit(){
+    updateSuit.updateSuit();
 }

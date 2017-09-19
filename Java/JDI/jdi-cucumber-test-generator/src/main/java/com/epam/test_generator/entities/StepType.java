@@ -15,8 +15,7 @@ public enum StepType {
         this.typeName = typeName;
     }
 
-    public String getStepType(){
+    public String getTypeName() {
         return typeName;
     }
-
 }
