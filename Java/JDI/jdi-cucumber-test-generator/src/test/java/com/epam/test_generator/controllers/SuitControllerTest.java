@@ -285,11 +285,4 @@ public class SuitControllerTest {
 
 		verify(suitService).addSuit(any(SuitDTO.class));
 	}
-
-    @Test
-    public void downloadFile_return200WhenPassSuitAndCases() throws Exception {
-        ArrayList cases = new ArrayList();
-
-    }
-
 }
