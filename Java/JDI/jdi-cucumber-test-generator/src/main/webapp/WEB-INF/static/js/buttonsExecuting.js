@@ -3,9 +3,9 @@ function cancelCaseEditing() {
 }
 
 function saveCase() {
-    var description = $("#case-description-textfield").val();
-    var priority = $("#case-priority-selector").val();
-    var tags = $("#case-tags").val();
+    var description = $("#value_of_description_info").val();
+    var priority = $("#value_of_priority_info").val();
+    var tags = $("#value_of_tags_info").val();
 
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
@@ -55,7 +55,7 @@ function saveCase() {
 
     $.ajax({
         type: "PUT",
-        url: "/suit/" + suit_id + "/case/" + case_id,
+        url: "/cucumber/suit/" + suit_id + "/case/" + case_id,
         contentType : 'application/json',
         data: JSON.stringify(formData),
         success : function(response) {
@@ -80,7 +80,7 @@ function removeCases() {
 
     $.ajax({
         type: "POST",
-        url: "/saveCase",
+        url: "/cucumber/saveCase",
         data: {
             suitID: suit_id,
             caseId: case_id,
@@ -151,7 +151,7 @@ function generateFile(){
 
      $.ajax({
             type: "POST",
-            url: "/downloadFeatureFile",
+            url: "/cucumber/downloadFeatureFile",
             contentType : 'application/json',
             data: JSON.stringify(formData), // parameters
             success : function(response) {

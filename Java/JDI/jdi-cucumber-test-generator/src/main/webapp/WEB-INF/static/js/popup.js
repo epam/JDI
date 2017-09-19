@@ -80,7 +80,7 @@ function PopUpAddCase(){
     // Cleat all fields
     $("#popup_add_case .popup_exception").empty();
     $("#addDescriptionCase").val("");
-    $("#addPriorityCase").val($("#prioritySuit").text());
+    $("#addPriorityCase").val($("#value_of_priority_info").val());
     $("#addTagsCase").val("");
 
     // Add two buttons (Create and Cancel)
