@@ -19,6 +19,8 @@ public class FileGenerator {
 
     public String generate(Suit suit, List<Case> cases)  throws IOException {
 
+        if(suit==null || cases==null) throw new NullPointerException(suit==null?"suit is null":"cases list is null");
+
         Configuration configuration = new Configuration();
         configuration.setDefaultEncoding("UTF-8");
         configuration.setLocale(Locale.getDefault());
@@ -41,6 +43,7 @@ public class FileGenerator {
             stringWriter.flush();
             return stringWriter.toString();
         } catch (TemplateException e) {
+            e.printStackTrace();
             return "";
         }
     }

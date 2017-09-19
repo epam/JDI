@@ -1,10 +1,9 @@
-Feature: description2
+Feature: description1
+    Scenario: case1
+            Given given1
+            When when1
+            Then then1
 
-    @safdsdfg
-    Scenario: case 4
-         Given cxgbgghhhjhh55
-
-
-    Scenario: case 3
-         Given fghfgh
-         When sdgfjyuikuyky
+    @tags
+    Scenario: case2
+            Given given2
