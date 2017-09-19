@@ -5,7 +5,7 @@ $(function()
         var clickedEntry = $(this).parent().parent();
 
         $(clickedEntry).after("<div class=\"sortable-step-container\">\n" +
-            "                                            <div class=\"step-info-handle\">\n" +
+            "                                            <div>\n" +
             "                                                <img src=\"/cucumber/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
             "                                                    <div class=\"select-step-type-container\">\n" +
