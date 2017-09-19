@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileGeneratorTest extends Assert{
+
     private FileGenerator fileGenerator;
 
     @Before
