@@ -1185,3 +1185,29 @@ p {margin:28px 0 3px 0;}
     -moz-border-radius: 0px;
     background-image: none;
 }
+.button_wrapper{
+    position:relative;
+}
+
+#edit_step_button{
+    position:absolute;
+    right:0;
+    background-color:#308649;
+    border-color:#308649;
+    margin: 11px 17px;
+    cursor: pointer;
+    height: 42px;
+    width: 160px;
+    font-weight: bold;
+    border-radius:3px;
+    font-size:14px;
+    color: white;
+    transition:background-color 0.3s;
+    border:none;
+
+
+}
+
+#edit_step_button:hover{
+    background-color:rgb(30,67,30)
+}
