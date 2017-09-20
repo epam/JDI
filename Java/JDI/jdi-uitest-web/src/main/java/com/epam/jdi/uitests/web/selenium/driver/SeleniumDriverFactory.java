@@ -35,12 +35,12 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
@@ -55,15 +55,14 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.FOLDER_PATH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
+import static java.lang.System.setProperty;
 import static java.lang.Thread.currentThread;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static javaslang.API.*;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.CapabilityType.PAGE_LOAD_STRATEGY;
-import static org.openqa.selenium.remote.DesiredCapabilities.firefox;
 import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 
 /**
@@ -73,6 +72,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public static JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
+    static final String FOLDER_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\driver\\";
     public Boolean getLatestDriver = false;
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
@@ -110,6 +110,28 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     public void setDriverPath(String driverPath) {
         this.driversPath = driverPath;
+    }
+
+    static final String getChromeDriverPath (String folderPath) {
+        return checkOS().equals("win") ? folderPath + "\\chromedriver.exe" : folderPath + "\\chromedriver";
+    }
+
+    static final String getIEDriverPath (String folderPath) {
+        return folderPath + "\\IEDriverServer.exe";
+    }
+    static final String getFirefoxDriverPath (String folderPath) {
+        return checkOS().equals("win") ? folderPath + "\\geckodriver.exe" : folderPath + "\\geckodriver";
+    }
+
+    static String checkOS() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("mac")) {
+            return "mac";
+        } else if (osName.contains("win") || osName.contains("ms")) {
+            return "win";
+        } else {
+            return "nix";
+        }
     }
 
     public String currentDriverName() {
@@ -170,38 +192,46 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     // GET DRIVER
 
-//    protected String registerLocalDriver(DriverTypes driverType) {
-//        switch (driverType) {
-//            case CHROME:
-//                return registerDriver(driverType,
-//                        () -> {
-//                            if (getLatestDriver)
-//                                downloadChromeDriver(driversPath);
-//                            setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-//                            return webDriverSettings.apply(new ChromeDriver());
-//                        });
-//            case FIREFOX:
-//                return registerDriver(driverType,
-//                        () -> {
-//                            DesiredCapabilities capabilities = internetExplorer();
-//                            capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
-//                            setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-//                            return webDriverSettings.apply(new FirefoxDriver(capabilities));
-//                        });
-//            case IE:
-//                return registerDriver(driverType, () -> {
-//                    DesiredCapabilities capabilities = internetExplorer();
-//                    capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-//                    if (getLatestDriver)
-//                        downloadIEDriver(driversPath);
-//                    setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
-//                    return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
-//                });
-//        }
-//        throw exception("Unknown driver: " + driverType);
-//    }
+    protected String registerLocalDriver(DriverTypes driverType) {
+        switch (driverType) {
+            case CHROME:
+                return registerDriver(driverType,
+                        () -> {
+                            if (getLatestDriver){
+                                return webDriverSettings.apply(initChrome());
+                            }else {
+                                setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
+                                return webDriverSettings.apply(new ChromeDriver());
+                            }
+                        });
+            case FIREFOX:
+                return registerDriver(driverType,
+                        () -> {
+                            if (getLatestDriver){
+                                return webDriverSettings.apply(initFirefox());
+                            }else {
+                                DesiredCapabilities capabilities = internetExplorer();
+                                capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+                                setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
+                                return webDriverSettings.apply(new FirefoxDriver(capabilities));
+                            }
+                        });
+            case IE:
+                return registerDriver(driverType, () -> {
+                    if (getLatestDriver){
+                        return webDriverSettings.apply(initIE());
+                    }else {
+                        DesiredCapabilities capabilities = internetExplorer();
+                        capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+                        setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
+                        return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
+                    }
+                });
+        }
+        throw exception("Unknown driver: " + driverType);
+    }
 
-    protected String registerLocalDriver(DriverTypes driverType){
+    protected String registerLocalDriverFromRepo(DriverTypes driverType){
         return Match(driverType).of(
                 Case(CHROME, () -> registerDriver(driverType, () -> initChrome())),
                 Case(FIREFOX, () -> registerDriver(driverType, () -> initFirefox())),
