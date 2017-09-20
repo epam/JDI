@@ -52,37 +52,37 @@ public class StepSuggestionControllerTest {
 
     @Test
     public void getSuggestionsList_return200whenGetSuggestions() throws Exception {
-        when(stepSuggestionService.getAutoCompleteList()).thenReturn(Collections.emptyList());
+        when(stepSuggestionService.getStepsSuggestion()).thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/step_suggestion"))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        verify(stepSuggestionService).getAutoCompleteList();
+        verify(stepSuggestionService).getStepsSuggestion();
     }
 
     @Test
     public void getSuggestionsList_return500whenGetSuggestions() throws Exception {
-        when(stepSuggestionService.getAutoCompleteList()).thenThrow(new RuntimeException());
+        when(stepSuggestionService.getStepsSuggestion()).thenThrow(new RuntimeException());
 
         mockMvc.perform(get("/step_suggestion"))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
 
-        verify(stepSuggestionService).getAutoCompleteList();
+        verify(stepSuggestionService).getStepsSuggestion();
     }
 
     @Test
     public void testAddSuggestion_return200whenAddNewSuggestion() throws Exception {
         stepSuggestionDTO.setId(null);
-        when(stepSuggestionService.addAutoComplete(any(StepSuggestionDTO.class))).thenReturn(stepSuggestionDTO);
+        when(stepSuggestionService.addStepSuggestion(any(StepSuggestionDTO.class))).thenReturn(stepSuggestionDTO);
 
         mockMvc.perform(post("/step_suggestion")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(stepSuggestionDTO)))
                 .andExpect(status().isOk());
 
-        verify(stepSuggestionService).addAutoComplete(any(StepSuggestionDTO.class));
+        verify(stepSuggestionService).addStepSuggestion(any(StepSuggestionDTO.class));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class StepSuggestionControllerTest {
                 .content(mapper.writeValueAsString(stepSuggestionDTO)))
                 .andExpect(status().isUnprocessableEntity());
 
-        verify(stepSuggestionService, times(0)).addAutoComplete(any(StepSuggestionDTO.class));
+        verify(stepSuggestionService, times(0)).addStepSuggestion(any(StepSuggestionDTO.class));
     }
 
 
@@ -109,7 +109,7 @@ public class StepSuggestionControllerTest {
                 .content(mapper.writeValueAsString(stepSuggestionDTO)))
                 .andExpect(status().isUnprocessableEntity());
 
-        verify(stepSuggestionService, times(0)).addAutoComplete(any(StepSuggestionDTO.class));
+        verify(stepSuggestionService, times(0)).addStepSuggestion(any(StepSuggestionDTO.class));
     }
 
     @Test
@@ -117,16 +117,16 @@ public class StepSuggestionControllerTest {
         mockMvc.perform(delete("/step_suggestion/" + SIMPLE_AUTOCOMPLETE_ID))
                 .andExpect(status().isOk());
 
-        verify(stepSuggestionService).removeAutoComplete(eq(SIMPLE_AUTOCOMPLETE_ID));
+        verify(stepSuggestionService).removeStepSuggestion(eq(SIMPLE_AUTOCOMPLETE_ID));
     }
 
     @Test
     public void testRemoveSuggestion_return500whenRemoveSuggestion() throws Exception {
-        doThrow(RuntimeException.class).when(stepSuggestionService).removeAutoComplete(anyLong());
+        doThrow(RuntimeException.class).when(stepSuggestionService).removeStepSuggestion(anyLong());
 
         mockMvc.perform(delete("/step_suggestion/" + SIMPLE_AUTOCOMPLETE_ID))
                 .andExpect(status().isInternalServerError());
 
-        verify(stepSuggestionService).removeAutoComplete(eq(SIMPLE_AUTOCOMPLETE_ID));
+        verify(stepSuggestionService).removeStepSuggestion(eq(SIMPLE_AUTOCOMPLETE_ID));
     }
 }

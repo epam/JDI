@@ -18,15 +18,15 @@ public class StepSuggestionController {
 
     @RequestMapping(value = "/step_suggestion", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<List<StepSuggestionDTO>> getAutoCompleteList() {
-        return new ResponseEntity<>(stepSuggestionService.getAutoCompleteList(), HttpStatus.OK);
+    public ResponseEntity<List<StepSuggestionDTO>> getStepsSuggestion() {
+        return new ResponseEntity<>(stepSuggestionService.getStepsSuggestion(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/step_suggestion", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Void> addAutoComplete(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
+    public ResponseEntity<Void> addStepSuggestion(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
         if (contentIsValid(stepSuggestionDTO)) {
-            stepSuggestionService.addAutoComplete(stepSuggestionDTO);
+            stepSuggestionService.addStepSuggestion(stepSuggestionDTO);
             return new ResponseEntity<Void>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
@@ -35,8 +35,8 @@ public class StepSuggestionController {
 
     @RequestMapping(value = "/step_suggestion/{stepSuggestionId}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Void> removeAutoComplete(@PathVariable("stepSuggestionId") long stepSuggestionId) {
-        stepSuggestionService.removeAutoComplete(stepSuggestionId);
+    public ResponseEntity<Void> removeStepSuggestion(@PathVariable("stepSuggestionId") long stepSuggestionId) {
+        stepSuggestionService.removeStepSuggestion(stepSuggestionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -21,7 +21,7 @@ public class StepSuggestionService {
     @Autowired
     private StepSuggestionDAO stepSuggestionDAO;
 
-    public List<StepSuggestionDTO> getAutoCompleteList() {
+    public List<StepSuggestionDTO> getStepsSuggestion() {
         List<StepSuggestionDTO> stepSuggestionDTOList = new ArrayList<>();
 
         for(StepSuggestion stepSuggestion : stepSuggestionDAO.findAll()){
@@ -35,7 +35,7 @@ public class StepSuggestionService {
     }
 
 
-    public StepSuggestionDTO addAutoComplete (StepSuggestionDTO stepSuggestionDTO) {
+    public StepSuggestionDTO addStepSuggestion(StepSuggestionDTO stepSuggestionDTO) {
         StepSuggestion stepSuggestion = new StepSuggestion();
 
         dozerMapper.map(stepSuggestionDTO, stepSuggestion);
@@ -45,7 +45,7 @@ public class StepSuggestionService {
         return stepSuggestionDTO;
     }
 
-    public void removeAutoComplete (long id) {
+    public void removeStepSuggestion(long id) {
         stepSuggestionDAO.delete(id);
     }
 }
