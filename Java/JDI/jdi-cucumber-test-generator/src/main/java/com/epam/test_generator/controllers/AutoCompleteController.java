@@ -30,8 +30,12 @@ public class AutoCompleteController {
     @RequestMapping(value = "/addAutoComplete", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ResponseEntity<Void> addAutoComplete(@RequestBody AutoCompleteDTO autoCompleteDTO) {
-        autoCompleteService.addAutoComplete(autoCompleteDTO);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        if (contentIsValid(autoCompleteDTO)) {
+            autoCompleteService.addAutoComplete(autoCompleteDTO);
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @RequestMapping(value = "/removeAutoComplete/{autoCompleteId}", method = RequestMethod.DELETE, produces = "application/json")
@@ -39,5 +43,9 @@ public class AutoCompleteController {
     public ResponseEntity<Void> removeAutoComplete(@PathVariable("autoCompleteId") long autoCompleteId) {
         autoCompleteService.removeAutoComplete(autoCompleteId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private boolean contentIsValid(AutoCompleteDTO autoCompleteDTO) {
+        return autoCompleteDTO.getContent() != null && autoCompleteDTO.getContent().length() > 2;
     }
 }
