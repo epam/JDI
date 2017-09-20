@@ -5,25 +5,16 @@ var savedSteps = new Vue({
     },
     methods: {
         getSavedSteps: function() {
-            axios.get("/cucumber/getAutoCompleteList").then(function(response) {
+            axios.get("/cucumber/step_suggestion").then(function(response) {
                 this.savedSteps = response.data;
-                console.log(response);
-                console.log(response.data);
             }.bind(this));
         },
         getSteps: function () {
             var steps = [];
-
             for (var i = 0; i < this.savedSteps.length; i++) {
                 steps[i] = this.savedSteps[i].content;
             }
-
             return steps;
-        }
-    },
-    watch: {
-        message: function() {
-            console.log(this.message)
         }
     },
     mounted: function() {
@@ -40,17 +31,17 @@ $( function() {
 
                 response(results.slice(0, 7));
             },
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                this.value = ui.item.label;
-                $(this).next().val(ui.item.value);
-            },
-            focus: function (event, ui) {
-                event.preventDefault();
-                this.value = ui.item.label;
-                $(this).next().val(ui.item.value);
-            }
+            minLength: 2
+//            select: function (event, ui) {
+//                event.preventDefault();
+//                this.value = ui.item.label;
+//                $(this).next().val(ui.item.value);
+//            },
+//            focus: function (event, ui) {
+//                event.preventDefault();
+//                this.value = ui.item.label;
+//                $(this).next().val(ui.item.value);
+//            }
         });
     });
 } );

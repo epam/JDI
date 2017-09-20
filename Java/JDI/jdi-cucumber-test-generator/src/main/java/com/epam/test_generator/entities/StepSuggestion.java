@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class AutoComplete {
+public class StepSuggestion {
 
     @Id
     @GeneratedValue
@@ -13,16 +13,16 @@ public class AutoComplete {
 
     private String content;
 
-    public AutoComplete(Long id, String content) {
+    public StepSuggestion(Long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public AutoComplete(String content) {
+    public StepSuggestion(String content) {
         this.content = content;
     }
 
-    public AutoComplete() {
+    public StepSuggestion() {
     }
 
     public Long getId() {
