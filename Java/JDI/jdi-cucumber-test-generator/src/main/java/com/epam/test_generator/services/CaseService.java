@@ -75,7 +75,6 @@ public class CaseService {
             suitDAO.save(suit);
             mapper.map(caze, cs);
         }
-
         return cs;
     }
 
