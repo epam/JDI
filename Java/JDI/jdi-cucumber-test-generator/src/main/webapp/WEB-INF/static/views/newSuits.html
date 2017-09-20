@@ -310,12 +310,12 @@
                         </div>
                     </div>
 
-                    <div class="popup_container">
-                        <table id = "steps_table">
-                        </table>
-
+                    <div class="popup_container table_suggestion_steps" id="table_suggestion_steps">
+                        <table id = "steps_table"></table>
+                    </div>
+                    <div class="popup_container add_step_suggestion_wrapper">
                         <textarea id="step_suggestion"></textarea>
-                        <button id="add_step_button">Add new step suggestion</button>
+                        <button class="add_step_button" onclick="addSuggestionStep()">Add step</button>
                     </div>
 
                     <div class="popup_exception"></div>
@@ -325,15 +325,16 @@
 
         <button onclick="javascript:PopUpManageStepSuggestions()">Edit step suggestions</button>
 
-        <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/cucumber/static/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.min.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.widgets.js"></script>
+        <script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/cucumber/static/js/vendor/jquery-ui.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.widgets.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/FileSaver.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
 
         <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://unpkg.com/vue"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/getSuits.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/addSuit.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/updateSuit.js"></script>
@@ -346,7 +347,6 @@
         <script type="text/javascript" src="/cucumber/static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/FileSaver.min.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
     </body>
