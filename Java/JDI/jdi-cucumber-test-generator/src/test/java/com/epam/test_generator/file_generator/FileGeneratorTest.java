@@ -113,7 +113,7 @@ public class FileGeneratorTest extends Assert{
         cases.add(caze1);
         suit.setCases(cases);
 
-        File expectedFile = new File("src/test/resources/FileGeneratorTest2.txt");
+        File expectedFile = new File("src/test/resources/FileGeneratorTest2");
 
         String realResult = fileGenerator.generate(suit,cases);
         String expectedResult = new Scanner(expectedFile).useDelimiter("\\Z").next();
@@ -155,7 +155,7 @@ public class FileGeneratorTest extends Assert{
         caze1.setTags("");
         cases.add(caze1);
 
-        File expectedFile = new File("src/test/resources/FileGeneratorTest2.txt");
+        File expectedFile = new File("src/test/resources/FileGeneratorTest2");
         String realResult = fileGenerator.generate(suit,cases);
         String expectedResult = new Scanner(expectedFile).useDelimiter("\\Z").next();
         assertEquals(expectedResult.trim(),realResult.trim());
