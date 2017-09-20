@@ -105,3 +105,22 @@ function PopUpRemoveCases(){
     // Show popUp form
     $("#popup_remove_cases").show();
 }
+
+// Create popUp form for create new Case
+function PopUpManageStepSuggestions(){
+    // Create base form
+    createPopUp(600, 400, "Manage step suggestions");
+
+    // Cleat all fields
+    // $("#popup_add_case .popup_exception").empty();
+    // $("#addDescriptionCase").val("");
+    // $("#addPriorityCase").val($("#value_of_priority_info").val());
+    // $("#addTagsCase").val("");
+
+    // Add two buttons (Create and Cancel)
+    $(".popup_ok").append("<div id='createCaseButton'>Create</div>");
+    $(".popup_cancel").append("<div>Cancel</div>");
+
+    // Show popUp form
+    $("#popup_manage_step_suggestions").show();
+}

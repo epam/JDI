@@ -18,7 +18,6 @@ public class AutoCompleteController {
 
     @RequestMapping(value = "/manageSteps")
     public String getMainPage() {
-        System.out.println("sdfsdf");
         return "/WEB-INF/static/views/manageSteps";
     }
 

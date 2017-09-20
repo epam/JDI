@@ -180,6 +180,8 @@
             </div>
         </div>
 
+
+
         <div id="removeSuit">
             <div class="b-popup" id="popup_remove">
                 <div class="b-popup-content">
@@ -298,6 +300,31 @@
             </div>
         </div>
 
+        <div id="manage_step_suggestions">
+            <div class="b-popup" id="popup_manage_step_suggestions">
+                <div class="b-popup-content">
+                    <div class="popup_header">
+                        <div class="popup_name"></div>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_manage_step_suggestions')">X</span>
+                        </div>
+                    </div>
+
+                    <div class="popup_container">
+                        <table id = "steps_table">
+                        </table>
+
+                        <textarea id="step_suggestion"></textarea>
+                        <button id="add_step_button">Add new step suggestion</button>
+                    </div>
+
+                    <div class="popup_exception"></div>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="javascript:PopUpManageStepSuggestions()">Edit step suggestions</button>
+
         <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
         <script src="/cucumber/static/js/jquery-ui.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.min.js"></script>
@@ -321,5 +348,6 @@
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/FileSaver.min.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
     </body>
 </html>
