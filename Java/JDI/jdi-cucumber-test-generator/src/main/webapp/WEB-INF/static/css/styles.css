@@ -998,6 +998,95 @@ p {margin:28px 0 3px 0;}
     height: 10px;
 }
 
+.table_suggestion_steps{
+    height: 280px;
+    overflow-y: scroll;
+}
+
+#table_suggestion_steps::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#table_suggestion_steps::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#table_suggestion_steps::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #9bd49d;
+}
+
+#steps_table{
+    display: table;
+    border-collapse: separate;
+    border-color: grey;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+#steps_table tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+#steps_table td,
+#steps_table th{
+    display: table-cell;
+    vertical-align: inherit;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    vertical-align: middle;
+}
+#steps_table tr th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+.small_th{
+    width: 100px;
+}
+.delete_step_button,
+.add_step_button{
+    width: 90px;
+    height: 28px;
+    float: left;
+    text-align: center;
+    background-color: #4caf50;
+    padding: 5px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+.delete_step_button:hover,
+.add_step_button:hover{
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    background-color: white;
+    color: #4caf50;
+    transition: all 0.2s;
+}
+.add_step_button{
+    margin: 1px 10px;
+}
+#step_suggestion{
+    border: 1px solid #dddddd;
+    width: 475px;
+    float: left;
+}
+.add_step_suggestion_wrapper{
+    margin: 15px 5px;
+}
 
 
 /*Для step-ов*/

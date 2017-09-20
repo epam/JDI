@@ -41,7 +41,6 @@ $( function() {
     $( "#steps_container" ).sortable({
         revert: true,
         handle: '.handle-icon'
-//                cancel: ''
     });
     $( "#steps_container" ).disableSelection();
 } );

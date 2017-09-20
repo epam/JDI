@@ -3,51 +3,43 @@ $(document).ready(function () {
 });
 
 function getStepSuggestions() {
-    axios.get("/cucumber/getAutoCompleteList").then(function(response) {
+    axios.get("/cucumber/step_suggestion").then(function(response) {
         $("#steps_table").empty();
-
+        $("#steps_table").append($('<tr>')
+                                .append($('<th>').text("Step content"))
+                                .append($('<th>').addClass("small_th"))
+                            );
         for (var i = 0; i < response.data.length; i++) {
-            console.log(response.data[i].content);
-
             $("#steps_table").append($('<tr>')
-                .append($('<td>')
-                    .append(response.data[i].id)
-                    .css('visibility', 'hidden')
-                )
                 .append($('<td>')
                     .append(response.data[i].content)
                 )
                 .append($('<td>')
-                    .append("<button class='delete-step'>Delete suit</button>")
+                    .append("<button class='delete_step_button' onclick='deleteSuggestionStep(" + response.data[i].id + ")'>Delete step</button>")
                 )
             )
         }
-
     });
 }
 
-$(document).on('click', '.delete-step', function(e)
-{
-    var toDelete = $(this).parent().parent().children(":first").text();
-
-    axios.delete('/cucumber/removeAutoComplete/' + toDelete).then(function(response) {
+function deleteSuggestionStep(stepId){
+    axios.delete('/cucumber/step_suggestion/' + stepId).then(function(response) {
         getStepSuggestions();
         successInfoBlock();
     }).catch(function(error) {
         errorInfoBlock("Fail deleting! Try again later!");
     });
-});
+}
 
-$(document).on('click', '#add_step_button', function(e)
-{
-
+function addSuggestionStep(){
     var text = $("#step_suggestion").val();
     $("#step_suggestion").val("");
 
-    axios.post('/cucumber/addAutoComplete', {content: text}).then(function(response) {
+    axios.post('/cucumber/step_suggestion', {content: text}).then(function(response) {
         getStepSuggestions();
+        savedSteps.getSavedSteps();
         successInfoBlock();
     }).catch(function(error) {
         errorInfoBlock("Fail adding! Try again later!");
     });
-});
+}

@@ -1,20 +1,20 @@
 package com.epam.test_generator.dto;
 
-public class AutoCompleteDTO {
+public class StepSuggestionDTO {
     private Long id;
 
     private String content;
 
-    public AutoCompleteDTO(Long id, String content) {
+    public StepSuggestionDTO(Long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public AutoCompleteDTO(String content) {
+    public StepSuggestionDTO(String content) {
         this.content = content;
     }
 
-    public AutoCompleteDTO() {
+    public StepSuggestionDTO() {
     }
 
     public Long getId() {
