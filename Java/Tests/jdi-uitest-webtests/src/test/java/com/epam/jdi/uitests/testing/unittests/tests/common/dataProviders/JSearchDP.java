@@ -9,9 +9,9 @@ public class JSearchDP {
     @DataProvider(name = "searchData")
     public static Object[][] inputData() {
         return new Object[][]{
-                {homePage.jSearchRootInputSearchButton, true}
-              //  {homePage.jSearchInputSearchButton, true},
-                //{homePage.jSearchRootInput, true}
+                {homePage.jSearchRootInputSearchButton, true},
+                {homePage.jSearchInputSearchButton, true},
+                {homePage.jSearchRootInput, true}
         };
     }
 }

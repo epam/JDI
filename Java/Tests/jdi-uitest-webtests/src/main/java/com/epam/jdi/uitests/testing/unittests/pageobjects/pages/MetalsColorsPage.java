@@ -5,6 +5,7 @@ import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
 import com.epam.jdi.uitests.testing.unittests.custom.CheckListOfTypeOne;
 import com.epam.jdi.uitests.testing.unittests.enums.ColorsList;
 import com.epam.jdi.uitests.testing.unittests.enums.Metals;
@@ -20,6 +21,8 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
@@ -80,6 +83,33 @@ public class MetalsColorsPage extends WebPage {
             jlist = @JFindBy(tagName = "li"),
             jvalue = @JFindBy(css = ".filter-option")
     ) public IDropDown colorsRootListValue;
+
+    @JDropList(
+            jroot = @JFindBy(css = ".colors"),
+            jlist = @JFindBy(tagName = "li"),
+            jvalue = @JFindBy(css = ".filter-option")
+
+    ) public IDropList colorsDL;
+
+
+
+    @JComboBox(
+            root = @JFindBy(css = ".colors"),
+            list = @JFindBy(tagName = "li"),
+            value = @JFindBy(css = ".filter-option"),
+            expand = @JFindBy(css = ".caret")
+    ) public IComboBox jComboBoxRootListValueExpand;
+
+    @JComboBox(
+            root = @JFindBy(css = ".colors"),
+            list = @JFindBy(tagName = "li"),
+            value = @JFindBy(css = ".filter-option")
+    ) public IComboBox jComboBoxRootListValue;
+
+    @JComboBox(
+            root = @JFindBy(css = ".colors"),
+            value = @JFindBy(css = ".filter-option")
+    ) public IComboBox jComboBoxRootList;
 
 
     public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {

@@ -18,7 +18,8 @@ public class JTableDP {
     public static Object[][] inputData() {
         return new Object[][]{
                 {supportPage.tableRootRowHeader, true},
-                {supportPage.tableRoot, true}
+                {supportPage.tableRoot, true},
+                {supportPage.tableRootHeaderRow, true}
         };
     }
 }

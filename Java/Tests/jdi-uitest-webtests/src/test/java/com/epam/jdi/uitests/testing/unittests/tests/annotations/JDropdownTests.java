@@ -18,12 +18,23 @@ public class JDropdownTests extends InitTests {
 
     @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
     public void dropdown(IDropDown dropdown, Boolean selectResult, String text, String options){
+        dropdown.expand();
+        new Check().isTrue(dropdown.isDisplayed());
+        dropdown.close();
+        new Check().isFalse(dropdown.isDisplayed());
+
         new Check().isTrue(dropdown.getText().equals(text));
+        new Check().areEquals(dropdown.getOptions(), options);
         dropdown.select("Blue");
         new Check().areEquals(dropdown.isSelected("Blue"), selectResult);
-        dropdown.expand();
-        new Check().areEquals(dropdown.getOptions(), options);
 
+
+    }
+
+    @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
+    public void dropdownTestgetSelectedIndex(IDropDown dropdown, Boolean selectResult, String text, String options){
+        dropdown.select(2);
+        new Check().areEquals(dropdown.getSelectedIndex(), 2);
     }
 
 }
