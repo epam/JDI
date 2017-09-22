@@ -2,10 +2,8 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Suits</title>
+    <title>Suggested Steps</title>
     <link rel="stylesheet" href="/cucumber/static/css/styles.css">
-    <link rel="stylesheet" href="/cucumber/static/css/popup.css">
-    <link rel="stylesheet" href="/cucumber/static/css/info.css">
     <link rel="shortcut icon" href="/cucumber/static/images/favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
 
@@ -20,7 +18,7 @@
 
         <!-- Заголовок страницы -->
         <div class="section-title">
-            <h2>Suits</h2>
+            <h2>Suggested steps</h2>
         </div>
 
         <!-- Разделительная линия -->
@@ -41,18 +39,23 @@
                 <li class="tab-head-cont">
                     <div class="tab_name"  v-bind:class="{'is-active' : computedClass(5)}" v-on:click="changeActiveTab(5)">*</div>
                 </li>
-                <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
-                    <img src="/cucumber/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
-                </li>
             </ul>
         </div>
 
         <div class="wrapper_content">
-            <div class="popup_container table_suggestion_steps" id="table_suggestion_steps">
+            <div class="table_suggestion_steps" id="table_suggestion_steps">
                 <table id = "steps_table">
+                    <tr>
+                        <th>Step content</th>
+                        <th class="small_th"></th>
+                    </tr>
+                    <tr v-for="suggestion_step in getFiltredSteps">
+                        <td>{{suggestion_step.content}}</td>
+                        <td><button class='delete_step_button' v-on:click="deleteSuggestion(suggestion_step.id)">Delete step</button></td>
+                    </tr>
                 </table>
             </div>
-            <div class="popup_container add_step_suggestion_wrapper">
+            <div class="add_step_suggestion_wrapper">
                 <textarea id="step_suggestion" v-model="text"></textarea>
                 <button class="add_step_button" v-on:click="addSuggestionStep">Add step</button>
             </div>

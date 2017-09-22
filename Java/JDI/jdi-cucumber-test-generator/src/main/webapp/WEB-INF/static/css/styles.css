@@ -999,7 +999,8 @@ p {margin:28px 0 3px 0;}
 }
 
 .table_suggestion_steps{
-    height: 280px;
+    margin: 20px 0px;
+    height: 350px;
     overflow-y: scroll;
 }
 
@@ -1029,6 +1030,7 @@ p {margin:28px 0 3px 0;}
     border-color: grey;
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
 }
 #steps_table tr{
     display: table-row;
@@ -1086,6 +1088,7 @@ p {margin:28px 0 3px 0;}
 }
 .add_step_suggestion_wrapper{
     margin: 15px 5px;
+    overflow: hidden;
 }
 
 
@@ -1293,8 +1296,8 @@ p {margin:28px 0 3px 0;}
     color: white;
     transition:background-color 0.3s;
     border:none;
-
-
+    text-decoration: none;
+    padding: 12px 6px;
 }
 
 #edit_step_button:hover{
