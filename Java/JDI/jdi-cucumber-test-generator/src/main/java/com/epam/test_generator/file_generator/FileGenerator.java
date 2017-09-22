@@ -21,7 +21,7 @@ public class FileGenerator {
 
         if(suit==null || cases==null) throw new NullPointerException(suit==null?"suit is null":"cases list is null");
 
-        Configuration configuration = new Configuration();
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setLocale(Locale.getDefault());
 

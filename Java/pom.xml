@@ -179,9 +179,9 @@
             </dependency>
             <!--Freemarker template for .feature file generation-->
             <dependency>
-                <groupId>freemarker</groupId>
+                <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
-                <version>2.3.8</version>
+                <version>2.3.23</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
