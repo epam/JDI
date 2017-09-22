@@ -19,4 +19,8 @@
         <class-a>com.epam.test_generator.entities.Suit</class-a>
         <class-b>com.epam.test_generator.dto.SuitDTO</class-b>
     </mapping>
+    <mapping>
+        <class-a>com.epam.test_generator.entities.Tag</class-a>
+        <class-b>com.epam.test_generator.dto.TagDTO</class-b>
+    </mapping>
 </mappings>

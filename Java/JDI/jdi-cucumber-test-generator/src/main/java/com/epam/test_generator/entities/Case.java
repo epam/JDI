@@ -23,14 +23,15 @@ public class Case implements Serializable{
 
     private Integer priority;
 
-    private String tags;
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Tag> tags;
 
     public Case(){
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
-    public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
+    public Case(Long id, String description, List<Step> steps, Integer priority, List<Tag> tags) {
         this.id = id;
         this.description = description;
         this.steps = steps;
@@ -81,11 +82,11 @@ public class Case implements Serializable{
         this.priority = priority;
     }
 
-    public String getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 

@@ -15,7 +15,7 @@ public class CaseDTO {
 
     private Integer priority;
 
-    private String tags;
+    private List<TagDTO> tags;
 
     public CaseDTO() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -63,11 +63,11 @@ public class CaseDTO {
         this.priority = priority;
     }
 
-    public String getTags() {
+    public List<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<TagDTO> tags) {
         this.tags = tags;
     }
 
