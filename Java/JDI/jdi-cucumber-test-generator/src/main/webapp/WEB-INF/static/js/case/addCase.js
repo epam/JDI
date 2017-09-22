@@ -7,8 +7,13 @@ var addCase = new Vue({
         addCase: function() {
             var descriptionCase = $("#addDescriptionCase").val();
             var priorityCase = $("#addPriorityCase").val();
-            var tagsCase = $("#addTagsCase").val();
-
+            var tags = $("#addTagsCase").val().split(" ");
+             var tagsCase = new Array(tags.length);
+                  for ( var i = 0; i < tagsCase.length; i++){
+                  tagsCase[i] = {
+                     "name": tags[i]
+                  }
+                  }
             if(descriptionCase == "" || priorityCase == ""){
                 if(descriptionCase == ""){
                     $('#addDescriptionCase').addClass("emptyField");

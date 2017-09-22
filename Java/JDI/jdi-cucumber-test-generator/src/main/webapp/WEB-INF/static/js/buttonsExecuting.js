@@ -3,10 +3,45 @@ function cancelCaseEditing() {
 }
 
 function saveCase() {
+
+
+     var listTags = $("#value_of_tags_info").val().split(" ");
+
+     if(!testUnique(listTags)){
+                      $("#value_of_tags_info").addClass("emptyField");
+                      setTimeout(function() {$("#value_of_tags_info").removeClass("emptyField");}, 1000);
+                      errorInfoBlock("You have same tags");
+                      return;
+       }
+       if(listTags.length > 5){
+
+                 $("#value_of_tags_info").addClass("emptyField");
+                  setTimeout(function() {$("#value_of_tags_info").removeClass("emptyField");}, 1000);
+                 errorInfoBlock("Maximum 5 tags");
+                 return;
+       }
+
+     else{
+
+
+
+
+
+     var listTagsDTO = new Array(listTags.length);
+     for ( var i = 0; i < listTagsDTO.length; i++){
+     listTagsDTO[i] = {
+        "name": listTags[i]
+     }
+     }
+
+
+
+
+
     var description = $("#value_of_description_info").val();
     var priority = $("#value_of_priority_info").val();
     var creationDate = $("#value_of_create_date_info").val();
-    var tags = $("#value_of_tags_info").val();
+    //var tags = $("#value_of_tags_info").val();
 
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
@@ -51,7 +86,7 @@ function saveCase() {
         description: description,
         priority: priority,
         creationDate: creationDate,
-        tags: tags,
+        tags: listTagsDTO,
         steps: steps
     };
 
@@ -68,6 +103,7 @@ function saveCase() {
             errorInfoBlock("Fail updating! Try again later!");
         }
     });
+    }
 }
 
 function disableCaseButtons () {
@@ -137,3 +173,12 @@ function generateFile(){
             }
         });
 }
+ function testUnique(A)
+        {
+            var n = A.length;
+            for (var i = 0; i < n-1; i++)
+             { for (var j = i+1; j < n; j++)
+                { if (A[i] === A[j]) return false; }
+             }
+            return true;
+        }

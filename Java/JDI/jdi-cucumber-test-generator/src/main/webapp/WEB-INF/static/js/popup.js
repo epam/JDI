@@ -35,26 +35,26 @@ function PopUpAddingSuit(){
 }
 
 // Create popUp form for update current Suit
-function PopUpUpdateSuit(){
-    // Create base form
-    createPopUp(400, 180, "Edit suit");
-
-    // Clear field with exceptions
-    $("#popup_update .popup_exception").empty();
-
-    // Filling out the fields in accordance with the current Suit
-    $("#updateNameSuit").val($("#nameSuit").text());
-    $("#updateDescriptionSuit").val($("#descriptionSuit").text());
-    $("#updatePrioritySuit").val($("#prioritySuit").text());
-    $("#updateTagsSuit").val($("#tagsSuit").text());
-
-    // Add two buttons (Edit and Cancel)
-    $(".popup_ok").append("<div id='updateSuitButton'>Edit</div>");
-    $(".popup_cancel").append("<div>Cancel</div>");
-
-    // Show popUp form
-    $("#popup_update").show();
-}
+//function PopUpUpdateSuit(){
+//    // Create base form
+//    createPopUp(400, 180, "Edit suit");
+//
+//    // Clear field with exceptions
+//    $("#popup_update .popup_exception").empty();
+//
+//    // Filling out the fields in accordance with the current Suit
+//    $("#updateNameSuit").val($("#nameSuit").text());
+//    $("#updateDescriptionSuit").val($("#descriptionSuit").text());
+//    $("#updatePrioritySuit").val($("#prioritySuit").text());
+//    $("#updateTagsSuit").val($("#tagsSuit").text());
+//
+//    // Add two buttons (Edit and Cancel)
+//    $(".popup_ok").append("<div id='updateSuitButton'>Edit</div>");
+//    $(".popup_cancel").append("<div>Cancel</div>");
+//
+//    // Show popUp form
+//    $("#popup_update").show();
+//}
 
 // Create popUp form for delete current Suit
 function PopUpRemoveSuit(){
