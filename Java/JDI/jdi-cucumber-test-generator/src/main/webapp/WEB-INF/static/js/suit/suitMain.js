@@ -44,58 +44,71 @@ $(document).ready(function () {
 
 });
 
-function getSuitInfo(suitId){
-    $.get("/cucumber/suit/" + suitId, function(response){
-        suit_id = response.id;
+var currentSuit;
+var filteredCases;
 
-        $("#suit_name_info").show();
-
-        $("#description_info").text("Suit description:");
-        $("#priority_info").text("Suit priority:");
-        $("#create_date_info").text("Suit create date:");
-        $("#tags_info").text("Suit tags:");
-        $("#value_of_name_info").val(response.name);
-        $("#value_of_description_info").val(response.description);
-        $("#value_of_priority_info").val(response.priority);
-        $("#value_of_create_date_info").val(response.creationDate);
-        $("#value_of_tags_info").val(response.tags);
-        $("#countCases").text(response.cases.length);
-        $(".buttons-container").empty();
-        $(".buttons-container").append(
-                                        "<div class='edit-suit-button' onclick='javascript:saveSuit()'>Save</div>" +
-                                        "<div class='delete-suit-button' onclick='javascript:PopUpRemoveSuit()'>" +
-                                        "<img src='/cucumber/static/images/trash-icon.png' style='height: 25px; margin: -5px;'></div>"
-                                         );
-        $("#steps_container").empty();
-        $("#cases_table_body").empty();
-
-        for(var i = 0; i < response.cases.length; i++){
-            $("#cases_table_body").append($('<tr>')
-                                .append($('<td>')
-                                    .addClass('small_td')
-                                    .append($('<input>')
-                                        .attr('type', 'checkbox')
-                                    )
-                                    .append($('<input>')
-                                        .addClass('particular_caseId')
-                                        .attr('type', 'hidden')
-                                        .val(response.cases[i].id)
-                                    )
-                                )
-                                .append($('<td>')
-                                    .text(response.cases[i].description)
-                                ).append($('<td>')
-                                    .text(response.cases[i].priority)
-                                ).append($('<td>')
-                                    .text(response.cases[i].tags)
-                                ).append($('<td>')
-                                    .text(response.cases[i].creationDate)
-                                )
-                            );
-        }
-
-        $('.tablesorter').trigger('update');
+function getSuitInfo(suitId) {
+    $.get("/cucumber/suit/" + suitId, function(response) {
+        currentSuit = response;
+        $('#search_tag').val('');
+        drawSuitPage('');
     });
+}
+
+function drawSuitPage(input_tags) {
+    suit_id = currentSuit.id;
+
+    filteredCases = _.filter(currentSuit.cases, function (caze) {
+        return _.includes(caze.tags, input_tags);
+    });
+
+    $("#suit_name_info").show();
+
+    $("#description_info").text("Suit description:");
+    $("#priority_info").text("Suit priority:");
+    $("#create_date_info").text("Suit create date:");
+    $("#tags_info").text("Suit tags:");
+    $("#value_of_name_info").val(currentSuit.name);
+    $("#value_of_description_info").val(currentSuit.description);
+    $("#value_of_priority_info").val(currentSuit.priority);
+    $("#value_of_create_date_info").val(currentSuit.creationDate);
+    $("#value_of_tags_info").val(currentSuit.tags);
+    $("#countCases").text(filteredCases.length);
+    $(".buttons-container").empty();
+    $(".buttons-container").append(
+        "<div class='edit-suit-button' onclick='javascript:saveSuit()'>Save</div>" +
+        "<div class='delete-suit-button' onclick='javascript:PopUpRemoveSuit()'>" +
+        "<img src='/cucumber/static/images/trash-icon.png' style='height: 25px; margin: -5px;'></div>"
+    );
+    $("#steps_container").empty();
+    $("#cases_table_body").empty();
+
+    for(var i = 0; i < filteredCases.length; i++){
+        $("#cases_table_body").append($('<tr>')
+            .append($('<td>')
+                .addClass('small_td')
+                .append($('<input>')
+                    .attr('type', 'checkbox')
+                )
+                .append($('<input>')
+                    .addClass('particular_caseId')
+                    .attr('type', 'hidden')
+                    .val(filteredCases[i].id)
+                )
+            )
+            .append($('<td>')
+                .text(filteredCases[i].description)
+            ).append($('<td>')
+            .text(filteredCases[i].priority)
+            ).append($('<td>')
+            .text(filteredCases[i].tags)
+            ).append($('<td>')
+            .text(filteredCases[i].creationDate)
+            )
+        );
+    }
+
+    $('.tablesorter').trigger('update');
 
     disableCaseButtons();
 }
