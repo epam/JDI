@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function(){
     getStepSuggestions();
 });
 
@@ -10,14 +10,16 @@ function getStepSuggestions() {
                                 .append($('<th>').addClass("small_th"))
                             );
         for (var i = 0; i < response.data.length; i++) {
-            $("#steps_table").append($('<tr>')
-                .append($('<td>')
-                    .append(response.data[i].content)
+            if(response.data[i].type == app.active){
+                $("#steps_table").append($('<tr>')
+                    .append($('<td>')
+                        .append(response.data[i].content)
+                    )
+                    .append($('<td>')
+                        .append("<button class='delete_step_button' onclick='deleteSuggestionStep(" + response.data[i].id + ")'>Delete step</button>")
+                    )
                 )
-                .append($('<td>')
-                    .append("<button class='delete_step_button' onclick='deleteSuggestionStep(" + response.data[i].id + ")'>Delete step</button>")
-                )
-            )
+            }
         }
     });
 }
@@ -47,7 +49,6 @@ function addSuggestionStep(){
 var app = new Vue({
     el: "#app",
     data: {
-        suggestion_steps: [],
         active: 0
     },
     methods:{
@@ -56,6 +57,8 @@ var app = new Vue({
         },
         changeActiveTab: function (tab_active) {
              this.active = tab_active;
+             getStepSuggestions()
         }
     }
-})
+});
+

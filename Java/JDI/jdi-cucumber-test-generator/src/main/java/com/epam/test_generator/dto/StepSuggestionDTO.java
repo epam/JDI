@@ -5,13 +5,16 @@ public class StepSuggestionDTO {
 
     private String content;
 
+    private Integer type;
+
     public StepSuggestionDTO(Long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public StepSuggestionDTO(String content) {
+    public StepSuggestionDTO(String content, Integer type) {
         this.content = content;
+        this.type = type;
     }
 
     public StepSuggestionDTO() {
@@ -31,5 +34,13 @@ public class StepSuggestionDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

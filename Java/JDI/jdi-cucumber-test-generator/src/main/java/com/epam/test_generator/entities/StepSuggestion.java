@@ -13,13 +13,16 @@ public class StepSuggestion {
 
     private String content;
 
+    private StepType type;
+
     public StepSuggestion(Long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public StepSuggestion(String content) {
+    public StepSuggestion(String content, StepType type) {
         this.content = content;
+        this.type = type;
     }
 
     public StepSuggestion() {
@@ -39,5 +42,13 @@ public class StepSuggestion {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getType() {
+        return type.ordinal();
+    }
+
+    public void setType(Integer type) {
+        this.type = StepType.values()[type];
     }
 }
