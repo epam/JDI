@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Suits</title>
+    <link rel="stylesheet" href="/cucumber/static/css/styles.css">
+    <link rel="stylesheet" href="/cucumber/static/css/popup.css">
+    <link rel="stylesheet" href="/cucumber/static/css/info.css">
+    <link rel="shortcut icon" href="/cucumber/static/images/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+
+</head>
+<body>
+<header>
+    <a href="/cucumber">Cucumber test generator</a>
+</header>
+
+<div class="page-contents" id="app">
+    <section class="suits-section">
+
+        <!-- Заголовок страницы -->
+        <div class="section-title">
+            <h2>Suits</h2>
+        </div>
+
+        <!-- Разделительная линия -->
+        <hr class="under-subtitle-hatch">
+
+        <!-- Окно с вкладками -->
+        <div class="container-tab" id="newSuitsApp">
+            <ul class="accordion-tabs">
+                <li class="tab-head-cont">
+                    <div class="tab_name" v-bind:class="{'is-active' : computedClass(0)}" v-on:click="changeActiveTab(0)">Given</div>
+                </li>
+                <li class="tab-head-cont">
+                    <div class="tab_name"  v-bind:class="{'is-active' : computedClass(1)}" v-on:click="changeActiveTab(1)">When</div>
+                </li>
+                <li class="tab-head-cont">
+                    <div class="tab_name"  v-bind:class="{'is-active' : computedClass(2)}" v-on:click="changeActiveTab(2)">Then</div>
+                </li>
+                <li class="tab-head-cont">
+                    <div class="tab_name"  v-bind:class="{'is-active' : computedClass(3)}" v-on:click="changeActiveTab(3)">*</div>
+                </li>
+                <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
+                    <img src="/cucumber/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
+                </li>
+            </ul>
+        </div>
+
+        <div class="wrapper_content">
+            <div class="popup_container table_suggestion_steps" id="table_suggestion_steps">
+                <table id = "steps_table"></table>
+            </div>
+            <div class="popup_container add_step_suggestion_wrapper">
+                <textarea id="step_suggestion"></textarea>
+                <button class="add_step_button" onclick="addSuggestionStep()">Add step</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+
+<script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
+</body>
+</html>

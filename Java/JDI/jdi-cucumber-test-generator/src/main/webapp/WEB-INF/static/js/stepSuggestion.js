@@ -43,3 +43,19 @@ function addSuggestionStep(){
         errorInfoBlock("Fail adding! Try again later!");
     });
 }
+
+var app = new Vue({
+    el: "#app",
+    data: {
+        suggestion_steps: [],
+        active: 0
+    },
+    methods:{
+        computedClass: function (tab_active) {
+             return this.active == tab_active;
+        },
+        changeActiveTab: function (tab_active) {
+             this.active = tab_active;
+        }
+    }
+})
