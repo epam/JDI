@@ -39,7 +39,7 @@
                     <div class="tab_name"  v-bind:class="{'is-active' : computedClass(2)}" v-on:click="changeActiveTab(2)">Then</div>
                 </li>
                 <li class="tab-head-cont">
-                    <div class="tab_name"  v-bind:class="{'is-active' : computedClass(3)}" v-on:click="changeActiveTab(3)">*</div>
+                    <div class="tab_name"  v-bind:class="{'is-active' : computedClass(5)}" v-on:click="changeActiveTab(5)">*</div>
                 </li>
                 <li class="tab-head-cont" onclick="javascript:PopUpAddingSuit()">
                     <img src="/cucumber/static/images/plus-icon.png" style="height: 20px; margin: 5px 5px -5px 5px; cursor: pointer;">
@@ -53,8 +53,8 @@
                 </table>
             </div>
             <div class="popup_container add_step_suggestion_wrapper">
-                <textarea id="step_suggestion"></textarea>
-                <button class="add_step_button" onclick="addSuggestionStep()">Add step</button>
+                <textarea id="step_suggestion" v-model="text"></textarea>
+                <button class="add_step_button" v-on:click="addSuggestionStep">Add step</button>
             </div>
         </div>
     </section>

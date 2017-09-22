@@ -33,23 +33,24 @@ function deleteSuggestionStep(stepId){
     });
 }
 
-function addSuggestionStep(){
-    var text = $("#step_suggestion").val();
-    $("#step_suggestion").val("");
-
-    axios.post('/cucumber/step_suggestion', {content: text}).then(function(response) {
-        getStepSuggestions();
-        savedSteps.getSavedSteps();
-        successInfoBlock();
-    }).catch(function(error) {
-        errorInfoBlock("Fail adding! Try again later!");
-    });
-}
+//function addSuggestionStep(){
+//    var text = $("#step_suggestion").val();
+//    $("#step_suggestion").val("");
+//
+//    axios.post('/cucumber/step_suggestion', {content: text}).then(function(response) {
+//        getStepSuggestions();
+//        savedSteps.getSavedSteps();
+//        successInfoBlock();
+//    }).catch(function(error) {
+//        errorInfoBlock("Fail adding! Try again later!");
+//    });
+//}
 
 var app = new Vue({
     el: "#app",
     data: {
-        active: 0
+        active: 0,
+        text: ""
     },
     methods:{
         computedClass: function (tab_active) {
@@ -57,7 +58,13 @@ var app = new Vue({
         },
         changeActiveTab: function (tab_active) {
              this.active = tab_active;
-             getStepSuggestions()
+             getStepSuggestions();
+        },
+        addSuggestionStep: function() {
+            axios.post('/cucumber/step_suggestion', {content: this.text, type: this.active}).then(function(response) {
+                getStepSuggestions();
+            });
+            this.text = "";
         }
     }
 });
