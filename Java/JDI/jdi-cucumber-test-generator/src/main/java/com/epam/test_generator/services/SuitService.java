@@ -5,7 +5,7 @@ import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
-import com.epam.test_generator.entities.SuitTransfer;
+import com.epam.test_generator.entities.SuitTransformer;
 import com.epam.test_generator.file_generator.FileGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +28,13 @@ public class SuitService {
     private CaseDAO caseDAO;
 
     @Autowired
-    private SuitTransfer suitTransfer;
+    private SuitTransformer suitTransformer;
 
     public List<SuitDTO> getSuits() {
         List<SuitDTO> suitDTOlist = new ArrayList<>();
 
         for(Suit suit: suitDAO.findAll()){
-            suitDTOlist.add(suitTransfer.toDto(suit));
+            suitDTOlist.add(suitTransformer.toDto(suit));
         }
 
         return suitDTOlist;
@@ -42,17 +42,17 @@ public class SuitService {
 
     public SuitDTO getSuit(long id) {
 
-        return suitTransfer.toDto(suitDAO.findOne(id));
+        return suitTransformer.toDto(suitDAO.findOne(id));
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
         Suit suit = suitDAO.getOne(suitDTO.getId());
         List<Case> cases = suit.getCases();
 
-        suit = suitTransfer.fromDto(suitDTO);
+        suit = suitTransformer.fromDto(suitDTO);
         suit.setCases(cases);
 
-        return suitTransfer.toDto(suitDAO.save(suit));
+        return suitTransformer.toDto(suitDAO.save(suit));
     }
 
     public void removeSuit(long id) {
@@ -60,9 +60,9 @@ public class SuitService {
     }
 
     public SuitDTO addSuit(SuitDTO suitDTO) {
-        Suit suit = suitDAO.save(suitTransfer.fromDto(suitDTO));
+        Suit suit = suitDAO.save(suitTransformer.fromDto(suitDTO));
 
-        return suitTransfer.toDto(suit);
+        return suitTransformer.toDto(suit);
     }
 
     public String generateFile(Long suitId, List<Long> caseIds) throws IOException {

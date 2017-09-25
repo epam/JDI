@@ -4,7 +4,7 @@ import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.CaseTransfer;
+import com.epam.test_generator.entities.CaseTransformer;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CaseService {
 
     @Autowired
-    private CaseTransfer caseTransfer;
+    private CaseTransformer caseTransformer;
 
     @Autowired
     private CaseDAO caseDAO;
@@ -26,7 +26,7 @@ public class CaseService {
     private SuitDAO suitDAO;
 
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
-        Case caze = caseTransfer.fromDto(cs);
+        Case caze = caseTransformer.fromDto(cs);
         suitDAO.getOne(suitId).getCases().add(caze);
         caseDAO.save(caze);
 
@@ -36,12 +36,12 @@ public class CaseService {
     public List<CaseDTO> getCasesBySuitId(long suitId) {
         List<Case> list = suitDAO.findOne(suitId).getCases();
 
-        return caseTransfer.toDtoList(list);
+        return caseTransformer.toDtoList(list);
     }
 
     public CaseDTO getCase(Long id) {
 
-        return caseTransfer.toDto(caseDAO.getOne(id));
+        return caseTransformer.toDto(caseDAO.getOne(id));
     }
 
     public void removeCase(long suitId, long caseId) {
@@ -62,9 +62,9 @@ public class CaseService {
         if (caze != null) {
             suit.getCases().remove(caze);
             caze.setSteps(new ArrayList<>());
-            suit.getCases().add(caseTransfer.fromDto(cs));
+            suit.getCases().add(caseTransformer.fromDto(cs));
             suitDAO.save(suit);
-            cs = caseTransfer.toDto(caze);
+            cs = caseTransformer.toDto(caze);
         }
 
         return cs;

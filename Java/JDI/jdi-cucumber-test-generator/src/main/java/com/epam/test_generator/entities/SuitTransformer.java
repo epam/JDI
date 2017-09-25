@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SuitTransfer {
+public class SuitTransformer {
 
     @Autowired
     private DozerMapper dozerMapper;

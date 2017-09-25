@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CaseTransfer {
+public class CaseTransformer {
 
     @Autowired
     private DozerMapper dozerMapper;

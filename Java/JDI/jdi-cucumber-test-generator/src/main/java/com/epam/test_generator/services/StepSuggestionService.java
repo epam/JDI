@@ -3,7 +3,7 @@ package com.epam.test_generator.services;
 import com.epam.test_generator.dao.interfaces.StepSuggestionDAO;
 import com.epam.test_generator.dto.StepSuggestionDTO;
 import com.epam.test_generator.entities.StepSuggestion;
-import com.epam.test_generator.entities.StepSuggestionTransfer;
+import com.epam.test_generator.entities.StepSuggestionTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.List;
 public class StepSuggestionService {
 
     @Autowired
-    private StepSuggestionTransfer stepSuggestionTransfer;
+    private StepSuggestionTransformer stepSuggestionTransformer;
 
     @Autowired
     private StepSuggestionDAO stepSuggestionDAO;
@@ -25,7 +25,7 @@ public class StepSuggestionService {
         List<StepSuggestionDTO> stepSuggestionDTOList = new ArrayList<>();
 
         for(StepSuggestion stepSuggestion : stepSuggestionDAO.findAll()){
-            StepSuggestionDTO stepSuggestionDTO = stepSuggestionTransfer.toDto(stepSuggestion);
+            StepSuggestionDTO stepSuggestionDTO = stepSuggestionTransformer.toDto(stepSuggestion);
             stepSuggestionDTOList.add(stepSuggestionDTO);
         }
 
@@ -35,9 +35,9 @@ public class StepSuggestionService {
 
     public StepSuggestionDTO addStepSuggestion(StepSuggestionDTO stepSuggestionDTO) {
         StepSuggestion stepSuggestion = new StepSuggestion();
-        stepSuggestion = stepSuggestionDAO.save(stepSuggestionTransfer.fromDto(stepSuggestionDTO));
+        stepSuggestion = stepSuggestionDAO.save(stepSuggestionTransformer.fromDto(stepSuggestionDTO));
 
-        return stepSuggestionTransfer.toDto(stepSuggestion);
+        return stepSuggestionTransformer.toDto(stepSuggestion);
     }
 
     public void removeStepSuggestion(long id) {
