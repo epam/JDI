@@ -411,7 +411,7 @@ div.add-case-button:hover {
     margin: 5px 0;
 }
 
-.cases-table>td {
+.cases-table>tbody>td {
     padding: 2px;
 }
 
@@ -1132,6 +1132,11 @@ p {margin:28px 0 3px 0;}
 }
 
 .tablesorter th {
+    border-spacing: 0;
     text-align: left;
-    background: rgba(55, 123, 55, 0.8);
+    border: none;
+    background: rgba(55, 123, 55, 1);
+    padding: 0;
+    margin: 0;
 }
+

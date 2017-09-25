@@ -31,6 +31,9 @@ public class CaseService {
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Case caze = new Case();
 
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        cs.setUpdateDate(formatter.format(Calendar.getInstance().getTime()));
+
         mapper.map(cs, caze);
         suitDAO.getOne(suitId).getCases().add(caze);
         mapper.map(caseDAO.save(caze), cs);
@@ -71,9 +74,7 @@ public class CaseService {
         Case caze = suit.getCaseById(cs.getId());
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
         cs.setUpdateDate(formatter.format(Calendar.getInstance().getTime()));
-//        System.out.println(caze.getDescription() + " " + caze.getUpdateDate());
 
         if (caze != null) {
             suit.getCases().remove(caze);
