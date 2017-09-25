@@ -8,7 +8,6 @@ import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.epam.test_generator.entities.Tag;
@@ -98,10 +97,12 @@ public class CaseService {
             mapper.map(cs, caze);
 
             List<Tag> tags = new ArrayList<>();
-            for(Tag tag : caze.getTags()){
-                Tag tmp = tagDAO.findOne(Example.of(tag));
-                tag = (tmp == null)? tag : tmp;
-                tags.add(tag);
+            if(caze.getTags() != null) {
+                for (Tag tag : caze.getTags()) {
+                    Tag tmp = tagDAO.findOne(Example.of(tag));
+                    tag = (tmp == null) ? tag : tmp;
+                    tags.add(tag);
+                }
             }
             caze.setTags(tags);
 
