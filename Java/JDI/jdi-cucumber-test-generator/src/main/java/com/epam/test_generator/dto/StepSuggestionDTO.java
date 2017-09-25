@@ -7,9 +7,10 @@ public class StepSuggestionDTO {
 
     private Integer type;
 
-    public StepSuggestionDTO(Long id, String content) {
+    public StepSuggestionDTO(Long id, String content, Integer type) {
         this.id = id;
         this.content = content;
+        this.type = type;
     }
 
     public StepSuggestionDTO(String content, Integer type) {

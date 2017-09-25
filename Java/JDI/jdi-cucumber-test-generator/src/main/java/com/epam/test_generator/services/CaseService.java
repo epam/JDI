@@ -3,8 +3,8 @@ package com.epam.test_generator.services;
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
-import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.entities.CaseTransfer;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CaseService {
 
     @Autowired
-    private DozerMapper mapper;
+    private CaseTransfer caseTransfer;
 
     @Autowired
     private CaseDAO caseDAO;
@@ -26,30 +26,22 @@ public class CaseService {
     private SuitDAO suitDAO;
 
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
-        Case caze = new Case();
-
-        mapper.map(cs, caze);
+        Case caze = caseTransfer.fromDto(cs);
         suitDAO.getOne(suitId).getCases().add(caze);
-        mapper.map(caseDAO.save(caze), cs);
+        caseDAO.save(caze);
 
         return cs;
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
-        List<CaseDTO> listDTO = new ArrayList<>();
         List<Case> list = suitDAO.findOne(suitId).getCases();
 
-        mapper.map(list, listDTO);
-
-        return listDTO;
+        return caseTransfer.toDtoList(list);
     }
 
     public CaseDTO getCase(Long id) {
-        CaseDTO dto = new CaseDTO();
 
-        mapper.map(caseDAO.getOne(id), dto);
-
-        return dto;
+        return caseTransfer.toDto(caseDAO.getOne(id));
     }
 
     public void removeCase(long suitId, long caseId) {
@@ -70,10 +62,9 @@ public class CaseService {
         if (caze != null) {
             suit.getCases().remove(caze);
             caze.setSteps(new ArrayList<>());
-            mapper.map(cs, caze);
-            suit.getCases().add(caze);
+            suit.getCases().add(caseTransfer.fromDto(cs));
             suitDAO.save(suit);
-            mapper.map(caze, cs);
+            cs = caseTransfer.toDto(caze);
         }
 
         return cs;

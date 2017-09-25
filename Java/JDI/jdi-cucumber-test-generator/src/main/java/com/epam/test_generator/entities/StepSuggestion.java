@@ -15,9 +15,10 @@ public class StepSuggestion {
 
     private StepType type;
 
-    public StepSuggestion(Long id, String content) {
+    public StepSuggestion(Long id, String content, StepType type) {
         this.id = id;
         this.content = content;
+        this.type = type;
     }
 
     public StepSuggestion(String content, StepType type) {

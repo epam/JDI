@@ -2,8 +2,8 @@ package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.StepSuggestionDAO;
 import com.epam.test_generator.dto.StepSuggestionDTO;
-import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.StepSuggestion;
+import com.epam.test_generator.entities.StepSuggestionTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.List;
 public class StepSuggestionService {
 
     @Autowired
-    private DozerMapper dozerMapper;
+    private StepSuggestionTransfer stepSuggestionTransfer;
 
     @Autowired
     private StepSuggestionDAO stepSuggestionDAO;
@@ -25,9 +25,7 @@ public class StepSuggestionService {
         List<StepSuggestionDTO> stepSuggestionDTOList = new ArrayList<>();
 
         for(StepSuggestion stepSuggestion : stepSuggestionDAO.findAll()){
-            StepSuggestionDTO stepSuggestionDTO = new StepSuggestionDTO();
-
-            dozerMapper.map(stepSuggestion, stepSuggestionDTO);
+            StepSuggestionDTO stepSuggestionDTO = stepSuggestionTransfer.toDto(stepSuggestion);
             stepSuggestionDTOList.add(stepSuggestionDTO);
         }
 
@@ -37,12 +35,9 @@ public class StepSuggestionService {
 
     public StepSuggestionDTO addStepSuggestion(StepSuggestionDTO stepSuggestionDTO) {
         StepSuggestion stepSuggestion = new StepSuggestion();
+        stepSuggestion = stepSuggestionDAO.save(stepSuggestionTransfer.fromDto(stepSuggestionDTO));
 
-        dozerMapper.map(stepSuggestionDTO, stepSuggestion);
-        stepSuggestion = stepSuggestionDAO.save(stepSuggestion);
-        dozerMapper.map(stepSuggestion, stepSuggestionDTO);
-
-        return stepSuggestionDTO;
+        return stepSuggestionTransfer.toDto(stepSuggestion);
     }
 
     public void removeStepSuggestion(long id) {
