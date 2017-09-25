@@ -114,11 +114,11 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#cases_table_body").empty();
 
          for(var i = 0; i < response.cases.length; i++){
-//          var tags = response.cases[i].tags;
-//                         var tagsToString = "";
-//                         for(var i = 0; i < tags.length; i++){
-//                         tagsToString = tagsToString + tags[i].name + " ";
-//                         }
+          var tags = response.cases[i].tags;
+                         var tagsToString = "";
+                         for(var k = 0; k < tags.length; k++){
+                         tagsToString = tagsToString + tags[k].name + " ";
+                         }
                     $("#cases_table_body").append($('<tr>')
                                         .append($('<td>')
                                             .addClass('small_td')
@@ -136,7 +136,7 @@ function getSuitInfoWithOutCleanCases(suitId){
                                         ).append($('<td>')
                                             .text(response.cases[i].priority)
                                         ).append($('<td>')
-                                            .text(response.cases[i].tags)
+                                            .text(tagsToString)
                                         ).append($('<td>')
                                             .text(response.cases[i].creationDate)
                                         )

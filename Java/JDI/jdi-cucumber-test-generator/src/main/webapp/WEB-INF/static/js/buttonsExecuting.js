@@ -22,15 +22,17 @@ function saveCase() {
        }
 
      else{
-
-
-
-
-
      var listTagsDTO = new Array(listTags.length);
-     for ( var i = 0; i < listTagsDTO.length; i++){
+
+     if($("#value_of_tags_info") == ""){
+                 listTagsDTO = []
+     }
+
+      else{
+         for ( var i = 0; i < listTagsDTO.length; i++){
      listTagsDTO[i] = {
         "name": listTags[i]
+     }
      }
      }
 
@@ -41,7 +43,7 @@ function saveCase() {
     var description = $("#value_of_description_info").val();
     var priority = $("#value_of_priority_info").val();
     var creationDate = $("#value_of_create_date_info").val();
-    //var tags = $("#value_of_tags_info").val();
+
 
     var keyWordsArray = $(".step-type-select-tag");
     var stepsArray = $(".step-code-line");
