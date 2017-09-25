@@ -2,13 +2,18 @@ package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
+import com.epam.test_generator.dao.interfaces.TagDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.epam.test_generator.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +30,28 @@ public class CaseService {
     @Autowired
     private SuitDAO suitDAO;
 
-    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
-        Case caze = new Case();
+    @Autowired
+    private TagDAO tagDAO;
 
+    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
+        Suit suit = suitDAO.getOne(suitId);
+        Case caze = new Case();
         mapper.map(cs, caze);
-        suitDAO.getOne(suitId).getCases().add(caze);
+
+        List<Tag> tags = new ArrayList<>();
+
+        if(caze.getTags() != null) {
+            for(Tag tag : caze.getTags()){
+                Tag tmp = tagDAO.findOne(Example.of(tag));
+                tag = (tmp == null)? tag : tmp;
+                tags.add(tag);
+            }
+        }
+        caze.setTags(tags);
+
+        suit.getCases().add(caze);
+        suitDAO.save(suit);
+
         mapper.map(caseDAO.save(caze), cs);
 
         return cs;
@@ -69,8 +91,20 @@ public class CaseService {
 
         if (caze != null) {
             suit.getCases().remove(caze);
+
             caze.setSteps(new ArrayList<>());
+            caze.setTags(new ArrayList<>());
+
             mapper.map(cs, caze);
+
+            List<Tag> tags = new ArrayList<>();
+            for(Tag tag : caze.getTags()){
+                Tag tmp = tagDAO.findOne(Example.of(tag));
+                tag = (tmp == null)? tag : tmp;
+                tags.add(tag);
+            }
+            caze.setTags(tags);
+
             suit.getCases().add(caze);
             suitDAO.save(suit);
             mapper.map(caze, cs);
