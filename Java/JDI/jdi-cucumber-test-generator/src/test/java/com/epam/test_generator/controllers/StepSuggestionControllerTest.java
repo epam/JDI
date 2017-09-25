@@ -1,6 +1,7 @@
 package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.StepSuggestionDTO;
+import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.services.StepSuggestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -48,10 +49,11 @@ public class StepSuggestionControllerTest {
         stepSuggestionDTO = new StepSuggestionDTO();
         stepSuggestionDTO.setId(SIMPLE_AUTOCOMPLETE_ID);
         stepSuggestionDTO.setContent("Some step description");
+        stepSuggestionDTO.setType(StepType.GIVEN.ordinal());
     }
 
     @Test
-    public void getSuggestionsList_return200whenGetSuggestions() throws Exception {
+    public void getSuggestionsList_return200whenGetStepsSuggestion() throws Exception {
         when(stepSuggestionService.getStepsSuggestion()).thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/step_suggestion"))
@@ -62,7 +64,7 @@ public class StepSuggestionControllerTest {
     }
 
     @Test
-    public void getSuggestionsList_return500whenGetSuggestions() throws Exception {
+    public void getSuggestionsList_return500whenGetStepsSuggestion() throws Exception {
         when(stepSuggestionService.getStepsSuggestion()).thenThrow(new RuntimeException());
 
         mockMvc.perform(get("/step_suggestion"))
@@ -73,7 +75,7 @@ public class StepSuggestionControllerTest {
     }
 
     @Test
-    public void testAddSuggestion_return200whenAddNewSuggestion() throws Exception {
+    public void testAddSuggestion_return200whenAddNewStepSuggestion() throws Exception {
         stepSuggestionDTO.setId(null);
         when(stepSuggestionService.addStepSuggestion(any(StepSuggestionDTO.class))).thenReturn(stepSuggestionDTO);
 
@@ -86,7 +88,7 @@ public class StepSuggestionControllerTest {
     }
 
     @Test
-    public void testAddSuggestion_return422whenAddSuggestionWithNullContent() throws Exception {
+    public void testAddSuggestion_return422whenAddStepSuggestionWithNullContent() throws Exception {
         stepSuggestionDTO.setId(null);
         stepSuggestionDTO.setContent(null);
 
@@ -98,9 +100,8 @@ public class StepSuggestionControllerTest {
         verify(stepSuggestionService, times(0)).addStepSuggestion(any(StepSuggestionDTO.class));
     }
 
-
     @Test
-    public void testAddSuggestion_return422whenAddEmptySuggestion() throws Exception {
+    public void testAddSuggestion_return422whenAddStepSuggestionWithEmptyContent() throws Exception {
         stepSuggestionDTO.setId(null);
         stepSuggestionDTO.setContent("");
 
@@ -113,7 +114,33 @@ public class StepSuggestionControllerTest {
     }
 
     @Test
-    public void testRemoveSuggestion_return200whenRemoveSuggestion() throws Exception {
+    public void testAddSuggestion_return422whenAddStepSuggestionWithNullType() throws Exception {
+        stepSuggestionDTO.setId(null);
+        stepSuggestionDTO.setType(null);
+
+        mockMvc.perform(post("/step_suggestion")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(stepSuggestionDTO)))
+                .andExpect(status().isUnprocessableEntity());
+
+        verify(stepSuggestionService, times(0)).addStepSuggestion(any(StepSuggestionDTO.class));
+    }
+
+    @Test
+    public void testAddSuggestion_return422whenAddStepSuggestionWithWrongType() throws Exception {
+        stepSuggestionDTO.setId(null);
+        stepSuggestionDTO.setType(10);
+
+        mockMvc.perform(post("/step_suggestion")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(stepSuggestionDTO)))
+                .andExpect(status().isUnprocessableEntity());
+
+        verify(stepSuggestionService, times(0)).addStepSuggestion(any(StepSuggestionDTO.class));
+    }
+
+    @Test
+    public void testRemoveSuggestion_return200whenRemoveStepSuggestion() throws Exception {
         mockMvc.perform(delete("/step_suggestion/" + SIMPLE_AUTOCOMPLETE_ID))
                 .andExpect(status().isOk());
 
@@ -121,7 +148,7 @@ public class StepSuggestionControllerTest {
     }
 
     @Test
-    public void testRemoveSuggestion_return500whenRemoveSuggestion() throws Exception {
+    public void testRemoveSuggestion_return500whenRemoveStepSuggestion() throws Exception {
         doThrow(RuntimeException.class).when(stepSuggestionService).removeStepSuggestion(anyLong());
 
         mockMvc.perform(delete("/step_suggestion/" + SIMPLE_AUTOCOMPLETE_ID))

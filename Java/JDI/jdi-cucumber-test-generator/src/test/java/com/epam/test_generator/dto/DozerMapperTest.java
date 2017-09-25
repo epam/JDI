@@ -4,10 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.StepType;
-import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.entities.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,4 +72,19 @@ public class DozerMapperTest {
 		assertThat(step.getRowNumber(), is(equalTo(stepDTO.getRowNumber())));
 	}
 
+	@Test
+	public void mapStepSuggestionToStepSuggestionDTO() {
+		StepSuggestion stepSuggestion = new StepSuggestion();
+		StepSuggestionDTO stepSuggestionDTO = new StepSuggestionDTO();
+
+		stepSuggestion.setId(1L);
+		stepSuggestion.setType(StepType.GIVEN.ordinal());
+		stepSuggestion.setContent("Step suggestion description");
+
+		dozerMapper.map(stepSuggestion, stepSuggestionDTO);
+
+		assertThat(stepSuggestion.getId(), is(equalTo(stepSuggestionDTO.getId())));
+		assertThat(StepType.values()[stepSuggestion.getType()].ordinal(), is(equalTo(stepSuggestionDTO.getType())));
+		assertThat(stepSuggestion.getContent(), is(equalTo(stepSuggestionDTO.getContent())));
+	}
 }
