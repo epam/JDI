@@ -39,7 +39,7 @@ public class CaseService {
         Case caze = new Case();
         mapper.map(cs, caze);
 
-        persistTags(caze);
+        mergeTags(caze);
 
         suit.getCases().add(caze);
         suitDAO.save(suit);
@@ -89,7 +89,7 @@ public class CaseService {
 
             mapper.map(cs, caze);
 
-            persistTags(caze);
+            mergeTags(caze);
 
             suit.getCases().add(caze);
             suitDAO.save(suit);
@@ -112,7 +112,7 @@ public class CaseService {
         suitDAO.save(suit);
     }
 
-    private void persistTags(Case caze){
+    private void mergeTags(Case caze){
         Set<Tag> tags = new HashSet<>();
         if(caze.getTags() != null) {
             for (Tag tag : caze.getTags()) {
