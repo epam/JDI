@@ -51,7 +51,7 @@ public class CaseService {
         suit.getCases().add(caze);
         suitDAO.save(suit);
 
-        mapper.map(caseDAO.save(caze), cs);
+        mapper.map(caze, cs);
 
         return cs;
     }
