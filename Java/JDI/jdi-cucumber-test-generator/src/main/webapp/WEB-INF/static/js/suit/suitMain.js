@@ -70,6 +70,13 @@ function getSuitInfo(suitId){
         $("#cases_table_body").empty();
 
         for(var i = 0; i < response.cases.length; i++){
+        var tags = response.cases[i].tags;
+         var tagsToString = "";
+         for(var j = 0; j < tags.length; j++){
+              tagsToString = tagsToString + tags[j].name + " ";
+         }
+
+
             $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
@@ -87,7 +94,7 @@ function getSuitInfo(suitId){
                                 ).append($('<td>')
                                     .text(response.cases[i].priority)
                                 ).append($('<td>')
-                                    .text(response.cases[i].tags)
+                                    .text(tagsToString)
                                 ).append($('<td>')
                                     .text(response.cases[i].creationDate)
                                 )
@@ -107,6 +114,11 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#cases_table_body").empty();
 
          for(var i = 0; i < response.cases.length; i++){
+//          var tags = response.cases[i].tags;
+//                         var tagsToString = "";
+//                         for(var i = 0; i < tags.length; i++){
+//                         tagsToString = tagsToString + tags[i].name + " ";
+//                         }
                     $("#cases_table_body").append($('<tr>')
                                         .append($('<td>')
                                             .addClass('small_td')
@@ -142,6 +154,11 @@ function getCaseInfo(){
     $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
 
         $("#suit_name_info").hide();
+        var tags = response.tags;
+        var tagsToString = "";
+        for(var i = 0; i < tags.length; i++){
+        tagsToString = tagsToString + tags[i].name + " ";
+        }
 
         $("#description_info").text("Case description:");
         $("#priority_info").text("Case priority:");
@@ -150,7 +167,7 @@ function getCaseInfo(){
         $("#value_of_description_info").val(response.description);
         $("#value_of_priority_info").val(response.priority);
         $("#value_of_create_date_info").val(response.creationDate);
-        $("#value_of_tags_info").val(response.tags);
+        $("#value_of_tags_info").val(tagsToString);
         $("#steps_container").empty();
 
          $(".buttons-container").empty();

@@ -100,10 +100,9 @@ public class Case implements Serializable{
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", steps=" + steps +
-                ", creationDate=" + creationDate +
+                ", creationDate='" + creationDate + '\'' +
                 ", priority=" + priority +
-                ", tags='" + tags + '\'' +
+                ", tags=" + tags +
                 '}';
     }
-
 }
