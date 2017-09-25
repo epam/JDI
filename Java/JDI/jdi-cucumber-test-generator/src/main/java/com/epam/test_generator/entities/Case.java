@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Case implements Serializable{
@@ -27,14 +28,14 @@ public class Case implements Serializable{
     private Integer priority;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     public Case(){
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         creationDate = formatter.format(Calendar.getInstance().getTime());
     }
 
-    public Case(Long id, String description, List<Step> steps, Integer priority, List<Tag> tags) {
+    public Case(Long id, String description, List<Step> steps, Integer priority, Set<Tag> tags) {
         this.id = id;
         this.description = description;
         this.steps = steps;
@@ -85,11 +86,11 @@ public class Case implements Serializable{
         this.priority = priority;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
