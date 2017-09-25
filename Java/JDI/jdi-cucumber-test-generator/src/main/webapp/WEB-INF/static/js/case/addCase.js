@@ -5,9 +5,27 @@ var addCase = new Vue({
     },
     methods: {
         addCase: function() {
+
+         var tags = $("#addTagsCase").val().split(" ");
+
+
+         if(!testUnique(tags)){
+                              $("#addTagsCase").addClass("emptyField");
+                              setTimeout(function() {$("#addTagsCase").removeClass("emptyField");}, 1000);
+                              errorInfoBlock("You have same tags");
+                              return;
+               }
+               if(tags.length > 5){
+
+                         $("#addTagsCase").addClass("emptyField");
+                          setTimeout(function() {$("#addTagsCase").removeClass("emptyField");}, 1000);
+                         errorInfoBlock("Maximum 5 tags");
+                         return;
+               }
+
+
             var descriptionCase = $("#addDescriptionCase").val();
             var priorityCase = $("#addPriorityCase").val();
-            var tags = $("#addTagsCase").val().split(" ");
             if( $("#addTagsCase").val() != ""){
              var tagsCase = new Array(tags.length);
                   for ( var i = 0; i < tagsCase.length; i++){
