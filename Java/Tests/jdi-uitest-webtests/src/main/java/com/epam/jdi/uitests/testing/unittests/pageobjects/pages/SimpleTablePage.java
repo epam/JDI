@@ -18,6 +18,11 @@ public class SimpleTablePage extends WebPage {
 
 
 
+    @JTable(
+            jRoot = @JFindBy(css = ".tbl-height"),
+            header = {"Column 1",  "Column 2"}
+    )public ITable table;
+
     public ITable getTable(By rowHeader, By columnHeader, By row, By column) {
 
         simpleTable = new Table(rowHeader, columnHeader, row, column, -1, -1);

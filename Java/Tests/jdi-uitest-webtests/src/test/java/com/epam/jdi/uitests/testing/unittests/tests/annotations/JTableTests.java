@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 
 import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IRow;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
@@ -18,30 +19,31 @@ import java.util.Map;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
 
 public class JTableTests extends InitTests {
-    @BeforeMethod
-    public void pageLoad(){
-        supportPage.open();
-    }
+
 
     @Test(dataProvider = "tableData", dataProviderClass = JTableDP.class)
-    public void tableTest(ITable table, Boolean option){
-
+    public void tableTest(IPage page, ITable table, String rowAsText, String columnsAsText, String keyWord, String searchResult, int searchResultSize, String firstCell, String headers ){
+        simpleTablePage.open();
+        System.out.println(simpleTablePage.table.rows().getRowAsText(2));
         new Check().areEquals(table.getText(), JTableDP.supportTableText);
         new Check().isFalse(table.isEmpty());
 
         new Check().areEquals(table.rows().getRowAsText(2),
-                "Type:Test Runner, Now:TestNG, JUnit, Custom, Plans:MSTest, NUnit, Epam");
+                rowAsText);
         new Check().areEquals(table.columns().getColumnAsText(1),
-                "1:Drivers, 2:Test Runner, 3:Asserter, 4:Logger, 5:Reporter, 6:BDD/DSL");
-        new Check().areEquals(table.cellsContains("Custom").get(0).getText(),
-                "Selenium, Custom" );
-        new Check().areEquals(table.cellsContains("TestNG").size(),
-                3);
+                columnsAsText);
+        new Check().areEquals(table.cellsContains(keyWord).get(0).getText(),
+                searchResult);
+        new Check().areEquals(table.cellsContains(keyWord).size(),
+                searchResultSize);
         new Check().areEquals(table.cell(1, 1).getText(),
-                "Drivers");
-        new Check().areEquals(table.header().key(2),
-                "Plans");
-        
+                firstCell);
+        new Check().areEquals(table.headers(),
+                headers);
+
+
+
+       System.out.println(table.headers());
 
     }
 
