@@ -8,7 +8,9 @@ import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.epam.test_generator.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +39,7 @@ public class CaseService {
         Case caze = new Case();
         mapper.map(cs, caze);
 
-        List<Tag> tags = new ArrayList<>();
-
-        if(caze.getTags() != null) {
-            for(Tag tag : caze.getTags()){
-                Tag tmp = tagDAO.findOne(Example.of(tag));
-                tag = (tmp == null)? tag : tmp;
-                tags.add(tag);
-            }
-        }
-        caze.setTags(tags);
+        mergeTags(caze);
 
         suit.getCases().add(caze);
         suitDAO.save(suit);
@@ -92,19 +85,11 @@ public class CaseService {
             suit.getCases().remove(caze);
 
             caze.setSteps(new ArrayList<>());
-            caze.setTags(new ArrayList<>());
+            caze.setTags(new HashSet<>());
 
             mapper.map(cs, caze);
 
-            List<Tag> tags = new ArrayList<>();
-            if(caze.getTags() != null) {
-                for (Tag tag : caze.getTags()) {
-                    Tag tmp = tagDAO.findOne(Example.of(tag));
-                    tag = (tmp == null) ? tag : tmp;
-                    tags.add(tag);
-                }
-            }
-            caze.setTags(tags);
+            mergeTags(caze);
 
             suit.getCases().add(caze);
             suitDAO.save(suit);
@@ -125,5 +110,17 @@ public class CaseService {
         });
 
         suitDAO.save(suit);
+    }
+
+    private void mergeTags(Case caze){
+        Set<Tag> tags = new HashSet<>();
+        if(caze.getTags() != null) {
+            for (Tag tag : caze.getTags()) {
+                Tag tmp = tagDAO.findOne(Example.of(tag));
+                tag = (tmp == null) ? tag : tmp;
+                tags.add(tag);
+            }
+        }
+        caze.setTags(tags);
     }
 }
