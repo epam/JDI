@@ -26,7 +26,7 @@ public class AddCVForm extends Form<Attendee> {
             jroot = @JFindBy(className = "country-wrapper"),
             jvalue = @JFindBy(className = "arrow"),
             jlist = @JFindBy(xpath = "*root*//li[contains(@id,'applicantCountry') and .='%s']")
-    ) IDropDown country;
+    ) public IDropDown country;
 
     @JDropdown(
             jroot = @JFindBy(className = "city-wrapper"),

@@ -19,6 +19,9 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,25 +48,21 @@ public class MetalsColorsPage extends WebPage {
     };
 */
 
-
-    public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"), By.cssSelector(".colors li span")) {
-        @Override
-        protected void selectAction(String name) {
-            expand();
-            getDriver().findElement(By.xpath("//div[@class='dropdown-menu open']/ul/li/a/span[@class='text'][contains(text(),'"+name+"')]")).click();
-            close();
-        }
-
-    };
+    @JDropdown(
+            jroot = @JFindBy(css = ".colors"),
+            jlist = @JFindBy(tagName = "li"),
+            jvalue = @JFindBy(css = ".filter-option")
+    )
+    public IDropDown<ColorsList> colors;
 
     //select[@id='colors-dropdown']
 
     @FindBy(css = ".summ-res")
     public IText calculateText = new Text(){
+        @Override
         protected String getTextAction() {
              return getDriver().findElement(By.cssSelector(".summ-res")).getText();
-        };
-
+        }
     };
 
 

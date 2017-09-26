@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeSuite;
 
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.w3cSite.W3cSite.framePage;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
 import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
@@ -23,8 +24,8 @@ public class W3CInit extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() throws Exception {
         WebSettings.domain = "http://www.w3schools.com";
-        WebSite.init(W3cSite.class, useDriver(CHROME));
-        WebSite.init(EpamJDISite.class, useDriver(CHROME));
+        init(useDriver(CHROME), W3cSite.class);
+        init(useDriver(CHROME), EpamJDISite.class);
         framePage.open();
         Verify.getFails();
         logger.info("Run Tests");
