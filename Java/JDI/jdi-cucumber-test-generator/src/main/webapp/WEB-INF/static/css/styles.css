@@ -1303,3 +1303,23 @@ p {margin:28px 0 3px 0;}
 #edit_step_button:hover{
     background-color:rgb(30,67,30)
 }
+
+.back_main_page_button{
+    width: 129px;
+    height: 28px;
+    float: right;
+    text-align: center;
+    background-color: #4caf50;
+    padding: 6px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-decoration: none;
+}
+.back_main_page_button:hover{
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    background-color: white;
+    color: #4caf50;
+    transition: all 0.2s;
+}
