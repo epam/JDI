@@ -3,7 +3,6 @@ package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.enums.ColorsList;
-import com.epam.jdi.uitests.testing.unittests.enums.Metals;
 import com.epam.jdi.uitests.testing.unittests.tests.common.dataProviders.jComboBoxDP;
 import com.epam.web.matcher.junit.Check;
 import org.testng.annotations.BeforeMethod;

@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.JdiPaginator;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;

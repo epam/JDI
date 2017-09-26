@@ -24,7 +24,6 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindB
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,12 +43,6 @@ public class MetalsColorsPage extends WebPage {
     public Button calculateButton;
     @FindBy(id = "calculate-button")
     public ILabel calculateLabel;
-
-   /* public IDropDown<ColorsList> colors = new Dropdown<ColorsList>(By.cssSelector(".colors .filter-option"),
-            By.cssSelector(".colors li span")){
-
-    };
-*/
 
 
     @JDropdown(
@@ -83,6 +76,7 @@ public class MetalsColorsPage extends WebPage {
             jlist = @JFindBy(tagName = "li"),
             jvalue = @JFindBy(css = ".filter-option")
     ) public IDropDown colorsRootListValue;
+
 
     @JDropList(
             jroot = @JFindBy(css = ".colors"),
@@ -122,7 +116,6 @@ public class MetalsColorsPage extends WebPage {
 
     };
 
-    //select[@id='colors-dropdown']
 
     @FindBy(css = ".summ-res")
     public IText calculateText = new Text(){

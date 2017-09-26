@@ -4,7 +4,6 @@ import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.pages.*;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Footer;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Header;
-import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
@@ -49,7 +48,7 @@ public class EpamJDISite extends WebSite {
     @JMenu(
             level1 = @JFindBy (css = ".uui-navigation.nav.navbar-nav.m-l8>li>a"),
             level2 = @JFindBy (css = ".dropdown-menu>li>a")
-    ) public static Menu menu;
+    ) public static IMenu menu;
 
 
 }

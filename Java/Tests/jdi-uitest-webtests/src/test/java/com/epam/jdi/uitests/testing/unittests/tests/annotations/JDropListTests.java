@@ -1,7 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
