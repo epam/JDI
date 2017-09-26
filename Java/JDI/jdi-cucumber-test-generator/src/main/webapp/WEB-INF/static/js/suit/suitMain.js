@@ -51,34 +51,33 @@ function getSuitInfo(suitId) {
     $.get("/cucumber/suit/" + suitId, function(response) {
         currentSuit = response;
         $('#search_tag').val('');
-        drawSuitPage('');
+        drawSuitPage(null, false);
     });
 }
 
-function drawSuitPage(input_tags) {
+function drawSuitPage(inputTags, isFiltered) {
     suit_id = currentSuit.id;
 
-    filteredCases = _.filter(currentSuit.cases, function (caze) {
-            if (input_tags == ''){
-                return true;
-            }
-
+    if (isFiltered) {
+        filteredCases = _.filter(currentSuit.cases, function (caze) {
             var names = [];
-            var inputNames = input_tags.split(' ');
             var tags = caze.tags;
 
             for (var i = 0; i < tags.length; i++) {
                 names[i] = tags[i].name;
             }
 
-            for (var i = 0; i < inputNames.length; i++) {
-                if (_.includes(names, inputNames[i])) {
+            for (var i = 0; i < inputTags.length; i++) {
+                if (_.includes(names, inputTags[i])) {
                     return true;
                 }
             }
 
             return false;
         });
+    } else {
+        filteredCases = currentSuit.cases;
+    }
 
     $("#suit_name_info").show();
 
@@ -101,12 +100,14 @@ function drawSuitPage(input_tags) {
     $("#steps_container").empty();
     $("#cases_table_body").empty();
 
-    for(var i = 0; i < filteredCases.length; i++){
-            var tags = filteredCases[i].tags;
-             var tagsToString = "";
-             for(var j = 0; j < tags.length; j++){
-                  tagsToString = tagsToString + tags[j].name + " ";
-             }
+    for (var i = 0; i < filteredCases.length; i++) {
+        var tags = filteredCases[i].tags;
+        var tagsToString = "";
+
+        for(var j = 0; j < tags.length; j++) {
+            tagsToString = tagsToString + tags[j].name + " ";
+        }
+
         $("#cases_table_body").append($('<tr>')
             .append($('<td>')
                 .addClass('small_td')

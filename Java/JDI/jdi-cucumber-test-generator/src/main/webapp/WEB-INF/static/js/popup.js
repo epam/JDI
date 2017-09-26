@@ -91,6 +91,40 @@ function PopUpAddCase(){
     $("#popup_add_case").show();
 }
 
+// Create popUp form for create new Case
+function PopUpTagFilter() {
+    $("#tags_list").empty();
+
+    // Create base form
+    createPopUp(400, 200, "Filter cases by tags");
+
+    axios.get("/cucumber/getAllTags").then(function(response) {
+        var tags = response.data;
+
+        $("#tags_list").append($('<li>'))
+            .append($('<input>').attr('type', 'checkbox')
+                .attr('class', 'checkedAllTags')
+                .attr('value', 'true')
+                .attr('checked', 'checked'))
+            .append($('<span>').text('  Show all cases'));
+
+        for (var i = 0; i < tags.length; i++) {
+            $("#tags_list").append($('<li>'))
+                .append($('<input>').attr('type', 'checkbox')
+                    .attr('class', 'checkedTags')
+                    .attr('value', tags[i].name))
+                .append($('<span>').text('  ' + tags[i].name));
+        }
+    }.bind(this));
+
+    // Add two buttons
+    $(".popup_ok").append("<div id='filterCasesByTags'>Filter</div>");
+    $(".popup_cancel").append("<div>Cancel</div>");
+
+    // Show popUp form
+    $("#popup_tag_filter").show();
+}
+
 function PopUpRemoveCases(){
     // Create base form
     createPopUp(400, 130, "Delete case");

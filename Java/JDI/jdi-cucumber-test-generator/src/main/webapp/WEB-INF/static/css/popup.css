@@ -4,6 +4,7 @@
 #popup_add_case,
 #popup_edit_case,
 #popup_remove_cases,
+#popup_tag_filter,
 #popup_manage_step_suggestions{
     display: none;
     z-index: 5;
