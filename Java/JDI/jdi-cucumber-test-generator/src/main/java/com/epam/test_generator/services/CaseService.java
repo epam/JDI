@@ -7,16 +7,19 @@ import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import com.epam.test_generator.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -80,6 +83,9 @@ public class CaseService {
     public CaseDTO updateCase(long suitId, CaseDTO cs) {
         Suit suit = suitDAO.getOne(suitId);
         Case caze = suit.getCaseById(cs.getId());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        cs.setUpdateDate(formatter.format(Calendar.getInstance().getTime()));
 
         if (caze != null) {
             suit.getCases().remove(caze);
