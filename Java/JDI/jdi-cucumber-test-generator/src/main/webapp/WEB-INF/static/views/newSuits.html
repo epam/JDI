@@ -50,6 +50,9 @@
                                     <h3><div id="countCases"></div>Tests</h3>
                                 </div>
 
+                                <input  id="search_tag" type="text" placeholder="search cases by tags">
+                                <input type="button" onclick="drawSuitPage($('#search_tag').val())">
+
                                 <div class="cases-table-container">
                                     <table id="tableCases" class="cases-table tablesorter">
                                         <thead id = "cases_table_head">
@@ -334,7 +337,9 @@
         <script type="text/javascript" src="/cucumber/static/js/vendor/FileSaver.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 
+        <script type="text/javascript" src="/cucumber/static/js/tag/showCasesByTags.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
         <script type="text/javascript" src="/cucumber/static/js/suit/getSuits.js"></script>
