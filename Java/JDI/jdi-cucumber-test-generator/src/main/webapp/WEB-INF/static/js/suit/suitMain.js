@@ -49,6 +49,7 @@ function getSuitInfo(suitId){
         suit_id = response.id;
 
         $("#suit_name_info").show();
+        $("#case_update_info").hide();
 
         $("#description_info").text("Suit description:");
         $("#priority_info").text("Suit priority:");
@@ -89,6 +90,8 @@ function getSuitInfo(suitId){
                                 ).append($('<td>')
                                     .text(response.cases[i].tags)
                                 ).append($('<td>')
+                                    .text(response.cases[i].updateDate)
+                                ).append($('<td style="display: none;">')
                                     .text(response.cases[i].creationDate)
                                 )
                             );
@@ -126,6 +129,8 @@ function getSuitInfoWithOutCleanCases(suitId){
                                         ).append($('<td>')
                                             .text(response.cases[i].tags)
                                         ).append($('<td>')
+                                            .text(response.cases[i].updateDate)
+                                        ).append($('<td style="display: none;">')
                                             .text(response.cases[i].creationDate)
                                         )
                                     );
@@ -142,14 +147,17 @@ function getCaseInfo(){
     $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
 
         $("#suit_name_info").hide();
+        $("#case_update_info").show();
 
         $("#description_info").text("Case description:");
         $("#priority_info").text("Case priority:");
         $("#create_date_info").text("Case create date:");
+        $("#update_date_info").text("Case update date:");
         $("#tags_info").text("Case tags:");
         $("#value_of_description_info").val(response.description);
         $("#value_of_priority_info").val(response.priority);
         $("#value_of_create_date_info").val(response.creationDate);
+        $("#value_of_update_date_info").val(response.updateDate);
         $("#value_of_tags_info").val(response.tags);
         $("#steps_container").empty();
 

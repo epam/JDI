@@ -6,6 +6,7 @@ function saveCase() {
     var description = $("#value_of_description_info").val();
     var priority = $("#value_of_priority_info").val();
     var creationDate = $("#value_of_create_date_info").val();
+    var updateDate = $("#value_of_update_date_info").val();
     var tags = $("#value_of_tags_info").val();
 
     var keyWordsArray = $(".step-type-select-tag");
@@ -51,6 +52,7 @@ function saveCase() {
         description: description,
         priority: priority,
         creationDate: creationDate,
+        updateDate: updateDate,
         tags: tags,
         steps: steps
     };

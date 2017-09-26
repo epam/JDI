@@ -21,6 +21,8 @@ public class Case implements Serializable{
 
     private String creationDate;
 
+    private String updateDate;
+
     private Integer priority;
 
     private String tags;
@@ -28,6 +30,7 @@ public class Case implements Serializable{
     public Case(){
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         creationDate = formatter.format(Calendar.getInstance().getTime());
+        updateDate = formatter.format(Calendar.getInstance().getTime());
     }
 
     public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
@@ -71,6 +74,14 @@ public class Case implements Serializable{
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 
     public Integer getPriority() {
