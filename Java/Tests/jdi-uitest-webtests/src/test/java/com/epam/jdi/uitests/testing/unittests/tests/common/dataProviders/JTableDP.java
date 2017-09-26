@@ -23,13 +23,13 @@ public class JTableDP {
 
     public static final String supportTableKeyWord = "Custom";
 
-    public static  final String supportTableSearchResult = "Selenium, Custom";
+    public static final String supportTableSearchResult = "Selenium, Custom";
 
     public static final String supportTableHeaders = "[Type, Now, Plans]";
 
     public static final String supportTableFirstCell = "Drivers";
 
-    public static final String complexTableText ="||X||||\n" +
+    public static final String complexTableText = "||X||||\n" +
             "||1||Microsoft Technologies|Select\n" +
             "See More\n" +
             ".NET Technologies|Select\n" +
@@ -116,13 +116,13 @@ public class JTableDP {
     @DataProvider(name = "tableData")
     public static Object[][] inputData() {
         return new Object[][]{
-                {supportPage, supportPage.tableRootRowHeader, supportTableRows, supportTableColumns, supportTableKeyWord,
+                {supportPage, supportPage.tableRootRowHeader, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
                         supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders},
-                {supportPage, supportPage.tableRoot, supportTableRows, supportTableColumns, supportTableKeyWord,
+                {supportPage, supportPage.tableRoot, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
                         supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders},
-                {supportPage, supportPage.tableRootHeaderRow, supportTableRows, supportTableColumns, supportTableKeyWord,
+                {supportPage, supportPage.tableRootHeaderRow, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
                         supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders}
-               // {simpleTablePage.table}
+                // {simpleTablePage.table}
         };
     }
 }

@@ -11,14 +11,14 @@ import org.testng.annotations.Test;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
 
 public class JSearchTests extends InitTests {
- @BeforeMethod
-    public void pageLoad(){
-     homePage.open();
-     homePage.openSearch.click();
+    @BeforeMethod
+    public void pageLoad() {
+        homePage.open();
+        homePage.openSearch.click();
     }
 
-    @Test (dataProvider = "searchData", dataProviderClass = JSearchDP.class)
-    public void findTestForJSearchWithRootInputSearchButton(ISearch search, Boolean option)  {
+    @Test(dataProvider = "searchData", dataProviderClass = JSearchDP.class)
+    public void findTestForJSearchWithRootInputSearchButton(ISearch search, Boolean option) {
         search.clear();
         search.find("JDI");
         supportPage.checkOpened();

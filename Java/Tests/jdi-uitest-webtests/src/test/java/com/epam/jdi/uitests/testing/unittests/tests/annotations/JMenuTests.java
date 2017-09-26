@@ -8,8 +8,8 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.men
 
 public class JMenuTests extends InitTests {
     @Test
-    public void jMenuTest(){
+    public void jMenuTest() {
         menu.hoverAndClick("Home");
-       System.out.print("");
+        System.out.print("");
     }
 }

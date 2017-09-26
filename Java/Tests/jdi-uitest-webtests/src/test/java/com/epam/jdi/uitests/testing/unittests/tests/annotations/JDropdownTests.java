@@ -12,12 +12,12 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.met
 
 public class JDropdownTests extends InitTests {
     @BeforeMethod
-    public void pageLoad(){
+    public void pageLoad() {
         metalsColorsPage.open();
     }
 
     @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
-    public void dropdown(IDropDown dropdown, Boolean selectResult, String text, String options){
+    public void dropdown(IDropDown dropdown, Boolean selectResult, String text, String options) {
         dropdown.expand();
         new Check().isTrue(dropdown.isDisplayed());
         dropdown.close();
@@ -32,7 +32,7 @@ public class JDropdownTests extends InitTests {
     }
 
     @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
-    public void dropdownTestgetSelectedIndex(IDropDown dropdown, Boolean selectResult, String text, String options){
+    public void dropdownTestgetSelectedIndex(IDropDown dropdown, Boolean selectResult, String text, String options) {
         dropdown.select(2);
         new Check().areEquals(dropdown.getSelectedIndex(), 2);
     }

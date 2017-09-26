@@ -9,13 +9,13 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.*;
 
 public class JDropListTests extends InitTests {
     @BeforeMethod
-    public void pageLoad(){
+    public void pageLoad() {
         metalsColorsPage.open();
     }
 
     @Test
-    public void dropListTest(){
-       System.out.print(metalsColorsPage.colorsDL.getOptions());
+    public void dropListTest() {
+        System.out.print(metalsColorsPage.colorsDL.getOptions());
     }
 
 }

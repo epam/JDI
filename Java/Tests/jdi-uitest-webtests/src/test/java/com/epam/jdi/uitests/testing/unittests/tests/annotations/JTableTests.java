@@ -22,10 +22,9 @@ public class JTableTests extends InitTests {
 
 
     @Test(dataProvider = "tableData", dataProviderClass = JTableDP.class)
-    public void tableTest(IPage page, ITable table, String rowAsText, String columnsAsText, String keyWord, String searchResult, int searchResultSize, String firstCell, String headers ){
-        simpleTablePage.open();
-        System.out.println(simpleTablePage.table.rows().getRowAsText(2));
-        new Check().areEquals(table.getText(), JTableDP.supportTableText);
+    public void tableTest(IPage page, ITable table, String tableText, String rowAsText, String columnsAsText, String keyWord, String searchResult, int searchResultSize, String firstCell, String headers) {
+        page.open();
+        new Check().areEquals(table.getText(), tableText);
         new Check().isFalse(table.isEmpty());
 
         new Check().areEquals(table.rows().getRowAsText(2),
@@ -41,17 +40,13 @@ public class JTableTests extends InitTests {
         new Check().areEquals(table.headers(),
                 headers);
 
-
-
-       System.out.println(table.headers());
-
     }
 
     @Test
     public void cellsContainsTestForTableWithRoot() {
         List<ICell> jenkins = supportPage.tableRoot.cellsContains("Jenkins");
         new Check().areEquals(jenkins.size(), 1);
-        for (ICell cell: jenkins){
+        for (ICell cell : jenkins) {
             new Check().areEquals(cell.getText(), "Jenkins, Allure, Custom");
         }
     }

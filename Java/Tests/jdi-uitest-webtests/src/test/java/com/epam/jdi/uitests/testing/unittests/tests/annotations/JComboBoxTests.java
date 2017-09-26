@@ -13,12 +13,12 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.met
 
 public class JComboBoxTests extends InitTests {
     @BeforeMethod
-    public void pageLoad(){
+    public void pageLoad() {
         metalsColorsPage.open();
     }
 
-    @Test (dataProvider = "comboBoxData", dataProviderClass = jComboBoxDP.class)
-    public void comboBoxTest(IComboBox comboBox, Boolean option){
+    @Test(dataProvider = "comboBoxData", dataProviderClass = jComboBoxDP.class)
+    public void comboBoxTest(IComboBox comboBox, Boolean option) {
         new Check().areEquals(comboBox.getText(), "Colors");
         new Check().areEquals(comboBox.getValue(), "Colors");
         new Check().areEquals(comboBox.getOptionsAsText(), "Colors, Red, Green, Blue, Yellow");
@@ -43,7 +43,7 @@ public class JComboBoxTests extends InitTests {
     }
 
 
-    @Test (dataProvider = "comboBoxData", dataProviderClass = jComboBoxDP.class)
+    @Test(dataProvider = "comboBoxData", dataProviderClass = jComboBoxDP.class)
     public void comboBoxTestGetSelectedIndex(IComboBox comboBox, Boolean option) {
         comboBox.select(2);
         new Check().areEquals(comboBox.getSelectedIndex(), 2);
