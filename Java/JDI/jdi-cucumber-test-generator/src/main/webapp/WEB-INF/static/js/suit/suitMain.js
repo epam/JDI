@@ -59,7 +59,17 @@ function drawSuitPage(input_tags) {
     suit_id = currentSuit.id;
 
     filteredCases = _.filter(currentSuit.cases, function (caze) {
-        return _.includes(caze.tags, input_tags);
+        var names = [];
+
+        if (input_tags == ''){
+            return true;
+        }
+
+        var tags = caze.tags;
+        for (var i = 0; i < tags.length; i++) {
+            names[i] = tags[i].name;
+        }
+        return _.includes(names, input_tags);
     });
 
     $("#suit_name_info").show();
@@ -106,7 +116,7 @@ function drawSuitPage(input_tags) {
             ).append($('<td>')
             .text(filteredCases[i].priority)
             ).append($('<td>')
-            .text(filteredCases[i].tags)
+            .text(tagsToString)
             ).append($('<td>')
             .text(filteredCases[i].creationDate)
             )
