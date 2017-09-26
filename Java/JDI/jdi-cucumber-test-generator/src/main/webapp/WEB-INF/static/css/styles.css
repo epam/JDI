@@ -454,6 +454,10 @@ div.add-case-button:hover {
     background-color: rgba(0, 171, 255, 0.2);
 }
 
+#tableCases-sticky{
+    background-color: #f7f7f7;
+}
+
 #case-save-exception{
     padding: 10px;
     text-align: center;

@@ -49,6 +49,7 @@ function getSuitInfo(suitId){
         suit_id = response.id;
 
         $("#suit_name_info").show();
+        $("#case_update_info").hide();
 
         $("#description_info").text("Suit description:");
         $("#priority_info").text("Suit priority:");
@@ -146,6 +147,7 @@ function getCaseInfo(){
     $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
 
         $("#suit_name_info").hide();
+        $("#case_update_info").show();
 
         $("#description_info").text("Case description:");
         $("#priority_info").text("Case priority:");
