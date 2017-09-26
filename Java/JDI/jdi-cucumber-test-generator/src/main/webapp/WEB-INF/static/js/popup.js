@@ -105,3 +105,16 @@ function PopUpRemoveCases(){
     // Show popUp form
     $("#popup_remove_cases").show();
 }
+
+// Create popUp form for create new Case
+function PopUpManageStepSuggestions(){
+    // Create base form
+    createPopUp(600, 400, "Manage step suggestions");
+
+    // Add two buttons (Create and Cancel)
+    $(".popup_ok").append("<div id='createCaseButton'>Create</div>");
+    $(".popup_cancel").append("<div>Cancel</div>");
+
+    // Show popUp form
+    $("#popup_manage_step_suggestions").show();
+}

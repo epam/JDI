@@ -13,7 +13,7 @@ public class SuitDTO {
 
     private String description;
 
-     private List<CaseDTO> cases;
+    private List<CaseDTO> cases;
 
     private Integer priority;
 

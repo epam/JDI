@@ -40,6 +40,9 @@
                 </div>
 
                 <div class="wrapper_content">
+                    <div class="button_wrapper">
+                         <button id="edit_step_button" onclick="javascript:PopUpManageStepSuggestions()">Edit step suggestions</button>
+                    </div>
                     <table class="suit-table-container">
                         <tr>
                             <td class="suit-info-container">
@@ -184,6 +187,8 @@
             </div>
         </div>
 
+
+
         <div id="removeSuit">
             <div class="b-popup" id="popup_remove">
                 <div class="b-popup-content">
@@ -302,15 +307,40 @@
             </div>
         </div>
 
-        <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/cucumber/static/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.min.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.widgets.js"></script>
+        <div id="manage_step_suggestions">
+            <div class="b-popup" id="popup_manage_step_suggestions">
+                <div class="b-popup-content">
+                    <div class="popup_header">
+                        <div class="popup_name"></div>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_manage_step_suggestions')">X</span>
+                        </div>
+                    </div>
+
+                    <div class="popup_container table_suggestion_steps" id="table_suggestion_steps">
+                        <table id = "steps_table"></table>
+                    </div>
+                    <div class="popup_container add_step_suggestion_wrapper">
+                        <textarea id="step_suggestion"></textarea>
+                        <button class="add_step_button" onclick="addSuggestionStep()">Add step</button>
+                    </div>
+
+                    <div class="popup_exception"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/cucumber/static/js/vendor/jquery-ui.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.widgets.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/FileSaver.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
 
         <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://unpkg.com/vue"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/getSuits.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/addSuit.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/updateSuit.js"></script>
@@ -323,6 +353,7 @@
         <script type="text/javascript" src="/cucumber/static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/FileSaver.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
     </body>
 </html>
