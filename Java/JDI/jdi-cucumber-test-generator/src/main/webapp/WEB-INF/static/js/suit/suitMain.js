@@ -59,18 +59,26 @@ function drawSuitPage(input_tags) {
     suit_id = currentSuit.id;
 
     filteredCases = _.filter(currentSuit.cases, function (caze) {
-        var names = [];
+            if (input_tags == ''){
+                return true;
+            }
 
-        if (input_tags == ''){
-            return true;
-        }
+            var names = [];
+            var inputNames = input_tags.split(' ');
+            var tags = caze.tags;
 
-        var tags = caze.tags;
-        for (var i = 0; i < tags.length; i++) {
-            names[i] = tags[i].name;
-        }
-        return _.includes(names, input_tags);
-    });
+            for (var i = 0; i < tags.length; i++) {
+                names[i] = tags[i].name;
+            }
+
+            for (var i = 0; i < inputNames.length; i++) {
+                if (_.includes(names, inputNames[i])) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
 
     $("#suit_name_info").show();
 
