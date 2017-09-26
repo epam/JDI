@@ -4,7 +4,7 @@ import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.CaseTransformer;
+import com.epam.test_generator.transformers.CaseTransformer;
 import com.epam.test_generator.entities.Suit;
 import java.util.ArrayList;
 import java.util.List;

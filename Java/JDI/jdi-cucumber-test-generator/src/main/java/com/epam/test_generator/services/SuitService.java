@@ -5,7 +5,7 @@ import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
-import com.epam.test_generator.entities.SuitTransformer;
+import com.epam.test_generator.transformers.SuitTransformer;
 import com.epam.test_generator.file_generator.FileGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

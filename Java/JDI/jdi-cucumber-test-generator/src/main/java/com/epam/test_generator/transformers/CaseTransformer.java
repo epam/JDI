@@ -1,7 +1,8 @@
-package com.epam.test_generator.entities;
+package com.epam.test_generator.transformers;
 
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.DozerMapper;
+import com.epam.test_generator.entities.Case;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

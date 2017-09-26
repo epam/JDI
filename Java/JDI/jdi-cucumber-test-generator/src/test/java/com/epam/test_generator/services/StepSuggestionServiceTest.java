@@ -3,7 +3,7 @@ package com.epam.test_generator.services;
 import com.epam.test_generator.dao.interfaces.StepSuggestionDAO;
 import com.epam.test_generator.dto.StepSuggestionDTO;
 import com.epam.test_generator.entities.StepSuggestion;
-import com.epam.test_generator.entities.StepSuggestionTransformer;
+import com.epam.test_generator.transformers.StepSuggestionTransformer;
 import com.epam.test_generator.entities.StepType;
 import org.junit.Before;
 import org.junit.Test;

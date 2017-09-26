@@ -5,7 +5,7 @@ import com.epam.test_generator.dao.interfaces.StepDAO;
 import com.epam.test_generator.dto.StepDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.StepTransformer;
+import com.epam.test_generator.transformers.StepTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
