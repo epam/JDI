@@ -14,6 +14,7 @@ public class JDropListTests extends InitTests {
 
     @Test
     public void dropListTest() {
+
         System.out.print(metalsColorsPage.colorsDL.getOptions());
     }
 

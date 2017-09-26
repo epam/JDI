@@ -79,9 +79,9 @@ public class MetalsColorsPage extends WebPage {
 
 
     @JDropList(
-            jroot = @JFindBy(css = ".colors"),
-            jlist = @JFindBy(tagName = "li"),
-            jvalue = @JFindBy(css = ".filter-option")
+            jroot = @JFindBy(xpath = ".salad"),
+            jlist = @JFindBy(tagName = "li")
+          //  jvalue = @JFindBy(css = ".filter-option")
 
     ) public IDropList colorsDL;
 
