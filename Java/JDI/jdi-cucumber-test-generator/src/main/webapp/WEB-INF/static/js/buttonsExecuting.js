@@ -182,7 +182,7 @@ function generateFile(){
             var n = A.length;
             for (var i = 0; i < n-1; i++)
              { for (var j = i+1; j < n; j++)
-                { if (A[i] === A[j]) return false; }
+                { if (A[i].toLowerCase() === A[j].toLowerCase()) return false; }
              }
             return true;
         }
