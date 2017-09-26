@@ -4,8 +4,7 @@ function cancelCaseEditing() {
 
 function saveCase() {
 
-
-     var listTags = $("#value_of_tags_info").val().split(" ");
+     var listTags = $("#value_of_tags_info").val().trim().split(/\s+/);
 
      if(!testUnique(listTags)){
                       $("#value_of_tags_info").addClass("emptyField");
@@ -106,6 +105,8 @@ function saveCase() {
         }
     });
     }
+    $("#value_of_tags_info").val(listTags.join(" "));
+
 }
 
 function disableCaseButtons () {
