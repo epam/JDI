@@ -120,6 +120,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void clickOn(TEnum name) {
         select(name);
     }
+
     protected void selectAction(String... names) {
         hoverAndClick(names);
     }
