@@ -25,10 +25,10 @@ public class StepSuggestionController {
 
     @RequestMapping(value = "/step_suggestion", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Void> addStepSuggestion(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
+    public ResponseEntity<StepSuggestionDTO> addStepSuggestion(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
         if (contentIsValid(stepSuggestionDTO) && typeIsValid(stepSuggestionDTO)) {
-            stepSuggestionService.addStepSuggestion(stepSuggestionDTO);
-            return new ResponseEntity<Void>(HttpStatus.OK);
+
+            return new ResponseEntity<>(stepSuggestionService.addStepSuggestion(stepSuggestionDTO),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }

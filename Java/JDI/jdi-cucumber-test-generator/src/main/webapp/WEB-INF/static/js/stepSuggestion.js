@@ -18,11 +18,20 @@ var app = new Vue({
              Store.active = tab_active;
         },
         addSuggestionStep: function() {
-            var obj = {content: this.text, type: Store.active};
-            axios.post('/cucumber/step_suggestion', obj).then(function(response) {
-                Store.suggestion_steps.push(obj);
-            });
-            this.text = "";
+            var contentSteps = this.getFiltredSteps.map(function(step){return step.content;});
+            if(!contentSteps.includes(this.text)){
+                var obj = {content: this.text, type: Store.active};
+                axios.post('/cucumber/step_suggestion', obj).then(function(response) {
+                    Store.suggestion_steps.push(response.data);
+                    successInfoBlock();
+                }).catch(function(error) {
+                    errorInfoBlock("Fail updating! Try again later!");
+                });
+                this.text = "";
+            }
+            else{
+                errorInfoBlock("This suggestion step is already exist!");
+            }
         },
         deleteSuggestion: function(suggestion_id) {
             axios.delete('/cucumber/step_suggestion/' + suggestion_id).then(function(response) {
