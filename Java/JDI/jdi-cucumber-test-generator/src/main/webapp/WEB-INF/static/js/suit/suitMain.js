@@ -166,12 +166,13 @@ function getCaseInfo(){
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
             "                                                    <div class=\"select-step-type-container\">\n" +
             "                                                        <select class=\"step-type-select-tag\">\n" +
-            "                                                            <option value=\"0\" disabled selected>-----</option>\n" +
-            "                                                            <option value=\"1\">Given</option>\n" +
-            "                                                            <option value=\"2\">When</option>\n" +
-            "                                                            <option value=\"3\">Then</option>\n" +
-            "                                                            <option value=\"4\">And</option>\n" +
-            "                                                            <option value=\"5\">But</option>\n" +
+            "                                                            <option value=\"100\" disabled selected>-----</option>\n" +
+            "                                                            <option value=\"0\">Given</option>\n" +
+            "                                                            <option value=\"1\">When</option>\n" +
+            "                                                            <option value=\"2\">Then</option>\n" +
+            "                                                            <option value=\"3\">And</option>\n" +
+            "                                                            <option value=\"4\">But</option>\n" +
+            "                                                            <option value=\"5\">*</option>\n" +
             "                                                        </select>\n" +
             "                                                    </div>\n" +
             "                                                   <input type=\"text\" class=\"step-code-line\" value='" + response.steps[i].description + "'>\n" +
@@ -191,12 +192,13 @@ function getCaseInfo(){
                             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
                             "                                                    <div class=\"select-step-type-container\">\n" +
                             "                                                        <select class=\"step-type-select-tag\">\n" +
-                            "                                                            <option value=\"0\" disabled selected>-----</option>\n" +
-                            "                                                            <option value=\"1\">Given</option>\n" +
-                            "                                                            <option value=\"2\">When</option>\n" +
-                            "                                                            <option value=\"3\">Then</option>\n" +
-                            "                                                            <option value=\"4\">And</option>\n" +
-                            "                                                            <option value=\"5\">But</option>\n" +
+                            "                                                            <option value=\"100\" disabled selected>-----</option>\n" +
+                            "                                                            <option value=\"0\">Given</option>\n" +
+                            "                                                            <option value=\"1\">When</option>\n" +
+                            "                                                            <option value=\"2\">Then</option>\n" +
+                            "                                                            <option value=\"3\">And</option>\n" +
+                            "                                                            <option value=\"4\">But</option>\n" +
+                            "                                                            <option value=\"5\">*</option>\n" +
                             "                                                        </select>\n" +
                             "                                                    </div>\n" +
                             "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
