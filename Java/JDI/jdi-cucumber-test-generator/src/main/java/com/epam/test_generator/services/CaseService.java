@@ -66,7 +66,6 @@ public class CaseService {
             suitDAO.save(suit);
             cs = caseTransformer.toDto(caze);
         }
-
         return cs;
     }
 

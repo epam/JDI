@@ -22,5 +22,4 @@ public class DozerMapper {
     public void map(Object source, Object dest) {
         mapper.map(source, dest);
     }
-
 }

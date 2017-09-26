@@ -74,7 +74,6 @@ public class SuitService {
         for (Long caseId : caseIds) {
             cases.add(caseDAO.getOne(caseId));
         }
-
         return fileGenerator.generate(suit, cases);
     }
 }

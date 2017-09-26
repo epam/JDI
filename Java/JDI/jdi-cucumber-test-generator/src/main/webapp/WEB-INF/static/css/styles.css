@@ -860,13 +860,15 @@ body{
 .accordion-tabs>li.tab-head-cont>div {
     text-decoration:none;
     border-top: 1px solid #dddddd;
-    color: #888888;
+    color: white;
     display: block;
     padding: 0.75em 0.809em;
 }
 .accordion-tabs>li.tab-head-cont>div:hover {
-    color: #ffffff;
+    color: black;
     cursor: pointer;
+    background-color:#f7f7f7;
+    border-radius: 10px 10px 0 0;
 }
 .accordion-tabs>li.tab-head-cont>div:focus {
     outline: none;
