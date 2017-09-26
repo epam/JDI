@@ -6,7 +6,7 @@ var addCase = new Vue({
     methods: {
         addCase: function() {
 
-         var tags = $("#addTagsCase").val().split(" ");
+         var tags = $("#addTagsCase").val().trim().split(/\s+/);
 
 
          if(!testUnique(tags)){

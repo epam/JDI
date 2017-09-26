@@ -18,7 +18,7 @@ public class Tag implements Serializable {
     }
 
     public Tag(String name) {
-        this.name = name.toLowerCase();
+        this.name = name;
     }
 
     public Long getId() { return id; }
@@ -30,12 +30,14 @@ public class Tag implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name.toLowerCase();
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "Tag{" +
+                "name='" + name + '\'' +
+                '}';
     }
 
     @Override

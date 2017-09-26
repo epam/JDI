@@ -17,7 +17,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    @RequestMapping(value = "/getAllTags", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<TagDTO>> getAllTags() {
         List<TagDTO> tags = tagService.getTags();

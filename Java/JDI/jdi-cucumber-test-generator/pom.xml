@@ -134,11 +134,6 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.11</version>
-        </dependency>
         <!--Freemarker template for .feature file generation-->
         <dependency>
             <groupId>org.freemarker</groupId>
