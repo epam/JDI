@@ -51,6 +51,8 @@
                                     <h3><div id="countCases"></div>Tests</h3>
                                 </div>
 
+                                <button onclick="javascript:PopUpTagFilter()">Filter cases</button>
+
                                 <div class="cases-table-container">
                                     <table id="tableCases" class="cases-table tablesorter">
                                         <thead id = "cases_table_head">
@@ -175,7 +177,7 @@
                             </tr>
                             <tr>
                                 <td>Tags:</td>
-                                <td><input id='addTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
+                                <td><input id='addTagsSuit' maxlength='255' placeholder='tag1 tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -187,8 +189,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div id="removeSuit">
             <div class="b-popup" id="popup_remove">
@@ -240,7 +240,7 @@
                             </tr>
                             <tr>
                                 <td>Tags:</td>
-                                <td><input id='addTagsCase' maxlength='255' placeholder='tag1, tag2'/></td>
+                                <td><input id='addTagsCase' maxlength='255' placeholder='tag1 tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -248,6 +248,30 @@
                         <div class="popup_ok" v-on:click="addCase"></div>
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add_case')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tagFilter">
+            <div class="b-popup" id="popup_tag_filter">
+                <div class="b-popup-content">
+                    <div class="popup_header">
+                        <div class="popup_name"></div>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_tag_filter')">X</span>
+                        </div>
+                    </div>
+                    <div class="popup_container">
+                        <div style="height:120px; overflow-y:scroll">
+                            <ul id = "tags_list" class="unmarkedList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="popup_buttons">
+                        <div class="popup_ok" onclick="javascript:filterCases()"></div>
+                        <div class="free_space"></div>
+                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_tag_filter')"></div>
                     </div>
                 </div>
             </div>
@@ -315,6 +339,7 @@
         <script type="text/javascript" src="/cucumber/static/js/vendor/FileSaver.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 
         <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
@@ -331,5 +356,6 @@
         <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/case/filterCases.js"></script>
     </body>
 </html>

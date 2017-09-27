@@ -1361,3 +1361,7 @@ p {margin:28px 0 3px 0;}
     color: #4caf50;
     transition: all 0.2s;
 }
+
+ul .unmarkedList {
+    list-style-type: none;
+}
