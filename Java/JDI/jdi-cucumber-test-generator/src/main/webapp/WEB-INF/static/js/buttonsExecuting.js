@@ -4,7 +4,6 @@ function cancelCaseEditing() {
 
 function saveCase() {
 
-
      var listTags = $("#value_of_tags_info").val().split(" ");
 
      if(!testUnique(listTags)){
@@ -178,9 +177,12 @@ function generateFile(){
  function testUnique(A)
         {
             var n = A.length;
-            for (var i = 0; i < n-1; i++)
-             { for (var j = i+1; j < n; j++)
-                { if (A[i] === A[j]) return false; }
-             }
+            for (var i = 0; i < n-1; i++) {
+                for (var j = i+1; j < n; j++) {
+                    if (A[i] === A[j]) {
+                        return false;
+                    }
+                }
+            }
             return true;
         }

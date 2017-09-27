@@ -34,28 +34,6 @@ function PopUpAddingSuit(){
     $("#popup_add").show();
 }
 
-// Create popUp form for update current Suit
-//function PopUpUpdateSuit(){
-//    // Create base form
-//    createPopUp(400, 180, "Edit suit");
-//
-//    // Clear field with exceptions
-//    $("#popup_update .popup_exception").empty();
-//
-//    // Filling out the fields in accordance with the current Suit
-//    $("#updateNameSuit").val($("#nameSuit").text());
-//    $("#updateDescriptionSuit").val($("#descriptionSuit").text());
-//    $("#updatePrioritySuit").val($("#prioritySuit").text());
-//    $("#updateTagsSuit").val($("#tagsSuit").text());
-//
-//    // Add two buttons (Edit and Cancel)
-//    $(".popup_ok").append("<div id='updateSuitButton'>Edit</div>");
-//    $(".popup_cancel").append("<div>Cancel</div>");
-//
-//    // Show popUp form
-//    $("#popup_update").show();
-//}
-
 // Create popUp form for delete current Suit
 function PopUpRemoveSuit(){
     // Create base form
@@ -91,6 +69,8 @@ function PopUpAddCase(){
     $("#popup_add_case").show();
 }
 
+var previouslySelectedTags = [];
+
 // Create popUp form for create new Case
 function PopUpTagFilter() {
     $("#tags_list").empty();
@@ -105,14 +85,16 @@ function PopUpTagFilter() {
             .append($('<input>').attr('type', 'checkbox')
                 .attr('class', 'checkedAllTags')
                 .attr('value', 'true')
-                .attr('checked', 'checked'))
+                .attr('checked', (previouslySelectedTags.length == 0? true : false)))
             .append($('<span>').text('  Show all cases'));
 
         for (var i = 0; i < tags.length; i++) {
+
             $("#tags_list").append($('<li>'))
                 .append($('<input>').attr('type', 'checkbox')
                     .attr('class', 'checkedTags')
-                    .attr('value', tags[i].name))
+                    .attr('value', tags[i].name)
+                    .prop('checked', _.includes(previouslySelectedTags, tags[i].name)))
                 .append($('<span>').text('  ' + tags[i].name));
         }
     }.bind(this));
