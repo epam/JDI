@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DozerMapper {
+public class DozerMapper<E> {
 
     private Mapper mapper;
 
@@ -22,4 +22,9 @@ public class DozerMapper {
     public void map(Object source, Object dest) {
         mapper.map(source, dest);
     }
+
+    public E map(Object source, Class<E> dest) {
+        return mapper.map(source, dest);
+    }
+
 }
