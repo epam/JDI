@@ -411,7 +411,7 @@ div.add-case-button:hover {
     margin: 5px 0;
 }
 
-.cases-table>td {
+.cases-table>tbody>td {
     padding: 2px;
 }
 
@@ -452,6 +452,10 @@ div.add-case-button:hover {
 
 #tableCases>tbody>tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
+}
+
+#tableCases-sticky{
+    background-color: #f7f7f7;
 }
 
 #case-save-exception{
@@ -1001,7 +1005,8 @@ p {margin:28px 0 3px 0;}
 }
 
 .table_suggestion_steps{
-    height: 280px;
+    margin: 20px 0px;
+    height: 350px;
     overflow-y: scroll;
 }
 
@@ -1031,6 +1036,7 @@ p {margin:28px 0 3px 0;}
     border-color: grey;
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
 }
 #steps_table tr{
     display: table-row;
@@ -1085,9 +1091,11 @@ p {margin:28px 0 3px 0;}
     border: 1px solid #dddddd;
     width: 475px;
     float: left;
+    padding: 5px;
 }
 .add_step_suggestion_wrapper{
     margin: 15px 5px;
+    overflow: hidden;
 }
 
 
@@ -1223,8 +1231,39 @@ p {margin:28px 0 3px 0;}
 }
 
 .tablesorter th {
+    border-spacing: 0;
     text-align: left;
+    border: none;
     background: rgba(55, 123, 55, 0.8);
+    padding: 0;
+    margin: 0;
+}
+
+#add_first_step_button {
+    background-color: #379b55;
+    margin: 5px auto;
+    border-color: #377b37;
+    min-width: 120px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    max-width: 240px;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    white-space: normal;
+    box-sizing: border-box;
+    font-feature-settings: 'kern', 'liga', 'pnum';
+    font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+#add_first_step_button:hover {
+    background-color: #308649;
+    cursor: pointer;
 }
 
 .ui-autocomplete {
@@ -1295,38 +1334,32 @@ p {margin:28px 0 3px 0;}
     color: white;
     transition:background-color 0.3s;
     border:none;
-
-
+    text-decoration: none;
+    padding: 12px 6px;
 }
 
 #edit_step_button:hover{
     background-color:rgb(30,67,30)
 }
 
-#i-have-a-tooltip:before {
-  content:attr(data-description);
-  box-sizing:border-box;
-  display:block;
-  background:rgba(0,0,0,.7);
-  color:white;
-  padding:20px;
-  position:absolute;
-  width:100px;
-  height:65px;
-  border-radius:50px;
-  opacity:0;
-  transition:.25s ease-in-out;
-  overflow:visible
+.back_main_page_button{
+    width: 129px;
+    height: 28px;
+    float: right;
+    text-align: center;
+    background-color: #4caf50;
+    padding: 6px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-decoration: none;
 }
-
-
-#i-have-a-tooltip:hover:before {
-  opacity:1;
-}
-
-#i-have-a-tooltip:hover:after {
-  opacity:1;
-  top:15px;
+.back_main_page_button:hover{
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    background-color: white;
+    color: #4caf50;
+    transition: all 0.2s;
 }
 
 ul .unmarkedList {

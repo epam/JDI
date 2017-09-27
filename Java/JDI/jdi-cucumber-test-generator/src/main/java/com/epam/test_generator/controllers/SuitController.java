@@ -25,6 +25,11 @@ public class SuitController {
         return "/WEB-INF/static/views/newSuits";
     }
 
+    @RequestMapping(value = "/suggestion_manager")
+    public String getStepSuggestionsPage() {
+        return "/WEB-INF/static/views/stepSuggestions";
+    }
+
     @RequestMapping(value = "/suits", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<SuitDTO>> getSuits() {

@@ -1,7 +1,12 @@
+"use strict";
+var Store = {
+    active: 0
+};
+
 var savedSteps = new Vue({
     el: '#steps_container',
     data: {
-        savedSteps: [],
+        savedSteps: []
     },
     methods: {
         getSavedSteps: function() {
@@ -10,11 +15,11 @@ var savedSteps = new Vue({
             }.bind(this));
         },
         getSteps: function () {
-            var steps = [];
-            for (var i = 0; i < this.savedSteps.length; i++) {
-                steps[i] = this.savedSteps[i].content;
-            }
-            return steps;
+            var steps = this.savedSteps.filter(function(step) {
+                return step.type == Store.active;
+            });
+            var usedSteps = steps.map(function(step){return step.content;});
+            return usedSteps;
         }
     },
     mounted: function() {
@@ -25,6 +30,7 @@ var savedSteps = new Vue({
 
 $( function() {
     $(document).on("focus keyup","input.step-code-line",function(event) {
+        Store.active = parseInt($(this).parent().children("div.select-step-type-container").children("select").val());
         $(this).autocomplete({
             source: function(request, response) {
                 var results = $.ui.autocomplete.filter(savedSteps.getSteps(), request.term);

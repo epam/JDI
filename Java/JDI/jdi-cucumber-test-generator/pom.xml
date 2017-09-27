@@ -133,6 +133,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
         </dependency>
+
         <!--Freemarker template for .feature file generation-->
         <dependency>
             <groupId>org.freemarker</groupId>

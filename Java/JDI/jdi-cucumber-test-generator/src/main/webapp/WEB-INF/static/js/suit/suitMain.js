@@ -80,7 +80,7 @@ function drawSuitPage(inputTags, isFiltered) {
     }
 
     $("#suit_name_info").show();
-
+    $("#case_update_info").hide();
     $("#description_info").text("Suit description:");
     $("#priority_info").text("Suit priority:");
     $("#create_date_info").text("Suit create date:");
@@ -101,12 +101,7 @@ function drawSuitPage(inputTags, isFiltered) {
     $("#cases_table_body").empty();
 
     for (var i = 0; i < filteredCases.length; i++) {
-        var tags = filteredCases[i].tags;
-        var tagsToString = "";
-
-        for(var j = 0; j < tags.length; j++) {
-            tagsToString = tagsToString + tags[j].name + " ";
-        }
+        var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
 
         $("#cases_table_body").append($('<tr>')
             .append($('<td>')
@@ -127,7 +122,9 @@ function drawSuitPage(inputTags, isFiltered) {
             ).append($('<td>')
             .text(tagsToString)
             ).append($('<td>')
-            .text(filteredCases[i].creationDate)
+                .text(filteredCases[i].updateDate)
+            ).append($('<td style="display: none;">')
+                .text(filteredCases[i].creationDate)
             )
         );
     }
@@ -143,35 +140,33 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#countCases").text(response.cases.length);
         $("#cases_table_body").empty();
 
-         for(var i = 0; i < response.cases.length; i++){
-          var tags = response.cases[i].tags;
-                         var tagsToString = "";
-                         for(var k = 0; k < tags.length; k++){
-                         tagsToString = tagsToString + tags[k].name + " ";
-                         }
-                    $("#cases_table_body").append($('<tr>')
-                                        .append($('<td>')
-                                            .addClass('small_td')
-                                            .append($('<input>')
-                                                .attr('type', 'checkbox')
-                                            )
-                                            .append($('<input>')
-                                                .addClass('particular_caseId')
-                                                .attr('type', 'hidden')
-                                                .val(response.cases[i].id)
-                                            )
-                                        )
-                                        .append($('<td>')
-                                            .text(response.cases[i].description)
-                                        ).append($('<td>')
-                                            .text(response.cases[i].priority)
-                                        ).append($('<td >').attr("id", "i-have-a-tooltip").attr("data-description", tagsToString)
-                                            .text(tagsToString)
-                                        ).append($('<td>')
-                                            .text(response.cases[i].creationDate)
-                                        )
-                                    );
-                }
+        for(var i = 0; i < response.cases.length; i++){
+            var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
+            $("#cases_table_body").append($('<tr>')
+                                .append($('<td>')
+                                    .addClass('small_td')
+                                    .append($('<input>')
+                                        .attr('type', 'checkbox')
+                                    )
+                                    .append($('<input>')
+                                        .addClass('particular_caseId')
+                                        .attr('type', 'hidden')
+                                        .val(response.cases[i].id)
+                                    )
+                                )
+                                .append($('<td>')
+                                    .text(response.cases[i].description)
+                                ).append($('<td>')
+                                    .text(response.cases[i].priority)
+                                ).append($('<td >').attr("class","tags_field").attr("title", tagsToString)
+                                    .text(tagsToString)
+                                ).append($('<td>')
+                                    .text(response.cases[i].updateDate)
+                                ).append($('<td style="display: none;">')
+                                    .text(response.cases[i].creationDate)
+                                )
+                            );
+         }
 
         $('.tablesorter').trigger('update');
     });
@@ -184,27 +179,26 @@ function getCaseInfo(){
     $.get("/cucumber/suit/" + suit_id + "/case/" + case_id, function(response){
 
         $("#suit_name_info").hide();
-        var tags = response.tags;
-        var tagsToString = "";
-        for(var i = 0; i < tags.length; i++){
-        tagsToString = tagsToString + tags[i].name + " ";
-        }
+        $("#case_update_info").show();
+
+        var tagsToString = $.map(response.tags, function(tag){return tag.name;}).join(' ');
 
         $("#description_info").text("Case description:");
         $("#priority_info").text("Case priority:");
         $("#create_date_info").text("Case create date:");
+        $("#update_date_info").text("Case update date:");
         $("#tags_info").text("Case tags:");
         $("#value_of_description_info").val(response.description);
         $("#value_of_priority_info").val(response.priority);
         $("#value_of_create_date_info").val(response.creationDate);
+        $("#value_of_update_date_info").val(response.updateDate);
         $("#value_of_tags_info").val(tagsToString);
         $("#steps_container").empty();
-
-         $(".buttons-container").empty();
-                $(".buttons-container").append(
-                                                "<div class='save-case-button' onclick='saveCase()'>Save</div>" +
-                                                "<div class='cancel-case-button' onclick='cancelCaseEditing()'>Cancel</div>"
-                                               );
+        $(".buttons-container").empty();
+        $(".buttons-container").append(
+                                         "<div class='save-case-button' onclick='saveCase()'>Save</div>" +
+                                         "<div class='cancel-case-button' onclick='cancelCaseEditing()'>Cancel</div>"
+                                        );
 
         for(var i = 0; i < response.steps.length; i++){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
@@ -239,12 +233,12 @@ function getCaseInfo(){
                             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
                             "                                                    <div class=\"select-step-type-container\">\n" +
                             "                                                        <select class=\"step-type-select-tag\">\n" +
-                            "                                                            <option value=\"0\" disabled selected>-----</option>\n" +
-                            "                                                            <option value=\"1\">Given</option>\n" +
-                            "                                                            <option value=\"2\">When</option>\n" +
-                            "                                                            <option value=\"3\">Then</option>\n" +
-                            "                                                            <option value=\"4\">And</option>\n" +
-                            "                                                            <option value=\"5\">But</option>\n" +
+                            "                                                            <option value=\"100\" disabled selected>-----</option>\n" +
+                            "                                                            <option value=\"0\">Given</option>\n" +
+                            "                                                            <option value=\"1\">When</option>\n" +
+                            "                                                            <option value=\"2\">Then</option>\n" +
+                            "                                                            <option value=\"3\">And</option>\n" +
+                            "                                                            <option value=\"4\">But</option>\n" +
                             "                                                        </select>\n" +
                             "                                                    </div>\n" +
                             "                                                   <input type=\"text\" class=\"step-code-line\">\n" +

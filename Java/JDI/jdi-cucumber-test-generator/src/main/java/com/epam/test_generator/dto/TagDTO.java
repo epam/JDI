@@ -46,4 +46,11 @@ public class TagDTO implements Serializable {
         return name.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return "TagDTO{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
 }

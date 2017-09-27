@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/cucumber/static/css/info.css">
         <link rel="shortcut icon" href="/cucumber/static/images/favicon.png" type="image/png">
         <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
 
     </head>
     <body>
@@ -41,7 +42,7 @@
 
                 <div class="wrapper_content">
                     <div class="button_wrapper">
-                         <button id="edit_step_button" onclick="javascript:PopUpManageStepSuggestions()">Edit step suggestions</button>
+                         <a href="/cucumber/suggestion_manager" id="edit_step_button">Edit step suggestions</a>
                     </div>
                     <table class="suit-table-container">
                         <tr>
@@ -60,7 +61,7 @@
                                                 <th>Description</th>
                                                 <th>Priority</th>
                                                 <th>Tag</th>
-                                                <th>Date</th>
+                                                <th>Update date</th>
                                             </tr>
                                         </thead>
 
@@ -110,6 +111,10 @@
                                         <tr>
                                             <td id="create_date_info">Suit create date:</td>
                                             <td><input readonly id="value_of_create_date_info" ></td>
+                                        </tr>
+                                        <tr id="case_update_info">
+                                            <td id="update_date_info">Suit create date:</td>
+                                            <td><input readonly id="value_of_update_date_info" ></td>
                                         </tr>
                                         <tr>
                                             <td id="tags_info">Suit tags:</td>
@@ -327,29 +332,6 @@
             </div>
         </div>
 
-        <div id="manage_step_suggestions">
-            <div class="b-popup" id="popup_manage_step_suggestions">
-                <div class="b-popup-content">
-                    <div class="popup_header">
-                        <div class="popup_name"></div>
-                        <div class="popup_close">
-                            <span onclick="PopUpHide('#popup_manage_step_suggestions')">X</span>
-                        </div>
-                    </div>
-
-                    <div class="popup_container table_suggestion_steps" id="table_suggestion_steps">
-                        <table id = "steps_table"></table>
-                    </div>
-                    <div class="popup_container add_step_suggestion_wrapper">
-                        <textarea id="step_suggestion"></textarea>
-                        <button class="add_step_button" onclick="addSuggestionStep()">Add step</button>
-                    </div>
-
-                    <div class="popup_exception"></div>
-                </div>
-            </div>
-        </div>
-
         <script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
         <script src="/cucumber/static/js/vendor/jquery-ui.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.min.js"></script>
@@ -374,7 +356,6 @@
         <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/case/filterCases.js"></script>
     </body>
 </html>
