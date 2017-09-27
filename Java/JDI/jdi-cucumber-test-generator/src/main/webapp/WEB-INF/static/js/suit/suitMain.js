@@ -228,28 +228,8 @@ function getCaseInfo(){
             $($(".step-type-select-tag")[i]).val(response.steps[i].type);
         }
         if(response.steps.length == 0){
-            $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
-                            "                                            <div>\n" +
-                            "                                                <img  class=\"handle-icon\" src=\"/cucumber/static/images/handle-icon.png\">\n" +
-                            "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
-                            "                                                    <div class=\"select-step-type-container\">\n" +
-                            "                                                        <select class=\"step-type-select-tag\">\n" +
-                            "                                                            <option value=\"100\" disabled selected>-----</option>\n" +
-                            "                                                            <option value=\"0\">Given</option>\n" +
-                            "                                                            <option value=\"1\">When</option>\n" +
-                            "                                                            <option value=\"2\">Then</option>\n" +
-                            "                                                            <option value=\"3\">And</option>\n" +
-                            "                                                            <option value=\"4\">But</option>\n" +
-                            "                                                        </select>\n" +
-                            "                                                    </div>\n" +
-                            "                                                   <input type=\"text\" class=\"step-code-line\">\n" +
-                            "                                                    <div style=\"clear: both; width: 0px;\"></div>\n" +
-                            "                                                </div>\n" +
-                            "                                                <img src=\"/cucumber/static/images/addRow-icon.png\" class=\"add-step-icon\">\n" +
-                            "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
-                            "                                            </div>\n" +
-                            "                                        </div>");
-            }
+            $("#steps_container").append("<a id='add_first_step_button'>Add step</a>");
+        }
     });
 }
 
