@@ -1,6 +1,7 @@
 package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.StepSuggestionDTO;
+import com.epam.test_generator.entities.StepType;
 import com.epam.test_generator.services.StepSuggestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,16 +23,17 @@ public class StepSuggestionController {
         return new ResponseEntity<>(stepSuggestionService.getStepsSuggestion(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/step_suggestion", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/step_suggestion", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<Void> addStepSuggestion(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
-        if (contentIsValid(stepSuggestionDTO)) {
-            stepSuggestionService.addStepSuggestion(stepSuggestionDTO);
-            return new ResponseEntity<Void>(HttpStatus.OK);
+    public ResponseEntity<StepSuggestionDTO> addStepSuggestion(@RequestBody StepSuggestionDTO stepSuggestionDTO) {
+        if (contentIsValid(stepSuggestionDTO) && typeIsValid(stepSuggestionDTO)) {
+
+            return new ResponseEntity<>(stepSuggestionService.addStepSuggestion(stepSuggestionDTO),HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
+
 
     @RequestMapping(value = "/step_suggestion/{stepSuggestionId}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
@@ -42,5 +44,9 @@ public class StepSuggestionController {
 
     private boolean contentIsValid(StepSuggestionDTO stepSuggestionDTO) {
         return stepSuggestionDTO.getContent() != null && stepSuggestionDTO.getContent().length() > 2;
+    }
+
+    private boolean typeIsValid(StepSuggestionDTO stepSuggestionDTO) {
+        return stepSuggestionDTO.getType() != null && stepSuggestionDTO.getType() >= 0 && stepSuggestionDTO.getType() <= StepType.values().length;
     }
 }
