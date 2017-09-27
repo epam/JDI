@@ -2,6 +2,7 @@ var suit_id = -1;
 var case_id = -1;
 
 $(document).ready(function () {
+    $("#case_update_info").hide();
     $('.accordion-tabs').on('click', 'li > div', function(event) {
         if (!$(this).hasClass('is-active')) {
             event.preventDefault();
@@ -101,7 +102,7 @@ function drawSuitPage(inputTags, isFiltered) {
     $("#cases_table_body").empty();
 
     for (var i = 0; i < filteredCases.length; i++) {
-        var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
+        var tagsToString = $.map(filteredCases[i].tags, function(tag){return tag.name;}).join(' ');
 
         $("#cases_table_body").append($('<tr>')
             .append($('<td>')

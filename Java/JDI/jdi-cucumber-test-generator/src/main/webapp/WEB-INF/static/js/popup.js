@@ -78,7 +78,7 @@ function PopUpTagFilter() {
     // Create base form
     createPopUp(400, 200, "Filter cases by tags");
 
-    axios.get("/cucumber/getAllTags").then(function(response) {
+    axios.get("/cucumber/tags").then(function(response) {
         var tags = response.data;
 
         $("#tags_list").append($('<li>'))
