@@ -4,8 +4,8 @@ import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dao.interfaces.TagDAO;
 import com.epam.test_generator.dto.CaseDTO;
-import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.transformers.CaseTransformer;
 import com.epam.test_generator.entities.Suit;
 
 import com.epam.test_generator.entities.Tag;
@@ -26,7 +26,7 @@ import java.util.Set;
 public class CaseService {
 
     @Autowired
-    private DozerMapper mapper;
+    private CaseTransformer caseTransformer;
 
     @Autowired
     private CaseDAO caseDAO;
@@ -39,34 +39,25 @@ public class CaseService {
 
     public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
         Suit suit = suitDAO.getOne(suitId);
-        Case caze = new Case();
-        mapper.map(cs, caze);
+        Case caze = caseTransformer.fromDto(cs);
 
         mergeTags(caze);
 
         suit.getCases().add(caze);
         suitDAO.save(suit);
 
-        mapper.map(caze, cs);
-
-        return cs;
+        return caseTransformer.toDto(caze);
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
-        List<CaseDTO> listDTO = new ArrayList<>();
         List<Case> list = suitDAO.findOne(suitId).getCases();
 
-        mapper.map(list, listDTO);
-
-        return listDTO;
+        return caseTransformer.toDtoList(list);
     }
 
     public CaseDTO getCase(Long id) {
-        CaseDTO dto = new CaseDTO();
 
-        mapper.map(caseDAO.getOne(id), dto);
-
-        return dto;
+        return caseTransformer.toDto(caseDAO.getOne(id));
     }
 
     public void removeCase(long suitId, long caseId) {
@@ -93,13 +84,13 @@ public class CaseService {
             caze.setSteps(new ArrayList<>());
             caze.setTags(new HashSet<>());
 
-            mapper.map(cs, caze);
+            caze = caseTransformer.fromDto(cs);
 
             mergeTags(caze);
 
             suit.getCases().add(caze);
             suitDAO.save(suit);
-            mapper.map(caze, cs);
+            cs = caseTransformer.toDto(caze);
         }
         return cs;
     }
