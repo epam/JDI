@@ -50,7 +50,6 @@ function getSuitInfo(suitId){
 
         $("#suit_name_info").show();
         $("#case_update_info").hide();
-
         $("#description_info").text("Suit description:");
         $("#priority_info").text("Suit priority:");
         $("#create_date_info").text("Suit create date:");
@@ -71,6 +70,7 @@ function getSuitInfo(suitId){
         $("#cases_table_body").empty();
 
         for(var i = 0; i < response.cases.length; i++){
+            var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
             $("#cases_table_body").append($('<tr>')
                                 .append($('<td>')
                                     .addClass('small_td')
@@ -87,8 +87,8 @@ function getSuitInfo(suitId){
                                     .text(response.cases[i].description)
                                 ).append($('<td>')
                                     .text(response.cases[i].priority)
-                                ).append($('<td>')
-                                    .text(response.cases[i].tags)
+                                ).append($('<td>').attr("class","tags_field").attr("title", tagsToString)
+                                    .text(tagsToString)
                                 ).append($('<td>')
                                     .text(response.cases[i].updateDate)
                                 ).append($('<td style="display: none;">')
@@ -109,32 +109,33 @@ function getSuitInfoWithOutCleanCases(suitId){
         $("#countCases").text(response.cases.length);
         $("#cases_table_body").empty();
 
-         for(var i = 0; i < response.cases.length; i++){
-                    $("#cases_table_body").append($('<tr>')
-                                        .append($('<td>')
-                                            .addClass('small_td')
-                                            .append($('<input>')
-                                                .attr('type', 'checkbox')
-                                            )
-                                            .append($('<input>')
-                                                .addClass('particular_caseId')
-                                                .attr('type', 'hidden')
-                                                .val(response.cases[i].id)
-                                            )
-                                        )
-                                        .append($('<td>')
-                                            .text(response.cases[i].description)
-                                        ).append($('<td>')
-                                            .text(response.cases[i].priority)
-                                        ).append($('<td>')
-                                            .text(response.cases[i].tags)
-                                        ).append($('<td>')
-                                            .text(response.cases[i].updateDate)
-                                        ).append($('<td style="display: none;">')
-                                            .text(response.cases[i].creationDate)
-                                        )
-                                    );
-                }
+        for(var i = 0; i < response.cases.length; i++){
+            var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
+            $("#cases_table_body").append($('<tr>')
+                                .append($('<td>')
+                                    .addClass('small_td')
+                                    .append($('<input>')
+                                        .attr('type', 'checkbox')
+                                    )
+                                    .append($('<input>')
+                                        .addClass('particular_caseId')
+                                        .attr('type', 'hidden')
+                                        .val(response.cases[i].id)
+                                    )
+                                )
+                                .append($('<td>')
+                                    .text(response.cases[i].description)
+                                ).append($('<td>')
+                                    .text(response.cases[i].priority)
+                                ).append($('<td >').attr("class","tags_field").attr("title", tagsToString)
+                                    .text(tagsToString)
+                                ).append($('<td>')
+                                    .text(response.cases[i].updateDate)
+                                ).append($('<td style="display: none;">')
+                                    .text(response.cases[i].creationDate)
+                                )
+                            );
+         }
 
         $('.tablesorter').trigger('update');
     });
@@ -149,6 +150,8 @@ function getCaseInfo(){
         $("#suit_name_info").hide();
         $("#case_update_info").show();
 
+        var tagsToString = $.map(response.tags, function(tag){return tag.name;}).join(' ');
+
         $("#description_info").text("Case description:");
         $("#priority_info").text("Case priority:");
         $("#create_date_info").text("Case create date:");
@@ -158,14 +161,13 @@ function getCaseInfo(){
         $("#value_of_priority_info").val(response.priority);
         $("#value_of_create_date_info").val(response.creationDate);
         $("#value_of_update_date_info").val(response.updateDate);
-        $("#value_of_tags_info").val(response.tags);
+        $("#value_of_tags_info").val(tagsToString);
         $("#steps_container").empty();
-
-         $(".buttons-container").empty();
-                $(".buttons-container").append(
-                                                "<div class='save-case-button' onclick='saveCase()'>Save</div>" +
-                                                "<div class='cancel-case-button' onclick='cancelCaseEditing()'>Cancel</div>"
-                                               );
+        $(".buttons-container").empty();
+        $(".buttons-container").append(
+                                         "<div class='save-case-button' onclick='saveCase()'>Save</div>" +
+                                         "<div class='cancel-case-button' onclick='cancelCaseEditing()'>Cancel</div>"
+                                        );
 
         for(var i = 0; i < response.steps.length; i++){
             $("#steps_container").append("<div class=\"sortable-step-container\">\n" +

@@ -2,18 +2,24 @@ package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
+import com.epam.test_generator.dao.interfaces.TagDAO;
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.transformers.CaseTransformer;
 import com.epam.test_generator.entities.Suit;
+
+import com.epam.test_generator.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 @Service
@@ -28,12 +34,19 @@ public class CaseService {
     @Autowired
     private SuitDAO suitDAO;
 
-    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
-        Case caze = caseTransformer.fromDto(cs);
-        suitDAO.getOne(suitId).getCases().add(caze);
-        caseDAO.save(caze);
+    @Autowired
+    private TagDAO tagDAO;
 
-        return cs;
+    public CaseDTO addCaseToSuit(CaseDTO cs, long suitId) {
+        Suit suit = suitDAO.getOne(suitId);
+        Case caze = caseTransformer.fromDto(cs);
+
+        mergeTags(caze);
+
+        suit.getCases().add(caze);
+        suitDAO.save(suit);
+
+        return caseTransformer.toDto(caze);
     }
 
     public List<CaseDTO> getCasesBySuitId(long suitId) {
@@ -67,8 +80,15 @@ public class CaseService {
 
         if (caze != null) {
             suit.getCases().remove(caze);
+
             caze.setSteps(new ArrayList<>());
-            suit.getCases().add(caseTransformer.fromDto(cs));
+            caze.setTags(new HashSet<>());
+
+            caze = caseTransformer.fromDto(cs);
+
+            mergeTags(caze);
+
+            suit.getCases().add(caze);
             suitDAO.save(suit);
             cs = caseTransformer.toDto(caze);
         }
@@ -87,5 +107,17 @@ public class CaseService {
         });
 
         suitDAO.save(suit);
+    }
+
+    private void mergeTags(Case caze){
+        Set<Tag> tags = new HashSet<>();
+        if(caze.getTags() != null) {
+            for (Tag tag : caze.getTags()) {
+                Tag tmp = tagDAO.findOne(Example.of(tag));
+                tag = (tmp == null) ? tag : tmp;
+                tags.add(tag);
+            }
+        }
+        caze.setTags(tags);
     }
 }

@@ -1,20 +1,14 @@
 package com.epam.test_generator.file_generator;
 
 
-import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Step;
-import com.epam.test_generator.entities.StepType;
-import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.entities.*;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class FileGeneratorTest extends Assert{
 
@@ -22,6 +16,7 @@ public class FileGeneratorTest extends Assert{
 
     private Suit suit;
     private List<Case> cases;
+    private Set<Tag> tags;
 
     @Before
     public void prepareFileGenerator(){
@@ -43,12 +38,14 @@ public class FileGeneratorTest extends Assert{
         caze1.setId(1L);
         caze1.setDescription("case1");
         caze1.setPriority(1);
-        caze1.setTags("");
+        caze1.setTags(null);
         Case caze2 = new Case();
         caze2.setId(2L);
         caze2.setDescription("case2");
         caze2.setPriority(1);
-        caze2.setTags("@tags");
+        tags = new HashSet<>();
+        tags.add(new Tag("@tags"));
+        caze2.setTags(tags);
 
         List<Step> steps=new ArrayList<>();
         Step step1 = new Step();
@@ -109,7 +106,7 @@ public class FileGeneratorTest extends Assert{
         caze1.setId(1L);
         caze1.setDescription("case3");
         caze1.setPriority(1);
-        caze1.setTags("");
+        caze1.setTags(null);
         cases.add(caze1);
         suit.setCases(cases);
 
@@ -123,7 +120,7 @@ public class FileGeneratorTest extends Assert{
 
     @Test(expected = NullPointerException.class)
     public void nullPointerSuitTest() throws IOException{
-        fileGenerator.generate(null,new ArrayList<Case>());
+        fileGenerator.generate(null,new ArrayList<>());
     }
 
     @Test(expected = NullPointerException.class)
@@ -152,7 +149,7 @@ public class FileGeneratorTest extends Assert{
         caze1.setId(1L);
         caze1.setDescription("case3");
         caze1.setPriority(1);
-        caze1.setTags("");
+        caze1.setTags(null);
         cases.add(caze1);
 
         File expectedFile = new File("src/test/resources/FileGeneratorTest2");

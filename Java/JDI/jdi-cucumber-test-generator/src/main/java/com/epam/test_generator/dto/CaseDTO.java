@@ -3,6 +3,7 @@ package com.epam.test_generator.dto;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 public class CaseDTO {
     private Long id;
@@ -17,7 +18,7 @@ public class CaseDTO {
 
     private Integer priority;
 
-    private String tags;
+    private Set<TagDTO> tags;
 
     public CaseDTO() {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -74,11 +75,11 @@ public class CaseDTO {
         this.priority = priority;
     }
 
-    public String getTags() {
+    public Set<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(Set<TagDTO> tags) {
         this.tags = tags;
     }
 
