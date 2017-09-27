@@ -1091,6 +1091,7 @@ p {margin:28px 0 3px 0;}
     border: 1px solid #dddddd;
     width: 475px;
     float: left;
+    padding: 5px;
 }
 .add_step_suggestion_wrapper{
     margin: 15px 5px;
