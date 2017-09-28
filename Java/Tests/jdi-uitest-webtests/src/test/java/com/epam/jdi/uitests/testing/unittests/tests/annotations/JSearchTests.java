@@ -20,7 +20,6 @@ public class JSearchTests extends InitTests {
         search.clear();
         search.find("JDI");
         supportPage.checkOpened();
-
     }
 
 

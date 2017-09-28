@@ -45,10 +45,7 @@ public class EpamJDISite extends WebSite {
     @FindBy(css = ".results")
     public static TextList<Enum> resultsLog;
 
-    @JMenu(
-            level1 = @JFindBy (css = ".uui-navigation.nav.navbar-nav.m-l8>li>a"),
-            level2 = @JFindBy (css = ".dropdown-menu>li>a")
-    ) public static IMenu menu;
+
 
 
 }

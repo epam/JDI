@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
+import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
@@ -82,10 +83,11 @@ public class MetalsColorsPage extends WebPage {
     @JDropList(
             jroot = @JFindBy(xpath = ".salad"),
             jlist = @JFindBy(tagName = "li")
-          //  jvalue = @JFindBy(css = ".filter-option")
+    //        jvalue = @JFindBy(tagName = "button")
+    ) public IDropList saladDL;
 
-    ) public IDropList colorsDL;
-
+    @JFindBy(id = "salad-dropdown")
+    public IButton button;
 
 
     @JComboBox(

@@ -27,8 +27,6 @@ public class JDropdownTests extends InitTests {
         new Check().areEquals(dropdown.getOptions(), options);
         dropdown.select("Blue");
         new Check().areEquals(dropdown.isSelected("Blue"), selectResult);
-
-
     }
 
     @Test(dataProvider = "dropdownData", dataProviderClass = JDropdownDP.class)
