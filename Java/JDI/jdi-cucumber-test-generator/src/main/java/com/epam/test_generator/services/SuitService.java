@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -31,25 +32,18 @@ public class SuitService {
     private SuitTransformer suitTransformer;
 
     public List<SuitDTO> getSuits() {
-        List<SuitDTO> suitDTOlist = new ArrayList<>();
-
-        for(Suit suit: suitDAO.findAll()){
-            suitDTOlist.add(suitTransformer.toDto(suit));
-        }
-
-        return suitDTOlist;
+        return suitDAO.findAll().stream().map(suit -> suitTransformer.toDto(suit))
+                                            .collect(Collectors.toList());
     }
 
     public SuitDTO getSuit(long id) {
-
         return suitTransformer.toDto(suitDAO.findOne(id));
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
-        Suit suit = suitDAO.getOne(suitDTO.getId());
-        List<Case> cases = suit.getCases();
+        List<Case> cases = suitDAO.getOne(suitDTO.getId()).getCases();
+        Suit suit = suitTransformer.fromDto(suitDTO);
 
-        suit = suitTransformer.fromDto(suitDTO);
         suit.setCases(cases);
 
         return suitTransformer.toDto(suitDAO.save(suit));
@@ -66,14 +60,9 @@ public class SuitService {
     }
 
     public String generateFile(Long suitId, List<Long> caseIds) throws IOException {
-
         Suit suit = suitDAO.getOne(suitId);
+        List<Case> cases = caseIds.stream().map(id -> caseDAO.getOne(id)).collect(Collectors.toList());
 
-        List<Case> cases = new ArrayList<>();
-
-        for (Long caseId : caseIds) {
-            cases.add(caseDAO.getOne(caseId));
-        }
         return fileGenerator.generate(suit, cases);
     }
 }
