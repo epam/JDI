@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -130,14 +129,9 @@ public class StepSuggestionService {
     }
 
     public List<StepSuggestionDTO> getStepsSuggestion() {
-        List<StepSuggestionDTO> stepSuggestionDTOList = new ArrayList<>();
-
-        for(StepSuggestion stepSuggestion : stepSuggestionDAO.findAll()){
-            StepSuggestionDTO stepSuggestionDTO = stepSuggestionTransformer.toDto(stepSuggestion);
-            stepSuggestionDTOList.add(stepSuggestionDTO);
-        }
-
-        return stepSuggestionDTOList;
+        return stepSuggestionDAO.findAll().stream()
+                .map((s)->stepSuggestionTransformer.toDto(s))
+                .collect(Collectors.toList());
     }
 
 

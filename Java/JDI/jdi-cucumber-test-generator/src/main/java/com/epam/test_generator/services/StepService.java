@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -33,13 +33,8 @@ public class StepService {
     }
 
     public List<StepDTO> getStepsByCaseId(Long caseId) {
-        List<StepDTO> list = new ArrayList<>();
-
-        for (Step step: caseDAO.findOne(caseId).getSteps()) {
-            list.add(stepTransformer.toDto(step));
-        }
-
-        return list;
+        return caseDAO.findOne(caseId).getSteps().stream().
+                map(step -> stepTransformer.toDto(step)).collect(Collectors.toList());
     }
 
     public void removeStep(Long id) {
@@ -47,7 +42,6 @@ public class StepService {
     }
 
     public StepDTO updateStep(Step step) {
-
         return stepTransformer.toDto(stepDAO.save(step));
     }
 
@@ -57,18 +51,14 @@ public class StepService {
 
     public void removeAllSteps(Long caseId) {
         Case caze = caseDAO.getOne(caseId);
-        List<Step> stepList = caze.getSteps();
 
-        for (Step st: stepList) {
-            stepDAO.delete(st.getId());
-        }
+        caze.getSteps().forEach(step -> stepDAO.delete(step));
+
         caze.setSteps(null);
         caseDAO.save(caze);
     }
 
     public void addSteps(Long caseId, List<StepDTO> steps) {
-        for (StepDTO st: steps) {
-            addStep(st, caseId);
-        }
+        steps.forEach(stepDTO -> addStep(stepDTO,caseId));
     }
 }

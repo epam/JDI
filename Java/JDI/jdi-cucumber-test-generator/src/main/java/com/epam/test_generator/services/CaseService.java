@@ -8,7 +8,6 @@ import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.transformers.CaseTransformer;
 import com.epam.test_generator.entities.Suit;
 
-import com.epam.test_generator.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -97,27 +96,18 @@ public class CaseService {
 
     public void removeCases(long suitId, List<Long> caseIds) {
         Suit suit = suitDAO.getOne(suitId);
-        suit.getCases().removeIf((c) -> {
-            for (Long caseId : caseIds) {
-                if (c.getId().equals(caseId)){
-                    return true;
-                }
-            }
-            return false;
-        });
+        suit.getCases()
+                .removeIf(caze -> caseIds.stream()
+                        .anyMatch(id -> id.equals(caze.getId())));
 
         suitDAO.save(suit);
     }
 
     private void mergeTags(Case caze){
-        Set<Tag> tags = new HashSet<>();
-        if(caze.getTags() != null) {
-            for (Tag tag : caze.getTags()) {
-                Tag tmp = tagDAO.findOne(Example.of(tag));
-                tag = (tmp == null) ? tag : tmp;
-                tags.add(tag);
-            }
+        if(caze.getTags() !=null){
+            caze.setTags(caze.getTags().stream()
+                    .map(tag -> tagDAO.findOne(Example.of(tag))==null ? tag : tagDAO.findOne(Example.of(tag)))
+                    .collect(Collectors.toSet()));
         }
-        caze.setTags(tags);
     }
 }
