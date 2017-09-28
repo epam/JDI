@@ -1,7 +1,7 @@
 package com.epam.test_generator.services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.epam.test_generator.dao.interfaces.TagDAO;
 import com.epam.test_generator.dto.TagDTO;
@@ -28,14 +28,9 @@ public class TagService {
 	}
 
 	public List<TagDTO> getTags() {
-		List<Tag> tags = tagDAO.findAll();
-		List<TagDTO> result = new ArrayList<>();
-
-		for(Tag tag : tags){
-			result.add(tagTransformer.toDto(tag));
-		}
-
-		return result;
+		return tagDAO.findAll().stream()
+				.map((t)-> tagTransformer.toDto(t))
+				.collect(Collectors.toList());
 	}
 
 }
