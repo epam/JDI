@@ -5,6 +5,7 @@ import com.epam.test_generator.dao.interfaces.SuitDAO;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.transformers.CaseTransformer;
 import com.epam.test_generator.transformers.SuitTransformer;
 import com.epam.test_generator.file_generator.FileGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class SuitService {
 
     @Autowired
     private SuitTransformer suitTransformer;
+
+    @Autowired
+    private CaseTransformer caseTransformer;
 
     public List<SuitDTO> getSuits() {
         return suitDAO.findAll().stream().map(suit -> suitTransformer.toDto(suit))
@@ -63,6 +67,6 @@ public class SuitService {
         Suit suit = suitDAO.getOne(suitId);
         List<Case> cases = caseIds.stream().map(id -> caseDAO.getOne(id)).collect(Collectors.toList());
 
-        return fileGenerator.generate(suit, cases);
+        return fileGenerator.generate(suitTransformer.toDto(suit), caseTransformer.toDtoList(cases));
     }
 }
