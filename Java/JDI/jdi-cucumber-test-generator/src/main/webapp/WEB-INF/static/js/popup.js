@@ -69,8 +69,6 @@ function PopUpAddCase(){
     $("#popup_add_case").show();
 }
 
-var previouslySelectedTags = [];
-
 // Create popUp form for create new Case
 function PopUpTagFilter() {
     $("#tags_list").empty();
@@ -84,12 +82,10 @@ function PopUpTagFilter() {
         $("#tags_list").append($('<li>'))
             .append($('<input>').attr('type', 'checkbox')
                 .attr('class', 'checkedAllTags')
-                .attr('value', 'true')
-                .attr('checked', (previouslySelectedTags.length == 0? true : false)))
+                .attr('value', 'true'))
             .append($('<span>').text('  Show all cases'));
 
         for (var i = 0; i < tags.length; i++) {
-
             $("#tags_list").append($('<li>'))
                 .append($('<input>').attr('type', 'checkbox')
                     .attr('class', 'checkedTags')
