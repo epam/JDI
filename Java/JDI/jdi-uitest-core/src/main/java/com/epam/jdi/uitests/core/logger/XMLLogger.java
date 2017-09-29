@@ -2,6 +2,9 @@ package com.epam.jdi.uitests.core.logger;
 
 import org.apache.log4j.Logger;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Logger in XML format class.
  */
@@ -9,8 +12,15 @@ public class XMLLogger {
 
     private Logger log;
 
+    private SimpleDateFormat dateFormat;
+
     public XMLLogger(Class clazz) {
         this.log = Logger.getLogger(clazz);
+    }
+
+    public XMLLogger(Class clazz, String timePatternLayout) {
+        this.log = Logger.getLogger(clazz);
+        this.dateFormat = new SimpleDateFormat(timePatternLayout);
     }
 
     /**
@@ -156,7 +166,7 @@ public class XMLLogger {
      * @param lambda Lambda expression without arguments which will be executed.
      */
     public void log (LogLevels logLevel, String message, ILambdaExpression lambda){
-        log.info("<" + logLevel.toString().toLowerCase() + ">" + message);
+        log.info("<" + logLevel.toString().toLowerCase() + getCurrentTime() + ">" + message);
         lambda.doInternalAction();
         log.info("</" + logLevel.toString().toLowerCase() + ">");
     }
@@ -167,7 +177,12 @@ public class XMLLogger {
      * @param message Message to be shown in logging file.
      */
     public void log(LogLevels logLevel, String message) {
-        log.info("<" + logLevel.toString().toLowerCase() + ">" + message + "</" + logLevel.toString().toLowerCase() + ">");
+        log.info("<" + logLevel.toString().toLowerCase() + getCurrentTime() + ">"
+                + message + "</" + logLevel.toString().toLowerCase() + ">");
+    }
+
+    private String getCurrentTime(){
+        return dateFormat != null ? " t=\"" + dateFormat.format(new Date()) + "\"" : "";
     }
 }
 
@@ -176,7 +191,7 @@ public class XMLLogger {
  */
 class Test {
 
-    private XMLLogger xmlLogger = new XMLLogger(Test.class);
+    private XMLLogger xmlLogger = new XMLLogger(ILogger.class, "yyyy-MM-dd HH:mm:ss");
 
     public static void main(String[] args) {
         Test test = new Test();
