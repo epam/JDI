@@ -41,6 +41,14 @@
             <version>1.9.0</version>
         </dependency>
 
+        <!-- Code generation (Lombok) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Test (JUnit 5 & Mockito) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
