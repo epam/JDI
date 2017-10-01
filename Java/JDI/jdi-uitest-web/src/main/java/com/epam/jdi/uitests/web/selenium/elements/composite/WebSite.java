@@ -19,7 +19,6 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 
 import com.epam.jdi.uitests.core.interfaces.Application;
-import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;

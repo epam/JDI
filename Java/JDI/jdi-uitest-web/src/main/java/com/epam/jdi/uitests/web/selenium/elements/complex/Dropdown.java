@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
-import com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 

@@ -3,10 +3,7 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.sections;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IImage;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
-import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.support.FindBy;
 
 /**

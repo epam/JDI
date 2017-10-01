@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
  */
 
 
-import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.IText;

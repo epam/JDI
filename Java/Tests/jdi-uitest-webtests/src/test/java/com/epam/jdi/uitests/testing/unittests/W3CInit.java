@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests;
 
 import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.w3cSite.W3cSite;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import com.epam.web.matcher.verify.Verify;
