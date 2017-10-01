@@ -4,6 +4,8 @@ import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.JdiPaginator;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 
 /**
@@ -12,6 +14,13 @@ import org.openqa.selenium.By;
 public class SimpleTablePage extends WebPage {
     private Table simpleTable;
     public JdiPaginator pagination;
+
+
+
+    @JTable(
+            jRoot = @JFindBy(css = ".tbl-height"),
+            header = {"Column 1",  "Column 2"}
+    )public ITable table;
 
     public ITable getTable(By rowHeader, By columnHeader, By row, By column) {
 

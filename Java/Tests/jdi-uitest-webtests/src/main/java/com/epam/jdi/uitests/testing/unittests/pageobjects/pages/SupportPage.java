@@ -5,6 +5,7 @@ import com.epam.jdi.uitests.testing.unittests.entities.SupportEntity;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.support.FindBy;
 
@@ -13,7 +14,25 @@ import org.openqa.selenium.support.FindBy;
  */
 public class SupportPage extends WebPage {
     //@FindBy(css = ".uui-table")
-@FindBy(css = "table[class='uui-table stripe']")
+
+
+    @JTable(
+            jRoot = @JFindBy(css = ".uui-table.stripe")
+
+    ) public ITable tableRoot;
+
+    @JTable(
+            jRoot = @JFindBy(css = ".uui-table.stripe"),
+            header = {"Type", 	"Now", 	"Plans"}
+    ) public ITable tableRootRowHeader;
+
+    @JTable(
+            jRoot = @JFindBy(css = ".uui-table.stripe>tbody"),
+            header = {"Type", 	"Now", 	"Plans"},
+            jRow = @JFindBy(tagName = "tr")
+    ) public ITable tableRootHeaderRow;
+
+    @FindBy(css = "table[class='uui-table stripe']")
     public ITable supportTable;
     @FindBy(css = ".uui-table")
     public ITable tableWithHeaders = new Table().hasAllHeaders();
