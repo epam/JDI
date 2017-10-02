@@ -2,6 +2,10 @@ var suit_id = -1;
 var case_id = -1;
 
 $(document).ready(function () {
+    $("#tags_list").on('click', '.checkedAllTags', function(){
+        $('.checkedTags').not(this).prop('checked', this.checked);
+    });
+
     $("#case_update_info").hide();
     $('.accordion-tabs').on('click', 'li > div', function(event) {
         if (!$(this).hasClass('is-active')) {
@@ -47,6 +51,7 @@ $(document).ready(function () {
 
 var currentSuit;
 var filteredCases;
+var previouslySelectedTags = [];
 
 function getSuitInfo(suitId) {
     $.get("/cucumber/suit/" + suitId, function(response) {
@@ -136,42 +141,70 @@ function drawSuitPage(inputTags, isFiltered) {
 }
 
 function getSuitInfoWithOutCleanCases(suitId){
-    $.get("/cucumber/suit/" + suitId, function(response){
-        suit_id = response.id;
-        $("#countCases").text(response.cases.length);
-        $("#cases_table_body").empty();
-
-        for(var i = 0; i < response.cases.length; i++){
-            var tagsToString = $.map(response.cases[i].tags, function(tag){return tag.name;}).join(' ');
-            $("#cases_table_body").append($('<tr>')
-                                .append($('<td>')
-                                    .addClass('small_td')
-                                    .append($('<input>')
-                                        .attr('type', 'checkbox')
-                                    )
-                                    .append($('<input>')
-                                        .addClass('particular_caseId')
-                                        .attr('type', 'hidden')
-                                        .val(response.cases[i].id)
-                                    )
-                                )
-                                .append($('<td>')
-                                    .text(response.cases[i].description)
-                                ).append($('<td>')
-                                    .text(response.cases[i].priority)
-                                ).append($('<td >').attr("class","tags_field").attr("title", tagsToString)
-                                    .text(tagsToString)
-                                ).append($('<td>')
-                                    .text(response.cases[i].updateDate)
-                                ).append($('<td style="display: none;">')
-                                    .text(response.cases[i].creationDate)
-                                )
-                            );
-         }
-
-        $('.tablesorter').trigger('update');
+    $.get("/cucumber/suit/" + suitId, function(response) {
+        currentSuit = response;
+        $('#search_tag').val('');
+        drawSuitPageWithOutCleanCases(null, false);
     });
+}
 
+
+function drawSuitPageWithOutCleanCases(inputTags, isFiltered){
+    suit_id = currentSuit.id;
+
+    if (isFiltered) {
+        filteredCases = _.filter(currentSuit.cases, function (caze) {
+            var names = [];
+            var tags = caze.tags;
+
+            for (var i = 0; i < tags.length; i++) {
+                names[i] = tags[i].name;
+            }
+
+            for (var i = 0; i < inputTags.length; i++) {
+                if (_.includes(names, inputTags[i])) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+    } else {
+        filteredCases = currentSuit.cases;
+    }
+
+    $("#countCases").text(filteredCases.length);
+    $("#cases_table_body").empty();
+
+    for(var i = 0; i <filteredCases.length; i++){
+        var tagsToString = $.map(filteredCases[i].tags, function(tag){return tag.name;}).join(' ');
+        $("#cases_table_body").append($('<tr>')
+                            .append($('<td>')
+                                .addClass('small_td')
+                                .append($('<input>')
+                                    .attr('type', 'checkbox')
+                                )
+                                .append($('<input>')
+                                    .addClass('particular_caseId')
+                                    .attr('type', 'hidden')
+                                    .val(filteredCases[i].id)
+                                )
+                            )
+                            .append($('<td>')
+                                .text(filteredCases[i].description)
+                            ).append($('<td>')
+                                .text(filteredCases[i].priority)
+                            ).append($('<td >').attr("class","tags_field").attr("title", tagsToString)
+                                .text(tagsToString)
+                            ).append($('<td>')
+                                .text(filteredCases[i].updateDate)
+                            ).append($('<td style="display: none;">')
+                                .text(filteredCases[i].creationDate)
+                            )
+                        );
+     }
+
+    $('.tablesorter').trigger('update');
 
     disableCaseButtons();
 }

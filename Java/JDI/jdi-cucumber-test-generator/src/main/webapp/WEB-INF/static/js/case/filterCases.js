@@ -1,11 +1,9 @@
 function filterCases() {
-    var isAllChecked = $('.checkedAllTags:checked').map(
-        function () {
-            return this.value;
-        }).get();
+    var isAllChecked = $('.checkedAllTags').is(":checked");
 
-    if (isAllChecked == 'true') {
+    if (isAllChecked == true) {
         drawSuitPage(null, false);
+        previouslySelectedTags = [];
     } else {
         var checkedTags = $('.checkedTags:checked').map(
             function () {
@@ -13,7 +11,6 @@ function filterCases() {
             }).get();
 
         previouslySelectedTags = checkedTags;
-
         drawSuitPage(checkedTags, true);
     }
 
