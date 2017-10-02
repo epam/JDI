@@ -1,6 +1,9 @@
 package com.epam.jdi.uitests.core.logger;
 
+import com.epam.commons.linqinterfaces.JAction;
 import org.apache.log4j.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Logger in XML format class.
@@ -9,102 +12,44 @@ public class XMLLogger {
 
     private Logger log;
 
+    private SimpleDateFormat dateFormat;
+
+    public XMLLogger() {
+        this.log = Logger.getLogger("JDI Logger");
+    }
+
+    public XMLLogger(String name) {
+        this.log = Logger.getLogger(name);
+    }
+
     public XMLLogger(Class clazz) {
         this.log = Logger.getLogger(clazz);
     }
 
+    public XMLLogger(SimpleDateFormat timePatternLayout) {
+        this.log = Logger.getLogger("JDI Logger");
+        this.dateFormat = timePatternLayout;
+    }
+
+    public XMLLogger(String name, SimpleDateFormat timePatternLayout) {
+        this.log = Logger.getLogger(name);
+        this.dateFormat = timePatternLayout;
+    }
+
+    public XMLLogger(Class clazz, SimpleDateFormat timePatternLayout) {
+        this.log = Logger.getLogger(clazz);
+        this.dateFormat = timePatternLayout;
+    }
+
     /**
-     * Adds logs with "info" level into logging file and console and executes another internal method.
+     * Adds logs with "trace" level into logging file and console and executes another internal method.
      * @param message Message to be shown in logging file and console.
      * @param lambda Lambda expression without arguments which will be executed.
      */
-    public void info(String message, ILambdaExpression lambda) {
-        log(LogLevels.INFO, message, lambda);
-    }
-
-    /**
-     * Adds logs with "info" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void info(String message) {
-        log(LogLevels.INFO, message);
-    }
-
-    /**
-     * Adds logs with "warn" level into logging file and console and executes another internal method.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void warn(String message, ILambdaExpression lambda) {
-        log(LogLevels.WARNING, message, lambda);
-    }
-
-    /**
-     * Adds logs with "warn" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void warn(String message) {
-        log(LogLevels.WARNING, message);
-    }
-
-    /**
-     * Adds logs with "off" level into logging file and executes another internal method.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void off(String message, ILambdaExpression lambda) {
-        log(LogLevels.OFF, message, lambda);
-    }
-
-    /**
-     * Adds logs with "off" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void off(String message) {
-        log(LogLevels.OFF, message);
-    }
-
-    /**
-     * Adds logs with "error" level into logging file and console and executes another internal method.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void error(String message, ILambdaExpression lambda) {
-        log(LogLevels.ERROR, message, lambda);
-    }
-
-    /**
-     * Adds logs with "error" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void error(String message) {
-        log(LogLevels.ERROR, message);
-    }
-
-    /**
-     * Adds logs with "debug" level into logging file and console and executes another internal method.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void debug(String message, ILambdaExpression lambda) {
-        log(LogLevels.DEBUG, message, lambda);
-    }
-
-    /**
-     * Adds logs with "debug" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void debug(String message) {
-        log(LogLevels.DEBUG, message);
-    }
-
-    /**
-     * Adds logs with "trace" level into logging file and executes another internal method and console.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void trace(String message, ILambdaExpression lambda) {
-        log(LogLevels.TRACE, message, lambda);
+    public void trace(String message, JAction lambda) {
+        log.trace("<trace" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.trace("</trace>");
     }
 
     /**
@@ -112,7 +57,88 @@ public class XMLLogger {
      * @param message Message to be shown in logging file and console.
      */
     public void trace(String message) {
-        log(LogLevels.TRACE, message);
+        log.trace("<trace" + getFormattedDate() + ">"
+                + message + "</trace>");
+    }
+
+    /**
+     * Adds logs with "debug" level into logging file and console and executes another internal method.
+     * @param message Message to be shown in logging file and console.
+     * @param lambda Lambda expression without arguments which will be executed.
+     */
+    public void debug(String message, JAction lambda) {
+        log.debug("<debug" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.debug("</debug>");
+    }
+
+    /**
+     * Adds logs with "debug" level into logging file and console.
+     * @param message Message to be shown in logging file and console.
+     */
+    public void debug(String message) {
+        log.debug("<debug" + getFormattedDate() + ">"
+                + message + "</debug>");
+    }
+
+    /**
+     * Adds logs with "info" level into logging file and console and executes another internal method.
+     * @param message Message to be shown in logging file and console.
+     * @param lambda Lambda expression without arguments which will be executed.
+     */
+    public void info(String message, JAction lambda) {
+        log.info("<info" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.info("</info>");
+    }
+
+    /**
+     * Adds logs with "info" level into logging file and console.
+     * @param message Message to be shown in logging file and console.
+     */
+    public void info(String message) {
+        log.info("<info" + getFormattedDate() + ">"
+                + message + "</info>");
+    }
+
+    /**
+     * Adds logs with "warn" level into logging file and console and executes another internal method.
+     * @param message Message to be shown in logging file and console.
+     * @param lambda Lambda expression without arguments which will be executed.
+     */
+    public void warn(String message, JAction lambda) {
+        log.warn("<warn" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.warn("</warn>");
+    }
+
+    /**
+     * Adds logs with "warn" level into logging file and console.
+     * @param message Message to be shown in logging file and console.
+     */
+    public void warn(String message) {
+        log.warn("<warn" + getFormattedDate() + ">"
+                + message + "</warn>");
+    }
+
+    /**
+     * Adds logs with "error" level into logging file and console and executes another internal method.
+     * @param message Message to be shown in logging file and console.
+     * @param lambda Lambda expression without arguments which will be executed.
+     */
+    public void error(String message, JAction lambda) {
+        log.error("<error" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.error("</error>");
+    }
+
+    /**
+     * Adds logs with "error" level into logging file and console.
+     * @param message Message to be shown in logging file and console.
+     */
+    public void error(String message) {
+        log.error("<error" + getFormattedDate() + ">"
+                + message + "</error>");
     }
 
     /**
@@ -120,8 +146,10 @@ public class XMLLogger {
      * @param message Message to be shown in logging file and console.
      * @param lambda Lambda expression without arguments which will be executed.
      */
-    public void fatal(String message, ILambdaExpression lambda) {
-        log(LogLevels.FATAL, message, lambda);
+    public void fatal(String message, JAction lambda) {
+        log.fatal("<fatal" + getFormattedDate() + ">" + message);
+        lambda.invoke();
+        log.fatal("</fatal>");
     }
 
     /**
@@ -129,24 +157,8 @@ public class XMLLogger {
      * @param message Message to be shown in logging file and console.
      */
     public void fatal(String message) {
-        log(LogLevels.FATAL, message);
-    }
-
-    /**
-     * Adds logs with "all" level into logging file and console and executes another internal method.
-     * @param message Message to be shown in logging file and console.
-     * @param lambda Lambda expression without arguments which will be executed.
-     */
-    public void all(String message, ILambdaExpression lambda) {
-        log(LogLevels.ALL, message, lambda);
-    }
-
-    /**
-     * Adds logs with "all" level into logging file and console.
-     * @param message Message to be shown in logging file and console.
-     */
-    public void all(String message) {
-        log(LogLevels.ALL, message);
+        log.fatal("<fatal" + getFormattedDate() + ">"
+                + message + "</fatal>");
     }
 
     /**
@@ -155,10 +167,32 @@ public class XMLLogger {
      * @param message Message to be shown in logging file.
      * @param lambda Lambda expression without arguments which will be executed.
      */
-    public void log (LogLevels logLevel, String message, ILambdaExpression lambda){
-        log.info("<" + logLevel.toString().toLowerCase() + ">" + message);
-        lambda.doInternalAction();
-        log.info("</" + logLevel.toString().toLowerCase() + ">");
+    public void log (LogLevels logLevel, String message, JAction lambda){
+        switch(logLevel) {
+            case ALL:
+                trace(message, lambda);
+                break;
+            case TRACE:
+                trace(message, lambda);
+                break;
+            case DEBUG:
+                debug(message, lambda);
+                break;
+            case INFO:
+                info(message, lambda);
+                break;
+            case WARNING:
+                warn(message, lambda);
+                break;
+            case ERROR:
+                error(message, lambda);
+                break;
+            case FATAL:
+                fatal(message, lambda);
+                break;
+            case OFF :
+                break;
+        }
     }
 
     /**
@@ -167,40 +201,32 @@ public class XMLLogger {
      * @param message Message to be shown in logging file.
      */
     public void log(LogLevels logLevel, String message) {
-        log.info("<" + logLevel.toString().toLowerCase() + ">" + message + "</" + logLevel.toString().toLowerCase() + ">");
-    }
-}
-
-/**
- * Test class that shows functionality of XMLLogger.
- */
-class Test {
-
-    private XMLLogger xmlLogger = new XMLLogger(Test.class);
-
-    public static void main(String[] args) {
-        Test test = new Test();
-
-        test.method1();
-    }
-
-    void method1() {
-        xmlLogger.info("message1");
-        xmlLogger.debug("message2");
-        xmlLogger.off("message3");
-        xmlLogger.all("message4");
-        method2();
-    }
-
-    void method2() {
-        xmlLogger.info("message5", () -> method3());
+        switch(logLevel) {
+            case ALL:
+            case TRACE:
+                trace(message);
+                break;
+            case DEBUG:
+                debug(message);
+                break;
+            case INFO:
+                info(message);
+                break;
+            case WARNING:
+                warn(message);
+                break;
+            case ERROR:
+                error(message);
+                break;
+            case FATAL:
+                fatal(message);
+                break;
+            case OFF :
+                break;
+        }
     }
 
-    void method3() {
-        xmlLogger.error("message6", () -> method4());
-    }
-
-    void method4() {
-        xmlLogger.debug("message7");
+    private String getFormattedDate(){
+        return dateFormat != null ? " t=\"" + dateFormat.format(new Date()) + "\"" : "";
     }
 }
