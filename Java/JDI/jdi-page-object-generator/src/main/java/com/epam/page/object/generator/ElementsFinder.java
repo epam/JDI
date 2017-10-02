@@ -37,7 +37,8 @@ public class ElementsFinder {
     }
 
     private static Elements searchElementsByRuleOnURL(SearchRule rule, Document document) {
-		Elements resultsOfSearchByTag = new Elements();
+        Elements resultsOfSearch = new Elements();
+        Elements resultsOfSearchByTag = new Elements();
 		Elements resultsOfSearchByClasses = new Elements();
 		Elements resultsOfSearchByAttributes = new Elements();
 
@@ -48,20 +49,31 @@ public class ElementsFinder {
 		if (document != null) {
 			if (rule.getTag() != null) {
 				resultsOfSearchByTag = document.select(rule.getTag());
+				resultsOfSearch = resultsOfSearchByTag;
 			}
 
 			if (!rule.getClasses().isEmpty()) {
 				resultsOfSearchByClasses = document.select(prepareCSSQuerySelectorByClasses(rule.getClasses()));
-				resultsOfSearchByTag.retainAll(resultsOfSearchByClasses);
+
+				if (rule.getTag() == null) {
+				    resultsOfSearch = resultsOfSearchByClasses;
+                } else {
+                    resultsOfSearch.retainAll(resultsOfSearchByClasses);
+                }
 			}
 
 			if (!rule.getAttributes().isEmpty()) {
 				resultsOfSearchByAttributes = searchElelemntsInDocumentByAttributeValues(document, rule.getAttributes());
-				resultsOfSearchByTag.retainAll(resultsOfSearchByAttributes);
+
+                if (rule.getTag() == null && rule.getClasses().isEmpty()) {
+                    resultsOfSearch = resultsOfSearchByAttributes;
+                } else {
+                    resultsOfSearch.retainAll(resultsOfSearchByAttributes);
+                }
 			}
 		}
 
-        return resultsOfSearchByTag;
+        return resultsOfSearch;
     }
 
 
