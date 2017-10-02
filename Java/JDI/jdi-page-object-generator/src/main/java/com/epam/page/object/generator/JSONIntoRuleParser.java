@@ -89,6 +89,8 @@ public class JSONIntoRuleParser {
 		for (SearchRule searchRule : searchRules) {
 			logger.info(searchRule.toString());
 		}
+
+
 	}
 
 }

@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class ElementsFinder {
 
-    // метод, который ищет элементы по набору правил
     public static Map<SearchRule, Elements> searchElementsByRulesOnURLs(List<SearchRule> rules, List<String> urls) throws Exception {
         Map<SearchRule, Elements> searchResults = new HashMap<>();
 
@@ -25,7 +24,6 @@ public class ElementsFinder {
         return searchResults;
     }
 
-    //    метод для поиска элементов по отдельному правилу при помощи JSOUP
     private static Elements searchElementsByRuleOnURL(SearchRule rule, String url) throws Exception {
         Document document = Jsoup.connect(url).get();
         Elements resultsOfSearch = new Elements();
@@ -33,7 +31,7 @@ public class ElementsFinder {
         Elements resultsOfSearchByClasses = new Elements();
         Elements resultsOfSearchByAttributes = new Elements();
 
-//Для оффлайн-режима
+        // For offline mode:
 //        String html = "<p>An <a href='http://example.com/'><b class=\"testclass1 testclass2\" attr1=\"attr1value\" attr2=\"attr2value\">example</b></a> link.</p>";
 //        Document document = Jsoup.parse(html);
 
@@ -85,6 +83,3 @@ public class ElementsFinder {
         return searchResults;
     }
 }
-
-
-
