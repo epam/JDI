@@ -1,6 +1,7 @@
-package com.epam.page.object.generator;
+package com.epam.page.object.generator.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SearchRule {
 
@@ -49,6 +50,27 @@ public class SearchRule {
 
 	public void setAttributes(List<ElementAttribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof SearchRule)) {
+			return false;
+		}
+		SearchRule that = (SearchRule) o;
+
+		return isSearchingByText() == that.isSearchingByText() &&
+			Objects.equals(getTag(), that.getTag()) &&
+			Objects.equals(getClasses(), that.getClasses()) &&
+			Objects.equals(getAttributes(), that.getAttributes());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getTag(), isSearchingByText(), getClasses(), getAttributes());
 	}
 
 	@Override

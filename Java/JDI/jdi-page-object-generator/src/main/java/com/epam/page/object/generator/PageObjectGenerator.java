@@ -35,4 +35,5 @@ public class PageObjectGenerator {
 	public void setOutputDir(String outputDir) {
 		this.outputDir = outputDir;
 	}
+
 }

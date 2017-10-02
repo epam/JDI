@@ -1,32 +1,32 @@
-package com.epam.page.object.generator;
+package com.epam.page.object.generator.finder;
 
+import com.epam.page.object.generator.model.ElementAttribute;
+import com.epam.page.object.generator.model.SearchRule;
 import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
 public class ElementsFinder {
 
-	private static final Logger logger = LogManager.getLogger(ElementsFinder.class);
-
-    public static Map<SearchRule, Elements> searchElementsByRulesOnURLs(List<SearchRule> rules, List<String> urls) {
+	/**
+	 * Connect by urls and searching suitable elements by input search rules.
+	 * @param rules Search rules.
+	 * @param urls URLs.
+	 * @return Map with all elements for suitable search rule (rule is key for map).
+	 * @throws IOException If can't connect by current URL.
+	 * @throws IllegalArgumentException If URL format is not valid.
+	 */
+	public static Map<SearchRule, Elements> searchElementsByRulesOnURLs(List<SearchRule> rules, List<String> urls)
+		throws IOException, IllegalArgumentException {
         Map<SearchRule, Elements> searchResults = new HashMap<>();
-		Document currentDocument = null;
 
         for (String currentURL : urls) {
-			try {
-				currentDocument = Jsoup.connect(currentURL).get();
-			} catch (IOException ex) {
-				logger.error(ex);
-			}
+			Document currentDocument = Jsoup.connect(currentURL).get();
 
             for (SearchRule currentRule : rules) {
                 searchResults.put(currentRule, searchElementsByRuleOnURL(currentRule, currentDocument));
@@ -38,13 +38,9 @@ public class ElementsFinder {
 
     private static Elements searchElementsByRuleOnURL(SearchRule rule, Document document) {
         Elements resultsOfSearch = new Elements();
-        Elements resultsOfSearchByTag = new Elements();
-		Elements resultsOfSearchByClasses = new Elements();
-		Elements resultsOfSearchByAttributes = new Elements();
-
-        // For offline mode:
-//        String html = "<p>An <a href='http://example.com/'><b class=\"testclass1 testclass2\" attr1=\"attr1value\" attr2=\"attr2value\">example</b></a> link.</p>";
-//        Document document = Jsoup.parse(html);
+        Elements resultsOfSearchByTag;
+		Elements resultsOfSearchByClasses;
+		Elements resultsOfSearchByAttributes;
 
 		if (document != null) {
 			if (rule.getTag() != null) {
@@ -63,7 +59,7 @@ public class ElementsFinder {
 			}
 
 			if (!rule.getAttributes().isEmpty()) {
-				resultsOfSearchByAttributes = searchElelemntsInDocumentByAttributeValues(document, rule.getAttributes());
+				resultsOfSearchByAttributes = searchElementsInDocumentByAttributeValues(document, rule.getAttributes());
 
                 if (rule.getTag() == null && rule.getClasses().isEmpty()) {
                     resultsOfSearch = resultsOfSearchByAttributes;
@@ -76,7 +72,6 @@ public class ElementsFinder {
         return resultsOfSearch;
     }
 
-
     private static String prepareCSSQuerySelectorByClasses (List<String> classes) {
         StringBuilder selector = new StringBuilder();
 
@@ -88,14 +83,15 @@ public class ElementsFinder {
         return selector.toString();
     }
 
-    private static Elements searchElelemntsInDocumentByAttributeValues (Element document, List<ElementAttribute> attributes) {
+    private static Elements searchElementsInDocumentByAttributeValues(Element document, List<ElementAttribute> attributes) {
         Elements searchResults = new Elements();
 
         checkNextElement:
-        for( Element currentElement : document.getAllElements() )
+        for (Element currentElement : document.getAllElements())
         {
             for (ElementAttribute currentAttribute: attributes) {
-                if (currentElement.attr(currentAttribute.getAttributeName()) == null || !currentElement.attr(currentAttribute.getAttributeName()).equals(currentAttribute.getAttributeValue())) {
+                if (currentElement.attr(currentAttribute.getAttributeName()) == null
+					|| !currentElement.attr(currentAttribute.getAttributeName()).equals(currentAttribute.getAttributeValue())) {
                     continue checkNextElement;
                 }
             }

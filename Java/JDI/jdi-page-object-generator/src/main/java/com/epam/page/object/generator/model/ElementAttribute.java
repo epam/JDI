@@ -1,4 +1,6 @@
-package com.epam.page.object.generator;
+package com.epam.page.object.generator.model;
+
+import java.util.Objects;
 
 public class ElementAttribute {
 
@@ -27,6 +29,25 @@ public class ElementAttribute {
 
 	public void setAttributeValue(String attributeValue) {
 		this.attributeValue = attributeValue;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof ElementAttribute)) {
+			return false;
+		}
+		ElementAttribute that = (ElementAttribute) o;
+
+		return Objects.equals(getAttributeName(), that.getAttributeName()) &&
+			Objects.equals(getAttributeValue(), that.getAttributeValue());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getAttributeName(), getAttributeValue());
 	}
 
 	@Override
