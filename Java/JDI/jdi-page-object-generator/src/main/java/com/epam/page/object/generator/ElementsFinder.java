@@ -11,9 +11,9 @@ import java.util.Map;
 
 
 public class ElementsFinder {
+
     // метод, который ищет элементы по набору правил
     public static Map<SearchRule, Elements> searchElementsByRulesOnURLs(List<SearchRule> rules, List<String> urls) throws Exception {
-
         Map<SearchRule, Elements> searchResults = new HashMap<>();
 
         for (String currentURL : urls) {
@@ -28,7 +28,6 @@ public class ElementsFinder {
     //    метод для поиска элементов по отдельному правилу при помощи JSOUP
     private static Elements searchElementsByRuleOnURL(SearchRule rule, String url) throws Exception {
         Document document = Jsoup.connect(url).get();
-
         Elements resultsOfSearch = new Elements();
         Elements resultsOfSearchByTag = new Elements();
         Elements resultsOfSearchByClasses = new Elements();

@@ -2,8 +2,13 @@ package com.epam.page.object.generator;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TestThisShit {
+
+	private static final Logger logger = LogManager.getLogger(TestThisShit.class);
+
     public static void main(String[] args) {
         List<SearchRule> rules = new ArrayList<>();
 
@@ -30,14 +35,13 @@ public class TestThisShit {
 
         rules.add(rule3);
 
-
         List<String> urls = new ArrayList<>();
         urls.add("https://www.google.ru");
 
         try {
             ElementsFinder.searchElementsByRulesOnURLs(rules, urls);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+			logger.error(ex);
         }
     }
 }
