@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/cucumber/static/css/info.css">
         <link rel="shortcut icon" href="/cucumber/static/images/favicon.png" type="image/png">
         <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
 
     </head>
     <body>
@@ -40,12 +41,17 @@
                 </div>
 
                 <div class="wrapper_content">
+                    <div class="button_wrapper">
+                         <a href="/cucumber/suggestion_manager" id="edit_step_button">Edit step suggestions</a>
+                    </div>
                     <table class="suit-table-container">
                         <tr>
                             <td class="suit-info-container">
                                 <div class="cases-table-title">
                                     <h3><div id="countCases"></div>Tests</h3>
                                 </div>
+
+                                <button onclick="javascript:PopUpTagFilter()">Filter cases</button>
 
                                 <div class="cases-table-container">
                                     <table id="tableCases" class="cases-table tablesorter">
@@ -55,7 +61,7 @@
                                                 <th>Description</th>
                                                 <th>Priority</th>
                                                 <th>Tag</th>
-                                                <th>Date</th>
+                                                <th>Update date</th>
                                             </tr>
                                         </thead>
 
@@ -105,6 +111,10 @@
                                         <tr>
                                             <td id="create_date_info">Suit create date:</td>
                                             <td><input readonly id="value_of_create_date_info" ></td>
+                                        </tr>
+                                        <tr id="case_update_info">
+                                            <td id="update_date_info">Suit create date:</td>
+                                            <td><input readonly id="value_of_update_date_info" ></td>
                                         </tr>
                                         <tr>
                                             <td id="tags_info">Suit tags:</td>
@@ -167,7 +177,7 @@
                             </tr>
                             <tr>
                                 <td>Tags:</td>
-                                <td><input id='addTagsSuit' maxlength='255' placeholder='tag1, tag2'/></td>
+                                <td><input id='addTagsSuit' maxlength='255' placeholder='tag1 tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -230,7 +240,7 @@
                             </tr>
                             <tr>
                                 <td>Tags:</td>
-                                <td><input id='addTagsCase' maxlength='255' placeholder='tag1, tag2'/></td>
+                                <td><input id='addTagsCase' maxlength='255' placeholder='tag1 tag2'/></td>
                             </tr>
                         </table>
                     </div>
@@ -238,6 +248,30 @@
                         <div class="popup_ok" v-on:click="addCase"></div>
                         <div class="free_space"></div>
                         <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_add_case')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tagFilter">
+            <div class="b-popup" id="popup_tag_filter">
+                <div class="b-popup-content">
+                    <div class="popup_header">
+                        <div class="popup_name"></div>
+                        <div class="popup_close">
+                            <span onclick="PopUpHide('#popup_tag_filter')">X</span>
+                        </div>
+                    </div>
+                    <div class="popup_container">
+                        <div style="height:120px; overflow-y:scroll">
+                            <ul id = "tags_list" class="unmarkedList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="popup_buttons">
+                        <div class="popup_ok" onclick="javascript:filterCases()"></div>
+                        <div class="free_space"></div>
+                        <div class="popup_cancel" onclick="javascript:PopUpHide('#popup_tag_filter')"></div>
                     </div>
                 </div>
             </div>
@@ -298,15 +332,17 @@
             </div>
         </div>
 
-        <script src="/cucumber/static/js/jquery-3.2.1.min.js"></script>
-        <script src="/cucumber/static/js/jquery-ui.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.min.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/jquery.tablesorter.widgets.js"></script>
+        <script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/cucumber/static/js/vendor/jquery-ui.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/jquery.tablesorter.widgets.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/vendor/FileSaver.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 
         <script type="text/javascript" src="/cucumber/static/js/suit/suitMain.js"></script>
 
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://unpkg.com/vue"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/getSuits.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/addSuit.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/suit/updateSuit.js"></script>
@@ -319,6 +355,7 @@
         <script type="text/javascript" src="/cucumber/static/js/buttonsExecuting.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
         <script type="text/javascript" src="/cucumber/static/js/step/stepsEditing.js"></script>
-        <script type="text/javascript" src="/cucumber/static/js/FileSaver.min.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/autocomplete.js"></script>
+        <script type="text/javascript" src="/cucumber/static/js/case/filterCases.js"></script>
     </body>
 </html>

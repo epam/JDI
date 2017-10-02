@@ -2,26 +2,16 @@ package com.epam.test_generator.controllers;
 
 import com.epam.test_generator.dto.CaseDTO;
 import com.epam.test_generator.dto.SuitDTO;
-import com.epam.test_generator.entities.Case;
-import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class SuitController {
@@ -33,6 +23,11 @@ public class SuitController {
 	@RequestMapping(value = "/")
     public String getMainPage() {
         return "/WEB-INF/static/views/newSuits";
+    }
+
+    @RequestMapping(value = "/suggestion_manager")
+    public String getStepSuggestionsPage() {
+        return "/WEB-INF/static/views/stepSuggestions";
     }
 
     @RequestMapping(value = "/suits", method = RequestMethod.GET, produces = "application/json")
@@ -88,11 +83,12 @@ public class SuitController {
 
         return new ResponseEntity<>(suitDTO, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+    
 
     @RequestMapping(value = "/downloadFeatureFile", method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     public ResponseEntity<String> downloadFile(@RequestBody SuitDTO suitDTO) throws IOException {
-        List<Long> caseIds = suitDTO.getCases().stream().map(c->c.getId()).collect(Collectors.toList());
+        List<Long> caseIds = suitDTO.getCases().stream().map(CaseDTO::getId).collect(Collectors.toList());
 
         return  new ResponseEntity<>(suitService.generateFile(suitDTO.getId(), caseIds), HttpStatus.OK);
     }

@@ -1,8 +1,8 @@
 package com.epam.test_generator.file_generator;
 
-import com.epam.test_generator.entities.Case;
+import com.epam.test_generator.dto.CaseDTO;
+import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.StepType;
-import com.epam.test_generator.entities.Suit;
 import com.epam.test_generator.services.SuitService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -17,11 +17,11 @@ import java.util.*;
 @Component
 public class FileGenerator {
 
-    public String generate(Suit suit, List<Case> cases)  throws IOException {
+    public String generate(SuitDTO suit, List<CaseDTO> cases)  throws IOException {
 
         if(suit==null || cases==null) throw new NullPointerException(suit==null?"suit is null":"cases list is null");
 
-        Configuration configuration = new Configuration();
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_23);
         configuration.setDefaultEncoding("UTF-8");
         configuration.setLocale(Locale.getDefault());
 

@@ -44,9 +44,9 @@ $(function()
         }
     }).on('click', '#add_first_step_button', function(e)
     {
-        var clickedEntry = $(this).parent();
+        $("#steps_container").empty();
 
-        $(clickedEntry).after("<div class=\"sortable-step-container\">\n" +
+        $("#steps_container").append("<div class=\"sortable-step-container\">\n" +
             "                                            <div>\n" +
             "                                                <img src=\"/cucumber/static/images/handle-icon.png\" class=\"handle-icon\">\n" +
             "                                                <div style=\"margin: 0; border: 1px dotted gray; width: 620px; float: left; padding: 5px;\">\n" +
@@ -68,8 +68,6 @@ $(function()
             "                                                <img src=\"/cucumber/static/images/deleteStep-icon.png\" class=\"delete-step-icon\">\n" +
             "                                            </div>\n" +
             "                                        </div>");
-
-        $(this).remove();
     });
 });
 
@@ -77,7 +75,6 @@ $( function() {
     $( "#steps_container" ).sortable({
         revert: true,
         handle: '.handle-icon'
-//                cancel: ''
     });
     $( "#steps_container" ).disableSelection();
 } );

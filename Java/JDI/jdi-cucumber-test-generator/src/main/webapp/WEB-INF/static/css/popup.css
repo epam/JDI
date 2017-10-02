@@ -3,7 +3,9 @@
 #popup_update,
 #popup_add_case,
 #popup_edit_case,
-#popup_remove_cases{
+#popup_remove_cases,
+#popup_tag_filter,
+#popup_manage_step_suggestions{
     display: none;
     z-index: 5;
 }
@@ -72,8 +74,8 @@
     width: 100%;
 }
 .popup_container table{
-    width: 80%;
-    margin: 10px auto;
+    width: 99%;
+    margin: auto;
 }
 .popup_container table input{
     width: 100%;

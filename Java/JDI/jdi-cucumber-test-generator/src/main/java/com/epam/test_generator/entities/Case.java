@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Case implements Serializable{
@@ -21,16 +22,20 @@ public class Case implements Serializable{
 
     private String creationDate;
 
+    private String updateDate;
+
     private Integer priority;
 
-    private String tags;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Set<Tag> tags;
 
     public Case(){
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         creationDate = formatter.format(Calendar.getInstance().getTime());
+        updateDate = formatter.format(Calendar.getInstance().getTime());
     }
 
-    public Case(Long id, String description, List<Step> steps, Integer priority, String tags) {
+    public Case(Long id, String description, List<Step> steps, Integer priority, Set<Tag> tags) {
         this.id = id;
         this.description = description;
         this.steps = steps;
@@ -73,6 +78,14 @@ public class Case implements Serializable{
         this.creationDate = creationDate;
     }
 
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public Integer getPriority() {
         return priority;
     }
@@ -81,11 +94,11 @@ public class Case implements Serializable{
         this.priority = priority;
     }
 
-    public String getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
@@ -96,10 +109,9 @@ public class Case implements Serializable{
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", steps=" + steps +
-                ", creationDate=" + creationDate +
+                ", creationDate='" + creationDate + '\'' +
                 ", priority=" + priority +
-                ", tags='" + tags + '\'' +
+                ", tags=" + tags +
                 '}';
     }
-
 }

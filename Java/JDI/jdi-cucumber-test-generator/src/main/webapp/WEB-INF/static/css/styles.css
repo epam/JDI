@@ -411,7 +411,7 @@ div.add-case-button:hover {
     margin: 5px 0;
 }
 
-.cases-table>td {
+.cases-table>tbody>td {
     padding: 2px;
 }
 
@@ -452,6 +452,10 @@ div.add-case-button:hover {
 
 #tableCases>tbody>tr.is_active{
     background-color: rgba(0, 171, 255, 0.2);
+}
+
+#tableCases-sticky{
+    background-color: #f7f7f7;
 }
 
 #case-save-exception{
@@ -860,13 +864,15 @@ body{
 .accordion-tabs>li.tab-head-cont>div {
     text-decoration:none;
     border-top: 1px solid #dddddd;
-    color: #888888;
+    color: white;
     display: block;
     padding: 0.75em 0.809em;
 }
 .accordion-tabs>li.tab-head-cont>div:hover {
-    color: #ffffff;
+    color: black;
     cursor: pointer;
+    background-color:#f7f7f7;
+    border-radius: 10px 10px 0 0;
 }
 .accordion-tabs>li.tab-head-cont>div:focus {
     outline: none;
@@ -998,6 +1004,99 @@ p {margin:28px 0 3px 0;}
     height: 10px;
 }
 
+.table_suggestion_steps{
+    margin: 20px 0px;
+    height: 350px;
+    overflow-y: scroll;
+}
+
+#table_suggestion_steps::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#table_suggestion_steps::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#table_suggestion_steps::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #9bd49d;
+}
+
+#steps_table{
+    display: table;
+    border-collapse: separate;
+    border-color: grey;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+#steps_table tr{
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+#steps_table td,
+#steps_table th{
+    display: table-cell;
+    vertical-align: inherit;
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    vertical-align: middle;
+}
+#steps_table tr th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+.small_th{
+    width: 100px;
+}
+.delete_step_button,
+.add_step_button{
+    width: 90px;
+    height: 28px;
+    float: left;
+    text-align: center;
+    background-color: #4caf50;
+    padding: 5px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+.delete_step_button:hover,
+.add_step_button:hover{
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    background-color: white;
+    color: #4caf50;
+    transition: all 0.2s;
+}
+.add_step_button{
+    margin: 1px 10px;
+}
+#step_suggestion{
+    border: 1px solid #dddddd;
+    width: 475px;
+    float: left;
+    padding: 5px;
+}
+.add_step_suggestion_wrapper{
+    margin: 15px 5px;
+    overflow: hidden;
+}
 
 
 /*Для step-ов*/
@@ -1005,7 +1104,6 @@ p {margin:28px 0 3px 0;}
 #steps_container {
     width: 100%;
     padding: 5px;
-    text-align: center;
     /*border: 4px solid black;*/
 }
 
@@ -1133,8 +1231,12 @@ p {margin:28px 0 3px 0;}
 }
 
 .tablesorter th {
+    border-spacing: 0;
     text-align: left;
+    border: none;
     background: rgba(55, 123, 55, 0.8);
+    padding: 0;
+    margin: 0;
 }
 
 #add_first_step_button {
@@ -1162,4 +1264,104 @@ p {margin:28px 0 3px 0;}
 #add_first_step_button:hover {
     background-color: #308649;
     cursor: pointer;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    display: none;
+    min-width: 160px;
+    padding: 4px 0;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+}
+
+.ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.ui-state-hover, .ui-state-active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
+}
+.button_wrapper{
+    position:relative;
+}
+
+#edit_step_button{
+    position:absolute;
+    right:0;
+    background-color:#308649;
+    border-color:#308649;
+    margin: 11px 17px;
+    cursor: pointer;
+    height: 42px;
+    width: 160px;
+    font-weight: bold;
+    border-radius:3px;
+    font-size:14px;
+    color: white;
+    transition:background-color 0.3s;
+    border:none;
+    text-decoration: none;
+    padding: 12px 6px;
+}
+
+#edit_step_button:hover{
+    background-color:rgb(30,67,30)
+}
+
+.back_main_page_button{
+    width: 129px;
+    height: 28px;
+    float: right;
+    text-align: center;
+    background-color: #4caf50;
+    padding: 6px 0px;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid white;
+    text-decoration: none;
+}
+.back_main_page_button:hover{
+    cursor: pointer;
+    border: 1px solid #4caf50;
+    background-color: white;
+    color: #4caf50;
+    transition: all 0.2s;
+}
+
+ul .unmarkedList {
+    list-style-type: none;
 }

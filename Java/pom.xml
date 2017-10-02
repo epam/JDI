@@ -50,10 +50,6 @@
         <spring.version>4.3.10.RELEASE</spring.version>
     </properties>
 
-    <dependencyManagement>
-
-    </dependencyManagement>
-
     <modules>
         <module>JDI/jdi-commons</module>
         <module>JDI/jdi-matchers</module>

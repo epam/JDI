@@ -2,10 +2,11 @@ package com.epam.test_generator.services;
 
 import com.epam.test_generator.dao.interfaces.CaseDAO;
 import com.epam.test_generator.dao.interfaces.SuitDAO;
-import com.epam.test_generator.dto.DozerMapper;
 import com.epam.test_generator.dto.SuitDTO;
 import com.epam.test_generator.entities.Case;
 import com.epam.test_generator.entities.Suit;
+import com.epam.test_generator.transformers.CaseTransformer;
+import com.epam.test_generator.transformers.SuitTransformer;
 import com.epam.test_generator.file_generator.FileGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -28,35 +30,27 @@ public class SuitService {
     private CaseDAO caseDAO;
 
     @Autowired
-    private DozerMapper mapper;
+    private SuitTransformer suitTransformer;
+
+    @Autowired
+    private CaseTransformer caseTransformer;
 
     public List<SuitDTO> getSuits() {
-        List<SuitDTO> suitDTOlist = new ArrayList<>();
-
-        for(Suit suit: suitDAO.findAll()){
-            SuitDTO suitDTO = new SuitDTO();
-
-            mapper.map(suit, suitDTO);
-            suitDTOlist.add(suitDTO);
-        }
-        return suitDTOlist;
+        return suitDAO.findAll().stream().map(suit -> suitTransformer.toDto(suit))
+                                            .collect(Collectors.toList());
     }
 
     public SuitDTO getSuit(long id) {
-        SuitDTO suitDTO = new SuitDTO();
-        mapper.map(suitDAO.findOne(id), suitDTO);
-        return suitDTO;
+        return suitTransformer.toDto(suitDAO.findOne(id));
     }
 
     public SuitDTO updateSuit(SuitDTO suitDTO) {
-        Suit suit = suitDAO.getOne(suitDTO.getId());
-        List<Case> cases = suit.getCases();
+        List<Case> cases = suitDAO.getOne(suitDTO.getId()).getCases();
+        Suit suit = suitTransformer.fromDto(suitDTO);
 
-        mapper.map(suitDTO, suit);
         suit.setCases(cases);
-        mapper.map(suitDAO.save(suit), suitDTO);
 
-        return suitDTO;
+        return suitTransformer.toDto(suitDAO.save(suit));
     }
 
     public void removeSuit(long id) {
@@ -64,24 +58,15 @@ public class SuitService {
     }
 
     public SuitDTO addSuit(SuitDTO suitDTO) {
-        Suit suit = new Suit();
+        Suit suit = suitDAO.save(suitTransformer.fromDto(suitDTO));
 
-        mapper.map(suitDTO,suit);
-        suit = suitDAO.save(suit);
-        mapper.map(suit, suitDTO);
-
-        return suitDTO;
+        return suitTransformer.toDto(suit);
     }
 
     public String generateFile(Long suitId, List<Long> caseIds) throws IOException {
-
         Suit suit = suitDAO.getOne(suitId);
+        List<Case> cases = caseIds.stream().map(id -> caseDAO.getOne(id)).collect(Collectors.toList());
 
-        List<Case> cases = new ArrayList<>();
-
-        for (Long caseId : caseIds) {
-            cases.add(caseDAO.getOne(caseId));
-        }
-        return fileGenerator.generate(suit, cases);
+        return fileGenerator.generate(suitTransformer.toDto(suit), caseTransformer.toDtoList(cases));
     }
 }
