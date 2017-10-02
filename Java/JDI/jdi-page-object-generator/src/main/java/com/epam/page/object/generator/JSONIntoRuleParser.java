@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.select.Elements;
 
 public class JSONIntoRuleParser {
 
@@ -85,12 +87,23 @@ public class JSONIntoRuleParser {
 	public static void main(String[] args) {
 		List<SearchRule> searchRules
 			= getRulesFromJSON("/Users/Alexander/Projects/JDI/Java/JDI/jdi-page-object-generator/src/main/resources/test.txt");
+		List<String> urls = new ArrayList<>();
 
-		for (SearchRule searchRule : searchRules) {
-			logger.info(searchRule.toString());
+		urls.add("https://www.w3schools.com/html/html_forms.asp");
+
+		Map<SearchRule, Elements> searchRuleElementsMap = ElementsFinder.searchElementsByRulesOnURLs(searchRules, urls);
+
+		for (SearchRule searchRule : searchRuleElementsMap.keySet()) {
+			logger.info(searchRule + ": ");
+
+			List<String> resultList = searchRule.isSearchingByText()
+				? searchRuleElementsMap.get(searchRule).eachText()
+				: searchRuleElementsMap.get(searchRule).eachAttr("value");
+
+			for (String element : resultList) {
+				logger.info(element);
+			}
 		}
-
-
 	}
 
 }
