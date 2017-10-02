@@ -92,10 +92,12 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     private Clickable getFromList(List<WebElement> els, String name) {
-        WebElement element = first(els, el -> el.getText().equals(name));
+        WebElement element = first(els, el -> el.getText().toLowerCase().trim().equals(name.toLowerCase().trim()));
         if (element == null)
             throw exception("Can't find option '%s'. Please fix allLabelsLocator", name);
-        return new Clickable(element);
+        Clickable cl = new Clickable(element);
+        cl.setParent(getParent());
+        return cl;
     }
     public WebElement getWebElement() {
         if (avatar.hasWebElement())

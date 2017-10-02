@@ -33,14 +33,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JSearch {
-    FindBy root();
-    FindBy input();
-    FindBy searchButton();
-    FindBy suggestions();
+    FindBy root() default @FindBy();
+    FindBy input() default @FindBy();
+    FindBy searchButton() default @FindBy();
+    FindBy suggestions() default @FindBy();
 
-    JFindBy jroot();
-    JFindBy jInput();
-    JFindBy jSearchButton();
-    JFindBy jSuggestions();
+    JFindBy jroot() default @JFindBy();
+    JFindBy jInput() default @JFindBy();
+    JFindBy jSearchButton() default @JFindBy();
+    JFindBy jSuggestions() default @JFindBy();
 
 }

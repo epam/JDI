@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jdi-uitest-wintests</artifactId>
-    <name>EPAM JDI UI Testing Desktop</name>
+    <name>EPAM JDI UI Testing Desktop Tests</name>
     <packaging>jar</packaging>
 
     <scm>

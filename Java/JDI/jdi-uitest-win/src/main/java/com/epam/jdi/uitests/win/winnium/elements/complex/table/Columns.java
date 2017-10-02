@@ -11,7 +11,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;

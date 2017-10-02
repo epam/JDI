@@ -30,6 +30,7 @@ public class ListElementsExample extends GoogleTestsBase {
         Assert.contains(homePage.getDriver().getCurrentUrl(),
                 "https://www.google.");
         homePage.search("jdi");
+        Assert.isTrue(searchPage.gitHubJdi.isDisplayed());
         Elements<SearchResult> jobs = searchPage.jobsE;
 //        Assert.areEquals(jobs.size(), 10);
         for (SearchResult job : jobs)

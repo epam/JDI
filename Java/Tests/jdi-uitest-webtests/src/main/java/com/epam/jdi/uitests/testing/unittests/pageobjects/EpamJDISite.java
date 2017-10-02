@@ -43,4 +43,6 @@ public class EpamJDISite extends WebSite {
     public static TextList<Enum> resultsLog;
 
 
+
+
 }

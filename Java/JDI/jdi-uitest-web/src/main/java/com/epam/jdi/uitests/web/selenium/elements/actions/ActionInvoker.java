@@ -75,13 +75,6 @@ public class ActionInvoker {
             actionScenrios.setElement(element).actionScenario(actionName, action, level);
         });
     }
-    public final void doJAction(String actionName, JAction action, String elementToString) {
-        doJAction(actionName, action, INFO, elementToString);
-    }
-
-    public final void doJAction(String actionName, JAction action, LogLevels level, String elementToString) {
-        actionScenrios.actionScenario(actionName, action, level);
-    }
 
     public void processDemoMode() {
         if (JDISettings.isDemoMode)
