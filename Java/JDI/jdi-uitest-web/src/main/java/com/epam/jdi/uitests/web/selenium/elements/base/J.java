@@ -24,7 +24,6 @@ import java.net.URL;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
-import static com.epam.commons.LinqUtils.where;
 
 /**
  * Created by Sergey_Mishanin on 12/14/16.

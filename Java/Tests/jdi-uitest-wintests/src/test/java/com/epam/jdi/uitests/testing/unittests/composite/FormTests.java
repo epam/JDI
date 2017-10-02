@@ -16,9 +16,7 @@ import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInSta
 import static com.epam.jdi.uitests.testing.unittests.entities.Contact.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
-import static com.epam.web.matcher.testng.Assert.assertEquals;
-import static com.epam.web.matcher.testng.Assert.hasNoExceptions;
-import static com.epam.web.matcher.testng.Assert.isEmpty;
+import static com.epam.web.matcher.testng.Assert.*;
 
 
 public class FormTests extends InitTests {

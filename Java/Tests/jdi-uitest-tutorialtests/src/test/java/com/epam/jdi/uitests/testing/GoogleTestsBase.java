@@ -8,7 +8,6 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
 
-import static com.epam.jdi.site.google.GoogleSite.homePage;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 

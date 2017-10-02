@@ -1,7 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.complextable;
 
 import com.epam.jdi.uitests.testing.unittests.composite.DynamicTable;
-import com.epam.jdi.uitests.win.winnium.elements.complex.table.Table;
 import com.epam.jdi.uitests.win.winnium.elements.composite.Section;
 import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.JTable;
 import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.TableHeaderTypes;

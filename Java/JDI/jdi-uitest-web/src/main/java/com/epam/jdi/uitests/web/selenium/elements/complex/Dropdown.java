@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
@@ -84,9 +83,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             expand = findByToBy(jDropdown.jexpand());
 
         if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
             setAvatar(root);
         }
         if (value != null) {
@@ -103,15 +99,15 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
 
     protected Label element() {
         if (element == null)
-            return getLocator() != null && !getLocator().equals("")
-                ? new GetElementType(getLocator(), this).get(Label.class)
+            return getLocator() != null
+                ? new GetElementType(getLocator(), getParent()).get(Label.class)
                 : null;
         return element.get(Label.class);
     }
     protected Clickable expander() {
         if (expander == null) {
-            if (getLocator() != null && !getLocator().equals(""))
-                return new GetElementType(getLocator(), this).get(Label.class);
+            if (getLocator() != null)
+                return new GetElementType(getLocator(), getParent()).get(Label.class);
             throw exception("'Expand' element for dropdown not defined");
         }
         return expander.get(Label.class);

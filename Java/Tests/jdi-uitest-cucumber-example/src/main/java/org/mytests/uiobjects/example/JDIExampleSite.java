@@ -1,11 +1,7 @@
 package org.mytests.uiobjects.example;
 
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import org.mytests.uiobjects.example.entities.User;
 import org.mytests.uiobjects.example.pages.HomePage;

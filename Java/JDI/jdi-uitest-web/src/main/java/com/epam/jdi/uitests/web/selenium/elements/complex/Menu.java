@@ -18,11 +18,8 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
-import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,7 +36,6 @@ import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
-import static java.util.Arrays.asList;
 import static java.util.Arrays.copyOfRange;
 
 /**
@@ -124,6 +120,7 @@ public class Menu<TEnum extends Enum> extends Selector<TEnum> implements IMenu<T
     public final void clickOn(TEnum name) {
         select(name);
     }
+
     protected void selectAction(String... names) {
         hoverAndClick(names);
     }

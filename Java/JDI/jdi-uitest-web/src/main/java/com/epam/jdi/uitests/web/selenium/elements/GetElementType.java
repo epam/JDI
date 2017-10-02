@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 
 /**
@@ -27,10 +28,10 @@ import org.openqa.selenium.By;
  */
 public class GetElementType {
     private By locator;
-    private BaseElement parent;
+    private Object parent;
 
     public GetElementType() { }
-    public GetElementType(By locator, BaseElement parent) {
+    public GetElementType(By locator, Object parent) {
         this.locator = locator;
         this.parent = parent;
     }
@@ -41,7 +42,9 @@ public class GetElementType {
                 return null;
             else {
                 T result = clazz.newInstance();
-                result.init(parent, new GetElementModule(locator, parent));
+                Element el = new Element(locator);
+                el.setParent(parent);
+                result.init(parent, new GetElementModule(locator, el));
                 return result;
             }
 

@@ -98,7 +98,7 @@ public abstract class BaseElement implements IBaseElement {
 
         return this;
     }
-    public BaseElement init(IBaseElement parent, IAvatar avatar) {
+    public BaseElement init(Object parent, IAvatar avatar) {
         new WebCascadeInit().initElements(this, ((GetElementModule)avatar).getDriverName());
         setAvatar(avatar);
         setParent(parent);

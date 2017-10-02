@@ -17,9 +17,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import static com.epam.commons.LinqUtils.foreach;
-import static com.epam.commons.ReflectionUtils.getFields;
-import static com.epam.commons.ReflectionUtils.getValueField;
-import static com.epam.commons.ReflectionUtils.newEntity;
+import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
