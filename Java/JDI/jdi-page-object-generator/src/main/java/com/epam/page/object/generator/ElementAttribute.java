@@ -28,4 +28,13 @@ public class ElementAttribute {
 	public void setAttributeValue(String attributeValue) {
 		this.attributeValue = attributeValue;
 	}
+
+	@Override
+	public String toString() {
+		return "ElementAttribute{" +
+			"attributeName='" + attributeName + '\'' +
+			", attributeValue='" + attributeValue + '\'' +
+			'}';
+	}
+
 }

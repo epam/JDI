@@ -23,15 +23,42 @@ public class SearchRule {
 		return tag;
 	}
 
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	public boolean isSearchingByText() {
 		return isSearchingByText;
+	}
+
+	public void setSearchingByText(boolean searchingByText) {
+		isSearchingByText = searchingByText;
 	}
 
 	public List<String> getClasses() {
 		return classes;
 	}
 
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
+	}
+
 	public List<ElementAttribute> getAttributes() {
 		return attributes;
 	}
+
+	public void setAttributes(List<ElementAttribute> attributes) {
+		this.attributes = attributes;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchRule{" +
+			"tag='" + tag + '\'' +
+			", isSearchingByText=" + isSearchingByText +
+			", classes=" + classes +
+			", attributes=" + attributes +
+			'}';
+	}
+
 }
