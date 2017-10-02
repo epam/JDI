@@ -83,9 +83,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             expand = findByToBy(jDropdown.jexpand());
 
         if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
             setAvatar(root);
         }
         if (value != null) {
@@ -103,14 +100,14 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected Label element() {
         if (element == null)
             return getLocator() != null
-                ? new GetElementType(getLocator(), this).get(Label.class)
+                ? new GetElementType(getLocator(), getParent()).get(Label.class)
                 : null;
         return element.get(Label.class);
     }
     protected Clickable expander() {
         if (expander == null) {
             if (getLocator() != null)
-                return new GetElementType(getLocator(), this).get(Label.class);
+                return new GetElementType(getLocator(), getParent()).get(Label.class);
             throw exception("'Expand' element for dropdown not defined");
         }
         return expander.get(Label.class);
