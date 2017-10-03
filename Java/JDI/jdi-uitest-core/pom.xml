@@ -44,6 +44,11 @@
             <artifactId>allure-java-annotations</artifactId>
             <version>LATEST</version>
         </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

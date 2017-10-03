@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
@@ -51,5 +52,11 @@ public class ImageTests extends InitTests {
     @Test
     public void getTipTest() {
         checkText(clickableItem()::getAlt, ALT);
+    }
+
+    @Test
+    public void shouldTest(){
+        clickableItem().shouldHave(attribute("alt", "ALT"), attribute("src"), attribute("id", "epam_logo"))
+                .shouldBe(visible);
     }
 }

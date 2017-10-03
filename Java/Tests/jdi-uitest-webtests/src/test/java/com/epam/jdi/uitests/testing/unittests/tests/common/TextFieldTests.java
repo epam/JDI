@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
@@ -97,5 +98,13 @@ public class TextFieldTests extends InitTests {
         return new Object[]{
                 new TextTests(elementType, page, textField::get, text, contains, regex)
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        textField.get().shouldHave(attribute("id"))
+                .shouldNotBe(empty);
+        textField.get().clear();
+        textField.get().shouldBe(empty);
     }
 }
