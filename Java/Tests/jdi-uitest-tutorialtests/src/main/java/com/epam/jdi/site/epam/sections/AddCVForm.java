@@ -9,39 +9,37 @@ import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import org.openqa.selenium.support.FindBy;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Attribute;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Title;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Xpath;
 
 /**
  * Created by Roman_Iovlev on 10/23/2015.
  */
 public class AddCVForm extends Form<Attendee> {
-    @FindBy(css = "[placeholder='First Name']")
-    ITextField name;
-    @FindBy(css = "[placeholder='Last Name']")
-    ITextField lastName;
-    @FindBy(css = "[placeholder='Email']")
-    ITextField email;
+    @Css("[placeholder='First Name']") ITextField name;
+    @Css("[placeholder='Last Name']") ITextField lastName;
+    @Attribute(name ="placeholder", value="Email") ITextField email;
 
     @JDropdown(
-        jroot = @JFindBy(className = "country-wrapper"),
-        jvalue = @JFindBy(className = "arrow"),
-        jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCountry')]//li[.='%s']"))
-    IDropDown country;
+            jroot = @JFindBy(className = "country-wrapper"),
+            jvalue = @JFindBy(className = "arrow"),
+            jlist = @JFindBy(xpath = "*root*//li[contains(@id,'applicantCountry') and .='%s']")
+    ) public IDropDown country;
 
     @JDropdown(
-        jroot = @JFindBy(className = "city-wrapper"),
-        jexpand = @JFindBy(className = "arrow"),
-        jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
-    )
-    IDropDown city;
+            jroot = @JFindBy(className = "city-wrapper"),
+            jexpand = @JFindBy(className = "arrow"),
+            jlist = @JFindBy(css = "*root*li[id*=applicantCity]")
+        //jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+    ) IDropDown city;
 
-    @FindBy(css = ".file-upload")
-    RFileInput cv;
-    @FindBy(css = ".comment-input")
-    ITextArea comment;
+    @Css(".file-upload") RFileInput cv;
+    @Css(".comment-input") ITextArea comment;
 
-    @FindBy(xpath = "//*[.='Submit']")
-    IButton submit;
-    @FindBy(xpath = "//*[.='Cancel']")
-    IButton cancel;
+    @Xpath( "//*[.='Submit']") IButton submit;
+    @Xpath("//*[.='Cancel']") IButton cancel;
+
+    @Title("Reload") public IButton reload;
 }

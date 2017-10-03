@@ -46,6 +46,7 @@ public @interface JFindBy {
     String className() default "";
     String value() default "";
     String title() default "";
+    String type() default "";
 
     // Angular
     String model() default "";

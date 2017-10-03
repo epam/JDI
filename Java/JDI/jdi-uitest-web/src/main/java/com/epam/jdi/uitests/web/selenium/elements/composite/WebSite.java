@@ -21,18 +21,24 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.jdi.uitests.core.interfaces.Application;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 
+import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
+import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
 public class WebSite extends Application {
-    public static <T> void init(Class<T> site) {
-        init(site, getDriverFactory().currentDriverName());
+    public static <T> void init(String driverName, Class<T>... sites) {
+        for (Class<T> site : sites)
+            new WebCascadeInit().initStaticPages(site, driverName);
+        currentSite = sites[sites.length-1];
     }
-    public static <T> void init(Class<T> site, String driverName) {
-        new WebCascadeInit().initStaticPages(site, driverName);
-        currentSite = site;
+    public static <T> void init(Class<T>... sites) {
+        if (!getDriverFactory().hasDrivers())
+            useDriver(CHROME);
+        String driverName = getDriverFactory().currentDriverName();
+        init(driverName, sites);
     }
 
 }

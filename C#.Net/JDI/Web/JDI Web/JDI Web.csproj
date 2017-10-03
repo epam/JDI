@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\..\..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -37,14 +38,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JDI Commons, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\JDI.UICommons.1.0.60\lib\net452\JDI Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="JDI Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\JDI.UICore.1.0.60\lib\net452\JDI Core.dll</HintPath>
+    </Reference>
+    <Reference Include="JDI Matchers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\JDI.UIMatchers.1.0.60\lib\net452\JDI Matchers.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
@@ -53,11 +63,11 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
-    <Reference Include="WebDriver, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Selenium.WebDriver.3.4.0\lib\net40\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Selenium.WebDriver.3.5.2\lib\net40\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Selenium.Support.3.4.0\lib\net40\WebDriver.Support.dll</HintPath>
+    <Reference Include="WebDriver.Support, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Selenium.Support.3.5.2\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -174,20 +184,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Commons\JDI Commons\JDI Commons.csproj">
-      <Project>{c749644d-5901-4fd6-9add-06209bdc1cd2}</Project>
-      <Name>JDI Commons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\JDI Core.csproj">
-      <Project>{99ee5894-9f49-43e2-a129-7916d924d49c}</Project>
-      <Name>JDI Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Matchers\JDI Matchers\JDI Matchers.csproj">
-      <Project>{822c29a7-c835-40ef-9e83-ae5388be9a1c}</Project>
-      <Name>JDI Matchers</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\..\..\packages\WebDriverIEDriver64.2.45.0.0\tools\IEDriverServer-license.txt">
       <Link>IEDriverServer-license.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -196,6 +192,13 @@
       <Link>IEDriverServer.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Mono.Cecil.dll" />
+    <Content Include="Mono.Cecil.Mdb.dll" />
+    <Content Include="Mono.Cecil.Pdb.dll" />
+    <Content Include="Mono.Cecil.Rocks.dll" />
+    <Content Include="nunit.engine.api.dll" />
+    <Content Include="nunit.engine.dll" />
+    <Content Include="NUnit3.TestAdapter.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
@@ -217,15 +220,16 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Selenium.Firefox.WebDriver.0.17.0\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.17.0\build\Selenium.Firefox.WebDriver.targets')" />
-  <Import Project="..\..\..\packages\Selenium.Chrome.WebDriver.2.30\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.30\build\Selenium.Chrome.WebDriver.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.17.0\build\Selenium.Firefox.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Firefox.WebDriver.0.17.0\build\Selenium.Firefox.WebDriver.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.30\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Chrome.WebDriver.2.30\build\Selenium.Chrome.WebDriver.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.31\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Chrome.WebDriver.2.31\build\Selenium.Chrome.WebDriver.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.18.0\build\Selenium.Firefox.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Firefox.WebDriver.0.18.0\build\Selenium.Firefox.WebDriver.targets'))" />
   </Target>
+  <Import Project="..\..\..\packages\Selenium.Chrome.WebDriver.2.31\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.31\build\Selenium.Chrome.WebDriver.targets')" />
+  <Import Project="..\..\..\packages\Selenium.Firefox.WebDriver.0.18.0\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.18.0\build\Selenium.Firefox.WebDriver.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

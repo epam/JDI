@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>jdi-uitest-cucumbertests</artifactId>
-    <name>EPAM JDI UI Cucumber tests</name>
+    <name>EPAM JDI UI Cucumber Tests</name>
     <packaging>jar</packaging>
 
     <developers>

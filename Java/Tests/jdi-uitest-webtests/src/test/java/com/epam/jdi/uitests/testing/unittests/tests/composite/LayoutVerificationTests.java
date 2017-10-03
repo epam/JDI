@@ -3,9 +3,6 @@ package com.epam.jdi.uitests.testing.unittests.tests.composite;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.web.matcher.testng.Assert;
 import org.apache.commons.lang3.SystemUtils;
-import org.sikuli.script.App;
-import org.sikuli.script.Region;
-import org.sikuli.script.Screen;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,8 +11,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
-import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.web.matcher.testng.Assert.assertFalse;

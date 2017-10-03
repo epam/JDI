@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
+import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
@@ -33,7 +34,7 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,8 +43,9 @@ import org.openqa.selenium.support.FindBy;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.function.BiConsumer;
 
+import static com.epam.commons.LinqUtils.any;
+import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.commons.StringUtils.LINE_BREAK;
@@ -82,22 +84,42 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     public static <T> T initPageObject(Class<T> clazz) {
-        initDriver();
         return initPageObject(clazz, currentDriverName);
     }
     public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
-        initDriver();
         return initPageObject(clazz, useDriver(() -> driver));
     }
+    public static <T> T initPageObject(Class<T> clazz, DriverTypes driver){
+        return initPageObject(clazz, useDriver(driver));
+    }
     public static <T> T initPageObject(Class<T> clazz, String driverName) {
+        initDriver();
         T page;
         try {
             page = clazz.newInstance();
-        } catch (Exception ex) {
-            throw new RuntimeException("Can't init PageObject: " + clazz.getName());
+        } catch (Exception ignore) {
+            try {
+                page = clazz.getDeclaredConstructor(WebDriver.class).newInstance(getDriver());
+            } catch (Exception ex) {
+                throw new RuntimeException("Can't init PageObject: " + clazz.getName() + ". Exception: " + ex.getMessage());
+            }
         }
         new WebCascadeInit().initElements(page, driverName);
         return page;
+    }
+
+    public static <T> void initPageObject(Class<T>... clazz) {
+        initPageObject(currentDriverName, clazz);
+    }
+    public static <T> void initPageObject(WebDriver driver, Class<T>... clazz) {
+        initPageObject(useDriver(() -> driver), clazz);
+    }
+    public static <T> void initPageObject(DriverTypes driver, Class<T>... clazz){
+        initPageObject(useDriver(driver), clazz);
+    }
+    public static <T> void initPageObject(String driverName, Class<T>... classes) {
+        for(Class<T> clazz : classes)
+            initPageObject(driverName, clazz);
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
@@ -160,16 +182,44 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     protected By getNewLocatorFromField(Field field) {
-        String locatorGroup = APP_VERSION;
-        if (locatorGroup.equals("DEFAULT"))
-            return field.isAnnotationPresent(FindBy.class)
-                ? findByToBy(field.getAnnotation(FindBy.class))
-                : WebAnnotationsUtil.findByToBy(field.getAnnotation(JFindBy.class));
-        JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-        return jFindBy != null && locatorGroup.equals(jFindBy.group())
-            ? WebAnnotationsUtil.findByToBy(jFindBy)
-            : findByToBy(field.getAnnotation(FindBy.class));
+        JFindBy[] jfindbys = field.getAnnotationsByType(JFindBy.class);
+        if (jfindbys.length > 0 && any(jfindbys, j -> APP_VERSION.equals(j.group())))
+            return findByToBy(first(jfindbys, j -> APP_VERSION.equals(j.group())));
+        if (field.isAnnotationPresent(JFindBy.class))
+            return findByToBy(field.getAnnotation(JFindBy.class));
+        if (field.isAnnotationPresent(FindBy.class))
+            return findByToBy(field.getAnnotation(FindBy.class));
+        if (field.isAnnotationPresent(Css.class))
+            return findByToBy(field.getAnnotation(Css.class));
+        if (field.isAnnotationPresent(Xpath.class))
+            return findByToBy(field.getAnnotation(Xpath.class));
+        if (field.isAnnotationPresent(Text.class))
+            return findByToBy(field.getAnnotation(Text.class));
+        if (field.isAnnotationPresent(Attribute.class))
+            return findByToBy(field.getAnnotation(Attribute.class));
+        if (field.isAnnotationPresent(ClassName.class))
+            return findByToBy(field.getAnnotation(ClassName.class));
+        if (field.isAnnotationPresent(Id.class))
+            return findByToBy(field.getAnnotation(Id.class));
+        if (field.isAnnotationPresent(ByName.class))
+            return findByToBy(field.getAnnotation(ByName.class));
+        if (field.isAnnotationPresent(NgRepeat.class))
+            return findByToBy(field.getAnnotation(NgRepeat.class));
+        if (field.isAnnotationPresent(NgBinding.class))
+            return findByToBy(field.getAnnotation(NgBinding.class));
+        if (field.isAnnotationPresent(NgModel.class))
+            return findByToBy(field.getAnnotation(NgModel.class));
+        if (field.isAnnotationPresent(Title.class))
+            return findByToBy(field.getAnnotation(Title.class));
+        if (field.isAnnotationPresent(Tag.class))
+            return findByToBy(field.getAnnotation(Tag.class));
+        if (field.isAnnotationPresent(Type.class))
+            return findByToBy(field.getAnnotation(Type.class));
+        if (field.isAnnotationPresent(Value.class))
+            return findByToBy(field.getAnnotation(Value.class));
+        return null;
     }
+
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
         try {

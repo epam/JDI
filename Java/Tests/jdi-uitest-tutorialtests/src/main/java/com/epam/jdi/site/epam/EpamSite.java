@@ -11,6 +11,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindB
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -45,7 +46,7 @@ public class EpamSite extends WebSite {
             level2 = @JFindBy(css = "ul.tile-menu>li li"))
     public static Menu multipleHeaderMenu;
 
-    @FindBy(css = ".tile-menu>li>a")
+    @Css(".tile-menu>li>a")
     public static Elements<Button> listMenu;
 
     @FindBy(css = ".tile-menu .submenu a")

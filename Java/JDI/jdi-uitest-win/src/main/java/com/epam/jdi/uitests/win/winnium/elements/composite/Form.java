@@ -1,15 +1,12 @@
 package com.epam.jdi.uitests.win.winnium.elements.composite;
 
 import com.epam.commons.LinqUtils;
-import com.epam.commons.ReflectionUtils;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.annotations.Mandatory;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
-import com.epam.jdi.uitests.core.utils.common.PrintUtils;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
 import com.epam.jdi.uitests.win.winnium.elements.base.managers.GetElement;
 

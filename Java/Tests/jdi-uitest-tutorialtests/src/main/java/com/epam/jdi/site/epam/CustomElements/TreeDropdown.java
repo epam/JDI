@@ -25,7 +25,6 @@ package com.epam.jdi.site.epam.CustomElements;
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
-import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import org.openqa.selenium.By;
@@ -96,8 +95,8 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> implements ISetup 
         JTree jTree = field.getAnnotation(JTree.class);
         By selectLocator = findByToBy(jTree.select());
         avatar = new GetElementModule(selectLocator, this);
-        element = new GetElementType(selectLocator, this);
-        expander = new GetElementType(selectLocator, this);
+        //element = new GetElementType(selectLocator, this);
+        //expander = new GetElementType(selectLocator, this);
         treeLocators = new ArrayList<>();
         for (FindBy fBy : jTree.levels())
             treeLocators.add(findByToBy(fBy));
