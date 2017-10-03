@@ -80,6 +80,13 @@
             <version>3.6.0</version>
         </dependency>
 
+        <!-- JDI Components -->
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-uitest-web</artifactId>
+            <version>1.0.70</version>
+        </dependency>
+
     </dependencies>
 
     <build>

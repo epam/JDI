@@ -1,5 +1,7 @@
 package com.epam.page.object.generator;
 
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.page.object.generator.finder.ElementsFinder;
 import com.epam.page.object.generator.model.ElementAttribute;
 import com.epam.page.object.generator.model.SearchRule;
@@ -9,8 +11,6 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +19,6 @@ import javax.lang.model.element.Modifier;
 import org.json.simple.parser.ParseException;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.support.FindBy;
-
-@Retention(RetentionPolicy.RUNTIME)
-@interface JPage {
-
-	String url() default "";
-	String title() default "";
-}
-
-class Button {
-
-}
 
 public class PageObjectGenerator {
 

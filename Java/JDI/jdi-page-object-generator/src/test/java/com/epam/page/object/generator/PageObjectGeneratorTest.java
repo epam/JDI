@@ -18,11 +18,7 @@ class PageObjectGeneratorTest {
 
 		PageObjectGenerator pageObjectGenerator = new PageObjectGenerator(validJSONPath, urls, "src/test/resources/MainPage.java");
 
-		try {
-			pageObjectGenerator.generateJavaFile();
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
-		}
+		pageObjectGenerator.generateJavaFile();
 	}
 
 }
