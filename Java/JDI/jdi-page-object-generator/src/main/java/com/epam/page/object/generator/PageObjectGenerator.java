@@ -26,92 +26,22 @@ public class PageObjectGenerator {
 	private List<String> urls;
 	private String outputDir;
 
-	public PageObjectGenerator() {
-	}
+	private StringBuilder ruleDescription;
+	private List<FieldSpec> fields;
 
 	public PageObjectGenerator(String jsonPath, List<String> urls, String outputDir) {
 		this.jsonPath = jsonPath;
 		this.urls = urls;
 		this.outputDir = outputDir;
-	}
-
-	public String getJsonPath() {
-		return jsonPath;
-	}
-
-	public void setJsonPath(String jsonPath) {
-		this.jsonPath = jsonPath;
-	}
-
-	public List<String> getUrls() {
-		return urls;
-	}
-
-	public void setUrls(List<String> urls) {
-		this.urls = urls;
-	}
-
-	public String getOutputDir() {
-		return outputDir;
-	}
-
-	public void setOutputDir(String outputDir) {
-		this.outputDir = outputDir;
+		ruleDescription = new StringBuilder();
+		fields = new ArrayList<>();
 	}
 
 	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException {
 		List<SearchRule> searchRules = JSONIntoRuleParser.getRulesFromJSON(jsonPath);
 		Map<SearchRule, Elements> searchResultsMap = ElementsFinder.searchElementsByRulesOnURLs(searchRules, urls);
-		List<FieldSpec> fields = new ArrayList<>();
-		int elementCounter = 0;
 
-		for (SearchRule searchRule : searchResultsMap.keySet()) {
-			List<String> resultList = searchRule.isSearchingByText()
-				? searchResultsMap.get(searchRule).eachText()
-				: searchResultsMap.get(searchRule).eachAttr("value");
-
-			for (String element : resultList) {
-				StringBuilder ruleDescription = new StringBuilder();
-
-				ruleDescription.append("//");
-				ruleDescription.append(searchRule.getTag());
-				ruleDescription.append("[");
-
-				if (searchRule.getClasses() != null && !searchRule.getClasses().isEmpty()) {
-					ruleDescription.append("[@class='");
-					for (String clazz : searchRule.getClasses()) {
-						ruleDescription.append(clazz).append(" ");
-					}
-					ruleDescription.deleteCharAt(ruleDescription.lastIndexOf(" "));
-					ruleDescription.append("' and ");
-				}
-
-				if (searchRule.getAttributes() != null && !searchRule.getAttributes().isEmpty()) {
-					for (ElementAttribute elementAttribute : searchRule.getAttributes()) {
-						ruleDescription.append("@").append(elementAttribute.getAttributeName())
-							.append("='").append(elementAttribute.getAttributeValue()).append("'")
-							.append(" and ");
-					}
-				}
-
-				if (searchRule.isSearchingByText()) {
-					ruleDescription.append("text()");
-				} else {
-					ruleDescription.append("@value");
-				}
-
-				ruleDescription.append("='").append(element).append("']");
-
-				fields.add(FieldSpec.builder(Button.class, searchRule.getTag() + elementCounter)
-					.addModifiers(Modifier.PUBLIC)
-					.addAnnotation(AnnotationSpec.builder(FindBy.class)
-						.addMember("xpath", "$S", ruleDescription)
-						.build())
-					.build());
-
-				elementCounter++;
-			}
-		}
+		addAllButtonsAsFields(searchResultsMap);
 
 		TypeSpec mainPage = TypeSpec.classBuilder("MainPage")
 			.addModifiers(Modifier.PUBLIC)
@@ -125,8 +55,76 @@ public class PageObjectGenerator {
 		JavaFile javaFile = JavaFile.builder("com.epam.jdi.site.epam.pages", mainPage)
 			.build();
 
-		javaFile.writeTo(System.out);
 		javaFile.writeTo(Paths.get(outputDir));
+	}
+
+	private void addAllButtonsAsFields(Map<SearchRule, Elements> searchResultsMap) {
+		// TODO: find only buttons in map
+
+		int elementCounter = 0;
+
+		for (SearchRule searchRule : searchResultsMap.keySet()) {
+			List<String> resultList = searchRule.isSearchingByText()
+				? searchResultsMap.get(searchRule).eachText()
+				: searchResultsMap.get(searchRule).eachAttr("value");
+
+			for (String element : resultList) {
+				String name = searchRule.getTag() + elementCounter;
+
+				createXPathSelectorForButton(searchRule, element);
+				fields.add(makeButtonField(name));
+				elementCounter++;
+			}
+		}
+	}
+
+	private void createXPathSelectorForButton(SearchRule searchRule, String element) {
+		ruleDescription = new StringBuilder();
+
+		ruleDescription.append("//");
+		ruleDescription.append(searchRule.getTag());
+		ruleDescription.append("[");
+
+		appendButtonClassesToXPath(searchRule);
+		appendButtonAttributesToXPath(searchRule);
+
+		if (searchRule.isSearchingByText()) {
+			ruleDescription.append("text()");
+		} else {
+			ruleDescription.append("@value");
+		}
+
+		ruleDescription.append("='").append(element).append("']");
+	}
+
+	private void appendButtonClassesToXPath(SearchRule searchRule) {
+		if (searchRule.getClasses() != null && !searchRule.getClasses().isEmpty()) {
+			ruleDescription.append("[@class='");
+			for (String clazz : searchRule.getClasses()) {
+				ruleDescription.append(clazz).append(" ");
+			}
+			ruleDescription.deleteCharAt(ruleDescription.lastIndexOf(" "));
+			ruleDescription.append("' and ");
+		}
+	}
+
+	private void appendButtonAttributesToXPath(SearchRule searchRule) {
+		if (searchRule.getAttributes() != null && !searchRule.getAttributes().isEmpty()) {
+			for (ElementAttribute elementAttribute : searchRule.getAttributes()) {
+				ruleDescription.append("@").append(elementAttribute.getAttributeName())
+					.append("='").append(elementAttribute.getAttributeValue()).append("'")
+					.append(" and ");
+			}
+		}
+	}
+
+	private FieldSpec makeButtonField(String buttonName) {
+		return FieldSpec.builder(Button.class, buttonName)
+			.addModifiers(Modifier.PUBLIC)
+			.addAnnotation(AnnotationSpec.builder(FindBy.class)
+				.addMember("xpath", "$S", ruleDescription)
+				.build())
+			.build();
 	}
 
 }
