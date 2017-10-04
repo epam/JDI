@@ -2,14 +2,16 @@ package com.epam.page.object.generator.finder;
 
 import com.epam.page.object.generator.model.ElementAttribute;
 import com.epam.page.object.generator.model.SearchRule;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ElementsFinder {
 
@@ -48,7 +50,7 @@ public class ElementsFinder {
 				resultsOfSearch = resultsOfSearchByTag;
 			}
 
-			if (!rule.getClasses().isEmpty()) {
+			if (rule.getClasses() != null && !rule.getClasses().isEmpty()) {
 				resultsOfSearchByClasses = document.select(prepareCSSQuerySelectorByClasses(rule.getClasses()));
 
 				if (rule.getTag() == null) {
@@ -58,10 +60,10 @@ public class ElementsFinder {
                 }
 			}
 
-			if (!rule.getAttributes().isEmpty()) {
+			if (rule.getAttributes() != null && !rule.getAttributes().isEmpty()) {
 				resultsOfSearchByAttributes = searchElementsInDocumentByAttributeValues(document, rule.getAttributes());
 
-                if (rule.getTag() == null && rule.getClasses().isEmpty()) {
+                if (rule.getTag() == null && (rule.getClasses().isEmpty() || rule.getClasses() == null)) {
                     resultsOfSearch = resultsOfSearchByAttributes;
                 } else {
                     resultsOfSearch.retainAll(resultsOfSearchByAttributes);
@@ -84,21 +86,15 @@ public class ElementsFinder {
     }
 
     private static Elements searchElementsInDocumentByAttributeValues(Element document, List<ElementAttribute> attributes) {
-        Elements searchResults = new Elements();
-
-        checkNextElement:
-        for (Element currentElement : document.getAllElements())
-        {
-            for (ElementAttribute currentAttribute: attributes) {
-                if (currentElement.attr(currentAttribute.getAttributeName()) == null
-					|| !currentElement.attr(currentAttribute.getAttributeName()).equals(currentAttribute.getAttributeValue())) {
-                    continue checkNextElement;
-                }
-            }
-
-            searchResults.add(currentElement);
-        }
+        Elements searchResults = new Elements(document.getAllElements().stream().filter(o -> elementAttributesMatch(o, attributes)).collect(Collectors.toList()));
 
         return searchResults;
+    }
+
+    private static boolean elementAttributesMatch(Element element, List<ElementAttribute> attributes) {
+        boolean elementAttributesMatch = attributes.stream().noneMatch(o -> element.attr(o.getAttributeName()) == null
+                || !element.attr(o.getAttributeName()).equals(o.getAttributeValue()));
+
+        return elementAttributesMatch;
     }
 }

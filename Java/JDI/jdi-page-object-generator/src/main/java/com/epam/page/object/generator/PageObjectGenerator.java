@@ -10,15 +10,16 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
+import org.json.simple.parser.ParseException;
+import org.jsoup.select.Elements;
+import org.openqa.selenium.support.FindBy;
+
+import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.lang.model.element.Modifier;
-import org.json.simple.parser.ParseException;
-import org.jsoup.select.Elements;
-import org.openqa.selenium.support.FindBy;
 
 public class PageObjectGenerator {
 
