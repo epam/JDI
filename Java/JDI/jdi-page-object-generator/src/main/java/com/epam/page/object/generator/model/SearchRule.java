@@ -20,6 +20,14 @@ public class SearchRule {
 		this.attributes = attributes;
 	}
 
+	public boolean isClassesEmpty() {
+		return classes == null || classes.isEmpty();
+	}
+
+	public boolean isAttributesEmpty() {
+		return attributes == null || attributes.isEmpty();
+	}
+
 	public String getTag() {
 		return tag;
 	}

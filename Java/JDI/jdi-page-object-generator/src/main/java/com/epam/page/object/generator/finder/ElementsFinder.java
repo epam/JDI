@@ -30,9 +30,8 @@ public class ElementsFinder {
         for (String currentURL : urls) {
 			Document currentDocument = Jsoup.connect(currentURL).get();
 
-            for (SearchRule currentRule : rules) {
-                searchResults.put(currentRule, searchElementsByRuleOnURL(currentRule, currentDocument));
-            }
+            rules.forEach(currentRule ->
+				searchResults.put(currentRule, searchElementsByRuleOnURL(currentRule, currentDocument)));
         }
 
         return searchResults;
@@ -50,7 +49,7 @@ public class ElementsFinder {
 				resultsOfSearch = resultsOfSearchByTag;
 			}
 
-			if (rule.getClasses() != null && !rule.getClasses().isEmpty()) {
+			if (!rule.isClassesEmpty()) {
 				resultsOfSearchByClasses = document.select(prepareCSSQuerySelectorByClasses(rule.getClasses()));
 
 				if (rule.getTag() == null) {
@@ -60,10 +59,10 @@ public class ElementsFinder {
                 }
 			}
 
-			if (rule.getAttributes() != null && !rule.getAttributes().isEmpty()) {
+			if (!rule.isAttributesEmpty()) {
 				resultsOfSearchByAttributes = searchElementsInDocumentByAttributeValues(document, rule.getAttributes());
 
-                if (rule.getTag() == null && (rule.getClasses().isEmpty() || rule.getClasses() == null)) {
+                if (rule.getTag() == null && (rule.isClassesEmpty())) {
                     resultsOfSearch = resultsOfSearchByAttributes;
                 } else {
                     resultsOfSearch.retainAll(resultsOfSearchByAttributes);
@@ -77,21 +76,18 @@ public class ElementsFinder {
     private static String prepareCSSQuerySelectorByClasses (List<String> classes) {
         StringBuilder selector = new StringBuilder();
 
-        classes.stream().forEach(o -> selector.append(".").append(o));
+        classes.forEach(clazz -> selector.append(".").append(clazz));
 
         return selector.toString();
     }
 
     private static Elements searchElementsInDocumentByAttributeValues(Element document, List<ElementAttribute> attributes) {
-        Elements searchResults = new Elements(document.getAllElements().stream().filter(o -> elementAttributesMatch(o, attributes)).collect(Collectors.toList()));
-
-        return searchResults;
+		return new Elements(document.getAllElements().stream()
+			.filter(element -> elementAttributesMatch(element, attributes)).collect(Collectors.toList()));
     }
 
     private static boolean elementAttributesMatch(Element element, List<ElementAttribute> attributes) {
-        boolean elementAttributesMatch = attributes.stream().noneMatch(o -> element.attr(o.getAttributeName()) == null
-                || !element.attr(o.getAttributeName()).equals(o.getAttributeValue()));
-
-        return elementAttributesMatch;
+		return attributes.stream().noneMatch(elementAttribute -> element.attr(elementAttribute.getAttributeName()) == null
+				|| !element.attr(elementAttribute.getAttributeName()).equals(elementAttribute.getAttributeValue()));
     }
 }
