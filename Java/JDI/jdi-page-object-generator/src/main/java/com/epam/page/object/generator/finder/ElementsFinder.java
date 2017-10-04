@@ -77,10 +77,7 @@ public class ElementsFinder {
     private static String prepareCSSQuerySelectorByClasses (List<String> classes) {
         StringBuilder selector = new StringBuilder();
 
-        for (String currentClass: classes) {
-            selector.append(".");
-            selector.append(currentClass);
-        }
+        classes.stream().forEach(o -> selector.append(".").append(o));
 
         return selector.toString();
     }

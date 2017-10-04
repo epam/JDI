@@ -1,10 +1,11 @@
 package com.epam.page.object.generator;
 
+import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Test;
 
 class PageObjectGeneratorTest {
 
