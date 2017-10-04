@@ -80,9 +80,7 @@ public class PageObjectGenerator {
 	private void createXPathSelectorForButton(SearchRule searchRule, String element) {
 		ruleDescription = new StringBuilder();
 
-		ruleDescription.append("//");
-		ruleDescription.append(searchRule.getTag());
-		ruleDescription.append("[");
+		ruleDescription.append("//").append(searchRule.getTag()).append("[");
 
 		appendButtonClassesToXPath(searchRule);
 		appendButtonAttributesToXPath(searchRule);
