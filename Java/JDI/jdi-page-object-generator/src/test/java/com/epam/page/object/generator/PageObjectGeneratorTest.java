@@ -1,18 +1,15 @@
 package com.epam.page.object.generator;
 
-import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class PageObjectGeneratorTest {
 
-	private static final String validJSONPath = "src/test/resources/validJSON.txt";
+	private static final String validJSONPath = "src/test/resources/valid.json";
 
 	@Test
-	void mainTest() throws IOException, ParseException {
+	void mainTest() throws Exception {
 		List<String> urls = new ArrayList<>();
 
 		urls.add("https://www.w3schools.com/html/html_forms.asp");

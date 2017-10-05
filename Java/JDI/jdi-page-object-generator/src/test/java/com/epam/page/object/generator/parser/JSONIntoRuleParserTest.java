@@ -1,6 +1,5 @@
 package com.epam.page.object.generator.parser;
 
-import static com.epam.page.object.generator.parser.JSONIntoRuleParser.getRulesFromJSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,31 +14,36 @@ import org.junit.jupiter.api.Test;
 
 class JSONIntoRuleParserTest {
 
-	private static final String validJSONPath = "src/test/resources/validJSON.txt";
-	private static final String invalidJSONPath = "src/test/resources/invalidJSON.txt";
+	private static final String validJSONPath = "src/test/resources/valid.json";
+	private static final String invalidJSONPath = "src/test/resources/invalid.json";
+
+	private JSONIntoRuleParser parser;
 
 	@Test
 	void getRulesFromJSON_invalidJSONParsing() {
-		assertThrows(ParseException.class, () -> getRulesFromJSON(invalidJSONPath));
+		parser = new JSONIntoRuleParser(validJSONPath);
+		assertThrows(ParseException.class, () -> parser.getRulesFromJSON());
 	}
 
 	@Test
 	void getRulesFromJSON_wrongJSONPath() {
-		assertThrows(IOException.class, () -> getRulesFromJSON("SomethingWentWrong.txt"));
+		parser = new JSONIntoRuleParser("SomethingWentWrong.txt");
+		assertThrows(IOException.class, () -> parser.getRulesFromJSON());
 	}
 
 	@Test
-	void getRulesFromJSON_validJSON() throws IOException, ParseException {
+	void getRulesFromJSON_validJSON() throws Exception {
 		List<String> classes = new ArrayList<>();
 		List<ElementAttribute> attributes = new ArrayList<>();
 		List<SearchRule> searchRules = new ArrayList<>();
 
+		parser = new JSONIntoRuleParser(invalidJSONPath);
 		classes.add("w3-btn");
 		attributes.add(new ElementAttribute("type", "submit"));
 		searchRules.add(new SearchRule("a", true, classes, Collections.emptyList()));
 		searchRules.add(new SearchRule("input", false, Collections.emptyList(), attributes));
 
-		assertEquals(searchRules, getRulesFromJSON(validJSONPath));
+		assertEquals(searchRules, parser.getRulesFromJSON());
 	}
 
 }

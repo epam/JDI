@@ -21,7 +21,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class PageObjectGenerator {
 
-	private String jsonPath;
+	private JSONIntoRuleParser parser;
 	private List<String> urls;
 	private String outputDir;
 
@@ -29,15 +29,15 @@ public class PageObjectGenerator {
 	private List<FieldSpec> fields;
 
 	public PageObjectGenerator(String jsonPath, List<String> urls, String outputDir) {
-		this.jsonPath = jsonPath;
+		parser = new JSONIntoRuleParser(jsonPath);
 		this.urls = urls;
 		this.outputDir = outputDir;
 		ruleDescription = new StringBuilder();
 		fields = new ArrayList<>();
 	}
 
-	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException {
-		List<SearchRule> searchRules = JSONIntoRuleParser.getRulesFromJSON(jsonPath);
+	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException, ClassNotFoundException {
+		List<SearchRule> searchRules = parser.getRulesFromJSON();
 		Map<SearchRule, Elements> searchResultsMap = ElementsFinder.searchElementsByRulesOnURLs(searchRules, urls);
 
 		addAllButtonsAsFields(searchResultsMap);
