@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class AbstractSearchRule implements ISearchRule {
-    protected String tag;
+
+	protected String tag;
     protected boolean searchText;
     protected List<String> classes;
     protected List<ElementAttribute> attributes;
@@ -26,52 +27,62 @@ public abstract class AbstractSearchRule implements ISearchRule {
         this.attributes = attributes;
     }
 
+    @Override
     public String getTag() {
         return tag;
     }
 
+	@Override
     public void setTag(String tag) {
         this.tag = tag;
     }
 
+	@Override
     public boolean getSearchText() {
         return searchText;
     }
 
+	@Override
     public void setSearchText(boolean searchText) {
         this.searchText = searchText;
     }
 
+	@Override
     public List<String> getClasses() {
         return classes;
     }
 
+	@Override
     public void setClasses(List<String> classes) {
         this.classes = classes;
     }
 
+	@Override
     public List<ElementAttribute> getAttributes() {
         return attributes;
     }
 
+	@Override
     public void setAttributes(List<ElementAttribute> attributes) {
         this.attributes = attributes;
     }
 
+	@Override
     public Elements extractElementsFromWebSite(List<String> urls){
         Elements searchResults = new Elements();
 
-        for (String currentURL: urls) {
+        for (String currentURL : urls) {
             searchResults.addAll(extractElementsFromWebSite(currentURL));
         }
 
         return searchResults;
     };
 
+	@Override
     abstract public Elements extractElementsFromWebSite(String url);
 
     protected Elements searchElementsByTag(Document document) {
-        Elements searchResults = new Elements();
+        Elements searchResults;
 
         if (tag != null) {
             searchResults = document.select(tag);
@@ -83,7 +94,7 @@ public abstract class AbstractSearchRule implements ISearchRule {
     }
 
     protected Elements searchElementsByClasses(Document document) {
-        Elements searchResults = new Elements();
+        Elements searchResults;
 
         if (!classesAreEmpty()) {
             searchResults = document.select(prepareCSSQuerySelector());
@@ -95,10 +106,11 @@ public abstract class AbstractSearchRule implements ISearchRule {
     }
 
     protected Elements searchElementsByAttributes(Document document) {
-        Elements searchResults = new Elements();
+        Elements searchResults;
 
         if (attributes != null && !attributes.isEmpty()) {
-            searchResults = new Elements(document.getAllElements().stream().filter(element -> elementAttributesMatch(element)).collect(Collectors.toList()));
+            searchResults = new Elements(document.getAllElements()
+				.stream().filter(this::elementAttributesMatch).collect(Collectors.toList()));
         } else {
             searchResults = document.getAllElements();
         }
@@ -124,8 +136,8 @@ public abstract class AbstractSearchRule implements ISearchRule {
 
         try {
             document = Jsoup.connect(url).get();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
         return document;
@@ -138,4 +150,5 @@ public abstract class AbstractSearchRule implements ISearchRule {
     protected boolean attributesAreEmpty() {
         return attributes == null || attributes.isEmpty();
     }
+
 }

@@ -1,11 +1,9 @@
 package com.epam.page.object.generator.rule;
 
 import com.epam.page.object.generator.model.ElementAttribute;
+import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ButtonSearchRule extends AbstractSearchRule {
 
@@ -33,4 +31,5 @@ public class ButtonSearchRule extends AbstractSearchRule {
 
         return new Elements(searchResults);
     }
+
 }
