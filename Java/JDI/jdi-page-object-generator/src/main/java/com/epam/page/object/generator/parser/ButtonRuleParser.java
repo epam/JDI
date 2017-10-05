@@ -1,9 +1,11 @@
 package com.epam.page.object.generator.parser;
 
 import com.epam.page.object.generator.model.ElementAttribute;
-import com.epam.page.object.generator.model.SearchRule;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.epam.page.object.generator.rule.ButtonSearchRule;
+import com.epam.page.object.generator.rule.ISearchRule;
 import org.json.simple.JSONObject;
 
 public class ButtonRuleParser implements IRuleParser {
@@ -16,19 +18,19 @@ public class ButtonRuleParser implements IRuleParser {
 	}
 
 	@Override
-	public SearchRule parse(JSONObject jsonObject) {
+	public ISearchRule parse(JSONObject jsonObject) {
 		String name = (String) jsonObject.get("name");
 		String rules = (String) jsonObject.get("rules");
 
-		SearchRule searchRule = new SearchRule();
+		ISearchRule searchRule = new ButtonSearchRule();
 		String[] attributes = rules.split(";");
 		List<String> classes = new ArrayList<>();
 		List<ElementAttribute> elementAttributes = new ArrayList<>();
 
 		if (name.equals("text")) {
-			searchRule.setSearchingByText(true);
+			searchRule.setSearchText(true);
 		} else {
-			searchRule.setSearchingByText(false);
+			searchRule.setSearchText(false);
 		}
 
 		for (String attribute : attributes) {
