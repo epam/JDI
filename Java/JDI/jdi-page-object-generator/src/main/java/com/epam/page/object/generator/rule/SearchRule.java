@@ -10,64 +10,55 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AbstractSearchRule implements ISearchRule {
+public class SearchRule {
 
-	protected String tag;
-    protected boolean searchText;
-    protected List<String> classes;
-    protected List<ElementAttribute> attributes;
+	private String tag;
+    private boolean searchText;
+    private List<String> classes;
+    private List<ElementAttribute> attributes;
 
-    public AbstractSearchRule() {
+    public SearchRule() {
     }
 
-    public AbstractSearchRule(String tag, boolean searchText, List<String> classes, List<ElementAttribute> attributes) {
+    public SearchRule(String tag, boolean searchText, List<String> classes, List<ElementAttribute> attributes) {
         this.tag = tag;
         this.searchText = searchText;
         this.classes = classes;
         this.attributes = attributes;
     }
 
-    @Override
     public String getTag() {
         return tag;
     }
 
-	@Override
     public void setTag(String tag) {
         this.tag = tag;
     }
 
-	@Override
     public boolean getSearchText() {
         return searchText;
     }
 
-	@Override
     public void setSearchText(boolean searchText) {
         this.searchText = searchText;
     }
 
-	@Override
     public List<String> getClasses() {
         return classes;
     }
 
-	@Override
     public void setClasses(List<String> classes) {
         this.classes = classes;
     }
 
-	@Override
     public List<ElementAttribute> getAttributes() {
         return attributes;
     }
 
-	@Override
     public void setAttributes(List<ElementAttribute> attributes) {
         this.attributes = attributes;
     }
 
-	@Override
     public Elements extractElementsFromWebSite(List<String> urls){
         Elements searchResults = new Elements();
 
@@ -78,10 +69,18 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return searchResults;
     };
 
-	@Override
-    abstract public Elements extractElementsFromWebSite(String url);
+    public Elements extractElementsFromWebSite(String url) {
+        Elements searchResults = new Elements();
+        Document document = getURLConnection(url);
 
-    protected Elements searchElementsByTag(Document document) {
+        searchResults.addAll(searchElementsByTag(document));
+        searchResults.retainAll(searchElementsByClasses(document));
+        searchResults.retainAll(searchElementsByAttributes(document));
+
+        return new Elements(searchResults);
+    }
+
+    private Elements searchElementsByTag(Document document) {
         Elements searchResults;
 
         if (tag != null) {
@@ -93,7 +92,7 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return searchResults;
     }
 
-    protected Elements searchElementsByClasses(Document document) {
+    private Elements searchElementsByClasses(Document document) {
         Elements searchResults;
 
         if (!classesAreEmpty()) {
@@ -105,10 +104,10 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return searchResults;
     }
 
-    protected Elements searchElementsByAttributes(Document document) {
+    private Elements searchElementsByAttributes(Document document) {
         Elements searchResults;
 
-        if (attributes != null && !attributes.isEmpty()) {
+        if (!attributesAreEmpty()) {
             searchResults = new Elements(document.getAllElements()
 				.stream().filter(this::elementAttributesMatch).collect(Collectors.toList()));
         } else {
@@ -118,12 +117,12 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return searchResults;
     }
 
-    protected boolean elementAttributesMatch(Element element) {
+    private boolean elementAttributesMatch(Element element) {
         return attributes.stream().noneMatch(elementAttribute -> element.attr(elementAttribute.getAttributeName()) == null
                 || !element.attr(elementAttribute.getAttributeName()).equals(elementAttribute.getAttributeValue()));
     }
 
-    protected String prepareCSSQuerySelector() {
+    private String prepareCSSQuerySelector() {
         StringBuilder selector = new StringBuilder();
 
         classes.forEach(clazz -> selector.append(".").append(clazz));
@@ -131,7 +130,7 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return selector.toString();
     }
 
-    protected Document getURLConnection(String url) {
+    private Document getURLConnection(String url) {
         Document document = null;
 
         try {
@@ -143,11 +142,11 @@ public abstract class AbstractSearchRule implements ISearchRule {
         return document;
     }
 
-    protected boolean classesAreEmpty() {
+    private boolean classesAreEmpty() {
         return classes == null || classes.isEmpty();
     }
 
-    protected boolean attributesAreEmpty() {
+    private boolean attributesAreEmpty() {
         return attributes == null || attributes.isEmpty();
     }
 
