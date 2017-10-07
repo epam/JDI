@@ -1,16 +1,16 @@
 package com.epam.page.object.generator.parser;
 
+import com.epam.page.object.generator.model.SearchRule;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epam.page.object.generator.rule.ISearchRule;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class JSONIntoRuleParser {
 
@@ -30,11 +30,11 @@ public class JSONIntoRuleParser {
 	 * @throws ParseException If JSON has invalid format.
 	 * @throws ClassNotFoundException If there is not parser for such type.
 	 */
-	public List<ISearchRule> getRulesFromJSON() throws IOException, ParseException, ClassNotFoundException {
+	public List<SearchRule> getRulesFromJSON() throws IOException, ParseException, ClassNotFoundException {
 		try (BufferedReader br = new BufferedReader(new FileReader(jsonPath))) {
 			JSONObject fullJSON = (JSONObject) parser.parse(br);
 			JSONArray elements = (JSONArray) fullJSON.get("elements");
-			List<ISearchRule> searchRules = new ArrayList<>();
+			List<SearchRule> searchRules = new ArrayList<>();
 
 			for (Object element : elements) {
 				JSONObject jsonObject = (JSONObject) element;

@@ -1,6 +1,7 @@
-package com.epam.page.object.generator.rule;
+package com.epam.page.object.generator.model;
 
 import com.epam.page.object.generator.model.ElementAttribute;
+import com.epam.page.object.generator.model.ElementType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,19 +13,29 @@ import java.util.stream.Collectors;
 
 public class SearchRule {
 
+    private ElementType elementType;
 	private String tag;
-    private boolean searchText;
+    private boolean isSearchingText;
     private List<String> classes;
     private List<ElementAttribute> attributes;
 
     public SearchRule() {
     }
 
-    public SearchRule(String tag, boolean searchText, List<String> classes, List<ElementAttribute> attributes) {
+    public SearchRule(ElementType elementType, String tag, boolean isSearchingText, List<String> classes, List<ElementAttribute> attributes) {
+        this.elementType = elementType;
         this.tag = tag;
-        this.searchText = searchText;
+        this.isSearchingText = isSearchingText;
         this.classes = classes;
         this.attributes = attributes;
+    }
+
+    public ElementType getElementType() {
+        return elementType;
+    }
+
+    public void setElementType(ElementType elementType) {
+        this.elementType = elementType;
     }
 
     public String getTag() {
@@ -35,12 +46,12 @@ public class SearchRule {
         this.tag = tag;
     }
 
-    public boolean getSearchText() {
-        return searchText;
+    public boolean isSearchingText() {
+        return isSearchingText;
     }
 
-    public void setSearchText(boolean searchText) {
-        this.searchText = searchText;
+    public void setSearchingText(boolean searchingText) {
+        isSearchingText = searchingText;
     }
 
     public List<String> getClasses() {
@@ -58,16 +69,6 @@ public class SearchRule {
     public void setAttributes(List<ElementAttribute> attributes) {
         this.attributes = attributes;
     }
-
-    public Elements extractElementsFromWebSite(List<String> urls){
-        Elements searchResults = new Elements();
-
-        for (String currentURL : urls) {
-            searchResults.addAll(extractElementsFromWebSite(currentURL));
-        }
-
-        return searchResults;
-    };
 
     public Elements extractElementsFromWebSite(String url) {
         Elements searchResults = new Elements();
@@ -142,11 +143,11 @@ public class SearchRule {
         return document;
     }
 
-    private boolean classesAreEmpty() {
+    public boolean classesAreEmpty() {
         return classes == null || classes.isEmpty();
     }
 
-    private boolean attributesAreEmpty() {
+    public boolean attributesAreEmpty() {
         return attributes == null || attributes.isEmpty();
     }
 
