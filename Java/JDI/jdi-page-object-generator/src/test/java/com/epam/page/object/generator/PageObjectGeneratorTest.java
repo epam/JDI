@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class PageObjectGeneratorTest {
 
-    private static final String validJSONPath = "src/test/resources/validJSON.txt";
+    private static final String validJSONPath = "src/test/resources/valid.json";
  
     @Test
  	public void mainTest() throws Exception {
