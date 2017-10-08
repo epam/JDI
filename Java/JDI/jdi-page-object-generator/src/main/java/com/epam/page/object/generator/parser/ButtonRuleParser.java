@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ButtonRuleParser implements IRuleParser {
 
-	private static final String BUTTON_TYPE = "button";
+	private static final String TYPE = "button";
 
 	@Override
 	public boolean canParse(String type) {
-		return type.toLowerCase().equals(BUTTON_TYPE);
+		return type.toLowerCase().equals(TYPE);
 	}
 
 	@Override
