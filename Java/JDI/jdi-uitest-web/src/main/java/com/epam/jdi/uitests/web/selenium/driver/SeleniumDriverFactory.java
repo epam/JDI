@@ -35,9 +35,11 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
@@ -48,6 +50,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.Timer.sleep;
@@ -59,10 +62,10 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
 import static java.lang.String.format;
 import static java.lang.System.setProperty;
 import static java.lang.Thread.currentThread;
+import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.CapabilityType.PAGE_LOAD_STRATEGY;
-import static org.openqa.selenium.remote.DesiredCapabilities.internetExplorer;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -204,7 +207,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                                 return webDriverSettings.apply(initChrome());
                             } else {
                                 setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-                                return webDriverSettings.apply(new ChromeDriver());
+                                return webDriverSettings.apply(new ChromeDriver(defaultChromeOptions()));
                             }
                         });
             case FIREFOX:
@@ -213,10 +216,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                             if (getLatestDriver) {
                                 return webDriverSettings.apply(initFirefox());
                             } else {
-                                DesiredCapabilities capabilities = internetExplorer();
-                                capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
                                 setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-                                return webDriverSettings.apply(new FirefoxDriver(capabilities));
+                                return webDriverSettings.apply(new FirefoxDriver(defaultFirefoxOptions()));
                             }
                         });
             case IE:
@@ -224,16 +225,31 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                     if (getLatestDriver) {
                         return webDriverSettings.apply(initIE());
                     } else {
-                        DesiredCapabilities capabilities = internetExplorer();
-                        capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
                         setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
-                        return webDriverSettings.apply(new InternetExplorerDriver(capabilities));
+                        return webDriverSettings.apply(new InternetExplorerDriver(defaultIEOptions()));
                     }
                 });
         }
         throw exception("Unknown driver: " + driverType);
     }
-
+    private FirefoxOptions defaultFirefoxOptions() {
+        FirefoxOptions cap = new FirefoxOptions();
+        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+        return cap;
+    }
+    private ChromeOptions defaultChromeOptions() {
+        ChromeOptions cap = new ChromeOptions();
+        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+        return cap;
+    }
+    private InternetExplorerOptions defaultIEOptions() {
+        InternetExplorerOptions cap = new InternetExplorerOptions();
+        cap.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+        cap.setCapability("ignoreZoomSetting", true);
+        //cap.setCapability("requireWindowFocus", true);
+        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+        return cap;
+    }
     public String registerDriver(DriverTypes driverType, Supplier<WebDriver> driver) {
         int numerator = 2;
         String driverName = driverType.toString();
@@ -263,29 +279,28 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     private WebDriver initFirefox() {
-        DesiredCapabilities capabilities = internetExplorer();
-        capabilities.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
         FirefoxDriverManager.getInstance().arch32().setup();
-        return new FirefoxDriver(capabilities);
+        return new FirefoxDriver(defaultFirefoxOptions());
     }
 
     private WebDriver initChrome() {
         ChromeDriverManager.getInstance().setup();
-        return new ChromeDriver();
+        return new ChromeDriver(defaultChromeOptions());
     }
 
     private WebDriver initIE() {
-        DesiredCapabilities capabilities = internetExplorer();
-        capabilities.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         InternetExplorerDriverManager.getInstance().setup();
-        return new InternetExplorerDriver(capabilities);
+        return new InternetExplorerDriver(defaultIEOptions());
     }
 
     public static Dimension browserSizes;
 
     public static Function<WebDriver, WebDriver> webDriverSettings = driver -> {
-        if (browserSizes == null)
-            driver.manage().window().maximize();
+        if (browserSizes == null) {
+            if (any(asList("chrome", "internetexplorer"),
+                el -> driver.toString().toLowerCase().contains(el)))
+                    driver.manage().window().maximize();
+        }
         else
             driver.manage().window().setSize(browserSizes);
         driver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);

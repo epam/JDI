@@ -102,8 +102,8 @@ public class MetalsColorsPage extends WebPage {
     ) public IComboBox jComboBoxRootListValue;
 
     @JComboBox(
-            root = @JFindBy(css = ".colors"),
-            value = @JFindBy(css = ".filter-option")
+        root = @JFindBy(css = ".colors"),
+        value = @JFindBy(css = ".filter-option")
     ) public IComboBox jComboBoxRootList;
 
     @JDropdown(

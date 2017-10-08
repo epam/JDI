@@ -99,6 +99,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         cl.setParent(getParent());
         return cl;
     }
+    @Override
     public WebElement getWebElement() {
         if (avatar.hasWebElement())
             return avatar.getElement();

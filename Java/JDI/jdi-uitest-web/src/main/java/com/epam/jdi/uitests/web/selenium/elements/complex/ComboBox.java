@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
@@ -83,13 +82,8 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         By expand = findByToBy(jComboBox.expand());
         By labelLocator = findByToBy(jComboBox.labelLocator());
 
-        if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
+        if (root != null)
             setAvatar(root);
-        }
-
         if (value != null) {
             this.element = new GetElementType(value, this);
             if (expander == null){
@@ -97,21 +91,15 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
             }
             textField = new GetElementType(value, this);
         }
-
-        if (list != null) {
+        if (list != null)
             this.allLabels = new GetElementType(list, this);
-        }
-
         if (expand != null) {
             this.expander = new GetElementType(expand, this);
-            if (element == null) {
+            if (element == null)
                 this.element = expander;
-            }
         }
-
-        if(labelLocator != null) {
+        if(labelLocator != null)
             this.labelLocator = labelLocator;
-        }
     }
 
     protected TextField textField() {
