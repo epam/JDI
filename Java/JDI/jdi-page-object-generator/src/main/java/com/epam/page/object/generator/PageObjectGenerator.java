@@ -4,9 +4,10 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.page.object.generator.builder.ButtonFieldsBuilder;
 import com.epam.page.object.generator.builder.IFieldsBuilder;
+import com.epam.page.object.generator.builder.TextFieldsBuilder;
 import com.epam.page.object.generator.model.ElementType;
-import com.epam.page.object.generator.parser.JSONIntoRuleParser;
 import com.epam.page.object.generator.model.SearchRule;
+import com.epam.page.object.generator.parser.JSONIntoRuleParser;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -33,8 +34,16 @@ public class PageObjectGenerator {
 		this.urls = urls;
 		this.outputDir = outputDir;
 		builders.add(new ButtonFieldsBuilder());
+		builders.add(new TextFieldsBuilder());
 	}
 
+	/**
+	 * This method generates Java-file with all HTML-elements found on the web-site  by rules given by user in .json
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws IllegalArgumentException
+	 * @throws ClassNotFoundException
+	 */
 	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException, ClassNotFoundException {
 		List<TypeSpec> pageClasses = new ArrayList<>();
 		List<SearchRule> searchRules = parser.getRulesFromJSON();
@@ -57,6 +66,13 @@ public class PageObjectGenerator {
 		javaFile.writeTo(Paths.get(outputDir));
 	}
 
+	/**
+	 * This method generates one of the nested classes with all HTML-elements found on the web-page with following url by rules
+	 * @param searchRules is list of rules
+	 * @param url is one of the web-pages of web-site
+	 * @return a description of a nested class for one of the pages of the web-site
+	 * @throws ClassNotFoundException
+	 */
 	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) throws ClassNotFoundException {
 		String name = "Page" + urlsCounter++;
 		List<FieldSpec> fields = new ArrayList<>();
@@ -74,10 +90,20 @@ public class PageObjectGenerator {
 				.build();
 	}
 
+	/**
+	 * This method searches for an appropriate builder to build nested class
+	 * @param elementType
+	 * @return an appropriate builder
+	 * @throws ClassNotFoundException
+	 */
 	private IFieldsBuilder findBuilder(ElementType elementType) throws ClassNotFoundException {
 		return builders.stream().filter(b -> b.canBuild(elementType)).findFirst().orElseThrow(ClassNotFoundException::new);
 	}
 
+	/**
+	 * This method extracts domain URL from list of URLs of the web-site
+	 * @return domain URL
+	 */
 	private String getDomain() {
 		return "domain";
 	}

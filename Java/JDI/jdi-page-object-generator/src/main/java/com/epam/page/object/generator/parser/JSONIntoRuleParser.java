@@ -1,5 +1,6 @@
 package com.epam.page.object.generator.parser;
 
+import com.epam.page.object.generator.builder.TextFieldsBuilder;
 import com.epam.page.object.generator.model.SearchRule;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +22,7 @@ public class JSONIntoRuleParser {
 	public JSONIntoRuleParser(String jsonPath) {
 		this.jsonPath = jsonPath;
 		parsers.add(new ButtonRuleParser());
+		parsers.add(new TextRuleParser());
 	}
 
 	/**

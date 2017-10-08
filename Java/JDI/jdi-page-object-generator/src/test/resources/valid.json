@@ -9,6 +9,11 @@
             "type":"Button",
             "name": "value",
             "rules":"tag=input;type=submit"
+        },
+        {
+            "type":"Text",
+            "name": "text",
+            "rules":"tag=p"
         }
     ]
 }

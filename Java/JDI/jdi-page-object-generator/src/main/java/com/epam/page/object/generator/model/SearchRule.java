@@ -1,7 +1,5 @@
 package com.epam.page.object.generator.model;
 
-import com.epam.page.object.generator.model.ElementAttribute;
-import com.epam.page.object.generator.model.ElementType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -79,6 +77,12 @@ public class SearchRule {
         searchResults.retainAll(searchElementsByAttributes(document));
 
         return new Elements(searchResults);
+    }
+
+    public Elements extractElementsFromElement(Element element) {
+
+
+        return null;
     }
 
     private Elements searchElementsByTag(Document document) {
