@@ -20,8 +20,7 @@ public class JSONIntoRuleParser {
 
 	public JSONIntoRuleParser(String jsonPath) {
 		this.jsonPath = jsonPath;
-		parsers.add(new ButtonRuleParser());
-		parsers.add(new TextRuleParser());
+		parsers.add(new CommonElementsRuleParser());
 	}
 
 	/**
@@ -50,5 +49,4 @@ public class JSONIntoRuleParser {
 	private IRuleParser findParser(String type) throws ParserNotFoundException {
 		return parsers.stream().filter(p -> p.canParse(type)).findFirst().orElseThrow(ParserNotFoundException::new);
 	}
-
 }

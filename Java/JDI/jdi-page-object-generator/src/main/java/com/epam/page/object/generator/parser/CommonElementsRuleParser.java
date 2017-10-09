@@ -8,13 +8,23 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextRuleParser implements IRuleParser {
+public class CommonElementsRuleParser implements IRuleParser {
 
-    private static final String TYPE = "text";
+    enum CommonElementType {
+        BUTTON, TEXT
+    }
 
     @Override
     public boolean canParse(String type) {
-        return type.toLowerCase().equals(TYPE);
+        boolean exists = true;
+
+        try {
+            CommonElementType.valueOf(type);
+        } catch (IllegalArgumentException e) {
+            exists = false;
+        }
+
+        return exists;
     }
 
     @Override
