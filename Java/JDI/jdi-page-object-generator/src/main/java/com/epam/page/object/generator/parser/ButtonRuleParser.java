@@ -30,11 +30,7 @@ public class ButtonRuleParser implements IRuleParser {
 
 		searchRule.setElementType(ElementType.valueOf(type.toUpperCase()));
 
-		if (name.equals("text")) {
-			searchRule.setSearchingText(true);
-		} else {
-			searchRule.setSearchingText(false);
-		}
+		searchRule.setRequiredAttribute(name);
 
 		for (String attribute : attributes) {
 			String[] singleAttribute = attribute.split("=");

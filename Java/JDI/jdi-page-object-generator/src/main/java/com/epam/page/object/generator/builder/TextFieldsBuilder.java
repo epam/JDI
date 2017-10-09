@@ -23,9 +23,9 @@ public class TextFieldsBuilder implements IFieldsBuilder {
         int textCounter = 0;
         List<FieldSpec> textFields = new ArrayList<>();
 
-        List<String> elements = searchRule.isSearchingText()
+        List<String> elements = ("text").equals(searchRule.getRequiredAttribute())
                 ? searchRule.extractElementsFromWebSite(url).eachText()
-                : searchRule.extractElementsFromWebSite(url).eachAttr("value");
+                : searchRule.extractElementsFromWebSite(url).eachAttr(searchRule.getRequiredAttribute());
 
         for (String element : elements) {
             textFields.add(FieldSpec.builder(Text.class, "text" + textCounter++)
@@ -47,10 +47,10 @@ public class TextFieldsBuilder implements IFieldsBuilder {
         appendTextClassesToXPath(searchRule, xPathSelector);
         appendTextAttributesToXPath(searchRule, xPathSelector);
 
-        if (searchRule.isSearchingText()) {
+        if (("text").equals(searchRule.getRequiredAttribute())) {
             xPathSelector.append("text()");
         } else {
-            xPathSelector.append("@value");
+            xPathSelector.append("@").append(searchRule.getRequiredAttribute());
         }
 
         xPathSelector.append("='").append(element).append("']");
@@ -60,7 +60,7 @@ public class TextFieldsBuilder implements IFieldsBuilder {
 
     private void appendTextClassesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
         if (!searchRule.classesAreEmpty()) {
-            xPathSelector.append("[@class='");
+            xPathSelector.append("@class='");
             searchRule.getClasses().forEach(clazz -> xPathSelector.append(clazz).append(" "));
             xPathSelector.deleteCharAt(xPathSelector.lastIndexOf(" "));
             xPathSelector.append("' and ");
@@ -75,4 +75,5 @@ public class TextFieldsBuilder implements IFieldsBuilder {
                     .append(" and "));
         }
     }
+
 }

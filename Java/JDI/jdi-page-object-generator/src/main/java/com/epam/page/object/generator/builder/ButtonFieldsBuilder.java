@@ -23,9 +23,9 @@ public class ButtonFieldsBuilder implements IFieldsBuilder {
 		int buttonCounter = 0;
 		List<FieldSpec> buttonFields = new ArrayList<>();
 
-		List<String> elements = searchRule.isSearchingText()
+		List<String> elements = ("text").equals(searchRule.getRequiredAttribute())
 				? searchRule.extractElementsFromWebSite(url).eachText()
-				: searchRule.extractElementsFromWebSite(url).eachAttr("value");
+				: searchRule.extractElementsFromWebSite(url).eachAttr(searchRule.getRequiredAttribute());
 
 		for (String element : elements) {
 			buttonFields.add(FieldSpec.builder(Button.class, "button" + buttonCounter++)
@@ -47,10 +47,10 @@ public class ButtonFieldsBuilder implements IFieldsBuilder {
 		appendButtonClassesToXPath(searchRule, xPathSelector);
 		appendButtonAttributesToXPath(searchRule, xPathSelector);
 
-		if (searchRule.isSearchingText()) {
+		if (("text").equals(searchRule.getRequiredAttribute())) {
 			xPathSelector.append("text()");
 		} else {
-			xPathSelector.append("@value");
+			xPathSelector.append("@").append(searchRule.getRequiredAttribute());
 		}
 
 		xPathSelector.append("='").append(element).append("']");
@@ -60,7 +60,7 @@ public class ButtonFieldsBuilder implements IFieldsBuilder {
 
 	private void appendButtonClassesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
 		if (!searchRule.classesAreEmpty()) {
-			xPathSelector.append("[@class='");
+			xPathSelector.append("@class='");
 			searchRule.getClasses().forEach(clazz -> xPathSelector.append(clazz).append(" "));
 			xPathSelector.deleteCharAt(xPathSelector.lastIndexOf(" "));
 			xPathSelector.append("' and ");

@@ -1,5 +1,6 @@
 package com.epam.page.object.generator.parser;
 
+import com.epam.page.object.generator.ParserNotFoundException;
 import com.epam.page.object.generator.builder.TextFieldsBuilder;
 import com.epam.page.object.generator.model.SearchRule;
 import org.json.simple.JSONArray;
@@ -32,7 +33,7 @@ public class JSONIntoRuleParser {
 	 * @throws ParseException If JSON has invalid format.
 	 * @throws ClassNotFoundException If there is not parser for such type.
 	 */
-	public List<SearchRule> getRulesFromJSON() throws IOException, ParseException, ClassNotFoundException {
+	public List<SearchRule> getRulesFromJSON() throws IOException, ParseException, ParserNotFoundException {
 		try (BufferedReader br = new BufferedReader(new FileReader(jsonPath))) {
 			JSONObject fullJSON = (JSONObject) parser.parse(br);
 			JSONArray elements = (JSONArray) fullJSON.get("elements");
@@ -49,8 +50,8 @@ public class JSONIntoRuleParser {
 		}
 	}
 
-	private IRuleParser findParser(String type) throws ClassNotFoundException {
-		return parsers.stream().filter(p -> p.canParse(type)).findFirst().orElseThrow(ClassNotFoundException::new);
+	private IRuleParser findParser(String type) throws ParserNotFoundException {
+		return parsers.stream().filter(p -> p.canParse(type)).findFirst().orElseThrow(ParserNotFoundException::new);
 	}
 
 }

@@ -13,17 +13,17 @@ public class SearchRule {
 
     private ElementType elementType;
 	private String tag;
-    private boolean isSearchingText;
+    private String requiredAttribute;
     private List<String> classes;
     private List<ElementAttribute> attributes;
 
     public SearchRule() {
     }
 
-    public SearchRule(ElementType elementType, String tag, boolean isSearchingText, List<String> classes, List<ElementAttribute> attributes) {
+    public SearchRule(ElementType elementType, String tag, String requiredAttribute, List<String> classes, List<ElementAttribute> attributes) {
         this.elementType = elementType;
         this.tag = tag;
-        this.isSearchingText = isSearchingText;
+        this.requiredAttribute = requiredAttribute;
         this.classes = classes;
         this.attributes = attributes;
     }
@@ -44,12 +44,12 @@ public class SearchRule {
         this.tag = tag;
     }
 
-    public boolean isSearchingText() {
-        return isSearchingText;
+    public String getRequiredAttribute() {
+        return requiredAttribute;
     }
 
-    public void setSearchingText(boolean searchingText) {
-        isSearchingText = searchingText;
+    public void setRequiredAttribute(String requiredAttribute) {
+        this.requiredAttribute = requiredAttribute;
     }
 
     public List<String> getClasses() {

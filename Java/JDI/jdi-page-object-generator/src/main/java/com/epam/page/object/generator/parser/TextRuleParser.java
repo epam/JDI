@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextRuleParser implements IRuleParser {
+
     private static final String TYPE = "text";
 
     @Override
@@ -29,11 +30,7 @@ public class TextRuleParser implements IRuleParser {
 
         searchRule.setElementType(ElementType.valueOf(type.toUpperCase()));
 
-        if (name.equals("text")) {
-            searchRule.setSearchingText(true);
-        } else {
-            searchRule.setSearchingText(false);
-        }
+        searchRule.setRequiredAttribute(name);
 
         for (String attribute : attributes) {
             String[] singleAttribute = attribute.split("=");
@@ -56,4 +53,5 @@ public class TextRuleParser implements IRuleParser {
 
         return searchRule;
     }
+
 }

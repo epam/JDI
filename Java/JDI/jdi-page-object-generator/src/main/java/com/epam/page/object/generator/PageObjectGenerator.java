@@ -44,7 +44,7 @@ public class PageObjectGenerator {
 	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 */
-	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException, ClassNotFoundException {
+	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException, ParserNotFoundException {
 		List<TypeSpec> pageClasses = new ArrayList<>();
 		List<SearchRule> searchRules = parser.getRulesFromJSON();
 
@@ -73,7 +73,7 @@ public class PageObjectGenerator {
 	 * @return a description of a nested class for one of the pages of the web-site
 	 * @throws ClassNotFoundException
 	 */
-	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) throws ClassNotFoundException {
+	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) throws BuilderNotFoundException {
 		String name = "Page" + urlsCounter++;
 		List<FieldSpec> fields = new ArrayList<>();
 
@@ -96,8 +96,8 @@ public class PageObjectGenerator {
 	 * @return an appropriate builder
 	 * @throws ClassNotFoundException
 	 */
-	private IFieldsBuilder findBuilder(ElementType elementType) throws ClassNotFoundException {
-		return builders.stream().filter(b -> b.canBuild(elementType)).findFirst().orElseThrow(ClassNotFoundException::new);
+	private IFieldsBuilder findBuilder(ElementType elementType) throws BuilderNotFoundException {
+		return builders.stream().filter(b -> b.canBuild(elementType)).findFirst().orElseThrow(BuilderNotFoundException::new);
 	}
 
 	/**
