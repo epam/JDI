@@ -79,12 +79,6 @@ public class SearchRule {
         return new Elements(searchResults);
     }
 
-    public Elements extractElementsFromElement(Element element) {
-
-
-        return null;
-    }
-
     private Elements searchElementsByTag(Document document) {
         Elements searchResults;
 
