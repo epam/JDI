@@ -11,7 +11,7 @@ import javax.lang.model.element.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextFieldsBuilder implements IFieldsBuilder {
+public class TextFieldsBuilder extends AbstractFieldsBuilder {
 
     @Override
     public boolean canBuild(ElementType type) {
@@ -31,49 +31,11 @@ public class TextFieldsBuilder implements IFieldsBuilder {
             textFields.add(FieldSpec.builder(Text.class, "text" + textCounter++)
                     .addModifiers(Modifier.PUBLIC)
                     .addAnnotation(AnnotationSpec.builder(FindBy.class)
-                            .addMember("xpath", "$S", createXPathSelectorForText(searchRule, element))
+                            .addMember("xpath", "$S", createXPathSelector(searchRule, element))
                             .build())
                     .build());
         }
 
         return textFields;
     }
-
-    private String createXPathSelectorForText(SearchRule searchRule, String element) {
-        StringBuilder xPathSelector = new StringBuilder();
-
-        xPathSelector.append("//").append(searchRule.getTag()).append("[");
-
-        appendTextClassesToXPath(searchRule, xPathSelector);
-        appendTextAttributesToXPath(searchRule, xPathSelector);
-
-        if (("text").equals(searchRule.getRequiredAttribute())) {
-            xPathSelector.append("text()");
-        } else {
-            xPathSelector.append("@").append(searchRule.getRequiredAttribute());
-        }
-
-        xPathSelector.append("='").append(element).append("']");
-
-        return xPathSelector.toString();
-    }
-
-    private void appendTextClassesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
-        if (!searchRule.classesAreEmpty()) {
-            xPathSelector.append("@class='");
-            searchRule.getClasses().forEach(clazz -> xPathSelector.append(clazz).append(" "));
-            xPathSelector.deleteCharAt(xPathSelector.lastIndexOf(" "));
-            xPathSelector.append("' and ");
-        }
-    }
-
-    private void appendTextAttributesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
-        if (!searchRule.attributesAreEmpty()) {
-            searchRule.getAttributes().forEach(elementAttribute -> xPathSelector.append("@")
-                    .append(elementAttribute.getAttributeName())
-                    .append("='").append(elementAttribute.getAttributeValue()).append("'")
-                    .append(" and "));
-        }
-    }
-
 }
