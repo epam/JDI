@@ -40,4 +40,5 @@ public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
                     .append(" and "));
         }
     }
+
 }

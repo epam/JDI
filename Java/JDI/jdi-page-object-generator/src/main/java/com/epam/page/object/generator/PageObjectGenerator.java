@@ -9,16 +9,16 @@ import com.epam.page.object.generator.model.ElementType;
 import com.epam.page.object.generator.model.SearchRule;
 import com.epam.page.object.generator.parser.JSONIntoRuleParser;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
-import org.json.simple.parser.ParseException;
-
-import javax.lang.model.element.Modifier;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import javax.lang.model.element.Modifier;
+import org.json.simple.parser.ParseException;
 
 public class PageObjectGenerator {
 
@@ -39,15 +39,20 @@ public class PageObjectGenerator {
 
 	/**
 	 * This method generates Java-file with all HTML-elements found on the web-site  by rules given by user in .json
-	 * @throws IOException If can't open JSON file.
+	 * @throws IOException If can't open JSON file or can't write java file.
 	 * @throws ParseException If JSON has invalid format.
 	 */
 	public void generateJavaFile() throws IOException, ParseException {
-		List<TypeSpec> pageClasses = new ArrayList<>();
 		List<SearchRule> searchRules = parser.getRulesFromJSON();
+		List<FieldSpec> siteClassFields = new ArrayList<>();
 
 		for (String url : urls) {
-			pageClasses.add(createPageClass(searchRules, url));
+			String pageClassName = "Page" + urlsCounter;
+			ClassName pageClass = createPageClass(pageClassName, searchRules, url);
+
+			siteClassFields.add(FieldSpec.builder(pageClass, "page" + urlsCounter++)
+				.addModifiers(Modifier.PUBLIC)
+				.build());
 		}
 
 		TypeSpec siteClass = TypeSpec.classBuilder("Site")
@@ -55,7 +60,7 @@ public class PageObjectGenerator {
 				.addAnnotation(AnnotationSpec.builder(JSite.class)
 						.addMember("domain", "$S", getDomain())
 						.build())
-				.addTypes(pageClasses)
+				.addFields(siteClassFields)
 				.build();
 
 		JavaFile javaFile = JavaFile.builder("com.epam.jdi.site.epam.pages", siteClass)
@@ -66,31 +71,39 @@ public class PageObjectGenerator {
 
 	/**
 	 * This method generates one of the nested classes with all HTML-elements found on the web-page with following url by rules
-	 * @param searchRules is list of rules
-	 * @param url is one of the web-pages of web-site
-	 * @return a description of a nested class for one of the pages of the web-site
+	 * @param pageClassName Name of page class.
+	 * @param searchRules List of rules.
+	 * @param url One of the web-pages of web-site.
+	 * @return generated page class.
+	 * @throws IOException If can't write java file.
 	 */
-	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) {
-		String name = "Page" + urlsCounter++;
+	private ClassName createPageClass(String pageClassName, List<SearchRule> searchRules, String url) throws IOException {
 		List<FieldSpec> fields = new ArrayList<>();
 
 		for (SearchRule searchRule : searchRules) {
 			fields.addAll(findBuilder(searchRule.getElementType()).buildField(searchRule, url));
 		}
 
-		return TypeSpec.classBuilder(name)
-				.addAnnotation(AnnotationSpec.builder(JPage.class)
-						.addMember("url", "$S", url)
-						.addMember("title", "$S", name)
-						.build())
-				.addFields(fields)
-				.build();
+		TypeSpec pageClass = TypeSpec.classBuilder(pageClassName)
+			.addModifiers(Modifier.PUBLIC)
+			.addAnnotation(AnnotationSpec.builder(JPage.class)
+				.addMember("url", "$S", url)
+				.addMember("title", "$S", pageClassName)
+				.build())
+			.addFields(fields)
+			.build();
+		JavaFile javaFile = JavaFile.builder("com.epam.jdi.site.epam.pages", pageClass)
+			.build();
+
+		javaFile.writeTo(Paths.get(outputDir));
+
+		return ClassName.get("com.epam.jdi.site.epam.pages", pageClassName);
 	}
 
 	/**
 	 * This method searches for an appropriate builder to build nested class
 	 * @param elementType Type of element that will be built.
-	 * @return an appropriate builder
+	 * @return an appropriate builder.
 	 */
 	private IFieldsBuilder findBuilder(ElementType elementType) {
 		return builders.stream().filter(b -> b.canBuild(elementType)).findFirst().orElseThrow(BuilderNotFoundException::new);
@@ -98,7 +111,7 @@ public class PageObjectGenerator {
 
 	/**
 	 * This method extracts domain URL from list of URLs of the web-site
-	 * @return domain URL
+	 * @return domain URL.
 	 */
 	private String getDomain() {
 		return "domain";
