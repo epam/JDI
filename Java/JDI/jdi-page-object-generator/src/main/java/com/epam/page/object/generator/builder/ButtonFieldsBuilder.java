@@ -5,6 +5,7 @@ import com.epam.page.object.generator.model.ElementType;
 import com.epam.page.object.generator.model.SearchRule;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
+import java.io.IOException;
 import org.openqa.selenium.support.FindBy;
 
 import javax.lang.model.element.Modifier;
@@ -19,7 +20,7 @@ public class ButtonFieldsBuilder extends AbstractFieldsBuilder {
 	}
 
 	@Override
-	public List<FieldSpec> buildField(SearchRule searchRule, String url) {
+	public List<FieldSpec> buildField(SearchRule searchRule, String url) throws IOException {
 		int buttonCounter = 0;
 		List<FieldSpec> buttonFields = new ArrayList<>();
 

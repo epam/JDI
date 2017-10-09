@@ -68,7 +68,7 @@ public class SearchRule {
         this.attributes = attributes;
     }
 
-    public Elements extractElementsFromWebSite(String url) {
+	public Elements extractElementsFromWebSite(String url) throws IOException {
         Elements searchResults = new Elements();
         Document document = getURLConnection(url);
 
@@ -135,16 +135,8 @@ public class SearchRule {
         return selector.toString();
     }
 
-    private Document getURLConnection(String url) {
-        Document document = null;
-
-        try {
-            document = Jsoup.connect(url).get();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return document;
+    private Document getURLConnection(String url) throws IOException {
+        return Jsoup.connect(url).get();
     }
 
     public boolean classesAreEmpty() {
