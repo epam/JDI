@@ -11,13 +11,13 @@ import java.util.List;
 public class CommonElementsRuleParser implements IRuleParser {
 
     enum CommonElementType {
-        BUTTON, TEXT, IMAGE
+        BUTTON, TEXT, CHECKBOX, IMGAGE
     }
 
     @Override
     public boolean canParse(String type) {
         boolean exists = true;
-        
+
         try {
             CommonElementType.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {

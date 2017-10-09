@@ -16,6 +16,11 @@
             "rules":"tag=p"
         },
         {
+            "type":"Checkbox",
+            "name": "id",
+            "rules":"tag=input;type=checkbox"
+        },
+        {
             "type":"Image",
             "name":"src",
             "rules":"tag=img"
