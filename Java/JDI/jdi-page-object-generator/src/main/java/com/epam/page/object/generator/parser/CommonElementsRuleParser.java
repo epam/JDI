@@ -11,7 +11,7 @@ import java.util.List;
 public class CommonElementsRuleParser implements IRuleParser {
 
     enum CommonElementType {
-        BUTTON, TEXT
+        BUTTON, TEXT, IMAGE
     }
 
     @Override

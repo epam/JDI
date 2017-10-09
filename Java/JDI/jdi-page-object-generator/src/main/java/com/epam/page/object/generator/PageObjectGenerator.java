@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.page.object.generator.builder.ButtonFieldsBuilder;
 import com.epam.page.object.generator.builder.IFieldsBuilder;
+import com.epam.page.object.generator.builder.ImageFieldsBuilder;
 import com.epam.page.object.generator.builder.TextFieldsBuilder;
 import com.epam.page.object.generator.model.ElementType;
 import com.epam.page.object.generator.model.SearchRule;
@@ -35,6 +36,7 @@ public class PageObjectGenerator {
 		this.outputDir = outputDir;
 		builders.add(new ButtonFieldsBuilder());
 		builders.add(new TextFieldsBuilder());
+		builders.add(new ImageFieldsBuilder());
 	}
 
 	/**

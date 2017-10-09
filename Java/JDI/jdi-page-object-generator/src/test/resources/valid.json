@@ -14,6 +14,11 @@
             "type":"Text",
             "name": "text",
             "rules":"tag=p"
+        },
+        {
+            "type":"Image",
+            "name":"src",
+            "rules":"tag=img"
         }
     ]
 }
