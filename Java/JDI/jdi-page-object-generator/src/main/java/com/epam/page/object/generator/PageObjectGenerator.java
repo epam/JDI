@@ -39,12 +39,10 @@ public class PageObjectGenerator {
 
 	/**
 	 * This method generates Java-file with all HTML-elements found on the web-site  by rules given by user in .json
-	 * @throws IOException
-	 * @throws ParseException
-	 * @throws IllegalArgumentException
-	 * @throws ClassNotFoundException
+	 * @throws IOException If can't open JSON file.
+	 * @throws ParseException If JSON has invalid format.
 	 */
-	public void generateJavaFile() throws IOException, ParseException, IllegalArgumentException, ParserNotFoundException {
+	public void generateJavaFile() throws IOException, ParseException {
 		List<TypeSpec> pageClasses = new ArrayList<>();
 		List<SearchRule> searchRules = parser.getRulesFromJSON();
 
@@ -71,9 +69,8 @@ public class PageObjectGenerator {
 	 * @param searchRules is list of rules
 	 * @param url is one of the web-pages of web-site
 	 * @return a description of a nested class for one of the pages of the web-site
-	 * @throws ClassNotFoundException
 	 */
-	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) throws BuilderNotFoundException {
+	private TypeSpec createPageClass(List<SearchRule> searchRules, String url) {
 		String name = "Page" + urlsCounter++;
 		List<FieldSpec> fields = new ArrayList<>();
 
@@ -92,11 +89,10 @@ public class PageObjectGenerator {
 
 	/**
 	 * This method searches for an appropriate builder to build nested class
-	 * @param elementType
+	 * @param elementType Type of element that will be built.
 	 * @return an appropriate builder
-	 * @throws ClassNotFoundException
 	 */
-	private IFieldsBuilder findBuilder(ElementType elementType) throws BuilderNotFoundException {
+	private IFieldsBuilder findBuilder(ElementType elementType) {
 		return builders.stream().filter(b -> b.canBuild(elementType)).findFirst().orElseThrow(BuilderNotFoundException::new);
 	}
 

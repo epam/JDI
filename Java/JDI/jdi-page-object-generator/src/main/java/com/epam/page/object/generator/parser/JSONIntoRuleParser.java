@@ -1,18 +1,16 @@
 package com.epam.page.object.generator.parser;
 
 import com.epam.page.object.generator.ParserNotFoundException;
-import com.epam.page.object.generator.builder.TextFieldsBuilder;
 import com.epam.page.object.generator.model.SearchRule;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class JSONIntoRuleParser {
 
@@ -31,9 +29,8 @@ public class JSONIntoRuleParser {
 	 * @return List of search rules from JSON file.
 	 * @throws IOException If can't open JSON file.
 	 * @throws ParseException If JSON has invalid format.
-	 * @throws ClassNotFoundException If there is not parser for such type.
 	 */
-	public List<SearchRule> getRulesFromJSON() throws IOException, ParseException, ParserNotFoundException {
+	public List<SearchRule> getRulesFromJSON() throws IOException, ParseException {
 		try (BufferedReader br = new BufferedReader(new FileReader(jsonPath))) {
 			JSONObject fullJSON = (JSONObject) parser.parse(br);
 			JSONArray elements = (JSONArray) fullJSON.get("elements");
