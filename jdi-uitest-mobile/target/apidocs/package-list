@@ -1,0 +1,15 @@
+com.epam.jdi.uitests.mobile
+com.epam.jdi.uitests.mobile.appium
+com.epam.jdi.uitests.mobile.appium.driver
+com.epam.jdi.uitests.mobile.appium.elements
+com.epam.jdi.uitests.mobile.appium.elements.actions
+com.epam.jdi.uitests.mobile.appium.elements.apiInteract
+com.epam.jdi.uitests.mobile.appium.elements.base
+com.epam.jdi.uitests.mobile.appium.elements.common
+com.epam.jdi.uitests.mobile.appium.elements.complex
+com.epam.jdi.uitests.mobile.appium.elements.complex.table
+com.epam.jdi.uitests.mobile.appium.elements.composite
+com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations
+com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.objects
+com.epam.jdi.uitests.mobile.robot
+com.epam.jdi.uitests.mobile.testRunner

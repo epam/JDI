@@ -1,0 +1,15 @@
+com.epam.jdi.uitests.win.robot
+com.epam.jdi.uitests.win.settings
+com.epam.jdi.uitests.win.testing.testRunner
+com.epam.jdi.uitests.win.winnium
+com.epam.jdi.uitests.win.winnium.actions
+com.epam.jdi.uitests.win.winnium.driver
+com.epam.jdi.uitests.win.winnium.elements
+com.epam.jdi.uitests.win.winnium.elements.apiInteract
+com.epam.jdi.uitests.win.winnium.elements.base
+com.epam.jdi.uitests.win.winnium.elements.base.managers
+com.epam.jdi.uitests.win.winnium.elements.common
+com.epam.jdi.uitests.win.winnium.elements.complex
+com.epam.jdi.uitests.win.winnium.elements.complex.table
+com.epam.jdi.uitests.win.winnium.elements.composite
+com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects

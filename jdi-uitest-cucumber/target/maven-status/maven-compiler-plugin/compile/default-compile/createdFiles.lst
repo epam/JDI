@@ -1,0 +1,14 @@
+com\epam\jdi\cucumber\FormActions.class
+com\epam\jdi\cucumber\stepdefs\en\LinkStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\TextStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\PageStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\TextAreaStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\FormStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\ElementStepsEN.class
+com\epam\jdi\cucumber\Utils.class
+com\epam\jdi\cucumber\stepdefs\en\PaginationStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\TextFieldStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\CheckboxStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\ImageStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\ButtonStepsEN.class
+com\epam\jdi\cucumber\stepdefs\en\SearchStepsEN.class
