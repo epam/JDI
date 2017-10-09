@@ -17,9 +17,9 @@ public class CommonElementsRuleParser implements IRuleParser {
     @Override
     public boolean canParse(String type) {
         boolean exists = true;
-
+        
         try {
-            CommonElementType.valueOf(type);
+            CommonElementType.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
             exists = false;
         }
