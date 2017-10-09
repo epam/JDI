@@ -36,4 +36,5 @@ public class ImageFieldsBuilder extends AbstractFieldsBuilder {
 
 		return imageFields;
 	}
+
 }
