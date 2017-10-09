@@ -12,6 +12,7 @@ import javax.lang.model.element.Modifier;
 import org.openqa.selenium.support.FindBy;
 
 public class CheckBoxFieldsBuilder extends AbstractFieldsBuilder {
+
     @Override
     public boolean canBuild(ElementType type) {
         return (ElementType.CHECKBOX).equals(type);
@@ -37,4 +38,5 @@ public class CheckBoxFieldsBuilder extends AbstractFieldsBuilder {
 
         return checkBoxFields;
     }
+
 }
