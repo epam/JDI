@@ -16,6 +16,8 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +46,12 @@ public class PageObjectGenerator {
 	}
 
 	/**
-	 * This method generates Java-file with all HTML-elements found on the web-site  by rules given by user in .json
-	 * @throws IOException If can't open JSON file or can't write java file.
+	 * Generates .java file with all HTML-elements found on the web-site by rules given by user in .json file.
+	 * @throws IOException If .json file could not be opened or written to .java file.
 	 * @throws ParseException If JSON has invalid format.
+	 * @throws URISyntaxException If urls could not be parsed as URI references.
 	 */
-	public void generateJavaFile() throws IOException, ParseException {
+	public void generateJavaFile() throws IOException, ParseException, URISyntaxException {
 		List<SearchRule> searchRules = parser.getRulesFromJSON();
 		List<FieldSpec> siteClassFields = new ArrayList<>();
 
@@ -59,13 +62,17 @@ public class PageObjectGenerator {
 
 			siteClassFields.add(FieldSpec.builder(pageClass, pageFieldName)
 				.addModifiers(Modifier.PUBLIC)
+				.addAnnotation(AnnotationSpec.builder(JPage.class)
+					.addMember("url", "$S", getUrlWithoutDomain(url))
+					.addMember("title", "$S", pageClassName)
+					.build())
 				.build());
 		}
 
 		TypeSpec siteClass = TypeSpec.classBuilder("Site")
 				.addModifiers(Modifier.PUBLIC)
 				.addAnnotation(AnnotationSpec.builder(JSite.class)
-						.addMember("domain", "$S", getDomain())
+						.addMember("domain", "$S", getDomainName())
 						.build())
 				.addFields(siteClassFields)
 				.build();
@@ -77,7 +84,7 @@ public class PageObjectGenerator {
 	}
 
 	/**
-	 * This method generates one of the nested classes with all HTML-elements found on the web-page with following url by rules
+	 * Generates one of the nested classes with all HTML-elements found on the web-page with following url by rules.
 	 * @param pageClassName Name of page class.
 	 * @param searchRules List of rules.
 	 * @param url One of the web-pages of web-site.
@@ -93,10 +100,6 @@ public class PageObjectGenerator {
 
 		TypeSpec pageClass = TypeSpec.classBuilder(pageClassName)
 			.addModifiers(Modifier.PUBLIC)
-			.addAnnotation(AnnotationSpec.builder(JPage.class)
-				.addMember("url", "$S", url)
-				.addMember("title", "$S", pageClassName)
-				.build())
 			.addFields(fields)
 			.build();
 		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_FILES, pageClass)
@@ -108,7 +111,7 @@ public class PageObjectGenerator {
 	}
 
 	/**
-	 * This method searches for an appropriate builder to build nested class
+	 * Searches for an appropriate builder for input element.
 	 * @param elementType Type of element that will be built.
 	 * @return an appropriate builder.
 	 */
@@ -117,11 +120,26 @@ public class PageObjectGenerator {
 	}
 
 	/**
-	 * This method extracts domain URL from list of URLs of the web-site
-	 * @return domain URL.
+	 * Returns URL without it's domain part.
+	 * @param url One of the web-pages of web-site.
+	 * @return URL without domain part.
+	 * @throws URISyntaxException If url could not be parsed as a URI reference.
 	 */
-	private String getDomain() {
-		return "domain";
+	private String getUrlWithoutDomain(String url) throws URISyntaxException {
+		URI uri = new URI(url);
+
+		return uri.getPath();
+	}
+
+	/**
+	 * Extracts domain URL from list of URLs of the web-site.
+	 * @return domain URL.
+	 * @throws URISyntaxException If url could not be parsed as a URI reference.
+	 */
+	private String getDomainName() throws URISyntaxException {
+		URI uri = new URI(urls.get(0));
+
+		return uri.getHost();
 	}
 
 }

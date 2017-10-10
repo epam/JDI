@@ -17,7 +17,7 @@
         },
         {
             "type":"Checkbox",
-            "name": "id",
+            "name": "value",
             "rules":"tag=input;type=checkbox"
         },
         {

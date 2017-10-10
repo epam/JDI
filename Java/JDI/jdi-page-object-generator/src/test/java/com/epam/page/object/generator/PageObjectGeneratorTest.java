@@ -14,7 +14,7 @@ public class PageObjectGeneratorTest {
 
         urls.add("https://www.w3schools.com/html/html_forms.asp");
         urls.add("https://www.w3schools.com/css/default.asp");
-        urls.add("http://shpargalkablog.ru/2013/08/checked.html");
+        urls.add("https://www.w3schools.com/html/html_form_input_types.asp");
         
         PageObjectGenerator pageObjectGenerator =
                 new PageObjectGenerator(validJSONPath, urls, "src/test/resources/");
