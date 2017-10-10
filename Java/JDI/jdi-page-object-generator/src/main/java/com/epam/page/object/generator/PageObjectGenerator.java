@@ -1,5 +1,7 @@
 package com.epam.page.object.generator;
 
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.page.object.generator.builder.ButtonFieldsBuilder;
@@ -26,7 +28,8 @@ import org.json.simple.parser.ParseException;
 
 public class PageObjectGenerator {
 
-	private static final String PACKAGE_FOR_GENERATED_FILES = "com.epam.jdi.site.epam.pages";
+	private static final String PACKAGE_FOR_GENERATED_PAGES = "com.epam.jdi.site.epam.pages";
+	private static final String PACKAGE_FOR_GENERATED_SITE = "com.epam.jdi.site.epam.site";
 
 	private JSONIntoRuleParser parser;
 	private List<String> urls;
@@ -70,14 +73,15 @@ public class PageObjectGenerator {
 		}
 
 		TypeSpec siteClass = TypeSpec.classBuilder("Site")
-				.addModifiers(Modifier.PUBLIC)
-				.addAnnotation(AnnotationSpec.builder(JSite.class)
-						.addMember("domain", "$S", getDomainName())
-						.build())
-				.addFields(siteClassFields)
-				.build();
+			.addModifiers(Modifier.PUBLIC)
+			.addAnnotation(AnnotationSpec.builder(JSite.class)
+				.addMember("domain", "$S", getDomainName())
+				.build())
+			.superclass(WebSite.class)
+			.addFields(siteClassFields)
+			.build();
 
-		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_FILES, siteClass)
+		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_SITE, siteClass)
 			.build();
 
 		javaFile.writeTo(Paths.get(outputDir));
@@ -100,14 +104,15 @@ public class PageObjectGenerator {
 
 		TypeSpec pageClass = TypeSpec.classBuilder(pageClassName)
 			.addModifiers(Modifier.PUBLIC)
+			.superclass(WebPage.class)
 			.addFields(fields)
 			.build();
-		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_FILES, pageClass)
+		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_PAGES, pageClass)
 			.build();
 
 		javaFile.writeTo(Paths.get(outputDir));
 
-		return ClassName.get(PACKAGE_FOR_GENERATED_FILES, pageClassName);
+		return ClassName.get(PACKAGE_FOR_GENERATED_PAGES, pageClassName);
 	}
 
 	/**
