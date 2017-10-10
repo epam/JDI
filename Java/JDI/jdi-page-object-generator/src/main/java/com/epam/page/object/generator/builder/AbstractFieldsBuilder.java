@@ -1,10 +1,38 @@
 package com.epam.page.object.generator.builder;
 
 import com.epam.page.object.generator.model.SearchRule;
+import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.FieldSpec;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.lang.model.element.Modifier;
+import org.openqa.selenium.support.FindBy;
 
 public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
 
-    protected String createXPathSelector(SearchRule searchRule, String element) {
+    protected List<FieldSpec> buildAbstractField(SearchRule searchRule, String url,
+        Class abstractFieldClass, String abstractFieldName) throws IOException {
+        int abstractElementCounter = 0;
+        List<FieldSpec> abstractFields = new ArrayList<>();
+
+        List<String> elements = ("text").equals(searchRule.getRequiredAttribute())
+            ? searchRule.extractElementsFromWebSite(url).eachText()
+            : searchRule.extractElementsFromWebSite(url).eachAttr(searchRule.getRequiredAttribute());
+
+        for (String element : elements) {
+            abstractFields.add(FieldSpec.builder(abstractFieldClass, abstractFieldName + abstractElementCounter++)
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(AnnotationSpec.builder(FindBy.class)
+                    .addMember("xpath", "$S", createXPathSelector(searchRule, element))
+                    .build())
+                .build());
+        }
+
+        return abstractFields;
+    }
+
+    private String createXPathSelector(SearchRule searchRule, String element) {
         StringBuilder xPathSelector = new StringBuilder();
 
         xPathSelector.append("//").append(searchRule.getTag()).append("[");
@@ -23,7 +51,7 @@ public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
         return xPathSelector.toString();
     }
 
-    protected void appendClassesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
+    private void appendClassesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
         if (!searchRule.classesAreEmpty()) {
             xPathSelector.append("@class='");
             searchRule.getClasses().forEach(clazz -> xPathSelector.append(clazz).append(" "));
@@ -32,7 +60,7 @@ public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
         }
     }
 
-    protected void appendAttributesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
+    private void appendAttributesToXPath(SearchRule searchRule, StringBuilder xPathSelector) {
         if (!searchRule.attributesAreEmpty()) {
             searchRule.getAttributes().forEach(elementAttribute -> xPathSelector.append("@")
                     .append(elementAttribute.getAttributeName())

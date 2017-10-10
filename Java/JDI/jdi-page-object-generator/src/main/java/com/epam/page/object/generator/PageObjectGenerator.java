@@ -24,6 +24,8 @@ import org.json.simple.parser.ParseException;
 
 public class PageObjectGenerator {
 
+	private static final String PACKAGE_FOR_GENERATED_FILES = "com.epam.jdi.site.epam.pages";
+
 	private JSONIntoRuleParser parser;
 	private List<String> urls;
 	private String outputDir;
@@ -52,9 +54,10 @@ public class PageObjectGenerator {
 
 		for (String url : urls) {
 			String pageClassName = "Page" + urlsCounter;
+			String pageFieldName = "page" + urlsCounter++;
 			ClassName pageClass = createPageClass(pageClassName, searchRules, url);
 
-			siteClassFields.add(FieldSpec.builder(pageClass, "page" + urlsCounter++)
+			siteClassFields.add(FieldSpec.builder(pageClass, pageFieldName)
 				.addModifiers(Modifier.PUBLIC)
 				.build());
 		}
@@ -67,7 +70,7 @@ public class PageObjectGenerator {
 				.addFields(siteClassFields)
 				.build();
 
-		JavaFile javaFile = JavaFile.builder("com.epam.jdi.site.epam.pages", siteClass)
+		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_FILES, siteClass)
 			.build();
 
 		javaFile.writeTo(Paths.get(outputDir));
@@ -96,12 +99,12 @@ public class PageObjectGenerator {
 				.build())
 			.addFields(fields)
 			.build();
-		JavaFile javaFile = JavaFile.builder("com.epam.jdi.site.epam.pages", pageClass)
+		JavaFile javaFile = JavaFile.builder(PACKAGE_FOR_GENERATED_FILES, pageClass)
 			.build();
 
 		javaFile.writeTo(Paths.get(outputDir));
 
-		return ClassName.get("com.epam.jdi.site.epam.pages", pageClassName);
+		return ClassName.get(PACKAGE_FOR_GENERATED_FILES, pageClassName);
 	}
 
 	/**
