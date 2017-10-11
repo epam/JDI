@@ -21,8 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ElementIndexType;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ElementIndexType;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -74,7 +74,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     }
 
     protected List<WebElement> getLineAction(String lineName) {
-        int index = getIndex(headers(), lineName) + 1;
+        int index = getIndex(select(headers(), String::toLowerCase), lineName.toLowerCase()) + 1;
         if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
             return getElementByTemplate(index);
         return lineTemplate == null

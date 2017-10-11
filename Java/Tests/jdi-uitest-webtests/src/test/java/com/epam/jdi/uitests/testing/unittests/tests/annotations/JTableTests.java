@@ -1,8 +1,8 @@
 package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.tests.common.dataProviders.JTableDP;
 import com.epam.web.matcher.testng.Check;

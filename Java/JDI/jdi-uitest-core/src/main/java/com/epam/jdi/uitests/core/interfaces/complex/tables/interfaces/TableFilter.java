@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.interfaces.complex.tables;
+package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 

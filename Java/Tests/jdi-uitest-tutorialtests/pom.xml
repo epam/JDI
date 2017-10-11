@@ -15,7 +15,7 @@
     <name>EPAM JDI UI Testing Tutorial Tests</name>
 
     <properties>
-        <driver>chrome</driver>
+        <driver>firefox</driver>
     </properties>
 
     <dependencies>

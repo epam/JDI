@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.dataproviders;
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 

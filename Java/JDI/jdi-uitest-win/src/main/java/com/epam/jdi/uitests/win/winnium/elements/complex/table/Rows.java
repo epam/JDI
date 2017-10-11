@@ -3,10 +3,10 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IRow;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IRow;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Row;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collection;

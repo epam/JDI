@@ -3,7 +3,7 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.ElementsUtils;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;

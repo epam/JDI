@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
 import static com.epam.jdi.site.epam.EpamSite.jobListingPage;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.inColumn;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.WithValue.withValue;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 
 

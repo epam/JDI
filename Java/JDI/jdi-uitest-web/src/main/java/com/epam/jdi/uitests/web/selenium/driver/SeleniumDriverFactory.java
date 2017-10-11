@@ -78,7 +78,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Boolean getLatestDriver = false;
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
-    public String pageLoadStrategy = "eager";
+    public String pageLoadStrategy = "normal";
     public HighlightSettings highlightSettings = new HighlightSettings();
     private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();

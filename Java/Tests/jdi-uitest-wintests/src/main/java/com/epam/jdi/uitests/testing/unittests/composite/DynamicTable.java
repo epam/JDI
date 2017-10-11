@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.composite;
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.win.winnium.elements.common.CheckBox;
 import com.epam.jdi.uitests.win.winnium.elements.common.Label;

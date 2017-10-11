@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Row.row;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
 import static com.epam.web.matcher.testng.Assert.*;

@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.complex.table;
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.Table;
@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Row.row;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
 import static com.epam.web.matcher.testng.Assert.areEquals;

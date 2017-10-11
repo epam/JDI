@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
+package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -17,6 +17,8 @@ package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+import static com.epam.commons.EnumUtils.getEnumValue;
 
 /**
  * Created by Roman_Iovlev on 7/17/2015.
@@ -38,11 +40,19 @@ public class Row extends RowColumn {
         return new Row(name);
     }
 
+    public static <TEnum extends Enum> Row row(TEnum name) {
+        return row(getEnumValue(name));
+    }
+
     public static Row inRow(int num) {
         return new Row(num);
     }
 
     public static Row inRow(String name) {
         return new Row(name);
+    }
+
+    public static <TEnum extends Enum> Row inRow(TEnum name) {
+        return inRow(getEnumValue(name));
     }
 }

@@ -22,9 +22,9 @@ import com.epam.commons.ReflectionUtils;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import org.apache.commons.lang3.reflect.FieldUtils;
 

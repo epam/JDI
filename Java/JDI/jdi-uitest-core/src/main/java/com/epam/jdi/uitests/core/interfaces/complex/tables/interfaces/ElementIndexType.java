@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.interfaces.complex.tables;
+package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -18,24 +18,10 @@ package com.epam.jdi.uitests.core.interfaces.complex.tables;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-
 /**
- * Created by Roman_Iovlev on 7/28/2015.
+ * Created by 12345 on 25.10.2014.
  */
-public interface ICell extends ISelect {
-    ISelect get();
-
-    <T extends IBaseElement> T get(Class<T> clazz);
-
-    <T extends IBaseElement> T get(T element);
-
-    int columnNum();
-
-    int rowNum();
-
-    String columnName();
-
-    String rowName();
+public enum ElementIndexType {
+    Nums,
+    Names
 }

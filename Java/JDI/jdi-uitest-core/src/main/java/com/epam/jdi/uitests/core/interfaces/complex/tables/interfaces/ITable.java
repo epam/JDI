@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.interfaces.complex.tables;
+package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -192,6 +192,7 @@ public interface ITable extends IText {
      * e.g. cell("Roman", column("Name")) <br>
      * or   cell("Roman", column(3))
      */
+    // TODO Cell search with predicates
     @Step
     ICell cell(String value, Column column);
 

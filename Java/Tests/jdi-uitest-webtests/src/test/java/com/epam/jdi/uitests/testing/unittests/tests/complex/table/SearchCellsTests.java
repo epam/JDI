@@ -1,14 +1,14 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.column;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Row.row;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.column;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Row.row;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 import static java.lang.String.format;
 

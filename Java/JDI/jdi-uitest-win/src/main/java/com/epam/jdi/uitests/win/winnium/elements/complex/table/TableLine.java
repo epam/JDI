@@ -4,7 +4,7 @@ import com.epam.commons.Timer;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITableLine;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
 import com.epam.jdi.uitests.win.winnium.elements.base.SelectElement;

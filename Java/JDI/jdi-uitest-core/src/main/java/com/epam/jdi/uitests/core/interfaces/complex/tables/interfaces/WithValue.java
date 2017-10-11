@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.core.interfaces.complex.interfaces;
+package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 
 /**
  * Created by Roman_Iovlev on 9/6/2016.

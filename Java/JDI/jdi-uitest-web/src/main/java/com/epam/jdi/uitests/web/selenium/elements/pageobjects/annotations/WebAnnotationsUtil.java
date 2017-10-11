@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
 import org.openqa.selenium.By;
@@ -28,8 +28,8 @@ import org.openqa.selenium.support.ui.Quotes;
 
 import java.util.function.Consumer;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.EQUAL;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
 
