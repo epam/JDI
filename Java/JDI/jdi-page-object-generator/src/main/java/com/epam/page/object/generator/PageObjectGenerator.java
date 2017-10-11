@@ -64,7 +64,7 @@ public class PageObjectGenerator {
 			ClassName pageClass = createPageClass(pageClassName, searchRules, url);
 
 			siteClassFields.add(FieldSpec.builder(pageClass, pageFieldName)
-				.addModifiers(Modifier.PUBLIC)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 				.addAnnotation(AnnotationSpec.builder(JPage.class)
 					.addMember("url", "$S", getUrlWithoutDomain(url))
 					.addMember("title", "$S", pageClassName)
