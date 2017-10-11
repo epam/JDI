@@ -11,9 +11,10 @@ import org.openqa.selenium.support.FindBy;
 
 public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
 
+    private int abstractElementCounter;
+
     protected List<FieldSpec> buildAbstractField(SearchRule searchRule, String url,
         Class abstractFieldClass, String abstractFieldName) throws IOException {
-        int abstractElementCounter = 0;
         List<FieldSpec> abstractFields = new ArrayList<>();
 
         List<String> elements = ("text").equals(searchRule.getRequiredAttribute())
