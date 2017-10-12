@@ -1,0 +1,29 @@
+{
+    "elements": [
+        {
+            "type":"Button",
+            "name": "text",
+            "rules": "tag=a;class=w3-btn"
+        },
+        {
+            "type":"Button",
+            "name": "value",
+            "rules":"tag=input;type=submit"
+        },
+        {
+            "type":"Text",
+            "name": "text",
+            "rules":"tag=p"
+        },
+        {
+            "type":"Checkbox",
+            "name": "value",
+            "rules":"tag=input;type=checkbox"
+        },
+        {
+            "type":"Image",
+            "name":"src",
+            "rules":"tag=img"
+        }
+    ]
+}

@@ -1,0 +1,169 @@
+.info{
+    width: 70px;
+    height: 60px;
+}
+.icon {
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
+    border-style: solid;
+    border-radius: 50%;
+    padding: 0;
+    position: relative;
+    box-sizing: content-box;
+    margin: 10px auto;
+}
+#wrapper_info_block_success,
+#wrapper_info_block_error{
+    width: 260px;
+    position: fixed;
+    bottom: 0;
+    right: -100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color: white;
+    border-radius: 20px 0px 0px 0px;
+    z-index: 10;
+}
+#picture_info_block_success,
+#picture_info_block_error{
+    float: left;
+}
+
+/* Success info block */
+.icon_success {
+    border-color: #a5dc86;
+    -webkit-animation: animateErrorIcon .5s;
+    animation: animateErrorIcon .5s;
+}
+.icon_success_line {
+    height: 5px;
+    background-color: #a5dc86;
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+    z-index: 3;
+}
+.icon_success_line_long {
+    width: 0px;
+    top: 34px;
+    left: 16px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: animateSuccessLong .75s;
+    animation: animateSuccessLong .75s;
+}
+.icon_success_line_tip {
+    width: 0px;
+    left: 11px;
+    top: 24px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-animation: animateSuccessTip .75s;
+    animation: animateSuccessTip .75s;
+}
+.icon_success_ring {
+    width: 50px;
+    height: 50px;
+    border: 4px solid hsl(98,55%,69%);
+    border-radius: 50%;
+    box-sizing: content-box;
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    z-index: 1;
+}
+.icon_success_hide_corners{
+    width: 60px;
+    height: 60px;
+    left: -5px;
+    top: -5px;
+    background-color: rgba(255, 255, 255, 0.66);
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    transition: all 1s;
+}
+.icon_success_hide_short_line{
+    width: 5px;
+    height: 27px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 24px;
+    top: 35px;
+    z-index: 4;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: all .5s;
+}
+.icon_success_hide_long_line{
+    width: 46px;
+    height: 5px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 4;
+    border-radius: 50%;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    transition: all .5s;
+}
+#element_info_block_success
+{
+    width: 190px;
+    float: left;
+    position: relative;
+    left: 0%;
+    font-size: 19px;
+    color: #a5dc84;
+    margin-top: 27px;
+    text-align: center;
+}
+
+/* Error info block */
+.icon_error{
+    border-color: #f27474;
+    -webkit-animation: animateErrorIcon .5s;
+    animation: animateErrorIcon .5s;
+}
+.icon_error_line{
+    position: absolute;
+    height: 4px;
+    width: 0px;
+    background-color: #f27474;
+    display: block;
+    z-index: 2;
+    top: 10px;
+    border-radius: 2px;
+    transition: all 0.5s;
+}
+.icon_error_line_left{
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 8px;
+}
+.icon_error_line_right{
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 8px;
+}
+.icon_error_hide_ring{
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.66);
+    border-radius: 50%;
+}
+#element_info_block_error{
+    width: 190px;
+    float: left;
+    position: relative;
+    left: 0%;
+    font-size: 19px;
+    color: #f27474;
+    margin-top: 14px;
+    text-align: center;
+}

@@ -1,0 +1,10 @@
+Feature: description1
+
+    Scenario: case1
+            Given given1
+            When when1
+            Then then1
+
+    @tags
+    Scenario: case2
+            Given given2

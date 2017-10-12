@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Suggested Steps</title>
+        <link rel="stylesheet" href="/cucumber/static/css/styles.css">
+        <link rel="shortcut icon" href="/cucumber/static/images/favicon.png" type="image/png">
+        <link href="https://fonts.googleapis.com/css?family=Sedgwick+Ave" rel="stylesheet">
+        <link rel="stylesheet" href="/cucumber/static/css/info.css">
+    </head>
+    <body>
+        <header>
+            <a href="/cucumber">Cucumber test generator</a>
+        </header>
+
+        <div class="page-contents" id="app">
+            <section class="suits-section">
+
+                <!-- Заголовок страницы -->
+                <div class="section-title">
+                    <h2>Suggested steps</h2>
+                </div>
+
+                <!-- Разделительная линия -->
+                <hr class="under-subtitle-hatch">
+
+                <!-- Окно с вкладками -->
+                <div class="container-tab" id="newSuitsApp">
+                    <ul class="accordion-tabs">
+                        <li class="tab-head-cont">
+                            <div class="tab_name" v-bind:class="{'is-active' : computedClass(0)}" v-on:click="changeActiveTab(0)">Given</div>
+                        </li>
+                        <li class="tab-head-cont">
+                            <div class="tab_name"  v-bind:class="{'is-active' : computedClass(1)}" v-on:click="changeActiveTab(1)">When</div>
+                        </li>
+                        <li class="tab-head-cont">
+                            <div class="tab_name"  v-bind:class="{'is-active' : computedClass(2)}" v-on:click="changeActiveTab(2)">Then</div>
+                        </li>
+                        <li class="tab-head-cont">
+                            <div class="tab_name"  v-bind:class="{'is-active' : computedClass(3)}" v-on:click="changeActiveTab(3)">And</div>
+                        </li>
+                        <li class="tab-head-cont">
+                            <div class="tab_name"  v-bind:class="{'is-active' : computedClass(4)}" v-on:click="changeActiveTab(4)">But</div>
+                        </li>
+                        <li class="tab-head-cont">
+                            <div class="tab_name"  v-bind:class="{'is-active' : computedClass(5)}" v-on:click="changeActiveTab(5)">*</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wrapper_content">
+                    <div class="table_suggestion_steps" id="table_suggestion_steps">
+                        <table id = "steps_table">
+                            <tr>
+                                <th>Step content</th>
+                                <th class="small_th"></th>
+                            </tr>
+                            <tr v-for="suggestion_step in getFiltredSteps">
+                                <td>{{suggestion_step.content}}</td>
+                                <td><button class='delete_step_button' v-on:click="deleteSuggestion(suggestion_step.id)">Delete step</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="add_step_suggestion_wrapper">
+                        <input id="step_suggestion" v-model="text" />
+                        <button class="add_step_button" v-on:click="addSuggestionStep">Add step</button>
+                        <a href="/cucumber" class="back_main_page_button">Back to main page</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="wrapper_info_block_success" class="hidden_info_block">
+            <div id="picture_info_block_success">
+                <div class="info">
+                    <div class="icon icon_success">
+                        <span class="icon_success_line icon_success_line_tip"></span>
+                        <span class="icon_success_line icon_success_line_long"></span>
+                        <div class="icon_success_ring"></div>
+                        <div class="icon_success_hide_corners"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="element_info_block_success">
+                Success updating!
+            </div>
+        </div>
+
+        <div id="wrapper_info_block_error" class="hidden_info_block">
+            <div id="picture_info_block_error">
+                <div class="info">
+                    <div class="icon icon_error">
+                        <div class="icon_error_ring">
+                            <span class="icon_error_line icon_error_line_left"></span>
+                            <span class="icon_error_line icon_error_line_right"></span>
+                        </div>
+                        <div class="icon_error_hide_ring"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="element_info_block_error">
+                Fail updating!<br/>Try again later!
+            </div>
+        </div>
+
+
+        <script src="/cucumber/static/js/vendor/jquery-3.2.1.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript" src="/cucumber/static/js/info.js"></script>
+
+        <script type="text/javascript" src="/cucumber/static/js/stepSuggestion.js"></script>
+    </body>
+</html>
