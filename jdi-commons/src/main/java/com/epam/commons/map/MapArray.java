@@ -35,6 +35,7 @@ import static java.util.stream.Collectors.toList;
  */
 public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     public List<Pair<K, V>> pairs;
+    private boolean ignoreCase = false;
 
     public MapArray() {
         pairs = new CopyOnWriteArrayList<>();
@@ -45,6 +46,10 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
         add(key, value);
     }
 
+    public MapArray<K, V> ignoreCase() {
+        ignoreCase = true;
+        return this;
+    }
     public <T> MapArray(Collection<T> collection, JFuncTREx<T, K> key, JFuncTREx<T, V> value) {
         this();
         try {
@@ -238,6 +243,8 @@ public class MapArray<K, V> implements Collection<Pair<K, V>>, Cloneable {
     public V get(K key) {
         Pair<K, V> first = null;
         try {
+            if (ignoreCase)
+                first = LinqUtils.first(pairs, pair -> pair.key.toString().toLowerCase().equals(key.toString().toLowerCase()));
             first = LinqUtils.first(pairs, pair -> pair.key.equals(key));
         } catch (Exception ignore) {
         }

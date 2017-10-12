@@ -9,7 +9,7 @@
     <groupId>com.epam.jdi</groupId>
     <name>EPAM JDI Http Client</name>
     <packaging>jar</packaging>
-    <version>1.0.82</version>
+    <version>1.0.83</version>
     <description>Epam Http library</description>
     <url>https://jdi.epam.com/</url>
 
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-commons</artifactId>
-            <version>1.0.82</version>
+            <version>1.0.83</version>
         </dependency>
     </dependencies>
 

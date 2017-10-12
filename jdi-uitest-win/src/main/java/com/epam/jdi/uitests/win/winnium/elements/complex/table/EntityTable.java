@@ -2,10 +2,11 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
+import com.epam.jdi.uitests.win.winnium.elements.base.SelectElement;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -82,7 +83,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
 
-            value.setAvatar(cell.get().getAvatar());
+            value.setAvatar(cell.get(SelectElement.class).getAvatar());
             return value;
         });
     }

@@ -4,7 +4,7 @@ import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.WinCascadeInit;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
@@ -35,8 +35,7 @@ public class Cell extends Element implements ICell {
         this.setAvatar(new GetElementModule(By.xpath(xpathExpression), this));
     }
 
-    @Override
-    public ISelect get() {
+    private ISelect get() {
         SelectElement selectElement = new SelectElement(getWebElement());
         selectElement.setParent(table);
         return selectElement;

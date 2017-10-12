@@ -21,9 +21,10 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -47,7 +48,6 @@ class Cell extends SelectElement implements ISelect, ICell {
     private int columnIndex;
     private Table table;
     private int columnNum;
-    private WebElement webElement;
     private int rowNum;
     private String columnName;
     private String rowName;
@@ -55,7 +55,7 @@ class Cell extends SelectElement implements ISelect, ICell {
 
     Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
                 By cellLocatorTemplate, Table table) {
-        this.webElement = webElement;
+        this.getAvatar().setWebElement(webElement);
         this.columnNum = columnNum;
         this.rowNum = rowNum;
         this.columnName = colName;
@@ -79,7 +79,7 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     public void setWebElement(WebElement webElement) {
-        this.webElement = webElement;
+        this.getAvatar().setWebElement(webElement);
     }
 
     public int columnNum() {
@@ -117,9 +117,9 @@ class Cell extends SelectElement implements ISelect, ICell {
         return get().isSelected();
     }
 
-    public SelectElement get() {
-        SelectElement cell = webElement != null
-                ? new SelectElement(webElement)
+    private SelectElement get() {
+        SelectElement cell = getWebElement() != null
+                ? new SelectElement(getWebElement())
                 : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
         cell.init(table, cell.getAvatar());
         return cell;
@@ -135,6 +135,10 @@ class Cell extends SelectElement implements ISelect, ICell {
             instance = (clazz.isInterface())
                     ? (T) MapInterfaceToElement.getClassFromInterface(clazz).newInstance()
                     : clazz.newInstance();
+            if (getWebElement() != null)
+                ((Element)instance).setWebElement(getWebElement());
+            else ((Element)instance).setAvatar(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex), getAvatar());
+            ((BaseElement) instance).init(table, instance.getAvatar());
         } catch (Exception ex) {
             throw exception("Can't get Cell from interface/class: " + last((clazz + "").split("\\.")));
         }
@@ -143,6 +147,8 @@ class Cell extends SelectElement implements ISelect, ICell {
 
     public <T extends IBaseElement> T get(T cell) {
         BaseElement cellSelect = (BaseElement) cell;
+        if (cellSelect.getAvatar().hasWebElement())
+            return cell;
         By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
             locator = cellLocatorTemplate;

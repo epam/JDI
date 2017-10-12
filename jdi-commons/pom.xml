@@ -9,7 +9,7 @@
 	<groupId>com.epam.jdi</groupId>
     <name>EPAM JDI Commons</name>
     <packaging>jar</packaging>
-    <version>1.0.82</version>
+    <version>1.0.83</version>
     <description>Epam common libraries</description>
     <url>https://jdi.epam.com/</url>
 

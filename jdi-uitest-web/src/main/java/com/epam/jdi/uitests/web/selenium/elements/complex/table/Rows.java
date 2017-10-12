@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -127,11 +127,11 @@ public class Rows extends TableLine implements IRow {
     public final MapArray<String, ICell> getRow(String rowName) {
         try {
             int colsCount = table.columns().count();
+            List<String> headers = select(table.columns().headers(), String::toLowerCase);
             List<WebElement> webRowLine = timer().getResultByCondition(
                     () -> getLineAction(rowName), els -> els.size() == colsCount);
-            List<String> headers = table.columns().headers();
             return new MapArray<>(colsCount,
-                    table.columns().headers()::get,
+                    headers::get,
                     value -> table.cell(webRowLine.get(value), new Column(headers.get(value)), new Row(rowName)));
         } catch (Exception | Error ex) {
             throw throwRowsException(rowName, ex.getMessage());

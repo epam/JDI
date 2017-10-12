@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
     <description>Epam UI Automation framework Core</description>
     <url>https://jdi.epam.com/</url>
-    <version>1.0.82</version>
+    <version>1.0.83</version>
 
     <licenses>
         <license>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-commons</artifactId>
-            <version>1.0.82</version>
+            <version>1.0.83</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>

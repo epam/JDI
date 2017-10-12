@@ -22,7 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.mobile.appium.elements.base.Element;
 import com.epam.jdi.uitests.mobile.appium.elements.complex.Dropdown;
