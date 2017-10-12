@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.lang.model.element.Modifier;
+
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.support.FindBy;
 
 public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
@@ -22,7 +24,7 @@ public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
             : searchRule.extractElementsFromWebSite(url).eachAttr(searchRule.getRequiredAttribute());
 
         for (String element : elements) {
-            abstractFields.add(FieldSpec.builder(abstractFieldClass, abstractFieldName + abstractElementCounter++)
+            abstractFields.add(FieldSpec.builder(abstractFieldClass, getFieldName(element))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(AnnotationSpec.builder(FindBy.class)
                     .addMember("xpath", "$S", createXPathSelector(searchRule, element))
@@ -68,6 +70,13 @@ public abstract class AbstractFieldsBuilder implements IFieldsBuilder {
                     .append("='").append(elementAttribute.getAttributeValue()).append("'")
                     .append(" and "));
         }
+    }
+
+    private String getFieldName(String element) {
+        String fieldName = element.toString().replaceAll("[^A-Za-z0-9]", "");
+        fieldName = fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
+
+        return fieldName;
     }
 
 }

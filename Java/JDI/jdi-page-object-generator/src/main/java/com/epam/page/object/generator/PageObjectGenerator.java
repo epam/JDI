@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.lang.model.element.Modifier;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class PageObjectGenerator {
 
@@ -59,15 +61,15 @@ public class PageObjectGenerator {
 		List<FieldSpec> siteClassFields = new ArrayList<>();
 
 		for (String url : urls) {
-			String pageClassName = "Page" + urlsCounter;
-			String pageFieldName = "page" + urlsCounter++;
+			String pageClassName = getPageTitle(url);
+			String pageFieldName = getFieldName(url);
 			ClassName pageClass = createPageClass(pageClassName, searchRules, url);
 
 			siteClassFields.add(FieldSpec.builder(pageClass, pageFieldName)
 				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 				.addAnnotation(AnnotationSpec.builder(JPage.class)
 					.addMember("url", "$S", getUrlWithoutDomain(url))
-					.addMember("title", "$S", pageClassName)
+					.addMember("title", "$S", getPageTitle(url))
 					.build())
 				.build());
 		}
@@ -145,6 +147,23 @@ public class PageObjectGenerator {
 		URI uri = new URI(urls.get(0));
 
 		return uri.getHost();
+	}
+
+	private String getPageTitle(String url) throws IOException {
+		Document document = Jsoup.connect(url).get();
+		String title = document.title().replaceAll("[^A-Za-z0-9]", "");
+		title = title.substring(0, 1).toUpperCase() + title.substring(1);
+
+		return title;
+	}
+
+	private String getFieldName(String url) throws IOException {
+		Document document = Jsoup.connect(url).get();
+
+		String title = document.title().replaceAll("[^A-Za-z0-9]", "");
+		title = title.substring(0, 1).toLowerCase() + title.substring(1);
+
+		return title;
 	}
 
 }
