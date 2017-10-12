@@ -5,11 +5,27 @@
     <parent>
         <artifactId>jdi-uitest-framework</artifactId>
         <groupId>com.epam.jdi</groupId>
-        <version>1.0.70</version>
+        <version>1.0.82</version>
         <relativePath>../..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <name>EPAM JDI UI Testing Mobile</name>
+
+    <scm>
+        <connection>scm:https://github.com/epam/JDI</connection>
+        <developerConnection>scm:https://github.com/epam/JDI</developerConnection>
+        <url>https://github.com/epam/JDI</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>engineer</id>
+            <name>Roman Iovlev</name>
+            <email>roman_iovlev@epam.com</email>
+            <timezone>UTC+3</timezone>
+        </developer>
+    </developers>
     <artifactId>jdi-uitest-mobile</artifactId>
 
     <dependencies>

@@ -100,10 +100,6 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
             IBaseElement value;
             try {
                 value = cell.get(clazz);
-                /*if (clazz.isInterface())
-                    clazz = getClassFromInterface(clazz);
-                value = (BaseElement) clazz.newInstance();
-                value.init(cell.get(clazz));*/
             } catch (Exception e) {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
