@@ -18,10 +18,9 @@ public class SortingTablePage extends WebPage {
     @FindBy(id = "DataTables_Table_0")
     public Table sortingTable;
 
-    public Pagination tablePagination = new Pagination(By.id("DataTables_Table_0_wrapper"),
-            By.linkText("Next"),
-            By.linkText("Previous"));
-
+    public Pagination tablePagination = new Pagination(
+            By.cssSelector(".next a"),
+            By.cssSelector(".prev a"));
     @FindBy(name = "DataTables_Table_0_length")
     public ISelector rowsNumberInPageDD;
 
