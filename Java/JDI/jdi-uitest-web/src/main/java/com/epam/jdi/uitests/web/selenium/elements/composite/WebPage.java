@@ -27,6 +27,7 @@ import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.text.MessageFormat;
 import java.util.function.Supplier;
 
 import static com.epam.commons.FileUtils.getFiles;
@@ -122,8 +123,13 @@ public class WebPage extends BaseElement implements IPage {
      * Opens url specified for page
      */
     public <T extends IPage> T open() {
+        return open(null);
+    }
+    public <T extends IPage> T open(Object... params) {
+        String urlWithParams = (params == null || params.length == 0)
+            ? url : MessageFormat.format(url, params);
         invoker.doJAction(format("Open page '%s'", getName()),
-                () -> getDriver().navigate().to(url));
+                () -> getDriver().navigate().to(urlWithParams));
         if (checkAfterOpen)
             checkOpened();
         currentPage = this;

@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
+import com.epam.jdi.uitests.core.annotations.Name;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
@@ -8,6 +9,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.testing.unittests.enums.Colors;
 import com.epam.jdi.uitests.testing.unittests.enums.Metals;
 import com.epam.jdi.uitests.testing.unittests.enums.Nature;
+import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Metalls;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Summary;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
@@ -24,6 +26,9 @@ import org.openqa.selenium.support.FindBy;
  * Created by Maksim_Palchevskii on 8/17/2015.
  */
 public class MetalsColorsPage extends WebPage {
+
+    @Name("СЕКЦИЯ")
+    private Metalls metals;
 
     @FindBy(id = "summary-block")
     public Summary summary;

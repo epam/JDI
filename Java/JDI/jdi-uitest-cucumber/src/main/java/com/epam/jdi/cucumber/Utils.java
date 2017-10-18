@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.ReflectionUtils.getFields;
+import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
 import static com.epam.jdi.uitests.core.interfaces.Application.currentSite;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -35,7 +36,7 @@ public final class Utils {
     public static Object getClassField(Class container, String fieldName) {
         Object result;
         try {
-            result = container.getDeclaredField(fieldName).get(new Object());
+            result = getValueField(container.getDeclaredField(fieldName), new Object());
         } catch (Exception e) {
             result = null;
             e.printStackTrace();
@@ -48,7 +49,7 @@ public final class Utils {
         try {
             Field f = container.getClass().getDeclaredField(fieldName);
             Object parent = Modifier.isStatic(f.getModifiers()) ? new Object() : container;
-            result = f.get(parent);
+            result = getValueField(f, parent);
         } catch (Exception e) {
             result = null;
             e.printStackTrace();
@@ -107,7 +108,7 @@ public final class Utils {
     public static List<Object> filterCompositeFields(Object o) throws IllegalAccessException {
         List<Object> containers = new ArrayList<>();
         for (Field f : o instanceof Class ? ((Class) o).getFields() : o.getClass().getFields()) {
-            Object fData = f.get(o);
+            Object fData = getValueField(f, o);
             if (fData instanceof IComposite && !f.getName().equals("currentPage")) {
                 containers.add(fData);
                 containers.addAll(filterCompositeFields(fData));
@@ -140,14 +141,8 @@ public final class Utils {
         int index = name.indexOf(".");
         return index == -1
                 ? getElementByNameSingle(name, location)
-                : getCascade(name, location);
-    }
-    private static <T> T getCascade(String name, Object page) {
-        int index = name.indexOf(".");
-        return index == -1
-                ? getElementByNameChained(name, "", page)
                 : getElementByNameChained(name.substring(0, index),
-                name.substring(index+1), page);
+                    name.substring(index+1), location);
     }
     private static <T> T getElementByNameSingle(String name, Object page) {
         try {
@@ -155,7 +150,7 @@ public final class Utils {
             Field expectedField = first(fields,
                     f -> getElementName(f).equals(name) || f.getName().equals(name));
             if (expectedField !=null)
-                return (T) expectedField.get(page);
+                return (T) getValueField(expectedField, page);
             for(Field f: fields) {
                 T result = getElementByNameSingle(name, getObjectFromField(f, page));
                 if (result != null)
@@ -168,7 +163,7 @@ public final class Utils {
     }
     private static Object getObjectFromField(Field f, Object clazz) {
         try {
-            return f.get(clazz);
+            return getValueField(f, clazz);
         } catch (Exception ex) { throw exception("Can't get Object"); }
     }
     private static List<Field> getAllFields(Object page) {
@@ -183,16 +178,18 @@ public final class Utils {
             List<Field> fields = getAllFields(page);
             Field expectedField = first(fields,
                     f -> getElementName(f).equals(name) || f.getName().equals(name));
-            if (expectedField != null)
+            if (expectedField != null) {
+                Object fieldAsObject = getValueField(expectedField, page);
                 return (T) (path.equals("")
-                        ? expectedField.get(page)
-                        : getCascade(name, expectedField.getType()));
+                        ? fieldAsObject
+                        :getElementByName(fieldAsObject, path));
+            }
             for(Field f: fields) {
-                T result = getCascade(name, getObjectFromField(f, page));
+                T result = getElementByName(getObjectFromField(f, page), path);
                 if (result != null)
                     return path.equals("")
                             ? result
-                            : getCascade(path, result);
+                            : getElementByName(result, path);
             }
         } catch (Exception ex) {
             throw  exception("Can't get element by Name: " + name);
