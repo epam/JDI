@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.entities.User;
 import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -97,5 +98,11 @@ public class TextFieldTests extends InitTests {
         return new Object[]{
                 new TextTests(elementType, page, textField::get, text, contains, regex)
         };
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        System.out.println(textField.get().getName());
+        Assert.assertTrue(textField.get().isDisplayed());
     }
 }
