@@ -5,7 +5,7 @@ import com.epam.commons.DataClass;
 /**
  * Created by Roman_Iovlev on 5/26/2017.
  */
-public class User extends DataClass {
+public class User extends DataClass<User> {
     public String name;
     public String password;
 

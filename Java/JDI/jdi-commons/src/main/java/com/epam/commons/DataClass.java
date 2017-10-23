@@ -1,5 +1,7 @@
 package com.epam.commons;
 
+import com.epam.commons.linqinterfaces.JActionT;
+
 import java.lang.reflect.Field;
 
 import static com.epam.commons.LinqUtils.first;
@@ -8,7 +10,12 @@ import static com.epam.commons.PrintUtils.print;
 /**
  * Created by Roman_Iovlev on 6/4/2017.
  */
-public class DataClass {
+public class DataClass<T> {
+    public T set(JActionT<T> valueFunc) {
+        T thisObj = (T)this;
+        valueFunc.invoke(thisObj);
+        return thisObj;
+    }
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" + print(LinqUtils.select(getClass().getDeclaredFields(),

@@ -8,7 +8,7 @@ import com.epam.commons.DataClass;
  */
 /*@AllArgsConstructor
 @NoArgsConstructor*/
-public class Attendee extends DataClass {
+public class Attendee extends DataClass<Attendee> {
     public JobSearchFilter filter = new JobSearchFilter();
 
     public String name = "Roman";

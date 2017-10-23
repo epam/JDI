@@ -2,7 +2,7 @@ package com.epam.http;
 
 import com.epam.http.requests.RestResponse;
 
-import static com.epam.http.requests.RestStatusType.ERROR;
+import static com.epam.http.requests.ResponseStatusType.ERROR;
 
 /**
  * Created by Roman_Iovlev on 9/25/2016.
@@ -17,10 +17,10 @@ public class PerformanceResult {
     }
 
     public void addResult(RestResponse response) {
-        AverangeResponseTime = (AverangeResponseTime * NumberOfRquests + response.responseTimeMSec)
+        AverangeResponseTime = (AverangeResponseTime * NumberOfRquests + response.responseTime())
                 / (NumberOfRquests + 1);
         NumberOfRquests++;
-        if (response.statusType == ERROR)
+        if (response.status().type() == ERROR)
             NumberOfFails++;
 
     }
