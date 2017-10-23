@@ -17,11 +17,6 @@ public class ResponseStatus extends DataClass<ResponseStatus> {
     public String text() { return text; }
     public int code() { return code; }
 
-    public ResponseStatus(int code, ResponseStatusType type, String text) {
-        this.code = code;
-        this.type = type;
-        this.text = text;
-    }
     public ResponseStatus(Response response) {
         code = response.statusCode();
         type = getStatusType(code);

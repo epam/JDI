@@ -1,11 +1,13 @@
 package com.epam.jdi.httptests;
 
 import com.epam.http.requests.RestResponse;
+import com.jayway.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import static com.epam.http.requests.ResponseStatusType.OK;
 import static com.epam.http.requests.ResponseStatusType.SERVER_ERROR;
 import static com.epam.http.requests.ServiceInit.init;
+import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 
@@ -14,7 +16,7 @@ import static org.testng.Assert.assertEquals;
  */
 public class ServiceTest {
     @Test
-    public void jsonTest() {;
+    public void jsonTest() {
         init(ServiceExample.class);
         RestResponse resp = ServiceExample.getMethod.call();
         resp.assertStatus(200, OK);

@@ -1,14 +1,19 @@
 package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
+import com.jayway.restassured.response.Header;
 import com.jayway.restassured.specification.RequestSpecification;
 
+import java.util.List;
+
+import static com.epam.commons.LinqUtils.select;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.ResponseStatusType.OK;
 import static com.epam.http.requests.RestMethodTypes.*;
 import static com.epam.http.requests.RestRequest.*;
 import static com.jayway.restassured.RestAssured.given;
 import static java.lang.System.currentTimeMillis;
+import static java.util.Arrays.asList;
 
 
 /**
@@ -27,6 +32,24 @@ public class RestMethod {
     public RestMethod(String url, RestMethodTypes type) {
         data = new RequestData().set(d -> d.url = url);
         this.type = type;
+    }
+    public void addHeader(String name, String value) {
+        data.headers.add(new Header(name, value));
+        spec.header(new Header(name, value));
+    }
+    public void addHeader(com.epam.http.annotations.Header header) {
+        addHeader(header.name(), header.value());
+    }
+    public void addHeader(Header header) {
+        addHeader(header.getName(), header.getValue());
+    }
+    public void addHeaders(List<com.epam.http.annotations.Header> headers) {
+        for(com.epam.http.annotations.Header header : headers)
+            addHeader(header);
+    }
+    public void addHeaders(Header[] headers) {
+        for(Header header : headers)
+            addHeader(header);
     }
     /*public RestMethod(String url) {
         this(url, null, null, null);

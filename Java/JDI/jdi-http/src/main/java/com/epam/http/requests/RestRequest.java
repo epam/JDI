@@ -15,22 +15,11 @@ import static java.lang.System.currentTimeMillis;
  * Created by Roman_Iovlev on 12/19/2016.
  */
 public class RestRequest {
-    /*private static RequestSpecification getRS(Map<String, String> params) {
-        RequestSpecification spec = with();
-        if (params != null && params.size() > 0)
-            spec = spec.params(params);
-        return spec;
-    }*/
     public static RestResponse doRequest(
             RestMethodTypes methodType, RequestSpecification spec) {
         Response response;
         long time;
         try {
-            /*
-            String requestUrl = url;
-            if (url.contains("%s"))
-                if (params.stringParams != null && params.stringParams.length > 0)
-                    requestUrl = format(requestUrl, params.stringParams);*/
             time = currentTimeMillis();
             response = methodType.method.apply(spec);
             time = currentTimeMillis() - time;

@@ -1,8 +1,10 @@
 package com.epam.http.requests;
 
 import com.epam.commons.DataClass;
+import com.jayway.restassured.response.Header;
 
-import static com.epam.http.requests.RestMethodTypes.GET;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.
@@ -10,4 +12,5 @@ import static com.epam.http.requests.RestMethodTypes.GET;
 public class RequestData extends DataClass<RequestData> {
     public String url = null;
     public String body = null;
+    public List<Header> headers = new ArrayList<>();
 }

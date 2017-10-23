@@ -44,7 +44,7 @@ public class RestResponse {
     public void isOk() {
         validate(r -> status().type() == OK);
     }
-    public void hasError() {
+    public void hasErrors() {
         validate(r -> status().type() == ERROR);
     }
 

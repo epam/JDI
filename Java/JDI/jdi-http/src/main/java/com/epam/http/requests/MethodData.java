@@ -7,7 +7,7 @@ import static com.epam.http.requests.RestMethodTypes.GET;
 /**
  * Created by Roman_Iovlev on 10/23/2017.
  */
-public class MethodAnnotationData extends DataClass {
+public class MethodData extends DataClass {
     private String url = "";
     private RestMethodTypes type = GET;
 
@@ -17,7 +17,7 @@ public class MethodAnnotationData extends DataClass {
     public RestMethodTypes getType() {
         return type;
     }
-    public MethodAnnotationData(String url, RestMethodTypes type) {
+    public MethodData(String url, RestMethodTypes type) {
         this.url = url;
         this.type = type;
     }
