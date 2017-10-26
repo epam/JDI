@@ -299,7 +299,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         if (browserSizes == null) {
             if (any(asList("chrome", "internetexplorer"),
                 el -> driver.toString().toLowerCase().contains(el)))
-                    driver.manage().window().maximize();
+                    driver.manage().window().fullscreen();
         }
         else
             driver.manage().window().setSize(browserSizes);
