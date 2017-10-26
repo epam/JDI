@@ -285,11 +285,4 @@ public class Element extends BaseElement implements IElement, IHasElement {
                 new Actions(getDriver()).dragAndDrop(getWebElement(), target.getWebElement()).build().perform());
     }
 
-    public void scrollIntoView() {
-        invoker.doJAction("Scroll Element to the center of View", () -> {
-            ((JavascriptExecutor) getDriver())
-                    .executeScript("arguments[0].scrollIntoView({block: 'center'});", getWebElement());
-        });
-    }
-
 }
