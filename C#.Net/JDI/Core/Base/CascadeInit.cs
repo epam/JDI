@@ -80,6 +80,7 @@ namespace Epam.JDI.Core.Base
                     ex =>
                         $"Can't create child for parent '{parentClass.Name}' with type '{field.FieldType.Name}'. Exception: {ex}");
             else FillInstance(instance, field);
+
             instance.Parent = parent;
             instance = FillFromJDIAttribute(instance, field);
             instance = SpecificAction(instance, field, parent, type);
