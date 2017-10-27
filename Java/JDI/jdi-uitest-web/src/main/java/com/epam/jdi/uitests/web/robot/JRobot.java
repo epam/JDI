@@ -18,6 +18,10 @@ package com.epam.jdi.uitests.web.robot;
  */
 
 
+import com.epam.jdi.uitests.web.settings.WebSettings;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -57,8 +61,12 @@ public final class JRobot {
 
                 robot.delay(1000);*/
 
+                //use Apple script to focus on browser, because browser loses focus when Java app launches
+                Capabilities cap = ((RemoteWebDriver) WebSettings.getDriver()).getCapabilities();
+                String browserName = cap.getBrowserName();
                 Runtime runtime = Runtime.getRuntime();
-                String[] args = { "osascript", "-e", "tell app \"Chrome\" to activate" };
+                String tell = "tell app \"" + browserName + "\" to activate";
+                String[] args = { "osascript", "-e", tell };
                 Process process = runtime.exec(args);
 
                 robot.delay(1000);
@@ -78,7 +86,7 @@ public final class JRobot {
                 robot.keyPress(VK_ENTER);
                 robot.keyRelease(VK_ENTER);
 
-                robot.delay(1000 * 3);
+                robot.delay(1000 * 2);
 
                 robot.keyPress(VK_ENTER);
                 robot.keyRelease(VK_ENTER);
