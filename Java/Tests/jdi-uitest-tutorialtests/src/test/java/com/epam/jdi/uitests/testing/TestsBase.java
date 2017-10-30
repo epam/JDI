@@ -1,6 +1,9 @@
 package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.site.epam.EpamSite;
+import com.epam.jdi.uitests.core.logger.JDILogger;
+import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -20,6 +23,7 @@ public abstract class TestsBase extends TestNGBase {
     public static void setUp() {
         init(EpamSite.class);
         homePage.open();
+        ((JDILogger)WebSettings.logger).setLogLevel(LogLevels.INFO);
         logger.info("Run Tests");
     }
 

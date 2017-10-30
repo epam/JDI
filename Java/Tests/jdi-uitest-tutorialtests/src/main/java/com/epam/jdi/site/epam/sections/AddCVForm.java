@@ -12,7 +12,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.object
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Attribute;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Title;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Xpath;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.XPath;
 
 /**
  * Created by Roman_Iovlev on 10/23/2015.
@@ -38,8 +38,8 @@ public class AddCVForm extends Form<Attendee> {
     @Css(".file-upload") RFileInput cv;
     @Css(".comment-input") ITextArea comment;
 
-    @Xpath( "//*[.='Submit']") IButton submit;
-    @Xpath("//*[.='Cancel']") IButton cancel;
+    @XPath( "//*[.='Submit']") IButton submit;
+    @XPath("//*[.='Cancel']") IButton cancel;
 
     @Title("Reload") public IButton reload;
 }

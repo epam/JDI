@@ -119,7 +119,7 @@ public class WebCascadeInit extends CascadeInit {
     }
     public static <T> void initPageObject(String driverName, Class<T>... classes) {
         for(Class<T> clazz : classes)
-            initPageObject(driverName, clazz);
+            initPageObject(clazz, driverName);
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {
@@ -191,8 +191,8 @@ public class WebCascadeInit extends CascadeInit {
             return findByToBy(field.getAnnotation(FindBy.class));
         if (field.isAnnotationPresent(Css.class))
             return findByToBy(field.getAnnotation(Css.class));
-        if (field.isAnnotationPresent(Xpath.class))
-            return findByToBy(field.getAnnotation(Xpath.class));
+        if (field.isAnnotationPresent(XPath.class))
+            return findByToBy(field.getAnnotation(XPath.class));
         if (field.isAnnotationPresent(Text.class))
             return findByToBy(field.getAnnotation(Text.class));
         if (field.isAnnotationPresent(Attribute.class))
@@ -219,7 +219,6 @@ public class WebCascadeInit extends CascadeInit {
             return findByToBy(field.getAnnotation(Value.class));
         return null;
     }
-
 
     private static void fillFromAnnotation(BaseElement instance, Field field) {
         try {

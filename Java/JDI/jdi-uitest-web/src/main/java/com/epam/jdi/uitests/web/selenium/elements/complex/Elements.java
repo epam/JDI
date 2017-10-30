@@ -23,6 +23,7 @@ import com.epam.jdi.uitests.core.annotations.Title;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
@@ -40,20 +41,8 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
-public class Elements<T extends IHasElement> extends BaseSelector<Enum> implements List<T> {
+public class Elements<T extends Element> extends BaseSelector<Enum> implements List<T> {
     private Class<T> classType;
-
-    public Elements() {
-        this(null, null);
-    }
-
-    public Elements(Class<T> classType) {
-        this(null, classType);
-    }
-    public Elements(By byLocator) {
-        this(byLocator, null);
-    }
-
     protected boolean isSelectedAction(String name) {
         return false;
     }
@@ -86,7 +75,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
             try {
                 T element = classType.newInstance();
                 element.setWebElement(el);
-                ((BaseElement)element).useCache = useCache;
+                element.useCache = useCache;
                 element.setParent(null);
                 new WebCascadeInit().initElements(element, avatar.getDriverName());
                 return element;
@@ -98,7 +87,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public <E> List<E> asData(Class<E> entityClass) {
         return LinqUtils.select(listOfElements(),
-            element -> asEntity(entityClass));
+            element -> element.asEntity(entityClass));
     }
 
     public int size() {

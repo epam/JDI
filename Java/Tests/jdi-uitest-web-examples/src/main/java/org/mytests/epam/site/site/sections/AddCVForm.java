@@ -10,7 +10,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.object
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Attribute;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByName;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Xpath;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.XPath;
 import com.epam.web.matcher.testng.Assert;
 import org.mytests.epam.site.entities.Attendee;
 import org.openqa.selenium.support.FindBy;
@@ -43,7 +43,7 @@ public class AddCVForm extends Form<Attendee> {
     @FindBy(css = ".comment-input")
     ITextArea comment;
 
-    @Xpath("//*[.='Submit']")
+    @XPath("//*[.='Submit']")
     IButton submit;
 
 
