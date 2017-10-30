@@ -16,5 +16,5 @@ test-output/
 # ReSharper files
 *.DotSettings.user
 *.bat
-*.txt
+LATEST_RELEASE.txt
 *.user
