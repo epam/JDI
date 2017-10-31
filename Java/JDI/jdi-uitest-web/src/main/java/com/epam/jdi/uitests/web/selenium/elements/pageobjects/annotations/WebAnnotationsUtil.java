@@ -172,7 +172,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             return getAttribute("value", locator.value());
     }
 
-    public static By findByToBy(Xpath locator){
+    public static By findByToBy(XPath locator){
         if (locator == null) return null;
             return By.xpath(locator.value());
     }
