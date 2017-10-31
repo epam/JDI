@@ -23,10 +23,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -262,7 +259,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
     }
 
     public void focus() {
-        invoker.doJAction("Focus on Element", () -> {
+        invoker.doJAction("Scroll Element into the center of View and Focus on it", () -> {
+            ((JavascriptExecutor) getDriver())
+                    .executeScript("arguments[0].scrollIntoView({block: 'center'});", getWebElement());
             Dimension size = getWebElement().getSize(); //for scroll to object
             new Actions(getDriver()).moveToElement(getWebElement(), size.width / 2, size.height / 2).build().perform();
         });
@@ -285,4 +284,5 @@ public class Element extends BaseElement implements IElement, IHasElement {
         invoker.doJAction(format("Drag and drop to Target Element: %s", target.toString()), () ->
                 new Actions(getDriver()).dragAndDrop(getWebElement(), target.getWebElement()).build().perform());
     }
+
 }
