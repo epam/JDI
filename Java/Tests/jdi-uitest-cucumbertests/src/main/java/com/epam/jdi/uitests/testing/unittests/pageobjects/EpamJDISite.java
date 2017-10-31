@@ -13,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
  * Created by Maksim_Palchevskii on 9/10/2015.
  */
 
-@JSite(domain = "https://jdi-framework.github.io/tests")
+@JSite(value = "https://jdi-framework.github.io/tests")
 public class EpamJDISite extends WebSite {
 
     @JPage(url = "/index.htm", title = "Index Page")
