@@ -32,12 +32,16 @@ public final class WebDriverUtils {
 
     private static void killMacOSBrowsersByName(String driverName) {
         try {
-            Runtime r = Runtime.getRuntime();
-            String tell = "do shell script \"pkill -f '.*" + driverName + ".*'\"";
-            String[] args = { "osascript", "-e", tell };
-            Process process = r.exec(args);
+            Process process = new ProcessBuilder(
+                    "/usr/bin/pkill",
+                    "-f",
+                    ".*" + driverName + ".*")
+                    .start();
+            process.waitFor();
         }
-        catch (IOException e1){}
+        catch (IOException | InterruptedException e1){
+            e1.printStackTrace();
+        }
     }
 
     //TODO Add OS type and current user check.
