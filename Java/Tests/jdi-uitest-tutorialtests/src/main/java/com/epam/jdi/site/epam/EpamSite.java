@@ -60,4 +60,7 @@ public class EpamSite {
             }
     };
 
+    @JPage(url = "/industries", title = "Industries")
+    public static IndustryPage industryPage;
+
 }
