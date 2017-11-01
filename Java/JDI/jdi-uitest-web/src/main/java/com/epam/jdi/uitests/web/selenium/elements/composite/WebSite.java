@@ -20,6 +20,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.jdi.uitests.core.interfaces.Application;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
@@ -43,8 +44,25 @@ public class WebSite extends Application {
 
     /**
      * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
+     * Use this method only when you have one WebSite instance in test.
+     * If you have multiple site instances, (e.g. YandexSite and GoogleSite in
+     * com.epam.jdi.uitests.testing.simple.examples.MultipleSitesExample#twoSiteExample())
+     * use open(Class<T> site) instead.
+     *
      */
     public static void open(){
+        getDriver().navigate().to(domain);
+    }
+
+    /**
+     *
+     * @param site
+     * @param <T>
+     *
+     *     Use this method in cases like com.epam.jdi.uitests.testing.simple.examples.MultipleSitesExample#twoSiteExample()
+     */
+    public static <T> void open(Class<T> site){
+        String domain = site.getAnnotation(JSite.class).value();
         getDriver().navigate().to(domain);
     }
 }
