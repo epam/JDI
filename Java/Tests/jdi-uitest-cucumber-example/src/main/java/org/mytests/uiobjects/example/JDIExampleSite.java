@@ -12,7 +12,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://epam.github.io/JDI/")
+@JSite(value = "https://epam.github.io/JDI/")
 public class JDIExampleSite extends WebSite {
     public static HomePage homePage;
 

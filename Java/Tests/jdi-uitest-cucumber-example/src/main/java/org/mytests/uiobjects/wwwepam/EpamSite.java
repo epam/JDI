@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://www.epam.com")
+@JSite(value = "https://www.epam.com")
 public class EpamSite extends WebSite {
 
     @JPage(url = "/", title = "EPAM | Software Product Development Services")

@@ -22,14 +22,14 @@ import com.epam.jdi.uitests.core.interfaces.Application;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
-import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
-import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
+import static com.epam.jdi.uitests.web.settings.WebSettings.*;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
 public class WebSite extends Application {
     public static <T> void init(String driverName, Class<T>... sites) {
+
         for (Class<T> site : sites)
             new WebCascadeInit().initStaticPages(site, driverName);
         currentSite = sites[sites.length-1];
@@ -41,4 +41,10 @@ public class WebSite extends Application {
         init(driverName, sites);
     }
 
+    /**
+     * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
+     */
+    public static void open(){
+        getDriver().navigate().to(domain);
+    }
 }

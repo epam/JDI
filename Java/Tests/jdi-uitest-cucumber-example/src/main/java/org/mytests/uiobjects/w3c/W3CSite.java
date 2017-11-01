@@ -8,7 +8,7 @@ import org.mytests.uiobjects.w3c.pages.DropDownPage;
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://www.w3schools.com/")
+@JSite(value = "https://www.w3schools.com/")
 public class W3CSite extends WebSite {
 
     @JPage(url = "/tags/tryit.asp?filename=tryhtml_select")
