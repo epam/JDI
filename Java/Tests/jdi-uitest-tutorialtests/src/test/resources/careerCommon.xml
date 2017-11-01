@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Career common test suite" parallel="methods" thread-count="1">
+    <test name="Career comon examples" preserve-order="true">
+        <packages>
+            <package name="com.epam.jdi.uitests.testing.career.common.tests"/>
+        </packages>
+    </test>
+</suite>

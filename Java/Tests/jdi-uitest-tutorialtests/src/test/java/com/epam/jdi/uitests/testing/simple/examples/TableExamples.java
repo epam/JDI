@@ -54,9 +54,9 @@ public class TableExamples extends TestsBase {
         jobsTable()
             .rowContains("front-end", inColumn("name"))
             .get("apply").select();
-        jobsTable()
+        /*jobsTable()
                 .rowContains("front-end", inColumn("name"))
-                .get("apply").select();
+                .get("apply").select();*/
         jobDescriptionPage.checkOpened();
     }
     @Test

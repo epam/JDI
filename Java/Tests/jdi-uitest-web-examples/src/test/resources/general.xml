@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite verbose="2" name="jdi-selenium-framework" parallel="tests" thread-count="3">
+    <test verbose="2" name="jdi-web-examples" preserve-order="true">
+        <packages>
+            <package name="org.mytests.tests.*"/>
+        </packages>
+    </test>
+</suite>

@@ -30,12 +30,33 @@ public final class WebDriverUtils {
     private WebDriverUtils() {
     }
 
+    private static void killMacOSBrowsersByName(String driverName) {
+        try {
+            Process process = new ProcessBuilder(
+                    "/usr/bin/pkill",
+                    "-f",
+                    ".*" + driverName + ".*")
+                    .start();
+            process.waitFor();
+        }
+        catch (IOException | InterruptedException e1){
+            e1.printStackTrace();
+        }
+    }
+
     //TODO Add OS type and current user check.
     //TODO Try to use C/C++ Library to work with processes.
     public static void killAllRunWebBrowsers() throws IOException {
-        asserter.ignore(() -> killByName("chromedriver.exe"));
-        asserter.ignore(() -> killByName("geckodriver.exe"));
-        asserter.ignore(() -> killByName("IEDriverServer.exe"));
-        asserter.ignore(() -> killByName("MicrosoftWebDriver.exe"));
+        String os = System.getProperty("os.name");
+        if (os.contains("Mac")) {
+            asserter.ignore(() -> killMacOSBrowsersByName("Firefox"));
+            asserter.ignore(() -> killMacOSBrowsersByName("Chrome"));
+        }
+        else {
+            asserter.ignore(() -> killByName("chromedriver.exe"));
+            asserter.ignore(() -> killByName("geckodriver.exe"));
+            asserter.ignore(() -> killByName("IEDriverServer.exe"));
+            asserter.ignore(() -> killByName("MicrosoftWebDriver.exe"));
+        }
     }
 }

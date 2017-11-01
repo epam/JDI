@@ -5,7 +5,7 @@
         <classes>
             <class name="com.epam.jdi.uitests.testing.simple.examples.TableExamples"/>
             <class name="com.epam.jdi.uitests.testing.career.common.tests.CareerTests"/>
-            <class name="com.epam.jdi.uitests.testing.simple.examples.FormExamples"/>
+            <!--<class name="com.epam.jdi.uitests.testing.simple.examples.FormExamples"/>-->
         </classes>
     </test>
 </suite>

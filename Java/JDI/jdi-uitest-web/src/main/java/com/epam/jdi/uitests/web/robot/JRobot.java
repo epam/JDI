@@ -18,6 +18,10 @@ package com.epam.jdi.uitests.web.robot;
  */
 
 
+import com.epam.jdi.uitests.web.settings.WebSettings;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -40,17 +44,64 @@ public final class JRobot {
             } catch (Exception ex) {
                 throw exception("Can't instantiate Robot");
             }
+
+            sleep(1000);
+
             StringSelection stringSelection = new StringSelection(text.toString());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(stringSelection, (clipboard1, contents) -> {
             });
-            sleep(1000);
-            robot.keyPress(VK_CONTROL);
-            robot.keyPress(VK_V);
 
-            robot.keyRelease(VK_CONTROL);
-            robot.keyPress(VK_ENTER);
-            robot.keyRelease(VK_ENTER);
+            if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+
+                /*robot.keyPress(VK_META);
+                robot.keyPress(VK_TAB);
+                robot.keyRelease(VK_TAB);
+                robot.keyRelease(VK_META);
+
+                robot.delay(1000);*/
+
+                //use Apple script to focus on browser, because browser loses focus when Java app launches
+                Capabilities cap = ((RemoteWebDriver) WebSettings.getDriver()).getCapabilities();
+                String browserName = cap.getBrowserName();
+                Runtime runtime = Runtime.getRuntime();
+                String tell = "tell app \"" + browserName + "\" to activate";
+                String[] args = { "osascript", "-e", tell };
+                Process process = runtime.exec(args);
+
+                robot.delay(1000);
+
+                robot.keyPress(VK_META);
+                robot.keyPress(VK_SHIFT);
+                robot.keyPress(VK_G);
+                robot.keyRelease(VK_G);
+                robot.keyRelease(VK_SHIFT);
+                robot.keyRelease(VK_META);
+
+                robot.keyPress(VK_META);
+                robot.keyPress(VK_V);
+                robot.keyRelease(VK_V);
+                robot.keyRelease(VK_META);
+
+                robot.keyPress(VK_ENTER);
+                robot.keyRelease(VK_ENTER);
+
+                robot.delay(1000 * 2);
+
+                robot.keyPress(VK_ENTER);
+                robot.keyRelease(VK_ENTER);
+
+            }
+            else {
+                    robot.keyPress(VK_CONTROL);
+                    robot.keyPress(VK_V);
+                    robot.keyRelease(VK_V);
+                    robot.keyRelease(VK_CONTROL);
+
+                    robot.keyPress(VK_ENTER);
+                    robot.keyRelease(VK_ENTER);
+            }
+
         } catch (Exception ex) {
             throw exception("Robot Input exception");
         }

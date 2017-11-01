@@ -42,6 +42,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.awt.*;
 import java.io.File;
 import java.util.List;
 import java.util.Set;
@@ -295,11 +296,21 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     public static Dimension browserSizes;
 
+    private static void maximizeMacBrowser(WebDriver driver) {
+        java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        driver.manage().window()
+                .setSize(new org.openqa.selenium.Dimension(screenSize.width, screenSize.height));
+    }
+
     public static Function<WebDriver, WebDriver> webDriverSettings = driver -> {
         if (browserSizes == null) {
             if (any(asList("chrome", "internetexplorer"),
-                el -> driver.toString().toLowerCase().contains(el)))
-                    driver.manage().window().maximize();
+                el -> driver.toString().toLowerCase().contains(el))) {
+                    if (System.getProperty("os.name").toLowerCase().contains("mac"))
+                        maximizeMacBrowser(driver);
+                    else
+                        driver.manage().window().maximize();
+            }
         }
         else
             driver.manage().window().setSize(browserSizes);
