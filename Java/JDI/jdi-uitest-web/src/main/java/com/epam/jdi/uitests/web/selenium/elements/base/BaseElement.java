@@ -74,6 +74,7 @@ public abstract class BaseElement implements IBaseElement {
     private String varName;
     private String typeName;
     private Object parent;
+    private String preposition;
     public boolean useCache;
 
     public BaseElement() {
@@ -197,6 +198,12 @@ public abstract class BaseElement implements IBaseElement {
 
     protected String getParentName() {
         return parent == null ? "" : parent.getClass().getSimpleName();
+    }
+    public String getPreposition() {
+        return preposition == null ? "" : preposition;
+    }
+    public void setPreposition(String preposition) {
+        this.preposition = preposition;
     }
     public Object getParent() { return parent; }
     public String printContext() {

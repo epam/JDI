@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.logger.JDILogger;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
@@ -45,6 +46,10 @@ public class WebPage extends BaseElement implements IPage {
     public CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
     public String urlTemplate;
     public static WebPage currentPage;
+
+    {
+        setPreposition("at");
+    }
 
     public WebPage() {
     }
@@ -93,6 +98,7 @@ public class WebPage extends BaseElement implements IPage {
      * Check that page opened
      */
     public void checkOpened() {
+        ((JDILogger) logger).step(format("I check '%s' is opened", getName()));
         asserter.isTrue(verifyOpened(),
                 format("Page '%s' is not opened", toString()));
     }
