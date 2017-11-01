@@ -322,56 +322,6 @@ public class JDILogger implements ILogger {
             logger.info(stepMarker, getRecord(s));
     }
 
-    public void step(String s, Object o, Object o1) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(stepMarker, getRecord(s), o, o1);
-
-    }
-
-    public void step(String s, Object... objects) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(stepMarker, getRecord(s), objects);
-
-    }
-
-    public void step(String s, Throwable throwable) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(stepMarker, getRecord(s), throwable);
-    }
-
-    public boolean isStepEnabled(Marker marker) {
-        return logger.isInfoEnabled(marker);
-    }
-
-    public void step(Marker marker, String s) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(marker, getRecord(s));
-
-    }
-
-    public void step(Marker marker, String s, Object o) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(marker, getRecord(s), o);
-
-    }
-
-    public void step(Marker marker, String s, Object o, Object o1) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(marker, getRecord(s), o, o1);
-
-    }
-
-    public void step(Marker marker, String s, Object... objects) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(marker, getRecord(s), objects);
-
-    }
-
-    public void step(Marker marker, String s, Throwable throwable) {
-        if (logLevel.equalOrLessThan(STEP))
-            logger.info(marker, getRecord(s), throwable);
-    }
-
     public boolean isErrorEnabled() {
         return logger.isErrorEnabled();
     }
