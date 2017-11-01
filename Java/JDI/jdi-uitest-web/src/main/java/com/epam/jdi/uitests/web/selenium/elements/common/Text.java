@@ -27,6 +27,10 @@ import org.openqa.selenium.WebElement;
  * Created by Roman_Iovlev on 7/6/2015.
  */
 public class Text extends Element implements IText {
+    {
+        setPreposition("in");
+    }
+
     public Text() {
     }
 

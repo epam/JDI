@@ -4,6 +4,7 @@ import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class JDILogger implements ILogger {
 
     private LogLevels settingslogLevel = INFO;
     public LogLevels logLevel = settingslogLevel;
+    public static Marker stepMarker = MarkerFactory.getMarker(LogLevels.STEP.name());
 
     public void logOff(JActionEx action) {
         logOff(() -> { action.invoke(); return null; });
@@ -315,6 +317,70 @@ public class JDILogger implements ILogger {
     public void warn(Marker marker, String s, Throwable throwable) {
         if (logLevel.equalOrLessThan(WARNING))
             logger.warn(marker, getRecord(s), throwable);
+    }
+
+    public boolean isStepEnabled() {
+        return logger.isInfoEnabled(stepMarker);
+    }
+
+    public void step(String s) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s));
+    }
+
+    public void step(String s, Object o) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s), o);
+    }
+
+    public void step(String s, Object o, Object o1) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s), o, o1);
+
+    }
+
+    public void step(String s, Object... objects) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s), objects);
+
+    }
+
+    public void step(String s, Throwable throwable) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s), throwable);
+    }
+
+    public boolean isStepEnabled(Marker marker) {
+        return logger.isInfoEnabled(marker);
+    }
+
+    public void step(Marker marker, String s) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(marker, getRecord(s));
+
+    }
+
+    public void step(Marker marker, String s, Object o) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(marker, getRecord(s), o);
+
+    }
+
+    public void step(Marker marker, String s, Object o, Object o1) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(marker, getRecord(s), o, o1);
+
+    }
+
+    public void step(Marker marker, String s, Object... objects) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(marker, getRecord(s), objects);
+
+    }
+
+    public void step(Marker marker, String s, Throwable throwable) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(marker, getRecord(s), throwable);
     }
 
     public boolean isErrorEnabled() {
