@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.pages;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.complex.IMenu;
+import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.HomeSection;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;
@@ -66,4 +67,6 @@ public class HomePage extends WebPage {
             level1 = @JFindBy (css = ".uui-navigation.nav.navbar-nav.m-l8>li>a"),
             level2 = @JFindBy (css = ".dropdown-menu>li>a")
     ) public IMenu menu;
+
+    public HomeSection homeSection;
 }
