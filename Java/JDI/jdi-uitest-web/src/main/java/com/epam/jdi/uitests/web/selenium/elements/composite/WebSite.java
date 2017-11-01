@@ -20,12 +20,9 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.jdi.uitests.core.interfaces.Application;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
-import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
-import static com.epam.jdi.uitests.web.settings.WebSettings.getDriverFactory;
-import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
+import static com.epam.jdi.uitests.web.settings.WebSettings.*;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
@@ -48,7 +45,6 @@ public class WebSite extends Application {
      * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
      */
     public static void open(){
-        String url = WebSettings.domain;
-        WebSettings.getDriverFactory().getDriver().navigate().to(url);
+        getDriver().navigate().to(domain);
     }
 }
