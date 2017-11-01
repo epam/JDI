@@ -119,7 +119,11 @@ public abstract class CascadeInit {
                                 parentClass.getSimpleName(), field.getType().getSimpleName(), ex.getMessage()));
             }
         else instance = fillInstance(instance, field);
-        instance.setParent(field.isAnnotationPresent(Root.class) ? null : parent);
+        if (field.isAnnotationPresent(Root.class)){
+            instance.setParent(null);
+        }else {
+            instance.setParent(parent);
+        }
         instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;

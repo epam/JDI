@@ -3,6 +3,8 @@ package com.epam.jdi.site.epam;
 import com.epam.jdi.enums.HeaderMenu;
 import com.epam.jdi.enums.HeaderSolutionsMenu;
 import com.epam.jdi.site.epam.pages.*;
+import com.epam.jdi.site.epam.sections.ContactUsSection;
+import com.epam.jdi.site.epam.sections.Header;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
@@ -63,4 +65,9 @@ public class EpamSite {
     @JPage(url = "/industries", title = "Industries")
     public static IndustryPage industryPage;
 
+    @JPage(url = "/ideas", title = "Ideas")
+    public static IdeasPage ideasPage;
+
+    public static Header header;
+    public static ContactUsSection contactUs;
 }
