@@ -6,14 +6,12 @@ import com.jayway.restassured.specification.RequestSpecification;
 
 import java.util.List;
 
-import static com.epam.commons.LinqUtils.select;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.ResponseStatusType.OK;
 import static com.epam.http.requests.RestMethodTypes.*;
-import static com.epam.http.requests.RestRequest.*;
+import static com.epam.http.requests.RestRequest.doRequest;
 import static com.jayway.restassured.RestAssured.given;
 import static java.lang.System.currentTimeMillis;
-import static java.util.Arrays.asList;
 
 
 /**

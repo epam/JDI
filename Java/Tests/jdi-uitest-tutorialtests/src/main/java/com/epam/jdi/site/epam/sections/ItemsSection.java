@@ -1,7 +1,6 @@
 package com.epam.jdi.site.epam.sections;
 
 import com.epam.jdi.uitests.core.annotations.Root;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;

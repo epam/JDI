@@ -11,7 +11,6 @@ import java.lang.reflect.Method;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SIMPLE_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.simpleTablePage;
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.sortingTablePage;
 import static com.epam.web.matcher.testng.Assert.assertTrue;
 
 /**

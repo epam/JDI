@@ -3,12 +3,7 @@ package com.epam.http.requests;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
 
-import java.util.Map;
-
 import static com.epam.http.ExceptionHandler.exception;
-import static com.epam.http.requests.RestMethodTypes.*;
-import static com.jayway.restassured.RestAssured.with;
-import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
 /**

@@ -3,8 +3,6 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.pages.*;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Footer;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.Header;
-import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.HomeSection;
-import com.epam.jdi.uitests.testing.unittests.pageobjects.sections.JdiPaginator;
 import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;

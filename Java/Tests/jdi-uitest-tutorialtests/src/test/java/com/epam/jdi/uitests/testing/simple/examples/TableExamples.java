@@ -4,11 +4,7 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.complex.table.SelectElement;
 import com.epam.web.matcher.testng.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

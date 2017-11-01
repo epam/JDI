@@ -4,7 +4,6 @@ import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSenderOptions;
 import com.jayway.restassured.specification.RequestSpecification;
 
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**

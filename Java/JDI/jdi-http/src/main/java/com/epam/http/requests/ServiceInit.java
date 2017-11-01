@@ -1,13 +1,15 @@
 package com.epam.http.requests;
 
 import com.epam.http.annotations.*;
+import com.epam.http.annotations.DELETE;
+import com.epam.http.annotations.GET;
+import com.epam.http.annotations.PATCH;
+import com.epam.http.annotations.POST;
+import com.epam.http.annotations.PUT;
 
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 
-import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.LinqUtils.toMap;
 import static com.epam.commons.LinqUtils.where;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.RestMethodTypes.*;

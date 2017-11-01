@@ -26,7 +26,7 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
  * Created by Roman_Iovlev on 8/30/2015.
  */
 @JSite("https://www.epam.com")
-public class EpamSite {
+public class EpamSite extends WebSite {
     @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
     @JPage(url = "/careers", title = "Careers")
