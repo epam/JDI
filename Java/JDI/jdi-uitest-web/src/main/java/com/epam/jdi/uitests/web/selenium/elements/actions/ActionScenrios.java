@@ -22,8 +22,14 @@ import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JActionTTTT;
 import com.epam.commons.linqinterfaces.JFuncTTTTTR;
+import com.epam.jdi.uitests.core.logger.JDILogger;
 import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
+import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -59,6 +65,7 @@ public class ActionScenrios {
     public void actionScenario(String actionName, JAction jAction, LogLevels level) {
         actionScenario.invoke(element, actionName,
                 jAction, level);
+        ((JDILogger) logger).step(String.format("I %s %s %s", actionName, element.getPreposition(), element));
     }
 
     public static JFuncTTTTTR<BaseElement, String, Supplier<Object>, Function<Object, String>,
