@@ -72,7 +72,7 @@ public class ElementsActions {
     }
 
     public void setValue(String value, Consumer<String> setValueAction) {
-        invoker().doJAction("Get value", () -> setValueAction.accept(value));
+        invoker().doJAction("Set value", () -> setValueAction.accept(value));
     }
 
     // Click Action

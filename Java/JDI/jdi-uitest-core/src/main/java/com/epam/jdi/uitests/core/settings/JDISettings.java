@@ -47,6 +47,9 @@ public abstract class JDISettings {
 
     public static void toLog(String message, LogLevels level) {
         switch (level) {
+            case STEP:
+                logger.step(message);
+                break;
             case INFO:
                 logger.info(message);
                 break;

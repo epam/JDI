@@ -29,7 +29,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.epam.commons.ReflectionUtils.isClass;
-import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
+import static com.epam.jdi.uitests.core.logger.LogLevels.STEP;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.elements.base.BaseElement.actionScenrios;
 
@@ -44,11 +44,11 @@ public class ActionInvoker {
     }
 
     public final <TResult> TResult doJActionResult(String actionName, Supplier<TResult> action) {
-        return doJActionResult(actionName, action, null, INFO);
+        return doJActionResult(actionName, action, null, STEP);
     }
 
     public final <TResult> TResult doJActionResult(String actionName, Supplier<TResult> action, Function<TResult, String> logResult) {
-        return doJActionResult(actionName, action, logResult, INFO);
+        return doJActionResult(actionName, action, logResult, STEP);
     }
 
     public final <TResult> TResult doJActionResult(String actionName, Supplier<TResult> action, LogLevels level) {
@@ -66,7 +66,7 @@ public class ActionInvoker {
     }
 
     public final void doJAction(String actionName, JAction action) {
-        doJAction(actionName, action, INFO);
+        doJAction(actionName, action, STEP);
     }
 
     public final void doJAction(String actionName, JAction action, LogLevels level) {
