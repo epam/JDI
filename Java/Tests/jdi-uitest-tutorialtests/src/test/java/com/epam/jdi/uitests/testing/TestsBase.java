@@ -1,11 +1,7 @@
 package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.site.epam.EpamSite;
-import com.epam.jdi.uitests.core.logger.JDILogger;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -22,11 +18,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
 public abstract class TestsBase extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
-        ((JDILogger)logger).setLogLevel(STEP);
-        Logger rootLogger = Logger.getRootLogger();
-        rootLogger.setLevel(Level.ERROR);
-        LoggerFactory.getLogger("Debug").debug("Debug");
-        LoggerFactory.getLogger("Info").info("Info");
+        logger.setLogLevel(STEP);
         init(EpamSite.class);
         EpamSite.open();
         logger.info("Run Tests");
