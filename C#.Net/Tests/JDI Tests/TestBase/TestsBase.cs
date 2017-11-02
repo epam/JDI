@@ -21,7 +21,7 @@ namespace JDI_Tests.Tests.Epam
             WinProcUtils.KillAllRunWebDrivers();
             _timer = new Timer();
             WebSite.Init(typeof(EpamSite));
-            EpamSite.HomePage.Open();
+            WebSite.Open();
             JDISettings.Logger.Info("Run Tests");
         }
 
