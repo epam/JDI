@@ -106,12 +106,24 @@ public abstract class CascadeInit {
             if (isInterface(field, IComposite.class)) {
                 initElements(instance, driverName);
             }
+
+            fixImagePath(totalPath);
+
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
                 parentType == null ? "NULL Class"
                     : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
+
+    private void fixImagePath(StringBuilder totalPath) {
+        System.out.println(totalPath);
+        if (totalPath != null) {
+            totalPath.toString().replaceAll("(\\|/)+", "\\");
+        }
+        System.out.println(totalPath);
+    }
+
 
     private void setImgPath(Object parent, Field field)
         throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
@@ -121,6 +133,7 @@ public abstract class CascadeInit {
                 Method methodSetImgPath = field.getType()
                     .getMethod("setImgPath", new Class[]{String.class});
                 Object titleElement = field.get(parent);
+
                 getValueFromImageAnnotation(field);
 
                 if (parent instanceof IPage) {
