@@ -51,7 +51,7 @@ public class RestResponse {
     public String body() {
         return raResponse.body().print();
     }
-    public String htmlBody(String path) {
+    public String getFromHtml(String path) {
         return raResponse.body().htmlPath().getString(path);
     }
     public JsonObject jsonBody() {

@@ -71,6 +71,6 @@ public class ServiceTest {
         ServiceExample service = init(ServiceExample.class);
         RestResponse resp = service.getHTMLMethod.call();
         resp.assertStatus(200, OK);
-        assertEquals(resp.htmlBody("html.body.h1"), "Herman Melville - Moby-Dick");
+        assertEquals(resp.getFromHtml("html.body.h1"), "Herman Melville - Moby-Dick");
     }
 }
