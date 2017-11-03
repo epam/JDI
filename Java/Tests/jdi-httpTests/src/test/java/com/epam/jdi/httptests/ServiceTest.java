@@ -50,4 +50,12 @@ public class ServiceTest {
                 body("url", equalTo("http://httpbin.org/post")).
                 body("headers.Host", equalTo("httpbin.org"));
     }
+
+    @Test
+    public void htmlBodyParseTest() {
+        ServiceExample service = init(ServiceExample.class);
+        RestResponse resp = service.getHTMLMethod.call();
+        resp.assertStatus(200, OK);
+        assertEquals(resp.htmlBody("html.body.h1"), "Herman Melville - Moby-Dick");
+    }
 }
