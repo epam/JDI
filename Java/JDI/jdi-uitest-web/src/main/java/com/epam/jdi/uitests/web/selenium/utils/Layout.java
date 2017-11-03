@@ -4,6 +4,7 @@ package com.epam.jdi.uitests.web.selenium.utils;
  * Uses Sikuli API for comparing provided images with specified web browser layout.
  */
 
+import java.io.File;
 import org.sikuli.script.Screen;
 
 import java.util.Arrays;
@@ -51,11 +52,11 @@ public class Layout {
             return false;
         }
 
-        boolean isExist = (screen.exists(pathToFile) != null);
+        File file = new File(pathToFile);
+        if (!file.exists()) throw new RuntimeException(pathToFile);
 
-        if (!isExist) throw new RuntimeException(pathToFile);
 
-        return isExist;
+        return screen.exists(pathToFile) != null;
     }
     private static Screen screen = new Screen();
 }

@@ -107,7 +107,7 @@ public abstract class CascadeInit {
                 initElements(instance, driverName);
             }
 
-            fixImagePath(totalPath);
+//            fixImagePath(totalPath);
 
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
