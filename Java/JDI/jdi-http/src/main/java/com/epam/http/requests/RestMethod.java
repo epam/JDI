@@ -1,6 +1,8 @@
 package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
+import com.google.gson.Gson;
+import com.jayway.restassured.mapper.ObjectMapper;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.specification.RequestSpecification;
 
@@ -17,10 +19,11 @@ import static java.lang.System.currentTimeMillis;
 /**
  * Created by Roman_Iovlev on 12/19/2016.
  */
-public class RestMethod {
+public class RestMethod<T> {
     public RequestSpecification spec = given();
     private RequestData data;
     private RestMethodTypes type;
+    private Gson gson = new Gson();
 
     public RestMethod() {}
     public RestMethod(JActionT<RequestSpecification> specFunc, RestMethodTypes type) {
@@ -66,6 +69,19 @@ public class RestMethod {
             throw exception("HttpMethodType not specified");
         return doRequest(type, getSpec());
     }
+    public T callAsData(Class<T> c) {
+        return call().raResponse().body().as(c);
+    }
+    public T asData(Class<T> c) {
+        return callAsData(c);
+    }
+    public RestResponse send(T data) {
+        this.data.body = gson.toJson(data);
+        spec.body(this.data.body);
+        return call();
+
+    }
+
     public RestResponse call(String... params) {
         data.url = String.format(data.url, params);
         return call();

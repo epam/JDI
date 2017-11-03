@@ -15,7 +15,7 @@ public class ServiceExample {
         @Header(name = "Name", value = "Roman"),
         @Header(name = "Id", value = "Test")
     })
-    static RestMethod getMethod;
+    static RestMethod<Info> getInfo;
 
     @Header(name = "Type", value = "Test")
     @POST("/post")
