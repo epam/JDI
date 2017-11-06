@@ -1,5 +1,6 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
+import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import cucumber.api.java.en.When;
 
@@ -10,7 +11,7 @@ public class SearchStepsRU {
 
     @When("^я ищу \"([^\"]*)\"$")
     public void iMFind(String findString) {
-        Search search = getElementByName(currentSite, findString);
+        Search search = Utils.getElementByName(currentSite, findString);
         search.find(findString);
     }
 }

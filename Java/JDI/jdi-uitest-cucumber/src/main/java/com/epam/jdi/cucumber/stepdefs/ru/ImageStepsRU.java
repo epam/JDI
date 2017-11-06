@@ -1,5 +1,6 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
+import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
 import cucumber.api.java.en.Then;
 
@@ -10,13 +11,13 @@ public class ImageStepsRU {
 
     @Then("^у картинки \"([^\"]*)\" атрибут source равен \"([^\"]*)\"$")
     public void imageSourceIs(String fieldName, String source) {
-        Image img = getElementByName(fieldName);
+        Image img = Utils.getElementByName(fieldName);
         assertEquals(img.getSource(), source);
     }
 
     @Then("^у картинки \"([^\"]*)\" атрибут alt равен \"([^\"]*)\"$")
     public void imageTooltipIs(String fieldName, String alt) {
-        Image img = getElementByName(fieldName);
+        Image img = Utils.getElementByName(fieldName);
         assertEquals(img.getAlt(), alt);
     }
 }
