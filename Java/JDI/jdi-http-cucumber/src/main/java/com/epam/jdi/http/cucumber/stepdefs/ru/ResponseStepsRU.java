@@ -1,37 +1,38 @@
-package com.epam.jdi.http.cucumber.stepdefs.en;
+package com.epam.jdi.http.cucumber.stepdefs.ru;
 
 import com.epam.http.requests.ResponseStatusType;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
+import cucumber.api.java.ru.Тогда;
+import cucumber.api.java.ru.И;
 import org.testng.Assert;
 
-import static com.epam.jdi.http.cucumber.Utils.*;
+import static com.epam.jdi.http.cucumber.Utils.performanceResult;
+import static com.epam.jdi.http.cucumber.Utils.restResponse;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 
-public class ResponseStepsEN {
+public class ResponseStepsRU {
 
-    @Then("^Performance results don't have any fails$")
+    @Тогда("^Результаты не содержат ошибок$")
     public void performanceResultsDonTHaveAnyFails() {
         Assert.assertTrue(performanceResult.get().NoFails());
     }
 
-    @And("^I check number of requests$")
+    @И("^Я проверяю число запросов$")
     public void iCheckNumberOfRequests() {
         System.out.println("There were " + performanceResult.get().NumberOfRequests + " requests.");
     }
 
-    @Then("^Response status code equals (\\d+)$")
+    @Тогда("^Код ответа равен (\\d+)$")
     public void responseStatusCodeEquals(int statusCode){
         assertEquals(restResponse.get().status().code(), statusCode);
     }
 
-    @And("^Response body is empty")
+    @И("^Тело ответа пустое")
     public void responseBodyIs() {
         assertEquals(restResponse.get().body(), "");
     }
 
-    @And("^Response status type is ([^\"]*)$")
+    @И("^Статус ответа это ([^\"]*)$")
     public void responseStatusTypeIs(String type) {
         Boolean typeMatches = false;
         for (ResponseStatusType responseStatusType : ResponseStatusType.values()) {
@@ -41,12 +42,12 @@ public class ResponseStepsEN {
         Assert.assertTrue(typeMatches);
     }
 
-    @And("^Response \"([^\"]*)\" is \"([^\"]*)\"$")
+    @И("^Параметр ответа \"([^\"]*)\" равен \"([^\"]*)\"$")
     public void responseParameterIsValue(String parameter, String value) {
         restResponse.get().assertThat().body(parameter, equalTo(value));
     }
 
-    @Then("^I check if performance results contain any fails$")
+    @Тогда("^Проверяю, содержат ли результаты ошибки$")
     public void iCheckIfPerformanceResultsContainAnyFails() {
         long numberOfFails = performanceResult.get().NumberOfFails;
         if (numberOfFails == 0)
@@ -57,22 +58,22 @@ public class ResponseStepsEN {
             System.out.println("There were " + numberOfFails + " failures.");
     }
 
-    @And("^Average response time is lesser than (\\d+) sec$")
+    @И("^Срднее время ответа не превышает (\\d+) сек$")
     public void averageResponseTime(long seconds) {
         Assert.assertTrue(performanceResult.get().AverageResponseTime < seconds);
     }
 
-    @And("^Response header \"([^\"]*)\" is \"([^\"]*)\"$")
+    @И("^Параметр заголовка ответа \"([^\"]*)\" равен \"([^\"]*)\"$")
     public void responseHeaderIs(String parameter, String value) {
         restResponse.get().assertThat().header(parameter, value);
     }
 
-    @And("^Json response \"([^\"]*)\" is \"([^\"]*)\"$")
+    @И("^Параметр json ответа \"([^\"]*)\" равен \"([^\"]*)\"$")
     public void jsonResponseIs(String parameter, String value){
         assertEquals(restResponse.get().jsonBody(parameter), value);
     }
 
-    @And("^I print response$")
+    @И("^Я печатаю ответ на запрос$")
     public void iPrintResponse() {
         restResponse.get().body();
     }

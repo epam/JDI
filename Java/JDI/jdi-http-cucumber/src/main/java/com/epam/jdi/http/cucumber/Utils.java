@@ -9,15 +9,19 @@ import com.epam.http.requests.RestMethodTypes;
 import com.epam.http.requests.RestResponse;
 import com.jayway.restassured.http.ContentType;
 
+import java.util.HashMap;
+
 import static com.epam.http.ExceptionHandler.exception;
-import static com.epam.http.requests.RestMethodTypes.*;
+import static com.epam.http.requests.RestMethodTypes.GET;
 
 
 public class Utils {
-    public static ThreadLocal<IRestService> service = new ThreadLocal<>();
-    public static ThreadLocal<String> domainUrl = new ThreadLocal<>();
-    public static ThreadLocal<PerformanceResult> performanceResult = new ThreadLocal<>();
-    public static ThreadLocal<RestResponse> restResponse = new ThreadLocal<>();
+    public static final ThreadLocal<IRestService> service = new ThreadLocal<>();
+    public static final ThreadLocal<String> domainUrl = new ThreadLocal<>();
+    public static final ThreadLocal<PerformanceResult> performanceResult = new ThreadLocal<>();
+    public static final ThreadLocal<RestResponse> restResponse = new ThreadLocal<>();
+    public static final ThreadLocal<ContentType> requestContentType = new ThreadLocal<>();
+    public static final ThreadLocal<HashMap<String, String>> preparedHeader = new ThreadLocal<>();
 
     public static RestMethod getRestMethod(String restMethodType) {
         MethodData mad = getMethodData(restMethodType);
@@ -43,13 +47,6 @@ public class Utils {
                     "Domain undefined and method url not contains '://'",
                     methodName, domain);
         return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
-    }
-
-    public static void setRequestContentType(RestMethod method, String requestContType) {
-        for (ContentType contentType : ContentType.values()) {
-            if(requestContType.equalsIgnoreCase(contentType.name()))
-                method.spec.contentType(contentType);
-        }
     }
 
     public static <T> String getDomain(Class<T> c) {

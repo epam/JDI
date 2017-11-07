@@ -1,8 +1,8 @@
-Feature: Call GET and POST
+Feature: GET and POST check
 
   Scenario Outline: Check response
     Given I init service
-    When I call <method> method
+    When I do <method> request
     Then Response status type is <responseStatus>
     And Response "url" is "<url>"
     And Response "headers.Host" is "httpbin.org"
