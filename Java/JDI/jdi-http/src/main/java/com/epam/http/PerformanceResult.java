@@ -9,17 +9,17 @@ import static com.epam.http.requests.ResponseStatusType.ERROR;
  */
 public class PerformanceResult {
 
-    public long AverangeResponseTime = 0;
-    public long NumberOfRquests = 0;
+    public long AverageResponseTime = 0;
+    public long NumberOfRequests = 0;
     public long NumberOfFails = 0;
     public boolean NoFails() {
         return NumberOfFails == 0;
     }
 
     public void addResult(RestResponse response) {
-        AverangeResponseTime = (AverangeResponseTime * NumberOfRquests + response.responseTime())
-                / (NumberOfRquests + 1);
-        NumberOfRquests++;
+        AverageResponseTime = (AverageResponseTime * NumberOfRequests + response.responseTime())
+                / (NumberOfRequests + 1);
+        NumberOfRequests++;
         if (response.status().type() == ERROR)
             NumberOfFails++;
 
