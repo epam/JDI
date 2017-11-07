@@ -108,7 +108,7 @@ public abstract class CascadeInit {
                 initElements(instance, driverName);
             }
 
-            fixImagePath(totalPath);
+            totalPath = fixImagePath(totalPath);
             validateImagePath(totalPath.toString());
 
         } catch (Exception ex) {
@@ -123,12 +123,12 @@ public abstract class CascadeInit {
         if (!file.exists()) throw new ImageNotFoundException("Image not found: " + path);
     }
 
-    private void fixImagePath(StringBuilder totalPath) {
-        System.out.println(totalPath);
-        if (totalPath != null) {
-            totalPath.toString().replaceAll("(\\|/)+", "\\");
+    private StringBuilder fixImagePath(StringBuilder path) {
+        if (path != null) {
+            return new StringBuilder(path.toString().replaceAll("[\\\\|/]+", "\\\\"));
         }
-        System.out.println(totalPath);
+
+        return null;
     }
 
 
