@@ -108,8 +108,10 @@ public abstract class CascadeInit {
                 initElements(instance, driverName);
             }
 
-            totalPath = fixImagePath(totalPath);
-            validateImagePath(totalPath.toString());
+//            totalPath = fixImagePath(totalPath);
+//            validateImagePath(totalPath.toString());
+
+        } catch (ImageNotFoundException ex) {
 
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
