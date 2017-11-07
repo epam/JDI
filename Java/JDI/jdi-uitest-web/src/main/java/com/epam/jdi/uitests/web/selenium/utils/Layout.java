@@ -43,12 +43,21 @@ public class Layout {
         return false;
     }
 
+    /**
+     * creates and throws exception
+     * @param path to the image
+     */
     private static void validateImagePath(String path) {
         if (path == null || !(new File(path)).exists()) {
             throw new ImageNotFoundException("Image not found: " + path);
         }
     }
 
+    /**
+     *
+     * @param path to the image
+     * @return string with single slashes like '\'
+     */
     private static String fixImagePath(String path) {
         if (path != null) {
             return path.replaceAll("[\\\\|/]+", "\\\\");
