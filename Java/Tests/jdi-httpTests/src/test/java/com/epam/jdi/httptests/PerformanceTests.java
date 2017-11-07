@@ -21,8 +21,8 @@ public class PerformanceTests {
         init(ServiceExample.class);
         PerformanceResult pr = loadService(20000, getInfo);
         Assert.assertTrue(pr.NoFails());
-        System.out.println(pr.AverangeResponseTime);
-        System.out.println(pr.NumberOfRquests);
+        System.out.println(pr.AverageResponseTime);
+        System.out.println(pr.NumberOfRequests);
 
     }
 }

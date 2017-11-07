@@ -7,6 +7,23 @@
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-uitest-framework</artifactId>
     <version>1.0.82</version>
+    <dependencies>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>1.2.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>1.2.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-annotations</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+    </dependencies>
     <packaging>pom</packaging>
     <name>EPAM UI Test Framework</name>
     <description>Automation UI testing for web mobile and desktop</description>
@@ -56,6 +73,7 @@
         <module>JDI/jdi-uitest-gui</module>
         <module>JDI/jdi-uitest-cucumber</module>
         <module>JDI/jdi-http</module>
+        <module>JDI/jdi-http-cucumber</module>
         <module>JDI/jdi-mock-rest</module>
         <module>JDI/jdi-uitest-win</module>
 
@@ -65,6 +83,7 @@
         <module>Tests/jdi-uitest-guitests</module>
         <module>Tests/jdi-uitest-cucumbertests</module>
         <module>Tests/jdi-httpTests</module>
+        <module>Tests/jdi-http-cucumbertests</module>
         <module>Tests/jdi-uitest-web-examples</module>
         <module>Tests/jdi-uitest-cucumber-example</module>
         <module>Tests/jdi-uitest-wintests</module>
