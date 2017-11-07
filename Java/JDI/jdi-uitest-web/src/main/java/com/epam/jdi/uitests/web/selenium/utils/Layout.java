@@ -51,11 +51,6 @@ public class Layout {
             logger.info("Driver not run");
             return false;
         }
-
-        File file = new File(pathToFile);
-        if (!file.exists()) throw new RuntimeException(pathToFile);
-
-
         return screen.exists(pathToFile) != null;
     }
     private static Screen screen = new Screen();

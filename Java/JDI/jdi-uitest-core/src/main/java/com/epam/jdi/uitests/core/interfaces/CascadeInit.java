@@ -18,12 +18,13 @@ package com.epam.jdi.uitests.core.interfaces;
  */
 
 
-import com.epam.jdi.uitests.core.annotations.Root;
+import com.epam.jdi.uitests.core.exceptions.ImageNotFoundException;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -107,13 +108,19 @@ public abstract class CascadeInit {
                 initElements(instance, driverName);
             }
 
-//            fixImagePath(totalPath);
+            fixImagePath(totalPath);
+            validateImagePath(totalPath.toString());
 
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
                 parentType == null ? "NULL Class"
                     : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
+    }
+
+    private void validateImagePath(String path) {
+        File file = new File(path);
+        if (!file.exists()) throw new ImageNotFoundException("Image not found: " + path);
     }
 
     private void fixImagePath(StringBuilder totalPath) {
@@ -137,17 +144,17 @@ public abstract class CascadeInit {
                 getValueFromImageAnnotation(field);
 
                 if (parent instanceof IPage) {
-                    setImgPathByMethod(methodSetImgPath, titleElement,
+                    setImgPath(methodSetImgPath, titleElement,
                         ((IPage) parent).getImageRoot() + totalPath.toString());
                 } else {
-                    setImgPathByMethod(methodSetImgPath, titleElement,
+                    setImgPath(methodSetImgPath, titleElement,
                         getParentPath(parent) + totalPath.toString());
                 }
             }
         }
     }
 
-    private void setImgPathByMethod(Method methodSetImgPath, Object titleElement, String imgPath)
+    private void setImgPath(Method methodSetImgPath, Object titleElement, String imgPath)
         throws IllegalAccessException, InvocationTargetException {
         methodSetImgPath.invoke(titleElement, imgPath);
         totalPath.setLength(0);
@@ -275,14 +282,10 @@ public abstract class CascadeInit {
                         parentClass.getSimpleName(), field.getType().getSimpleName(),
                         ex.getMessage()));
             }
-        }else {
+        } else {
             instance = fillInstance(instance, field);
         }
-        if (field.isAnnotationPresent(Root.class)){
-            instance.setParent(null);
-        }else {
-            instance.setParent(parent);
-        }
+        instance.setParent(parent);
         instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;
