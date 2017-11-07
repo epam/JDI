@@ -107,12 +107,6 @@ public abstract class CascadeInit {
             if (isInterface(field, IComposite.class)) {
                 initElements(instance, driverName);
             }
-
-//            totalPath = fixImagePath(totalPath);
-//            validateImagePath(totalPath.toString());
-
-        } catch (ImageNotFoundException ex) {
-
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
                 parentType == null ? "NULL Class"
