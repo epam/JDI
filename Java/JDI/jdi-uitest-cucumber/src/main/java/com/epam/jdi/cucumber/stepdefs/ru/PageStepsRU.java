@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,13 +12,13 @@ public class PageStepsRU {
 
     @Given("^я открываю страницу \"(.*?)\"$")
     public void iMOpen(String pageName) {
-        currentPage = Utils.getElementByName(currentSite, pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.open();
     }
 
     @Then("^я на странице \"(.*?)\"$")
     public void iMOn(String pageName) {
-        currentPage = Utils.getElementByName(currentSite, pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.checkOpened();
     }
 

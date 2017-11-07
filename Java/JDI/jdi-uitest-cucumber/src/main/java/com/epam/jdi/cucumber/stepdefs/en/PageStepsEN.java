@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.cucumber.Utils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,13 +12,13 @@ public class PageStepsEN {
 
     @Given("^I open \"(.*?)\"$")
     public void iMOpen(String pageName) {
-        currentPage = Utils.getElementByName(currentSite, pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.open();
     }
 
     @Then("^I'm on \"(.*?)\"$")
     public void iMOn(String pageName) {
-        currentPage = Utils.getElementByName(currentSite, pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.checkOpened();
     }
 

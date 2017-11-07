@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import cucumber.api.java.en.When;
 
@@ -10,13 +9,13 @@ public class ButtonStepsEN {
 
     @When("^I click on \"([^\"]*)\"(?:(?: button|link)$|$)")
     public void iMClickOnButton(String buttonName) {
-        IClickable cl = Utils.getElementByName(buttonName);
+        IClickable cl = getElementByName(buttonName);
         cl.click();
     }
 
     @When("^I click on \"([^\"]*)\" (?:(?: button|link)) from \"([^\"]*)\"$")
     public void iMClickOnLinkFrom(String fieldName, String containerName) {
-        IClickable cl = Utils.getElementByName(containerName, fieldName);
+        IClickable cl = getElementByName(containerName, fieldName);
         cl.click();
     }
 }

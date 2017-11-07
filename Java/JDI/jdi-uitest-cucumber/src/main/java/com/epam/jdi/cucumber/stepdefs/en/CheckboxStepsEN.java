@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.core.interfaces.common.ICheckBox;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,19 +11,19 @@ public class CheckboxStepsEN {
 
     @When("^I check \"([^\"]*)\"$")
     public void iMCheck(String fieldName) {
-        ICheckBox checkbox = Utils.getElementByName(fieldName);
+        ICheckBox checkbox = getElementByName(fieldName);
         checkbox.check();
     }
 
     @When("^I uncheck \"([^\"]*)\"$")
     public void iMUncheck(String fieldName) {
-        ICheckBox checkbox = Utils.getElementByName(fieldName);
+        ICheckBox checkbox = getElementByName(fieldName);
         checkbox.uncheck();
     }
 
     @Then("^checkbox \"([^\"]*)\" is checked$")
     public void checkboxIsCheck(String fieldName) {
-        ICheckBox checkbox = Utils.getElementByName(fieldName);
+        ICheckBox checkbox = getElementByName(fieldName);
         if (!checkbox.isChecked()) {
             throw exception("Checkbox is not checked.");
         }
@@ -32,7 +31,7 @@ public class CheckboxStepsEN {
 
     @Then("^checkbox \"([^\"]*)\" is unchecked$")
     public void checkboxIsUncheck(String fieldName) {
-        ICheckBox checkbox = Utils.getElementByName(fieldName);
+        ICheckBox checkbox = getElementByName(fieldName);
         if (checkbox.isChecked()) {
             throw exception("Checkbox is checked.");
         }

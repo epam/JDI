@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.ru;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import cucumber.api.java.en.Given;
 
@@ -10,7 +9,7 @@ public class TextFieldStepsRU {
 
     @Given("^я заполняю \"([^\"]*)\" значением \"([^\"]*)\"$")
     public void iMFillBy(String fieldName, String data) {
-        TextField textField = Utils.getElementByName(fieldName);
+        TextField textField = getElementByName(fieldName);
         textField.setValue(data);
     }
 }

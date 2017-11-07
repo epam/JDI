@@ -17,25 +17,25 @@ public class PaginationStepsRU {
 
     @When("^я использую постраничную навигацию \"([^\"]*)\", чтобы перейти на предыдущую страницу$")
     public void iMUsePaginationToGoPrevious(String paginationName) {
-        Pagination pagination = Utils.getElementByName(paginationName);
+        Pagination pagination = getElementByName(paginationName);
         pagination.previous();
     }
 
     @When("^я использую постраничную навигацию \"([^\"]*)\", чтобы выбрать страницу (\\d+)$")
     public void iMUsePaginationToSelect(String paginationName, int index) {
-        Pagination pagination = Utils.getElementByName(paginationName);
+        Pagination pagination = getElementByName(paginationName);
         pagination.selectPage(index);
     }
 
     @When("^я использую постраничную навигацию \"([^\"]*)\", чтобы перейти на последнюю страницу$")
     public void iMUsePaginationToGoLast(String paginationName) {
-        Pagination pagination = Utils.getElementByName(paginationName);
+        Pagination pagination = getElementByName(paginationName);
         pagination.last();
     }
 
     @When("^я использую постраничную навигацию \"([^\"]*)\", чтобы перейти на первую страницу$")
     public void iMUsePaginationToGoFirst(String paginationName) {
-        Pagination pagination = Utils.getElementByName(paginationName);
+        Pagination pagination = getElementByName(paginationName);
         pagination.first();
     }
 }

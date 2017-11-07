@@ -1,6 +1,5 @@
 package com.epam.jdi.cucumber.stepdefs.en;
 
-import com.epam.jdi.cucumber.Utils;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextArea;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,13 +10,13 @@ public class TextAreaStepsEN {
 
     @When("^I input to \"([^\"]*)\" lines \"([^\"]*)\"$")
     public void iMInputToLines(String filedName, String lines) {
-        TextArea textArea = Utils.getElementByName(filedName);
+        TextArea textArea = getElementByName(filedName);
         textArea.inputLines(lines);
     }
 
     @When("^I input to \"([^\"]*)\" new line \"([^\"]*)\"$")
     public void iMInputToNewLine(String filedName, String newLine) {
-        TextArea textArea = Utils.getElementByName(filedName);
+        TextArea textArea = getElementByName(filedName);
         textArea.addNewLine(newLine);
     }
 
@@ -29,7 +28,7 @@ public class TextAreaStepsEN {
 
     @When("^I input to \"([^\"]*)\" new input \"([^\"]*)\"$")
     public void iMInputToNewInput(String filedName, String newInput) {
-        TextArea textArea = Utils.getElementByName(filedName);
+        TextArea textArea = getElementByName(filedName);
         textArea.newInput(newInput);
     }
 }
