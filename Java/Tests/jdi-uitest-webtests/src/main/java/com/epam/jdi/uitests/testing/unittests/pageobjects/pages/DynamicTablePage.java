@@ -13,6 +13,9 @@ import org.openqa.selenium.support.FindBy;
  * Created by Natalia_Grebenshchik on 10/14/2015.
  */
 public class DynamicTablePage extends WebPage {
+
+
+
     @FindBy(css = ".table-delete")
     public DynamicTable dynamicTable;
 
@@ -34,6 +37,7 @@ public class DynamicTablePage extends WebPage {
     public Button reestablishBtn;
     @FindBy(xpath = "*//button[text()='Apply']")
     public Button applyBtn;
+
 
     public abstract class ColumnDropList<ColHeaders extends Enum> extends DropList<ColHeaders> {
         public ColumnDropList(By xpath, By xpath1) {

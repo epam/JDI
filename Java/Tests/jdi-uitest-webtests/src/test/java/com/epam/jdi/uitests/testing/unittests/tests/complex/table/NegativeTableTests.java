@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.tests.complex.table;
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.testing.unittests.dataproviders.IndexesDP;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.table.base.SupportTableTestsBase;
 import org.testng.annotations.Test;

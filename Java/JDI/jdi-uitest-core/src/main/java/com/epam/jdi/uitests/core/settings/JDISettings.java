@@ -25,7 +25,7 @@ import com.epam.jdi.uitests.core.logger.LogLevels;
 import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;
-import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.*;
+import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -47,6 +47,9 @@ public abstract class JDISettings {
 
     public static void toLog(String message, LogLevels level) {
         switch (level) {
+            case STEP:
+                logger.step(message);
+                break;
             case INFO:
                 logger.info(message);
                 break;

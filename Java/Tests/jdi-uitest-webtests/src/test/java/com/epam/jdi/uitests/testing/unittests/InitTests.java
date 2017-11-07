@@ -8,8 +8,8 @@ import com.epam.web.matcher.verify.Verify;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeSuite;
 
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.login;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.open;
 import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 
 
@@ -21,7 +21,7 @@ public class InitTests extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() throws Exception {
         WebSite.init(EpamJDISite.class);
-        homePage.open();
+        open();
         login.submit(User.DEFAULT);
         Verify.getFails();
         logger.info("Run Tests");

@@ -18,8 +18,6 @@ package com.epam.web.matcher.base;
  */
 
 
-import org.testng.Assert;
-
 import java.util.function.Consumer;
 
 /**

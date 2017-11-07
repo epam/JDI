@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.70</version>
+        <version>1.0.82</version>
         <relativePath>../..</relativePath>
     </parent>
 
     <artifactId>jdi-uitest-cucumbertests</artifactId>
-    <name>EPAM JDI UI Cucumber tests</name>
+    <name>EPAM JDI UI Cucumber Tests</name>
     <packaging>jar</packaging>
 
     <developers>

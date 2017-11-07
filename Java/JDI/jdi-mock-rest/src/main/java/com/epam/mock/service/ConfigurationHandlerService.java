@@ -2,9 +2,10 @@ package com.epam.mock.service;
 
 import com.epam.mock.model.ConfigurationHandler;
 import com.epam.mock.model.Method;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.stereotype.Service;
 
 /**
  * Response service class.

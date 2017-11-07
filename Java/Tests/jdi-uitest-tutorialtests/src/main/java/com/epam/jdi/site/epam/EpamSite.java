@@ -3,25 +3,29 @@ package com.epam.jdi.site.epam;
 import com.epam.jdi.enums.HeaderMenu;
 import com.epam.jdi.enums.HeaderSolutionsMenu;
 import com.epam.jdi.site.epam.pages.*;
+import com.epam.jdi.site.epam.sections.ContactUsSection;
+import com.epam.jdi.site.epam.sections.Header;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.CONTAINS;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.MATCH;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://www.epam.com")
+@JSite("https://www.epam.com")
 public class EpamSite extends WebSite {
     @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
@@ -33,20 +37,18 @@ public class EpamSite extends WebSite {
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
-    @JPage(url = "/careers/job-listings/job.11584#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
+    @JPage(url = "/careers/job-listings/job.24696#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
             urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
 
     @FindBy(css = ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu(levelLocators = {
-        @FindBy(css = ".tile-menu>li>a"),
-        @FindBy(css = "ul.tile-menu>li li")
-    })
+    @JMenu( level1 = @JFindBy(css = ".tile-menu>li>a"),
+            level2 = @JFindBy(css = "ul.tile-menu>li li"))
     public static Menu multipleHeaderMenu;
 
-    @FindBy(css = ".tile-menu>li>a")
+    @Css(".tile-menu>li>a")
     public static Elements<Button> listMenu;
 
     @FindBy(css = ".tile-menu .submenu a")
@@ -60,4 +62,12 @@ public class EpamSite extends WebSite {
             }
     };
 
+    @JPage(url = "/industries", title = "Industries")
+    public static IndustryPage industryPage;
+
+    @JPage(url = "/ideas", title = "Ideas")
+    public static IdeasPage ideasPage;
+
+    public static Header header;
+    public static ContactUsSection contactUs;
 }

@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
 import static com.epam.jdi.site.epam.EpamSite.jobListingPage;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column.inColumn;
-import static com.epam.jdi.uitests.core.interfaces.complex.interfaces.WithValue.withValue;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.inColumn;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.WithValue.withValue;
 import static com.epam.jdi.uitests.web.selenium.elements.complex.table.FilterDsl.textOf;
 
 
@@ -32,16 +32,15 @@ public class EntityTableExamples extends TestsBase {
         jobListingPage.shouldBeOpened();
         Assert.isFalse(jobsTable()::isEmpty);
         Assert.areEquals(jobsTable().columns().size(), 4);
-        Assert.areEquals(jobsTable().rows().size(), 5);
-        Assert.areEquals(jobsTable().entities().size(), 5);
-        Assert.areEquals(jobsTable().getRows().size(), 5);
+        Assert.areEquals(jobsTable().rows().size(), 4);
+        Assert.areEquals(jobsTable().entities().size(), 4);
+        Assert.areEquals(jobsTable().getRows().size(), 4);
         Assert.areEquals(jobsTable().getValue(),
-                "||X||name|category|location|apply||\n" +
-                        "||1||Senior Software Testing Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-                        "||2||Software Test Automation Engineer (front-end)|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-                        "||3||Software Testing Engineer (Life Science Department)|Software Test Engineering|St-Petersburg, Russia|Apply||\n"+
-                        "||4||Test Automation Engineer (back-end)|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
-                        "||5||Data Tester / System Test Developer|Software Test Engineering|St-Petersburg, Russia|Apply||");
+    "||X||name|category|location|apply||\n" +
+            "||1||Senior Software Testing Engineer|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
+            "||2||Software Test Automation Engineer (front-end)|Software Test Engineering|St-Petersburg, Russia|Apply||\n" +
+            "||3||Software Testing Engineer (Life Science Department)|Software Test Engineering|St-Petersburg, Russia|Apply||\n"+
+            "||4||Test Automation Engineer (back-end)|Software Test Engineering|St-Petersburg, Russia|Apply||");
     }
 
     @Test

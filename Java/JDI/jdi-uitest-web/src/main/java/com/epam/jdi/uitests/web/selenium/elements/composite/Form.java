@@ -67,6 +67,7 @@ public class Form<T> extends Element implements IForm<T> {
     public void filter(FormFilters filter) {
         this.filter = filter;
     }
+
     private List<Field> allFields() {
         switch (filter) {
             case MANDATORY:
@@ -214,6 +215,10 @@ public class Form<T> extends Element implements IForm<T> {
                 ((IHasValue) getValueField(field, this)).getValue()));
     }
 
+    @Override
+    public void setValue(String value) {
+        invoker.doJAction("Get value", () -> setValueAction(value, this));
+    }
     /**
      * @return Get value of Element
      */

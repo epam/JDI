@@ -1,94 +1,76 @@
 package com.epam.jdi.httptests;
 
 import com.epam.http.requests.RestResponse;
-import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import static com.epam.http.requests.RestStatusType.OK;
-import static com.epam.http.requests.RestStatusType.SERVER_ERROR;
+import static com.epam.http.requests.ResponseStatusType.OK;
+import static com.epam.http.requests.ResponseStatusType.SERVER_ERROR;
 import static com.epam.http.requests.ServiceInit.init;
+import static com.epam.jdi.httptests.ServiceExample.*;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Roman_Iovlev on 7/21/2017.
  */
 public class ServiceTest {
+
+    @BeforeTest
+    public void before() {
+        init(ServiceExample.class);
+    }
+
     @Test
     public void jsonTest() {
-        init(ServiceExample.class);
-        RestResponse resp = ServiceExample.getMethod.call();
-        Assert.assertEquals(resp.status, 200);
-        Assert.assertEquals(resp.statusType, OK);
-        Assert.assertEquals(resp.jsonBody("url"),
-                "http://httpbin.org/get");
-        Assert.assertEquals(resp.jsonBody("headers.Host"),
-                "httpbin.org");
-        Assert.assertEquals(resp.jsonBody("headers"),
-                getHeaders);
-        Assert.assertEquals(trim(resp.jsonBody(null)),
-                trim(getBody));
-        Assert.assertEquals(trim(resp.jsonBody("")),
-                trim(getBody));
+        RestResponse resp = ServiceExample.getInfo.call();
+        resp.assertStatus(200, OK);
+        resp.assertThat().
+            body("url", equalTo("http://httpbin.org/get")).
+            body("headers.Host", equalTo("httpbin.org"));
+        resp.assertThat().header("Connection", "keep-alive");
+        assertEquals(resp.jsonBody("url"), "http://httpbin.org/get");
     }
-    private String trim(String s) {
-        return s.replace(" ", "").replace("\n", "");
+    @Test
+    public void entityTest() {
+        Info e = getInfo.asData(Info.class);
+        assertEquals(e.url, "http://httpbin.org/get");
+        assertEquals(e.headers.Host, "httpbin.org");
+        assertEquals(e.headers.Id, "Test");
+        assertEquals(e.headers.Name, "Roman");
     }
     @Test
     public void statusTest() {
         ServiceExample service = init(ServiceExample.class);
-        RestResponse response = service.status.call("503");
-        Assert.assertEquals(response.status, 503);
-        Assert.assertEquals(response.statusType, SERVER_ERROR);
+        RestResponse resp = service.status.call("503");
+        assertEquals(resp.status().code(), 503);
+        assertEquals(resp.status().type(), SERVER_ERROR);
+        assertEquals(resp.body(), "");
     }
     @Test
     public void staticServiceInitTest() {
         init(ServiceExample.class);
-        RestResponse response = ServiceExample.getMethod.call();
-        Assert.assertEquals(response.status, 200);
-        Assert.assertEquals(response.statusType, OK);
-        Assert.assertEquals(response.body, getBody);
+        RestResponse resp = getInfo.call();
+        resp.assertStatus(200, OK);
+        resp.assertThat().
+                body("url", equalTo("http://httpbin.org/get")).
+                body("headers.Host", equalTo("httpbin.org"));
     }
     @Test
     public void serviceInitTest() {
         ServiceExample service = init(ServiceExample.class);
-        RestResponse response = service.postMethod.call();
-        Assert.assertEquals(response.status, 200);
-        Assert.assertEquals(response.statusType, OK);
-        Assert.assertEquals(response.body, postBody);
+        RestResponse resp = service.postMethod.call();
+        resp.assertStatus(200, OK);
+        resp.assertThat().
+                body("url", equalTo("http://httpbin.org/post")).
+                body("headers.Host", equalTo("httpbin.org"));
     }
 
-    String getBody = "{\n" +
-            "  \"args\": {}, \n" +
-            "  \"headers\": {\n" +
-            "    \"Accept\": \"*/*\", \n" +
-            "    \"Accept-Encoding\": \"gzip,deflate\", \n" +
-            "    \"Connection\": \"close\", \n" +
-            "    \"Host\": \"httpbin.org\", \n" +
-            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"\n" +
-            "  }, \n" +
-            "  \"origin\": \"188.187.12.6\", \n" +
-            "  \"url\": \"http://httpbin.org/get\"\n" +
-            "}\n";
-    String getHeaders = "{\"Accept\":\"*/*\"," +
-            "\"Accept-Encoding\":\"gzip,deflate\"," +
-            "\"Connection\":\"close\"," +
-            "\"Host\":\"httpbin.org\"," +
-            "\"User-Agent\":\"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"}";
-    String postBody = "{\n" +
-            "  \"args\": {}, \n" +
-            "  \"data\": \"\", \n" +
-            "  \"files\": {}, \n" +
-            "  \"form\": {}, \n" +
-            "  \"headers\": {\n" +
-            "    \"Accept\": \"*/*\", \n" +
-            "    \"Accept-Encoding\": \"gzip,deflate\", \n" +
-            "    \"Connection\": \"close\", \n" +
-            "    \"Content-Length\": \"0\", \n" +
-            "    \"Content-Type\": \"application/x-www-form-urlencoded; charset=ISO-8859-1\", \n" +
-            "    \"Host\": \"httpbin.org\", \n" +
-            "    \"User-Agent\": \"Apache-HttpClient/4.5.2 (Java/1.8.0_131)\"\n" +
-            "  }, \n" +
-            "  \"json\": null, \n" +
-            "  \"origin\": \"188.187.12.6\", \n" +
-            "  \"url\": \"http://httpbin.org/post\"\n" +
-            "}\n";
+    @Test
+    public void htmlBodyParseTest() {
+        ServiceExample service = init(ServiceExample.class);
+        RestResponse resp = service.getHTMLMethod.call();
+        resp.assertStatus(200, OK);
+        assertEquals(resp.getFromHtml("html.body.h1"), "Herman Melville - Moby-Dick");
+    }
 }

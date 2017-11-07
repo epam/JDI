@@ -45,6 +45,7 @@ public @interface JTable {
     FindBy row()        default @FindBy();
     FindBy column()     default @FindBy();
     FindBy footer()     default @FindBy();
+
     JFindBy jHeaders()  default @JFindBy();
     JFindBy jRowNames() default @JFindBy();
     JFindBy jCell()     default @JFindBy();

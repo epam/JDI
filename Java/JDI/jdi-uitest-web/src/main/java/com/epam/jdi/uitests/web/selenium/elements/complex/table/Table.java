@@ -22,15 +22,13 @@ import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -558,13 +556,13 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
 
     public ICell cell(String value, Column column) {
         int colIndex = column.get(
-                name -> columns().headers().indexOf(name) + 1,
+                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
                 num -> num);
         return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().equals(value));
     }
     public ICell cellContains(String value, Column column) {
         int colIndex = column.get(
-                name -> columns().headers().indexOf(name) + 1,
+                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
                 num -> num);
         return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
     }
@@ -640,23 +638,25 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
 
     private int getColumnIndex(String name) {
         int nameIndex;
-        List<String> headers = columns().headers();
-        if (headers != null && headers.contains(name))
-            nameIndex = headers.indexOf(name);
+        List<String> headers = select(columns().headers(), String::toLowerCase);
+        String lName = name.toLowerCase();
+        if (headers != null && headers.contains(lName))
+            nameIndex = headers.indexOf(lName);
         else
             throw exception("Can't Get Column: '" + name + "'. " + ((headers == null)
                     ? "ColumnHeaders is Null"
-                    : ("Available ColumnHeaders: " + print(headers, ", ", "'{0}'") + ")")));
+                    : ("Available ColumnHeaders: " + print(headers, ", ", "'%s'") + ")")));
         return nameIndex + columns().getStartIndex();
     }
 
     private int getRowIndex(String name) {
         int nameIndex;
-        List<String> headers = rows().headers();
-        if (headers != null && headers.contains(name))
-            nameIndex = headers.indexOf(name);
+        List<String> headers = select(rows().headers(), String::toLowerCase);
+        String lName = name.toLowerCase();
+        if (headers != null && headers.contains(lName))
+            nameIndex = headers.indexOf(lName);
         else
-            throw exception("Can't Get Row: '%s'. Available RowHeaders: (%s)", name, print(headers, ", ", "'{0}'"));
+            throw exception("Can't Get Row: '%s'. Available RowHeaders: (%s)", name, print(headers, ", ", "'%s'"));
         return nameIndex + rows().getStartIndex();
     }
 

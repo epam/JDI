@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.mobile.appium.elements.AppiumCascadeInit;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;

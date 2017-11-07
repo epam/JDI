@@ -9,7 +9,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://ya.ru")
+@JSite("https://ya.ru")
 public class YandexSite extends WebSite {
     @JPage(url = "/")
     public static HomePage homePage;

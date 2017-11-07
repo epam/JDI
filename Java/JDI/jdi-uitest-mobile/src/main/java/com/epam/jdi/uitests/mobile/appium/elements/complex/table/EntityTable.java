@@ -18,22 +18,25 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.commons.LinqUtils;
 import com.epam.commons.ReflectionUtils;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
-import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.LinqUtils.where;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 /**
  * Created by Sergey_Mishanin on 11/18/16.
@@ -77,37 +80,33 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return newRow;
     }
 
-    private void setRowField(R entity, Field[] fields, String fieldName, ICell cell)
+    private void setRowField(R row, Field[] fields, String fieldName, ICell cell)
     {
-        Optional<Field> opt = Arrays.stream(fields)
-                .filter(f -> f.getName().equalsIgnoreCase(fieldName)).findFirst();
-
-        if (!opt.isPresent()){
-            return;
-        }
-
-        Field field = opt.get();
-
-        Class clazz = field.getType();
-        if (clazz == null)
-            return;
-
-        BaseElement value;
-        try {
-            clazz = clazz.isInterface() ? MapInterfaceToElement.getClassFromInterface(clazz) : clazz;
-            value = (BaseElement) clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        value.setAvatar(cell.get().getAvatar());
-        try {
-            FieldUtils.writeField(field, entity, value);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        setField(row, fields, fieldName, field -> {
+            Class clazz = field.getType();
+            if (clazz == null) return null;
+            IBaseElement value;
+            try {
+                value = cell.get(clazz);
+            } catch (Exception e) {
+                throw exception("Can't Instantiate row element: " + fieldName);
+            }
+            return value;
+        });
     }
 
+    private void setField(Object row, Field[] fields, String fieldName,
+                          Function<Field, Object> valueFunc)
+    {
+        Field field = LinqUtils.first(fields, f -> f.getName().equalsIgnoreCase(fieldName));
+
+        if (field == null) return;
+        try {
+            writeField(field, row, valueFunc.apply(field), true);
+        } catch (IllegalAccessException e) {
+            throw exception("Can't write field with name: " + fieldName);
+        }
+    }
     public List<R> getRows() {
         return select(rows().get(), row -> castToRow(row.value));
     }

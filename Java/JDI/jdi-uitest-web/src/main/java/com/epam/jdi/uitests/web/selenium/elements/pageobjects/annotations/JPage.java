@@ -18,7 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
  */
 
 
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

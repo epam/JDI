@@ -3,7 +3,6 @@ package com.epam.jdi.uitests.testing.simple.examples;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

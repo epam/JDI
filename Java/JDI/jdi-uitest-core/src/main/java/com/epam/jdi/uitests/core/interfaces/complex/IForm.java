@@ -21,6 +21,7 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
+import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
@@ -33,7 +34,7 @@ import static com.epam.jdi.uitests.core.utils.common.PrintUtils.getMapFromObject
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
-public interface IForm<T> extends IComposite, IHasValue, IElement {
+public interface IForm<T> extends IComposite, ISetValue, IHasValue, IElement {
     /**
      * @param map Specify entity as map
      *            Fills all elements on the form which implements SetValue interface and can be matched with fields in input entity

@@ -20,18 +20,11 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.Title;
-import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
-import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import com.epam.jdi.uitests.web.selenium.elements.base.IHasElement;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JElements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -42,58 +35,12 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.useCache;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
-import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
  */
-public class Elements<T extends IHasElement> extends BaseSelector<Enum> implements List<T> {
+public class Elements<T extends Element> extends BaseSelector<Enum> implements List<T> {
     private Class<T> classType;
-
-    public Elements() {
-        this(null, null);
-    }
-
-    public Elements(Class<T> classType) {
-        this(null, classType);
-    }
-    public Elements(By byLocator) {
-        this(byLocator, null);
-    }
-
-    public static void setUp(BaseElement el, Field field) {
-        if (!fieldHasAnnotation(field, JElements.class, IElement.class)) {
-            return;
-        }
-        ((Elements) el).setUp(field.getAnnotation(JElements.class));
-    }
-
-    public Elements setUp(JElements jElements) {
-        By root = findByToBy(jElements.root());
-        By list = findByToBy(jElements.list());
-
-        if (root == null) {
-            root = findByToBy(jElements.jRoot());
-        }
-        if (root != null) {
-            Element el = new Element(root);
-            el.setParent(getParent());
-            setParent(el);
-            setAvatar(root);
-        }
-
-        if (list == null) {
-            list = findByToBy(jElements.jList());
-        }
-        if (list != null) {
-            this.allLabels = new GetElementType(list, this);
-        }
-
-        return this;
-    }
-
     protected boolean isSelectedAction(String name) {
         return false;
     }
@@ -126,7 +73,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
             try {
                 T element = classType.newInstance();
                 element.setWebElement(el);
-                ((BaseElement)element).useCache = useCache;
+                element.useCache = useCache;
                 element.setParent(null);
                 new WebCascadeInit().initElements(element, avatar.getDriverName());
                 return element;
@@ -138,7 +85,7 @@ public class Elements<T extends IHasElement> extends BaseSelector<Enum> implemen
 
     public <E> List<E> asData(Class<E> entityClass) {
         return LinqUtils.select(listOfElements(),
-            element -> asEntity(entityClass));
+            element -> element.asEntity(entityClass));
     }
 
     public int size() {

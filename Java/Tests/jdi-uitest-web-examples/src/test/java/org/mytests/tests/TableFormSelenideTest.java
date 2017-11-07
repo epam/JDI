@@ -21,7 +21,7 @@ public class TableFormSelenideTest extends InitTestsTableForm {
     @Test(dataProviderClass=CVData.class, dataProvider = "cvData")
     public void selenideTest(Attendee attendee, Job job) throws IOException {
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
         Configuration.browser="chrome";
 
         open(PageJobs.url);

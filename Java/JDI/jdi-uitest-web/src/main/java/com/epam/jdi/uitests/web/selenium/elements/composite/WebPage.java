@@ -20,14 +20,17 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.text.MessageFormat;
 import java.util.function.Supplier;
 
+import static com.epam.commons.FileUtils.getFiles;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
 
@@ -90,6 +93,7 @@ public class WebPage extends BaseElement implements IPage {
      * Check that page opened
      */
     public void checkOpened() {
+        logger.step(format("I check '%s' is opened", getName()));
         asserter.isTrue(verifyOpened(),
                 format("Page '%s' is not opened", toString()));
     }
@@ -120,8 +124,13 @@ public class WebPage extends BaseElement implements IPage {
      * Opens url specified for page
      */
     public <T extends IPage> T open() {
+        return open(null);
+    }
+    public <T extends IPage> T open(Object... params) {
+        String urlWithParams = (params == null || params.length == 0)
+            ? url : MessageFormat.format(url, params);
         invoker.doJAction(format("Open page '%s'", getName()),
-                () -> getDriver().navigate().to(url));
+                () -> getDriver().navigate().to(urlWithParams));
         if (checkAfterOpen)
             checkOpened();
         currentPage = this;
@@ -143,6 +152,38 @@ public class WebPage extends BaseElement implements IPage {
         } catch (Exception ex) {
             throw exception(format("Can't open page '%s'. Reason: %s", getName(), ex.getMessage()));
         }
+    }
+
+    /**
+     * Searches for a match on a web browser layout for a single file.
+     *
+     * @param pathToFile path to file: C:/Screenshots/file.png
+     * @return <tt>true</tt>, if match was found.
+     */
+    public boolean verifyElementOnPage(String pathToFile) {
+        return Layout.verify(pathToFile);
+    }
+    public void checkThatElementOnPage(String pathToFile) {
+        asserter.isTrue(verifyElementOnPage(pathToFile));
+    }
+
+    /**
+     * Searches for a match on a web browser layout for all images in dir.
+     *
+     * @param pathToDir path to a directory: C:/Screenshots/
+     * @return a list of names for all matched images.
+     */
+    public boolean verifyElementsOnPage(String pathToDir) {
+        boolean result = true;
+        for (String path : getFiles(pathToDir))
+            if (!verifyElementOnPage(path)) {
+                logger.info(format("Can't find image '%s'", path));
+                result = false;
+            }
+        return result;
+    }
+    public void checkElementsOnPage(String pathToDir) {
+        asserter.isTrue(!verifyElementsOnPage(pathToDir));
     }
 
     /**

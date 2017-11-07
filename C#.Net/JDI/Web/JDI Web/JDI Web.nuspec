@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>JDI.UIWeb</id>
-    <version>1.0.58</version>
+    <version>1.0.60</version>
     <title>JDI Web</title>
     <authors>Iovlev Roman</authors>
     <owners>Iovlev Roman</owners>

@@ -48,6 +48,11 @@ namespace JDI_Web.Selenium.Elements.Composite
             return Init<T>(GetType());
         }
 
+        public static void Open()
+        {
+            WebSettings.WebDriver.Navigate().GoToUrl(WebSettings.Domain);
+        }
+
         public void OpenUrl(string url)
         {
             WebDriver.Navigate().GoToUrl(url);

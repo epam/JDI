@@ -29,6 +29,7 @@ import static java.lang.String.format;
  * Created by Roman_Iovlev on 7/6/2015.
  */
 public class Clickable extends Element implements IClickable {
+
     public Clickable() {
     }
 

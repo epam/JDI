@@ -5,13 +5,14 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import org.mytests.uiobjects.wwwepam.enums.HeaderMenu;
+import org.mytests.uiobjects.wwwepam.pages.CareerPage;
+import org.mytests.uiobjects.wwwepam.pages.HomePage;
 import org.openqa.selenium.support.FindBy;
-import org.mytests.uiobjects.wwwepam.pages.*;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "https://www.epam.com")
+@JSite(value = "https://www.epam.com")
 public class EpamSite extends WebSite {
 
     @JPage(url = "/", title = "EPAM | Software Product Development Services")

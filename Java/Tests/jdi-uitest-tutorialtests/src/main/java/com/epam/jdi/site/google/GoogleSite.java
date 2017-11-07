@@ -9,10 +9,8 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
-@JSite(domain = "http://google.com")
+@JSite("http://google.com")
 public class GoogleSite extends WebSite {
-    @JPage(url = "/")
-    public static HomePage homePage;
-    @JPage(url = "/search")
-    public static SearchPage searchPage;
+    @JPage(url = "/") public static HomePage homePage;
+    @JPage(url = "/search") public static SearchPage searchPage;
 }

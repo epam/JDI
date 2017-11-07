@@ -22,7 +22,6 @@ import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.ISearch;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
@@ -174,9 +173,10 @@ public class Search extends TextField implements ISearch, ISetup {
     }
 
     public void setup(Field field) {
-        if (!fieldHasAnnotation(field, JSearch.class, ITable.class))
+        if (!fieldHasAnnotation(field, JSearch.class, ISearch.class))
             return;
         JSearch jSearch = field.getAnnotation(JSearch.class);
+        By root = findByToBy(jSearch.root());
         By input = findByToBy(jSearch.input());
         By searchButton = findByToBy(jSearch.searchButton());
         By suggestions = findByToBy(jSearch.suggestions());

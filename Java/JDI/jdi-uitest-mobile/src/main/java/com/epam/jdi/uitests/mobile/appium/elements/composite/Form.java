@@ -217,4 +217,8 @@ public class Form<T> extends Element implements IForm<T> {
         return actions.getValue(this::getValueAction);
     }
 
+    @Override
+    public void setValue(String value) {
+        invoker.doJAction("Get value", () -> setValueAction(value, this));
+    }
 }

@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.core.interfaces;
  */
 
 
+import com.epam.jdi.uitests.core.annotations.Root;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
@@ -118,7 +119,11 @@ public abstract class CascadeInit {
                                 parentClass.getSimpleName(), field.getType().getSimpleName(), ex.getMessage()));
             }
         else instance = fillInstance(instance, field);
-        instance.setParent(parent);
+        if (field.isAnnotationPresent(Root.class)){
+            instance.setParent(null);
+        }else {
+            instance.setParent(parent);
+        }
         instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;

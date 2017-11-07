@@ -12,9 +12,7 @@ public class HtmlFrame extends Section {
     @JDropdown(
             value = @FindBy(tagName = "select"),
             list = @FindBy(css = "select option")
-    )
-    public IDropDown cars;
-    @FindBy(tagName = "select")
-    public IDropDown carsSimple;
+    ) public IDropDown cars;
+    @FindBy(tagName = "select") public IDropDown carsSimple;
 
 }

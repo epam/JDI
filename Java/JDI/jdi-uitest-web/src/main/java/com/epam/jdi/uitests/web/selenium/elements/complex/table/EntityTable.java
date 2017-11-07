@@ -21,10 +21,10 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -38,7 +38,6 @@ import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.PrintUtils.print;
 import static com.epam.commons.ReflectionUtils.*;
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
@@ -98,13 +97,10 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         setField(row, fields, fieldName, field -> {
             Class clazz = field.getType();
             if (clazz == null) return null;
-            BaseElement value;
+            IBaseElement value;
             try {
-                if (clazz.isInterface())
-                    clazz = getClassFromInterface(clazz);
-                value = (BaseElement) clazz.newInstance();
-                value.init(cell.get());
-            } catch (InstantiationException | IllegalAccessException e) {
+                value = cell.get(clazz);
+            } catch (Exception e) {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
             return value;

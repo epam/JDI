@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.mobile.appium.elements.complex.table;
 import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

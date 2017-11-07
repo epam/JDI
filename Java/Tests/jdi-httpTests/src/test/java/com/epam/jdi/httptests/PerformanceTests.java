@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import static com.epam.http.RestLoad.loadService;
 import static com.epam.http.requests.ServiceInit.init;
-import static com.epam.jdi.httptests.ServiceExample.getMethod;
+import static com.epam.jdi.httptests.ServiceExample.getInfo;
 
 
 public class PerformanceTests {
@@ -14,15 +14,15 @@ public class PerformanceTests {
     @Test
     public void isAliveTest() {
         init(ServiceExample.class);
-        Assert.assertTrue(getMethod.isAlive());
+        Assert.assertTrue(getInfo.isAlive());
     }
     @Test
     public void printTest() {
         init(ServiceExample.class);
-        PerformanceResult pr = loadService(20000, getMethod);
+        PerformanceResult pr = loadService(20000, getInfo);
         Assert.assertTrue(pr.NoFails());
-        System.out.println(pr.AverangeResponseTime);
-        System.out.println(pr.NumberOfRquests);
+        System.out.println(pr.AverageResponseTime);
+        System.out.println(pr.NumberOfRequests);
 
     }
 }

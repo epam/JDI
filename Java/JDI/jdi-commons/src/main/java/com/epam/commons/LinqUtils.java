@@ -105,6 +105,18 @@ public final class LinqUtils {
             map.put(nameFunc.invoke(el), el);
         return map;
     }
+    public static <K, V, T> Map<K, V> toMap(List<T> list, JFuncTR<T, K> key, JFuncTR<T, V> value) {
+        Map<K, V> map = new HashMap<>();
+        for(T el : list)
+            map.put(key.invoke(el), value.invoke(el));
+        return map;
+    }
+    public static <N, T> Map<N, T> toMap(T[] list, JFuncTR<T, N> nameFunc) {
+       return toMap(asList(list), nameFunc);
+    }
+    public static <K, V, T> Map<K, V> toMap(T[] list, JFuncTR<T, K> key, JFuncTR<T, V> value) {
+        return toMap(asList(list), key, value);
+    }
 
     public static <T> List<T> where(Collection<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)

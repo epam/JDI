@@ -24,7 +24,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.common.*;
 import com.epam.jdi.uitests.core.interfaces.complex.*;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ITable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.TestNGCheck;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
@@ -50,7 +50,6 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverProvider.DRIVER_VERSION;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
@@ -85,6 +84,8 @@ public class WebSettings extends JDISettings {
     }
 
     public static JavascriptExecutor getJSExecutor() {
+        if (!initialized)
+            try { initFromProperties(); } catch (Exception ex) { throw new RuntimeException(ex); }
         if (driverFactory.getDriver() instanceof JavascriptExecutor)
             return (JavascriptExecutor) driverFactory.getDriver();
         else
@@ -107,7 +108,6 @@ public class WebSettings extends JDISettings {
         init();
         JDISettings.initFromProperties();
         fillAction(p -> domain = p, "domain");
-        fillAction(p -> DRIVER_VERSION = p, "drivers.version");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");

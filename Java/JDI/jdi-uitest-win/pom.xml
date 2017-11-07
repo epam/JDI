@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <groupId>com.epam.jdi</groupId>
+        <version>1.0.82</version>
+        <relativePath>../..</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jdi-uitest-win</artifactId>
+    <name>EPAM JDI UI Testing Desktop</name>
+    <packaging>jar</packaging>
+
+    <scm>
+        <connection>scm:https://github.com/epam/JDI</connection>
+        <developerConnection>scm:https://github.com/epam/JDI</developerConnection>
+        <url>https://github.com/epam/JDI</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>engineer</id>
+            <name></name>
+            <timezone>UTC+3</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <testng.version>6.8.1</testng.version>
+        <log4j.version>1.2.17</log4j.version>
+        <winium.version>0.1.0-1</winium.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-uitest-core</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-matchers</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.2gis.winium</groupId>
+            <artifactId>winium-webdriver</artifactId>
+            <version>${winium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.2gis.winium</groupId>
+            <artifactId>winium-elements-desktop</artifactId>
+            <version>0.2.0-1</version>
+        </dependency>
+    </dependencies>
+</project>

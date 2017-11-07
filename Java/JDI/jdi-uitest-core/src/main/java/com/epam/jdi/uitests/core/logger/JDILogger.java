@@ -4,6 +4,7 @@ import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class JDILogger implements ILogger {
 
     public JDILogger() {
-        logger = getLogger("JDI Logger");
-        this.name = "JDI Logger";
+        this("JDI Logger");
     }
     public JDILogger(String name) {
         logger = getLogger(name);
@@ -27,7 +27,8 @@ public class JDILogger implements ILogger {
     }
 
     private LogLevels settingslogLevel = INFO;
-    public LogLevels logLevel = settingslogLevel;
+    private LogLevels logLevel = settingslogLevel;
+    private static Marker stepMarker = MarkerFactory.getMarker(LogLevels.STEP.name());
 
     public void logOff(JActionEx action) {
         logOff(() -> { action.invoke(); return null; });
@@ -315,6 +316,10 @@ public class JDILogger implements ILogger {
     public void warn(Marker marker, String s, Throwable throwable) {
         if (logLevel.equalOrLessThan(WARNING))
             logger.warn(marker, getRecord(s), throwable);
+    }
+    public void step(String s) {
+        if (logLevel.equalOrLessThan(STEP))
+            logger.info(stepMarker, getRecord(s));
     }
 
     public boolean isErrorEnabled() {
