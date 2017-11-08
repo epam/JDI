@@ -67,7 +67,7 @@ public class Elements<T extends Element> extends BaseSelector<Enum> implements L
     private List<T> elements;
 
     public List<T> listOfElements() {
-        return useCache && !elements.isEmpty()
+        return useCache && !elements.isEmpty() && elements.get(0).isExists()
                 ? elements
                 : (elements = select(getElements(), el -> {
             try {
