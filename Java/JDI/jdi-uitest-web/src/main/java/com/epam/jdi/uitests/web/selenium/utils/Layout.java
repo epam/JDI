@@ -12,13 +12,12 @@ import java.util.Set;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static com.epam.jdi.uitests.core.settings.JDISettings.verifyLayout;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Layout {
-
-    public static boolean verifyLayout = false;
     private static final Set<String> EXTENSIONS = new HashSet<>(Arrays.asList(".jpg", ".jpeg", ".png"));
 
     public static boolean verify(String pathToFile) {

@@ -76,6 +76,7 @@ public abstract class JDISettings {
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
         fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
         fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
+        fillAction(p -> verifyLayout = p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "verifyLayout");
         // fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
     }
 
@@ -84,6 +85,8 @@ public abstract class JDISettings {
         initFromProperties();
     }
 
+
+    public static boolean verifyLayout = false;
     public static RuntimeException exception(String msg, Object... args) {
         return asserter.exception(msg, args);
     }

@@ -143,7 +143,6 @@ public class WebSettings extends JDISettings {
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
         fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
-        fillAction(p -> Layout.verifyLayout = p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "verifyLayout");
         initialized = true;
     }
 

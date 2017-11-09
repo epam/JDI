@@ -15,6 +15,6 @@ import java.util.List;
 public class SearchPage extends WebPage {
     @FindBy(css = ".srg>.g") public List<SearchResult> jobsL;
     @FindBy(css = ".srg>.g") public Elements<SearchResult> jobsE;
-    @Text("GitHub - epam/JDI: JDI") public Element gitHubJdi;
+    @Text("JDI is the test Framework for UI test automation") public Element gitHubJdi;
 
 }
