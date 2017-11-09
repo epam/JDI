@@ -90,7 +90,7 @@ public class GetElementModule implements IAvatar {
     }
     public By getLocator() { return byLocator; }
     public void setWebElement(WebElement webElement) { this.webElement = webElement; }
-    public boolean hasWebElement() { return webElement != null; }
+    public boolean hasWebElement() { if (webElement == null) return false; try { webElement.getTagName(); return true; } catch (Exception ex) {return false; } }
 
     public WebDriver getDriver() {
         return (WebDriver) driverFactory.getDriver(driverName);
@@ -195,7 +195,7 @@ public class GetElementModule implements IAvatar {
         BaseElement bElement = (BaseElement) element;
         if (bElement.useCache && isClass(bElement.getClass(), Element.class)) {
             Element el = (Element) bElement;
-            if (el.avatar.hasWebElement() && el.isExists())
+            if (el.avatar.hasWebElement())
                 return el.webElement;
         }
         Object p = bElement.getParent();
