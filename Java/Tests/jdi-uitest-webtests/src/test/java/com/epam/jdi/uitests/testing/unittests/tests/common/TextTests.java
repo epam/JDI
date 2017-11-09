@@ -5,6 +5,7 @@ import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.enums.Preconditions;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -95,5 +96,10 @@ public class TextTests extends InitTests {
         String _value = "testValue";
         textItem.get().setAttribute(_attributeName, _value);
         CommonActionsData.checkText(() -> ((Element)textItem.get()).getWebElement().getAttribute(_attributeName), _value);
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(textItem.get().isDisplayed());
     }
 }

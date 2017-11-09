@@ -167,4 +167,13 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         actions.focus(this::focusAction);
     }
 
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
+    public void setImgPath(String imgPath) {
+
+    }
 }

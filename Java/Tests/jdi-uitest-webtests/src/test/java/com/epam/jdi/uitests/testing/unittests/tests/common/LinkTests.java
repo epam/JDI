@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.common;
 import com.epam.jdi.uitests.core.interfaces.common.ILink;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.tests.complex.CommonActionsData;
+import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -84,5 +85,10 @@ public class LinkTests extends InitTests {
         return new Object[]{
                 new TextTests("Link", HOME_PAGE, this::link, "About", "Abou", "Abou.*")
         };
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(link().isDisplayed());
     }
 }

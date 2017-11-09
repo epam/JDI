@@ -45,6 +45,7 @@ public class WebPage extends BaseElement implements IPage {
     public CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
     public String urlTemplate;
     public static WebPage currentPage;
+    private String imageRoot;
 
     public WebPage() {
     }
@@ -68,6 +69,16 @@ public class WebPage extends BaseElement implements IPage {
 
     public static String getTitle() {
         return WebSettings.getDriver().getTitle();
+    }
+
+    @Override
+    public String getImageRoot() {
+        return this.imageRoot;
+    }
+
+    @Override
+    public void setImageRoot(String imageRoot) {
+        this.imageRoot = imageRoot;
     }
 
     public void updatePageData(String url, String title, CheckPageTypes checkUrlType, CheckPageTypes checkTitleType, String urlTemplate) {

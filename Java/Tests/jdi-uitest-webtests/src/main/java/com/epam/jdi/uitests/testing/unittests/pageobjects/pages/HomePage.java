@@ -21,15 +21,20 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends WebPage {
 
+    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/main_title.png")
+    @FindBy(css = ".main-title")
+    public Label title;
+
     @JFindBy(css = ".m-l8")
     public IMenu menu1;
 
-    @FindBy(css = ".main-title")
-    public Label title;
+    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/text.png")
     @FindBy(css = ".main-txt")
     public Text text;
+    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/epam_logo.png")
     @FindBy(css = ".epam-logo img")
     public Image logoImage;
+    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/about_link.png")
     @FindBy(linkText = "About")
     public Link about;
 
@@ -64,9 +69,10 @@ public class HomePage extends WebPage {
 
 
     @JMenu(
-            level1 = @JFindBy (css = ".uui-navigation.nav.navbar-nav.m-l8>li>a"),
-            level2 = @JFindBy (css = ".dropdown-menu>li>a")
-    ) public IMenu menu;
+        level1 = @JFindBy(css = ".uui-navigation.nav.navbar-nav.m-l8>li>a"),
+        level2 = @JFindBy(css = ".dropdown-menu>li>a")
+    )
+    public IMenu menu;
 
     public HomeSection homeSection;
 }
