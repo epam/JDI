@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.common;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
+import com.epam.web.matcher.junit.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -43,6 +44,11 @@ public class ButtonTests extends InitTests {
         return new Object[]{
                 new TextTests("Button", METALS_AND_COLORS_PAGE, button::get, "CALCULATE", "CUL", ".*LCU.*")
         };
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(button.get().isDisplayed());
     }
 
 }

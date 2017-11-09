@@ -4,6 +4,7 @@ import com.epam.jdi.uitests.core.interfaces.common.IImage;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import com.epam.jdi.uitests.web.selenium.elements.common.Image;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -51,5 +52,10 @@ public class ImageTests extends InitTests {
     @Test
     public void getTipTest() {
         checkText(clickableItem()::getAlt, ALT);
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(clickableItem().isDisplayed());
     }
 }

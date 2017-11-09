@@ -90,4 +90,9 @@ public class CheckboxTests extends InitTests {
         checkBox().setValue(input);
         checkAction("Water: condition changed to false");
     }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(checkBox().isDisplayed());
+    }
 }
