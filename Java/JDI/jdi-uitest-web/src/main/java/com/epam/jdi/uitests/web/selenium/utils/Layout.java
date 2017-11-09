@@ -44,8 +44,8 @@ public class Layout {
     }
 
     /**
-     * creates and throws exception
-     * @param path to the image
+     *
+     * @param path
      */
     private static void validateImagePath(String path) {
         if (path == null || !(new File(path)).exists()) {
@@ -54,25 +54,11 @@ public class Layout {
     }
 
     /**
-     *
-     * @param path to the image
-     * @return string with single slashes like '\'
-     */
-    private static String fixImagePath(String path) {
-        if (path != null) {
-            return path.replaceAll("[\\\\|/]+", "\\\\");
-        }
-
-        return null;
-    }
-
-    /**
      * Returns Match object, if a match was found.
      *
      * @return null, if match was not found.
      */
     private static boolean findMatch(String pathToFile) {
-        pathToFile = fixImagePath(pathToFile);
         validateImagePath(pathToFile);
 
         if (!driverFactory.hasRunDrivers()) {
