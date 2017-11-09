@@ -284,13 +284,4 @@ public class Element extends BaseElement implements IElement, IHasElement {
         invoker.doJAction(format("Drag and drop to Target Element: %s", target.toString()), () ->
                 new Actions(getDriver()).dragAndDrop(getWebElement(), target.getWebElement()).build().perform());
     }
-
-    public boolean isExists() {
-        try{
-            getWebElement().getTagName();
-            return true;
-        } catch (Exception ex){
-            return false;
-        }
-    }
 }
