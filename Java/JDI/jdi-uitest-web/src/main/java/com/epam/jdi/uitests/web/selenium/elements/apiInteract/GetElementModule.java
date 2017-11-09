@@ -105,7 +105,6 @@ public class GetElementModule implements IAvatar {
         WebElement element = webElement != null
                 ? webElement
                 : getElementAction();
-                //: timer().getResultByCondition(this::getElementAction, Objects::nonNull);
         logger.debug("One Element found");
         return element;
     }
@@ -196,7 +195,7 @@ public class GetElementModule implements IAvatar {
         if (bElement.useCache && isClass(bElement.getClass(), Element.class)) {
             Element el = (Element) bElement;
             if (el.avatar.hasWebElement())
-                return el.webElement;
+                return el.avatar.webElement;
         }
         Object p = bElement.getParent();
         if (p == null && bElement.avatar.frameLocator == null)

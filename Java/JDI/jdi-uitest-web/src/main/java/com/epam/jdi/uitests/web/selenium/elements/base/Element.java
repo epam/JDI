@@ -157,6 +157,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
     }
 
     private String generateImgPath(){
+        if (imgPath == null) return null;
         return Paths.get(WebSite.getDefaultPath()).toAbsolutePath().toString().replace('\\','/') + imgPath;
 //        return Element.class.getResource(WebSite.getDefaultPath() + imgPath).getPath();
     }
