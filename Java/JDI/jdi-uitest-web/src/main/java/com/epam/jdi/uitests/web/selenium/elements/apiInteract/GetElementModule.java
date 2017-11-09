@@ -195,8 +195,8 @@ public class GetElementModule implements IAvatar {
         BaseElement bElement = (BaseElement) element;
         if (bElement.useCache && isClass(bElement.getClass(), Element.class)) {
             Element el = (Element) bElement;
-            if (el.isExists() && el.avatar.hasWebElement())
-                return el.getWebElement();
+            if (el.avatar.hasWebElement() && el.isExists())
+                return el.webElement;
         }
         Object p = bElement.getParent();
         if (p == null && bElement.avatar.frameLocator == null)
