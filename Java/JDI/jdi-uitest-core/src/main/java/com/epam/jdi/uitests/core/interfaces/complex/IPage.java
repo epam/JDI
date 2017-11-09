@@ -35,4 +35,7 @@ public interface IPage extends IComposite {
      */
     @Step
     <T extends IPage> T open();
+
+    String getImageRoot();
+    void setImageRoot(String imageRoot);
 }

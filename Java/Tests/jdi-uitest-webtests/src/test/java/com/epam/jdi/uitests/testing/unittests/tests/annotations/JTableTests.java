@@ -38,6 +38,7 @@ public class JTableTests extends InitTests {
 
     @Test
     public void cellsContainsTestForTableWithRoot() {
+        //supportPage.open();
         List<ICell> jenkins = supportPage.tableRoot.cellsContains("Jenkins");
         new Check().areEquals(jenkins.size(), 1);
         for (ICell cell : jenkins) {

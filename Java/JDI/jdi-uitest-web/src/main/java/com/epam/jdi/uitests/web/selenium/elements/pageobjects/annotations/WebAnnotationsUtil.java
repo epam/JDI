@@ -20,8 +20,10 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
+import java.lang.reflect.Field;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Quotes;
@@ -39,8 +41,9 @@ import static java.lang.String.format;
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static String getUrlFromUri(String uri, Class<?> parentClass) {
-        if (parentClass.isAnnotationPresent(JSite.class))
+        if (parentClass.isAnnotationPresent(JSite.class)) {
             domain = parentClass.getAnnotation(JSite.class).value();
+        }
         String siteDomain = domain;
         if (siteDomain == null)
             siteDomain = "";
@@ -57,6 +60,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
         if (urlCheckType == EQUAL || urlCheckType == CONTAINS && urlTemplate.equals(""))
             urlTemplate = url;
+
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
     }
 

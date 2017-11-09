@@ -7,6 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Link;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextArea;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by Dmitry_Lebedev1 on 10/16/2015.
  */
 public class ContactForm extends Form<Contact> implements IContactForm {
+    @Image("name_textarea.png")
     @FindBy(id = "Name")
     public TextField name;
     @FindBy(id = "LastName")
