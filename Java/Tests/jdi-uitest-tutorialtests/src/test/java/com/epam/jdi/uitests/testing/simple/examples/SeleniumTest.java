@@ -1,6 +1,7 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.jdi.selenium.pageobject.SeleniumPage;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeMethod;
@@ -21,32 +22,22 @@ import static java.lang.System.setProperty;
 public class SeleniumTest {
     SeleniumPage page;
     WebDriver chromeDriver;
-    private void initDriver() {
-        String driverPath = new File("").getAbsolutePath() + "/src/main/resources/driver/chromedriver";
-        if (System.getProperty("os.name").toLowerCase().contains("mac")) {
-            setProperty("webdriver.chrome.driver", driverPath);
-            chromeDriver = new ChromeDriver();
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            chromeDriver.manage().window()
-                    .setSize(new org.openqa.selenium.Dimension(screenSize.width, screenSize.height));
-        }
-        else {
-            driverPath += ".exe";
-            setProperty("webdriver.chrome.driver", driverPath);
-            chromeDriver = new ChromeDriver();
-            chromeDriver.manage().window().maximize();
-        }
+    private WebDriver initDriver() {
+        String driverPath = new File("").getAbsolutePath() + "/src/main/resources/driver/chromedriver.exe";
+        setProperty("webdriver.chrome.driver", driverPath);
+        chromeDriver = new ChromeDriver();
+        chromeDriver.manage().window().maximize();
+        return chromeDriver;
     }
 
     @BeforeMethod
     public void before(Method method) throws IOException {
-        //initDriver();
-        page = initPageObject(SeleniumPage.class, chromeDriver);
+        page = initPageObject(SeleniumPage.class, this::initDriver);
     }
 
-    @Test
+    //TODO @Test
     public void seleniumTest() {
-        chromeDriver.navigate().to("https://www.epam.com/");
+        WebSettings.getDriver().navigate().to("https://www.epam.com/");
         page.logo.click();
         page.menu.get(3).click();
     }

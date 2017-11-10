@@ -148,8 +148,8 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static By findByToBy(Text locator){
         if (locator == null) return null;
-         return By.xpath(".//*/text()[normalize-space(.) = " +
-                Quotes.escape(locator.value()) + "]/parent::*");
+        return By.xpath(".//*/text()[contains(normalize-space(.), "+
+                Quotes.escape(locator.value())+")]/parent::*");
     }
 
     public static By findByToBy(NgModel locator){

@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncR;
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
@@ -43,6 +44,7 @@ import org.openqa.selenium.support.FindBy;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.first;
@@ -96,8 +98,8 @@ public class WebCascadeInit extends CascadeInit {
         return initPageObject(clazz, currentDriverName);
     }
 
-    public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
-        return initPageObject(clazz, useDriver(() -> driver));
+    public static <T> T initPageObject(Class<T> clazz, Supplier<WebDriver> driver) {
+        return initPageObject(clazz, useDriver(driver));
     }
 
     public static <T> T initPageObject(Class<T> clazz, DriverTypes driver) {
