@@ -19,10 +19,4 @@ public class Attendee extends DataClass<Attendee> {
     public String cv; // = "jdi-uitest-tutorialtests\\src\\test\\resources\\cv.txt";
     public String comment = "I WANT TO WORK IN EPAM!!!";
 
-    public Attendee(String name) {
-        this.name = name;
-    }
-
-    public Attendee(){
-    }
 }

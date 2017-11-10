@@ -93,6 +93,11 @@ public class CheckboxTests extends InitTests {
     }
 
     @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(checkBox().isDisplayed());
+    }
+
+    @Test
     public void shouldTest(){
         checkBox().shouldNotBe(checked)
                 .shouldHave(exactText("Water"));

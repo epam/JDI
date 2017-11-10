@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
@@ -19,7 +20,7 @@ public class SearchTests extends InitTests {
         isInState(HOME_PAGE, method);
     }
 
-    //@Test
+    @Test
     public void fillTest() {
         header.jdiSearch.find("Jenkins, Allure, Custom");
         supportPage.checkOpened();

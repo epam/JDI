@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.common;
 
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
+import com.epam.web.matcher.junit.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -43,5 +44,10 @@ public class LabelTests extends InitTests {
     @Test
     public void shouldTest(){
         label.get().shouldHave(exactText("Calculate"), matchText(".*LCU.*"), textCaseSensitive("CUL"));
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(label.get().isDisplayed());
     }
 }
