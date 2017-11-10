@@ -50,6 +50,8 @@ import java.util.regex.Pattern;
  */
 public abstract class CascadeInit {
 
+
+    private boolean generateDefaultPath = true;
     private StringBuilder totalPath = new StringBuilder();
     private static final Pattern ANNOTATION_PATTERN = Pattern
             .compile("\\S*[(]value=((\\/?\\w*.?)*\\/?)[)]");
@@ -103,7 +105,7 @@ public abstract class CascadeInit {
             // Extracting path from ImagesRoot annotation of WebSite + path of webPage
             if (parent == null) {
                 totalPath.append(extractImageRootAnnotationValueFromWebSite(parentType));
-                totalPath.append(extractImageAnnotationValueFromPageField(field));
+                totalPath.append(extractPath(field));
             }
 
             // Extracting path from the previous iteration and saving it to the current element and saving in to the imageRoot field of specific Page
@@ -136,17 +138,22 @@ public abstract class CascadeInit {
 
         if (parent instanceof IPage) {
             sb.append(((IPage) parent).getImageRoot())
-                    .append(totalPath.toString());
+                .append(totalPath.toString());
         } else {
             sb.append(getParentPath(parent))
-                    .append(fixImagePath(totalPath.toString()));
+                .append(fixImagePath(totalPath.toString()));
         }
 
-        String valueFromImageAnnotation = extractImageAnnotationValueFromPageField(field);
-        if(valueFromImageAnnotation.equals("/")){
+        String valueFromImageAnnotation = extractImageAnnotationValueFromField(field);
+
+        if (valueFromImageAnnotation == null) {
+            sb.append(field.getName());
+        } else if(valueFromImageAnnotation.equals("/")){
             return null;
+        } else {
+            sb.append(valueFromImageAnnotation);
         }
-        sb.append(valueFromImageAnnotation);
+
         return fixImagePath(sb.toString());
     }
 
@@ -159,7 +166,7 @@ public abstract class CascadeInit {
 
     private StringBuilder fixImagePath(StringBuilder path) {
         if (path != null) {
-            return new StringBuilder(path.toString().replaceAll("[\\\\|/]+", "\\\\"));
+            return new StringBuilder(path.toString().replaceAll("[\\\\|/]+", "/"));
         }
 
         return null;
@@ -173,12 +180,13 @@ public abstract class CascadeInit {
             return fieldObject.getClass()
                     .getMethod("setImgPath", String.class);
         }
+
         return null;
     }
 
     private static String fixImagePath(String path) {
         if (path != null) {
-            return path.replaceAll("[\\\\|/]+", "\\\\");
+            return path.replaceAll("[\\\\|/]+", "/");
         }
 
         return null;
@@ -231,8 +239,8 @@ public abstract class CascadeInit {
         }
     }
 
-    private boolean isAnnotationEquals(Annotation annotation, String imagesRoot) {
-        return annotation.annotationType().getSimpleName().equals(imagesRoot);
+    private boolean isAnnotationEquals(Annotation annotation, String annotationName) {
+        return annotation.annotationType().getSimpleName().equals(annotationName);
     }
 
     private String extractImageRootAnnotationValueFromWebSite(Class<?> parentType) {
@@ -247,14 +255,26 @@ public abstract class CascadeInit {
         return "/";
     }
 
-    private String extractImageAnnotationValueFromPageField(Field field) {
+    private String extractPath(Field field) {
+        String annotationValue = extractImageAnnotationValueFromField(field);
+
+        if (annotationValue != null) {
+            return annotationValue;
+        } else if (generateDefaultPath) {
+            return "/" + field.getName() + "/";
+        }
+
+        return "";
+    }
+
+    private String extractImageAnnotationValueFromField(Field field) {
         for (Annotation annotation : field.getDeclaredAnnotations()) {
             if (isAnnotationEquals(annotation, "Image")) {
                 return getAnnotationValue(annotation);
             }
         }
 
-        return "/";
+        return null;
     }
 
     private IBaseElement getInstancePage(Object parent, Field field, Class<?> type,
