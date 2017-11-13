@@ -39,6 +39,8 @@ public abstract class BaseElement implements IBaseElement {
         return avatar.getByLocator();
     }
 
+    public String getImgPath() { return null; }
+    public void setImgPath(String imgPath) { }
     @Override
     public GetElementModule getAvatar() {
         return avatar;

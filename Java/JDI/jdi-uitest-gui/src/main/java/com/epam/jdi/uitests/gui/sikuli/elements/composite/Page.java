@@ -22,6 +22,8 @@ public class Page extends BaseElement implements IPage {
     double similarity;
     protected CheckPageTypes checkPage = CheckPageTypes.EQUAL;
 
+    public String getImageRoot() { return null; }
+    public void setImageRoot(String imageRoot) {}
     public Page() { }
 
     /**

@@ -45,6 +45,8 @@ public abstract class BaseElement implements IBaseElement {
         this(null);
     }
 
+    public String getImgPath() { return null; }
+    public void setImgPath(String imgPath) { }
     public BaseElement(Pattern pattern) {
         avatar = new GetElementModule(pattern == null ? null : pattern, this);
     }
