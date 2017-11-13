@@ -35,6 +35,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
+
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -51,7 +52,7 @@ public abstract class CascadeInit {
 
     private StringBuilder totalPath = new StringBuilder();
     private static final Pattern ANNOTATION_PATTERN = Pattern
-        .compile("\\S*[(]value=((\\/?\\w*.?)*\\/?)[)]");
+            .compile("\\S*[(]value=((\\/?\\w*.?)*\\/?)[)]");
 
     public Class<?>[] decorators() {
         return new Class<?>[]{IBaseElement.class, List.class};
@@ -59,20 +60,20 @@ public abstract class CascadeInit {
 
     public synchronized void initElements(Object parent, String driverName) {
         setFieldsForInit(parent, getFields(parent, decorators(), stopTypes()), parent.getClass(),
-            driverName);
+                driverName);
     }
 
     protected abstract Class<?>[] stopTypes();
 
     public synchronized void initStaticPages(Class<?> parentType, String driverName) {
         setFieldsForInit(null,
-            getFields(asList(parentType.getDeclaredFields()), decorators(),
-                f -> isStatic(f.getModifiers())),
-            parentType, driverName);
+                getFields(asList(parentType.getDeclaredFields()), decorators(),
+                        f -> isStatic(f.getModifiers())),
+                parentType, driverName);
     }
 
     private void setFieldsForInit(Object parent, List<Field> fields, Class<?> parentType,
-        String driverName) {
+                                  String driverName) {
         foreach(fields, field -> setElement(parent, parentType, field, driverName));
     }
 
@@ -84,14 +85,14 @@ public abstract class CascadeInit {
     }
 
     protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance,
-        Class<?> parentType);
+                                                   Class<?> parentType);
 
     private void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
         try {
             Class<?> type = field.getType();
             IBaseElement instance = isInterface(type, IPage.class)
-                ? getInstancePage(parent, field, type, parentType)
-                : getInstanceElement(parent, type, parentType, field, driverName);
+                    ? getInstancePage(parent, field, type, parentType)
+                    : getInstanceElement(parent, type, parentType, field, driverName);
             instance.setName(field);
             if (parent != null) {
                 instance.getAvatar().setDriverName(driverName);
@@ -110,17 +111,43 @@ public abstract class CascadeInit {
                 saveImagePathForPage((IPage) parent);
             }
 
-            // It addes element's path to the rootPath
-            setImgPath(parent, field);
+            // It adds element's path to the rootPath
+            // Set imgPath for each Field
+            if (parent != null) {
+                Object fieldObject = field.get(parent);
+                Method methodSetImgPath = extractSetImgPathMethod(fieldObject);
+                String totalPath = extractTotalPathForElement(parent, field);
+                setImgPathForField(methodSetImgPath, fieldObject, totalPath);
+            }
 
             if (isInterface(field, IComposite.class)) {
                 initElements(instance, driverName);
             }
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
-                parentType == null ? "NULL Class"
-                    : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
+                    parentType == null ? "NULL Class"
+                            : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
+    }
+
+    // Extract totalPath for Field (parent path + field path)
+    private String extractTotalPathForElement(Object parent, Field field) {
+        StringBuilder sb = new StringBuilder();
+
+        if (parent instanceof IPage) {
+            sb.append(((IPage) parent).getImageRoot())
+                    .append(totalPath.toString());
+        } else {
+            sb.append(getParentPath(parent))
+                    .append(fixImagePath(totalPath.toString()));
+        }
+
+        String valueFromImageAnnotation = extractImageAnnotationValueFromPageField(field);
+        if(valueFromImageAnnotation.equals("/")){
+            return null;
+        }
+        sb.append(valueFromImageAnnotation);
+        return fixImagePath(sb.toString());
     }
 
     private void validateImagePath(String path) {
@@ -138,27 +165,15 @@ public abstract class CascadeInit {
         return null;
     }
 
+    // Extract link on the setImgPathForField() from Element or NULL if field isn't instance of IElement
+    private Method extractSetImgPathMethod(Object fieldObject)
+            throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-    private void setImgPath(Object parent, Field field)
-        throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        if (parent != null) {
-            Object fieldObject = field.get(parent);
-
-            if (fieldObject instanceof IElement) {
-                Method methodSetImgPath = field.getType()
+        if (fieldObject instanceof IElement) {
+            return fieldObject.getClass()
                     .getMethod("setImgPath", String.class);
-
-                extractImageAnnotationValueFromPageField(field);
-
-                if (parent instanceof IPage) {
-                    setImgPath(methodSetImgPath, fieldObject,
-                        fixImagePath(((IPage) parent).getImageRoot() + totalPath.toString()));
-                } else {
-                    setImgPath(methodSetImgPath, fieldObject,
-                        fixImagePath(getParentPath(parent) + fixImagePath(totalPath.toString())));
-                }
-            }
         }
+        return null;
     }
 
     private static String fixImagePath(String path) {
@@ -169,10 +184,12 @@ public abstract class CascadeInit {
         return null;
     }
 
-    private void setImgPath(Method methodSetImgPath, Object fieldObject, String imgPath)
-        throws IllegalAccessException, InvocationTargetException {
-        methodSetImgPath.invoke(fieldObject, imgPath);
-        totalPath.setLength(0);
+    // Set totalPath for current Field.
+    private void setImgPathForField(Method methodSetImgPath, Object fieldObject, String totalPath)
+            throws IllegalAccessException, InvocationTargetException {
+        if(methodSetImgPath != null) {
+            methodSetImgPath.invoke(fieldObject, totalPath);
+        }
     }
 
     private String getParentPath(Object parent) {
@@ -241,8 +258,8 @@ public abstract class CascadeInit {
     }
 
     private IBaseElement getInstancePage(Object parent, Field field, Class<?> type,
-        Class<?> parentType)
-        throws IllegalAccessException, InstantiationException {
+                                         Class<?> parentType)
+            throws IllegalAccessException, InstantiationException {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
         if (instance == null) {
             instance = (IBaseElement) type.newInstance();
@@ -252,9 +269,9 @@ public abstract class CascadeInit {
     }
 
     private IBaseElement getInstanceElement(Object parent, Class<?> type, Class<?> parentType,
-        Field field, String driverName) {
+                                            Field field, String driverName) {
         IBaseElement instance = createChildFromFieldStatic(parent, parentType, field, type,
-            driverName);
+                driverName);
         instance.setFunction(getFunction(field));
         return instance;
     }
@@ -262,11 +279,11 @@ public abstract class CascadeInit {
     protected abstract IBaseElement fillInstance(IBaseElement instance, Field field);
 
     protected abstract IBaseElement getElementsRules(Field field, String driverName, Class<?> type,
-        String fieldName)
-        throws IllegalAccessException, InstantiationException;
+                                                     String fieldName)
+            throws IllegalAccessException, InstantiationException;
 
     protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent,
-        Class<?> type) {
+                                          Class<?> type) {
         return instance;
     }
 
@@ -275,16 +292,16 @@ public abstract class CascadeInit {
     }
 
     private IBaseElement createChildFromFieldStatic(Object parent, Class<?> parentClass,
-        Field field, Class<?> type, String driverName) {
+                                                    Field field, Class<?> type, String driverName) {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
         if (instance == null) {
             try {
                 instance = getElementInstance(field, driverName, parent);
             } catch (Exception ex) {
                 throw exception(
-                    format("Can't create child for parent '%s' with type '%s'. Exception: %s",
-                        parentClass.getSimpleName(), field.getType().getSimpleName(),
-                        ex.getMessage()));
+                        format("Can't create child for parent '%s' with type '%s'. Exception: %s",
+                                parentClass.getSimpleName(), field.getType().getSimpleName(),
+                                ex.getMessage()));
             }
         } else {
             instance = fillInstance(instance, field);
@@ -302,9 +319,9 @@ public abstract class CascadeInit {
             return getElementsRules(field, driverName, type, fieldName);
         } catch (Exception ex) {
             throw exception("Error in getElementInstance for field '%s'%s with type '%s'",
-                fieldName,
-                parent != null ? "in " + parent.getClass().getSimpleName() : "",
-                type.getSimpleName() + LINE_BREAK + ex.getMessage());
+                    fieldName,
+                    parent != null ? "in " + parent.getClass().getSimpleName() : "",
+                    type.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
 
@@ -315,7 +332,7 @@ public abstract class CascadeInit {
             return getNewLocatorFromField(field);
         } catch (Exception ex) {
             throw exception("Error in get locator for type '%s'", field.getType().getName()
-                + LINE_BREAK + ex.getMessage());
+                    + LINE_BREAK + ex.getMessage());
         }
     }
 }

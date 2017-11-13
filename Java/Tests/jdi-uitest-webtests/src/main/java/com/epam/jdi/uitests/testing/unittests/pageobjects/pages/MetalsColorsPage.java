@@ -53,39 +53,46 @@ public class MetalsColorsPage extends WebPage {
             jexpand = @JFindBy(css = ".caret"),
             jlist = @JFindBy(tagName = "li"),
             jvalue = @JFindBy(css = ".filter-option")
-    ) public IDropDown colorsRootExpandListValue;
+    )
+    public IDropDown colorsRootExpandListValue;
 
     @JDropdown(
             jroot = @JFindBy(css = ".colors"),
             jexpand = @JFindBy(css = ".caret")
-    ) public IDropDown colorsRootExpand;
+    )
+    public IDropDown colorsRootExpand;
 
     @JDropdown(
             jroot = @JFindBy(css = ".colors")
-    ) public IDropDown colorsRoot;
+    )
+    public IDropDown colorsRoot;
 
     @JDropdown(
             jroot = @JFindBy(css = ".colors"),
             jvalue = @JFindBy(css = ".filter-option")
-    ) public IDropDown colorsRootValue;
+    )
+    public IDropDown colorsRootValue;
 
     @JDropdown(
             jroot = @JFindBy(css = ".colors"),
             jlist = @JFindBy(tagName = "li")
-    ) public IDropDown colorsRootList;
+    )
+    public IDropDown colorsRootList;
 
     @JDropdown(
             jroot = @JFindBy(css = ".colors"),
             jlist = @JFindBy(tagName = "li"),
             jvalue = @JFindBy(css = ".filter-option")
-    ) public IDropDown colorsRootListValue;
+    )
+    public IDropDown colorsRootListValue;
 
 
     @JDropList(
             jroot = @JFindBy(xpath = ".salad"),
             jlist = @JFindBy(tagName = "li")
-    //        jvalue = @JFindBy(tagName = "button")
-    ) public IDropList saladDL;
+            //        jvalue = @JFindBy(tagName = "button")
+    )
+    public IDropList saladDL;
 
     @JFindBy(id = "salad-dropdown")
     public IButton button;
@@ -96,32 +103,35 @@ public class MetalsColorsPage extends WebPage {
             list = @JFindBy(tagName = "li"),
             value = @JFindBy(css = ".filter-option"),
             expand = @JFindBy(css = ".caret")
-    ) public IComboBox jComboBoxRootListValueExpand;
+    )
+    public IComboBox jComboBoxRootListValueExpand;
 
     @JComboBox(
             root = @JFindBy(css = ".colors"),
             list = @JFindBy(tagName = "li"),
             value = @JFindBy(css = ".filter-option")
-    ) public IComboBox jComboBoxRootListValue;
+    )
+    public IComboBox jComboBoxRootListValue;
 
     @JComboBox(
-        root = @JFindBy(css = ".colors"),
-        value = @JFindBy(css = ".filter-option")
-    ) public IComboBox jComboBoxRootList;
+            root = @JFindBy(css = ".colors"),
+            value = @JFindBy(css = ".filter-option")
+    )
+    public IComboBox jComboBoxRootList;
 
     @JDropdown(
-        jroot = @JFindBy(css = ".colors"),
-        jlist = @JFindBy(tagName = "li"),
-        jvalue = @JFindBy(css = ".filter-option")
+            jroot = @JFindBy(css = ".colors"),
+            jlist = @JFindBy(tagName = "li"),
+            jvalue = @JFindBy(css = ".filter-option")
     )
     public IDropDown<ColorsList> colors;
 
 
     @FindBy(css = ".summ-res")
-    public IText calculateText = new Text(){
+    public IText calculateText = new Text() {
         @Override
         protected String getTextAction() {
-             return getDriver().findElement(By.cssSelector(".summ-res")).getText();
+            return getDriver().findElement(By.cssSelector(".summ-res")).getText();
         }
     };
 
