@@ -177,13 +177,11 @@ public class WebCascadeInit extends CascadeInit {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
         if (isClass(type, EntityTable.class)) {
-            throw exception(
-                "Entity table should have constructor for correct initialization." + LINE_BREAK +
-                    "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'"
-                    + LINE_BREAK +
-                    "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
+            java.lang.reflect.Type[] types =((ParameterizedType) field.getGenericType())
+                    .getActualTypeArguments();
+            instance = new EntityTable((Class<?>) types[0], (Class<?>) types[1]);
         }
-        if (isInterface(type, List.class)) {
+        if (instance == null && isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType())
                 .getActualTypeArguments()[0];
             if (isClass(elementClass, WebElement.class)) {
