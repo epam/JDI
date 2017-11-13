@@ -19,7 +19,7 @@ public class ListElementsExample extends GoogleTestsBase {
         Assert.contains(homePage.getDriver().getCurrentUrl(),
                 "https://www.google.");
         homePage.search("jdi");
-        List<SearchResult> jobs = searchPage.jobsL;
+        List<SearchResult> jobs = searchPage.jobsE;
 //        Assert.areEquals(jobs.size(), 10);
         for (SearchResult job : jobs)
             System.out.println(job.print());
@@ -32,9 +32,17 @@ public class ListElementsExample extends GoogleTestsBase {
         homePage.search("jdi");
         Assert.isTrue(searchPage.gitHubJdi.isDisplayed());
         Elements<SearchResult> jobs = searchPage.jobsE;
-//        Assert.areEquals(jobs.size(), 10);
+//      Assert.areEquals(jobs.size(), 10);
+        String results1 = "";
         for (SearchResult job : jobs)
-            System.out.println(job.print());
+            results1 += " !!! " + job.print();
+        String results2 = "";
+        homePage.search("testing");
+        for (SearchResult job : jobs)
+            results2 += " !!! " + job.print();
+        System.out.println(results1);
+        System.out.println(results2);
+
     }
 
 }
