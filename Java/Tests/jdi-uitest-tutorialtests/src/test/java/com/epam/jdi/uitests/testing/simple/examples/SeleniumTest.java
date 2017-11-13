@@ -2,13 +2,10 @@ package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.jdi.selenium.pageobject.SeleniumPage;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
-import java.awt.*;
-import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;

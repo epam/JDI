@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.core.logger;
 
 import com.epam.commons.linqinterfaces.JAction;
 import org.apache.log4j.Logger;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

@@ -10,11 +10,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.core.settings.JDISettings.verifyLayout;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
-import static java.lang.String.valueOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class Layout {

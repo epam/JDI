@@ -2,7 +2,6 @@ package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
 import com.google.gson.Gson;
-import com.jayway.restassured.mapper.ObjectMapper;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.specification.RequestSpecification;
 

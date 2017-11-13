@@ -2,7 +2,6 @@ package com.epam.jdi.httptests;
 
 import com.epam.http.annotations.*;
 import com.epam.http.requests.M;
-import com.epam.http.requests.RestMethod;
 
 import static com.jayway.restassured.http.ContentType.HTML;
 import static com.jayway.restassured.http.ContentType.JSON;
