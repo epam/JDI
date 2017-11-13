@@ -120,7 +120,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return getAttribute(locator.name(), locator.value());
     }
 
-    public static By findByToBy(ClassName locator){
+    public static By findByToBy(ByClass locator){
         if (locator == null) return null;
         return By.className(locator.value());
     }

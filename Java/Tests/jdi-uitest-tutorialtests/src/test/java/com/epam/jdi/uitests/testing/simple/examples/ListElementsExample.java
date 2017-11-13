@@ -37,11 +37,15 @@ public class ListElementsExample extends GoogleTestsBase {
         for (SearchResult job : jobs)
             results1 += " !!! " + job.print();
         String results2 = "";
-        homePage.search("testing");
         for (SearchResult job : jobs)
             results2 += " !!! " + job.print();
+        String results3 = "";
+        homePage.search("testing");
+        for (SearchResult job : jobs)
+            results3 += " !!! " + job.print();
         System.out.println(results1);
         System.out.println(results2);
+        System.out.println(results3);
 
     }
 

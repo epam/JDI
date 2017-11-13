@@ -239,8 +239,8 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(Attribute.class)) {
             return findByToBy(field.getAnnotation(Attribute.class));
         }
-        if (field.isAnnotationPresent(ClassName.class)) {
-            return findByToBy(field.getAnnotation(ClassName.class));
+        if (field.isAnnotationPresent(ByClass.class)) {
+            return findByToBy(field.getAnnotation(ByClass.class));
         }
         if (field.isAnnotationPresent(Id.class)) {
             return findByToBy(field.getAnnotation(Id.class));

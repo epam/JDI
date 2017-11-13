@@ -199,18 +199,14 @@ public class GetElementModule implements IAvatar {
         }
         Object p = bElement.getParent();
         By locator = bElement.getLocator();
-
         By frame = bElement.avatar.frameLocator;
         SearchContext searchContext = frame != null
             ? getFrameContext(frame)
             : p == null || containsRoot(locator)
                 ? getDefaultContext()
                 : getSearchContext(p);
-        locator = containsRoot(locator)
-                ? trimRoot(locator)
-                : locator;
         return locator != null
-                ? searchContext.findElement(correctXPaths(locator))
+                ? searchContext.findElement(correctLocator(locator))
                 : searchContext;
     }
     private SearchContext getDefaultContext() {
@@ -219,17 +215,17 @@ public class GetElementModule implements IAvatar {
     private SearchContext getFrameContext(By frame) {
         return getDriver().switchTo().frame(getDriver().findElement(frame));
     }
-
     private List<WebElement> searchElements() {
-        SearchContext searchContext = frameLocator != null
-            ? getFrameContext(frameLocator)
-            : containsRoot(getLocator())
-                ? getDriver()
-                : getSearchContext(element.getParent());
-        By locator = containsRoot(getLocator())
-                ? trimRoot(getLocator())
-                : getLocator();
-        return searchContext.findElements(correctXPaths(locator));
+        SearchContext searchContext = getDefaultContext();
+        if (!containsRoot(getLocator()))
+            searchContext = getSearchContext(element.getParent());
+        return searchContext.findElements(correctLocator(getLocator()));
+    }
+    private By correctLocator(By locator) {
+        if (locator == null) return null;
+        return correctXPaths(containsRoot(locator)
+                ? trimRoot(locator)
+                : locator);
     }
 
     public void clearCookies() {
