@@ -36,6 +36,8 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 
+
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -51,7 +53,7 @@ import java.util.regex.Pattern;
 public abstract class CascadeInit {
 
 
-    private boolean generateDefaultPath = true;
+    private boolean generateDefaultPath = false;
     private StringBuilder totalPath = new StringBuilder();
     private static final Pattern ANNOTATION_PATTERN = Pattern
             .compile("\\S*[(]value=((\\/?\\w*.?)*\\/?)[)]");
