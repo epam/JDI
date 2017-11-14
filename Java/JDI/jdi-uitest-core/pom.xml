@@ -49,11 +49,6 @@
             <artifactId>selenide</artifactId>
             <version>LATEST</version>
         </dependency>
-        <dependency>
-            <groupId>com.epam.jdi</groupId>
-            <artifactId>jdi-uitest-web</artifactId>
-            <version>1.0.82</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

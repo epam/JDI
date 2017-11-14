@@ -20,7 +20,11 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IComposite;
+import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
+import com.epam.jdi.uitests.core.interfaces.complex.IForm;
+import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -31,18 +35,29 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
+import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.first;
@@ -61,6 +76,11 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.*;
  */
 public class WebCascadeInit extends CascadeInit {
 
+    private boolean generateDefaultPath = true;
+    private StringBuilder totalPath = new StringBuilder();
+    private static final Set<String> EXTENSIONS = new HashSet<>(
+            Arrays.asList(".jpg", ".jpeg", ".png"));
+
     public Class<?>[] stopTypes() {
         return new Class<?>[]{Object.class, WebPage.class, Section.class, Element.class};
     }
@@ -73,11 +93,11 @@ public class WebCascadeInit extends CascadeInit {
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
         if (field.getType().isAnnotationPresent(JPage.class)) {
             fillPageFromAnnotaiton((WebPage) instance, field.getType().getAnnotation(JPage.class),
-                parentType);
+                    parentType);
         } else {
             if (field.isAnnotationPresent(JPage.class)) {
                 fillPageFromAnnotaiton((WebPage) instance, field.getAnnotation(JPage.class),
-                    parentType);
+                        parentType);
             }
         }
     }
@@ -114,8 +134,8 @@ public class WebCascadeInit extends CascadeInit {
                 page = clazz.getDeclaredConstructor(WebDriver.class).newInstance(getDriver());
             } catch (Exception ex) {
                 throw new RuntimeException(
-                    "Can't init PageObject: " + clazz.getName() + ". Exception: " + ex
-                        .getMessage());
+                        "Can't init PageObject: " + clazz.getName() + ". Exception: " + ex
+                                .getMessage());
             }
         }
         new WebCascadeInit().initElements(page, driverName);
@@ -169,21 +189,220 @@ public class WebCascadeInit extends CascadeInit {
         return element;
     }
 
+    @Override
+    protected void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
+        try {
+            Class<?> type = field.getType();
+            IBaseElement instance = getInstance(parent, parentType, field, driverName, type);
+            instance.setName(field);
+            if (parent != null) {
+                instance.getAvatar().setDriverName(driverName);
+            }
+            instance.setTypeName(type.getSimpleName());
+            field.set(parent, instance);
+
+            // Extracting path from ImagesRoot annotation of WebSite + path of webPage
+            if (parent == null) {
+                totalPath.append(extractImageRootAnnotationValueFromWebSite(parentType));
+                totalPath.append(extractPath(field));
+            }
+
+            // Extracting path from the previous iteration and saving it to the current element and saving in to the imageRoot field of specific Page
+            if ((parent instanceof IPage || parent instanceof IForm)&& totalPath.length() != 0) {
+                saveImagePathForFirstElement(parent);
+            }
+
+            // It adds element's path to the rootPath
+            // Set imgPath for each Field
+            if (parent != null) {
+                Object fieldObject = field.get(parent);
+                Method methodSetImgPath = extractSetImgPathMethod(fieldObject);
+                String totalPath = extractTotalPathForElement(parent, field);
+                setImgPathForField(methodSetImgPath, fieldObject, totalPath);
+            }
+
+            if (isInterface(field, IComposite.class)) {
+                initElements(instance, driverName);
+            }
+        } catch (Exception ex) {
+            throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
+                    parentType == null ? "NULL Class"
+                            : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
+        }
+    }
+
+    // Extract totalPath for Field (parent path + field path)
+    private String extractTotalPathForElement(Object parent, Field field) {
+        StringBuilder sb = new StringBuilder();
+
+        if (parent instanceof IPage) {
+            sb.append(((IPage) parent).getImageRoot())
+                    .append(totalPath.toString());
+        } else {
+            sb.append(getParentPath(parent))
+                    .append(fixImagePath(totalPath.toString()));
+        }
+
+        String valueFromImageAnnotation = extractImageAnnotationValueFromField(field);
+
+        if (valueFromImageAnnotation == null) {
+            sb.append(field.getName());
+        } else if (valueFromImageAnnotation.equals("/")) {
+            return null;
+        } else {
+            sb.append(valueFromImageAnnotation);
+        }
+
+        return fixImagePath(sb.toString());
+    }
+
+    // Extract link on the setImgPathForField() from Element or NULL if field isn't instance of IElement
+    private Method extractSetImgPathMethod(Object fieldObject)
+            throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+
+        if (fieldObject instanceof IElement) {
+            return fieldObject.getClass()
+                    .getMethod("setImgPath", String.class);
+        }
+
+        return null;
+    }
+
+    private static String fixImagePath(String path) {
+        if (path != null) {
+            return path.replaceAll("[\\\\|/]+", "/");
+        }
+
+        return null;
+    }
+
+    // Set totalPath for current Field.
+    private void setImgPathForField(Method methodSetImgPath, Object fieldObject, String totalPath)
+            throws IllegalAccessException, InvocationTargetException {
+        if (methodSetImgPath != null) {
+            if (fieldObject.getClass().getDeclaredFields().length == 0) {
+                totalPath = checkTotalPathForLastElement(totalPath);
+            }
+
+            methodSetImgPath.invoke(fieldObject, totalPath);
+        }
+    }
+
+    private String checkTotalPathForLastElement(String totalPath) {
+        if (!isImage(totalPath)) {
+            if (generateDefaultPath) {
+                return getTotalPathIfImageExists(totalPath);
+            } else {
+                return null;
+            }
+        }
+        Layout.validateImagePath(WebSite.getDefaultPath() + totalPath);
+        return totalPath;
+    }
+
+    //if we find file with title -> save it into totalPath
+    //if we don't find file with title -> totalPath = null
+    private String getTotalPathIfImageExists(String path) {
+        for (String extension : EXTENSIONS) {
+            if(new File(WebSite.getDefaultPath() + path + extension).exists()){
+                return path + extension;
+            }
+        }
+        return null;
+    }
+
+    // Verify that totalPath is image
+    private boolean isImage(String totalPath) {
+        String path = totalPath.toLowerCase();
+        return path.endsWith(".png")
+                || path.endsWith(".jpg")
+                || path.endsWith(".jpeg");
+    }
+
+    //Get path from first parent which contains it
+    private String getParentPath(Object parent) {
+        StringBuilder parentPath = new StringBuilder();
+
+        while (parentPath.length() == 0) {
+            if (parent instanceof IElement) {
+                parentPath.append(((IElement) parent).getImgPath());
+            } else if (parent instanceof IPage) {
+                parentPath.append(((IPage) parent).getImageRoot());
+            }
+            else if(parent instanceof IBaseElement) {
+                parent = ((IBaseElement) parent).getParent();
+            }
+            else{
+                break;
+            }
+        }
+
+        checkNotNullParentPath(parentPath);
+
+        return parentPath.toString();
+    }
+
+    private void checkNotNullParentPath(StringBuilder parentPath) {
+        if (parentPath.toString().equals("null")) {
+            parentPath.setLength(0);
+            parentPath.append('/');
+        }
+    }
+
+    private void saveImagePathForFirstElement(Object parent) {
+        if(parent instanceof  IPage){
+            ((IPage)parent).setImageRoot(fixImagePath(totalPath.toString()));
+        }
+        else if(parent instanceof IForm){
+            ((IForm)parent).setImgPath(fixImagePath(totalPath.toString()));
+        }
+        totalPath.setLength(0);
+    }
+
+    private String extractImageRootAnnotationValueFromWebSite(Class<?> parentType) {
+        ImagesRoot annotation = parentType.getAnnotation(ImagesRoot.class);
+        if(annotation != null){
+            return annotation.value();
+        }
+
+        return "/";
+    }
+
+    private String extractPath(Field field) {
+        String annotationValue = extractImageAnnotationValueFromField(field);
+
+        if (annotationValue != null) {
+            return annotationValue;
+        } else if (generateDefaultPath) {
+            return "/" + field.getName() + "/";
+        }
+
+        return "";
+    }
+
+    private String extractImageAnnotationValueFromField(Field field) {
+        Image annotation = field.getAnnotation(Image.class);
+        if(annotation != null){
+            return annotation.value();
+        }
+        return null;
+    }
+
     protected IBaseElement getElementsRules(Field field, String driverName, Class<?> type,
                                             String fieldName)
-        throws IllegalAccessException, InstantiationException {
+            throws IllegalAccessException, InstantiationException {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
         if (isClass(type, EntityTable.class)) {
             throw exception(
-                "Entity table should have constructor for correct initialization." + LINE_BREAK +
-                    "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'"
-                    + LINE_BREAK +
-                    "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
+                    "Entity table should have constructor for correct initialization." + LINE_BREAK +
+                            "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'"
+                            + LINE_BREAK +
+                            "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
         }
         if (isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType())
-                .getActualTypeArguments()[0];
+                    .getActualTypeArguments()[0];
             if (isClass(elementClass, WebElement.class)) {
                 elementClass = J.class;
             } else if (elementClass.isInterface()) {
@@ -211,8 +430,8 @@ public class WebCascadeInit extends CascadeInit {
         }
         if (instance == null) {
             throw exception(
-                "Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
-                type, fieldName);
+                    "Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
+                    type, fieldName);
         }
         instance.avatar.setDriverName(driverName);
         return instance;

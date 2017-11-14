@@ -141,12 +141,12 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @return Check is Element visible
      */
     public boolean isDisplayed() {
-        System.out.println(this);
-        System.out.println(imgPath);
+
         if (imgPath == null) {
             return actions.isDisplayed(this::isDisplayedAction);
         } else {
-            return actions.isDisplayed(this::isDisplayedAction) && Layout.verify(generateImgPath());
+            return actions.isDisplayed(this::isDisplayedAction)
+                    && Layout.verify(generateImgPath());
         }
     }
 

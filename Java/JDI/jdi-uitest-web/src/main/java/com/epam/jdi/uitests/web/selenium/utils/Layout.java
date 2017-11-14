@@ -47,7 +47,7 @@ public class Layout {
      *
      * @param path
      */
-    private static void validateImagePath(String path) {
+    public static void validateImagePath(String path) {
         if (path == null || !(new File(path)).exists()) {
             throw new ImageNotFoundException("Image not found: " + path);
         }
