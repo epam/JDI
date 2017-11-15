@@ -33,7 +33,7 @@ public class JobListingPage extends WebPage {
             column = @FindBy(xpath = ".//li//div[%s]"),
             //cell = @FindBy(xpath = ".//li[{1}]//div[{0}]"),
             header = {"name", "category", "location", "apply"})
-    public EntityTable<Job, JobRecord> jobsListEntity = new EntityTable<>(Job.class, JobRecord.class);
+    public EntityTable<Job, JobRecord> jobsListEntity;
 
     public void getJobRowByName(String jobName) {
         JobRecord row = jobsListEntity.getRow(jobName, column(name));

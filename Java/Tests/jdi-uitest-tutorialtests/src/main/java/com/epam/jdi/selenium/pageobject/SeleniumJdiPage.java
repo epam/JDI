@@ -26,5 +26,5 @@ public class SeleniumJdiPage {
             row = @FindBy(xpath = ".//li[%s]//div"),
             column = @FindBy(xpath = ".//li//div[%s]"),
             header = {"name", "category", "location", "apply"})
-    public EntityTable<Job, JobRecord> jobs = new EntityTable<>(Job.class, JobRecord.class);
+    public EntityTable<Job, JobRecord> jobs;
 }

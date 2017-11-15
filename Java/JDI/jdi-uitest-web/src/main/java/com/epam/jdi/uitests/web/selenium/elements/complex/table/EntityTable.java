@@ -152,9 +152,8 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     }
 
     public List<E> entities(String... colNames){
-        return select(colNames,
-                colName -> rowToEntity(new MapArray<>(size(),
-                        i -> columns.getColumn(colName).get(i))));
+        return select(colNames, colName
+                -> rowToEntity(columns.getColumn(colName)));
     }
 
     public E entity(int rowNum){

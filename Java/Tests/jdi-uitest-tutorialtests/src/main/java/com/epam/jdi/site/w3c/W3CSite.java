@@ -1,8 +1,8 @@
 package com.epam.jdi.site.w3c;
 
+import com.epam.jdi.site.w3c.form.LikePopupForm;
 import com.epam.jdi.site.w3c.pages.DropDownPage;
 import com.epam.jdi.site.w3c.pages.HomePage;
-import com.epam.jdi.site.w3c.form.LikePopupForm;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;

@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.selenium.elements;
  */
 
 
-import com.epam.commons.linqinterfaces.JFuncR;
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
@@ -50,7 +49,6 @@ import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -177,13 +175,11 @@ public class WebCascadeInit extends CascadeInit {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
         if (isClass(type, EntityTable.class)) {
-            throw exception(
-                "Entity table should have constructor for correct initialization." + LINE_BREAK +
-                    "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'"
-                    + LINE_BREAK +
-                    "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
+            java.lang.reflect.Type[] types =((ParameterizedType) field.getGenericType())
+                    .getActualTypeArguments();
+            instance = new EntityTable((Class<?>) types[0], (Class<?>) types[1]);
         }
-        if (isInterface(type, List.class)) {
+        if (instance == null && isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType())
                 .getActualTypeArguments()[0];
             if (isClass(elementClass, WebElement.class)) {
@@ -243,8 +239,8 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(Attribute.class)) {
             return findByToBy(field.getAnnotation(Attribute.class));
         }
-        if (field.isAnnotationPresent(ClassName.class)) {
-            return findByToBy(field.getAnnotation(ClassName.class));
+        if (field.isAnnotationPresent(ByClass.class)) {
+            return findByToBy(field.getAnnotation(ByClass.class));
         }
         if (field.isAnnotationPresent(Id.class)) {
             return findByToBy(field.getAnnotation(Id.class));

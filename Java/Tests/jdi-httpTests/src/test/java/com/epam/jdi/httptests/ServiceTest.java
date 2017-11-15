@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static com.epam.http.requests.ResponseStatusType.OK;
 import static com.epam.http.requests.ResponseStatusType.SERVER_ERROR;
 import static com.epam.http.requests.ServiceInit.init;
-import static com.epam.jdi.httptests.ServiceExample.*;
+import static com.epam.jdi.httptests.ServiceExample.getInfo;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 
