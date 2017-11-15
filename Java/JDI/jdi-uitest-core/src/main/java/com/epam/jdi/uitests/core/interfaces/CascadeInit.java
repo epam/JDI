@@ -30,6 +30,7 @@ import static java.lang.String.format;
 import static java.lang.reflect.Modifier.isStatic;
 import static java.util.Arrays.asList;
 
+import com.epam.jdi.uitests.core.annotations.Root;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
@@ -152,7 +153,11 @@ public abstract class CascadeInit {
         } else {
             instance = fillInstance(instance, field);
         }
-        instance.setParent(parent);
+        if (field.isAnnotationPresent(Root.class)){
+            instance.setParent(null);
+        }else {
+            instance.setParent(parent);
+        }
         instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;

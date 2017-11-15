@@ -5,7 +5,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.testng.Assert;
 
-import static com.epam.jdi.http.cucumber.Utils.*;
+import static com.epam.jdi.http.cucumber.Utils.performanceResult;
+import static com.epam.jdi.http.cucumber.Utils.restResponse;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 

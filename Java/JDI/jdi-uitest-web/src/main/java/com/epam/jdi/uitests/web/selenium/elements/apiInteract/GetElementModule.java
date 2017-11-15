@@ -90,7 +90,7 @@ public class GetElementModule implements IAvatar {
     }
     public By getLocator() { return byLocator; }
     public void setWebElement(WebElement webElement) { this.webElement = webElement; }
-    public boolean hasWebElement() { return webElement != null; }
+    public boolean hasWebElement() { if (webElement == null) return false; try { webElement.getTagName(); return true; } catch (Exception ex) {return false; } }
 
     public WebDriver getDriver() {
         return (WebDriver) driverFactory.getDriver(driverName);
@@ -105,7 +105,6 @@ public class GetElementModule implements IAvatar {
         WebElement element = webElement != null
                 ? webElement
                 : getElementAction();
-                //: timer().getResultByCondition(this::getElementAction, Objects::nonNull);
         logger.debug("One Element found");
         return element;
     }
@@ -191,41 +190,42 @@ public class GetElementModule implements IAvatar {
 
     private SearchContext getSearchContext(Object element) {
         if (element == null || !isClass(element.getClass(), BaseElement.class))
-            return getDriver().switchTo().defaultContent();
+            return getDefaultContext();
         BaseElement bElement = (BaseElement) element;
         if (bElement.useCache && isClass(bElement.getClass(), Element.class)) {
             Element el = (Element) bElement;
             if (el.avatar.hasWebElement())
-                return el.getWebElement();
+                return el.avatar.webElement;
         }
         Object p = bElement.getParent();
-        if (p == null && bElement.avatar.frameLocator == null)
-            return getDriver().switchTo().defaultContent();
         By locator = bElement.getLocator();
-        SearchContext searchContext = containsRoot(locator)
-                ? getDriver().switchTo().defaultContent()
-                : getSearchContext(p);
-        locator = containsRoot(locator)
-                ? trimRoot(locator)
-                : locator;
         By frame = bElement.avatar.frameLocator;
-        if (frame != null)
-            getDriver().switchTo().frame(getDriver().findElement(frame));
+        SearchContext searchContext = frame != null
+            ? getFrameContext(frame)
+            : p == null || containsRoot(locator)
+                ? getDefaultContext()
+                : getSearchContext(p);
         return locator != null
-                ? searchContext.findElement(correctXPaths(locator))
+                ? searchContext.findElement(correctLocator(locator))
                 : searchContext;
     }
-
+    private SearchContext getDefaultContext() {
+        return getDriver().switchTo().defaultContent();
+    }
+    private SearchContext getFrameContext(By frame) {
+        return getDriver().switchTo().frame(getDriver().findElement(frame));
+    }
     private List<WebElement> searchElements() {
-        SearchContext searchContext = containsRoot(getLocator())
-                ? getDriver()
-                : getSearchContext(element.getParent());
-        By locator = containsRoot(getLocator())
-                ? trimRoot(getLocator())
-                : getLocator();
-        if (frameLocator != null)
-            getDriver().switchTo().frame(getDriver().findElement(frameLocator));
-        return searchContext.findElements(correctXPaths(locator));
+        SearchContext searchContext = getDefaultContext();
+        if (!containsRoot(getLocator()))
+            searchContext = getSearchContext(element.getParent());
+        return searchContext.findElements(correctLocator(getLocator()));
+    }
+    private By correctLocator(By locator) {
+        if (locator == null) return null;
+        return correctXPaths(containsRoot(locator)
+                ? trimRoot(locator)
+                : locator);
     }
 
     public void clearCookies() {

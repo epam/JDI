@@ -30,6 +30,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.first;
@@ -262,6 +263,14 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
 
     public WebElement getWebElement(String name) {
         return getElement(name).getWebElement();
+    }
+
+    /**
+     * @param attribute Specify attribute name using string
+     * @return Return list of attributes of Elements
+     */
+    public List<String> getAttributesList(String attribute) {
+        return getElementsFromTag().stream().map(e -> e.getAttribute(attribute)).collect(Collectors.toList());
     }
 
     protected boolean isDisplayedAction(String name) {

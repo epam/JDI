@@ -59,6 +59,8 @@ public abstract class BaseElement implements IBaseElement {
         if (text == null || text.equals("")) return;
         action.accept(text.equals("#CLEAR#") ? "" : text);
     };
+    public String getImgPath() { return null; }
+    public void setImgPath(String imgPath) { }
     public Functions function = Functions.NONE;
     public void setFunction(Functions function) { this.function = function; }
     public GetElementModule avatar;

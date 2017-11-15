@@ -47,7 +47,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -56,8 +55,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.first;
@@ -116,8 +114,8 @@ public class WebCascadeInit extends CascadeInit {
         return initPageObject(clazz, currentDriverName);
     }
 
-    public static <T> T initPageObject(Class<T> clazz, WebDriver driver) {
-        return initPageObject(clazz, useDriver(() -> driver));
+    public static <T> T initPageObject(Class<T> clazz, Supplier<WebDriver> driver) {
+        return initPageObject(clazz, useDriver(driver));
     }
 
     public static <T> T initPageObject(Class<T> clazz, DriverTypes driver) {
@@ -394,13 +392,11 @@ public class WebCascadeInit extends CascadeInit {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
         if (isClass(type, EntityTable.class)) {
-            throw exception(
-                    "Entity table should have constructor for correct initialization." + LINE_BREAK +
-                            "Use following initialization: 'public EntityTable<Entity, Row> jobsListEntity = new EntityTable<>(Entity.class, Row.class);'"
-                            + LINE_BREAK +
-                            "Or short: 'public EntityTable<Entity, ?> simpleTable = new EntityTable<>(Entity.class)' if you have flat table");
+            java.lang.reflect.Type[] types =((ParameterizedType) field.getGenericType())
+                    .getActualTypeArguments();
+            instance = new EntityTable((Class<?>) types[0], (Class<?>) types[1]);
         }
-        if (isInterface(type, List.class)) {
+        if (instance == null && isInterface(type, List.class)) {
             Class<?> elementClass = (Class<?>) ((ParameterizedType) field.getGenericType())
                     .getActualTypeArguments()[0];
             if (isClass(elementClass, WebElement.class)) {
@@ -460,8 +456,8 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(Attribute.class)) {
             return findByToBy(field.getAnnotation(Attribute.class));
         }
-        if (field.isAnnotationPresent(ClassName.class)) {
-            return findByToBy(field.getAnnotation(ClassName.class));
+        if (field.isAnnotationPresent(ByClass.class)) {
+            return findByToBy(field.getAnnotation(ByClass.class));
         }
         if (field.isAnnotationPresent(Id.class)) {
             return findByToBy(field.getAnnotation(Id.class));

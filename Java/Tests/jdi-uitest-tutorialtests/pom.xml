@@ -43,12 +43,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version> <!-- or use LATEST -->
+            <version>LATEST</version> <!-- or use LATEST -->
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.25</version>
+            <version>LATEST</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -139,5 +139,6 @@
             </snapshots>
         </repository>
     </repositories>
+
 
 </project>

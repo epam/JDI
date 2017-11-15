@@ -25,14 +25,8 @@ import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-
 import java.nio.file.Paths;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -141,7 +135,6 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @return Check is Element visible
      */
     public boolean isDisplayed() {
-
         if (imgPath == null) {
             return actions.isDisplayed(this::isDisplayedAction);
         } else {
@@ -165,7 +158,6 @@ public class Element extends BaseElement implements IElement, IHasElement {
 
     private String generateImgPath() {
         return Paths.get(WebSite.getDefaultPath()).toAbsolutePath().toString().replace('\\', '/') + imgPath;
-//        return Element.class.getResource(WebSite.getDefaultPath() + imgPath).getPath();
     }
 
     protected void waitDisplayedAction() {

@@ -67,20 +67,24 @@ public class Elements<T extends Element> extends BaseSelector<Enum> implements L
     private List<T> elements;
 
     public List<T> listOfElements() {
-        return useCache && !elements.isEmpty()
-                ? elements
-                : (elements = select(getElements(), el -> {
-            try {
-                T element = classType.newInstance();
-                element.setWebElement(el);
-                element.useCache = useCache;
-                element.setParent(null);
-                new WebCascadeInit().initElements(element, avatar.getDriverName());
-                return element;
-            } catch (Exception ex) {
-                throw exception("Can't instantiate list element");
-            }
-        }));
+        if (useCache) {
+            if (!elements.isEmpty() && elements.get(0).isDisplayed())
+                return elements;
+        }
+        else elements.clear();
+        return elements = select(getElements(), this::getListElement);
+    }
+    private T getListElement(WebElement el) {
+        try {
+            T element = classType.newInstance();
+            element.setWebElement(el);
+            element.useCache = useCache;
+            element.setParent(null);
+            new WebCascadeInit().initElements(element, avatar.getDriverName());
+            return element;
+        } catch (Exception ex) {
+            throw exception("Can't instantiate list element");
+        }
     }
 
     public <E> List<E> asData(Class<E> entityClass) {
@@ -141,7 +145,7 @@ public class Elements<T extends Element> extends BaseSelector<Enum> implements L
     }
 
     public void clear() {
-        listOfElements().clear();
+        elements.clear();
     }
 
     public T get(int index) {
