@@ -20,7 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements;
 
 import com.epam.jdi.uitests.core.interfaces.CascadeInit;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
@@ -61,7 +60,6 @@ import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -74,10 +72,10 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.*;
  */
 public class WebCascadeInit extends CascadeInit {
 
-    private boolean generateDefaultPath = true;
+    private boolean generateDefaultPath = false;
     private StringBuilder totalPath = new StringBuilder();
     private static final Set<String> EXTENSIONS = new HashSet<>(
-            Arrays.asList(".jpg", ".jpeg", ".png"));
+        Arrays.asList(".jpg", ".jpeg", ".png"));
 
     public Class<?>[] stopTypes() {
         return new Class<?>[]{Object.class, WebPage.class, Section.class, Element.class};
@@ -91,11 +89,11 @@ public class WebCascadeInit extends CascadeInit {
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
         if (field.getType().isAnnotationPresent(JPage.class)) {
             fillPageFromAnnotaiton((WebPage) instance, field.getType().getAnnotation(JPage.class),
-                    parentType);
+                parentType);
         } else {
             if (field.isAnnotationPresent(JPage.class)) {
                 fillPageFromAnnotaiton((WebPage) instance, field.getAnnotation(JPage.class),
-                        parentType);
+                    parentType);
             }
         }
     }
@@ -132,8 +130,8 @@ public class WebCascadeInit extends CascadeInit {
                 page = clazz.getDeclaredConstructor(WebDriver.class).newInstance(getDriver());
             } catch (Exception ex) {
                 throw new RuntimeException(
-                        "Can't init PageObject: " + clazz.getName() + ". Exception: " + ex
-                                .getMessage());
+                    "Can't init PageObject: " + clazz.getName() + ". Exception: " + ex
+                        .getMessage());
             }
         }
         new WebCascadeInit().initElements(page, driverName);
@@ -188,45 +186,30 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     @Override
-    protected void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
-        try {
-            Class<?> type = field.getType();
-            IBaseElement instance = getInstance(parent, parentType, field, driverName, type);
-            instance.setName(field);
-            if (parent != null) {
-                instance.getAvatar().setDriverName(driverName);
-            }
-            instance.setTypeName(type.getSimpleName());
-            field.set(parent, instance);
+    protected void preInitElements(Object parent, Class<?> parentType, Field field, String driverName)
+        throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+            if (verifyLayout) {
+                // Extracting path from ImagesRoot annotation of WebSite + path of webPage
+                if (parent == null) {
+                    totalPath.append(extractImageRootAnnotationValueFromWebSite(parentType));
+                    totalPath.append(extractPath(field));
+                }
 
-            // Extracting path from ImagesRoot annotation of WebSite + path of webPage
-            if (parent == null) {
-                totalPath.append(extractImageRootAnnotationValueFromWebSite(parentType));
-                totalPath.append(extractPath(field));
-            }
+                // Extracting path from the previous iteration and saving it to the current element and saving in to the imageRoot field of specific Page
+                if ((parent instanceof IPage || parent instanceof IForm)
+                    && totalPath.length() != 0) {
+                    saveImagePathForFirstElement(parent);
+                }
 
-            // Extracting path from the previous iteration and saving it to the current element and saving in to the imageRoot field of specific Page
-            if ((parent instanceof IPage || parent instanceof IForm)&& totalPath.length() != 0) {
-                saveImagePathForFirstElement(parent);
+                // It adds element's path to the rootPath
+                // Set imgPath for each Field
+                if (parent != null) {
+                    Object fieldObject = field.get(parent);
+                    Method methodSetImgPath = extractSetImgPathMethod(fieldObject);
+                    String totalPath = extractTotalPathForElement(parent, field);
+                    setImgPathForField(methodSetImgPath, fieldObject, totalPath);
+                }
             }
-
-            // It adds element's path to the rootPath
-            // Set imgPath for each Field
-            if (parent != null) {
-                Object fieldObject = field.get(parent);
-                Method methodSetImgPath = extractSetImgPathMethod(fieldObject);
-                String totalPath = extractTotalPathForElement(parent, field);
-                setImgPathForField(methodSetImgPath, fieldObject, totalPath);
-            }
-
-            if (isInterface(field, IComposite.class)) {
-                initElements(instance, driverName);
-            }
-        } catch (Exception ex) {
-            throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
-                    parentType == null ? "NULL Class"
-                            : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
-        }
     }
 
     // Extract totalPath for Field (parent path + field path)
@@ -235,10 +218,10 @@ public class WebCascadeInit extends CascadeInit {
 
         if (parent instanceof IPage) {
             sb.append(((IPage) parent).getImageRoot())
-                    .append(totalPath.toString());
+                .append(totalPath.toString());
         } else {
             sb.append(getParentPath(parent))
-                    .append(fixImagePath(totalPath.toString()));
+                .append(fixImagePath(totalPath.toString()));
         }
 
         String valueFromImageAnnotation = extractImageAnnotationValueFromField(field);
@@ -256,11 +239,11 @@ public class WebCascadeInit extends CascadeInit {
 
     // Extract link on the setImgPathForField() from Element or NULL if field isn't instance of IElement
     private Method extractSetImgPathMethod(Object fieldObject)
-            throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         if (fieldObject instanceof IElement) {
             return fieldObject.getClass()
-                    .getMethod("setImgPath", String.class);
+                .getMethod("setImgPath", String.class);
         }
 
         return null;
@@ -276,7 +259,7 @@ public class WebCascadeInit extends CascadeInit {
 
     // Set totalPath for current Field.
     private void setImgPathForField(Method methodSetImgPath, Object fieldObject, String totalPath)
-            throws IllegalAccessException, InvocationTargetException {
+        throws IllegalAccessException, InvocationTargetException {
         if (methodSetImgPath != null) {
             if (fieldObject.getClass().getDeclaredFields().length == 0) {
                 totalPath = checkTotalPathForLastElement(totalPath);
@@ -302,7 +285,7 @@ public class WebCascadeInit extends CascadeInit {
     //if we don't find file with title -> totalPath = null
     private String getTotalPathIfImageExists(String path) {
         for (String extension : EXTENSIONS) {
-            if(new File(WebSite.getDefaultPath() + path + extension).exists()){
+            if (new File(WebSite.getDefaultPath() + path + extension).exists()) {
                 return path + extension;
             }
         }
@@ -313,8 +296,8 @@ public class WebCascadeInit extends CascadeInit {
     private boolean isImage(String totalPath) {
         String path = totalPath.toLowerCase();
         return path.endsWith(".png")
-                || path.endsWith(".jpg")
-                || path.endsWith(".jpeg");
+            || path.endsWith(".jpg")
+            || path.endsWith(".jpeg");
     }
 
     //Get path from first parent which contains it
@@ -326,11 +309,9 @@ public class WebCascadeInit extends CascadeInit {
                 parentPath.append(((IElement) parent).getImgPath());
             } else if (parent instanceof IPage) {
                 parentPath.append(((IPage) parent).getImageRoot());
-            }
-            else if(parent instanceof IBaseElement) {
+            } else if (parent instanceof IBaseElement) {
                 parent = ((IBaseElement) parent).getParent();
-            }
-            else{
+            } else {
                 break;
             }
         }
@@ -348,18 +329,17 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     private void saveImagePathForFirstElement(Object parent) {
-        if(parent instanceof  IPage){
-            ((IPage)parent).setImageRoot(fixImagePath(totalPath.toString()));
-        }
-        else if(parent instanceof IForm){
-            ((IForm)parent).setImgPath(fixImagePath(totalPath.toString()));
+        if (parent instanceof IPage) {
+            ((IPage) parent).setImageRoot(fixImagePath(totalPath.toString()));
+        } else if (parent instanceof IForm) {
+            ((IForm) parent).setImgPath(fixImagePath(totalPath.toString()));
         }
         totalPath.setLength(0);
     }
 
     private String extractImageRootAnnotationValueFromWebSite(Class<?> parentType) {
         ImagesRoot annotation = parentType.getAnnotation(ImagesRoot.class);
-        if(annotation != null){
+        if (annotation != null) {
             return annotation.value();
         }
 
@@ -380,7 +360,7 @@ public class WebCascadeInit extends CascadeInit {
 
     private String extractImageAnnotationValueFromField(Field field) {
         Image annotation = field.getAnnotation(Image.class);
-        if(annotation != null){
+        if (annotation != null) {
             return annotation.value();
         }
         return null;
@@ -426,8 +406,8 @@ public class WebCascadeInit extends CascadeInit {
         }
         if (instance == null) {
             throw exception(
-                    "Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
-                    type, fieldName);
+                "Unknown interface: %s (%s). Add relation interface -> class in VIElement.InterfaceTypeMap",
+                type, fieldName);
         }
         instance.avatar.setDriverName(driverName);
         return instance;
