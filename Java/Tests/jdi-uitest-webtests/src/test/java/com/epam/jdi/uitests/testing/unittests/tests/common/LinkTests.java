@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.HOME_PAGE;
@@ -85,6 +86,12 @@ public class LinkTests extends InitTests {
         return new Object[]{
                 new TextTests("Link", HOME_PAGE, this::link, "About", "Abou", "Abou.*")
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        link().shouldHave(exactText("About"), attribute("title", "Tip title"), attribute("href"))
+                .shouldNotBe(hidden);
     }
 
     @Test

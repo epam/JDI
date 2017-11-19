@@ -48,5 +48,4 @@ public class RFileInput extends FileInput implements ITextField {
         getWebElement().click();
         pasteText(text);
     }
-
 }

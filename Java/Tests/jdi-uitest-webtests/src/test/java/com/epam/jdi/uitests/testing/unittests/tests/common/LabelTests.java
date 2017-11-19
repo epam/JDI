@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -38,6 +39,11 @@ public class LabelTests extends InitTests {
         return new Object[]{
                 new TextTests("Label", METALS_AND_COLORS_PAGE, label::get, "CALCULATE", "CUL", ".*LCU.*")
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        label.get().shouldHave(exactText("Calculate"), matchText(".*LCU.*"), textCaseSensitive("CUL"));
     }
 
     @Test

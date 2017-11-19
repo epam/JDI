@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.entities.User.DEFAULT;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE;
@@ -73,5 +74,11 @@ public class TextAreaTests extends InitTests {
     @Test
     public void imageIsDisplayedTest(){
         Assert.assertTrue(textItem().isDisplayed());
+    }
+
+    @Test
+    public void shouldTest(){
+        textItem().shouldHave(attribute("rows"), attribute("cols"), id("Description"))
+                .shouldBe(empty);
     }
 }

@@ -86,7 +86,7 @@ public abstract class JDISettings {
     }
 
 
-    public static boolean verifyLayout = false;
+    public static boolean verifyLayout = true;
     public static RuntimeException exception(String msg, Object... args) {
         return asserter.exception(msg, args);
     }

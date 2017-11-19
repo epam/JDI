@@ -28,7 +28,6 @@ public class HomePage extends WebPage {
     @JFindBy(css = ".m-l8")
     public IMenu menu1;
 
-    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/text.png")
     @FindBy(css = ".main-txt")
     public Text text;
     @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/epam_logo.png")

@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  */
 
 
+import com.codeborne.selenide.Condition;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
@@ -32,12 +33,14 @@ import com.epam.jdi.uitests.web.selenium.elements.actions.ElementsActions;
 import com.epam.jdi.uitests.web.selenium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.GetElement;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil;
+import com.epam.web.matcher.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -246,5 +249,41 @@ public abstract class BaseElement implements IBaseElement {
                         ? "{1} ''{0}'' ({2}.{3}; {4})"
                         : "Name: ''{0}'', Type: ''{1}'' In: ''{2}'', {4}",
                 getName(), getTypeName(), getParentName(), getVarName(), avatar);
+    }
+
+    @Override
+    public IBaseElement should(Condition... conditions){
+        Arrays.stream(conditions).forEach(condition ->
+                Assert.assertEquals(condition.apply(getAvatar().getElement()), true));
+
+        return this;
+    }
+
+    @Override
+    public IBaseElement shouldHave(Condition... conditions){
+        return should(conditions);
+    }
+
+    @Override
+    public IBaseElement shouldBe(Condition... conditions){
+        return should(conditions);
+    }
+
+    @Override
+    public IBaseElement shouldNot(Condition... conditions){
+        Arrays.stream(conditions).forEach(condition ->
+                Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
+
+        return this;
+    }
+
+    @Override
+    public IBaseElement shouldNotHave(Condition... conditions){
+        return shouldNot(conditions);
+    }
+
+    @Override
+    public IBaseElement shouldNotBe(Condition... conditions){
+        return shouldNot(conditions);
     }
 }

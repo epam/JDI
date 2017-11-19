@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.CONTACT_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.contactFormPage;
@@ -36,7 +37,7 @@ public class TextFieldTests extends InitTests {
 
     public TextFieldTests(String elementType, Preconditions page, Supplier<ITextField> textItem,
                           String inputText, String expectedText, String text,
-                          String contains, String  regex){
+                          String contains, String regex) {
         this.elementType = elementType;
         this.page = page;
         this.textField = textItem;
@@ -78,7 +79,7 @@ public class TextFieldTests extends InitTests {
 
     @Test
     public void multiKeyTest() throws Exception {
-        for(char letter : inputText.toCharArray())
+        for (char letter : inputText.toCharArray())
             textField.get().sendKeys(Character.toString(letter));
         assertEquals(textField.get().getText(), text + expectedText);
     }
@@ -98,6 +99,14 @@ public class TextFieldTests extends InitTests {
         return new Object[]{
                 new TextTests(elementType, page, textField::get, text, contains, regex)
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        textField.get().shouldHave(attribute("id"))
+                .shouldNotBe(empty);
+        textField.get().clear();
+        textField.get().shouldBe(empty);
     }
 
     @Test
