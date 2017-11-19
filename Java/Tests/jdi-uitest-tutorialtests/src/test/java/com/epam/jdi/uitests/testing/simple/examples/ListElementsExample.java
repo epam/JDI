@@ -1,19 +1,12 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.commons.LinqUtils;
-import com.epam.commons.StringUtils;
 import com.epam.jdi.entities.Users;
 import com.epam.jdi.site.gitepam.Login;
 import com.epam.jdi.site.gitepam.TableList;
 import com.epam.jdi.site.google.custom.SearchResult;
 import com.epam.jdi.uitests.testing.GoogleTestsBase;
-import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
-import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.web.matcher.testng.Assert;
-import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -24,9 +17,8 @@ import static com.epam.jdi.site.gitepam.Login.loginWith;
 import static com.epam.jdi.site.gitepam.TableList.headers;
 import static com.epam.jdi.site.google.GoogleSite.homePage;
 import static com.epam.jdi.site.google.GoogleSite.searchPage;
-import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
 import static com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit.initPageObjects;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.*;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.openUrl;
 
 
 public class ListElementsExample extends GoogleTestsBase {

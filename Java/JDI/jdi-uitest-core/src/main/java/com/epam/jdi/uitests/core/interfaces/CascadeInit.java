@@ -18,18 +18,6 @@ package com.epam.jdi.uitests.core.interfaces;
  */
 
 
-import static com.epam.commons.LinqUtils.foreach;
-import static com.epam.commons.ReflectionUtils.getFields;
-import static com.epam.commons.ReflectionUtils.getValueField;
-import static com.epam.commons.ReflectionUtils.isInterface;
-import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.commons.TryCatchUtil.tryGetResult;
-import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getFunction;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static java.lang.String.format;
-import static java.lang.reflect.Modifier.isStatic;
-import static java.util.Arrays.asList;
-
 import com.epam.jdi.uitests.core.annotations.Root;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
@@ -38,6 +26,16 @@ import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import static com.epam.commons.LinqUtils.foreach;
+import static com.epam.commons.ReflectionUtils.*;
+import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.commons.TryCatchUtil.tryGetResult;
+import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getFunction;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static java.lang.String.format;
+import static java.lang.reflect.Modifier.isStatic;
+import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.

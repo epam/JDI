@@ -42,7 +42,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.yandex.qatools.allure.Allure;
 import ru.yandex.qatools.allure.events.StepFinishedEvent;
 import ru.yandex.qatools.allure.events.StepStartedEvent;
 
@@ -53,8 +52,8 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
-import static com.epam.web.matcher.base.BaseMatcher.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
+import static com.epam.web.matcher.base.BaseMatcher.setLogAction;
 import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;

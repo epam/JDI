@@ -12,7 +12,7 @@ import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByClass;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Value;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByValue;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -32,7 +32,7 @@ public class JobFilter extends Form<JobSearchFilter> {
                     @FindBy(xpath = "//..//li")}
     ) TreeDropdown<Locations> location;
 
-    @Value("search")
+    @ByValue("search")
     IButton selectButton;
 
     @ByClass("job-search-title")

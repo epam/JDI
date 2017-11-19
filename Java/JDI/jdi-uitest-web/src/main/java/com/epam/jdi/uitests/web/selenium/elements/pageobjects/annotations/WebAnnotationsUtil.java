@@ -32,7 +32,6 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -123,7 +122,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return By.className(locator.value());
     }
 
-    public static By findByToBy(Id locator){
+    public static By findByToBy(ById locator){
         if (locator == null) return null;
         return By.id(locator.value());
     }
@@ -133,16 +132,16 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         return By.name(locator.value());
     }
 
-    public static By findByToBy(Tag locator){
+    public static By findByToBy(ByTag locator){
         if (locator == null) return null;
         return By.tagName(locator.value());
     }
-    public static By findByToBy(Type locator){
+    public static By findByToBy(ByType locator){
         if (locator == null) return null;
         return getAttribute("type", locator.value());
     }
 
-    public static By findByToBy(Text locator){
+    public static By findByToBy(ByText locator){
         if (locator == null) return null;
         return By.xpath(".//*/text()[contains(normalize-space(.), "+
                 Quotes.escape(locator.value())+")]/parent::*");
@@ -162,12 +161,12 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             return getAttribute("ng-repeat", locator.value());
     }
 
-    public static By findByToBy(Title locator){
+    public static By findByToBy(ByTitle locator){
         if (locator == null) return null;
             return getAttribute("title", locator.value());
     }
 
-    public static By findByToBy(Value locator){
+    public static By findByToBy(ByValue locator){
         if (locator == null) return null;
             return getAttribute("value", locator.value());
     }

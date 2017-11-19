@@ -7,7 +7,7 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.TextList;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImagesRoot;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,10 +20,10 @@ public class EpamJDISite extends WebSite {
 
     @JPage(url = "/index.htm", title = "Index Page")
     public static HomePage homePage;
-    @Image("img/")
+    @ImageFile("img/")
     @JPage(url = "/page1.htm", title = "Contact Form")
     public static ContactPage contactFormPage;
-    @Image("img/")
+    @ImageFile("img/")
     @JPage(url = "/page2.htm", title = "Metal and Colors")
     public static MetalsColorsPage metalsColorsPage;
     @JPage(url = "/page3.htm", title = "Support")
@@ -34,12 +34,12 @@ public class EpamJDISite extends WebSite {
     public static DynamicTablePage dynamicTablePage;
     @JPage(url = "/page5.htm", title = "Table Scroll")
     public static SimpleTablePage simpleTablePage;
-    @Image("img/")
+    @ImageFile("img/")
     @JPage(url = "/page6.htm", title = "Simple Table")
     public static DatesPage dates;
     @FindBy(css = ".uui-profile-menu")
     public static Login login;
-    @Image("img/")
+    @ImageFile("img/")
     @FindBy(css = ".footer-content")
     public static Footer footer;
     @FindBy(css = ".uui-header")

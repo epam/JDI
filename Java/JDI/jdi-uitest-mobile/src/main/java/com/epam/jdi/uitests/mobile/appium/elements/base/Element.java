@@ -18,10 +18,8 @@ package com.epam.jdi.uitests.mobile.appium.elements.base;
  */
 
 
-import com.codeborne.selenide.Condition;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
-import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;

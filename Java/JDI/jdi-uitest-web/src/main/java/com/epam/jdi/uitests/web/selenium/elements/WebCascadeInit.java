@@ -359,7 +359,7 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     private String extractImageAnnotationValueFromField(Field field) {
-        Image annotation = field.getAnnotation(Image.class);
+        ImageFile annotation = field.getAnnotation(ImageFile.class);
         if (annotation != null) {
             return annotation.value();
         }
@@ -430,8 +430,8 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(XPath.class)) {
             return findByToBy(field.getAnnotation(XPath.class));
         }
-        if (field.isAnnotationPresent(Text.class)) {
-            return findByToBy(field.getAnnotation(Text.class));
+        if (field.isAnnotationPresent(ByText.class)) {
+            return findByToBy(field.getAnnotation(ByText.class));
         }
         if (field.isAnnotationPresent(Attribute.class)) {
             return findByToBy(field.getAnnotation(Attribute.class));
@@ -439,8 +439,8 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(ByClass.class)) {
             return findByToBy(field.getAnnotation(ByClass.class));
         }
-        if (field.isAnnotationPresent(Id.class)) {
-            return findByToBy(field.getAnnotation(Id.class));
+        if (field.isAnnotationPresent(ById.class)) {
+            return findByToBy(field.getAnnotation(ById.class));
         }
         if (field.isAnnotationPresent(ByName.class)) {
             return findByToBy(field.getAnnotation(ByName.class));
@@ -454,17 +454,17 @@ public class WebCascadeInit extends CascadeInit {
         if (field.isAnnotationPresent(NgModel.class)) {
             return findByToBy(field.getAnnotation(NgModel.class));
         }
-        if (field.isAnnotationPresent(Title.class)) {
-            return findByToBy(field.getAnnotation(Title.class));
+        if (field.isAnnotationPresent(ByTitle.class)) {
+            return findByToBy(field.getAnnotation(ByTitle.class));
         }
-        if (field.isAnnotationPresent(Tag.class)) {
-            return findByToBy(field.getAnnotation(Tag.class));
+        if (field.isAnnotationPresent(ByTag.class)) {
+            return findByToBy(field.getAnnotation(ByTag.class));
         }
-        if (field.isAnnotationPresent(Type.class)) {
-            return findByToBy(field.getAnnotation(Type.class));
+        if (field.isAnnotationPresent(ByType.class)) {
+            return findByToBy(field.getAnnotation(ByType.class));
         }
-        if (field.isAnnotationPresent(Value.class)) {
-            return findByToBy(field.getAnnotation(Value.class));
+        if (field.isAnnotationPresent(ByValue.class)) {
+            return findByToBy(field.getAnnotation(ByValue.class));
         }
         return null;
     }

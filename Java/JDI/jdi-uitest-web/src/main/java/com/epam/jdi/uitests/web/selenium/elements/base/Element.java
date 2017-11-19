@@ -25,11 +25,11 @@ import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import java.nio.file.Paths;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Function;
 

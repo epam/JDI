@@ -4,8 +4,10 @@ package com.epam.jdi.uitests.web.selenium.utils;
  * Uses Sikuli API for comparing provided images with specified web browser layout.
  */
 
+import com.epam.jdi.uitests.core.exceptions.ImageNotFoundException;
 import org.sikuli.script.Screen;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +15,6 @@ import java.util.Set;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-
-import com.epam.jdi.uitests.core.exceptions.ImageNotFoundException;
-import java.io.File;
 
 public class Layout {
 

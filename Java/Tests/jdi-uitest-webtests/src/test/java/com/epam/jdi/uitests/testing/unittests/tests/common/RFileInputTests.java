@@ -10,7 +10,8 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.cssClass;
+import static com.codeborne.selenide.Condition.visible;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.DATES_PAGE_FILLED;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.dates;

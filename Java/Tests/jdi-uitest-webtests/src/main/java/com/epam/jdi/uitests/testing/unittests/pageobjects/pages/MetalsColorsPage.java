@@ -24,7 +24,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindB
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,11 +37,11 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(id = "summary-block")
     public Summary summary;
 
-    @Image("calculate_button.png")
+    @ImageFile("calculate_button.png")
     @FindBy(id = "calculate-button")
     public Label calculate;
 
-    @Image("calculate_button.png")
+    @ImageFile("calculate_button.png")
     @FindBy(id = "calculate-button")
     public Button calculateButton;
     @FindBy(id = "calculate-button")
@@ -151,7 +151,7 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(xpath = "//*[@id='elements-checklist']//*[label[text()='%s']]/label")
     public ICheckList<Nature> natureTemplate;
 
-    @Image("checkbox.png")
+    @ImageFile("checkbox.png")
     @FindBy(xpath = "//*[@id='elements-checklist']//*[text()='Water']")
     public CheckBox cbWater = new CheckBox() {
         @Override

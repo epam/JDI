@@ -12,6 +12,7 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -21,7 +22,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends WebPage {
 
-    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/main_title.png")
+    @ImageFile("img/main_title.png")
     @FindBy(css = ".main-title")
     public Label title;
 
@@ -30,10 +31,10 @@ public class HomePage extends WebPage {
 
     @FindBy(css = ".main-txt")
     public Text text;
-    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/epam_logo.png")
+    @ImageFile("img/epam_logo.png")
     @FindBy(css = ".epam-logo img")
     public Image logoImage;
-    @com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Image("img/about_link.png")
+    @ImageFile("img/about_link.png")
     @FindBy(linkText = "About")
     public Link about;
 
