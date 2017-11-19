@@ -7,7 +7,7 @@ package com.epam.jdi.entities;
 
 public class Users {
     public static final User DEFAULT = new User()
-        .set(u->{u.name="UserTest";u.password="Test Password";});
+        .set(u->{u.login="epam";u.password="1234";});
     public static User currentUser;
 
 }

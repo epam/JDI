@@ -8,7 +8,7 @@ import com.epam.commons.DataClass;
 /*@AllArgsConstructor*/
 
 public class User extends DataClass<User> {
-    public String name;
+    public String login;
     public String password;
 }
 

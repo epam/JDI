@@ -147,7 +147,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
 
         Field[] fields = entity.getClass().getFields();
         row.pairs.forEach(entry
-            -> setEntityField(entity, fields, entry.key, entry.value.getText()));
+                -> setEntityField(entity, fields, entry.key, entry.value.getText()));
         return entity;
     }
 

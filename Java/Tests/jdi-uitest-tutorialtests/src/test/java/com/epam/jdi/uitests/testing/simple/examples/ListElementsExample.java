@@ -1,15 +1,32 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
+import com.epam.commons.LinqUtils;
+import com.epam.commons.StringUtils;
+import com.epam.jdi.entities.Users;
+import com.epam.jdi.site.gitepam.Login;
+import com.epam.jdi.site.gitepam.TableList;
 import com.epam.jdi.site.google.custom.SearchResult;
 import com.epam.jdi.uitests.testing.GoogleTestsBase;
+import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
+import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.web.matcher.testng.Assert;
+import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.epam.commons.LinqUtils.select;
+import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.jdi.site.gitepam.Login.loginWith;
+import static com.epam.jdi.site.gitepam.TableList.headers;
 import static com.epam.jdi.site.google.GoogleSite.homePage;
 import static com.epam.jdi.site.google.GoogleSite.searchPage;
+import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
+import static com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit.initPageObjects;
+import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.*;
 
 
 public class ListElementsExample extends GoogleTestsBase {
@@ -32,21 +49,33 @@ public class ListElementsExample extends GoogleTestsBase {
         homePage.search("jdi");
         Assert.isTrue(searchPage.gitHubJdi.isDisplayed());
         Elements<SearchResult> jobs = searchPage.jobsE;
-//      Assert.areEquals(jobs.size(), 10);
-        String results1 = "";
-        for (SearchResult job : jobs)
-            results1 += " !!! " + job.print();
-        String results2 = "";
-        for (SearchResult job : jobs)
-            results2 += " !!! " + job.print();
-        String results3 = "";
+        String results1 = getJobs(jobs);
+        Assert.ignoreCase().each(select(jobs,
+                j -> j.description.getText())).contains("jdi");
+        String results2 = getJobs(jobs);
+        Assert.ignoreCase().each(select(jobs,
+                j -> j.description.getText())).contains("jdi");
         homePage.search("testing");
-        for (SearchResult job : jobs)
-            results3 += " !!! " + job.print();
+        String results3 = getJobs(jobs);
+        Assert.ignoreCase().each(select(jobs,
+                j -> j.link.getText())).contains("testing");
+
         System.out.println(results1);
         System.out.println(results2);
         System.out.println(results3);
+    }
+    private String getJobs(Elements<SearchResult> jobs) {
+        return "!!!" + String.join(LINE_BREAK, select(jobs, SearchResult::print));
+    }
 
+    @Test
+    public void removeElements() {
+        openUrl("https://epam.github.io/JDI/");
+        initPageObjects(Login.class, TableList.class);
+        loginWith(Users.DEFAULT);
+        openUrl("https://epam.github.io/JDI/page5.htm");
+        String s = headers.toString();
+        System.out.println(headers.toString());
     }
 
 }

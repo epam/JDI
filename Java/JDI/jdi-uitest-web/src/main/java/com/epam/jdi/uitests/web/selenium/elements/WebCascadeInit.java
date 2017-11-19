@@ -122,21 +122,21 @@ public class WebCascadeInit extends CascadeInit {
         return page;
     }
 
-    public static <T> void initPageObject(Class<T>... clazz) {
-        initPageObject(currentDriverName, clazz);
+    public static void initPageObjects(Class<?>... clazz) {
+        initPageObjects(currentDriverName, clazz);
     }
 
-    public static <T> void initPageObject(WebDriver driver, Class<T>... clazz) {
-        initPageObject(useDriver(() -> driver), clazz);
+    public static void initPageObjects(WebDriver driver, Class<?>... clazz) {
+        initPageObjects(useDriver(() -> driver), clazz);
     }
 
-    public static <T> void initPageObject(DriverTypes driver, Class<T>... clazz) {
-        initPageObject(useDriver(driver), clazz);
+    public static void initPageObjects(DriverTypes driver, Class<?>... clazz) {
+        initPageObjects(useDriver(driver), clazz);
     }
 
-    public static <T> void initPageObject(String driverName, Class<T>... classes) {
-        for (Class<T> clazz : classes) {
-            initPageObject(driverName, clazz);
+    public static void initPageObjects(String driverName, Class<?>... classes) {
+        for (Class<?> clazz : classes) {
+            initPageObject(clazz, driverName);
         }
     }
 
