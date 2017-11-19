@@ -39,7 +39,7 @@ public class SupportPage extends WebPage {
     @FindBy(css = ".uui-table")
     public ITable tableWithoutHeaders = new Table().hasNoHeaders();
     @FindBy(css = ".uui-table")
-    public EntityTable<SupportEntity, ?> entityTable = new EntityTable<>(SupportEntity.class);
+    public EntityTable<SupportEntity, ?> entityTable;
     @JTable(
             root = @FindBy(css = "root locator"),
             header = {"header1", "header2"},

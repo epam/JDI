@@ -10,15 +10,17 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.core.settings.JDISettings.verifyLayout;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
-import static java.lang.String.valueOf;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import com.epam.jdi.uitests.core.exceptions.ImageNotFoundException;
+import java.io.File;
+
 public class Layout {
-    private static final Set<String> EXTENSIONS = new HashSet<>(Arrays.asList(".jpg", ".jpeg", ".png"));
+
+    private static final Set<String> EXTENSIONS = new HashSet<>(
+        Arrays.asList(".jpg", ".jpeg", ".png"));
 
     public static boolean verify(String pathToFile) {
         if (!verifyLayout || isBlank(pathToFile)) return true;
@@ -28,11 +30,12 @@ public class Layout {
         }
         return findMatch(pathToFile);
     }
+
     /**
-     * Verifies that provided files are in .jpg, .jpeg or .png formats.
-     * This is a kind of compulsory measure, as Sikuli handles non-image types incorrectly.
+     * Verifies that provided files are in .jpg, .jpeg or .png formats. This is a kind of compulsory
+     * measure, as Sikuli handles non-image types incorrectly.
      *
-     * @param  pathToImage path to image: C:/Screenshots/img1.jpeg
+     * @param pathToImage path to image: C:/Screenshots/img1.jpeg
      */
     private static boolean verifyImageFormat(String pathToImage) {
         int dot = pathToImage.lastIndexOf(".");
@@ -44,16 +47,29 @@ public class Layout {
     }
 
     /**
+     *
+     * @param path
+     */
+    public static void validateImagePath(String path) {
+        if (path == null || !(new File(path)).exists()) {
+            throw new ImageNotFoundException("Image not found: " + path);
+        }
+    }
+
+    /**
      * Returns Match object, if a match was found.
      *
      * @return null, if match was not found.
      */
     private static boolean findMatch(String pathToFile) {
+        validateImagePath(pathToFile);
+
         if (!driverFactory.hasRunDrivers()) {
             logger.info("Driver not run");
             return false;
         }
         return screen.exists(pathToFile) != null;
     }
+
     private static Screen screen = new Screen();
 }

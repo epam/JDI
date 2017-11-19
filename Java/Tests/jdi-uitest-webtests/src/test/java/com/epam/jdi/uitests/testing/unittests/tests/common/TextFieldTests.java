@@ -37,7 +37,7 @@ public class TextFieldTests extends InitTests {
 
     public TextFieldTests(String elementType, Preconditions page, Supplier<ITextField> textItem,
                           String inputText, String expectedText, String text,
-                          String contains, String  regex){
+                          String contains, String regex) {
         this.elementType = elementType;
         this.page = page;
         this.textField = textItem;
@@ -79,7 +79,7 @@ public class TextFieldTests extends InitTests {
 
     @Test
     public void multiKeyTest() throws Exception {
-        for(char letter : inputText.toCharArray())
+        for (char letter : inputText.toCharArray())
             textField.get().sendKeys(Character.toString(letter));
         assertEquals(textField.get().getText(), text + expectedText);
     }

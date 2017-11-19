@@ -1,8 +1,8 @@
 package com.epam.jdi.http.cucumber.stepdefs.ru;
 
 import com.epam.http.requests.ResponseStatusType;
-import cucumber.api.java.ru.Тогда;
 import cucumber.api.java.ru.И;
+import cucumber.api.java.ru.Тогда;
 import org.testng.Assert;
 
 import static com.epam.jdi.http.cucumber.Utils.performanceResult;

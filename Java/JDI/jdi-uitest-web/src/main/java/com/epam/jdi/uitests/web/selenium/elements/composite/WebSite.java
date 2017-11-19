@@ -32,7 +32,6 @@ public class WebSite extends Application {
     private static  String DEFAULT_PATH = "src/test/resources/layout";
 
     public static <T> void init(String driverName, Class<T>... sites) {
-
         for (Class<T> site : sites)
             new WebCascadeInit().initStaticPages(site, driverName);
         currentSite = sites[sites.length-1];
@@ -56,5 +55,9 @@ public class WebSite extends Application {
      */
     public static void open(){
         getDriver().navigate().to(domain);
+    }
+    public static void shouldBeOpened(){
+        if (!getDriver().getCurrentUrl().contains(domain))
+            open();
     }
 }

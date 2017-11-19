@@ -8,6 +8,8 @@ import org.slf4j.Logger;
  * Created by Roman_Iovlev on 7/17/2016.
  */
 public class JUnitCheck extends Check implements IAsserter {
-    public IAsserter setUpLogger(Logger logger) { super.setLogger(logger); return this; }
-
+    public IAsserter setUpLogger(Logger logger) {
+        super.setLogger(logger);
+        return this;
+    }
 }

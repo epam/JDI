@@ -78,7 +78,8 @@ public class ScreenshotMaker {
         if (!driverFactory.hasRunDrivers())
             return "Can't do Screenshot. No Drivers run";
         String path = new File(".").getCanonicalPath() + getValidUrl(pathSuffix);
-        String screensFilePath = getFileName(path + (testName != null ? testName : "screen") + Timer.nowDate().replace(":", "-"));
+        String screensFilePath = getFileName(path + (testName != null ? testName : "screen")
+                + Timer.nowDate().replace(":", "-"));
         new File(screensFilePath).getParentFile().mkdirs();
         File screensFile = ((TakesScreenshot) driverFactory.getDriver()).getScreenshotAs(FILE);
         copyFile(screensFile, new File(screensFilePath));
