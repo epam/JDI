@@ -32,6 +32,8 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by roman.i on 25.09.2014.
@@ -39,13 +41,9 @@ import static java.lang.String.format;
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static String getUrlFromUri(String uri, Class<?> parentClass) {
-        if (parentClass.isAnnotationPresent(JSite.class)) {
-            domain = parentClass.getAnnotation(JSite.class).value();
-        }
-        String siteDomain = domain;
-        if (siteDomain == null)
-            siteDomain = "";
-        return siteDomain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
+        return isNotBlank(domain.get())
+                ? domain.get().replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "")
+                : "";
     }
 
     public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation, Class<?> parentClass) {

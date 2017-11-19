@@ -50,6 +50,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
+import static com.epam.web.matcher.base.BaseMatcher.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
@@ -59,10 +60,10 @@ import static java.util.Arrays.asList;
  * Created by Roman_Iovlev on 11/13/2015.
  */
 public class WebSettings extends JDISettings {
-    public static String domain;
+    public static ThreadLocal<String> domain = new ThreadLocal<>();
     public static String killBrowser;
     public static boolean hasDomain() {
-        return domain != null && domain.contains("://");
+        return domain.get() != null && domain.get().contains("://");
     }
 
     public static WebDriver getDriver() {
@@ -107,7 +108,7 @@ public class WebSettings extends JDISettings {
     public static synchronized void initFromProperties() throws IOException {
         init();
         JDISettings.initFromProperties();
-        fillAction(p -> domain = p, "domain");
+        fillAction(p -> domain.set(p), "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
@@ -143,6 +144,7 @@ public class WebSettings extends JDISettings {
         }, "browser.size");
         fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
         initialized = true;
+        setLogAction(s -> logger.step(s));
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
