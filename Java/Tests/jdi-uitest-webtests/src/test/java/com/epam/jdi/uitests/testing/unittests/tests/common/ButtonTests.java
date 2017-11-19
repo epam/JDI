@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -44,6 +45,12 @@ public class ButtonTests extends InitTests {
         return new Object[]{
                 new TextTests("Button", METALS_AND_COLORS_PAGE, button::get, "CALCULATE", "CUL", ".*LCU.*")
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        button.get().shouldHave(text("Calculate"), attribute("id", "calculate-button"), type("submit"))
+                .shouldBe(visible, enabled);
     }
 
     @Test

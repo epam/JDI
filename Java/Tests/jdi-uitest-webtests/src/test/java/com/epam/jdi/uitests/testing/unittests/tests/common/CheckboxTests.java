@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -94,5 +95,11 @@ public class CheckboxTests extends InitTests {
     @Test
     public void imageIsDisplayedTest(){
         Assert.assertTrue(checkBox().isDisplayed());
+    }
+
+    @Test
+    public void shouldTest(){
+        checkBox().shouldNotBe(checked)
+                .shouldHave(exactText("Water"));
     }
 }
