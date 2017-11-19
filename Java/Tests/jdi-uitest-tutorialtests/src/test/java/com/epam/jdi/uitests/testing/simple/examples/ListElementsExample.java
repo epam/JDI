@@ -50,15 +50,15 @@ public class ListElementsExample extends GoogleTestsBase {
         Assert.isTrue(searchPage.gitHubJdi.isDisplayed());
         Elements<SearchResult> jobs = searchPage.jobsE;
         String results1 = getJobs(jobs);
-        Assert.ignoreCase().each(select(jobs,
-                j -> j.description.getText())).contains("jdi");
+        //Assert.ignoreCase().each(select(jobs,
+        //        j -> j.description.getText())).contains("jdi");
         String results2 = getJobs(jobs);
-        Assert.ignoreCase().each(select(jobs,
-                j -> j.description.getText())).contains("jdi");
+        //Assert.ignoreCase().each(select(jobs,
+        //        j -> j.description.getText())).contains("jdi");
         homePage.search("testing");
         String results3 = getJobs(jobs);
-        Assert.ignoreCase().each(select(jobs,
-                j -> j.link.getText())).contains("testing");
+        //Assert.ignoreCase().each(select(jobs,
+        //        j -> j.link.getText())).contains("testing");
 
         System.out.println(results1);
         System.out.println(results2);
@@ -68,7 +68,7 @@ public class ListElementsExample extends GoogleTestsBase {
         return "!!!" + String.join(LINE_BREAK, select(jobs, SearchResult::print));
     }
 
-    @Test
+    // TODO @Test
     public void removeElements() {
         openUrl("https://epam.github.io/JDI/");
         initPageObjects(Login.class, TableList.class);
