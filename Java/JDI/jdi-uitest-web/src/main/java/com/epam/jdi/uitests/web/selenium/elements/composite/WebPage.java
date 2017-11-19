@@ -47,8 +47,7 @@ public class WebPage extends BaseElement implements IPage {
     public static WebPage currentPage;
     private String imageRoot;
 
-    public WebPage() {
-    }
+    public WebPage() { }
 
     public WebPage(String url) {
         this.url = url;

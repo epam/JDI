@@ -3,7 +3,6 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.web.matcher.testng.Assert;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
@@ -11,13 +10,6 @@ import static com.epam.jdi.enums.HeaderMenu.CAREERS;
 import static com.epam.jdi.site.epam.EpamSite.*;
 
 public class CareerTests extends TestsBase {
-
-    @Test
-    public void simpleTest() {
-        headerMenu.select(CAREERS);
-        careerPage.checkOpened();
-        Assert.areEquals("test", "test");
-    }
 
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {

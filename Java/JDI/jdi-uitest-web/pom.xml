@@ -95,6 +95,11 @@
             <artifactId>selenium-remote-driver</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-adaptor-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

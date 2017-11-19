@@ -42,6 +42,9 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import ru.yandex.qatools.allure.Allure;
+import ru.yandex.qatools.allure.events.StepFinishedEvent;
+import ru.yandex.qatools.allure.events.StepStartedEvent;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,6 +58,7 @@ import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
+import static ru.yandex.qatools.allure.Allure.LIFECYCLE;
 
 /**
  * Created by Roman_Iovlev on 11/13/2015.
@@ -144,7 +148,11 @@ public class WebSettings extends JDISettings {
         }, "browser.size");
         fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
         initialized = true;
-        setLogAction(s -> logger.step(s));
+        setLogAction(s -> {
+            LIFECYCLE.fire(new StepStartedEvent(s));
+            logger.step(s);
+            LIFECYCLE.fire(new StepFinishedEvent());
+        });
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{
