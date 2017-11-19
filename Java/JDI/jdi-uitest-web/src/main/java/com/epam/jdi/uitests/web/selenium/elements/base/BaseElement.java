@@ -251,38 +251,26 @@ public abstract class BaseElement implements IBaseElement {
                 getName(), getTypeName(), getParentName(), getVarName(), avatar);
     }
 
-    @Override
     public IBaseElement should(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
                 Assert.assertEquals(condition.apply(getAvatar().getElement()), true));
 
         return this;
     }
-
-    @Override
     public IBaseElement shouldHave(Condition... conditions){
         return should(conditions);
     }
-
-    @Override
     public IBaseElement shouldBe(Condition... conditions){
         return should(conditions);
     }
-
-    @Override
     public IBaseElement shouldNot(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
                 Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
-
         return this;
     }
-
-    @Override
     public IBaseElement shouldNotHave(Condition... conditions){
         return shouldNot(conditions);
     }
-
-    @Override
     public IBaseElement shouldNotBe(Condition... conditions){
         return shouldNot(conditions);
     }

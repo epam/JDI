@@ -135,12 +135,11 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @return Check is Element visible
      */
     public boolean isDisplayed() {
-        if (imgPath == null) {
-            return actions.isDisplayed(this::isDisplayedAction);
-        } else {
-            return actions.isDisplayed(this::isDisplayedAction)
-                    && Layout.verify(generateImgPath());
-        }
+        return actions.isDisplayed(this::isDisplayedAction) && imgPath == null
+                || Layout.verify(getImagePath(imgPath));
+    }
+    public boolean verifyView(String imagePath) {
+        return Layout.verify(getImagePath(imagePath));
     }
 
     @Override
@@ -156,7 +155,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
         }
     }
 
-    private String generateImgPath() {
+    protected String getImagePath(String imgPath) {
         return Paths.get(WebSite.getDefaultPath()).toAbsolutePath().toString().replace('\\', '/') + imgPath;
     }
 

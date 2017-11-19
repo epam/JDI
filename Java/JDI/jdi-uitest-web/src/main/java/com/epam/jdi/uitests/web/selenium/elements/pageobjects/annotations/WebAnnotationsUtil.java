@@ -46,7 +46,9 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
     }
 
     public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation, Class<?> parentClass) {
-        String url = pageAnnotation.url();
+        String url = pageAnnotation.url().equals("")
+            ? pageAnnotation.value()
+            : pageAnnotation.url();
         if (!url.contains("://"))
             url = getUrlFromUri(url, parentClass);
         String title = pageAnnotation.title();
