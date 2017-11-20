@@ -24,7 +24,7 @@ public class JobFilter extends Form<JobSearchFilter> {
         root = @FindBy(css = ".multi-select-department"),
         expand = @FindBy(css = ".default-label"),
         list = @FindBy(css = ".multi-select-dropdown li"))
-    IDropDown category;
+    public IDropDown category;
 
     @JTree(
         select = @FindBy(className = "career-location-box"),

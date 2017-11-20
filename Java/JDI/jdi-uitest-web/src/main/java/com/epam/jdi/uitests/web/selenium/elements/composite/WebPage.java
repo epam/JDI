@@ -21,8 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -45,7 +45,6 @@ public class WebPage extends BaseElement implements IPage {
     public CheckPageTypes checkTitleType = CheckPageTypes.EQUAL;
     public String urlTemplate;
     public static WebPage currentPage;
-    private String imageRoot;
 
     public WebPage() { }
 
@@ -68,16 +67,6 @@ public class WebPage extends BaseElement implements IPage {
 
     public static String getTitle() {
         return WebSettings.getDriver().getTitle();
-    }
-
-    @Override
-    public String getImageRoot() {
-        return this.imageRoot;
-    }
-
-    @Override
-    public void setImageRoot(String imageRoot) {
-        this.imageRoot = imageRoot;
     }
 
     public void updatePageData(String url, String title, CheckPageTypes checkUrlType, CheckPageTypes checkTitleType, String urlTemplate) {

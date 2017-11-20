@@ -41,7 +41,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static String getUrlFromUri(String uri, Class<?> parentClass) {
         return isNotBlank(domain.get())
-                ? domain.get().replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "")
+                ? domain.get().replaceAll("/*$", "/") + uri.replaceAll("^/*", "")
                 : "";
     }
 

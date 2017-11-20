@@ -6,6 +6,7 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionScenarios;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ElementsActions;
@@ -19,6 +20,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
@@ -47,8 +49,6 @@ public abstract class BaseElement implements IBaseElement {
         this(null);
     }
 
-    public String getImgPath() { return null; }
-    public void setImgPath(String imgPath) { }
     public BaseElement(Pattern pattern) {
         avatar = new GetElementModule(pattern == null ? null : pattern, this);
     }
@@ -141,5 +141,19 @@ public abstract class BaseElement implements IBaseElement {
     }
     public IBaseElement shouldNotBe(Condition... conditions){
         return shouldNot(conditions);
+    }
+
+    public boolean verifyLayout(String imgPath) {
+        return Layout.verify(getFullImagePath(imgPath));
+    }
+    private String imgPath;
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+    protected String getFullImagePath(String imgPath) {
+        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
     }
 }

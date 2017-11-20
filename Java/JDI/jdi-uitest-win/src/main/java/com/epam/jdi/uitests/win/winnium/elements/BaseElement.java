@@ -8,12 +8,14 @@ import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.JDISettings;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.win.winnium.actions.ActionInvoker;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import com.epam.web.matcher.junit.Assert;
 import org.openqa.selenium.By;
 
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -42,8 +44,6 @@ public abstract class BaseElement implements IBaseElement {
         return avatar.getByLocator();
     }
 
-    public String getImgPath() { return null; }
-    public void setImgPath(String imgPath) { }
     @Override
     public GetElementModule getAvatar() {
         return avatar;
@@ -178,4 +178,20 @@ public abstract class BaseElement implements IBaseElement {
     public IBaseElement shouldNotBe(Condition... conditions){
         return shouldNot(conditions);
     }
+
+    public boolean verifyLayout(String imgPath) {
+        return Layout.verify(getFullImagePath(imgPath));
+    }
+    private String imgPath;
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+    protected String getFullImagePath(String imgPath) {
+        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
+    }
+
+
 }

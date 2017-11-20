@@ -5,7 +5,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.web.robot.RFileInput;
 import com.epam.jdi.uitests.web.selenium.elements.common.DatePicker;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.ImageFile;
 import org.openqa.selenium.support.FindBy;
 
 /**

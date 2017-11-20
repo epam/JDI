@@ -7,7 +7,7 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextArea;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.ImageFile;
 import org.openqa.selenium.support.FindBy;
 
 /**

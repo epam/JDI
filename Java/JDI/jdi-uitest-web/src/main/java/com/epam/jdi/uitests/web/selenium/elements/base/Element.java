@@ -22,20 +22,18 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
-import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.Layout.shouldVerifyLayout;
 import static java.lang.String.format;
 
 /**
@@ -48,9 +46,6 @@ import static java.lang.String.format;
  * @author Zharov Alexandr
  */
 public class Element extends BaseElement implements IElement, IHasElement {
-
-    private String imgPath;
-
     public Element() {
         super();
     }
@@ -135,28 +130,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @return Check is Element visible
      */
     public boolean isDisplayed() {
-        return actions.isDisplayed(this::isDisplayedAction) && imgPath == null
-                || Layout.verify(getImagePath(imgPath));
-    }
-    public boolean verifyView(String imagePath) {
-        return Layout.verify(getImagePath(imagePath));
-    }
-
-    @Override
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    @Override
-    public void setImgPath(String imgPath) {
-        try {
-            this.imgPath = imgPath;
-        } catch (Exception ex) {
-        }
-    }
-
-    protected String getImagePath(String imgPath) {
-        return Paths.get(WebSite.getDefaultPath()).toAbsolutePath().toString().replace('\\', '/') + imgPath;
+        if (!actions.isDisplayed(this::isDisplayedAction))
+            return false;
+        return !shouldVerifyLayout || verifyLayout(getImgPath());
     }
 
     protected void waitDisplayedAction() {

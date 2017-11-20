@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple;
+package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

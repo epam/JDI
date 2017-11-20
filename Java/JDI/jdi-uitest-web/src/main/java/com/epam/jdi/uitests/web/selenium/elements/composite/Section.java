@@ -25,4 +25,5 @@ import com.epam.jdi.uitests.web.selenium.elements.base.Element;
  * Created by Roman_Iovlev on 7/10/2015.
  */
 public class Section extends Element implements IComposite {
+
 }

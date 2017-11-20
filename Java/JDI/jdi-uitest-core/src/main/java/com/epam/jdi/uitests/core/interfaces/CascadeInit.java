@@ -24,7 +24,6 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.foreach;
@@ -87,7 +86,7 @@ public abstract class CascadeInit {
             }
             instance.setTypeName(type.getSimpleName());
             field.set(parent, instance);
-            preInitElements(parent,parentType,field,driverName);
+            setImage(parent, instance, field);
             if (isInterface(field, IComposite.class)) {
                 initElements(instance, driverName);
             }
@@ -98,11 +97,7 @@ public abstract class CascadeInit {
         }
     }
 
-    protected void preInitElements(Object parent, Class<?> parentType,
-                                   Field field, String driverName)
-        throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
-
-    }
+    protected void setImage(Object parent, IBaseElement instance, Field field) { }
 
     private IBaseElement getInstancePage(Object parent, Field field, Class<?> type,
                                          Class<?> parentType)

@@ -2,7 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.sections;
 
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ImageFile;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.ImageFile;
 import org.openqa.selenium.support.FindBy;
 
 /**

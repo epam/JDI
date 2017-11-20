@@ -24,6 +24,7 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.mobile.appium.elements.actions.ElementsActions;
@@ -36,6 +37,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -62,8 +64,6 @@ public abstract class BaseElement implements IBaseElement {
         if (text == null || text.equals("")) return;
         action.accept(text.equals("#CLEAR#") ? "" : text);
     };
-    public String getImgPath() { return null; }
-    public void setImgPath(String imgPath) { }
     public Functions function = Functions.NONE;
     public void setFunction(Functions function) { this.function = function; }
     public GetElementModule avatar;
@@ -231,5 +231,20 @@ public abstract class BaseElement implements IBaseElement {
     }
     public IBaseElement shouldNotBe(Condition... conditions){
         return shouldNot(conditions);
+    }
+
+
+    public boolean verifyLayout(String imgPath) {
+        return Layout.verify(getFullImagePath(imgPath));
+    }
+    private String imgPath;
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+    protected String getFullImagePath(String imgPath) {
+        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
     }
 }

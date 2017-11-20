@@ -31,8 +31,6 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 public class WebSite extends Application {
 
-    private static String DEFAULT_PATH = "src/test/resources/layout";
-
     public static <T> void init(String driverName, Class<T>... sites) {
         for (Class<T> site : sites) {
             if (site.isAnnotationPresent(JSite.class)) {
@@ -50,13 +48,6 @@ public class WebSite extends Application {
         init(driverName, sites);
     }
 
-    public static String getDefaultPath() {
-        return DEFAULT_PATH;
-    }
-
-    public static void setDefaultPath(String defaultPath) {
-        DEFAULT_PATH = defaultPath;
-    }
     /**
      * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
      */
