@@ -278,6 +278,7 @@ public abstract class BaseElement implements IBaseElement {
     }
 
     public boolean verifyLayout(String imgPath) {
+        logger.step(format("Verify element %s view (%s)", getName(), imgPath));
         return Layout.verify(getFullImagePath(imgPath));
     }
 
