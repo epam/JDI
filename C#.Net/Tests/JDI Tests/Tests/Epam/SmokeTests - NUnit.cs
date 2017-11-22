@@ -23,7 +23,7 @@ namespace JDI_Tests.Tests.Epam
             JobListingPage.CheckOpened();
             //new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
             //new Timer().Wait(() => !JobListingPage.JobsList.Empty);
-            JobListingPage.GetJobRowByName("QA Specialist");
+            JobListingPage.GetJobRowByName("Test Automation Engineer (back-end)");
             JobDescriptionPage.AddCvForm.Submit(attendee);
             //new Check("Captcha").Contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
         }

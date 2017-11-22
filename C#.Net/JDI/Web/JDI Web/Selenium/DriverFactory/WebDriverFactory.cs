@@ -155,7 +155,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 driver.Manage().Window.Maximize();
             else
                 driver.Manage().Window.Size = BrowserSize;
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.WaitElementSec));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(Timeouts.WaitElementSec);
             return driver;
         };
 

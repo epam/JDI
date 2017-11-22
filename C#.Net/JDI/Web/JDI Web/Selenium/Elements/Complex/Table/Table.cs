@@ -415,9 +415,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
         {
             get
             {
-                WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.Zero);
+                WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero;
                 var rowsCount = Rows.GetCount(true);
-                WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.CurrentTimeoutSec));
+                WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(Timeouts.CurrentTimeoutSec);
                 return rowsCount == 0;
             }
         }
