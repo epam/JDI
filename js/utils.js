@@ -379,10 +379,10 @@ function initPaging() {
             $('.next').addClass('disable');
             $('.last').addClass('disable');
         }
-        for (var i = 1; i < pages.length; i++) {
-            var str = (i == num) ? ' class="active"' : '';
-            $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
-        }
+        //for (var i = 1; i < pages.length; i++) {
+        //    var str = (i == num) ? ' class="active"' : '';
+        //    $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
+        //}
         if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1].substring(1, pages[num + 1].length));
         if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1].substring(1, pages[num - 1].length));
         $('.first:not(.disable) a').attr('href', pages[1].substring(1, pages[1].length));
