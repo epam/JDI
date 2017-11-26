@@ -1,3 +1,5 @@
+var pages = ['/index.html', '/contacts.html', '/support.html', '/dates.html', '/complex-table.html', '/simple-table.html', '/table-pages.html', '/different-elements.html', '/metals-colors.html']
+
 var data = {};
 var sliderCheck = {};
 
@@ -12,7 +14,7 @@ $(document).ready(function () {
         $('.salad ul').hide();
     });
     $('.epam-logo').click(function () {
-        location.href = "/index.html";
+        location.href = pages[0].substring(1, pages[0].length);
     });
     $('.metals input').val($('.metals select').val());
     $(':radio').bind('click', function (event) {
@@ -234,7 +236,7 @@ $(document).ready(function () {
     $('.search').bind('click', function (event) {
         event.stopPropagation();
         if ($(event.target).hasClass('active') && $('.search input').val()) {
-            location.href = "/metals-colors.html";
+            location.href = pages[2].substring(1, pages[2].length);
         }
     });
     $('.uui-profile-menu a').bind('click', function () {
@@ -322,7 +324,7 @@ function checkLogin() {
         $('.profile-photo span').removeClass('hidden');
     } else {
         if (location.pathname.indexOf(pages[0]) < 0)
-            location.href = "/index.html";
+            location.href = pages[0].substring(1, pages[0].length);
         $('.dropdown-menu-login form').removeClass('hidden');
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
@@ -355,7 +357,7 @@ function reformTitle(cname) {
 
 function initPaging() {
 
-    /*var testLocArr = location.pathname.split('/');
+    var testLocArr = location.pathname.split('/');
     var testLoc = '';
     if (testLocArr.length > 0)
         testLoc = '/' + testLocArr[testLocArr.length - 1];
@@ -364,14 +366,12 @@ function initPaging() {
     var num = pages.indexOf(testLoc);
     var linum = (num < 2) ? num : num + 1;
     $('.sidebar-menu li').removeClass('active');
-    $($('.sidebar-menu li')[linum]).addClass('active');*/
-	var testLocArr = location.pathname.split('/')
-    var linum = testLocArr[testLocArr.length - 1]
-    if (linum != "index.html" && linum != "contacts.html" && linum != "metals-colors.html") {
+    $($('.sidebar-menu li')[linum]).addClass('active');
+    if (linum == 3 || linum == 4 || linum == 5 || linum == 6 || linum == 7 || linum == 8) {
         $($('.sidebar-menu li')[2]).addClass('active');
         $('.sidebar-menu li .sub').show();
     }
-    /*if ($('.uui-pagination')) {
+    if ($('.uui-pagination')) {
         if (num == 1) {
             $('.prev').addClass('disable');
             $('.first').addClass('disable');
@@ -383,10 +383,10 @@ function initPaging() {
         //    var str = (i == num) ? ' class="active"' : '';
         //    $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
         //}
-        //if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1].substring(1, pages[num + 1].length));
-        //if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1].substring(1, pages[num - 1].length));
-        //$('.first:not(.disable) a').attr('href', pages[1].substring(1, pages[1].length));
-        //$('.last:not(.disable) a').attr('href', pages[pages.length - 1].substring(1, pages[pages.length - 1].length));*/
+        if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1].substring(1, pages[num + 1].length));
+        if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1].substring(1, pages[num - 1].length));
+        $('.first:not(.disable) a').attr('href', pages[1].substring(1, pages[1].length));
+        $('.last:not(.disable) a').attr('href', pages[pages.length - 1].substring(1, pages[pages.length - 1].length));
     }
 }
 
