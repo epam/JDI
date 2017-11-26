@@ -11,9 +11,9 @@ $(document).ready(function () {
         closeSearch();
         $('.salad ul').hide();
     });
-    //$('.epam-logo').click(function () {
-    //    location.href = pages[0].substring(1, pages[0].length);
-    //});
+    $('.epam-logo').click(function () {
+        location.href = "/index.html";
+    });
     $('.metals input').val($('.metals select').val());
     $(':radio').bind('click', function (event) {
         var descr = (this.name == 'custom_radio_odd') ? 'Summary (Odd)' : '';
@@ -231,12 +231,12 @@ $(document).ready(function () {
             openSearch();
         }
     });
-    //$('.search').bind('click', function (event) {
-    //    event.stopPropagation();
-    //    if ($(event.target).hasClass('active') && $('.search input').val()) {
-    //        location.href = pages[2].substring(1, pages[2].length);
-    //    }
-    //});
+    $('.search').bind('click', function (event) {
+        event.stopPropagation();
+        if ($(event.target).hasClass('active') && $('.search input').val()) {
+            location.href = "/metals-colors.html";
+        }
+    });
     $('.uui-profile-menu a').bind('click', function () {
         $('.login-txt').addClass('hidden');
     });
@@ -321,8 +321,8 @@ function checkLogin() {
         $('.dropdown-menu-login .logout').removeClass('hidden');
         $('.profile-photo span').removeClass('hidden');
     } else {
-        //if (location.pathname.indexOf(pages[0]) < 0)
-        //    location.href = pages[0].substring(1, pages[0].length);
+        if (location.pathname.indexOf(pages[0]) < 0)
+            location.href = "/index.html";
         $('.dropdown-menu-login form').removeClass('hidden');
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
@@ -364,11 +364,13 @@ function initPaging() {
     var num = pages.indexOf(testLoc);
     var linum = (num < 2) ? num : num + 1;
     $('.sidebar-menu li').removeClass('active');
-    $($('.sidebar-menu li')[linum]).addClass('active');
-    if (linum == 3 || linum == 4 || linum == 5 || linum == 6 || linum == 7 || linum == 8) {
+    $($('.sidebar-menu li')[linum]).addClass('active');*/
+	var testLocArr = location.pathname.split('/')
+    var linum = testLocArr[testLocArr.length - 1]
+    if (linum != "index.html" && linum != "contacts.html" && linum != "metals-colors.html") {
         $($('.sidebar-menu li')[2]).addClass('active');
         $('.sidebar-menu li .sub').show();
-    }*/
+    }
     /*if ($('.uui-pagination')) {
         if (num == 1) {
             $('.prev').addClass('disable');
@@ -376,7 +378,7 @@ function initPaging() {
         } else if (num == pages.length - 1) {
             $('.next').addClass('disable');
             $('.last').addClass('disable');
-        }*/
+        }
         //for (var i = 1; i < pages.length; i++) {
         //    var str = (i == num) ? ' class="active"' : '';
         //    $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
@@ -384,7 +386,7 @@ function initPaging() {
         //if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1].substring(1, pages[num + 1].length));
         //if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1].substring(1, pages[num - 1].length));
         //$('.first:not(.disable) a').attr('href', pages[1].substring(1, pages[1].length));
-        //$('.last:not(.disable) a').attr('href', pages[pages.length - 1].substring(1, pages[pages.length - 1].length));
+        //$('.last:not(.disable) a').attr('href', pages[pages.length - 1].substring(1, pages[pages.length - 1].length));*/
     }
 }
 
