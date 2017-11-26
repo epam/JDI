@@ -48,6 +48,7 @@ body {
     flex-direction: column;
     justify-content: flex-end;
 }
+header { z-index: 1001 }
 
 .wrapper{
     /*min-height: 100%;*/

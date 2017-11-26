@@ -1,4 +1,4 @@
-var pages = ['/index.html', '/contacts.html', '/support.html', '/dates.html', '/complex-table.html', '/simple-table.html', '/table-pages.html', '/different-elements.html', '/metals-colors.html']
+var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html']
 
 var data = {};
 var sliderCheck = {};
@@ -12,9 +12,6 @@ $(document).ready(function () {
     $('html').click(function () {
         closeSearch();
         $('.salad ul').hide();
-    });
-    $('.epam-logo').click(function () {
-        location.href = pages[0].substring(1, pages[0].length);
     });
     $('.metals input').val($('.metals select').val());
     $(':radio').bind('click', function (event) {
@@ -236,7 +233,7 @@ $(document).ready(function () {
     $('.search').bind('click', function (event) {
         event.stopPropagation();
         if ($(event.target).hasClass('active') && $('.search input').val()) {
-            location.href = pages[2].substring(1, pages[2].length);
+            location.href = pages[2];
         }
     });
     $('.uui-profile-menu a').bind('click', function () {
@@ -324,7 +321,7 @@ function checkLogin() {
         $('.profile-photo span').removeClass('hidden');
     } else {
         if (location.pathname.indexOf(pages[0]) < 0)
-            location.href = pages[0].substring(1, pages[0].length);
+            location.href = pages[0];
         $('.dropdown-menu-login form').removeClass('hidden');
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
@@ -360,7 +357,7 @@ function initPaging() {
     var testLocArr = location.pathname.split('/');
     var testLoc = '';
     if (testLocArr.length > 0)
-        testLoc = '/' + testLocArr[testLocArr.length - 1];
+        testLoc = testLocArr[testLocArr.length - 1];
     else testLoc = location.pathname;
 
     var num = pages.indexOf(testLoc);
@@ -383,10 +380,10 @@ function initPaging() {
         //    var str = (i == num) ? ' class="active"' : '';
         //    $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
         //}
-        if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1].substring(1, pages[num + 1].length));
-        if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1].substring(1, pages[num - 1].length));
-        $('.first:not(.disable) a').attr('href', pages[1].substring(1, pages[1].length));
-        $('.last:not(.disable) a').attr('href', pages[pages.length - 1].substring(1, pages[pages.length - 1].length));
+        if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1]);
+        if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1]);
+        $('.first:not(.disable) a').attr('href', pages[1]);
+        $('.last:not(.disable) a').attr('href', pages[pages.length - 1]);
     }
 }
 
