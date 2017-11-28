@@ -6,6 +6,7 @@ import com.epam.http.annotations.GET;
 import com.epam.http.annotations.PATCH;
 import com.epam.http.annotations.POST;
 import com.epam.http.annotations.PUT;
+import com.epam.http.annotations.QueryParameter;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -57,6 +58,26 @@ public class ServiceInit {
             List<Header> headers = asList(
                 field.getAnnotation(Headers.class).value());
             method.addHeaders(headers);
+        }
+        /* Case for class annotations*/
+        if (c.isAnnotationPresent(QueryParameter.class)) {
+            method.spec.queryParam(c.getAnnotation(QueryParameter.class).name(),
+                    c.getAnnotation(QueryParameter.class).value());
+        }
+        if (c.isAnnotationPresent(QueryParameters.class)) {
+            List<QueryParameter> qParameters = asList(
+                    c.getAnnotation(QueryParameters.class).value());
+            method.addQueryParameters(qParameters);
+        }
+        /* Case for method annotations*/
+        if (field.isAnnotationPresent(QueryParameter.class)) {
+            method.spec.queryParam(field.getAnnotation(QueryParameter.class).name(),
+                    field.getAnnotation(QueryParameter.class).value());
+        }
+        if (field.isAnnotationPresent(QueryParameters.class)) {
+            List<QueryParameter> qParameters = asList(
+                    field.getAnnotation(QueryParameters.class).value());
+            method.addQueryParameters(qParameters);
         }
         return method;
     }

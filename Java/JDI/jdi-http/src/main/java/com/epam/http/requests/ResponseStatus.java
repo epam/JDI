@@ -1,7 +1,7 @@
 package com.epam.http.requests;
 
 import com.epam.commons.DataClass;
-import com.jayway.restassured.response.Response;
+import io.restassured.response.Response;
 
 import static com.epam.http.requests.ResponseStatusType.getStatusType;
 

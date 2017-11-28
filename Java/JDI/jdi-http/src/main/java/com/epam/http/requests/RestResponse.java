@@ -2,9 +2,9 @@ package com.epam.http.requests;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jayway.restassured.response.Header;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.response.ValidatableResponse;
+import io.restassured.http.Header;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 
 import java.util.List;
 import java.util.function.Function;
@@ -28,6 +28,7 @@ public class RestResponse {
     public RestResponse(Response raResponse, long time) {
         this.raResponse = raResponse;
         responseTimeMSec = time;
+        raResponse.prettyPrint();
     }
 
     public boolean verify(Function<RestResponse, Boolean> validator) {
@@ -74,13 +75,14 @@ public class RestResponse {
     public long responseTime() { return responseTimeMSec; }
 
     public ValidatableResponse assertThat() { return raResponse.then(); }
-    public void assertStatus(int code, ResponseStatusType type) {
+    public RestResponse assertStatus(int code, ResponseStatusType type) {
         String errors = "";
         if (status().code() != code)
-            errors += format("Wrong status code %s. Expected: %s", code, status().code()) + LINE_BREAK;
+            errors += format("Wrong status code %s. Expected: %s", status().code(), code) + LINE_BREAK;
         if (!status().type().equals(type))
-            errors += format("Wrong status type %s. Expected: %s", type, status().type());
+            errors += format("Wrong status type %s. Expected: %s", status().type(), type);
         if (!errors.equals(""))
             throw exception(errors);
+        return this;
     }
 }

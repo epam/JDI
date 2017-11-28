@@ -1,16 +1,15 @@
 package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
-import com.jayway.restassured.response.Header;
-import com.jayway.restassured.specification.RequestSpecification;
-
+import io.restassured.http.Header;
+import io.restassured.specification.RequestSpecification;
 import java.util.List;
 
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.ResponseStatusType.OK;
 import static com.epam.http.requests.RestMethodTypes.*;
 import static com.epam.http.requests.RestRequest.doRequest;
-import static com.jayway.restassured.RestAssured.given;
+import static io.restassured.RestAssured.given;
 import static java.lang.System.currentTimeMillis;
 
 
@@ -49,6 +48,15 @@ public class RestMethod {
         for(Header header : headers)
             addHeader(header);
     }
+
+    protected void addQueryParameters(List<com.epam.http.annotations.QueryParameter> qPars) {
+        for (com.epam.http.annotations.QueryParameter qPar: qPars ) {
+            QueryParameter queryParameter = new QueryParameter(qPar.name(), qPar.value());
+            data.queryParams.add(queryParameter);
+            spec.queryParam(queryParameter.getName(), queryParameter.getValue());
+        }
+    }
+
     /*public RestMethod(String url) {
         this(url, null, null, null);
     }
@@ -70,6 +78,20 @@ public class RestMethod {
         data.url = String.format(data.url, params);
         return call();
     }
+
+    public RestResponse call(RequestData requestData) {
+        for (String pathParameter: requestData.pathParams) {
+            String urlActual = data.url.replaceFirst("\\{.*?}", pathParameter);
+            data.url = urlActual;
+        }
+        for(QueryParameter queryPar : requestData.queryParams) {
+            data.queryParams.add(new QueryParameter(queryPar.getName(), queryPar.getValue()));
+        }
+        if (requestData.body != null) {
+            data.body = requestData.body;
+        }
+       return call();
+    }
     private RequestSpecification getSpec() {
         if (data == null)
             return spec;
@@ -77,6 +99,11 @@ public class RestMethod {
             spec.baseUri(data.url);
         if (data.body != null)
             spec.body(data.body);
+        if (data.queryParams.size() != 0) {
+            for (QueryParameter parameter : data.queryParams) {
+                spec.queryParam(parameter.getName(), parameter.getValue());
+            }
+        }
         return spec;
     }
     /*

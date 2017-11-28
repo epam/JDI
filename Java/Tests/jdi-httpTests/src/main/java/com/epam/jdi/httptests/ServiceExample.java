@@ -3,7 +3,7 @@ package com.epam.jdi.httptests;
 import com.epam.http.annotations.*;
 import com.epam.http.requests.RestMethod;
 
-import static com.jayway.restassured.http.ContentType.JSON;
+import static io.restassured.http.ContentType.JSON;
 
 /**
  * Created by Roman_Iovlev on 9/25/2016.

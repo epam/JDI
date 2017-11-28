@@ -1,8 +1,8 @@
 package com.epam.http.requests;
 
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSenderOptions;
-import com.jayway.restassured.specification.RequestSpecification;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSenderOptions;
+import io.restassured.specification.RequestSpecification;
 
 import java.util.function.Function;
 
