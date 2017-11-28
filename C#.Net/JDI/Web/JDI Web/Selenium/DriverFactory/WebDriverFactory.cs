@@ -81,7 +81,9 @@ namespace JDI_Web.Selenium.DriverFactory
             {DriverTypes.Firefox, path => new FirefoxDriver()},
             {
                 DriverTypes.IE,
-                path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)
+                path => IsNullOrEmpty(path) 
+                    ? new InternetExplorerDriver() 
+                    : new InternetExplorerDriver(path)
             }
         };
 

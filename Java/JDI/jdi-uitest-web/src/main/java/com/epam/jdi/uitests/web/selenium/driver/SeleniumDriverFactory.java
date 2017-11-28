@@ -54,6 +54,7 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
@@ -197,28 +198,24 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     // GET DRIVER
 
     protected String registerLocalDriver(DriverTypes driverType) {
-        return registerDriver(driverType, getLatestDriver
-                ? () -> new DownloadDriverManager(this)
-                    .downloadDriver(driverType)
-                : setUpDriver(driverType));
+        if (getLatestDriver)
+            downloadDriver(driverType);
+        else setUpDrivers();
+        return registerDriver(driverType, getDefaultDriver(driverType));
     }
 
-    private Supplier<WebDriver> setUpDriver(DriverTypes driverType) {
+    private Supplier<WebDriver> getDefaultDriver(DriverTypes driverType) {
         switch (driverType) {
-            case CHROME: return () -> {
-                setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-                return new ChromeDriver(defaultChromeOptions());
-                };
-            case FIREFOX: return () -> {
-                setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-                return new FirefoxDriver(defaultFirefoxOptions());
-                };
-            case IE: return () -> {
-                setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
-                return new InternetExplorerDriver(defaultIEOptions());
-                };
+            case CHROME: return () -> new ChromeDriver(defaultChromeOptions());
+            case FIREFOX: return () -> new FirefoxDriver(defaultFirefoxOptions());
+            case IE: return () -> new InternetExplorerDriver(defaultIEOptions());
         }
         throw exception("Unknown driver: " + driverType);
+    }
+    private void setUpDrivers() {
+        setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
+        setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
+        setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
     }
     public FirefoxOptions defaultFirefoxOptions() {
         FirefoxOptions cap = new FirefoxOptions();

@@ -14,19 +14,15 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
  * Created by Roman_Iovlev on 11/28/2017.
  */
 public class DownloadDriverManager {
-    private SeleniumDriverFactory driverFactory;
-    public DownloadDriverManager(SeleniumDriverFactory driverFactory) {
-        this.driverFactory = driverFactory;
-    }
-    public WebDriver downloadDriver(DriverTypes driverType) {
+    public static void downloadDriver(DriverTypes driverType) {
         try {
             switch (driverType) {
                 case CHROME:
-                    return initChrome();
+                    ChromeDriverManager.getInstance().setup(); break;
                 case FIREFOX:
-                    return initFirefox();
+                    FirefoxDriverManager.getInstance().arch32().setup(); break;
                 case IE:
-                    return initIE();
+                    InternetExplorerDriverManager.getInstance().setup(); break;
                 default:
                     throw exception("Unknown driver: " + driverType);
             }
@@ -34,19 +30,5 @@ public class DownloadDriverManager {
             throw exception("Can't download latest driver for " + driverType
                     + ". Exception " + ex.getMessage());
         }
-    }
-    private WebDriver initChrome() {
-        ChromeDriverManager.getInstance().setup();
-        return new ChromeDriver(driverFactory.defaultChromeOptions());
-    }
-
-    private WebDriver initIE() {
-        InternetExplorerDriverManager.getInstance().setup();
-        return new InternetExplorerDriver(driverFactory.defaultIEOptions());
-    }
-
-    private WebDriver initFirefox() {
-        FirefoxDriverManager.getInstance().arch32().setup();
-        return new FirefoxDriver(driverFactory.defaultFirefoxOptions());
     }
 }
