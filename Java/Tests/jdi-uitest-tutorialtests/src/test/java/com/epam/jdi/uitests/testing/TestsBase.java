@@ -3,6 +3,8 @@ package com.epam.jdi.uitests.testing;
 import com.epam.jdi.site.epam.EpamSite;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -12,6 +14,7 @@ import static com.epam.jdi.uitests.core.logger.LogLevels.STEP;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
+import static java.lang.System.setProperty;
 
 /**
  * Created by Roman_Iovlev on 7/13/2015.

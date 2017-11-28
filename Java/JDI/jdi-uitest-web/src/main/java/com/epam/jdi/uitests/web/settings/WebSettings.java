@@ -51,6 +51,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
+import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.base.BaseMatcher.setLogAction;
@@ -110,9 +111,9 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void initFromProperties() throws IOException {
         init();
-        JDISettings.initFromProperties();
+        getProperties(jdiSettingsPath);
         fillAction(p -> domain.set(p), "domain");
-        fillAction(driverFactory::setDriverPath, "drivers.folder");
+        fillAction(getDriverFactory()::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
@@ -152,6 +153,7 @@ public class WebSettings extends JDISettings {
             logger.step(s);
             LIFECYCLE.fire(new StepFinishedEvent());
         });
+        JDISettings.initFromProperties();
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{

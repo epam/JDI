@@ -27,9 +27,6 @@ import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -200,50 +197,40 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     // GET DRIVER
 
     protected String registerLocalDriver(DriverTypes driverType) {
+        return registerDriver(driverType, getLatestDriver
+                ? () -> new DownloadDriverManager(this)
+                    .downloadDriver(driverType)
+                : setUpDriver(driverType));
+    }
+
+    private Supplier<WebDriver> setUpDriver(DriverTypes driverType) {
         switch (driverType) {
-            case CHROME:
-                return registerDriver(driverType,
-                        () -> {
-                            if (getLatestDriver) {
-                                return webDriverSettings.apply(initChrome());
-                            } else {
-                                setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-                                return webDriverSettings.apply(new ChromeDriver(defaultChromeOptions()));
-                            }
-                        });
-            case FIREFOX:
-                return registerDriver(driverType,
-                        () -> {
-                            if (getLatestDriver) {
-                                return webDriverSettings.apply(initFirefox());
-                            } else {
-                                setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-                                return webDriverSettings.apply(new FirefoxDriver(defaultFirefoxOptions()));
-                            }
-                        });
-            case IE:
-                return registerDriver(driverType, () -> {
-                    if (getLatestDriver) {
-                        return webDriverSettings.apply(initIE());
-                    } else {
-                        setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
-                        return webDriverSettings.apply(new InternetExplorerDriver(defaultIEOptions()));
-                    }
-                });
+            case CHROME: return () -> {
+                setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
+                return new ChromeDriver(defaultChromeOptions());
+                };
+            case FIREFOX: return () -> {
+                setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
+                return new FirefoxDriver(defaultFirefoxOptions());
+                };
+            case IE: return () -> {
+                setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
+                return new InternetExplorerDriver(defaultIEOptions());
+                };
         }
         throw exception("Unknown driver: " + driverType);
     }
-    private FirefoxOptions defaultFirefoxOptions() {
+    public FirefoxOptions defaultFirefoxOptions() {
         FirefoxOptions cap = new FirefoxOptions();
         cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
         return cap;
     }
-    private ChromeOptions defaultChromeOptions() {
+    public ChromeOptions defaultChromeOptions() {
         ChromeOptions cap = new ChromeOptions();
         cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
         return cap;
     }
-    private InternetExplorerOptions defaultIEOptions() {
+    public InternetExplorerOptions defaultIEOptions() {
         InternetExplorerOptions cap = new InternetExplorerOptions();
         cap.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         cap.setCapability("ignoreZoomSetting", true);
@@ -279,21 +266,6 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
     }
 
-    private WebDriver initFirefox() {
-        FirefoxDriverManager.getInstance().arch32().setup();
-        return new FirefoxDriver(defaultFirefoxOptions());
-    }
-
-    private WebDriver initChrome() {
-        ChromeDriverManager.getInstance().setup();
-        return new ChromeDriver(defaultChromeOptions());
-    }
-
-    private WebDriver initIE() {
-        InternetExplorerDriverManager.getInstance().setup();
-        return new InternetExplorerDriver(defaultIEOptions());
-    }
-
     public static Dimension browserSizes;
 
     private static void maximizeMacBrowser(WebDriver driver) {
@@ -301,22 +273,36 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         driver.manage().window()
                 .setSize(new org.openqa.selenium.Dimension(screenSize.width, screenSize.height));
     }
-
-    public static Function<WebDriver, WebDriver> webDriverSettings = driver -> {
-        if (browserSizes == null) {
-            if (any(asList("chrome", "internetexplorer"),
-                el -> driver.toString().toLowerCase().contains(el))) {
-                    if (System.getProperty("os.name").toLowerCase().contains("mac"))
-                        maximizeMacBrowser(driver);
-                    else
-                        driver.manage().window().maximize();
-            }
-        }
-        else
-            driver.manage().window().setSize(browserSizes);
+    private static WebDriver setupDriverTimeout(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return driver;
-    };
+    }
+    protected static Function<WebDriver, WebDriver> selectDriverSettings(WebDriver driver) {
+        if (browserSizes == null) {
+            String driverName = driver.toString().toLowerCase();
+            if (any(asList("chrome", "internetexplorer"), driverName::contains)
+                    && System.getProperty("os.name").toLowerCase().contains("mac"))
+                return d -> {
+                    maximizeMacBrowser(d);
+                    return setupDriverTimeout(d);
+                };
+            else return d -> {
+                d.manage().window().maximize();
+                return setupDriverTimeout(d);
+            };
+        }
+        else return d -> {
+            driver.manage().window().setSize(browserSizes);
+            return setupDriverTimeout(driver);
+        };
+    }
+    protected static WebDriver getDriverSettings(WebDriver driver) {
+        if (webDriverSettings == null)
+            webDriverSettings = selectDriverSettings(driver);
+        return webDriverSettings.apply(driver);
+    }
+
+    public static Function<WebDriver, WebDriver> webDriverSettings;
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
@@ -330,7 +316,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 MapArray<String, WebDriver> rDrivers = runDrivers.get();
                 if (rDrivers == null)
                     rDrivers = new MapArray<>();
-                WebDriver resultDriver = drivers.get(driverName).get();
+                WebDriver resultDriver = getDriverSettings(drivers.get(driverName).get());
                 if (resultDriver == null)
                     throw exception("Can't get WebDriver '%s'. This Driver name not registered", driverName);
                 rDrivers.add(driverName, resultDriver);
@@ -338,7 +324,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             }
             WebDriver result = runDrivers.get().get(driverName);
             if (result.toString().contains("(null)")) {
-                result = drivers.get(driverName).get();
+                result = getDriverSettings(drivers.get(driverName).get());
                 runDrivers.get().update(driverName, result);
             }
             lock.unlock();
