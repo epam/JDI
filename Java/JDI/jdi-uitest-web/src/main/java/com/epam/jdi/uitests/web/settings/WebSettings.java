@@ -42,6 +42,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import ru.yandex.qatools.allure.events.StepFinishedEvent;
+import ru.yandex.qatools.allure.events.StepStartedEvent;
 
 import java.io.IOException;
 import java.util.List;
@@ -49,20 +51,23 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
+import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
+import static com.epam.web.matcher.base.BaseMatcher.setLogAction;
 import static com.epam.web.matcher.testng.Assert.setMatcher;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
+import static ru.yandex.qatools.allure.Allure.LIFECYCLE;
 
 /**
  * Created by Roman_Iovlev on 11/13/2015.
  */
 public class WebSettings extends JDISettings {
-    public static String domain;
+    public static ThreadLocal<String> domain = new ThreadLocal<>();
     public static String killBrowser;
     public static boolean hasDomain() {
-        return domain != null && domain.contains("://");
+        return domain.get() != null && domain.get().contains("://");
     }
 
     public static WebDriver getDriver() {
@@ -106,9 +111,9 @@ public class WebSettings extends JDISettings {
 
     public static synchronized void initFromProperties() throws IOException {
         init();
-        JDISettings.initFromProperties();
-        fillAction(p -> domain = p, "domain");
-        fillAction(driverFactory::setDriverPath, "drivers.folder");
+        getProperties(jdiSettingsPath);
+        fillAction(p -> domain.set(p), "domain");
+        fillAction(getDriverFactory()::setDriverPath, "drivers.folder");
         fillAction(p -> getDriverFactory().getLatestDriver =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
         fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
@@ -143,6 +148,12 @@ public class WebSettings extends JDISettings {
         }, "browser.size");
         fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
         initialized = true;
+        setLogAction(s -> {
+            LIFECYCLE.fire(new StepStartedEvent(s));
+            logger.step(s);
+            LIFECYCLE.fire(new StepFinishedEvent());
+        });
+        JDISettings.initFromProperties();
     }
 
     private static Object[][] defaultInterfacesMap = new Object[][]{

@@ -15,8 +15,6 @@ public class SimpleTablePage extends WebPage {
     private Table simpleTable;
     public JdiPaginator pagination;
 
-
-
     @JTable(
             jRoot = @JFindBy(css = ".tbl-height"),
             header = {"Column 1",  "Column 2"}

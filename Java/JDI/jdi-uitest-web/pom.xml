@@ -81,19 +81,30 @@
             <version>LATEST</version>
         </dependency>
         <dependency>
-            <groupId>com.sikulix</groupId>
-            <artifactId>sikulixapi</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>LATEST</version>
+            <version>1.7.2</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
             <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-adaptor-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>LATEST</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

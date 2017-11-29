@@ -17,9 +17,12 @@ package com.epam.jdi.uitests.core.interfaces.base;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.codeborne.selenide.Condition;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 
 import java.lang.reflect.Field;
+
+import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 
 /**
  * Created by Roman_Iovlev on 6/10/2015.
@@ -34,4 +37,17 @@ public interface IBaseElement extends IHasParent {
     String printContext();
     void setFunction(Functions function);
     IAvatar getAvatar();
+    String getImgPath();
+    void setImgPath(String imgPath);
+    boolean verifyLayout(String imgPath);
+    default void assertLayout(String imgPath){
+        asserter.isTrue(verifyLayout(imgPath));
+    }
+
+    IBaseElement should(Condition... condition);
+    IBaseElement shouldHave(Condition... condition);
+    IBaseElement shouldBe(Condition... condition);
+    IBaseElement shouldNot(Condition... condition);
+    IBaseElement shouldNotHave(Condition... condition);
+    IBaseElement shouldNotBe(Condition... condition);
 }

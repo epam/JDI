@@ -20,19 +20,26 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 import com.epam.jdi.uitests.core.interfaces.Application;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.CHROME;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by Roman_Iovlev on 8/30/2015.
  */
 public class WebSite extends Application {
-    public static <T> void init(String driverName, Class<T>... sites) {
 
-        for (Class<T> site : sites)
+    public static <T> void init(String driverName, Class<T>... sites) {
+        for (Class<T> site : sites) {
+            if (site.isAnnotationPresent(JSite.class)) {
+                String value = site.getAnnotation(JSite.class).value();
+                if (isNotBlank(value)) domain.set(value);
+            }
             new WebCascadeInit().initStaticPages(site, driverName);
-        currentSite = sites[sites.length-1];
+        }
+        currentSite.set(sites[sites.length-1]);
     }
     public static <T> void init(Class<T>... sites) {
         if (!getDriverFactory().hasDrivers())
@@ -45,6 +52,12 @@ public class WebSite extends Application {
      * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
      */
     public static void open(){
-        getDriver().navigate().to(domain);
+        WebPage site = new WebPage(domain.get());
+        site.setName(currentSite.get().getSimpleName());
+        site.open();
+    }
+    public static void shouldBeOpened(){
+        if (!getDriver().getCurrentUrl().contains(domain.get()))
+            open();
     }
 }

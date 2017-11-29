@@ -62,6 +62,7 @@ public final class ReflectionUtils {
     }
 
     public static boolean isInterface(Class<?> type, Class<?> expected) {
+
         if (type == null || expected == null || type == Object.class)
             return false;
         if (type == expected)

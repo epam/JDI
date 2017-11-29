@@ -1,10 +1,12 @@
 package com.epam.jdi.uitests.gui.sikuli.elements;
 
+import com.codeborne.selenide.Condition;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionScenarios;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ElementsActions;
@@ -14,9 +16,11 @@ import com.epam.jdi.uitests.gui.sikuli.elements.pageobjects.annotations.GuiAnnot
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
@@ -118,5 +122,38 @@ public abstract class BaseElement implements IBaseElement {
 
     protected Timer timer() {
         return avatar.timer();
+    }
+
+    public IBaseElement should(Condition... conditions){
+        throw new NotImplementedException();
+    }
+    public IBaseElement shouldHave(Condition... conditions){
+        return should(conditions);
+    }
+    public IBaseElement shouldBe(Condition... conditions){
+        return should(conditions);
+    }
+    public IBaseElement shouldNot(Condition... conditions){
+        throw new NotImplementedException();
+    }
+    public IBaseElement shouldNotHave(Condition... conditions){
+        return shouldNot(conditions);
+    }
+    public IBaseElement shouldNotBe(Condition... conditions){
+        return shouldNot(conditions);
+    }
+
+    public boolean verifyLayout(String imgPath) {
+        return Layout.verify(getFullImagePath(imgPath));
+    }
+    private String imgPath;
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
+    protected String getFullImagePath(String imgPath) {
+        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
     }
 }

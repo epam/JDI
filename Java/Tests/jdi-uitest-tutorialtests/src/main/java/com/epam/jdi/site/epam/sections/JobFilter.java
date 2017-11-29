@@ -9,33 +9,34 @@ import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ClassName;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Value;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByClass;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByValue;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class JobFilter extends Form<JobSearchFilter> {
-    @ClassName("job-search-input") ITextField keywords;
+    @ByClass("job-search-input") ITextField keywords;
     @JDropdown(
         root = @FindBy(css = ".multi-select-department"),
         expand = @FindBy(css = ".default-label"),
         list = @FindBy(css = ".multi-select-dropdown li"))
-    IDropDown category;
+    public IDropDown category;
 
     @JTree(
         select = @FindBy(className = "career-location-box"),
         levels = {@FindBy(css = ".location-dropdown .optgroup"),
-                    @FindBy(xpath = "//..//li")}
+                 @FindBy(xpath = "//..//li")}
     ) TreeDropdown<Locations> location;
 
-    @Value("search")
+    @ByValue("search")
     IButton selectButton;
 
-    @ClassName("job-search-title")
+    @ByClass("job-search-title")
     public ILabel label;
 
     @Override

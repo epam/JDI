@@ -7,17 +7,8 @@ import com.epam.commons.DataClass;
  */
 /*@AllArgsConstructor*/
 
-public class User extends DataClass {
-    public static final User DEFAULT = new User("UserTest", "Test Password");
-    public static User currentUser;
-
-    public String name;
+public class User extends DataClass<User> {
+    public String login;
     public String password;
-
-    public User (String userName, String userPassword) {
-    this.name = userName;
-    this.password = userPassword;
-    }
-
 }
 

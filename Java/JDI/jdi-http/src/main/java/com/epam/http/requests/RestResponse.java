@@ -52,6 +52,9 @@ public class RestResponse {
     public String body() {
         return raResponse.body().print();
     }
+    public String getFromHtml(String path) {
+        return raResponse.body().htmlPath().getString(path);
+    }
     public JsonObject jsonBody() {
         return (JsonObject) new JsonParser().parse(body());
     }

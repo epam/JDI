@@ -183,6 +183,16 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         button().setAttribute(attributeName, value);
     }
 
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
+    public void setImgPath(String imgPath) {
+
+    }
+
     /**
      * @return Get Element’s text
      */

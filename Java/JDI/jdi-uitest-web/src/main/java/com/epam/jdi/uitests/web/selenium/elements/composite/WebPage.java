@@ -21,8 +21,8 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
+import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
-import com.epam.jdi.uitests.web.selenium.utils.Layout;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.openqa.selenium.Cookie;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -46,8 +46,7 @@ public class WebPage extends BaseElement implements IPage {
     public String urlTemplate;
     public static WebPage currentPage;
 
-    public WebPage() {
-    }
+    public WebPage() { }
 
     public WebPage(String url) {
         this.url = url;
@@ -94,8 +93,9 @@ public class WebPage extends BaseElement implements IPage {
      */
     public void checkOpened() {
         logger.step(format("I check '%s' is opened", getName()));
-        asserter.isTrue(verifyOpened(),
-                format("Page '%s' is not opened", toString()));
+        logger.logOff(() ->
+            asserter.isTrue(verifyOpened(),
+                    format("Page '%s' is not opened", toString())));
     }
     public boolean verifyOpened() {
         boolean result = false;

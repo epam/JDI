@@ -81,7 +81,9 @@ namespace JDI_Web.Selenium.DriverFactory
             {DriverTypes.Firefox, path => new FirefoxDriver()},
             {
                 DriverTypes.IE,
-                path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)
+                path => IsNullOrEmpty(path) 
+                    ? new InternetExplorerDriver() 
+                    : new InternetExplorerDriver(path)
             }
         };
 
@@ -155,7 +157,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 driver.Manage().Window.Maximize();
             else
                 driver.Manage().Window.Size = BrowserSize;
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeouts.WaitElementSec));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(Timeouts.WaitElementSec);
             return driver;
         };
 

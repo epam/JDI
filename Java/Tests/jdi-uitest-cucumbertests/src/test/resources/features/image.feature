@@ -1,4 +1,5 @@
 Feature: image
+  D:/temp/euro_b.png
 
   Scenario: image base
     Given I open "contactFormPage"

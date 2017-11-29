@@ -29,9 +29,8 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
 public class EpamSite extends WebSite {
     @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
-    @JPage(url = "/careers", title = "Careers")
+    @JPage("/careers")
     public static CareerPage careerPage;
-    @JPage(url = "/solutions/core-engineering/product-development")
     public static ProductDevelopmentPage productDevelopmentPage;
     @JPage(url = "/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
             urlTemplate = "/careers/job-listings", title = "Job Listings",

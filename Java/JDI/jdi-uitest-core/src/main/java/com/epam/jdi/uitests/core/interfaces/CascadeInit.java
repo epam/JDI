@@ -40,88 +40,117 @@ import static java.util.Arrays.asList;
  * Created by Roman_Iovlev on 6/10/2015.
  */
 public abstract class CascadeInit {
-    public Class<?>[] decorators() { return new Class<?>[] {IBaseElement.class, List.class }; }
+
+    public Class<?>[] decorators() {
+        return new Class<?>[]{IBaseElement.class, List.class};
+    }
 
     public synchronized void initElements(Object parent, String driverName) {
-        setFieldsForInit(parent, getFields(parent, decorators(), stopTypes()), parent.getClass(), driverName);
+        setFieldsForInit(parent, getFields(parent, decorators(), stopTypes()), parent.getClass(),
+            driverName);
     }
 
     protected abstract Class<?>[] stopTypes();
 
     public synchronized void initStaticPages(Class<?> parentType, String driverName) {
         setFieldsForInit(null,
-                getFields(asList(parentType.getDeclaredFields()), decorators(), f -> isStatic(f.getModifiers())),
-                parentType, driverName);
+            getFields(asList(parentType.getDeclaredFields()), decorators(),
+                f -> isStatic(f.getModifiers())),
+            parentType, driverName);
     }
-    private void setFieldsForInit(Object parent, List<Field> fields, Class<?> parentType, String driverName) {
+
+    private void setFieldsForInit(Object parent, List<Field> fields, Class<?> parentType,
+                                  String driverName) {
         foreach(fields, field -> setElement(parent, parentType, field, driverName));
     }
 
-    public synchronized <T extends Application> T initPages(Class<T>  site, String driverName) {
+    public synchronized <T extends Application> T initPages(Class<T> site, String driverName) {
         T instance = tryGetResult(site::newInstance);
         instance.setDriverName(driverName);
         initElements(instance, driverName);
         return instance;
     }
 
-    protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType);
+    protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance,
+                                                   Class<?> parentType);
 
     private void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
         try {
             Class<?> type = field.getType();
             IBaseElement instance = isInterface(type, IPage.class)
-                    ? getInstancePage(parent, field, type, parentType)
-                    : getInstanceElement(parent, type, parentType, field, driverName);
+                ? getInstancePage(parent, field, type, parentType)
+                : getInstanceElement(parent, type, parentType, field, driverName);
             instance.setName(field);
-            if (parent != null)
+            if (parent != null) {
                 instance.getAvatar().setDriverName(driverName);
+            }
             instance.setTypeName(type.getSimpleName());
             field.set(parent, instance);
-            if (isInterface(field, IComposite.class))
+            setImage(parent, instance, field);
+            if (isInterface(field, IComposite.class)) {
                 initElements(instance, driverName);
+            }
         } catch (Exception ex) {
             throw exception("Error in setElement for field '%s' with parent '%s'", field.getName(),
-                    parentType == null ? "NULL Class" : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
+                parentType == null ? "NULL Class"
+                    : parentType.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
 
-    private IBaseElement getInstancePage(Object parent, Field field, Class<?> type, Class<?> parentType) throws IllegalAccessException, InstantiationException {
+    protected void setImage(Object parent, IBaseElement instance, Field field) { }
+
+    private IBaseElement getInstancePage(Object parent, Field field, Class<?> type,
+                                         Class<?> parentType)
+        throws IllegalAccessException, InstantiationException {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
-        if (instance == null)
+        if (instance == null) {
             instance = (IBaseElement) type.newInstance();
+        }
         fillPageFromAnnotation(field, instance, parentType);
         return instance;
     }
 
-    private IBaseElement getInstanceElement(Object parent, Class<?> type, Class<?> parentType, Field field, String driverName) {
-        IBaseElement instance = createChildFromFieldStatic(parent, parentType, field, type, driverName);
+    private IBaseElement getInstanceElement(Object parent, Class<?> type, Class<?> parentType,
+                                            Field field, String driverName) {
+        IBaseElement instance = createChildFromFieldStatic(parent, parentType, field, type,
+            driverName);
         instance.setFunction(getFunction(field));
         return instance;
     }
 
     protected abstract IBaseElement fillInstance(IBaseElement instance, Field field);
-    protected abstract IBaseElement getElementsRules(Field field, String driverName, Class<?> type, String fieldName) throws IllegalAccessException, InstantiationException;
 
-    protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent, Class<?> type) {
+    protected abstract IBaseElement getElementsRules(Field field, String driverName, Class<?> type,
+                                                     String fieldName)
+        throws IllegalAccessException, InstantiationException;
+
+    protected IBaseElement specificAction(IBaseElement instance, Field field, Object parent,
+                                          Class<?> type) {
         return instance;
     }
+
     protected IBaseElement fillFromJDIAnnotation(IBaseElement instance, Field field) {
         return instance;
     }
-    private IBaseElement createChildFromFieldStatic(Object parent, Class<?> parentClass, Field field, Class<?> type, String driverName) {
+
+    private IBaseElement createChildFromFieldStatic(Object parent, Class<?> parentClass,
+                                                    Field field, Class<?> type, String driverName) {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
-        if (instance == null)
+        if (instance == null) {
             try {
                 instance = getElementInstance(field, driverName, parent);
             } catch (Exception ex) {
                 throw exception(
-                        format("Can't create child for parent '%s' with type '%s'. Exception: %s",
-                                parentClass.getSimpleName(), field.getType().getSimpleName(), ex.getMessage()));
+                    format("Can't create child for parent '%s' with type '%s'. Exception: %s",
+                        parentClass.getSimpleName(), field.getType().getSimpleName(),
+                        ex.getMessage()));
             }
-        else instance = fillInstance(instance, field);
-        if (field.isAnnotationPresent(Root.class)){
+        } else {
+            instance = fillInstance(instance, field);
+        }
+        if (field.isAnnotationPresent(Root.class)) {
             instance.setParent(null);
-        }else {
+        } else {
             instance.setParent(parent);
         }
         instance = fillFromJDIAnnotation(instance, field);
@@ -132,22 +161,24 @@ public abstract class CascadeInit {
     private IBaseElement getElementInstance(Field field, String driverName, Object parent) {
         Class<?> type = field.getType();
         String fieldName = field.getName();
-        try { return getElementsRules(field, driverName, type, fieldName);
+        try {
+            return getElementsRules(field, driverName, type, fieldName);
         } catch (Exception ex) {
             throw exception("Error in getElementInstance for field '%s'%s with type '%s'",
-                    fieldName,
-                    parent != null ? "in " + parent.getClass().getSimpleName() : "",
-                    type.getSimpleName() + LINE_BREAK + ex.getMessage());
+                fieldName,
+                parent != null ? "in " + parent.getClass().getSimpleName() : "",
+                type.getSimpleName() + LINE_BREAK + ex.getMessage());
         }
     }
 
     protected abstract <T> T getNewLocatorFromField(Field field);
+
     protected <T> T getNewLocator(Field field) {
         try {
             return getNewLocatorFromField(field);
         } catch (Exception ex) {
             throw exception("Error in get locator for type '%s'", field.getType().getName()
-                    + LINE_BREAK + ex.getMessage());
+                + LINE_BREAK + ex.getMessage());
         }
     }
 }

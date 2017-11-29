@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.epam.jdi</groupId>
+        <artifactId>jdi-uitest-framework</artifactId>
+        <version>1.0.82</version>
+        <relativePath>../..</relativePath>
+    </parent>
+
+    <artifactId>jdi-http-cucumbertests</artifactId>
+    <name>EPAM JDI HTTP Cucumber Tests</name>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <allure.version>1.4.23</allure.version>
+        <aspectj.version>1.8.5</aspectj.version>
+        <cucumber.version>1.2.5</cucumber.version>
+    </properties>
+
+    <dependencies>
+        <!--JDI-->
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-http</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.epam.jdi</groupId>
+            <artifactId>jdi-http-cucumber</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!--Allure-->
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!--CucumberTestNG-->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!--CucumberJava-->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>LATEST</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/general.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>true</value>
+                            <!-- disabling default listeners is optional -->
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>LATEST</version>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

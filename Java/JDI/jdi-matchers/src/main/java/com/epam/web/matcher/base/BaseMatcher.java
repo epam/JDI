@@ -20,6 +20,7 @@ package com.epam.web.matcher.base;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.JActionT;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import com.epam.commons.map.MapArray;
 import org.slf4j.Logger;
@@ -49,6 +50,8 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 public abstract class BaseMatcher implements IChecker {
     private static Logger logger = getLogger("JDI Logger");
+    private static JActionT<String> toLog = s -> logger.info(s);
+    public static void setLogAction(JActionT<String> logAction) { toLog = logAction; }
     public void setLogger(Logger logger) { BaseMatcher.logger = logger; }
     private static long waitTimeout = 10;
     private static long defaultTimeout = 10;
@@ -154,7 +157,7 @@ public abstract class BaseMatcher implements IChecker {
 
     private void assertAction(String defaultMessage, Supplier<String> result, String failMessage, boolean wait) {
         if (!isListCheck && defaultMessage != null)
-            logger.info(getBeforeMessage(defaultMessage));
+            toLog.invoke(getBeforeMessage(defaultMessage));
         if (!isListCheck && doScreenshot == DO_SCREEN_ALWAYS)
             logger.debug(doScreenshotGetMessage());
         String resultMessage = wait

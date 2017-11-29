@@ -48,5 +48,4 @@ public interface IElement extends IBaseElement, IVisible {
      */
     @Step
     void setAttribute(String attributeName, String value);
-
 }

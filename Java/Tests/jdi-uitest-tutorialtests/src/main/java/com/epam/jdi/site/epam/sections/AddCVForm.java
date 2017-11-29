@@ -10,8 +10,8 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.Form;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Attribute;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByTitle;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Title;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.XPath;
 
 /**
@@ -41,5 +41,5 @@ public class AddCVForm extends Form<Attendee> {
     @XPath( "//*[.='Submit']") IButton submit;
     @XPath("//*[.='Cancel']") IButton cancel;
 
-    @Title("Reload") public IButton reload;
+    @ByTitle("Reload") public IButton reload;
 }

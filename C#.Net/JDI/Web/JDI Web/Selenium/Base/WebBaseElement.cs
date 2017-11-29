@@ -131,7 +131,7 @@ namespace JDI_Web.Selenium.Base
         public void SetWaitTimeout(long mSeconds)
         {
             Logger.Debug("Set wait timeout to " + mSeconds);
-            WebDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromMilliseconds(mSeconds));
+            WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(mSeconds);
             Timeouts.CurrentTimeoutSec = (int) (mSeconds/1000);
         }
 

@@ -148,6 +148,15 @@ public class Element extends BaseElement implements IElement, IHasElement {
                         getWebElement(), value));
     }
 
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
+    public void setImgPath(String imgPath) {
+
+    }
 
 
     protected boolean isDisplayedAction() {

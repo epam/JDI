@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.common;
 
 import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
+import com.epam.web.matcher.junit.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -9,6 +10,7 @@ import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
+import static com.codeborne.selenide.Condition.*;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
@@ -43,6 +45,17 @@ public class ButtonTests extends InitTests {
         return new Object[]{
                 new TextTests("Button", METALS_AND_COLORS_PAGE, button::get, "CALCULATE", "CUL", ".*LCU.*")
         };
+    }
+
+    @Test
+    public void shouldTest(){
+        button.get().shouldHave(text("Calculate"), attribute("id", "calculate-button"), type("submit"))
+                .shouldBe(visible, enabled);
+    }
+
+    @Test
+    public void imageIsDisplayedTest(){
+        Assert.assertTrue(button.get().isDisplayed());
     }
 
 }
