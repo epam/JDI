@@ -1,9 +1,6 @@
 package com.epam.jdi.httptests;
 
-import com.epam.http.requests.QueryParameter;
-import com.epam.http.requests.RequestData;
-import com.epam.http.requests.ResponseStatusType;
-import com.epam.http.requests.RestResponse;
+import com.epam.http.requests.*;
 import org.testng.annotations.Test;
 
 import static com.epam.http.requests.ServiceInit.init;

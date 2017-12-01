@@ -1,7 +1,7 @@
 package com.epam.jdi.http.cucumber.stepdefs.en;
 
 import com.epam.http.requests.RestMethod;
-import com.jayway.restassured.http.ContentType;
+import io.restassured.http.ContentType;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
