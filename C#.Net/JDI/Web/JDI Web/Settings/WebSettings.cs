@@ -27,6 +27,7 @@ namespace JDI_Web.Settings
 {
     public class WebSettings : JDISettings
     {
+        public static bool GetLatestDriver = true;
         public static string Domain;
         public static bool HasDomain => Domain != null && Domain.Contains("://");
         public static IWebDriver WebDriver => WebDriverFactory.GetDriver();
@@ -73,7 +74,7 @@ namespace JDI_Web.Settings
             JDISettings.InitFromProperties();
             FillFromSettings(p => Domain = p, "Domain");
             FillFromSettings(p => DriverFactory.DriverPath = p, "DriversFolder");
-
+            FillFromSettings(p => GetLatestDriver = p.ToLower().Equals("true") || p.ToLower().Equals("1"), "GetLatest");
             // FillFromSettings(p => DriverFactory.DriverVersion = p, "DriversVersion");
             // fillAction(p->getDriverFactory().getLatestDriver =
             //        p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
