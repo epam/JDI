@@ -6,7 +6,7 @@
 |Package|[![NuGet Version](https://img.shields.io/nuget/v/JDI.UICore.svg)](https://www.nuget.org/packages/JDI.UICore)|[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.epam.jdi/jdi-uitest-web)|
 
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![stackoverflow](https://img.shields.io/badge/stackoverflow-jdiframework-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdiframework)
+[![stackoverflow](https://img.shields.io/badge/stackoverflow-jdi-orange.svg?style=flat)](http://stackoverflow.com/questions/tagged/jdi)
 
 Copyright (c) 2017, EPAM Systems
 
