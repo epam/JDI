@@ -450,7 +450,7 @@ public class Table extends Text implements ITable, Cloneable {
         return rowsCount == 0;
     }
 
-    public boolean waitHaveRows() {
+    public boolean waitHasRows() {
         return waitRows(1);
     }
 

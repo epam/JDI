@@ -156,16 +156,17 @@ public class Elements<T extends Element> extends BaseSelector<Enum> implements L
     }
     public T get(String name) {
         Field[] fields = classType.getFields();
-        if (where(fields, this::isTextElement).size() == 1)
-            return first(listOfElements(),
-                el -> ((IText)getValueField(first(el.getClass().getFields(), this::isTextElement), el))
-                    .getText().equals(name));
         Field titleField = first(fields, f -> f.isAnnotationPresent(Title.class)
                 && (f.getType().equals(Text.class)|| f.getType().equals(IText.class)));
         if (titleField != null)
             return first(listOfElements(),
-                el -> ((IText)getValueField(getFieldWithName(el, titleField.getName()), el))
-                    .getText().equals(name));
+                    el -> ((IText)getValueField(getFieldWithName(el, titleField.getName()), el))
+                            .getText().equals(name));
+        if (where(fields, this::isTextElement).size() == 1)
+            return first(listOfElements(),
+                    el -> ((IText)getValueField(first(el.getClass().getFields(), this::isTextElement), el))
+                            .getText().equals(name));
+
         return first(listOfElements(), el -> getElementByNameAction(el.getWebElement(), name));
     }
     private Field getFieldWithName(Object o, String name) {

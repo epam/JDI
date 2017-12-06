@@ -66,7 +66,7 @@ public class WaiterTests extends InitTests {
 
     @Test
     public void waitHaveRowsTest() {
-        isTrue(() -> simpleTableSupplier.get().waitHaveRows());
+        isTrue(() -> simpleTableSupplier.get().waitHasRows());
     }
 
     @Test

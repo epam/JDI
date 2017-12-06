@@ -28,6 +28,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
@@ -70,7 +71,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
         By root = findByToBy(jDropList.root());
         By list = findByToBy(jDropList.list());
         By value = findByToBy(jDropList.value());
-
+        By expand = findByToBy(jDropList.expand());
         if (root != null) {
             Element el = new Element(root);
             el.setParent(getParent());
@@ -83,6 +84,9 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
 
         if(value != null) {
             this.button = new GetElementType(value, this);
+        }
+        if(expand != null) {
+            this.button = new GetElementType(expand, this);
         }
         return this;
     }
@@ -163,7 +167,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition) {
-        return (R) button().wait(resultFunc, condition);
+        return button().wait(resultFunc, condition);
     }
 
     public void wait(Function<WebElement, Boolean> resultFunc, int timeoutSec) {
@@ -171,7 +175,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
     }
 
     public <R> R wait(Function<WebElement, R> resultFunc, Function<R, Boolean> condition, int timeoutSec) {
-        return (R) button().wait(resultFunc, condition, timeoutSec);
+        return button().wait(resultFunc, condition, timeoutSec);
     }
 
     /**

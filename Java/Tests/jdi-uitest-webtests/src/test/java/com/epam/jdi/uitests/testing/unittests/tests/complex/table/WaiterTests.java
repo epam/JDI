@@ -65,7 +65,7 @@ public class WaiterTests extends SupportTableTestsBase {
         isInState(HOME_PAGE);
         runParallel(SUPPORT_PAGE::open);
 
-        isTrue(() -> table().waitHaveRows());
+        isTrue(() -> table().waitHasRows());
     }
 
     @Test

@@ -171,7 +171,7 @@ public interface ITable extends IText {
      * Wait while at least one row appear in table
      */
     @Step
-    boolean waitHaveRows();
+    boolean waitHasRows();
 
     /**
      * Wait while at least count of rows appear in table
@@ -346,7 +346,7 @@ public interface ITable extends IText {
     List<ICell> getCells();
 
     /**
-     * Clean all already founded Cells
+     * Clean all already found Cells
      */
     void clean();
 

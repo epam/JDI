@@ -279,7 +279,7 @@ public class Table extends Element implements ITable {
     }
 
     @Override
-    public boolean waitHaveRows() {
+    public boolean waitHasRows() {
         return waitRows(1);
     }
 
