@@ -43,9 +43,9 @@ public class ServiceTest {
     public void statusTest() {
         ServiceExample service = init(ServiceExample.class);
         RestResponse resp = service.status.call("503");
-        assertEquals(resp.status().code(), 503);
-        assertEquals(resp.status().type(), SERVER_ERROR);
-        assertEquals(resp.body(), "");
+        assertEquals(resp.status.code(), 503);
+        assertEquals(resp.status.type(), SERVER_ERROR);
+        assertEquals(resp.body, "");
     }
     @Test
     public void staticServiceInitTest() {

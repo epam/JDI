@@ -22,6 +22,4 @@ public class ResponseStatus extends DataClass<ResponseStatus> {
         type = getStatusType(code);
         text = response.statusLine();
     }
-
-
 }

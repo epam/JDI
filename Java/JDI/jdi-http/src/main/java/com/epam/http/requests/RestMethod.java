@@ -1,6 +1,7 @@
 package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
+import com.epam.commons.pairs.Pair;
 import com.google.gson.Gson;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
@@ -53,9 +54,7 @@ public class RestMethod<T> {
 
     protected void addQueryParameters(List<com.epam.http.annotations.QueryParameter> qPars) {
         for (com.epam.http.annotations.QueryParameter qPar: qPars ) {
-            QueryParameter queryParameter = new QueryParameter(qPar.name(), qPar.value());
-            data.queryParams.add(queryParameter);
-            spec.queryParam(queryParameter.getName(), queryParameter.getValue());
+            data.queryParams.add(qPar.name(), qPar.value());
         }
     }
 
@@ -99,8 +98,8 @@ public class RestMethod<T> {
             String urlActual = data.url.replaceFirst("\\{.*?}", pathParameter);
             data.url = urlActual;
         }
-        for(QueryParameter queryPar : requestData.queryParams) {
-            data.queryParams.add(new QueryParameter(queryPar.getName(), queryPar.getValue()));
+        for(Pair<String, String> queryPar : requestData.queryParams) {
+            data.queryParams.add(queryPar.key, queryPar.value);
         }
         if (requestData.body != null) {
             data.body = requestData.body;
@@ -115,8 +114,8 @@ public class RestMethod<T> {
         if (data.body != null)
             spec.body(data.body);
         if (data.queryParams.size() != 0) {
-            for (QueryParameter parameter : data.queryParams) {
-                spec.queryParam(parameter.getName(), parameter.getValue());
+            for (Pair<String, String> parameter : data.queryParams) {
+                spec.queryParam(parameter.key, parameter.value);
             }
         }
         return spec;
@@ -125,9 +124,13 @@ public class RestMethod<T> {
     public RestResponse call(RequestParams params) {
         return callMethod(params);
     }
-    public RestResponse call(String... params) {
+    */
+
+  /*  public RestResponse call(String... params) {
         return call(new RequestParams(params));
-    }
+    }*/
+
+    /*
     public RestResponse call(UrlParams params) {
         return call(new RequestParams(params));
     }
@@ -207,7 +210,7 @@ public class RestMethod<T> {
     public boolean isAlive(int liveTimeMSec) {
         long start = currentTimeMillis();
         ResponseStatusType status;
-        do { status = GET().status().type();
+        do { status = GET().status.type();
         } while (status != OK && currentTimeMillis() - start < liveTimeMSec);
         return status == OK;
     }

@@ -29,7 +29,7 @@
             <artifactId>jdi-commons</artifactId>
             <version>${parent.version}</version>
         </dependency>
-    </dependencies>
+     </dependencies>
 
     <build>
         <plugins>
