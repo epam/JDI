@@ -376,12 +376,12 @@ function initPaging() {
             $('.next').addClass('disable');
             $('.last').addClass('disable');
         }
-		var pages = '';
+		var pagesList = '';
         for (var i = 1; i < pages.length; i++) {
             var str = (i == num) ? ' class="active"' : '';
-			pages = pages + '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
+			pagesList = pagesList + '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
         }
-		$('.page-list-replace').replaceWith(pages);
+		$('.page-list-replace').replaceWith(pagesList);
         if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1]);
         if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1]);
         $('.first:not(.disable) a').attr('href', pages[1]);
