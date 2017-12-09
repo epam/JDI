@@ -1,4 +1,4 @@
-var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html']
+var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html']
 
 var data = {};
 var sliderCheck = {};
@@ -364,7 +364,7 @@ function initPaging() {
     var linum = (num < 2) ? num : num + 1;
     $('.sidebar-menu li').removeClass('active');
     $($('.sidebar-menu li')[linum]).addClass('active');
-    if (linum == 3 || linum == 4 || linum == 5 || linum == 6 || linum == 7 || linum == 8) {
+    if (linum > 2 && linum <10) {
         $($('.sidebar-menu li')[2]).addClass('active');
         $('.sidebar-menu li .sub').show();
     }
@@ -376,10 +376,12 @@ function initPaging() {
             $('.next').addClass('disable');
             $('.last').addClass('disable');
         }
-        //for (var i = 1; i < pages.length; i++) {
-        //    var str = (i == num) ? ' class="active"' : '';
-        //    $('<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>').insertBefore('.uui-pagination .last');
-        //}
+		var pages = '';
+        for (var i = 1; i < pages.length; i++) {
+            var str = (i == num) ? ' class="active"' : '';
+			pages = pages + '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
+        }
+		$('.page-list-replace').replaceWith(pages);
         if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1]);
         if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1]);
         $('.first:not(.disable) a').attr('href', pages[1]);
