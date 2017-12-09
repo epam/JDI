@@ -10,9 +10,11 @@ var sliderCheck = {};
 $(document).ready(function () {
 	getPageState();
     checkLogin();
+	includeHeader();
+	includeSideBar();
 	initLeftNavMenu();
-    if ($('.page-list-replace')) {
-		initPaging();
+    if ($('.pagination')) {
+		includePagination();
 	}
     reformTitle('salad');
 
@@ -367,6 +369,153 @@ function getPageState() {
     num = pages.indexOf(testLoc);
     linum = (num < 2) ? num : num + 1;
 }
+function includeHeader() {
+	var code = ' <div class="uui-header dark-gray">\
+        <nav role="navigation">\
+            <div class="sidebar-toggle-box blue" style="display: none;">\
+                <div data-toggle="tooltip" data-placement="right" title="Toggle Navigation" class="sidebar-tooltip">\
+                    <span class="fa fa-reorder"></span>\
+                </div>\
+            </div>\
+            <div class="epam-logo">\
+				<a href="/index.html">\
+					<span>Information<br>Framework</span>\
+					<img src="images/Logo_Epam_Color.svg" alt="" width="86" />\
+				</a>\
+            </div>\'<ul class="uui-navigation nav navbar-nav m-l8">\
+                <li>\
+                    <a href="index.html">Home</a>\
+                </li>\
+                <li>\
+                    <a href="contacts.html">Contact form</a>\
+                </li>\
+                <li class="dropdown">\
+                    <a class="dropdown-toggle" data-toggle="dropdown"> Service\
+                        <span class="caret"></span>\
+                    </a>\
+                    <ul class="dropdown-menu" role="menu">\
+                        <li><a href="support.html">Support</a></li>\
+                        <li><a href="dates.html">Dates</a></li>\
+                        <li><a href="complex-table.html">Complex Table </a></li>\
+                        <li><a href="simple-table.html">Simple Table </a></li>\
+                        <li><a href="user-table.html">User Table </a></li>\
+                        <li><a href="table-pages.html">Table with pages</a></li>\
+                        <li><a href="different-elements.html">Different elements</a></li>\
+                    </ul>\
+                </li>\
+                <li>\
+                    <a href="metals-colors.html">Metals & Colors</a>\
+                </li>\
+            </ul>\
+            <ul class="uui-navigation navbar-nav navbar-right">\
+                <li class="dropdown uui-profile-menu">\
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">\
+                        <div class="profile-photo">\
+                            <i class="fa fa-user"></i>\
+                            <img src="images/icons/no_photo.png" alt="" style="display: none;">\
+                            <span>Piter Chailovskii</span>\
+                        </div>\
+                        <span class="caret"></span>\
+                    </a>\
+                    <div class="dropdown-menu dropdown-menu-login" role="menu">\
+                        <form class="form-horizontal login hidden">\
+                            <div class="form-horizontal-pad">\
+                                <div class="form-group form-group10">\
+                                    <label for="Login" class="col-sm-3">Login</label>\
+                                    <div class="col-sm-9">\
+                                        <input id="Login" type="text" class="uui-form-element">\
+                                    </div>\
+                                </div>\
+                                <div class="form-group form-group10">\
+                                    <label for="Password" class="col-sm-3">Password</label>\
+                                    <div class="col-sm-9">\
+                                        <input id="Password" type="password" class="uui-form-element">\
+                                    </div>\
+                                </div>\
+                                <span class="login-txt hidden">* Login Faild</span>\
+                            </div>\
+                            <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-in"></i><span>Enter</span></button>\
+                        </form>\
+                        <div class="logout">\
+                            <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-out"></i><span>Logout</span></button>\
+                        </div>\
+                    </div>\
+                </li>\
+            </ul>\
+            <div class="search">\
+                <span class="icon-search"></span>\
+                <div class="search-active hidden">\
+                    <span class="search-title">Search this Site</span>\
+                    <span class="icon-search active"></span>\
+                    <div class="search-field">\
+                        <input type="text">\
+                    </div>\
+                </div>\
+            </div>\
+        </nav>\
+    </div>'
+	$('.site-header').replaceWith(code);
+}
+function includeSideBar() {
+	var code = '<div class="uui-side-bar">\
+        <ul class="sidebar-menu">\
+            <li>\
+                <a href="index.html">\
+                    <span>Home</span>\
+                </a>\
+            </li>\
+            <li>\
+                <a href="contacts.html">\
+                    <span>Contact form</span>\
+                </a>\
+            </li>\
+            <li class="sub-menu">\
+                <a>\
+                    <span>Service</span>\
+                    <div class="fa fa-caret-down arrow"></div>\
+                </a>\
+                <ul class="sub">\
+                    <li>\
+                        <a href="support.html">\
+                            <p>\
+                                <span>Support</span>\
+                            </p>\
+                        </a>\
+                    </li>\
+                    <li>\
+                        <a href="dates.html">\
+                            <p>\
+                                <span>Dates</span>\
+                            </p>\
+                        </a>\
+                    </li>\
+                    <li><a href="complex-table.html"><p>\
+                        <span>Complex Table </span>\
+                    </p></a></li>\
+                    <li><a href="simple-table.html"><p>\
+                        <span>Simple Table</span>\
+                    </p></a></li>\
+                    <li><a href="user-table.html"><p>\
+                        <span>User Table</span>\
+                    </p></a></li>\
+                    <li><a href="table-pages.html"><p>\
+                        <span>Table with pages</span>\
+                    </p></a></li>\
+                    <li><a href="different-elements.html"><p>\
+                        <span>Different elements</span>\
+                    </p></a></li>\
+                </ul>\
+            </li>\
+            <li class="active">\
+                <a href="metals-colors.html">\
+                    <span>Metals & Colors</span>\
+                </a>\
+            </li>\
+        </ul>\
+    </div>'
+	$('.left-side-bar').replaceWith(code);
+}
+
 function initLeftNavMenu() {
     $('.sidebar-menu li').removeClass('active');
     $($('.sidebar-menu li')[linum]).addClass('active');
@@ -375,14 +524,14 @@ function initLeftNavMenu() {
         $('.sidebar-menu li .sub').show();
     }
 }
-function initPaging() {
+function includePagination() {
 	var paginator = '<ul class="uui-pagination"><li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li><li class="first"><a href="contacts.html">First</a></li>'
 	for (var i = 1; i < pages.length; i++) {
 		var str = (i == num) ? ' class="active"' : '';
 		paginator += '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
 	}
 	paginator += '<li class="last"><a href="metals-colors.html">Last</a></li> <li class="next"><a href="index.html"><i class="fa fa-long-arrow-right"></i></a></li> </ul>'
-	$('.page-list-replace').replaceWith(paginator);		
+	$('div.pagination').replaceWith(paginator);		
 	if (num == 1) {
 		$('.prev').addClass('disable');
 		$('.first').addClass('disable');

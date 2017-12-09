@@ -8736,9 +8736,9 @@ input[type=radio].uui-form-element.disable + label, input[type=checkbox].uui-for
 }
 
 .uui-pagination {
-    display: inline-block;
+    display: table;
     list-style: none;
-    margin: 0
+    margin: 0 auto
 }
 
 .uui-pagination > li {

@@ -697,8 +697,6 @@ header {
     .uui-pagination {
         margin-top: 20px;
         height: 32px;
-        left: 50%;
-        margin-left: -153px;
         position: relative;
     }
         .uui-pagination > li > a{
@@ -976,7 +974,7 @@ table.user-table {
     background-color: #eeeeee;
 }
 
-.user-table .container {
+.user-table .user-descr {
   display: inline-block;
   vertical-align: top;
 }
