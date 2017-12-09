@@ -382,7 +382,8 @@ function includeHeader() {
 					<span>Information<br>Framework</span>\
 					<img src="images/Logo_Epam_Color.svg" alt="" width="86" />\
 				</a>\
-            </div>\'<ul class="uui-navigation nav navbar-nav m-l8">\
+            </div>\
+			<ul class="uui-navigation nav navbar-nav m-l8">\
                 <li>\
                     <a href="index.html">Home</a>\
                 </li>\
@@ -453,12 +454,11 @@ function includeHeader() {
                 </div>\
             </div>\
         </nav>\
-    </div>'
+    </div>';
 	$('.replace.site-header').replaceWith(code);
 }
 function includeSideBar() {
-	var code = '<div class="uui-side-bar">\
-        <ul class="sidebar-menu">\
+	var code = '<ul class="sidebar-menu">\
             <li>\
                 <a href="index.html">\
                     <span>Home</span>\
@@ -511,8 +511,7 @@ function includeSideBar() {
                     <span>Metals & Colors</span>\
                 </a>\
             </li>\
-        </ul>\
-    </div>'
+        </ul>';
 	$('.replace.left-side-bar').replaceWith(code);
 }
 
