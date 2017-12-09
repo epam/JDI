@@ -458,7 +458,8 @@ function includeHeader() {
 	$('.replace.site-header').replaceWith(code);
 }
 function includeSideBar() {
-	var code = '<ul class="sidebar-menu">\
+	var code = '<div class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+        <ul class="sidebar-menu">\
             <li>\
                 <a href="index.html">\
                     <span>Home</span>\
@@ -469,12 +470,12 @@ function includeSideBar() {
                     <span>Contact form</span>\
                 </a>\
             </li>\
-            <li class="sub-menu">\
+            <li class="sub-menu active">\
                 <a>\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
-                <ul class="sub">\
+                <ul class="sub" style="display: block;">\
                     <li>\
                         <a href="support.html">\
                             <p>\
@@ -492,10 +493,10 @@ function includeSideBar() {
                     <li><a href="complex-table.html"><p>\
                         <span>Complex Table </span>\
                     </p></a></li>\
-                    <li><a href="simple-table.html"><p>\
+                    <li class="active"><a href="simple-table.html"><p>\
                         <span>Simple Table</span>\
                     </p></a></li>\
-                    <li><a href="user-table.html"><p>\
+                    <li class="active"><a href="user-table.html"><p>\
                         <span>User Table</span>\
                     </p></a></li>\
                     <li><a href="table-pages.html"><p>\
@@ -506,12 +507,13 @@ function includeSideBar() {
                     </p></a></li>\
                 </ul>\
             </li>\
-            <li class="active">\
+            <li class="">\
                 <a href="metals-colors.html">\
-                    <span>Metals & Colors</span>\
+                    <span>Metals &amp; Colors</span>\
                 </a>\
             </li>\
-        </ul>';
+        </ul>\
+    </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; height: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>';
 	$('.replace.left-side-bar').replaceWith(code);
 }
 
