@@ -959,3 +959,27 @@ main{
     margin: 0;
     position: relative;
 }
+
+table.user-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.user-table td, .user-table th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #eeeeee;
+}
+
+.user-table .container {
+  display: inline-block;
+  vertical-align: top;
+}
+.user-table .bottom {
+  vertical-align: bottom;
+}
