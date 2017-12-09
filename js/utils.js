@@ -368,6 +368,30 @@ function initPaging() {
         $($('.sidebar-menu li')[2]).addClass('active');
         $('.sidebar-menu li .sub').show();
     }
+    if ($('.page-list-replace')) {
+		var paginator = '<ul class="uui-pagination">						
+						<li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li>
+						<li class="first"><a href="contacts.html">First</a></li>'
+		for (var i = 1; i < pages.length; i++) {
+			var str = (i == num) ? ' class="active"' : '';
+			paginator += '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
+		}
+		paginator += '<li class="last"><a href="metals-colors.html">Last</a></li>
+						<li class="next"><a href="index.html"><i class="fa fa-long-arrow-right"></i></a></li>
+					</ul>'
+		$('.page-list-replace').replaceWith(paginator);		
+        if (num == 1) {
+            $('.prev').addClass('disable');
+            $('.first').addClass('disable');
+        } else if (num == pages.length - 1) {
+            $('.next').addClass('disable');
+            $('.last').addClass('disable');
+        }
+        if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1]);
+        if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1]);
+        $('.first:not(.disable) a').attr('href', pages[1]);
+        $('.last:not(.disable) a').attr('href', pages[pages.length - 1]);
+	}
     if ($('.uui-pagination')) {
         if (num == 1) {
             $('.prev').addClass('disable');
