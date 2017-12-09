@@ -454,7 +454,7 @@ function includeHeader() {
             </div>\
         </nav>\
     </div>'
-	$('.site-header').replaceWith(code);
+	$('.replace.site-header').replaceWith(code);
 }
 function includeSideBar() {
 	var code = '<div class="uui-side-bar">\
@@ -513,7 +513,7 @@ function includeSideBar() {
             </li>\
         </ul>\
     </div>'
-	$('.left-side-bar').replaceWith(code);
+	$('.replace.left-side-bar').replaceWith(code);
 }
 
 function initLeftNavMenu() {
