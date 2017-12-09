@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AngleSharp.0.9.9\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
     <Reference Include="JDI Commons, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\JDI.UICommons.1.0.61\lib\net452\JDI Commons.dll</HintPath>
     </Reference>
@@ -61,6 +64,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="WebDriver, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,6 +73,9 @@
     </Reference>
     <Reference Include="WebDriver.Support, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Selenium.Support.3.7.0\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriverManager, Version=2.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\WebDriverManager.2.2.4\lib\net452\WebDriverManager.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -107,6 +115,8 @@
     <Compile Include="Selenium\DriverFactory\WebDriverByUtils.cs" />
     <Compile Include="Selenium\DriverFactory\WebDriverFactory.cs" />
     <Compile Include="Selenium\DriverFactory\WinProcUtils.cs" />
+    <Compile Include="Selenium\DriverManager\WebDriverManager.cs" />
+    <Compile Include="Selenium\DriverManager\WebDriverManagerHelper.cs" />
     <Compile Include="Selenium\Elements\APIInteract\ContextType.cs" />
     <Compile Include="Selenium\Elements\APIInteract\GetElementModule.cs" />
     <Compile Include="Selenium\Elements\Base\Clickable.cs" />
@@ -184,14 +194,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\packages\WebDriverIEDriver64.2.45.0.0\tools\IEDriverServer-license.txt">
-      <Link>IEDriverServer-license.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\packages\WebDriverIEDriver64.2.45.0.0\tools\IEDriverServer.exe">
-      <Link>IEDriverServer.exe</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Mono.Cecil.dll" />
     <Content Include="Mono.Cecil.Mdb.dll" />
     <Content Include="Mono.Cecil.Pdb.dll" />
@@ -200,6 +202,7 @@
     <Content Include="nunit.engine.dll" />
     <Content Include="NUnit3.TestAdapter.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
@@ -227,9 +230,11 @@
     <Error Condition="!Exists('..\..\..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets'))" />
     <Error Condition="!Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.19.1\build\Selenium.Firefox.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.Firefox.WebDriver.0.19.1\build\Selenium.Firefox.WebDriver.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Selenium.WebDriver.IEDriver64.3.3.0.1\build\Selenium.WebDriver.IEDriver64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Selenium.WebDriver.IEDriver64.3.3.0.1\build\Selenium.WebDriver.IEDriver64.targets'))" />
   </Target>
   <Import Project="..\..\..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Chrome.WebDriver.2.33\build\Selenium.Chrome.WebDriver.targets')" />
   <Import Project="..\..\..\packages\Selenium.Firefox.WebDriver.0.19.1\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\..\..\packages\Selenium.Firefox.WebDriver.0.19.1\build\Selenium.Firefox.WebDriver.targets')" />
+  <Import Project="..\..\..\packages\Selenium.WebDriver.IEDriver64.3.3.0.1\build\Selenium.WebDriver.IEDriver64.targets" Condition="Exists('..\..\..\packages\Selenium.WebDriver.IEDriver64.3.3.0.1\build\Selenium.WebDriver.IEDriver64.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
