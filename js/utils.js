@@ -571,7 +571,7 @@ function initLeftNavMenu() {
 }
 function includePagination() {
 	var paginator = '<ul class="uui-pagination"><li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li><li class="first"><a href="contacts.html">First</a></li>'
-	for (var i = 1; i < pages.length; i++) {
+	for (var i = 0; i < pages.length; i++) {
 		var str = (i == num) ? ' class="active"' : '';
 		paginator += '<li' + str + '><a href="' + pages[i] + '">' + i + '</a></li>'
 	}
