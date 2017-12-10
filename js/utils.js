@@ -19,6 +19,7 @@ $(document).ready(function () {
 	if ($('.right-side-bar')) {
 		includeLogBar();
 	}
+	includeFooter()
     reformTitle('salad');
 
 
