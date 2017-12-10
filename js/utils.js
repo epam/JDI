@@ -573,7 +573,7 @@ function includePagination() {
 	var paginator = '<ul class="uui-pagination"><li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li><li class="first"><a href="contacts.html">First</a></li>'
 	for (var i = 1; i < pages.length; i++) {
 		var str = (i == num) ? ' class="active"' : '';
-		paginator += '<li' + str + '><a href="' + pages[i].substring(1, pages[i].length) + '">' + i + '</a></li>'
+		paginator += '<li' + str + '><a href="' + pages[i] + '">' + i + '</a></li>'
 	}
 	paginator += '<li class="last"><a href="metals-colors.html">Last</a></li> <li class="next"><a href="index.html"><i class="fa fa-long-arrow-right"></i></a></li> </ul>'
 	$('div.pagination').replaceWith(paginator);		
