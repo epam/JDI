@@ -16,6 +16,9 @@ $(document).ready(function () {
     if ($('.pagination')) {
 		includePagination();
 	}
+	if ($('.right-side-bar')) {
+		includeLogBar();
+	}
     reformTitle('salad');
 
 
@@ -515,6 +518,46 @@ function includeSideBar() {
         </ul>\
     </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; height: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>';
 	$('.replace.left-side-bar').replaceWith(code);
+}
+function includeLogBar() {
+	var code = '<div class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+        <section class="uui-info-panel-horizontal">\
+            <div class="info-panel-header">\
+                Log\
+            </div>\
+            <div class="info-panel-body info-panel-body-log">\
+                <div class="info-panel-section">\
+                    <ul class="panel-body-list logs">\
+                    </ul>\
+                </div>\
+            </div>\
+        </section>\
+        <section class="uui-info-panel-horizontal">\
+            <div class="info-panel-header">\
+                Result\
+            </div>\
+            <div class="info-panel-body info-panel-body-result">\
+                <div class="info-panel-section">\
+                    <ul class="panel-body-list results">\
+                    </ul>\
+                </div>\
+            </div>\
+        </section>\
+    </div><div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; height: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>';
+	$('.replace.right-side-bar').replaceWith(code);
+}
+function includeFooter() {
+var code = '<div class="footer-bg">
+        <div class="footer-content overflow">
+            <div>Powered by EPAM System</div>
+            <ul class="footer-menu">
+				<li><a href="support.html" title="Tip title">About</a></li>
+                <li>|</li>
+                <li><a href="">Report a bug</a></li>
+            </ul>
+        </div>
+    </div>';
+	$('.replace.footer').replaceWith(code);
 }
 
 function initLeftNavMenu() {
