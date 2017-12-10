@@ -520,7 +520,7 @@ function includeSideBar() {
 	$('.replace.left-side-bar').replaceWith(code);
 }
 function includeLogBar() {
-	var code = '<div class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+	var code = '<div class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <section class="uui-info-panel-horizontal">\
             <div class="info-panel-header">\
                 Log\
@@ -547,15 +547,15 @@ function includeLogBar() {
 	$('.replace.right-side-bar').replaceWith(code);
 }
 function includeFooter() {
-var code = '<div class="footer-bg">
-        <div class="footer-content overflow">
-            <div>Powered by EPAM System</div>
-            <ul class="footer-menu">
-				<li><a href="support.html" title="Tip title">About</a></li>
-                <li>|</li>
-                <li><a href="">Report a bug</a></li>
-            </ul>
-        </div>
+var code = '<div class="footer-bg">\
+        <div class="footer-content overflow">\
+            <div>Powered by EPAM System</div>\
+            <ul class="footer-menu">\
+				<li><a href="support.html" title="Tip title">About</a></li>\
+                <li>|</li>\
+                <li><a href="">Report a bug</a></li>\
+            </ul>\
+        </div>\
     </div>';
 	$('.replace.footer').replaceWith(code);
 }
