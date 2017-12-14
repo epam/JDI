@@ -30,7 +30,9 @@ public class GetElementType {
     private By locator;
     private Object parent;
 
-    public GetElementType() { }
+    public GetElementType() {
+    }
+
     public GetElementType(By locator, Object parent) {
         this.locator = locator;
         this.parent = parent;
@@ -47,7 +49,6 @@ public class GetElementType {
                 result.init(parent, new GetElementModule(locator, el));
                 return result;
             }
-
         } catch (Exception ignore) { return null; }
     }
 

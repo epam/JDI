@@ -54,7 +54,7 @@ import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
-import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.*;
+import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.downloadDriver;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;

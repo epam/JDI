@@ -4,13 +4,9 @@ import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.epam.jdi.enums.HeaderMenu.CAREERS;
 import static com.epam.jdi.site.epam.EpamSite.careerPage;
 import static com.epam.jdi.site.epam.EpamSite.headerMenu;
-import static java.util.Arrays.asList;
 
 public class SimpleTests extends TestsBase {
 

@@ -27,35 +27,30 @@ import java.util.List;
  */
 
 public interface IEntityTable<E,R> extends ITable, List<E> {
-
     List<R> getRows();
+    List<R> getRows(String... colNames);
     List<R> getRows(JFuncTREx<R, Boolean> colNames);
+
     R firstRow(JFuncTREx<R, Boolean> rule);
-
     R getRow(String value, Column column);
-
     R getRow(int rowNum);
-
     R getRow(String rowName);
 
-    List<E> entities(String... colNames);
-
+    List<E> all();
     default List<E> entities(){
         return all();
     }
+    List<E> entities(String... colNames);
+    List<E> entities(JFuncTREx<E, Boolean> colNames);
 
-    E entity(int rowNum);
-
+    E entity(JFuncTREx<E, Boolean> rule);
     E entity(String value, Column column);
-
+    E entity(int rowNum);
     E entity(String rowName);
-
-    List<E> all();
 
     default E first(){
         return entity(1);
     }
-
     default E last(){
         return entity(size());
     }

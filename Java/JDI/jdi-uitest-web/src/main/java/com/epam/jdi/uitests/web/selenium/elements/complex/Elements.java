@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.Title;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
@@ -35,6 +36,7 @@ import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 
 /**
  * Created by Roman_Iovlev on 7/8/2015.
@@ -166,8 +168,9 @@ public class Elements<T extends Element> extends BaseSelector<Enum> implements L
             return first(listOfElements(),
                     el -> ((IText)getValueField(first(el.getClass().getFields(), this::isTextElement), el))
                             .getText().equals(name));
-
-        return first(listOfElements(), el -> getElementByNameAction(el.getWebElement(), name));
+        return getLocator().toString().contains("%s")
+                ? new GetElementType(fillByTemplate(getLocator(), name), getParent()).get(classType)
+                : first(listOfElements(), el -> getElementByNameAction(el.getWebElement(), name));
     }
     private Field getFieldWithName(Object o, String name) {
         try {

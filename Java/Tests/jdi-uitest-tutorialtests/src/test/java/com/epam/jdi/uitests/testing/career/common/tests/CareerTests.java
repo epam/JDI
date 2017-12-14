@@ -3,10 +3,7 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.testng.Check;
-import org.junit.Before;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.enums.HeaderMenu.CAREERS;
@@ -28,4 +25,5 @@ public class CareerTests extends TestsBase {
         new Check("Captcha class contains 'form-field-error'")
             .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-field-error");
     }
+
 }

@@ -28,7 +28,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.function.Function;
 
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;

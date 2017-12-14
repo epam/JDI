@@ -111,15 +111,15 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         return select(rows().get(), row -> castToRow(row.value));
     }
 
-    public R firstRow(JFuncTREx<R, Boolean> colNames) {
-        List<R> rows = getRows(colNames);
+    public R firstRow(JFuncTREx<R, Boolean> rule) {
+        List<R> rows = getRows(rule);
         return rows.size() > 0
             ? rows.get(0)
             : null;
     }
 
-    public List<R> getRows(JFuncTREx<R, Boolean> colNames) {
-        List<R> rows = where(getRows(), colNames);
+    public List<R> getRows(JFuncTREx<R, Boolean> rule) {
+        List<R> rows = where(getRows(), rule);
         if (rows.size() == 0)
             logger.info("Can't find any rows that meat criterias");
         return rows;
@@ -154,6 +154,24 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     public List<E> entities(String... colNames){
         return select(colNames, colName
                 -> rowToEntity(columns.getColumn(colName)));
+    }
+
+    public List<R> getRows(String... colNames) {
+        return select(colNames, colName
+                -> castToRow(columns.getColumn(colName)));
+    }
+    public List<E> entities(JFuncTREx<E, Boolean> rule) {
+        List<E> entities = where(entities(), rule);
+        if (rows.size() == 0)
+            logger.info("Can't find any rows that meat criterias");
+        return entities;
+    }
+
+    public E entity(JFuncTREx<E, Boolean> rule) {
+        List<E> rows = entities(rule);
+        return rows.size() > 0
+                ? rows.get(0)
+                : null;
     }
 
     public E entity(int rowNum){

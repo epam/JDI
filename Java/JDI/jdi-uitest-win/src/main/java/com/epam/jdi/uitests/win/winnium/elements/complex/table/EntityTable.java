@@ -109,6 +109,24 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
                 i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
     }
 
+
+    public List<R> getRows(String... colNames) {
+        return select(colNames, colName
+                -> castToRow(columns.getColumn(colName)));
+    }
+    public List<E> entities(JFuncTREx<E, Boolean> rule) {
+        List<E> entities = where(entities(), rule);
+        if (rows.size() == 0)
+            logger.info("Can't find any rows that meat criterias");
+        return entities;
+    }
+
+    public E entity(JFuncTREx<E, Boolean> rule) {
+        List<E> rows = entities(rule);
+        return rows.size() > 0
+                ? rows.get(0)
+                : null;
+    }
     @Override
     public E entity(int rowNum) {
         return rowToEntity(rows.getRow(rowNum));
