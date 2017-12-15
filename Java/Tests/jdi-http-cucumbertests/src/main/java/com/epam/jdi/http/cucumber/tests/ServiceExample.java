@@ -4,7 +4,7 @@ import com.epam.http.annotations.*;
 import com.epam.http.requests.RestMethod;
 import com.epam.jdi.http.cucumber.IRestService;
 
-import static com.jayway.restassured.http.ContentType.JSON;
+import static io.restassured.http.ContentType.JSON;
 
 @ServiceDomain("http://httpbin.org/")
 public class ServiceExample implements IRestService {

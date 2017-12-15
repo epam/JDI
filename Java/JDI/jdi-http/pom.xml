@@ -20,7 +20,7 @@
             <version>LATEST</version>
         </dependency>
         <dependency>
-            <groupId>com.jayway.restassured</groupId>
+            <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>LATEST</version>
         </dependency>
@@ -29,7 +29,7 @@
             <artifactId>jdi-commons</artifactId>
             <version>${parent.version}</version>
         </dependency>
-    </dependencies>
+     </dependencies>
 
     <build>
         <plugins>

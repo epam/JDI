@@ -6,7 +6,7 @@ import com.epam.http.requests.MethodData;
 import com.epam.http.requests.RestMethod;
 import com.epam.http.requests.RestMethodTypes;
 import com.epam.http.requests.RestResponse;
-import com.jayway.restassured.http.ContentType;
+import io.restassured.http.ContentType;
 
 import java.util.HashMap;
 

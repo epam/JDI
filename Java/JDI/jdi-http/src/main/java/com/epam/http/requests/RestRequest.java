@@ -1,7 +1,7 @@
 package com.epam.http.requests;
 
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSpecification;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 import static com.epam.http.ExceptionHandler.exception;
 import static java.lang.System.currentTimeMillis;
@@ -12,6 +12,7 @@ import static java.lang.System.currentTimeMillis;
 public class RestRequest {
     public static RestResponse doRequest(
             RestMethodTypes methodType, RequestSpecification spec) {
+        spec.log().uri();
         Response response;
         long time;
         try {

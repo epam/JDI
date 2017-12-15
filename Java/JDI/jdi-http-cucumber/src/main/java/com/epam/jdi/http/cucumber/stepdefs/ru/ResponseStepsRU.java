@@ -24,12 +24,12 @@ public class ResponseStepsRU {
 
     @Тогда("^Код ответа равен (\\d+)$")
     public void responseStatusCodeEquals(int statusCode){
-        assertEquals(restResponse.get().status().code(), statusCode);
+        assertEquals(restResponse.get().status.code(), statusCode);
     }
 
     @И("^Тело ответа пустое")
     public void responseBodyIs() {
-        assertEquals(restResponse.get().body(), "");
+        assertEquals(restResponse.get().body, "");
     }
 
     @И("^Статус ответа это ([^\"]*)$")
@@ -75,6 +75,6 @@ public class ResponseStepsRU {
 
     @И("^Я печатаю ответ на запрос$")
     public void iPrintResponse() {
-        restResponse.get().body();
+        restResponse.get();
     }
 }
