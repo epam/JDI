@@ -12,14 +12,14 @@ import static java.lang.System.currentTimeMillis;
  */
 public class RestLoad {
 
-    public static PerformanceResult loadService(long liveTimeMSec, RestMethod... requests) {
+    public static PerformanceResult loadService(long liveTimeSec, RestMethod... requests) {
         Random rnd = new Random();
         int Length = requests.length;
         PerformanceResult pr = new PerformanceResult();
         //pr.addResult(requests[0].get());
         long start = currentTimeMillis();
         do { pr.addResult(requests[rnd.nextInt(Length)].GET());
-        } while (currentTimeMillis() - start < liveTimeMSec);
+        } while (currentTimeMillis() - start < liveTimeSec*1000);
         return pr;
     }
     public static PerformanceResult loadService(RestMethod... requests) {

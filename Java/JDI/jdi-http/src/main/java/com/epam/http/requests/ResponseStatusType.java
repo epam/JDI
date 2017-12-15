@@ -1,20 +1,26 @@
 package com.epam.http.requests;
 
+import com.epam.commons.EnumUtils;
+
+import java.util.List;
+
+import static com.epam.commons.EnumUtils.getAllEnumValues;
+import static com.epam.commons.LinqUtils.first;
 import static com.epam.http.ExceptionHandler.exception;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.
  */
 public enum ResponseStatusType {
-    OK, REDIRECT, ERROR, SERVER_ERROR;
+    OK(2), REDIRECT(3), ERROR(4), SERVER_ERROR(5);
 
-    public static ResponseStatusType getStatusType(int statusCode) {
-        switch (statusCode/100) {
-            case 2: return OK;
-            case 3: return REDIRECT;
-            case 4: return ERROR;
-            case 5: return SERVER_ERROR;
-        }
-        throw exception("Unknown status code: '%s'", statusCode);
+    public int firstNumber;
+    public static List<ResponseStatusType> allValues() {
+        return getAllEnumValues(ResponseStatusType.class);
+    }
+    ResponseStatusType(int num) { firstNumber = num; }
+    public static ResponseStatusType getStatusTypeFromCode(int code) {
+        int firstNum = code/100;
+        return first(allValues(), type -> type.firstNumber == firstNum);
     }
 }

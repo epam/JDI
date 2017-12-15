@@ -1,11 +1,20 @@
 package com.epam.jdi.httptests;
 
+import com.epam.commons.map.MapArray;
 import com.epam.http.requests.*;
+import io.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static com.epam.http.requests.RequestData.requestBody;
+import static com.epam.http.requests.RequestData.requestData;
+import static com.epam.http.requests.RequestData.requestParams;
 import static com.epam.http.requests.ServiceInit.init;
+import static com.epam.jdi.httptests.TrelloApi.getBoardCardById;
+import static com.epam.jdi.httptests.TrelloApi.getBoardCardsList;
+import static java.lang.String.format;
+import static org.apache.commons.lang3.RandomStringUtils.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -21,109 +30,71 @@ public class TrelloTests {
 
     @Test
     public void createNewBoardTest() {
-        String boardName = "Lorem ipsum board " + RandomStringUtils.random(12, true, true);
-
-        RequestData data = new RequestData()
-                .set(d -> d.body = "{\"name\": \"" + boardName + "\"}");
-
-        RestResponse response = TrelloApi
-                .boardsPost
-                .call(data)
-                .isOk();
-
-        response
-                .assertThat()
-                    .body("name", equalTo(boardName));
+        String boardName = "Lorem ipsum board " + random(12, true, true);
+        RestResponse response = TrelloApi.boardsPost
+                .call(requestBody(format("{\"name\": \"%s\"}", boardName)));
+        response.isOk().body("name", equalTo(boardName));
     }
 
     @Test
     public void getBoardById() {
-        RequestData data = new RequestData()
-                .set(d -> d.pathParams.add(BOARD_ID));
-
         RestResponse response = TrelloApi
                 .getBoardById
-                .call(data)
-                .isOk();
-        response.assertThat()
-                .body("id", equalTo(BOARD_ID));
+                .call(requestParams(BOARD_ID));
+        response.isOk().body("id", equalTo(BOARD_ID));
     }
 
     @Test
     public void getBoardCardsList() {
-        RequestData data = new RequestData()
-                .set(d -> d.pathParams.add(BOARD_ID));
-
-        RestResponse response = TrelloApi
-                .getBoardCardsList
-                .call(data)
-                .isOk();
-
-        response.assertThat()
-                .body("name.size()", equalTo(6));
+        getBoardCardsList.call(requestParams(BOARD_ID))
+            .isOk().body("name.size()", equalTo(6));
     }
 
     @Test
     public void getCardByShortId() {
-        RequestData data = new RequestData()
-                .set(d -> { d.pathParams.add(BOARD_ID);
-                            d.pathParams.add("1");});
-
-        RestResponse response = TrelloApi
-                .getBoardCardById
-                .call(data)
-                .isOk();
-        response.assertThat()
-                .body("name", equalTo("Lorem ipsum dolor sit amet"));
+        getBoardCardById.call(requestParams(BOARD_ID, "1"))
+            .isOk().assertThat().body("name", equalTo("Lorem ipsum dolor sit amet"));
     }
 
     @Test
     public void postNewCommentToCard() {
-        String newComment = "New comment" + RandomStringUtils.random(7, true, false);
-
-        RequestData data = new RequestData()
-                .set(d -> { d.pathParams.add(CARD_UNIQUE_ID);
-                            d.body = "{\"text\": \"" + newComment + "\"}";});
-
+        String newComment = "New comment" + random(7, true, false);
         RestResponse response = TrelloApi
                 .postNewCommentToCard
-                .call(data)
-                .isOk();
-        response.assertThat()
+                .call(requestData(d -> {
+                    d.pathParams.add(CARD_UNIQUE_ID);
+                    d.body = format("{\"text\": \"%s\"}", newComment);}
+                ));
+        response.isOk()
                 .body("data.text", containsString(newComment));
 
     }
 
     @Test
     public void getAllUserBoards() {
-        RequestData data = new RequestData()
-                .set(d -> d.pathParams.add("jdiframwork"));
 
         RestResponse restResponse = TrelloApi
                 .getAllMemberBoards
-                .call(data)
-                .isOk();
-
+                .call(requestParams("jdiframwork"));
         restResponse.assertThat()
                 .body("name.size()", greaterThan(4));
     }
 
     @Test
     public void getCardByUniqueId() {
-        RequestData data = new RequestData()
-                .set(d -> { d.queryParams.add("fields", "url,shortUrl");
-                            d.pathParams.add(CARD_UNIQUE_ID);});
+        RequestData data = requestData(d -> {
+            d.queryParams.add("fields", "url,shortUrl");
+            d.pathParams.add(CARD_UNIQUE_ID);});
 
         RestResponse restResponse = TrelloApi
                 .getCardByUniqueId
-                .call(data)
-                .isOk();
+                .call(data);
 
-        restResponse
-                .assertThat()
-                .body("url", containsString("https://trello.com/c/SSFPAlkB/1-lorem-ipsum-dolor-sit-amet"))
-                .body("shortUrl", containsString("https://trello.com/c/SSFPAlkB"))
-                .body("id", equalTo(CARD_UNIQUE_ID))
-                .body("keySet().size()", is(3));
+        restResponse.assertBody(new Object[][]{
+                {"url", containsString("https://trello.com/c/SSFPAlkB/1-lorem-ipsum-dolor-sit-amet")},
+                {"shortUrl", containsString("https://trello.com/c/SSFPAlkB")},
+                {"id", equalTo(CARD_UNIQUE_ID)},
+                {"keySet().size()", is(3)}
+        });
     }
 }

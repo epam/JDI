@@ -24,8 +24,7 @@ public class ServiceTest {
     @Test
     public void jsonTest() {
         RestResponse resp = ServiceExample.getInfo.call();
-        resp.assertStatus(200, OK);
-        resp.assertThat().
+        resp.isOk().
             body("url", equalTo("http://httpbin.org/get")).
             body("headers.Host", equalTo("httpbin.org"));
         resp.assertThat().header("Connection", "keep-alive");
@@ -43,16 +42,17 @@ public class ServiceTest {
     public void statusTest() {
         ServiceExample service = init(ServiceExample.class);
         RestResponse resp = service.status.call("503");
-        assertEquals(resp.status.code(), 503);
-        assertEquals(resp.status.type(), SERVER_ERROR);
-        assertEquals(resp.body, "");
+        assertEquals(resp.status.code, 503);
+        assertEquals(resp.status.type, SERVER_ERROR);
+        assertEquals(resp.body, "<html>\n" +
+                "  <body/>\n" +
+                "</html>");
     }
     @Test
     public void staticServiceInitTest() {
         init(ServiceExample.class);
         RestResponse resp = getInfo.call();
-        resp.assertStatus(200, OK);
-        resp.assertThat().
+        resp.isOk().assertThat().
                 body("url", equalTo("http://httpbin.org/get")).
                 body("headers.Host", equalTo("httpbin.org"));
     }
@@ -60,8 +60,7 @@ public class ServiceTest {
     public void serviceInitTest() {
         ServiceExample service = init(ServiceExample.class);
         RestResponse resp = service.postMethod.call();
-        resp.assertStatus(200, OK);
-        resp.assertThat().
+        resp.isOk().assertThat().
                 body("url", equalTo("http://httpbin.org/post")).
                 body("headers.Host", equalTo("httpbin.org"));
     }
@@ -70,7 +69,7 @@ public class ServiceTest {
     public void htmlBodyParseTest() {
         ServiceExample service = init(ServiceExample.class);
         RestResponse resp = service.getHTMLMethod.call();
-        resp.assertStatus(200, OK);
+        resp.isOk();
         assertEquals(resp.getFromHtml("html.body.h1"), "Herman Melville - Moby-Dick");
     }
 }

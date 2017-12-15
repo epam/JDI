@@ -4,8 +4,9 @@ Feature: GET and POST check
     Given I init service
     When I do <method> request
     Then Response status type is <responseStatus>
-    And Response "url" is "<url>"
-    And Response "headers.Host" is "httpbin.org"
+    And Response body has values
+      | url         | <url>         |
+      | headers.Host| httpbin.org |
 
   Examples:
     | method | responseStatus | url                     |

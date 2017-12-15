@@ -1,12 +1,19 @@
 package com.epam.jdi.http.cucumber.stepdefs.en;
 
+import com.epam.commons.map.MapArray;
 import com.epam.http.requests.ResponseStatusType;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import org.hamcrest.Matcher;
 import org.testng.Assert;
+
+import java.util.List;
 
 import static com.epam.jdi.http.cucumber.Utils.performanceResult;
 import static com.epam.jdi.http.cucumber.Utils.restResponse;
+import static java.lang.String.format;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 
@@ -24,7 +31,7 @@ public class ResponseStepsEN {
 
     @Then("^Response status code equals (\\d+)$")
     public void responseStatusCodeEquals(int statusCode){
-        assertEquals(restResponse.get().status.code(), statusCode);
+        assertEquals(restResponse.get().status.code, statusCode);
     }
 
     @And("^Response body is empty")
@@ -46,31 +53,34 @@ public class ResponseStepsEN {
     public void responseParameterIsValue(String parameter, String value) {
         restResponse.get().assertThat().body(parameter, equalTo(value));
     }
+    @And("^Response \"([^\"]*)\" contains \"([^\"]*)\"$")
+    public void responseParameterContainsValue(String parameter, String value) {
+        restResponse.get().assertThat().body(parameter, containsString(value));
+    }
+    @And("^Response body has values$")
+    public void responseBodyHasValues(DataTable params) {
+        MapArray<String, Matcher<?>> map =
+            new MapArray<>(params.raw(), p -> p.get(0), p -> equalTo(p.get(1)));
+        restResponse.get().assertBody(map);
+    }
 
     @Then("^I check if performance results contain any fails$")
     public void iCheckIfPerformanceResultsContainAnyFails() {
         long numberOfFails = performanceResult.get().NumberOfFails;
-        if (numberOfFails == 0)
-            System.out.println("There were no failures.");
-        else if (numberOfFails == 1)
-            System.out.println("There was 1 failure.");
-        else
-            System.out.println("There were " + numberOfFails + " failures.");
+        Assert.assertEquals(numberOfFails, 0,
+                format("There were %s failures.", numberOfFails));
     }
 
     @And("^Average response time is lesser than (\\d+) sec$")
     public void averageResponseTime(long seconds) {
-        Assert.assertTrue(performanceResult.get().AverageResponseTime < seconds);
+        long respTime = performanceResult.get().AverageResponseTime;
+        Assert.assertTrue(respTime < seconds*1000,
+                format("Average response time %s msec but expected not more than 2 sec", respTime));
     }
 
     @And("^Response header \"([^\"]*)\" is \"([^\"]*)\"$")
     public void responseHeaderIs(String parameter, String value) {
         restResponse.get().assertThat().header(parameter, value);
-    }
-
-    @And("^Json response \"([^\"]*)\" is \"([^\"]*)\"$")
-    public void jsonResponseIs(String parameter, String value){
-        assertEquals(restResponse.get().jsonBody(parameter), value);
     }
 
     @And("^I print response$")

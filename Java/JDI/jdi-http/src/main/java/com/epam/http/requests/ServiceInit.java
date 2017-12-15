@@ -51,34 +51,21 @@ public class ServiceInit {
         String url = getUrlFromDomain(getDomain(c), mad.getUrl(), field.getName(), c.getSimpleName());
         RestMethod method = new RestMethod(url, mad.getType());
         if (field.isAnnotationPresent(ContentType.class))
-            method.spec.contentType(field.getAnnotation(ContentType.class).value());
+            method.setContentType(field.getAnnotation(ContentType.class).value());
         if (field.isAnnotationPresent(Header.class))
             method.addHeader(field.getAnnotation(Header.class));
-        if (field.isAnnotationPresent(Headers.class)) {
-            List<Header> headers = asList(
-                field.getAnnotation(Headers.class).value());
-            method.addHeaders(headers);
-        }
+        if (field.isAnnotationPresent(Headers.class))
+            method.addHeaders(field.getAnnotation(Headers.class).value());
         /* Case for class annotations*/
-        if (c.isAnnotationPresent(QueryParameter.class)) {
-            method.spec.queryParam(c.getAnnotation(QueryParameter.class).name(),
-                    c.getAnnotation(QueryParameter.class).value());
-        }
-        if (c.isAnnotationPresent(QueryParameters.class)) {
-            List<QueryParameter> qParameters = asList(
-                    c.getAnnotation(QueryParameters.class).value());
-            method.addQueryParameters(qParameters);
-        }
+        if (c.isAnnotationPresent(QueryParameter.class))
+            method.addQueryParameters(c.getAnnotation(QueryParameter.class));
+        if (c.isAnnotationPresent(QueryParameters.class))
+            method.addQueryParameters(c.getAnnotation(QueryParameters.class).value());
         /* Case for method annotations*/
-        if (field.isAnnotationPresent(QueryParameter.class)) {
-            method.spec.queryParam(field.getAnnotation(QueryParameter.class).name(),
-                    field.getAnnotation(QueryParameter.class).value());
-        }
-        if (field.isAnnotationPresent(QueryParameters.class)) {
-            List<QueryParameter> qParameters = asList(
-                    field.getAnnotation(QueryParameters.class).value());
-            method.addQueryParameters(qParameters);
-        }
+        if (field.isAnnotationPresent(QueryParameter.class))
+            method.addQueryParameters(field.getAnnotation(QueryParameter.class));
+        if (field.isAnnotationPresent(QueryParameters.class))
+            method.addQueryParameters(field.getAnnotation(QueryParameters.class).value());
         return method;
     }
 
@@ -112,4 +99,5 @@ public class ServiceInit {
                 ? c.getAnnotation(ServiceDomain.class).value()
                 : null;
     }
+    public static boolean verifyOkStatus = false;
 }

@@ -1,18 +1,20 @@
 package com.epam.jdi.http.cucumber.stepdefs.en;
 
 import com.epam.http.requests.RestMethod;
-import io.restassured.http.ContentType;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.http.ContentType;
 import org.testng.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.epam.commons.LinqUtils.first;
 import static com.epam.jdi.http.cucumber.Utils.*;
+import static io.restassured.http.ContentType.values;
 
 public class RequestStepsEN {
 
@@ -70,9 +72,8 @@ public class RequestStepsEN {
 
     @And("^I set ([^\"]*) request content type$")
     public void iSetJSONRequestContentType(String type) {
-        for (ContentType contentType : ContentType.values()) {
-            if(type.equalsIgnoreCase(contentType.name()))
-                requestContentType.set(contentType);
-        }
+        ContentType contentType = first(values(),
+            ct -> type.equalsIgnoreCase(ct.name()));
+        requestContentType.set(contentType);
     }
 }

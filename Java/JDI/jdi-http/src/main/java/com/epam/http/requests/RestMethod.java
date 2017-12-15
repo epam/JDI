@@ -1,8 +1,11 @@
 package com.epam.http.requests;
 
 import com.epam.commons.linqinterfaces.JActionT;
+import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
+import com.epam.http.annotations.QueryParameter;
 import com.google.gson.Gson;
+import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 import java.util.List;
@@ -23,6 +26,7 @@ public class RestMethod<T> {
     private RequestData data;
     private RestMethodTypes type;
     private Gson gson = new Gson();
+    private ResponseStatusType expectedStatus = OK;
 
     public RestMethod() {}
     public RestMethod(JActionT<RequestSpecification> specFunc, RestMethodTypes type) {
@@ -34,7 +38,7 @@ public class RestMethod<T> {
         this.type = type;
     }
     public void addHeader(String name, String value) {
-        data.headers.add(new Header(name, value));
+        data.headers.add(name, value);
         spec.header(new Header(name, value));
     }
     public void addHeader(com.epam.http.annotations.Header header) {
@@ -43,19 +47,24 @@ public class RestMethod<T> {
     public void addHeader(Header header) {
         addHeader(header.getName(), header.getValue());
     }
-    public void addHeaders(List<com.epam.http.annotations.Header> headers) {
+    public void addHeaders(com.epam.http.annotations.Header... headers) {
         for(com.epam.http.annotations.Header header : headers)
             addHeader(header);
+    }
+    public void setContentType(ContentType ct) {
+        data.contentType = ct;
     }
     public void addHeaders(Header[] headers) {
         for(Header header : headers)
             addHeader(header);
     }
+    public RestMethod expectStatus(ResponseStatusType status) {
+        expectedStatus = status; return this;
+    }
 
-    protected void addQueryParameters(List<com.epam.http.annotations.QueryParameter> qPars) {
-        for (com.epam.http.annotations.QueryParameter qPar: qPars ) {
-            data.queryParams.add(qPar.name(), qPar.value());
-        }
+    protected void addQueryParameters(QueryParameter... params) {
+        data.queryParams = new MapArray<>(params,
+            QueryParameter::name, QueryParameter::value);
     }
 
     /*public RestMethod(String url) {
@@ -73,7 +82,7 @@ public class RestMethod<T> {
     public RestResponse call() {
         if (type == null)
             throw exception("HttpMethodType not specified");
-        return doRequest(type, getSpec());
+        return doRequest(type, getSpec(), expectedStatus);
     }
     public T callAsData(Class<T> c) {
         return call().raResponse().body().as(c);
@@ -83,7 +92,7 @@ public class RestMethod<T> {
     }
     public RestResponse send(T data) {
         this.data.body = gson.toJson(data);
-        spec.body(this.data.body);
+        getSpec().body(this.data.body);
         return call();
 
     }
@@ -91,6 +100,9 @@ public class RestMethod<T> {
     public RestResponse call(String... params) {
         data.url = String.format(data.url, params);
         return call();
+    }
+    public RestResponse post(String body) {
+        return call(new RequestData().set(rd -> rd.body = body));
     }
 
     public RestResponse call(RequestData requestData) {
@@ -106,7 +118,7 @@ public class RestMethod<T> {
         }
        return call();
     }
-    private RequestSpecification getSpec() {
+    public RequestSpecification getSpec() {
         if (data == null)
             return spec;
         if (data.url != null)
@@ -138,7 +150,7 @@ public class RestMethod<T> {
         return call(new RequestParams(params));
     }*/
     public RestResponse GET() {
-        return doRequest(GET, spec);
+        return doRequest(GET, getSpec(), expectedStatus);
     }/*
     public RestResponse GET(RequestParams params) {
         return doRequest(GET, params);
@@ -154,7 +166,7 @@ public class RestMethod<T> {
     }
     */
     public RestResponse POST() {
-        return doRequest(POST, spec);
+        return doRequest(POST, getSpec(), expectedStatus);
     }
     /*
     public RestResponse POST(RequestParams params) {
@@ -171,7 +183,7 @@ public class RestMethod<T> {
     }
     */
     public RestResponse PUT() {
-        return doRequest(PUT, spec);
+        return doRequest(PUT, getSpec(), expectedStatus);
     }
     /*
     public RestResponse PUT(RequestParams params) {
@@ -188,7 +200,7 @@ public class RestMethod<T> {
     }
     */
     public RestResponse DELETE() {
-        return doRequest(DELETE, spec);
+        return doRequest(DELETE, getSpec(), expectedStatus);
     }
     /*
     public RestResponse DELETE(RequestParams params) {
@@ -210,7 +222,7 @@ public class RestMethod<T> {
     public boolean isAlive(int liveTimeMSec) {
         long start = currentTimeMillis();
         ResponseStatusType status;
-        do { status = GET().status.type();
+        do { status = GET().status.type;
         } while (status != OK && currentTimeMillis() - start < liveTimeMSec);
         return status == OK;
     }

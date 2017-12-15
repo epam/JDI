@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import static com.epam.http.ExceptionHandler.exception;
+import static com.epam.http.requests.ServiceInit.verifyOkStatus;
 import static java.lang.System.currentTimeMillis;
 
 /**
@@ -11,7 +12,7 @@ import static java.lang.System.currentTimeMillis;
  */
 public class RestRequest {
     public static RestResponse doRequest(
-            RestMethodTypes methodType, RequestSpecification spec) {
+            RestMethodTypes methodType, RequestSpecification spec, ResponseStatusType excpecedtStatus) {
         spec.log().uri();
         Response response;
         long time;
@@ -20,7 +21,10 @@ public class RestRequest {
             response = methodType.method.apply(spec);
             time = currentTimeMillis() - time;
         } catch (Exception ex) { throw exception("Can't do %s request (%s)", methodType, printRS(spec)); }
-        return new RestResponse(response, time);
+        RestResponse resp = new RestResponse(response, time);
+        if (verifyOkStatus)
+            resp.isStatus(excpecedtStatus);
+        return resp;
     }
     private static String printRS(RequestSpecification rs) {
         return "";

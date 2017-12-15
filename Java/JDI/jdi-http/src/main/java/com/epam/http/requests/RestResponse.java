@@ -1,28 +1,33 @@
 package com.epam.http.requests;
 
+import com.epam.commons.map.MapArray;
+import com.epam.commons.pairs.Pair;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
+import org.hamcrest.Matcher;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.ResponseStatusType.ERROR;
 import static com.epam.http.requests.ResponseStatusType.OK;
+import static io.restassured.RestAssured.when;
 import static java.lang.String.format;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.
  */
 public class RestResponse {
-    private Response raResponse;
-    private long responseTimeMSec;
-    public String body;
-    public ResponseStatus status;
+    private final Response raResponse;
+    private final long responseTimeMSec;
+    public final String body;
+    public final ResponseStatus status;
 
     public RestResponse(Response raResponse) {
         this(raResponse, 0);
@@ -30,7 +35,6 @@ public class RestResponse {
     public RestResponse(Response raResponse, long time) {
         this.raResponse = raResponse;
         responseTimeMSec = time;
-        raResponse.prettyPrint();
         body = raResponse.body().print();
         status = new ResponseStatus(raResponse);
     }
@@ -43,16 +47,28 @@ public class RestResponse {
             throw exception("Bad raResponse: " + toString());
     }
 
-//    public ResponseStatus status() {
-//        return new ResponseStatus(raResponse);
-//    }
-
-    public RestResponse isOk() {
-        validate(r -> status.type() == OK);
-        return this;
+    public ValidatableResponse isOk() {
+        isStatus(OK);
+        return assertThat();
     }
-    public void hasErrors() {
-        validate(r -> status.type() == ERROR);
+    public ValidatableResponse hasErrors() {
+        isStatus(ERROR);
+        return assertThat();
+    }
+    public ValidatableResponse isStatus(ResponseStatusType type) {
+        validate(r -> status.type == type);
+        return assertThat();
+    }
+    public ValidatableResponse assertBody(MapArray<String, Matcher<?>> params) {
+        ValidatableResponse vr = assertThat();
+        try {
+            for (Pair<String, Matcher<?>> pair : params)
+                vr.body(pair.key, pair.value);
+            return vr;
+        } catch (Exception ex) { throw new RuntimeException("Only <String, Matcher> pairs available for assertBody"); }
+    }
+    public ValidatableResponse assertBody(Object[][] params) {
+        return assertBody(new MapArray<>(params));
     }
 
     public String getFromHtml(String path) {
@@ -81,12 +97,15 @@ public class RestResponse {
     public long responseTime() { return responseTimeMSec; }
 
     public ValidatableResponse assertThat() { return raResponse.then(); }
-    public RestResponse assertStatus(int code, ResponseStatusType type) {
+
+    public RestResponse assertStatus(ResponseStatus rs) {
         String errors = "";
-        if (status.code() != code)
-            errors += format("Wrong status code %s. Expected: %s", status.code(), code) + LINE_BREAK;
-        if (!status.type().equals(type))
-            errors += format("Wrong status type %s. Expected: %s", status.type(), type);
+        if (status.code != rs.code)
+            errors += format("Wrong status code %s. Expected: %s", status.code, rs.code) + LINE_BREAK;
+        if (!status.type.equals(rs.type))
+            errors += format("Wrong status type %s. Expected: %s", status.type, rs.type) + LINE_BREAK;
+        if (!status.text.equals(rs.text))
+            errors += format("Wrong status text %s. Expected: %s", status.text, rs.text);
         if (!errors.equals(""))
             throw exception(errors);
         return this;

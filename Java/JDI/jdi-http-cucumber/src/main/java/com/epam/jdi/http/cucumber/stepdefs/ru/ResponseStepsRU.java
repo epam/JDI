@@ -24,7 +24,7 @@ public class ResponseStepsRU {
 
     @Тогда("^Код ответа равен (\\d+)$")
     public void responseStatusCodeEquals(int statusCode){
-        assertEquals(restResponse.get().status.code(), statusCode);
+        assertEquals(restResponse.get().status.code, statusCode);
     }
 
     @И("^Тело ответа пустое")

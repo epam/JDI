@@ -19,7 +19,7 @@ public class PerformanceTests {
     @Test
     public void printTest() {
         init(ServiceExample.class);
-        PerformanceResult pr = loadService(20000, getInfo);
+        PerformanceResult pr = loadService(20, getInfo);
         Assert.assertTrue(pr.NoFails());
         System.out.println(pr.AverageResponseTime);
         System.out.println(pr.NumberOfRequests);
