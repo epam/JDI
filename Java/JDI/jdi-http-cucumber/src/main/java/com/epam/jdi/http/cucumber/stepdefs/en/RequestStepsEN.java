@@ -56,7 +56,7 @@ public class RequestStepsEN {
             }
         }
         if (requestContentType.get() != null)
-            restMethod.spec.contentType(requestContentType.get());
+            restMethod.setContentType(requestContentType.get());
         restResponse.set(restMethod.call());
     }
 

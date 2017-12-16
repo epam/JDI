@@ -1,14 +1,12 @@
 package com.epam.jdi.http.cucumber.stepdefs.en;
 
 import com.epam.commons.map.MapArray;
-import com.epam.http.requests.ResponseStatusType;
+import com.epam.http.response.ResponseStatusType;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.hamcrest.Matcher;
 import org.testng.Assert;
-
-import java.util.List;
 
 import static com.epam.jdi.http.cucumber.Utils.performanceResult;
 import static com.epam.jdi.http.cucumber.Utils.restResponse;

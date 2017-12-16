@@ -1,8 +1,8 @@
-package com.epam.http;
+package com.epam.http.performance;
 
-import com.epam.http.requests.RestResponse;
+import com.epam.http.response.RestResponse;
 
-import static com.epam.http.requests.ResponseStatusType.ERROR;
+import static com.epam.http.response.ResponseStatusType.ERROR;
 
 /**
  * Created by Roman_Iovlev on 9/25/2016.

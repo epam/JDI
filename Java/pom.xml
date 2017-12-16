@@ -86,7 +86,7 @@
         <module>Tests/jdi-http-cucumbertests</module>
         <module>Tests/jdi-uitest-web-examples</module>
         <module>Tests/jdi-uitest-cucumber-example</module>
-        <module>Tests/jdi-uitest-wintests</module>
+        <module>Tests/jdi-uitest-wintests</module>	
     </modules>
 
     <!--<dependencies>

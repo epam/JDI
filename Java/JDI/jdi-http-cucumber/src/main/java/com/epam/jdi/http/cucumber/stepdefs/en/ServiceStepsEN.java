@@ -3,7 +3,7 @@ package com.epam.jdi.http.cucumber.stepdefs.en;
 import com.epam.http.requests.RestMethod;
 import cucumber.api.java.en.When;
 
-import static com.epam.http.RestLoad.loadService;
+import static com.epam.http.performance.RestLoad.loadService;
 import static com.epam.jdi.http.cucumber.Utils.*;
 
 public class ServiceStepsEN {

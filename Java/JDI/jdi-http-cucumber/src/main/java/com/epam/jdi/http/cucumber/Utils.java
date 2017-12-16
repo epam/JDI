@@ -1,11 +1,11 @@
 package com.epam.jdi.http.cucumber;
 
-import com.epam.http.PerformanceResult;
+import com.epam.http.performance.PerformanceResult;
 import com.epam.http.annotations.ServiceDomain;
 import com.epam.http.requests.MethodData;
 import com.epam.http.requests.RestMethod;
 import com.epam.http.requests.RestMethodTypes;
-import com.epam.http.requests.RestResponse;
+import com.epam.http.response.RestResponse;
 import io.restassured.http.ContentType;
 
 import java.util.HashMap;
@@ -23,9 +23,9 @@ public class Utils {
     public static final ThreadLocal<HashMap<String, String>> preparedHeader = new ThreadLocal<>();
 
     public static RestMethod getRestMethod(String restMethodType) {
-        MethodData mad = getMethodData(restMethodType);
-        String url = getUrlFromDomain(domainUrl.get(), mad.getUrl(), restMethodType);
-        return new RestMethod(url, mad.getType());
+        MethodData mtData = getMethodData(restMethodType);
+        String url = getUrlFromDomain(domainUrl.get(), mtData.getUrl(), restMethodType);
+        return new RestMethod(mtData.getType(), url);
     }
 
     private static MethodData getMethodData(String type) {

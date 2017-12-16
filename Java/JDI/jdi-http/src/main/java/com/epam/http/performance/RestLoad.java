@@ -1,4 +1,4 @@
-package com.epam.http;
+package com.epam.http.performance;
 
 import com.epam.http.requests.RestMethod;
 
@@ -18,7 +18,7 @@ public class RestLoad {
         PerformanceResult pr = new PerformanceResult();
         //pr.addResult(requests[0].get());
         long start = currentTimeMillis();
-        do { pr.addResult(requests[rnd.nextInt(Length)].GET());
+        do { pr.addResult(requests[rnd.nextInt(Length)].call());
         } while (currentTimeMillis() - start < liveTimeSec*1000);
         return pr;
     }
@@ -30,7 +30,7 @@ public class RestLoad {
         long start = currentTimeMillis();
         PerformanceResult pr = new PerformanceResult();
         int Length = getLength(weightRequests);
-        do { pr.addResult(getRequest(weightRequests, Math.round(rnd.nextFloat()*Length)).GET());
+        do { pr.addResult(getRequest(weightRequests, Math.round(rnd.nextFloat()*Length)).call());
         } while (currentTimeMillis() - start < liveTimeMSec);
         return pr;
     }

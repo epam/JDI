@@ -47,9 +47,9 @@ public class ServiceInit {
                     c.getSimpleName()); }
     }
     private static <T> RestMethod getRestMethod(Field field, Class<T> c) {
-        MethodData mad = getMethodData(field);
-        String url = getUrlFromDomain(getDomain(c), mad.getUrl(), field.getName(), c.getSimpleName());
-        RestMethod method = new RestMethod(url, mad.getType());
+        MethodData mtData = getMethodData(field);
+        String url = getUrlFromDomain(getDomain(c), mtData.getUrl(), field.getName(), c.getSimpleName());
+        RestMethod method = new RestMethod(mtData.getType(), url);
         if (field.isAnnotationPresent(ContentType.class))
             method.setContentType(field.getAnnotation(ContentType.class).value());
         if (field.isAnnotationPresent(Header.class))
@@ -99,5 +99,4 @@ public class ServiceInit {
                 ? c.getAnnotation(ServiceDomain.class).value()
                 : null;
     }
-    public static boolean verifyOkStatus = false;
 }

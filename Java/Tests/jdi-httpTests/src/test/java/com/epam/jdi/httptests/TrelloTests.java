@@ -1,9 +1,7 @@
 package com.epam.jdi.httptests;
 
-import com.epam.commons.map.MapArray;
 import com.epam.http.requests.*;
-import io.restassured.response.ValidatableResponse;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.epam.http.response.RestResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -40,13 +38,13 @@ public class TrelloTests {
     public void getBoardById() {
         RestResponse response = TrelloApi
                 .getBoardById
-                .call(requestParams(BOARD_ID));
+                .call(requestParams("board_id", BOARD_ID));
         response.isOk().body("id", equalTo(BOARD_ID));
     }
 
     @Test
     public void getBoardCardsList() {
-        getBoardCardsList.call(requestParams(BOARD_ID))
+        getBoardCardsList.call(requestParams("board_id", BOARD_ID))
             .isOk().body("name.size()", equalTo(6));
     }
 
@@ -62,7 +60,7 @@ public class TrelloTests {
         RestResponse response = TrelloApi
                 .postNewCommentToCard
                 .call(requestData(d -> {
-                    d.pathParams.add(CARD_UNIQUE_ID);
+                    d.pathParams.add("card_id", CARD_UNIQUE_ID);
                     d.body = format("{\"text\": \"%s\"}", newComment);}
                 ));
         response.isOk()
@@ -72,23 +70,20 @@ public class TrelloTests {
 
     @Test
     public void getAllUserBoards() {
-
         RestResponse restResponse = TrelloApi
                 .getAllMemberBoards
-                .call(requestParams("jdiframwork"));
+                .call(requestParams("user_name", "jdiframwork"));
         restResponse.assertThat()
                 .body("name.size()", greaterThan(4));
     }
 
     @Test
     public void getCardByUniqueId() {
-        RequestData data = requestData(d -> {
-            d.queryParams.add("fields", "url,shortUrl");
-            d.pathParams.add(CARD_UNIQUE_ID);});
-
         RestResponse restResponse = TrelloApi
                 .getCardByUniqueId
-                .call(data);
+                .call(requestData(d -> {
+                    d.queryParams.add("fields", "url,shortUrl");
+                    d.pathParams.add("card_id", CARD_UNIQUE_ID);}));
 
         restResponse.assertBody(new Object[][]{
                 {"url", containsString("https://trello.com/c/SSFPAlkB/1-lorem-ipsum-dolor-sit-amet")},

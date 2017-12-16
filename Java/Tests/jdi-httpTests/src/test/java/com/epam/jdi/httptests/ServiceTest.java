@@ -1,14 +1,17 @@
 package com.epam.jdi.httptests;
 
-import com.epam.http.requests.RestResponse;
+import com.epam.commons.map.MapArray;
+import com.epam.http.response.RestResponse;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import static com.epam.http.requests.ResponseStatusType.OK;
-import static com.epam.http.requests.ResponseStatusType.SERVER_ERROR;
+import static com.epam.http.requests.RequestData.requestData;
+import static com.epam.http.requests.RestMethods.GET;
 import static com.epam.http.requests.ServiceInit.init;
+import static com.epam.http.response.ResponseStatusType.SERVER_ERROR;
 import static com.epam.jdi.httptests.ServiceExample.getInfo;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -22,13 +25,30 @@ public class ServiceTest {
     }
 
     @Test
-    public void jsonTest() {
+    public void simpleRestTest() {
         RestResponse resp = ServiceExample.getInfo.call();
         resp.isOk().
             body("url", equalTo("http://httpbin.org/get")).
-            body("headers.Host", equalTo("httpbin.org"));
+            body("headers.Host", equalTo("httpbin.org")).
+            body("headers.Id", equalTo("Test"));
         resp.assertThat().header("Connection", "keep-alive");
-        assertEquals(resp.jsonBody("url"), "http://httpbin.org/get");
+    }
+
+    @Test
+    public void noServiceObjectTest() {
+        RestResponse resp = GET(requestData(
+            rd -> { rd.url = "http://httpbin.org/get";
+                rd.headers = new MapArray<>(new Object[][] {
+                    {"Name", "Roman"},
+                    {"Id", "TestTest"}
+                });}
+        ));
+        resp.isOk().header("Connection", "keep-alive");
+        resp.assertBody(new Object[][] {
+            {"url", equalTo("http://httpbin.org/get")},
+            {"headers.Host", equalTo("httpbin.org")},
+            {"headers.Id", equalTo("TestTest")}
+        });
     }
     @Test
     public void entityTest() {
@@ -44,9 +64,7 @@ public class ServiceTest {
         RestResponse resp = service.status.call("503");
         assertEquals(resp.status.code, 503);
         assertEquals(resp.status.type, SERVER_ERROR);
-        assertEquals(resp.body, "<html>\n" +
-                "  <body/>\n" +
-                "</html>");
+        resp.isEmpty();
     }
     @Test
     public void staticServiceInitTest() {

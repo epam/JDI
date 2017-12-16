@@ -1,12 +1,13 @@
 package com.epam.jdi.http.cucumber.stepdefs.ru;
 
-import com.epam.http.requests.ResponseStatusType;
+import com.epam.http.response.ResponseStatusType;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Тогда;
 import org.testng.Assert;
 
 import static com.epam.jdi.http.cucumber.Utils.performanceResult;
 import static com.epam.jdi.http.cucumber.Utils.restResponse;
+import static java.lang.String.format;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
 
@@ -50,12 +51,8 @@ public class ResponseStepsRU {
     @Тогда("^Проверяю, содержат ли результаты ошибки$")
     public void iCheckIfPerformanceResultsContainAnyFails() {
         long numberOfFails = performanceResult.get().NumberOfFails;
-        if (numberOfFails == 0)
-            System.out.println("There were no failures.");
-        else if (numberOfFails == 1)
-            System.out.println("There was 1 failure.");
-        else
-            System.out.println("There were " + numberOfFails + " failures.");
+        Assert.assertEquals(numberOfFails, 0,
+                format("Всего было обнаружено %s ошибок", numberOfFails));
     }
 
     @И("^Срднее время ответа не превышает (\\d+) сек$")
@@ -70,7 +67,7 @@ public class ResponseStepsRU {
 
     @И("^Параметр json ответа \"([^\"]*)\" равен \"([^\"]*)\"$")
     public void jsonResponseIs(String parameter, String value){
-        assertEquals(restResponse.get().jsonBody(parameter), value);
+        restResponse.get().assertThat().body(parameter, equalTo(value));
     }
 
     @И("^Я печатаю ответ на запрос$")

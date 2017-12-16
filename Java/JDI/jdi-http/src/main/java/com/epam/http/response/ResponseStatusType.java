@@ -1,12 +1,9 @@
-package com.epam.http.requests;
-
-import com.epam.commons.EnumUtils;
+package com.epam.http.response;
 
 import java.util.List;
 
 import static com.epam.commons.EnumUtils.getAllEnumValues;
 import static com.epam.commons.LinqUtils.first;
-import static com.epam.http.ExceptionHandler.exception;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

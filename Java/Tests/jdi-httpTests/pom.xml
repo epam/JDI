@@ -25,11 +25,6 @@
             <artifactId>testng</artifactId>
             <version>6.11</version>
         </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -65,16 +60,5 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>oss-sonatype</id>
-            <name>oss-sonatype</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>
