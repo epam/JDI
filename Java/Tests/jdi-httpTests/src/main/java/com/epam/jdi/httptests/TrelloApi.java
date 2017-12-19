@@ -41,6 +41,7 @@ public class TrelloApi {
         @ContentType(JSON) @POST("/cards/{card_id}/actions/comments")
         static RestMethod postNewCommentToCard;
 
+        @QueryParameter(name = "test", value = "test")
         @ContentType(JSON) @GET("/cards/{card_id}")
         static RestMethod getCardByUniqueId;
 

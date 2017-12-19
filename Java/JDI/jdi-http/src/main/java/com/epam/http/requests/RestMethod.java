@@ -69,8 +69,8 @@ public class RestMethod<T> {
     }
 
     void addQueryParameters(QueryParameter... params) {
-        data.queryParams = new MapArray<>(params,
-            QueryParameter::name, QueryParameter::value);
+        data.queryParams.addAll(new MapArray<>(params,
+            QueryParameter::name, QueryParameter::value));
     }
 
     public RestResponse call() {
