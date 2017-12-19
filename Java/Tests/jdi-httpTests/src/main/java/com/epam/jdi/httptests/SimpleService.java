@@ -3,8 +3,8 @@ package com.epam.jdi.httptests;
 import com.epam.http.annotations.*;
 import com.epam.http.requests.M;
 
-import static io.restassured.http.ContentType.JSON;
 import static io.restassured.http.ContentType.HTML;
+import static io.restassured.http.ContentType.JSON;
 
 /**
  * Created by Roman_Iovlev on 9/25/2016.

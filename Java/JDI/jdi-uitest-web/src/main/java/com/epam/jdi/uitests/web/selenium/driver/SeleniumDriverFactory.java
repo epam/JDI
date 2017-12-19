@@ -27,10 +27,8 @@ import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -77,7 +75,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public Boolean getLatestDriver = false;
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
-    public String pageLoadStrategy = "normal";
+    public static String pageLoadStrategy = "normal";
     public HighlightSettings highlightSettings = new HighlightSettings();
     private String driversPath = FOLDER_PATH;
     private MapArray<String, Supplier<WebDriver>> drivers = new MapArray<>();
@@ -200,7 +198,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     protected String registerLocalDriver(DriverTypes driverType) {
         if (getLatestDriver)
             downloadDriver(driverType);
-        else setUpDrivers();
+        else setUpDrivers(driverType);
         return registerDriver(driverType, getDefaultDriver(driverType));
     }
 
@@ -212,28 +210,34 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
         throw exception("Unknown driver: " + driverType);
     }
-    private void setUpDrivers() {
-        setProperty("webdriver.chrome.driver", getChromeDriverPath(driversPath));
-        setProperty("webdriver.gecko.driver", getFirefoxDriverPath(driversPath));
-        setProperty("webdriver.ie.driver", getIEDriverPath(driversPath));
+    private void setUpDrivers(DriverTypes driverType) {
+        switch (driverType) {
+            case CHROME: setProperty("webdriver.chrome.driver",
+                getChromeDriverPath(driversPath)); break;
+            case FIREFOX: setProperty("webdriver.gecko.driver",
+                getFirefoxDriverPath(driversPath)); break;
+            case IE: setProperty("webdriver.ie.driver",
+                getIEDriverPath(driversPath)); break;
+            default: throw exception("Wrong driver type: " + driverType);
+        }
     }
+    public static Function<MutableCapabilities, MutableCapabilities> modifyCapabilities =
+        cap -> { cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy); return cap; };
+
     public FirefoxOptions defaultFirefoxOptions() {
         FirefoxOptions cap = new FirefoxOptions();
-        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
-        return cap;
+        return (FirefoxOptions) modifyCapabilities.apply(cap);
     }
     public ChromeOptions defaultChromeOptions() {
         ChromeOptions cap = new ChromeOptions();
-        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
-        return cap;
+        return (ChromeOptions) modifyCapabilities.apply(cap);
     }
     public InternetExplorerOptions defaultIEOptions() {
         InternetExplorerOptions cap = new InternetExplorerOptions();
         cap.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         cap.setCapability("ignoreZoomSetting", true);
         //cap.setCapability("requireWindowFocus", true);
-        cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
-        return cap;
+        return (InternetExplorerOptions) modifyCapabilities.apply(cap);
     }
     public String registerDriver(DriverTypes driverType, Supplier<WebDriver> driver) {
         int numerator = 2;
@@ -268,38 +272,26 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     private static void maximizeMacBrowser(WebDriver driver) {
         java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         driver.manage().window()
-                .setSize(new org.openqa.selenium.Dimension(screenSize.width, screenSize.height));
+                .setSize(new Dimension(screenSize.width, screenSize.height));
     }
     private static WebDriver setupDriverTimeout(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return driver;
     }
-    protected static Function<WebDriver, WebDriver> selectDriverSettings(WebDriver driver) {
+
+    public static Function<WebDriver, WebDriver> webDriverSettings =
+        driver -> setupDriverTimeout(setupDriverSize(driver));
+
+    private static WebDriver setupDriverSize(WebDriver driver) {
         if (browserSizes == null) {
             String driverName = driver.toString().toLowerCase();
             if (any(asList("chrome", "internetexplorer"), driverName::contains)
                     && System.getProperty("os.name").toLowerCase().contains("mac"))
-                return d -> {
-                    maximizeMacBrowser(d);
-                    return setupDriverTimeout(d);
-                };
-            else return d -> {
-                d.manage().window().maximize();
-                return setupDriverTimeout(d);
-            };
-        }
-        else return d -> {
-            driver.manage().window().setSize(browserSizes);
-            return setupDriverTimeout(driver);
-        };
+                maximizeMacBrowser(driver);
+            else driver.manage().window().maximize();
+        } else driver.manage().window().setSize(browserSizes);
+        return driver;
     }
-    protected static WebDriver getDriverSettings(WebDriver driver) {
-        if (webDriverSettings == null)
-            webDriverSettings = selectDriverSettings(driver);
-        return webDriverSettings.apply(driver);
-    }
-
-    public static Function<WebDriver, WebDriver> webDriverSettings;
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
@@ -313,7 +305,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 MapArray<String, WebDriver> rDrivers = runDrivers.get();
                 if (rDrivers == null)
                     rDrivers = new MapArray<>();
-                WebDriver resultDriver = getDriverSettings(drivers.get(driverName).get());
+                WebDriver resultDriver = webDriverSettings.apply(drivers.get(driverName).get());
                 if (resultDriver == null)
                     throw exception("Can't get WebDriver '%s'. This Driver name not registered", driverName);
                 rDrivers.add(driverName, resultDriver);
@@ -321,7 +313,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             }
             WebDriver result = runDrivers.get().get(driverName);
             if (result.toString().contains("(null)")) {
-                result = getDriverSettings(drivers.get(driverName).get());
+                result = webDriverSettings.apply(drivers.get(driverName).get());
                 runDrivers.get().update(driverName, result);
             }
             lock.unlock();

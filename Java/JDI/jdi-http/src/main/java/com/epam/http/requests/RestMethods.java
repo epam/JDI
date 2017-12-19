@@ -3,8 +3,6 @@ package com.epam.http.requests;
 import com.epam.http.response.RestResponse;
 
 import static com.epam.http.requests.RestMethodTypes.*;
-import static com.epam.http.requests.RestMethodTypes.DELETE;
-import static com.epam.http.requests.RestMethodTypes.PATCH;
 
 /**
  * Created by Roman_Iovlev on 12/15/2017.

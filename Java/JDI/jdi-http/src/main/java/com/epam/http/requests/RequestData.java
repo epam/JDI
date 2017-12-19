@@ -1,17 +1,11 @@
 package com.epam.http.requests;
 
 import com.epam.commons.DataClass;
-import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JActionT;
 import com.epam.commons.map.MapArray;
 import io.restassured.http.ContentType;
-import io.restassured.http.Header;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.restassured.http.ContentType.ANY;
-import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

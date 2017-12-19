@@ -1,7 +1,7 @@
 package com.epam.jdi.http.cucumber;
 
-import com.epam.http.performance.PerformanceResult;
 import com.epam.http.annotations.ServiceDomain;
+import com.epam.http.performance.PerformanceResult;
 import com.epam.http.requests.MethodData;
 import com.epam.http.requests.RestMethod;
 import com.epam.http.requests.RestMethodTypes;

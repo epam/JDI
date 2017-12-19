@@ -1,18 +1,15 @@
 package com.epam.jdi.httptests;
 
-import com.epam.http.requests.*;
 import com.epam.http.response.RestResponse;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static com.epam.http.requests.RequestData.requestBody;
-import static com.epam.http.requests.RequestData.requestData;
-import static com.epam.http.requests.RequestData.requestParams;
+import static com.epam.http.requests.RequestData.*;
 import static com.epam.http.requests.ServiceInit.init;
 import static com.epam.jdi.httptests.TrelloApi.getBoardCardById;
 import static com.epam.jdi.httptests.TrelloApi.getBoardCardsList;
 import static java.lang.String.format;
-import static org.apache.commons.lang3.RandomStringUtils.*;
+import static org.apache.commons.lang3.RandomStringUtils.random;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 

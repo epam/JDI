@@ -146,7 +146,7 @@ public class WebSettings extends JDISettings {
             if (split != null)
                 browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
         }, "browser.size");
-        fillAction(p -> getDriverFactory().pageLoadStrategy = p, "page.load.strategy");
+        fillAction(p -> pageLoadStrategy = p, "page.load.strategy");
         initialized = true;
         setLogAction(s -> {
             LIFECYCLE.fire(new StepStartedEvent(s));

@@ -6,7 +6,6 @@ import com.epam.http.annotations.GET;
 import com.epam.http.annotations.PATCH;
 import com.epam.http.annotations.POST;
 import com.epam.http.annotations.PUT;
-import com.epam.http.annotations.QueryParameter;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -15,7 +14,6 @@ import static com.epam.commons.LinqUtils.where;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.requests.RestMethodTypes.*;
 import static java.lang.reflect.Modifier.isStatic;
-import static java.util.Arrays.asList;
 
 /**
  * Created by Roman_Iovlev on 12/19/2016.

@@ -11,7 +11,6 @@ import static com.epam.http.requests.ServiceInit.init;
 import static com.epam.http.response.ResponseStatusType.SERVER_ERROR;
 import static com.epam.jdi.httptests.ServiceExample.getInfo;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.slf4j.LoggerFactory.getLogger;
 import static org.testng.Assert.assertEquals;
 
 /**

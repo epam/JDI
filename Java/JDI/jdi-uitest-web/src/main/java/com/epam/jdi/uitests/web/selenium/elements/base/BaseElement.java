@@ -21,6 +21,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
 import com.codeborne.selenide.Condition;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
@@ -38,6 +39,7 @@ import com.epam.web.matcher.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
 import java.nio.file.Paths;
@@ -72,6 +74,9 @@ public abstract class BaseElement implements IBaseElement {
     public Functions function = Functions.NONE;
     public void setFunction(Functions function) { this.function = function; }
     public GetElementModule avatar;
+    public void waitFor(JFuncTREx<WebElement, Boolean> localElementSearchCriteria) {
+        avatar.localElementSearchCriteria = localElementSearchCriteria;
+    }
     public ActionInvoker invoker = new ActionInvoker(this);
     protected GetElement getElementClass = new GetElement(this);
     protected ElementsActions actions = new ElementsActions(this);
@@ -267,7 +272,7 @@ public abstract class BaseElement implements IBaseElement {
     }
     public IBaseElement shouldNot(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-                Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
+            Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
         return this;
     }
     public IBaseElement shouldNotHave(Condition... conditions){

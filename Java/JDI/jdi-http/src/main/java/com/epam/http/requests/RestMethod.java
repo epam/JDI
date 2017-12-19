@@ -12,7 +12,6 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 
-import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.http.ExceptionHandler.exception;
 import static com.epam.http.JdiHttpSettigns.logger;
 import static com.epam.http.requests.RestRequest.doRequest;
@@ -77,7 +76,7 @@ public class RestMethod<T> {
         if (type == null)
             throw exception("HttpMethodType not specified");
         RequestSpecification spec = getSpec();
-        logger.info(format("Do %s request %s", type, data.url));
+        logger.info(format("Do %s request %s", type, spec.log().uri()/*data.url*/));
         return doRequest(type, spec, expectedStatus);
     }
     public T callAsData(Class<T> c) {
@@ -118,13 +117,17 @@ public class RestMethod<T> {
         if (data == null)
             return spec;
         if (data.url != null) {
+            spec.pathParams(data.pathParams.toMap());
+            spec.baseUri(data.url);/*
             if (data.url.contains("{"))
                 for (Pair<String, String> param : data.pathParams)
                     data.url = data.url.replaceAll("\\{" + param.key + "}", param.value);
-            spec.baseUri(data.url);
+            spec.baseUri(data.url);*/
         }
-        if (data.queryParams.size() != 0)
+        if (data.queryParams.size() != 0) {
+            spec.queryParams(data.queryParams.toMap());
             data.url += "?" + PrintUtils.print(data.queryParams.toMap(), "&", "{0}={1}");
+        }
         if (data.body != null)
             spec.body(data.body);
         if (data.headers.any())

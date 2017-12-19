@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import static com.epam.jdi.enums.HeaderMenu.CAREERS;
 import static com.epam.jdi.site.epam.EpamSite.careerPage;
 import static com.epam.jdi.site.epam.EpamSite.headerMenu;
-import static org.slf4j.LoggerFactory.getLogger;
 
 public class SimpleTests extends TestsBase {
 

@@ -1,12 +1,12 @@
 package com.epam.jdi.http.cucumber.stepdefs.ru;
 
 import com.epam.http.requests.RestMethod;
-import io.restassured.http.ContentType;
 import cucumber.api.DataTable;
 import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Пусть;
 import cucumber.api.java.ru.Тогда;
+import io.restassured.http.ContentType;
 import org.testng.Assert;
 
 import java.util.HashMap;
