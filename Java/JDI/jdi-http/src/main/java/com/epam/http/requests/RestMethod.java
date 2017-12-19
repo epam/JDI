@@ -17,6 +17,7 @@ import static com.epam.http.JdiHttpSettigns.logger;
 import static com.epam.http.requests.RestRequest.doRequest;
 import static com.epam.http.response.ResponseStatusType.OK;
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.ANY;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
@@ -76,7 +77,7 @@ public class RestMethod<T> {
         if (type == null)
             throw exception("HttpMethodType not specified");
         RequestSpecification spec = getSpec();
-        logger.info(format("Do %s request %s", type, spec.log().uri()/*data.url*/));
+        logger.info(format("Do %s request %s", type, data.url));
         return doRequest(type, spec, expectedStatus);
     }
     public T callAsData(Class<T> c) {
@@ -116,23 +117,19 @@ public class RestMethod<T> {
     public RequestSpecification getSpec() {
         if (data == null)
             return spec;
-        if (data.url != null) {
-            spec.pathParams(data.pathParams.toMap());
-            spec.baseUri(data.url);/*
-            if (data.url.contains("{"))
-                for (Pair<String, String> param : data.pathParams)
-                    data.url = data.url.replaceAll("\\{" + param.key + "}", param.value);
-            spec.baseUri(data.url);*/
-        }
-        if (data.queryParams.size() != 0) {
+        if (data.pathParams.any() && data.url.contains("{"))
+            for (Pair<String, String> param : data.pathParams)
+                data.url = data.url.replaceAll("\\{" + param.key + "}", param.value);
+        spec.contentType(data.contentType);
+        spec.baseUri(data.url);
+        if (data.queryParams.any()) {
             spec.queryParams(data.queryParams.toMap());
             data.url += "?" + PrintUtils.print(data.queryParams.toMap(), "&", "{0}={1}");
         }
         if (data.body != null)
             spec.body(data.body);
         if (data.headers.any())
-            for (Pair<String, String> header : data.headers)
-                spec.header(header.key, header.value);
+            spec.headers(data.headers.toMap());
         return spec;
     }
     public boolean isAlive() {

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import static com.epam.http.requests.RequestData.*;
 import static com.epam.http.requests.ServiceInit.init;
+import static com.epam.jdi.httptests.TrelloApi.*;
 import static com.epam.jdi.httptests.TrelloApi.getBoardCardById;
 import static com.epam.jdi.httptests.TrelloApi.getBoardCardsList;
 import static java.lang.String.format;
@@ -26,15 +27,14 @@ public class TrelloTests {
     @Test
     public void createNewBoardTest() {
         String boardName = "Lorem ipsum board " + random(12, true, true);
-        RestResponse response = TrelloApi.boardsPost
+        RestResponse response = boardsPost
                 .call(requestBody(format("{\"name\": \"%s\"}", boardName)));
         response.isOk().body("name", equalTo(boardName));
     }
 
     @Test
     public void getBoardById() {
-        RestResponse response = TrelloApi
-                .getBoardById
+        RestResponse response = getBoardById
                 .call(requestParams("board_id", BOARD_ID));
         response.isOk().body("id", equalTo(BOARD_ID));
     }
@@ -47,15 +47,14 @@ public class TrelloTests {
 
     @Test
     public void getCardByShortId() {
-        getBoardCardById.call(requestParams(BOARD_ID, "1"))
+        getBoardCardById.call(requestParams(new Object[][] {{"board_id", BOARD_ID}, {"short_card_id", "1"}}))
             .isOk().assertThat().body("name", equalTo("Lorem ipsum dolor sit amet"));
     }
 
     @Test
     public void postNewCommentToCard() {
         String newComment = "New comment" + random(7, true, false);
-        RestResponse response = TrelloApi
-                .postNewCommentToCard
+        RestResponse response = postNewCommentToCard
                 .call(requestData(d -> {
                     d.pathParams.add("card_id", CARD_UNIQUE_ID);
                     d.body = format("{\"text\": \"%s\"}", newComment);}
@@ -67,8 +66,7 @@ public class TrelloTests {
 
     @Test
     public void getAllUserBoards() {
-        RestResponse restResponse = TrelloApi
-                .getAllMemberBoards
+        RestResponse restResponse = getAllMemberBoards
                 .call(requestParams("user_name", "jdiframwork"));
         restResponse.assertThat()
                 .body("name.size()", greaterThan(4));
@@ -76,8 +74,7 @@ public class TrelloTests {
 
     @Test
     public void getCardByUniqueId() {
-        RestResponse restResponse = TrelloApi
-                .getCardByUniqueId
+        RestResponse restResponse = getCardByUniqueId
                 .call(requestData(d -> {
                     d.queryParams.add("fields", "url,shortUrl");
                     d.pathParams.add("card_id", CARD_UNIQUE_ID);}));
