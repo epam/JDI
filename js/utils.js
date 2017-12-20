@@ -9,10 +9,10 @@ var sliderCheck = {};
 
 $(document).ready(function () {
 	getPageState();
-    checkLogin();
 	includeHeader();
 	includeSideBar();
 	initLeftNavMenu();
+    checkLogin();
     if ($('.pagination')) {
 		includePagination();
 	}
