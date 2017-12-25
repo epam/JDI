@@ -30,7 +30,7 @@ import org.sikuli.script.Pattern;
 
 import java.lang.reflect.Field;
 
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
+import static com.epam.jdi.uitests.core.settings.JDIData.group;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 public class GUICascadeInit extends CascadeInit {
@@ -85,11 +85,10 @@ public class GUICascadeInit extends CascadeInit {
 
     protected Pattern getNewLocatorFromField(Field field) {
         Pattern pattern = null;
-        String locatorGroup = APP_VERSION;
-        if (locatorGroup != null) {
+        if (group != null) {
             JLocation jLocation = field.getAnnotation(JLocation.class);
             JOffset jOffset = field.getAnnotation(JOffset.class);
-            if (jLocation != null && locatorGroup.equals(jLocation.group()))
+            if (jLocation != null && group.equals(jLocation.group()))
                 pattern = GuiAnnotationsUtil.getPattern(jLocation, jOffset);
         }
         return (pattern != null)

@@ -54,7 +54,7 @@ import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
+import static com.epam.jdi.uitests.core.settings.JDIData.group;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.Layout.shouldVerifyLayout;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
@@ -247,8 +247,8 @@ public class WebCascadeInit extends CascadeInit {
 
     protected By getNewLocatorFromField(Field field) {
         JFindBy[] jfindbys = field.getAnnotationsByType(JFindBy.class);
-        if (jfindbys.length > 0 && any(jfindbys, j -> APP_VERSION.equals(j.group()))) {
-            return findByToBy(first(jfindbys, j -> APP_VERSION.equals(j.group())));
+        if (jfindbys.length > 0 && any(jfindbys, j -> group.equals(j.group()))) {
+            return findByToBy(first(jfindbys, j -> group.equals(j.group())));
         }
         if (field.isAnnotationPresent(JFindBy.class)) {
             return findByToBy(field.getAnnotation(JFindBy.class));

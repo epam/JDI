@@ -9,7 +9,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
+import static com.epam.jdi.uitests.core.settings.JDIData.group;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
 
@@ -22,11 +22,10 @@ public final class PatternCreator {
     private static Pattern getNewPattern(Field field) {
         try {
             Pattern pattern = null;
-            String locatorGroup = APP_VERSION;
-            if (locatorGroup != null) {
+            if (group != null) {
                 JLocation jLocation = field.getAnnotation(JLocation.class);
                 JOffset jOffset = field.getAnnotation(JOffset.class);
-                if (jLocation != null && locatorGroup.equals(jLocation.group()))
+                if (jLocation != null && group.equals(jLocation.group()))
                     pattern = GuiAnnotationsUtil.getPattern(jLocation, jOffset);
             }
             return (pattern != null)

@@ -45,7 +45,7 @@ import java.util.List;
 
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
+import static com.epam.jdi.uitests.core.settings.JDIData.group;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.findByToBy;
 import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil.getFrame;
@@ -111,11 +111,10 @@ public class AppiumCascadeInit extends CascadeInit {
 
     protected By getNewLocatorFromField(Field field) {
         By byLocator = null;
-        String locatorGroup = APP_VERSION;
-        if (locatorGroup == null)
+        if (group == null)
             return findByToBy(field.getAnnotation(FindBy.class));
         JFindBy jFindBy = field.getAnnotation(JFindBy.class);
-        if (jFindBy != null && locatorGroup.equals(jFindBy.group()))
+        if (jFindBy != null && group.equals(jFindBy.group()))
             byLocator = AppiumAnnotationsUtil.getFindByLocator(jFindBy);
         return byLocator != null
                 ? byLocator
