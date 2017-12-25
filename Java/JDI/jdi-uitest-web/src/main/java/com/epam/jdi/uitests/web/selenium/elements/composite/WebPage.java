@@ -127,8 +127,11 @@ public class WebPage extends BaseElement implements IPage {
         return open(null);
     }
     public <T extends IPage> T open(Object... params) {
-        String urlWithParams = (params == null || params.length == 0)
-            ? url : MessageFormat.format(url, params);
+        String urlWithParams = params == null || params.length == 0
+            ? url
+            : url.contains("%s")
+                ? String.format(url, params)
+                : MessageFormat.format(url, params);
         invoker.doJAction(format("Open page '%s'", getName()),
                 () -> getDriver().navigate().to(urlWithParams));
         if (checkAfterOpen)

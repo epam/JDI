@@ -17,7 +17,6 @@ import static com.epam.http.JdiHttpSettigns.logger;
 import static com.epam.http.requests.RestRequest.doRequest;
 import static com.epam.http.response.ResponseStatusType.OK;
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.ANY;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
