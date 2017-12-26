@@ -59,7 +59,7 @@
     </developers>
 
     <properties>
-        <aspectj.version>1.8.3</aspectj.version>
+        <aspectj.version>1.8.5</aspectj.version>
         <project.build.sourceEncoding>utf8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>utf8</project.reporting.outputEncoding>
     </properties>

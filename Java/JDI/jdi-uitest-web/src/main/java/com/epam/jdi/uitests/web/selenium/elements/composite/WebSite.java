@@ -35,7 +35,7 @@ public class WebSite extends Application {
         for (Class<T> site : sites) {
             if (site.isAnnotationPresent(JSite.class)) {
                 String value = site.getAnnotation(JSite.class).value();
-                if (isNotBlank(value)) domain.set(value);
+                if (isNotBlank(value)) domain = value;
             }
             new WebCascadeInit().initStaticPages(site, driverName);
         }
@@ -52,12 +52,12 @@ public class WebSite extends Application {
      * Open page, defined in @JSite, without need to call WebSite.WebPage.open() method
      */
     public static void open(){
-        WebPage site = new WebPage(domain.get());
-        site.setName(currentSite.get().getSimpleName());
-        site.open();
+        WebPage page = new WebPage(domain);
+        page.setName(currentSite.get().getSimpleName());
+        page.open();
     }
     public static void shouldBeOpened(){
-        if (!getDriver().getCurrentUrl().contains(domain.get()))
+        if (!getDriver().getCurrentUrl().contains(domain))
             open();
     }
 }

@@ -36,7 +36,7 @@ public interface WebPreconditions extends IPreconditions {
     }
 
     static String getUrlByUri(String uri) {
-        return domain.get().replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
+        return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
     }
 
     default void open() {

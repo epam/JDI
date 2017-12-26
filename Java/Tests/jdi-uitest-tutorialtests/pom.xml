@@ -7,7 +7,8 @@
     <parent>
         <groupId>com.epam.jdi</groupId>
         <artifactId>jdi-uitest-framework</artifactId>
-        <version>1.0.82</version>
+        <version>1.0.95</version>
+        <!--version>1.0.82</version-->
         <relativePath>../..</relativePath>
     </parent>
 
@@ -15,6 +16,7 @@
     <name>EPAM JDI UI Testing Tutorial Tests</name>
 
     <properties>
+        <aspectj.version>1.8.5</aspectj.version>
         <driver>chrome</driver>
     </properties>
 
@@ -42,9 +44,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <systemPropertyVariables>
+                    <!--systemPropertyVariables>
                         <serv>${environment}</serv>
-                    </systemPropertyVariables>
+                    </systemPropertyVariables-->
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/general.xml</suiteXmlFile>
                     </suiteXmlFiles>

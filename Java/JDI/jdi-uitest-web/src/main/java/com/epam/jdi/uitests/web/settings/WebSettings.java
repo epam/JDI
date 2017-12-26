@@ -65,10 +65,10 @@ import static ru.yandex.qatools.allure.Allure.LIFECYCLE;
  * Created by Roman_Iovlev on 11/13/2015.
  */
 public class WebSettings extends JDISettings {
-    public static ThreadLocal<String> domain = new ThreadLocal<>();
+    public static String domain;
     public static String killBrowser;
     public static boolean hasDomain() {
-        return domain.get() != null && domain.get().contains("://");
+        return domain != null && domain.contains("://");
     }
 
     public static WebDriver getDriver() {
@@ -113,7 +113,7 @@ public class WebSettings extends JDISettings {
     public static synchronized void initFromProperties() throws IOException {
         init();
         getProperties(jdiSettingsPath);
-        fillAction(p -> domain.set(p), "domain");
+        fillAction(p -> domain = p, "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> driverVersion = p, "driver.version");
         fillAction(p -> driverVersion =

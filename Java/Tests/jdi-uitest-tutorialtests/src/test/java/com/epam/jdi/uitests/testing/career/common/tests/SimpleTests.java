@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.career.common.tests;
 
+import com.epam.jdi.site.epam.EpamSite;
 import com.epam.jdi.uitests.testing.TestsBase;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.Test;

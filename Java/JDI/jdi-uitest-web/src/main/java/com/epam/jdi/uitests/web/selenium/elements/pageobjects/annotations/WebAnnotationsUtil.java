@@ -40,8 +40,8 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static String getUrlFromUri(String uri, Class<?> parentClass) {
-        return isNotBlank(domain.get())
-                ? domain.get().replaceAll("/*$", "/") + uri.replaceAll("^/*", "")
+        return isNotBlank(domain)
+                ? domain.replaceAll("/*$", "/") + uri.replaceAll("^/*", "")
                 : "";
     }
 

@@ -20,7 +20,7 @@ public class W3CInit extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void setUp() throws Exception {
-        domain.set("http://www.w3schools.com");
+        domain = "http://www.w3schools.com";
         init(useDriver(CHROME), W3cSite.class);
         init(useDriver(CHROME), EpamJDISite.class);
         framePage.open();
