@@ -53,6 +53,7 @@ import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.downloadDriver;
+import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.shouldDownloadDriver;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
 import static com.epam.jdi.uitests.web.selenium.driver.RunTypes.LOCAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getJSExecutor;
@@ -72,7 +73,6 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
     static final String FOLDER_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\driver\\";
-    public Boolean getLatestDriver = false;
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public static String pageLoadStrategy = "normal";
@@ -196,7 +196,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     // GET DRIVER
 
     protected String registerLocalDriver(DriverTypes driverType) {
-        if (getLatestDriver)
+        if (shouldDownloadDriver())
             downloadDriver(driverType);
         else setUpDrivers(driverType);
         return registerDriver(driverType, getDefaultDriver(driverType));

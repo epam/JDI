@@ -52,6 +52,7 @@ import java.util.function.Supplier;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
+import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.driverVersion;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.base.BaseMatcher.setLogAction;
@@ -113,9 +114,11 @@ public class WebSettings extends JDISettings {
         init();
         getProperties(jdiSettingsPath);
         fillAction(p -> domain.set(p), "domain");
-        fillAction(getDriverFactory()::setDriverPath, "drivers.folder");
-        fillAction(p -> getDriverFactory().getLatestDriver =
-                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "driver.getLatest");
+        fillAction(driverFactory::setDriverPath, "drivers.folder");
+        fillAction(p -> driverVersion = p, "driver.version");
+        fillAction(p -> driverVersion =
+                p.toLowerCase().equals("true") || p.toLowerCase().equals("1")
+                ? "latest" : "none", "driver.getLatest");
         fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
         killBrowser = "afterAndBefore";
         fillAction(p -> killBrowser = p, "browser.kill");

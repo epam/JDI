@@ -208,8 +208,26 @@ public final class LinqUtils {
     public static <T> boolean any(Collection<T> list, JFuncTREx<T, Boolean> func) {
         return first(list, func) != null;
     }
-    public static <T> boolean any(T[] list, JFuncTREx<T, Boolean> func) {
-        return first(list, func) != null;
+    public static <T> boolean any(T[] array, JFuncTREx<T, Boolean> func) {
+        return any(asList(array), func);
+    }
+    public static <T> T single(Collection<T> list, JFuncTREx<T, Boolean> func) {
+        if (list == null || list.size() == 0)
+            return null;
+        T found = null;
+        try {
+            for (T el : list)
+                if (func.invoke(el)) {
+                    if (found != null) return null;
+                    else found = el;
+                }
+        } catch (Exception ex) {
+            throw new RuntimeException("Can't do first. Exception: " + ex.getMessage());
+        }
+        return found;
+    }
+    public static <T> T single(T[] array, JFuncTREx<T, Boolean> func) {
+        return single(asList(array), func);
     }
     public static <T> int firstIndex(List<T> list, JFuncTREx<T, Boolean> func) {
         if (list == null)

@@ -20,8 +20,6 @@ package com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations;
 
 import java.lang.annotation.*;
 
-import static com.epam.jdi.uitests.core.settings.JDIData.APP_VERSION;
-
 /**
  * Created by 12345 on 07.11.2014.
  */
@@ -54,5 +52,5 @@ public @interface JFindBy {
     String repeat() default "";
 
     // Group
-    String group() default APP_VERSION;
+    String group() default "";
 }

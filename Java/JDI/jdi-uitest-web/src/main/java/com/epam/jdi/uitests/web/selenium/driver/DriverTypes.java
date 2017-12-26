@@ -26,7 +26,7 @@ public enum DriverTypes {
     FIREFOX("firefox"),
     IE("ie");
 
-    public String name;
+    public final String name;
 
     DriverTypes(String name) {
         this.name = name;

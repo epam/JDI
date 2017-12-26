@@ -49,8 +49,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static com.epam.commons.LinqUtils.any;
-import static com.epam.commons.LinqUtils.first;
+import static com.epam.commons.LinqUtils.single;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
@@ -247,8 +246,13 @@ public class WebCascadeInit extends CascadeInit {
 
     protected By getNewLocatorFromField(Field field) {
         JFindBy[] jfindbys = field.getAnnotationsByType(JFindBy.class);
-        if (jfindbys.length > 0 && any(jfindbys, j -> group.equals(j.group()))) {
-            return findByToBy(first(jfindbys, j -> group.equals(j.group())));
+        if (jfindbys.length > 1) {
+            JFindBy groupFindBy = single(jfindbys, j -> group.equals(j.group()));
+            if (groupFindBy != null)
+                return findByToBy(groupFindBy);
+            groupFindBy = single(jfindbys, j -> j.group().equals(""));
+            if (groupFindBy != null)
+                return findByToBy(groupFindBy);
         }
         if (field.isAnnotationPresent(JFindBy.class)) {
             return findByToBy(field.getAnnotation(JFindBy.class));

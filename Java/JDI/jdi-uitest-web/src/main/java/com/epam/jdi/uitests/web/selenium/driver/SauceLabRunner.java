@@ -28,6 +28,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.System.getenv;
 import static org.openqa.selenium.remote.CapabilityType.PLATFORM;
 
@@ -47,7 +48,16 @@ public class SauceLabRunner implements SauceOnDemandSessionIdProvider {
     }
 
     public static DesiredCapabilities getSauceDesiredCapabilities(DriverTypes driverType) {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        DesiredCapabilities capabilities;
+        switch (driverType) {
+            case CHROME:
+                capabilities = DesiredCapabilities.chrome(); break;
+            case FIREFOX:
+                capabilities = DesiredCapabilities.firefox(); break;
+            case IE:
+                capabilities = DesiredCapabilities.internetExplorer();  break;
+            default: throw exception("Wrong driver type: " + driverType);
+        }
         capabilities.setBrowserName(getenv("SELENIUM_BROWSER"));
         capabilities.setVersion(getenv("SELENIUM_VERSION"));
         capabilities.setCapability(PLATFORM, getenv("SELENIUM_PLATFORM"));
