@@ -382,7 +382,7 @@ function includeHeader() {
                 </div>\
             </div>\
             <div class="epam-logo">\
-				<a href="/index.html">\
+				<a href="/JDI/index.html">\
 					<span>Information<br>Framework</span>\
 					<img src="images/Logo_Epam_Color.svg" alt="" width="86" />\
 				</a>\
