@@ -3,11 +3,14 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
+import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.enums.HeaderMenu.CAREERS;
 import static com.epam.jdi.site.epam.EpamSite.*;
+import static com.epam.web.matcher.testng.Assert.areEquals;
 
 public class CareerTests extends TestsBase {
 

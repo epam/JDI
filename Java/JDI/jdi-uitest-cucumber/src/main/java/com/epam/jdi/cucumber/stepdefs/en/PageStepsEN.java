@@ -12,13 +12,13 @@ public class PageStepsEN {
 
     @Given("^I open \"(.*?)\"$")
     public void iMOpen(String pageName) {
-        currentPage = getElementByName(currentSite.get(), pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.open();
     }
 
     @Then("^I'm on \"(.*?)\"$")
     public void iMOn(String pageName) {
-        currentPage = getElementByName(currentSite.get(), pageName);
+        currentPage = getElementByName(currentSite, pageName);
         currentPage.checkOpened();
     }
 

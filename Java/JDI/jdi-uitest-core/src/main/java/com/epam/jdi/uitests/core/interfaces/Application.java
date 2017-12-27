@@ -29,7 +29,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
  * Created by Roman_Iovlev on 8/30/2015.
  */
 public class Application {
-    public static ThreadLocal<Class> currentSite = new ThreadLocal<>();
+    public static Class currentSite;
 
     private String driverName;
     public void setDriverName(String driverName) { this.driverName = driverName; }

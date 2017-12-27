@@ -39,7 +39,7 @@ public class WebSite extends Application {
             }
             new WebCascadeInit().initStaticPages(site, driverName);
         }
-        currentSite.set(sites[sites.length-1]);
+        currentSite = sites[sites.length-1];
     }
     public static <T> void init(Class<T>... sites) {
         if (!getDriverFactory().hasDrivers())
@@ -53,7 +53,7 @@ public class WebSite extends Application {
      */
     public static void open(){
         WebPage page = new WebPage(domain);
-        page.setName(currentSite.get().getSimpleName());
+        page.setName(currentSite.getSimpleName());
         page.open();
     }
     public static void shouldBeOpened(){

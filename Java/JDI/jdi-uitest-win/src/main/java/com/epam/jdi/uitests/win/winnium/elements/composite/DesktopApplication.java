@@ -7,6 +7,6 @@ import com.epam.jdi.uitests.win.winnium.elements.WinCascadeInit;
 public class DesktopApplication extends Application {
     public static <T> void init(Class<T> applicationClass) {
         new WinCascadeInit().initStaticPages(applicationClass, WinSettings.driverFactory.currentDriverName());
-        currentSite.set(applicationClass);
+        currentSite = applicationClass;
     }
 }

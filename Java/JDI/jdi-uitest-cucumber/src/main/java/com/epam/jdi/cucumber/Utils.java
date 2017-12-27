@@ -58,7 +58,7 @@ public final class Utils {
     }
 
     public static Object getClassField(String containerName) {
-        Class[] containers = {currentPage.getClass(), currentSite.get()};
+        Class[] containers = {currentPage.getClass(), currentSite};
         Object resultElement = null;
         for (Class i : containers) {
             resultElement = getClassField(i, containerName);
@@ -120,11 +120,11 @@ public final class Utils {
     // Find all composite elements on root pageobject,  then find one named element. If composite elements contains
     // more then one named elements, use first find.
     public static Object getClassFieldAnyway(String fieldName, Class expectedClass) throws IllegalAccessException {
-        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite.get())), expectedClass);
+        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite)), expectedClass);
     }
 
     public static Object getClassFieldAnyway(String fieldName) throws IllegalAccessException {
-        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite.get())), IElement.class);
+        return getClassField(fieldName, new ArrayList<>(filterCompositeFields(currentSite)), IElement.class);
     }
     ////////////
 

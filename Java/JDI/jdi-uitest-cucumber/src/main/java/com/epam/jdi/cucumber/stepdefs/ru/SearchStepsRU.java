@@ -10,7 +10,7 @@ public class SearchStepsRU {
 
     @When("^я ищу \"([^\"]*)\"$")
     public void iMFind(String findString) {
-        Search search = getElementByName(currentSite.get(), findString);
+        Search search = getElementByName(currentSite, findString);
         search.find(findString);
     }
 }

@@ -18,10 +18,9 @@ import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
 public abstract class TestsBase extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
-        logger.setLogLevel(STEP);
+        //logger.setLogLevel(STEP);
         init(EpamSite.class);
         logger.info("Run Tests");
-        EpamSite.open();
     }
 
     @AfterSuite(alwaysRun = true)

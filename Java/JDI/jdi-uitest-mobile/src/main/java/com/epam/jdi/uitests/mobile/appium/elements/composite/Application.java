@@ -28,7 +28,7 @@ import static com.epam.jdi.uitests.mobile.WebSettings.getDriverFactory;
 public class Application extends com.epam.jdi.uitests.core.interfaces.Application {
     public static <T> void init(Class<T> site) {
         new AppiumCascadeInit().initStaticPages(site, getDriverFactory().currentDriverName());
-        currentSite.set(site);
+        currentSite = site;
     }
     public static <T extends Application> T init(Class<T> site, String driverName) {
         return new AppiumCascadeInit().initPages(site, driverName);

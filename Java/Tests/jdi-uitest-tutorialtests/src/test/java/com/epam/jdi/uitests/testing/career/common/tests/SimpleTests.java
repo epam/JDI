@@ -13,6 +13,7 @@ public class SimpleTests extends TestsBase {
 
     @Test
     public void simpleTest() {
+        EpamSite.open();
         headerMenu.select(CAREERS);
         careerPage.checkOpened();
         Assert.areEquals("test", "test");
