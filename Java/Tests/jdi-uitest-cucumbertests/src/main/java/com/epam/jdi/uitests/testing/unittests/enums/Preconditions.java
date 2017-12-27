@@ -17,8 +17,8 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
  * Created by 12345 on 03.06.2015.
  */
 public enum Preconditions implements WebPreconditions {
-    HOME_PAGE("index.htm"),
-    CONTACT_PAGE("page1.htm"),
+    HOME_PAGE("index.html"),
+    CONTACT_PAGE("contacts.html"),
     CONTACT_PAGE_FILLED(() -> WebPreconditions.checkUrl("page1.htm"), () -> {
         WebPreconditions.openUri("page1.htm");
         contactFormPage.name.newInput(DEFAULT_USER.name);

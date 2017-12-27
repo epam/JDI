@@ -16,21 +16,21 @@ import org.openqa.selenium.support.FindBy;
 @JSite(value = "https://jdi-framework.github.io/tests")
 public class EpamJDISite extends WebSite {
 
-    @JPage(url = "/index.htm", title = "Index Page")
+    @JPage(url = "/index.html", title = "Index Page")
     public static HomePage homePage;
-    @JPage(url = "/page1.htm", title = "Contact Form")
+    @JPage(url = "/contacts.html", title = "Contact Form")
     public static ContactPage contactFormPage;
-    @JPage(url = "/page2.htm", title = "Metal and Colors")
+    @JPage(url = "/metals-colors.html", title = "Metal and Colors")
     public static MetalsColorsPage metalsColorsPage;
-    @JPage(url = "/page3.htm", title = "Support")
+    @JPage(url = "/support.html", title = "Support")
     public static SupportPage supportPage;
-    @JPage(url = "/page3.htm", title = "Support")
+    @JPage(url = "/table-pages.html", title = "Support")
     public static SortingTablePage sortingTablePage;
-    @JPage(url = "/page7.htm", title = "Table sort")
+    @JPage(url = "/complex-table.html", title = "Table sort")
     public static DynamicTablePage dynamicTablePage;
-    @JPage(url = "/page5.htm", title = "Table Scroll")
+    @JPage(url = "/simple-table.html", title = "Table Scroll")
     public static SimpleTablePage simpleTablePage;
-    @JPage(url = "/page6.htm", title = "Simple Table")
+    @JPage(url = "/dates.html", title = "Simple Table")
     public static DatesPage dates;
     @FindBy(css = ".uui-profile-menu")
     public static Login login;

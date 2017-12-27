@@ -118,7 +118,7 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     private SelectElement get() {
-        SelectElement cell = getWebElement() != null
+        SelectElement cell = avatar.hasWebElement()
                 ? new SelectElement(getWebElement())
                 : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
         cell.init(table, cell.getAvatar());

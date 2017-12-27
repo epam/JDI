@@ -18,24 +18,24 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
  * Created by 12345 on 03.06.2015.
  */
 public enum Preconditions implements WebPreconditions {
-    HOME_PAGE("index.htm"),
-    CONTACT_PAGE("page1.htm"),
-    CONTACT_PAGE_FILLED(() -> checkUrl("page1.htm"), () -> {
-        openUri("page1.htm");
+    HOME_PAGE("index.html"),
+    CONTACT_PAGE("contacts.html"),
+    CONTACT_PAGE_FILLED(() -> checkUrl("contacts.html"), () -> {
+        openUri("contacts.html");
         contactFormPage.name.newInput(DEFAULT.name);
         contactFormPage.lastName.newInput(DEFAULT.lastName);
         contactFormPage.description.newInput(DEFAULT.description);
     }),
-    METALS_AND_COLORS_PAGE("page2.htm"),
-    DATES_PAGE("page4.htm"),
-    SUPPORT_PAGE("page3.htm", true),
-    SORTING_TABLE_PAGE("page7.htm"),
-    DYNAMIC_TABLE_PAGE("page5.htm"),
-    SIMPLE_PAGE("page6.htm"),
+    METALS_AND_COLORS_PAGE("metals-colors.html"),
+    DATES_PAGE("dates.html"),
+    SUPPORT_PAGE("support.html", true),
+    SORTING_TABLE_PAGE("table-pages.html"),
+    DYNAMIC_TABLE_PAGE("complex-table.html"),
+    SIMPLE_PAGE("simple-table.html"),
     DATES_PAGE_FILLED(
-        () -> checkUrl("page4.htm"),
+        () -> checkUrl("dates.html"),
         () -> {
-        openUri("page4.htm");
+        openUri("dates.html");
         WebElement datePicker = getDriver().findElement(dates.datepicker.getLocator());
         datePicker.clear();
         datePicker.sendKeys("09/09/1945");

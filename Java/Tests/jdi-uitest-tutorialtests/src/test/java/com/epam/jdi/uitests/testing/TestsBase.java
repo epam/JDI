@@ -20,6 +20,7 @@ public abstract class TestsBase extends TestNGBase {
     public static void setUp() {
         //logger.setLogLevel(STEP);
         init(EpamSite.class);
+        EpamSite.open();
         logger.info("Run Tests");
     }
 

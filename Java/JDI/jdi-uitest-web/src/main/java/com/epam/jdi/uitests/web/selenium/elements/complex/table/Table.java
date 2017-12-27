@@ -667,7 +667,7 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
     }
 
     private Cell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {
-        Cell cell = (allCells.size() != 0)
+        Cell cell = allCells.size() != 0
             ? (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum)
             : null;
         if (cell != null)

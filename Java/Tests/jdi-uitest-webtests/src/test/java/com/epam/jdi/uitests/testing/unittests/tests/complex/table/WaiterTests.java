@@ -56,7 +56,7 @@ public class WaiterTests extends SupportTableTestsBase {
     public void cellWaitMatchTextTest() {
         isInState(HOME_PAGE);
         runParallel(SUPPORT_PAGE::open);
-
+        String t = table().cell(2, 2).getText();
         checkText(() -> table().cell(2, 2).waitMatchText("[a-zA-Z, ]*JUnit,[a-zA-Z ]*"), "TestNG, JUnit, Custom");
     }
 
