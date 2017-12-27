@@ -11,6 +11,8 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
  * Created by Roman_Iovlev on 11/28/2017.
  */
 public class DownloadDriverManager {
+    public static String driverVersion = "none";
+    public static String platform = "32";
     public static boolean shouldDownloadDriver() {
         return driverVersion.equalsIgnoreCase("latest") ||
                 hasVersion();
@@ -20,7 +22,6 @@ public class DownloadDriverManager {
         return (c >= '0' && c <= '9');
     }
 
-    public static String driverVersion = "none";
     public static void downloadDriver(DriverTypes driverType) {
         BrowserManager bm = null;
         try {
@@ -28,12 +29,16 @@ public class DownloadDriverManager {
                 case CHROME:
                     bm = ChromeDriverManager.getInstance(); break;
                 case FIREFOX:
-                    bm = FirefoxDriverManager.getInstance().arch32(); break;
+                    bm = FirefoxDriverManager.getInstance(); break;
                 case IE:
                     bm = InternetExplorerDriverManager.getInstance(); break;
             }
             if (bm == null)
                 throw exception("Unknown driver: " + driverType);
+            switch (platform) {
+                case "32": bm = bm.arch32(); break;
+                case "64": bm = bm.arch64(); break;
+            }
             if (hasVersion())
                 bm = bm.version(driverVersion);
             bm.setup();

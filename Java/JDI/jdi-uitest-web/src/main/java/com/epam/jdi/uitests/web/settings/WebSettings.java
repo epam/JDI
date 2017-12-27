@@ -53,6 +53,7 @@ import java.util.function.Supplier;
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
 import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.driverVersion;
+import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.platform;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.*;
 import static com.epam.web.matcher.base.BaseMatcher.screenshotAction;
 import static com.epam.web.matcher.base.BaseMatcher.setLogAction;
@@ -116,6 +117,7 @@ public class WebSettings extends JDISettings {
         fillAction(p -> domain = p, "domain");
         fillAction(driverFactory::setDriverPath, "drivers.folder");
         fillAction(p -> driverVersion = p, "driver.version");
+        fillAction(p -> platform = p, "os.platform");
         fillAction(p -> driverVersion =
                 p.toLowerCase().equals("true") || p.toLowerCase().equals("1")
                 ? "latest" : "none", "driver.getLatest");
