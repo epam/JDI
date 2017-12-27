@@ -384,7 +384,7 @@ function includeHeader() {
             <div class="epam-logo">\
 				<a href="/JDI/index.html">\
 					<span>Information<br>Framework</span>\
-					<img src="images/Logo_Epam_Color.svg" alt="" width="86" />\
+					<img src="images/Logo_Epam_Color.svg" alt="ALT" width="86" />\
 				</a>\
             </div>\
 			<ul class="uui-navigation nav navbar-nav m-l8">\
