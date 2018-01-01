@@ -118,8 +118,8 @@ public class JTableDP {
                         supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders},
                 {supportPage, supportPage.tableRoot, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
                         supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders},
-                {supportPage, supportPage.tableRootHeaderRow, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
-                        supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders}
+                //TODO {supportPage, supportPage.tableRootHeaderRow, supportTableText, supportTableRows, supportTableColumns, supportTableKeyWord,
+                       // supportTableSearchResult, 6, supportTableFirstCell, supportTableHeaders}
                 // {simpleTablePage.table}
         };
     }

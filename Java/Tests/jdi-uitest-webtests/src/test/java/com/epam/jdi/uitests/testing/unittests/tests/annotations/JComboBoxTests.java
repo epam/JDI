@@ -24,7 +24,6 @@ public class JComboBoxTests extends InitTests {
         new Check().areEquals(comboBox.getOptions(), "[Colors, Red, Green, Blue, Yellow]");
         new Check().areEquals(comboBox.getValues(), "[Colors, Red, Green, Blue, Yellow]");
 
-
         comboBox.expand();
         new Check().isTrue(comboBox.isDisplayed());
         comboBox.close();

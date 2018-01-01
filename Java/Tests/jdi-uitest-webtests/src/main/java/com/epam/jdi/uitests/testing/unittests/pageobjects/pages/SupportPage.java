@@ -28,7 +28,7 @@ public class SupportPage extends WebPage {
 
     @JTable(
             jRoot = @JFindBy(css = ".uui-table.stripe>tbody"),
-            header = {"Type", 	"Now", 	"Plans"},
+            header = {"Type", "Now", "Plans"},
             jRow = @JFindBy(tagName = "tr")
     ) public ITable tableRootHeaderRow;
 

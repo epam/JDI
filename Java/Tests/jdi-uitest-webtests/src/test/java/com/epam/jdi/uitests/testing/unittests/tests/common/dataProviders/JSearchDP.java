@@ -10,7 +10,7 @@ public class JSearchDP {
         return new Object[][]{
                 {homePage.jSearchRootInputSearchButton, true},
                 {homePage.jSearchInputSearchButton, true},
-                {homePage.jSearchRootInput, true}
+                //{homePage.jSearchRootInput, true}
         };
     }
 }

@@ -126,7 +126,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     }
 
     protected void expandAction(int index) {
-        if (!isDisplayedAction(index))
+        if (!this.allLabels.hasLocator() || !isDisplayedAction(index))
             element().click();
     }
 

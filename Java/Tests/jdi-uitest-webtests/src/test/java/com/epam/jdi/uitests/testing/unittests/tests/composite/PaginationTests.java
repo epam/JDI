@@ -11,6 +11,8 @@ import java.lang.reflect.Method;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SIMPLE_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.simpleTablePage;
+import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
+import static com.epam.web.matcher.testng.Assert.assertContains;
 import static com.epam.web.matcher.testng.Assert.assertTrue;
 
 /**
@@ -19,13 +21,11 @@ import static com.epam.web.matcher.testng.Assert.assertTrue;
 public class PaginationTests extends InitTests {
     private Pagination pagination() { return  simpleTablePage.pagination; }
 
+    public static final String[] pages = {"index.html", "contacts.html", "support.html", "dates.html", "complex-table.html", "simple-table.html", "user-table.html", "table-pages.html", "different-elements.html", "metals-colors.html"};
     private void checkPageOpenned(int num) {
-        assertTrue(() -> urlContains("/page" + num + ".htm"));
+        assertContains(() -> getDriver().getCurrentUrl(), "/" + pages[num]);
     }
 
-    boolean urlContains(CharSequence s){
-        return WebSettings.getDriver().getCurrentUrl().contains(s);
-    }
 
     @BeforeMethod
     public void before(final Method method) {
@@ -35,13 +35,13 @@ public class PaginationTests extends InitTests {
     @Test
     public void nextTest() {
         pagination().next();
-        checkPageOpenned(7);
+        checkPageOpenned(6);
     }
 
     @Test
     public void prevTest() {
         pagination().previous();
-        checkPageOpenned(5);
+        checkPageOpenned(4);
     }
 
     @Test
@@ -53,6 +53,6 @@ public class PaginationTests extends InitTests {
     @Test
     public void lastTest() {
         pagination().last();
-        checkPageOpenned(2);
+        checkPageOpenned(pages.length-1);
     }
 }

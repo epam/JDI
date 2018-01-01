@@ -49,16 +49,16 @@ public class MetalsColorsPage extends WebPage {
 
 
     @JDropdown(
-            jroot = @JFindBy(css = ".colors"),
-            jexpand = @JFindBy(css = ".caret"),
-            jlist = @JFindBy(tagName = "li"),
-            jvalue = @JFindBy(css = ".filter-option")
+        jroot = @JFindBy(css = ".colors"),
+        jexpand = @JFindBy(css = ".caret"),
+        jlist = @JFindBy(tagName = "li"),
+        jvalue = @JFindBy(css = ".filter-option")
     )
     public IDropDown colorsRootExpandListValue;
 
     @JDropdown(
-            jroot = @JFindBy(css = ".colors"),
-            jexpand = @JFindBy(css = ".caret")
+        jroot = @JFindBy(css = ".colors"),
+        jexpand = @JFindBy(css = ".caret")
     )
     public IDropDown colorsRootExpand;
 

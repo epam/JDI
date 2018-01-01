@@ -127,7 +127,7 @@ public class Rows extends TableLine implements IRow {
     public final MapArray<String, ICell> getRow(String rowName) {
         try {
             int colsCount = table.columns().count();
-            List<String> headers = select(table.columns().headers(), String::toLowerCase);
+            List<String> headers = table.columns().headers();
             List<WebElement> webRowLine = timer().getResultByCondition(
                     () -> getLineAction(rowName), els -> els.size() == colsCount);
             return new MapArray<>(colsCount,

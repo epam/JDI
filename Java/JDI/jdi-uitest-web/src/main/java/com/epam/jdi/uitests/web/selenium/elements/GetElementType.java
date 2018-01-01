@@ -30,6 +30,9 @@ public class GetElementType {
     private By locator;
     private Object parent;
 
+    public boolean hasLocator() {
+        return locator != null;
+    }
     public GetElementType() {
     }
 

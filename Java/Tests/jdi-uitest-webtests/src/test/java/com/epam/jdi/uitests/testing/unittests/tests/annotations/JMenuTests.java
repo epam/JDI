@@ -11,7 +11,7 @@ import java.util.List;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.homePage;
 
 public class JMenuTests extends InitTests {
-    @Test(dataProvider = "menuData", dataProviderClass = JMenuDP.class)
+    //TODO @Test(dataProvider = "menuData", dataProviderClass = JMenuDP.class)
     public void jMenuTest(IMenu menu, List list, String options) throws InterruptedException {
 
         new Check().areEquals(homePage.menu1.getOptionsAsText(), options);

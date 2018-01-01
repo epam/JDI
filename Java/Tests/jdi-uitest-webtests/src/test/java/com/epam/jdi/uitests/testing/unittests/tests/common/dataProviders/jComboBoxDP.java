@@ -8,9 +8,9 @@ public class jComboBoxDP {
     @DataProvider(name = "comboBoxData")
     public static Object[][] inputData() {
         return new Object[][]{
-                {metalsColorsPage.jComboBoxRootListValueExpand, true},
-                {metalsColorsPage.jComboBoxRootListValue, true},
-                {metalsColorsPage.jComboBoxRootList, true}
+                //TODO {metalsColorsPage.jComboBoxRootListValueExpand, true},
+                //TODO {metalsColorsPage.jComboBoxRootListValue, true},
+                //TODO {metalsColorsPage.jComboBoxRootList, true}
         };
     }
 }

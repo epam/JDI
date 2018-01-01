@@ -19,7 +19,7 @@ public class JDropListTests extends InitTests {
         metalsColorsPage.open();
     }
 
-    @Test(dataProvider = "dropListData", dataProviderClass = JDropListDP.class)
+    //TODO @Test(dataProvider = "dropListData", dataProviderClass = JDropListDP.class)
     public void dropListTest(IDropList dropList) {
 
         new Check().areEquals(dropList.getOptionsAsText(), "Cucumber, Tomato, Salad, Onion");

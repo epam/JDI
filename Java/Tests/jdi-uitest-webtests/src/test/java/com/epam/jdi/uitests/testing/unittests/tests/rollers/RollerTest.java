@@ -49,7 +49,6 @@ public class RollerTest extends InitTests {
         new Check("Actual Log Info").matches(actionsLog.getText(0), "([0-9]{2}:){2}[0-9]{2} Range 2\\(To\\):" + rollerPosition + " link clicked");
     }
 
-
     @Test(dataProvider = "bothRollersDataProvider", dataProviderClass = RollerDP.class)
     public void bothRollersChangeTest(int leftRollerPosition, int rightRollerPosition) {
         ContactForm contactForm = (ContactForm) form.get();
