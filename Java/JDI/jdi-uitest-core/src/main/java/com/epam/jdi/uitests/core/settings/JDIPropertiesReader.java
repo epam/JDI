@@ -11,7 +11,7 @@ import java.util.Properties;
 public class JDIPropertiesReader {
 
     public static Properties getProperties(String path) throws IOException {
-        Properties p = PropertyReader.getProperties("/../../target/classes/" + path);
+        Properties p = PropertyReader.getProperties(path);
         return p.size() > 0 ? p : PropertyReader.getProperties(path);
     }
 
