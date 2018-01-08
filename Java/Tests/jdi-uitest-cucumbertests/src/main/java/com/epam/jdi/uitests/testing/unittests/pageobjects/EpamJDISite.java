@@ -16,7 +16,7 @@ import org.openqa.selenium.support.FindBy;
 @JSite(value = "https://jdi-framework.github.io/tests")
 public class EpamJDISite extends WebSite {
 
-    @JPage(url = "/index.html", title = "Index Page")
+    @JPage(url = "/index.html", title = "Home Page")
     public static HomePage homePage;
     @JPage(url = "/contacts.html", title = "Contact Form")
     public static ContactPage contactFormPage;

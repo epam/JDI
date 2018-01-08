@@ -39,7 +39,7 @@ public class Verify extends BaseMatcher {
     }
 
     public static List<String> getFails() {
-        List<String> result = fails.stream().collect(toCollection(LinkedList::new));
+        List<String> result = new LinkedList<>(fails);
         fails.clear();
         return result;
     }

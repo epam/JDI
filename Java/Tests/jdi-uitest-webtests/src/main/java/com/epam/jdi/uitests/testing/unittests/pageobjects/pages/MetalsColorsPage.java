@@ -99,23 +99,23 @@ public class MetalsColorsPage extends WebPage {
 
 
     @JComboBox(
-            root = @JFindBy(css = ".colors"),
-            list = @JFindBy(tagName = "li"),
-            value = @JFindBy(css = ".filter-option"),
-            expand = @JFindBy(css = ".caret")
+            root = @FindBy(css = ".colors"),
+            list = @FindBy(tagName = "li"),
+            value = @FindBy(css = ".filter-option"),
+            expand = @FindBy(css = ".caret")
     )
     public IComboBox jComboBoxRootListValueExpand;
 
     @JComboBox(
-            root = @JFindBy(css = ".colors"),
-            list = @JFindBy(tagName = "li"),
-            value = @JFindBy(css = ".filter-option")
+            root = @FindBy(css = ".colors"),
+            list = @FindBy(tagName = "li"),
+            value = @FindBy(css = ".filter-option")
     )
     public IComboBox jComboBoxRootListValue;
 
     @JComboBox(
-            root = @JFindBy(css = ".colors"),
-            value = @JFindBy(css = ".filter-option")
+            root = @FindBy(css = ".colors"),
+            value = @FindBy(css = ".filter-option")
     )
     public IComboBox jComboBoxRootList;
 
