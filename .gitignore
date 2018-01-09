@@ -12,6 +12,7 @@ __pycache__/
 packages/
 *.nupkg
 test-output/
+Debug/
 
 # ReSharper files
 *.DotSettings.user
