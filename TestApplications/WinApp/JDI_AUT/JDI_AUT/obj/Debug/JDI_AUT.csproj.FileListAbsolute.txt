@@ -12,3 +12,17 @@ c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_A
 c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.csproj.GenerateResource.Cache
 c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.exe
 c:\Users\dmitriy_dobrolyubov\documents\visual studio 2015\Projects\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.pdb
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.exe.config
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.exe
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\bin\Debug\JDI_AUT.pdb
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.csprojResolveAssemblyReference.cache
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\MainWindow.g.cs
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\App.g.cs
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT_MarkupCompile.cache
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT_MarkupCompile.lref
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\MainWindow.baml
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.g.resources
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.Properties.Resources.resources
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.csproj.GenerateResource.Cache
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.exe
+D:\Work\Projects\Java\JDI\GitHub\TestApplications\WinApp\JDI_AUT\JDI_AUT\obj\Debug\JDI_AUT.pdb

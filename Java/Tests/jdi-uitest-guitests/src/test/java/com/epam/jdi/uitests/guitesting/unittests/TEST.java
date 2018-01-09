@@ -30,8 +30,6 @@ public class TEST {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.get("https://jdi-framework.github.io/tests");
         js.executeScript("document.body.style.zoom='100%'");
-
-
         GuiSettings.init();
         init(EpamJDIScreen.class);
 
@@ -40,15 +38,11 @@ public class TEST {
 
     @Test
     public void test1() {
-
         Timer timer = new Timer(1000);
        // homePage.logoImage.dragAndDropBy(homePage.searchButton);
-
        // homePage.logoImage.doubleClick();
        // homePage.logoImage.rightClick();
-
        // homePage.logoImage.waitVanished();
-
         homePage.searchButton.click();
         //homePage.searchField.input("ddddd");
     }

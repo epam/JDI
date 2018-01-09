@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.win.winnium.driver;
 
-import com.epam.commons.PropertyReader;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -9,18 +8,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.winium.DesktopOptions;
 import org.openqa.selenium.winium.WiniumDriver;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.function.Supplier;
+
+import static com.epam.commons.PropertyReader.*;
 
 public class WiniumDriverFactory implements IDriver<WebDriver> {
     private static final String WINNIUM_DEFAULT_HOST = "http://localhost:9999";
     private Supplier<WebDriver> winniumDesktopDriverSupplier;
     private Process startedProcess;
-    private String driversPath = "";
+    private static final String DEFAULT_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\";
+    private String driverPath = DEFAULT_PATH;
+    private String appPath = DEFAULT_PATH;
     private WebDriver winiumDriver;
-    private String currentDriverName = "winniumdesctop";
-
+    private static final String WINNIUM = "winiumdesktop";
+    private String currentDriverName = WINNIUM;
 
     public Process getStartedProcess() {
         return startedProcess;
@@ -28,23 +32,14 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
 
     @Override
     public String registerDriver(String driverName) {
-        if (!"winiumdesktop".equals(driverName.toLowerCase()))
+        if (!WINNIUM.equals(driverName.toLowerCase()))
             throw JDISettings.exception("Unknown driver: " + driverName);
 
         winniumDesktopDriverSupplier = () -> {
             try {
-                startedProcess = new ProcessBuilder(driversPath + "\\Winium.Desktop.Driver.exe").start();
-
-//                DesiredCapabilities cap = new DesiredCapabilities();
-//                cap.setCapability("app", JDISettings.domain);
-//                cap.setCapability("launchDelay","5");
-//                return new RemoteWebDriver(new URL("http://localhost:9999"), cap);
-
-
+                startedProcess = new ProcessBuilder(getDriverPath()).start();
                 DesktopOptions options = new DesktopOptions();
-
-                options.setApplicationPath(PropertyReader.getProperty("domain"));
-
+                options.setApplicationPath(getAppPath());
                 return new WiniumDriver(new URL(WINNIUM_DEFAULT_HOST), options);
             } catch (IOException e) {
                 throw JDISettings.exception("Unknown driver: " + driverName);
@@ -54,40 +49,36 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
         return driverName;
     }
 
-    @Override
-    public void setDriverPath(String driverPath) {
-        this.driversPath = driverPath;
+    public void setDriverPath(String path) {
+        this.driverPath = path;
     }
 
-    @Override
+    public void setAppPath(String path) {
+        this.appPath = path;
+    }
+
     public void setRunType(String runType) {}
 
-    @Override
     public WebDriver getDriver() {
         return getDriver(currentDriverName);
     }
 
-    @Override
     public boolean hasDrivers() {
         return winniumDesktopDriverSupplier != null;
     }
 
-    @Override
     public boolean hasRunDrivers() {
         return winiumDriver != null;
     }
 
-    @Override
     public String currentDriverName() {
         return currentDriverName;
     }
 
-    @Override
     public void setCurrentDriver(String driverName) {
         currentDriverName = driverName;
     }
 
-    @Override
     public WebDriver getDriver(String name) {
         if (winniumDesktopDriverSupplier == null)
             throw new RuntimeException();
@@ -98,18 +89,27 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
         return winiumDriver;
     }
 
-    @Override
     public void highlight(IElement element) {
         throw new UnsupportedOperationException("Not supported");
     }
 
-    @Override
     public void highlight(IElement element, HighlightSettings highlightSettings) {
         throw new UnsupportedOperationException("Not supported");
+        
     }
 
-    @Override
     public String getDriverPath() {
-        return driversPath;
+        return concatPaths(driverPath.contains(":")
+                ? driverPath
+                : concatPaths(DEFAULT_PATH, driverPath)
+            , "Winium.Desktop.Driver.exe");
+    }
+    public String getAppPath() {
+        return appPath.contains(":")
+            ? appPath
+            : concatPaths(DEFAULT_PATH, appPath);
+    }
+    private String concatPaths(String s1, String s2) {
+        return s1.replaceAll("\\\\$", "") + "\\" + s2.replaceAll("^\\\\", "");
     }
 }
