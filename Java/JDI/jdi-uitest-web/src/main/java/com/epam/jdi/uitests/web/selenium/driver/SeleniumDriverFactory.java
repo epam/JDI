@@ -72,7 +72,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public static JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
-    static final String FOLDER_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\driver\\";
+    static final String FOLDER_PATH = new File("").getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "driver" + File.separator;
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
     public static String pageLoadStrategy = "normal";
