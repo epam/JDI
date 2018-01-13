@@ -519,7 +519,16 @@ public class J extends Element implements SelenideElement {
         return this;
     }
 
-    
+    public SelenideElement scrollIntoView(boolean b) {
+        return scrollIntoView("{behavior: \"instant\", block: \"end\", inline: \"nearest\"}");
+    }
+
+    public SelenideElement scrollIntoView(String s) {
+        jsExecutor().executeScript("arguments[0].scrollIntoView(" + s + ")", getWebElement());
+        return this;
+    }
+
+
     public File download() throws FileNotFoundException {
         try {
             return new DownloadFileWithHttpRequest().download(getWebElement());
