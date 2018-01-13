@@ -222,9 +222,10 @@ public abstract class BaseMatcher implements IChecker {
         boolean result;
         if (expected.getClass() == String.class) {
             String actualString = toUtf8(actual.toString());
+            String expectedString = toUtf8(expected.toString());
             result = ignoreCase
-                    ? actualString.equalsIgnoreCase((String) expected)
-                    : actualString.equals(expected);
+                    ? actualString.equalsIgnoreCase((String) expectedString)
+                    : actualString.equals(expectedString);
         } else result = actual.equals(expected);
         assertAction(format("Check that '%s' equals to '%s'", actual, expected), result, failMessage);
     }
