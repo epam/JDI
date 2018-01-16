@@ -146,6 +146,11 @@ public abstract class BaseElement implements IBaseElement {
     public boolean verifyLayout(String imgPath) {
         return Layout.verify(getFullImagePath(imgPath));
     }
+
+    public boolean verifyLayout(String imgPath, int similarityPercent) {
+        return Layout.verify(getFullImagePath(imgPath), similarityPercent);
+    }
+
     private String imgPath;
     public String getImgPath() {
         return imgPath;

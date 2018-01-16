@@ -15,7 +15,7 @@ public class DatesPage extends WebPage {
     @ImageFile("datepicker2.png")
     @FindBy(css = "#datepicker input")
     public DatePicker datepicker;
-    @FindBy(css = "[data-provides=fileinput]")
+    @FindBy(css = "input[type=file]")
     public IFileInput imageInput;
     @FindBy(css = "[data-provides=fileinput]")
     public RFileInput rImageInput;

@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.tests.common;
 
+import com.epam.jdi.uitests.core.interfaces.common.IFileInput;
 import com.epam.jdi.uitests.core.interfaces.common.ILabel;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.web.robot.RFileInput;
@@ -22,7 +23,8 @@ import static java.lang.String.format;
  * Created by Dmitry_Lebedev1 on 11/12/2015.
  */
 public class RFileInputTests extends InitTests {
-    private RFileInput textField() { return dates.rImageInput; }
+    private IFileInput imageInput() { return dates.imageInput; }
+    private RFileInput rImageInput() { return dates.rImageInput; }
     private ILabel uploadedFileName() { return dates.uploadedFileName; }
 
     @BeforeMethod
@@ -33,19 +35,19 @@ public class RFileInputTests extends InitTests {
 
     @Test
     public void inputTest() {
-        textField().input(getFPath());
+        rImageInput().input(getFPath());
         checkFileLoaded(fileName());
     }
 
     @Test
     public void sendKeysTest() {
-        textField().sendKeys(getFPath());
+        imageInput().sendKeys(getFPath());
         checkFileLoaded(fileName());
     }
 
     @Test
-    public void newInputTest() throws Exception {
-        textField().newInput(getFPath());
+    public void newInputTest() {
+        rImageInput().newInput(getFPath());
         checkFileLoaded(fileName());
     }
 
@@ -57,7 +59,7 @@ public class RFileInputTests extends InitTests {
 
     @Test
     public void shouldTest(){
-        textField().shouldHave(cssClass("image-upload"))
+        rImageInput().shouldHave(cssClass("image-upload"))
                 .shouldBe(visible);
     }
 }
