@@ -9,7 +9,9 @@ var deltaPos = getDeltaWidth(rightRollerCurrentLeftPosition, newRight);
 var rollerLabel = rightRoller.firstChild;
 
 if (!(currentWidth - deltaPos < 0)) {
-rightRoller.style['left'] = (newRight + '%');
+    // changing rightRoller position to equal with leftRoller makes it unclickable
+    // decided exclude it, since it makes no difference to test
+    // rightRoller.style['left'] = (newRight + '%');
 horizontalLine.style['width'] = ((currentWidth - deltaPos) + '%');
 rollerLabel.innerText = newRight;
 }

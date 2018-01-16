@@ -37,4 +37,6 @@ public class ContactPage extends WebPage {
     public ContactForm contactForm;
     @FindBy(css = "main form")
     public ContactFormTwoButtons contactFormTwoButtons;
+    @FindBy(xpath = "//*[text()='Calculate']")
+    public IButton calculate;
 }

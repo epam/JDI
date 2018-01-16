@@ -27,9 +27,6 @@ public class ContactFormTwoButtons extends Form<Contact> implements IContactForm
     @FindBy(xpath = "//*[text()='Submit']")
     public IButton submit;
 
-    @FindBy(xpath = "//*[text()='Calculate']")
-    public IButton calculate;
-
     public List<String> getFormValue() {
         return Arrays.asList(
                 name.getWebElement().getAttribute("value"),

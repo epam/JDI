@@ -43,6 +43,16 @@ public class JList extends Element implements SelenideElement {
         clickCenter();
     }
 
+    @Override
+    public SelenideElement scrollIntoView(boolean alignToTop) {
+        return null;
+    }
+
+    @Override
+    public SelenideElement scrollIntoView(String scrollIntoViewOptions) {
+        return null;
+    }
+
     public JList setValue(String text) {
         WebElement element = getWebElement();
         if ("select".equalsIgnoreCase(element.getTagName())) {
