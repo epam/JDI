@@ -9,7 +9,7 @@ var deltaPos = getDeltaWidth(rightRollerCurrentLeftPosition, newRight);
 var rollerLabel = rightRoller.firstChild;
 
 if (!(currentWidth - deltaPos < 0)) {
-    // decided exclude it, since it makes test unstable
+    // commented this line, since it makes test unstable
     // rightRoller.style['left'] = (newRight + '%');
 horizontalLine.style['width'] = ((currentWidth - deltaPos) + '%');
 rollerLabel.innerText = newRight;
