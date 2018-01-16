@@ -38,6 +38,7 @@ public class TextAreaTests extends InitTests {
     public void inputLinesTest() {
         textItem().inputLines(LINES);
         String[] out = getStringArray();
+        textItem().getText();
         assertEquals(LINES, out);
     }
 

@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
+import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.pages.IContactForm;
 import org.testng.annotations.BeforeMethod;
@@ -35,7 +36,7 @@ public class FormTwoButtonsTests extends InitTests {
 
     @Test
     public void submitSpecButtonStringTest() {
-        form.get().submit(DEFAULT, "calculate");
+        form.get().submit(DEFAULT, "submit");
         checkResult("Summary: 3");
     }
 }

@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.robot;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -93,13 +93,15 @@ public final class JRobot {
 
             }
             else {
-                    robot.keyPress(VK_CONTROL);
-                    robot.keyPress(VK_V);
-                    robot.keyRelease(VK_V);
-                    robot.keyRelease(VK_CONTROL);
+                robot.delay(1000);
 
-                    robot.keyPress(VK_ENTER);
-                    robot.keyRelease(VK_ENTER);
+                robot.keyPress(VK_CONTROL);
+                robot.keyPress(VK_V);
+                robot.keyRelease(VK_V);
+                robot.keyRelease(VK_CONTROL);
+
+                robot.keyPress(VK_ENTER);
+                robot.keyRelease(VK_ENTER);
             }
 
         } catch (Exception ex) {

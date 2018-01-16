@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -46,7 +46,8 @@ public class WebPage extends BaseElement implements IPage {
     public String urlTemplate;
     public static WebPage currentPage;
 
-    public WebPage() { }
+    public WebPage() {
+    }
 
     public WebPage(String url) {
         this.url = url;
@@ -94,18 +95,22 @@ public class WebPage extends BaseElement implements IPage {
     public void checkOpened() {
         logger.step(format("I check '%s' is opened", getName()));
         logger.logOff(() ->
-            asserter.isTrue(verifyOpened(),
-                    format("Page '%s' is not opened", toString())));
+                asserter.isTrue(verifyOpened(),
+                        format("Page '%s' is not opened", toString())));
     }
+
     public boolean verifyOpened() {
         boolean result = false;
         switch (checkUrlType) {
             case EQUAL:
-                result = url().check(); break;
+                result = url().check();
+                break;
             case MATCH:
-                result = url().match(); break;
+                result = url().match();
+                break;
             case CONTAINS:
-                result = url().contains(); break;
+                result = url().contains();
+                break;
         }
         if (!result)
             return false;
@@ -126,10 +131,11 @@ public class WebPage extends BaseElement implements IPage {
     public <T extends IPage> T open() {
         return open(null);
     }
+
     public <T extends IPage> T open(Object... params) {
         String urlWithParams = params == null || params.length == 0
-            ? url
-            : url.contains("%s")
+                ? url
+                : url.contains("%s")
                 ? String.format(url, params)
                 : MessageFormat.format(url, params);
         invoker.doJAction(format("Open page '%s'", getName()),
@@ -139,11 +145,13 @@ public class WebPage extends BaseElement implements IPage {
         currentPage = this;
         return (T) this;
     }
+
     public void shouldBeOpened() {
         isOpened();
     }
+
     /**
-     * @deprecated  Better use more obvious {@link #shouldBeOpened()}
+     * @deprecated Better use more obvious {@link #shouldBeOpened()}
      */
     @Deprecated
     public void isOpened() {
@@ -166,6 +174,18 @@ public class WebPage extends BaseElement implements IPage {
     public boolean verifyElementOnPage(String pathToFile) {
         return Layout.verify(pathToFile);
     }
+
+    /**
+     * Searches for a match on a web browser layout for a single file.
+     *
+     * @param pathToFile        path to file: C:/Screenshots/file.png
+     * @param similarityPercent the minimum similarity to use in a find operation. The value should be between 0 and 100
+     * @return <tt>true</tt>, if match was found.
+     */
+    public boolean verifyElementOnPage(String pathToFile, int similarityPercent) {
+        return Layout.verify(pathToFile, similarityPercent);
+    }
+
     public void checkThatElementOnPage(String pathToFile) {
         asserter.isTrue(verifyElementOnPage(pathToFile));
     }
@@ -185,6 +205,24 @@ public class WebPage extends BaseElement implements IPage {
             }
         return result;
     }
+
+    /**
+     * Searches for a match on a web browser layout for all images in dir.
+     *
+     * @param pathToDir path to a directory: C:/Screenshots/
+     * @param similarityPercent the minimum similarity to use in a find operation. The value should be between 0 and 100
+     * @return a list of names for all matched images.
+     */
+    public boolean verifyElementsOnPage(String pathToDir, int similarityPercent) {
+        boolean result = true;
+        for (String path : getFiles(pathToDir))
+            if (!verifyElementOnPage(path, similarityPercent)) {
+                logger.info(format("Can't find image '%s'", path));
+                result = false;
+            }
+        return result;
+    }
+
     public void checkElementsOnPage(String pathToDir) {
         asserter.isTrue(!verifyElementsOnPage(pathToDir));
     }
@@ -197,6 +235,7 @@ public class WebPage extends BaseElement implements IPage {
         invoker.doJAction(format("Refresh page '%s", getName()),
                 () -> getDriver().navigate().refresh());
     }
+
     /**
      * Reload current page
      */
@@ -269,8 +308,8 @@ public class WebPage extends BaseElement implements IPage {
         public boolean check() {
             logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
-                || equals.equals("")
-                || actual.get().equals(equals);
+                    || equals.equals("")
+                    || actual.get().equals(equals);
         }
 
         /**
@@ -280,8 +319,8 @@ public class WebPage extends BaseElement implements IPage {
         public boolean match() {
             logger.info(format("Check that page %s matches to '%s'", what, template));
             return template == null
-                || template.equals("")
-                || actual.get().matches(template);
+                    || template.equals("")
+                    || actual.get().matches(template);
         }
 
         /**

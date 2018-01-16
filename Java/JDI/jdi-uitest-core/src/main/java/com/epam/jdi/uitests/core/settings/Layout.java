@@ -4,6 +4,8 @@ package com.epam.jdi.uitests.core.settings;
  * Uses Sikuli API for comparing provided images with specified web browser layout.
  */
 
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
 import org.sikuli.script.Screen;
 
 import java.io.File;
@@ -19,7 +21,7 @@ public class Layout {
     public static String rootImagesPath = "src/test/resources/layout";
 
     private static final Set<String> EXTENSIONS = new HashSet<>(
-        Arrays.asList(".jpg", ".jpeg", ".png"));
+            Arrays.asList(".jpg", ".jpeg", ".png"));
 
     public static boolean verify(String pathToFile) {
         if (!fileExist(pathToFile))
@@ -27,6 +29,14 @@ public class Layout {
         if (!fileFormatIsCorrect(pathToFile))
             throw exception("Image file '%s' format is incorrect. Acceptable files: .jpg, .jpeg and .png", pathToFile);
         return findMatch(pathToFile);
+    }
+
+    public static boolean verify(String pathToFile, int similatiryPercent) {
+        if (!fileExist(pathToFile))
+            throw exception("Can't find image in path '%s' to verify", pathToFile);
+        if (!fileFormatIsCorrect(pathToFile))
+            throw exception("Image file '%s' format is incorrect. Acceptable files: .jpg, .jpeg and .png", pathToFile);
+        return findMatch(pathToFile, similatiryPercent);
     }
 
     /**
@@ -41,7 +51,6 @@ public class Layout {
     }
 
     /**
-     *
      * @param path
      */
     public static boolean fileExist(String path) {
@@ -58,5 +67,23 @@ public class Layout {
             throw exception("Driver not run");
         return screen.exists(pathToFile) != null;
     }
+
+    /**
+     * @param similarityPercent - the minimum similarity to use in a find operation. The value should be between 0 and 100
+     * @return true, if match was not found.
+     */
+    private static boolean findMatch(String pathToFile, int similarityPercent) {
+        Pattern file = new Pattern(pathToFile);
+        boolean result = false;
+        if (!driverFactory.hasRunDrivers())
+            throw exception("Driver not run");
+        try {
+            screen.wait(file.similar((float) similarityPercent / 100));
+            result = true;
+        } catch (FindFailed ignored) {
+        }
+        return result;
+    }
+
     private static Screen screen = new Screen();
 }
