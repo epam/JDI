@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
 
-import static com.epam.jdi.uitests.core.logger.LogLevels.STEP;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;

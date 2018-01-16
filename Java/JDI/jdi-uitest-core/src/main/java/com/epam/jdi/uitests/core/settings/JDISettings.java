@@ -73,9 +73,9 @@ public abstract class JDISettings {
         fillAction(driverFactory::setRunType, "run.type");
         fillAction(p -> shortLogMessagesFormat = p.toLowerCase().equals("short"), "log.message.format");
         fillAction(p -> USE_CACHE =
-                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
+            p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
         fillAction(p -> isDemoMode =
-                p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
+            p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
         fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
         fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
         fillAction(p -> shouldVerifyLayout = p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "verifyLayout");

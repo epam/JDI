@@ -2,10 +2,8 @@ package com.epam.jdi.uitests.testing.unittests.tests.annotations;
 
 import com.epam.jdi.uitests.core.interfaces.complex.IDropList;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
-import com.epam.jdi.uitests.testing.unittests.tests.common.dataProviders.JDropListDP;
 import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.stream.Collectors;

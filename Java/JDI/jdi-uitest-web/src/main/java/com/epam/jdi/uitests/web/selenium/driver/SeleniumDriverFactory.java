@@ -105,7 +105,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public String getDriverPath() {
-        return driversPath;
+        return driversPath.replace("\\", File.separator);
     }
 
     public void setDriverPath(String driverPath) {
@@ -113,15 +113,15 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     static final String getChromeDriverPath(String folderPath) {
-        return checkOS().equals("win") ? folderPath + "\\chromedriver.exe" : folderPath + "\\chromedriver";
+        return (checkOS().equals("win") ? folderPath + "\\chromedriver.exe" : folderPath + "\\chromedriver").replace("\\", File.separator);
     }
 
     static final String getIEDriverPath(String folderPath) {
-        return folderPath + "\\IEDriverServer.exe";
+        return (folderPath + "\\IEDriverServer.exe").replace("\\", File.separator);
     }
 
     static final String getFirefoxDriverPath(String folderPath) {
-        return checkOS().equals("win") ? folderPath + "\\geckodriver.exe" : folderPath + "\\geckodriver";
+        return (checkOS().equals("win") ? folderPath + "\\geckodriver.exe" : folderPath + "\\geckodriver").replace("\\", File.separator);
     }
 
     static String checkOS() {
@@ -213,11 +213,11 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     private void setUpDrivers(DriverTypes driverType) {
         switch (driverType) {
             case CHROME: setProperty("webdriver.chrome.driver",
-                getChromeDriverPath(driversPath)); break;
+                getChromeDriverPath(getDriverPath())); break;
             case FIREFOX: setProperty("webdriver.gecko.driver",
-                getFirefoxDriverPath(driversPath)); break;
+                getFirefoxDriverPath(getDriverPath())); break;
             case IE: setProperty("webdriver.ie.driver",
-                getIEDriverPath(driversPath)); break;
+                getIEDriverPath(getDriverPath())); break;
             default: throw exception("Wrong driver type: " + driverType);
         }
     }

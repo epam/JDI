@@ -2,8 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.tests.common.dataProviders;
 
 import org.testng.annotations.DataProvider;
 
-import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.metalsColorsPage;
-
 public class JDropdownDP {
     @DataProvider(name = "dropdownData")
     public static Object[][] inputData() {

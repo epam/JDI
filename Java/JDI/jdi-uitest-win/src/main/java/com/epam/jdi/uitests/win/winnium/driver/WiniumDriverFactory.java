@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.function.Supplier;
 
-import static com.epam.commons.PropertyReader.*;
-
 public class WiniumDriverFactory implements IDriver<WebDriver> {
     private static final String WINNIUM_DEFAULT_HOST = "http://localhost:9999";
     private Supplier<WebDriver> winniumDesktopDriverSupplier;

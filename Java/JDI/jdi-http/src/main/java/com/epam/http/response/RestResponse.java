@@ -1,5 +1,6 @@
 package com.epam.http.response;
 
+import com.epam.commons.linqinterfaces.JActionT;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import io.restassured.http.Header;
@@ -18,12 +19,20 @@ import static java.lang.String.format;
 /**
  * Created by Roman_Iovlev on 12/19/2016.
  */
-public class RestResponse {
+public class RestResponse{
     private final Response raResponse;
     private final long responseTimeMSec;
-    public final String body;
-    public final ResponseStatus status;
+    public String body = null;
+    public ResponseStatus status = null;
+    public String contenType = "";
 
+    public RestResponse() {
+        this.raResponse = null;
+        responseTimeMSec = 0;
+    }
+    public static RestResponse Response() {
+        return new RestResponse();
+    }
     public RestResponse(Response raResponse) {
         this(raResponse, 0);
     }
@@ -32,7 +41,13 @@ public class RestResponse {
         responseTimeMSec = time;
         body = raResponse.body().asString();
         status = new ResponseStatus(raResponse);
+        contenType = raResponse.contentType();
         logger.info(toString());
+    }
+    public RestResponse set(JActionT<RestResponse> valueFunc) {
+        RestResponse thisObj = (RestResponse)this;
+        valueFunc.invoke(thisObj);
+        return thisObj;
     }
 
     public boolean verify(Function<RestResponse, Boolean> validator) {

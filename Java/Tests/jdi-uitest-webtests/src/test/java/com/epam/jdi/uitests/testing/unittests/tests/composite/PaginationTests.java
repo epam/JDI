@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Pagination;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,7 +12,6 @@ import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SIMPLE_
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.simpleTablePage;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 import static com.epam.web.matcher.testng.Assert.assertContains;
-import static com.epam.web.matcher.testng.Assert.assertTrue;
 
 /**
  * Created by Dmitry_Lebedev1 on 21/12/2015.

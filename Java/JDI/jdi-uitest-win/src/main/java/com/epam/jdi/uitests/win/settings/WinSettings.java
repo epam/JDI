@@ -30,14 +30,11 @@ import com.epam.jdi.uitests.win.winnium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.win.winnium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.Table;
-import org.openqa.selenium.winium.WiniumDriver;
 
 import java.awt.*;
 import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;
-import static com.epam.commons.PropertyReader.getProperty;
-import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 
 public class WinSettings extends JDISettings {
 

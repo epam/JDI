@@ -43,6 +43,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -203,7 +204,7 @@ public class WebCascadeInit extends CascadeInit {
         By newLocator = getNewLocator(field);
         BaseElement instance = null;
         if (isClass(type, EntityTable.class)) {
-            java.lang.reflect.Type[] types =((ParameterizedType) field.getGenericType())
+            Type[] types =((ParameterizedType) field.getGenericType())
                     .getActualTypeArguments();
             instance = new EntityTable((Class<?>) types[0], (Class<?>) types[1]);
         }
