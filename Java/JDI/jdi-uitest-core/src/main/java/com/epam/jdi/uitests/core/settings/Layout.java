@@ -66,7 +66,7 @@ public class Layout {
     private static boolean findMatch(String pathToFile) {
         if (!driverFactory.hasRunDrivers())
             throw exception("Driver not run");
-        return screen.exists(pathToFile) != null;
+        return getScreen().exists(pathToFile) != null;
     }
 
     /**
@@ -79,11 +79,16 @@ public class Layout {
         if (!driverFactory.hasRunDrivers())
             throw exception("Driver not run");
         try {
-            screen.wait(file.similar((float) similarityPercent / 100));
+            getScreen().wait(file.similar((float) similarityPercent / 100));
             result = true;
         } catch (FindFailed ignored) {
         }
         return result;
     }
-    private static Screen screen = new Screen();
+    private static Screen screen;
+    public static Screen getScreen() {
+        if (shouldVerifyLayout && screen == null)
+            screen = new Screen();
+        return screen;
+    }
 }
