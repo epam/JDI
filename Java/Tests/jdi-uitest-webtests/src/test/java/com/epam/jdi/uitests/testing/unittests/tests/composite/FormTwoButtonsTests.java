@@ -35,7 +35,7 @@ public class FormTwoButtonsTests extends InitTests {
 
     @Test
     public void submitSpecButtonStringTest() {
-        form.get().submit(DEFAULT, "calculate");
+        form.get().submit(DEFAULT, "submit");
         checkResult("Summary: 3");
     }
 }

@@ -166,6 +166,16 @@ public class WebPage extends BaseElement implements IPage {
     public boolean verifyElementOnPage(String pathToFile) {
         return Layout.verify(pathToFile);
     }
+    /**
+     * Searches for a match on a web browser layout for a single file.
+     *
+     * @param pathToFile        path to file: C:/Screenshots/file.png
+     * @param similarityPercent the minimum similarity to use in a find operation. The value should be between 0 and 100
+     * @return <tt>true</tt>, if match was found.
+     */
+    public boolean verifyElementOnPage(String pathToFile, int similarityPercent) {
+        return Layout.verify(pathToFile, similarityPercent);
+    }
     public void checkThatElementOnPage(String pathToFile) {
         asserter.isTrue(verifyElementOnPage(pathToFile));
     }
@@ -177,9 +187,19 @@ public class WebPage extends BaseElement implements IPage {
      * @return a list of names for all matched images.
      */
     public boolean verifyElementsOnPage(String pathToDir) {
+        return verifyElementsOnPage(pathToDir, 100);
+    }
+    /**
+     * Searches for a match on a web browser layout for all images in dir.
+     *
+     * @param pathToDir path to a directory: C:/Screenshots/
+     * @param similarityPercent the minimum similarity to use in a find operation. The value should be between 0 and 100
+     * @return a list of names for all matched images.
+     */
+    public boolean verifyElementsOnPage(String pathToDir, int similarityPercent) {
         boolean result = true;
         for (String path : getFiles(pathToDir))
-            if (!verifyElementOnPage(path)) {
+            if (!verifyElementOnPage(path, similarityPercent)) {
                 logger.info(format("Can't find image '%s'", path));
                 result = false;
             }

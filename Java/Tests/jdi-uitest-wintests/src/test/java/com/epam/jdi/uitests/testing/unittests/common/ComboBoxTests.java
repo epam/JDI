@@ -67,7 +67,7 @@ public class ComboBoxTests extends InitTests {
 
     @Test
     public void getOptionsAsTextTest() {
-        areEquals(nestedMetalsAndColorsView.metalsComboBox.getOptionsAsText(), "Col, Gold, Silver, Bronze, Selen");
+        areEquals(nestedMetalsAndColorsView.metalsComboBox.getOptionsAsText(), "Metals, Gold, Silver, Bronze, Selen");
     }
 
     @Test
