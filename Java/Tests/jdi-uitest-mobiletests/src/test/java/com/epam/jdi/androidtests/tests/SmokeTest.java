@@ -23,7 +23,7 @@ public class SmokeTest {
     @Before
     public void before() throws Exception {
         // set up appium
-        File app = new File("D:\\sample-code-master\\sample-code\\apps\\ContactManager\\ContactManager.apk");
+        File app = new File("src\\test\\resources\\ContactManager.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "emulator-5554");
         capabilities.setCapability("platformVersion", "4.4");
