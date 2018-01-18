@@ -45,9 +45,11 @@ public class TestNGBase {
     public static void jdiSetUp() throws Exception {
         WebSettings.init();
         logger.info("Init test run");
-        initFromProperties();
-        if (!driverFactory.hasDrivers())
-            useDriver(ANDROID);
+        //initFromProperties();
+        //if (!driverFactory.hasDrivers())
+        //    useDriver(ANDROID);
+        //TODO: initFromProperties drops NPE.
+        useDriver(ANDROID);
         timer = new Timer();
     }
 
