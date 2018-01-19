@@ -11,8 +11,8 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple
  */
 public class JobDescriptionPage extends WebPage {
 
-    @Css(".form-constructor") public AddCVForm addCVForm;
+    @Css(".section__sidebar") public AddCVForm addCVForm;
 
-    @ByName("captcha") public IElement captcha;
+    @Css(".captcha-ui") public IElement captcha;
 
 }

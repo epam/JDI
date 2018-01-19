@@ -29,21 +29,27 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
 public class EpamSite extends WebSite {
     @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
+
     @JPage("/careers")
     public static CareerPage careerPage;
     public static ProductDevelopmentPage productDevelopmentPage;
-    @JPage(url = "/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
+
+    @JPage(url = "/careers/job-listings?query=test&country=Russia&city=St-Petersburg&department=Software+Test+Engineering",
+//            "/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
+
     @JPage(url = "/careers/job-listings/job.24696#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
             urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
 
-    @FindBy(css = ".tile-menu>li>a")
+    @FindBy(css = ".top-navigation__list")
+//            ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu( level1 = @JFindBy(css = ".tile-menu>li>a"),
+    @JMenu( level1 = @JFindBy(css = ".hamburger-menu__button"),
+//            ".tile-menu>li>a"),
             level2 = @JFindBy(css = "ul.tile-menu>li li"))
     public static Menu multipleHeaderMenu;
 
@@ -52,6 +58,7 @@ public class EpamSite extends WebSite {
 
     @FindBy(css = ".tile-menu .submenu a")
     public static Menu<HeaderSolutionsMenu> headerSolutionsMenu = new Menu<HeaderSolutionsMenu>() {
+
         @Override
         protected void selectAction(String name) {
             Actions action = new Actions(getDriver());

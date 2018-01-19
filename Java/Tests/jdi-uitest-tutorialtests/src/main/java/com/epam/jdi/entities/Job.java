@@ -15,6 +15,7 @@ public class Job extends DataClass {
    public String location;
 
    public Job (){}
+
    public Job (String position, String category, String location){
        this.name = position;
        this.category = category;

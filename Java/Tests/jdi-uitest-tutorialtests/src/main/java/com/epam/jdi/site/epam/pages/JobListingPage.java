@@ -3,44 +3,42 @@ package com.epam.jdi.site.epam.pages;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.entities.Job;
 import com.epam.jdi.site.epam.CustomElements.JobRecord;
+import com.epam.jdi.site.epam.sections.SearchResultItem;
+import com.epam.jdi.site.google.custom.SearchResult;
+import com.epam.jdi.uitests.core.annotations.Title;
+import com.epam.jdi.uitests.core.interfaces.common.ILabel;
+import com.epam.jdi.uitests.core.interfaces.common.ILink;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
+import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByTag;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.support.FindBy;
 
-import static com.epam.jdi.enums.JobListHeaders.apply;
-import static com.epam.jdi.enums.JobListHeaders.name;
-import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.column;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class JobListingPage extends WebPage {
 
-    @JTable(
-        root = @FindBy(className = "search-result-list"),
-        row = @FindBy(xpath = ".//li[%s]//div"),
-        column = @FindBy(xpath = ".//li//div[%s]"),
-        cell = @FindBy(xpath = ".//li[{1}]//div[{0}]"),
-        header = {"name", "category", "location", "apply"})
-    public ITable jobsList;
-
-    @JTable(
-            root = @FindBy(className = "search-result-list"),
-            row = @FindBy(xpath = ".//li[%s]//div"),
-            column = @FindBy(xpath = ".//li//div[%s]"),
-            //cell = @FindBy(xpath = ".//li[{1}]//div[{0}]"),
-            header = {"name", "category", "location", "apply"})
-    public EntityTable<Job, JobRecord> jobsListEntity;
+    @Css(".search-result__list>.search-result__item")
+    public Elements<SearchResultItem> jobsList;
 
     public void getJobRowByName(String jobName) {
-        JobRecord row = jobsListEntity.getRow(jobName, column(name));
-        row.apply.click();
+        List<SearchResultItem> result = jobsList.stream()
+                .filter(job -> job.name.getText().equals(jobName))
+                .collect(Collectors.toList());
+        result.get(0).apply.click();
     }
-    public void getJobRow(String jobName) {
-        MapArray<String, ICell> row = jobsList.row(jobName, column(name));
-        row.get(apply.toString()).select();
-    }
+
+//    public void getJobRow(String jobName) {
+//        MapArray<String, ICell> row = jobsList.row(jobName, column(name));
+//        row.get(apply.toString()).select();
+//    }
 }

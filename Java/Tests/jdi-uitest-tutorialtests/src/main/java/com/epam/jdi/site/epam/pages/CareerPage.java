@@ -11,8 +11,11 @@ import java.util.List;
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class CareerPage extends WebPage {
-    @Css(".job-search-form-ui") public JobFilter jobFilter;
+    @Css(".job-search__row")
+//            ".job-search-form-ui")
+    public JobFilter jobFilter;
 
-    @Css(".tile-menu>li>a") public List<Label> listMenu;
+    @Css(".tile-menu>li>a")
+    public List<Label> listMenu;
 
 }
