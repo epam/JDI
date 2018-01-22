@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.driver;
  */
 
 
+import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
@@ -154,7 +155,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     // REGISTER DRIVER
 
     public String registerDriver(Supplier<WebDriver> driver) {
-        return registerDriver("Driver" + (drivers.size() + 1), driver);
+        return registerDriver("Driver" + Timer.nowMSecs(), driver);
     }
 
     public void setRunType(String runType) {
