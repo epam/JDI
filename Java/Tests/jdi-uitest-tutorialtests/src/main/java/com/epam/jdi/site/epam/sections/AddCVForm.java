@@ -27,8 +27,6 @@ public class AddCVForm extends Form<Attendee> {
     @Attribute(name = "placeholder", value = "Email*")
     ITextField email;
 
-
-
     @JDropdown(
             root = @FindBy(css = ".country-field"),
             expand = @FindBy(css = ".arrow"),
@@ -40,7 +38,6 @@ public class AddCVForm extends Form<Attendee> {
             expand = @FindBy(css = ".arrow"),
             list = @FindBy(css = ".options li"))
     public IDropDown city;
-
 
     @Css(".file-upload")
     RFileInput cv;
