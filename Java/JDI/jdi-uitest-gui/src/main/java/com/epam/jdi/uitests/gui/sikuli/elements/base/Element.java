@@ -20,6 +20,7 @@ import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.commons.StringUtils.namesEqual;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.Layout.getScreen;
 import static java.lang.String.format;
 
 /**
@@ -169,7 +170,7 @@ public class Element extends BaseElement implements IElement {
     public void selectArea(int x1, int y1, int x2, int y2) {
         invoker.doJAction(format("Select area: from %d,%d;to %d,%d", x1, y1, x2, y2), () -> {
 
-            TryCatchUtil.tryGetResult(() -> new Screen().dragDrop(new Region(x1, y2, 1, 1), new Region(x2, y2, 1, 1)));
+            TryCatchUtil.tryGetResult(() -> getScreen().dragDrop(new Region(x1, y2, 1, 1), new Region(x2, y2, 1, 1)));
 
         });
     }

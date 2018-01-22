@@ -7,6 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.impl.BySelectorCollection;
 import com.codeborne.selenide.impl.DownloadFileWithHttpRequest;
 import com.codeborne.selenide.impl.WebElementsCollection;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -485,6 +486,9 @@ public class J extends Element implements SelenideElement {
 
     
     public ElementsCollection getSelectedOptions() {
+        //TODO WebElementsCollection should be correctly initialized
+        throw new NotImplementedException("TODO");
+        /*
         Select selectField = new Select(getWebElement());
         return new ElementsCollection(new WebElementsCollection() {
 
@@ -497,7 +501,7 @@ public class J extends Element implements SelenideElement {
             public String description() {
                 return null;
             }
-        });
+        });*/
     }
 
     

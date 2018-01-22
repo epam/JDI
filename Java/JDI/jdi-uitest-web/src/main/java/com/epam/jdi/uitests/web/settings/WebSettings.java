@@ -89,7 +89,9 @@ public class WebSettings extends JDISettings {
     public static String useDriver(Supplier<WebDriver> driver) {
         return getDriverFactory().registerDriver(driver);
     }
-
+    public static String useDriver(String name, Supplier<WebDriver> driver) {
+        return getDriverFactory().registerDriver(name, driver);
+    }
     public static JavascriptExecutor getJSExecutor() {
         if (!initialized)
             try { initFromProperties(); } catch (Exception ex) { throw new RuntimeException(ex); }

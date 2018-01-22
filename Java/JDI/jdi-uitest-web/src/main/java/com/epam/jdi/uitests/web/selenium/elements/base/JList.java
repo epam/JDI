@@ -492,7 +492,9 @@ public class JList extends Element implements SelenideElement {
 
     
     public ElementsCollection getSelectedOptions() {
-        Select selectField = new Select(getWebElement());
+        //TODO WebElementsCollection should be correctly initialized
+        throw new NotImplementedException("TODO");
+/*        Select selectField = new Select(getWebElement());
         return new ElementsCollection(new WebElementsCollection() {
 
             
@@ -504,7 +506,7 @@ public class JList extends Element implements SelenideElement {
             public String description() {
                 return null;
             }
-        });
+        });*/
     }
 
     

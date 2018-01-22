@@ -22,7 +22,7 @@ import static java.lang.String.format;
  * Created by Dmitry_Lebedev1 on 11/12/2015.
  */
 public class RFileInputTests extends InitTests {
-    private RFileInput textField() { return dates.rImageInput; }
+    private RFileInput fileInput() { return dates.rImageInput; }
     private ILabel uploadedFileName() { return dates.uploadedFileName; }
 
     @BeforeMethod
@@ -33,19 +33,19 @@ public class RFileInputTests extends InitTests {
 
     @Test
     public void inputTest() {
-        textField().input(getFPath());
+        fileInput().input(getFPath());
         checkFileLoaded(fileName());
     }
 
     @Test
     public void sendKeysTest() {
-        textField().sendKeys(getFPath());
+        fileInput().sendKeys(getFPath());
         checkFileLoaded(fileName());
     }
 
     @Test
     public void newInputTest() throws Exception {
-        textField().newInput(getFPath());
+        fileInput().newInput(getFPath());
         checkFileLoaded(fileName());
     }
 
@@ -57,7 +57,7 @@ public class RFileInputTests extends InitTests {
 
     @Test
     public void shouldTest(){
-        textField().shouldHave(cssClass("image-upload"))
+        fileInput().shouldHave(cssClass("image-upload"))
                 .shouldBe(visible);
     }
 }

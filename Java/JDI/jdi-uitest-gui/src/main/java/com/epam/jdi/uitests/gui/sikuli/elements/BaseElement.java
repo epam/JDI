@@ -26,6 +26,7 @@ import java.text.MessageFormat;
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
 import static com.epam.jdi.uitests.core.settings.JDISettings.toLog;
+import static com.epam.jdi.uitests.core.settings.Layout.getScreen;
 import static java.lang.String.format;
 
 /**
@@ -108,7 +109,7 @@ public abstract class BaseElement implements IBaseElement {
         Rectangle parentRectangle = ((BaseElement)this.parent).getRectangle();
 
         if (parentRectangle == null || parentRectangle.getHeight() == 0 || parentRectangle.getWidth() == 0)
-            return new Screen();
+            return getScreen();
 
         return new Region(parentRectangle);
     }

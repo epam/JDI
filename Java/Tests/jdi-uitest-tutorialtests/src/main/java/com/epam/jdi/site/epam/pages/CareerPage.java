@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class CareerPage extends WebPage {
     @Css(".job-search__row")
-//            ".job-search-form-ui")
     public JobFilter jobFilter;
 
     @Css(".tile-menu>li>a")
