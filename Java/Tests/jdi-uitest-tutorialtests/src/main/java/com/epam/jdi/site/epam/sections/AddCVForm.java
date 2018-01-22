@@ -13,6 +13,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.ByTitle;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.XPath;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by Roman_Iovlev on 10/23/2015.
@@ -27,23 +28,22 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
 
-//    @JDropdown(
-//            jroot = @JFindBy("[class='form-component__input form-component__field country-field']"),
-//            jvalue = @JFindBy("[class='arrow']"),
-//            jlist = @JFindBy(xpath = "div[@class='select-box-results']//li[contains(@id,'applicantCountry') and .='%s']")
-//    )
-//    public IDropDown country;
-//
-//    @JDropdown(
-//            jroot = @JFindBy("[class='form-component__input form-component__field city-field']"),
-//            jexpand = @JFindBy(className = "arrow"),
-//            jlist = @JFindBy(css = "*root*li[id*=applicantCity]")
-            //jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
-//    )
-//    IDropDown city;
 
-//    @Css(".file-upload")
-//    RFileInput cv;
+    @JDropdown(
+            root = @FindBy(css = ".country-field"),
+            expand = @FindBy(css = ".arrow"),
+            list = @FindBy(css = ".options li"))
+    public IDropDown country;
+
+    @JDropdown(
+            root = @FindBy(css = ".city-field"),
+            expand = @FindBy(css = ".arrow"),
+            list = @FindBy(css = ".options li"))
+    public IDropDown city;
+
+
+    @Css(".file-upload")
+    RFileInput cv;
 
     @Css(".comment__input")
     ITextArea comment;

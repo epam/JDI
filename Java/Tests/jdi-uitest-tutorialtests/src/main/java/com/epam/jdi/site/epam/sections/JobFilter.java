@@ -34,8 +34,6 @@ public class JobFilter extends Form<JobSearchFilter> {
             list = @FindBy(css = ".multi-select-dropdown li"))
     public IDropDown category;
 
-
-
     @JTree(
             select = @FindBy(css = ".job-search__location [role=combobox]"),
             levels = {@FindBy(css = "[role=tree]>li"),

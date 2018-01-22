@@ -21,4 +21,3 @@ public class SearchResultItem extends Section {
     public ILink apply;
 
 }
-
