@@ -42,8 +42,8 @@ public class AddCVForm extends Form<Attendee> {
 //    )
 //    IDropDown city;
 
-//    @Css(".file-upload")
-//    RFileInput cv;
+    @Css(".file-upload")
+    RFileInput cv;
 
     @Css(".comment__input")
     ITextArea comment;
