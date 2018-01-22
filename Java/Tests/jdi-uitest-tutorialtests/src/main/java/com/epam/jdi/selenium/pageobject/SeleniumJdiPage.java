@@ -17,8 +17,10 @@ import java.util.List;
 public class SeleniumJdiPage {
     @FindBy(css = ".header__logo")
     public WebElement logo;
+
     @FindBy(css = ".hamburger-menu__button")
     public List<WebElement> menu;
+
     @FindBy(css = ".top-navigation__list")
     public Menu<HeaderMenu> headerMenu;
 

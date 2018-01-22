@@ -11,7 +11,6 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple
 public class SearchResultItem extends Section {
     @Title
     @Css("h5>a")
-//            ".search-result__item-name")
     public ILabel name;
     @Css(".search-result__item-description")
     public IText description;

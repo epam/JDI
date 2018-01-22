@@ -6,9 +6,9 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import org.openqa.selenium.support.FindBy;
 
-@FindBy(css = "div.tile-list.section")
-public class IndustriesSection extends Section{
+@FindBy(css = ".detail-pages-list__holder")
+public class OurWorkSection extends Section{
     @Root
-    @FindBy(css = "div.tile-item.hidden-description")
-    public Elements<Label> industries;
+    @FindBy(css = "h5>a")
+    public Elements<Label> ourWork;
 }

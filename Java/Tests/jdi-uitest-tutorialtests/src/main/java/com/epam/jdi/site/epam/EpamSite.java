@@ -27,6 +27,7 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
  */
 @JSite("https://www.epam.com")
 public class EpamSite extends WebSite {
+
     @JPage(url = "/", title = "EPAM|Software Product Development Services")
     public static HomePage homePage;
 
@@ -40,17 +41,16 @@ public class EpamSite extends WebSite {
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
 
-    @JPage(url = "/careers/job-listings/job.24696#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
+    @JPage(url = "/careers/job-listings/job.11516#apply", urlTemplate = ".*/careers/job-listings/job\\.\\d*#apply",
             urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
 
     @FindBy(css = ".top-navigation__list")
-//            ".tile-menu>li>a")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu( level1 = @JFindBy(css = ".hamburger-menu__button"),
-//            ".tile-menu>li>a"),
-            level2 = @JFindBy(css = "ul.tile-menu>li li"))
+    @JMenu(level1 = @JFindBy(css = ".hamburger-menu__button"),
+            level2 = @JFindBy(css = "ul.hamburger-menu__list>li a"),
+            level3 = @JFindBy(css = "ul.hamburger-menu__sub-list>li a"))
     public static Menu multipleHeaderMenu;
 
     @Css(".tile-menu>li>a")
@@ -65,14 +65,14 @@ public class EpamSite extends WebSite {
             WebElement el = getDriver().findElements(By.cssSelector(".tile-menu a")).get(0);
             action.moveToElement(el).build().perform();
             super.selectAction(name);
-            }
+        }
     };
 
-    @JPage(url = "/industries", title = "Industries")
-    public static IndustryPage industryPage;
+    @JPage(url = "/our-work", title = "Our Work")
+    public static ourWorkPage ourWorkPage;
 
-    @JPage(url = "/ideas", title = "Ideas")
-    public static IdeasPage ideasPage;
+    @JPage(url = "/insights", title = "Insights")
+    public static InsightsPage insightsPage;
 
     public static Header header;
     public static ContactUsSection contactUs;
