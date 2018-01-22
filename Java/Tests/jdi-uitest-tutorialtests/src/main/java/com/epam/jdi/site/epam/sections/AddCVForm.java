@@ -25,18 +25,20 @@ public class AddCVForm extends Form<Attendee> {
     ITextField lastName;
     @Attribute(name = "placeholder", value = "Email*")
     ITextField email;
-    //    @JDropdown(
-//            jroot = @JFindBy(className="country-field"),
+
+
+//    @JDropdown(
+//            jroot = @JFindBy("[class='form-component__input form-component__field country-field']"),
 //            jvalue = @JFindBy("[class='arrow']"),
 //            jlist = @JFindBy(xpath = "div[@class='select-box-results']//li[contains(@id,'applicantCountry') and .='%s']")
 //    )
 //    public IDropDown country;
 //
 //    @JDropdown(
-//            jroot = @JFindBy(className = "city-field"),
+//            jroot = @JFindBy("[class='form-component__input form-component__field city-field']"),
 //            jexpand = @JFindBy(className = "arrow"),
 //            jlist = @JFindBy(css = "*root*li[id*=applicantCity]")
-//            //jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
+            //jlist = @JFindBy(xpath = "*root*//*[contains(@id,'select-box-applicantCity')]//li")
 //    )
 //    IDropDown city;
 
