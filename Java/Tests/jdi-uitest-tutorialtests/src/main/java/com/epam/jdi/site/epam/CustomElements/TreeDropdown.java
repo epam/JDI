@@ -44,25 +44,9 @@ import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations
 
 public class TreeDropdown<T extends Enum> extends Dropdown<T> implements ISetup {
     private List<By> treeLocators;
-    public TreeDropdown() {
-        super();
-    }
-
-    public TreeDropdown(By selectLocator) {
-        super(selectLocator);
-    }
-
-    public TreeDropdown(By selectLocator, List<By> treeLocators) {
-        super(selectLocator, selectLocator, null);
-        this.treeLocators = treeLocators;
-    }
 
     protected void expandAction() {
-        setWaitTimeout(0);
-        List<WebElement> els = getDriver().findElements(treeLocators.get(0));
-        restoreWaitTimeout();
-        if (treeLocators != null && els.size() == 0)
-            element().click();
+        element().click();
     }
 
     @Override
@@ -95,8 +79,6 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> implements ISetup 
         JTree jTree = field.getAnnotation(JTree.class);
         By selectLocator = findByToBy(jTree.select());
         avatar = new GetElementModule(selectLocator, this);
-        //element = new GetElementType(selectLocator, this);
-        //expander = new GetElementType(selectLocator, this);
         treeLocators = new ArrayList<>();
         for (FindBy fBy : jTree.levels())
             treeLocators.add(findByToBy(fBy));
