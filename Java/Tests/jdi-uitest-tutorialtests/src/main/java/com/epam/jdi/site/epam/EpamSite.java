@@ -5,15 +5,12 @@ import com.epam.jdi.enums.HeaderSolutionsMenu;
 import com.epam.jdi.site.epam.pages.*;
 import com.epam.jdi.site.epam.sections.ContactUsSection;
 import com.epam.jdi.site.epam.sections.Header;
-import com.epam.jdi.uitests.web.selenium.elements.common.Button;
-import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -36,7 +33,6 @@ public class EpamSite extends WebSite {
     public static ProductDevelopmentPage productDevelopmentPage;
 
     @JPage(url = "/careers/job-listings?query=test&country=Russia&city=St-Petersburg&department=Software+Test+Engineering",
-//            "/careers/job-listings?sort=best_match&query=Engineer&department=Software+Test+Engineering&city=St-Petersburg&country=Russia",
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
@@ -45,16 +41,19 @@ public class EpamSite extends WebSite {
             urlCheckType = MATCH)
     public static JobDescriptionPage jobDescriptionPage;
 
+    @JPage(url = "/our-work", title = "Our Work")
+    public static ourWorkPage ourWorkPage;
+
+    @JPage(url = "/insights", title = "Insights")
+    public static InsightsPage insightsPage;
+
     @FindBy(css = ".top-navigation__list")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu(level1 = @JFindBy(css = ".hamburger-menu__button"),
-            level2 = @JFindBy(css = "ul.hamburger-menu__list>li a"),
-            level3 = @JFindBy(css = "ul.hamburger-menu__sub-list>li a"))
+    @JMenu(level1 = @JFindBy(css = "ul.top-navigation__list>li span a"),
+//            level2 = @JFindBy(css = "li.top-navigation__item-sub>a"),
+            level2 = @JFindBy(css = "ul.top-navigation__grand-sub-list>li a"))
     public static Menu multipleHeaderMenu;
-
-    @Css(".tile-menu>li>a")
-    public static Elements<Button> listMenu;
 
     @FindBy(css = ".tile-menu .submenu a")
     public static Menu<HeaderSolutionsMenu> headerSolutionsMenu = new Menu<HeaderSolutionsMenu>() {
@@ -67,12 +66,6 @@ public class EpamSite extends WebSite {
             super.selectAction(name);
         }
     };
-
-    @JPage(url = "/our-work", title = "Our Work")
-    public static ourWorkPage ourWorkPage;
-
-    @JPage(url = "/insights", title = "Insights")
-    public static InsightsPage insightsPage;
 
     public static Header header;
     public static ContactUsSection contactUs;

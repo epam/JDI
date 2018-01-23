@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import static com.epam.jdi.site.epam.EpamSite.*;
 
 public class RootAnnotationTest extends TestsBase {
-
     @Test
     public void rootTestOurWorkSection() {
         ourWorkPage.shouldBeOpened();
@@ -31,7 +30,7 @@ public class RootAnnotationTest extends TestsBase {
     @Test
     public void rootTestContactSection() {
         EpamSite.shouldBeOpened();
-        header.contactButton.click();
+        multipleHeaderMenu.hoverAndClick("ABOUT|Contact Us");
         Assert.isTrue(contactUs.events.getParent() == null);
     }
 }
