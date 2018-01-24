@@ -13,32 +13,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.function.Supplier;
 
+import static com.epam.jdi.uitests.win.winnium.elements.composite.DesktopApplication.appPath;
+
 public class WiniumDriverFactory implements IDriver<WebDriver> {
-    private static final String WINNIUM_DEFAULT_HOST = "http://localhost:9999";
-    private Supplier<WebDriver> winniumDesktopDriverSupplier;
+    private static final String WINIUM_DEFAULT_HOST = "http://localhost:9999";
+    private Supplier<WebDriver> winiumDesktopDriverSupplier;
     private Process startedProcess;
-    private static final String DEFAULT_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\";
-    private String driverPath = DEFAULT_PATH;
-    private String appPath = DEFAULT_PATH;
+    private String driversPath;
     private WebDriver winiumDriver;
-    private static final String WINNIUM = "winiumdesktop";
-    private String currentDriverName = WINNIUM;
+    public static final String DEFAULT_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\";
+    private final String WINIUM = "winiumdesktop";
+    private String currentDriverName = WINIUM;
+
+    public WiniumDriverFactory() {
+        driversPath = DEFAULT_PATH;
+    }
 
     public Process getStartedProcess() {
         return startedProcess;
     }
 
-    @Override
     public String registerDriver(String driverName) {
-        if (!WINNIUM.equals(driverName.toLowerCase()))
+        if (!WINIUM.equals(driverName.toLowerCase()))
             throw JDISettings.exception("Unknown driver: " + driverName);
 
-        winniumDesktopDriverSupplier = () -> {
+        winiumDesktopDriverSupplier = () -> {
             try {
-                startedProcess = new ProcessBuilder(getDriverPath()).start();
+                startedProcess = new ProcessBuilder(driversPath + "Winium.Desktop.Driver.exe").start();
                 DesktopOptions options = new DesktopOptions();
-                options.setApplicationPath(getAppPath());
-                return new WiniumDriver(new URL(WINNIUM_DEFAULT_HOST), options);
+                options.setApplicationPath(appPath);
+                return new WiniumDriver(new URL(WINIUM_DEFAULT_HOST), options);
             } catch (IOException e) {
                 throw JDISettings.exception("Unknown driver: " + driverName);
             }
@@ -47,12 +51,8 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
         return driverName;
     }
 
-    public void setDriverPath(String path) {
-        this.driverPath = path;
-    }
-
-    public void setAppPath(String path) {
-        this.appPath = path;
+    public void setDriverPath(String driverPath) {
+        this.driversPath = driverPath;
     }
 
     public void setRunType(String runType) {}
@@ -62,7 +62,7 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public boolean hasDrivers() {
-        return winniumDesktopDriverSupplier != null;
+        return winiumDesktopDriverSupplier != null;
     }
 
     public boolean hasRunDrivers() {
@@ -78,11 +78,11 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public WebDriver getDriver(String name) {
-        if (winniumDesktopDriverSupplier == null)
+        if (winiumDesktopDriverSupplier == null)
             throw new RuntimeException();
 
         if (winiumDriver == null)
-            winiumDriver = winniumDesktopDriverSupplier.get();
+            winiumDriver = winiumDesktopDriverSupplier.get();
 
         return winiumDriver;
     }
@@ -93,21 +93,9 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
 
     public void highlight(IElement element, HighlightSettings highlightSettings) {
         throw new UnsupportedOperationException("Not supported");
-        
     }
 
     public String getDriverPath() {
-        return concatPaths(driverPath.contains(":")
-                ? driverPath
-                : concatPaths(DEFAULT_PATH, driverPath)
-            , "Winium.Desktop.Driver.exe");
-    }
-    public String getAppPath() {
-        return appPath.contains(":")
-            ? appPath
-            : concatPaths(DEFAULT_PATH, appPath);
-    }
-    private String concatPaths(String s1, String s2) {
-        return s1.replaceAll("\\\\$", "") + "\\" + s2.replaceAll("^\\\\", "");
+        return driversPath;
     }
 }

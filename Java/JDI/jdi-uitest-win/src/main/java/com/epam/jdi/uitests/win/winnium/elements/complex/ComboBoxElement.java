@@ -4,33 +4,15 @@ import com.epam.jdi.uitests.core.interfaces.complex.IComboBox;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
 import com.epam.jdi.uitests.win.winnium.elements.base.managers.DropdownManager;
 import com.epam.jdi.uitests.win.winnium.elements.base.managers.WebElementTextManager;
-import com.epam.jdi.uitests.win.winnium.elements.common.Label;
 import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-
 public class ComboBoxElement<TEnum extends Enum & Supplier<String>>  extends Element implements IComboBox<TEnum> {
     private WebElementTextManager textFromWebElement = new WebElementTextManager(this);
     private DropdownManager<TEnum> dropdownManager;
 
-    public ComboBoxElement() {
-        super();
-    }
-    public ComboBoxElement(By label) {
-        super(); labelLocator = label;
-    }
-    public String label() {
-        if (labelLocator == null)
-            throw exception("Label locator no specified");
-        Label label = new Label();
-        label.getAvatar().setByLocator(labelLocator);
-        label.setParent(getParent());
-        return label.getText();
-    }
-    public By labelLocator;
 
     @Override
     public void click() {
@@ -125,6 +107,11 @@ public class ComboBoxElement<TEnum extends Enum & Supplier<String>>  extends Ele
     @Override
     public void input(CharSequence text) {
         textFromWebElement.input(text);
+    }
+
+    @Override
+    public String label() {
+        return null;
     }
 
     @Override

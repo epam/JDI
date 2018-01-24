@@ -1,17 +1,14 @@
 package com.epam.jdi.uitests.testing.unittests.common;
 
-import com.epam.jdi.uitests.core.preconditions.PreconditionsState;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.metalsandcolors.NestedMetalsAndColorsView;
 import com.epam.web.matcher.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Factory;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.METALS_AND_COLORS_PAGE;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
 
@@ -25,7 +22,7 @@ public class ButtonTests extends InitTests {
 
     @BeforeMethod
     public void before(final Method method) {
-        PreconditionsState.isInState(METALS_AND_COLORS_PAGE, method);
+        isInState(METALS_AND_COLORS_PAGE, method);
     }
 
     @Test

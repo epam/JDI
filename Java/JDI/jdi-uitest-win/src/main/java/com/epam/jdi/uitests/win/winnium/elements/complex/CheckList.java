@@ -1,5 +1,7 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex;
 
+import com.codeborne.selenide.Condition;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.ICheckList;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
 import com.epam.jdi.uitests.win.winnium.elements.ElementsUtils;
@@ -74,7 +76,7 @@ public class CheckList <TEnum extends Enum & Supplier<String>> extends BaseEleme
     }
 
     @Override
-    public void check(TEnum... names) {
+    public void check(TEnum[] names) {
         check(getNameStrings(names));
     }
 
@@ -91,7 +93,7 @@ public class CheckList <TEnum extends Enum & Supplier<String>> extends BaseEleme
     }
 
     @Override
-    public void uncheck(TEnum... names) {
+    public void uncheck(TEnum[] names) {
         uncheck(getNameStrings(names));
     }
 
@@ -192,5 +194,50 @@ public class CheckList <TEnum extends Enum & Supplier<String>> extends BaseEleme
     @Override
     public String getValue() {
         return invoker.doJActionResult("get value",() -> print(areSelectedAction()), toString());
+    }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
+    public void setImgPath(String imgPath) {
+
+    }
+
+    @Override
+    public boolean verifyLayout(String imgPath) {
+        return false;
+    }
+
+    @Override
+    public IBaseElement should(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldHave(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldBe(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNot(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNotHave(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNotBe(Condition... condition) {
+        return null;
     }
 }

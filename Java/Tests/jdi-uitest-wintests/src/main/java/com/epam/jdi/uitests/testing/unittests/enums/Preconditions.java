@@ -17,12 +17,12 @@ public enum Preconditions implements IPreconditions {
     METALS_AND_COLORS_PAGE(new CheckAction(() -> By.className("MetalsAndColorsView")),
         () -> {
             mainWindow.mainTabPane.supportButton.click();
-            mainWindow.mainTabPane.metalsAndColorsTab.click();
-        }),
+        mainWindow.mainTabPane.metalsAndColorsTab.click();
+    }),
     SUPPORT_PAGE(() -> true, //todo поправить
             () -> mainWindow.mainTabPane.supportButton.click()),
     CONTACT_PAGE_FILLED(new CheckAction(() -> By.className("ContactFormView")), () -> {
-                mainWindow.mainTabPane.supportButton.click();
+        mainWindow.mainTabPane.supportButton.click();
                 mainWindow.mainTabPane.contactFormTab.click();
                 mainWindow.mainTabPane.contactFormTab.nestedContactFormView.nameTextBox.input("Name");
                 mainWindow.mainTabPane.contactFormTab.nestedContactFormView.lastNameTextBox.input("Last Name");

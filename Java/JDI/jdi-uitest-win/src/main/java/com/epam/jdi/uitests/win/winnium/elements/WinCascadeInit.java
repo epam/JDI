@@ -42,11 +42,7 @@ public class WinCascadeInit extends CascadeInit {
                 return instance;
 
             Table table = (Table)instance;
-
-            table.setUp(findByToBy(tableAnnotation.root()), tableAnnotation.columnHeadersInTableXpath(),
-                    tableAnnotation.rowsInTableXpath(), tableAnnotation.headerInRowXpath(),
-                    tableAnnotation.columnsInRowXpath(), tableAnnotation.headerType(), tableAnnotation.rowStartIndex(),
-                    tableAnnotation.colStartIndex(), tableAnnotation.useCache());
+            table.setup(field);
         }
 
         return instance;

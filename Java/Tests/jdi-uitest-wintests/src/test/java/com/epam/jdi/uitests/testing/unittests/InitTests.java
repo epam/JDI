@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeSuite;
 public class InitTests extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
+        //killAllRunDrivers();
         DesktopApplication.init(Desktop.class);
     }
 }

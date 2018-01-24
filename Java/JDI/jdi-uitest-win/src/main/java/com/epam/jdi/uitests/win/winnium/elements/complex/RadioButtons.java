@@ -1,5 +1,7 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex;
 
+import com.codeborne.selenide.Condition;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.IRadioButtons;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
@@ -112,5 +114,50 @@ public class RadioButtons <TEnum extends Enum & Supplier<String>> extends BaseEl
     @Override
     public String getValue() {
         return getSelected();
+    }
+
+    @Override
+    public String getImgPath() {
+        return null;
+    }
+
+    @Override
+    public void setImgPath(String imgPath) {
+
+    }
+
+    @Override
+    public boolean verifyLayout(String imgPath) {
+        return false;
+    }
+
+    @Override
+    public IBaseElement should(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldHave(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldBe(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNot(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNotHave(Condition... condition) {
+        return null;
+    }
+
+    @Override
+    public IBaseElement shouldNotBe(Condition... condition) {
+        return null;
     }
 }
