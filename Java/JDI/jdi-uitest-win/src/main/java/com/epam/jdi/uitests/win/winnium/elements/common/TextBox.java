@@ -36,6 +36,11 @@ public class TextBox extends Element implements ITextArea {
     }
 
     @Override
+    public String label() {
+        return null;
+    }
+
+    @Override
     public void newInput(CharSequence text) {
         textFromWebElement.newInput(text);
     }

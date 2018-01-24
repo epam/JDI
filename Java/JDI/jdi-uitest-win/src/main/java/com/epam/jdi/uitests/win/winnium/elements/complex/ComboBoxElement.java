@@ -110,6 +110,11 @@ public class ComboBoxElement<TEnum extends Enum & Supplier<String>>  extends Ele
     }
 
     @Override
+    public String label() {
+        return null;
+    }
+
+    @Override
     public void newInput(CharSequence text) {
         textFromWebElement.newInput(text);
     }

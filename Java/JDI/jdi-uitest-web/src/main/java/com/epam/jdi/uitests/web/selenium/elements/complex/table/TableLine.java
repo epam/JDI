@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -18,24 +18,24 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
-import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ElementIndexType;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
-import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+        import com.epam.commons.map.MapArray;
+        import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+        import com.epam.jdi.uitests.core.interfaces.common.IText;
+        import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ElementIndexType;
+        import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
+        import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+        import org.openqa.selenium.By;
+        import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import static com.epam.commons.LinqUtils.*;
-import static com.epam.commons.ReflectionUtils.isClass;
-import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
-import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
-import static java.util.Collections.addAll;
+        import static com.epam.commons.LinqUtils.*;
+        import static com.epam.commons.ReflectionUtils.isClass;
+        import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+        import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
+        import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
+        import static java.util.Collections.addAll;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -104,8 +104,8 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
         if (!acceptEmpty)
             elements = timer().getResultByCondition(this::getCrossFirstLine, el -> el != null && el.size() > 0);
         return elements != null && elements.size() > 0
-            ? elements.size()
-            : 0;
+                ? elements.size()
+                : 0;
     }
 
     protected abstract List<WebElement> getCrossFirstLine();

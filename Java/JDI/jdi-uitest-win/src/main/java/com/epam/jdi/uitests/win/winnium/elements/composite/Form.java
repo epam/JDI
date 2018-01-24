@@ -5,6 +5,7 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
+import com.epam.jdi.uitests.core.interfaces.complex.FormFilters;
 import com.epam.jdi.uitests.core.interfaces.complex.IForm;
 import com.epam.jdi.uitests.core.utils.common.PrintUtils;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
@@ -21,7 +22,7 @@ import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.annotations.AnnotationsUtil.getElementName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.utils.common.PrintUtils.objToSetValue;
+import static com.epam.web.matcher.base.PrintUtils.objToSetValue;
 import static java.lang.String.format;
 
 public class Form<T> extends Element implements IForm<T> {
@@ -40,6 +41,11 @@ public class Form<T> extends Element implements IForm<T> {
     }
 
     @Override
+    public void filter(FormFilters filter) {
+
+    }
+
+    @Override
     public List<String> verify(MapArray<String, String> objStrings) {
         List<String> compareFalse = new ArrayList<>();
         getFields(this, IHasValue.class).stream().forEach(field -> {
@@ -54,6 +60,11 @@ public class Form<T> extends Element implements IForm<T> {
         });
 
         return compareFalse;
+    }
+
+    @Override
+    public T getEntity() {
+        return null;
     }
 
     @Override
@@ -104,7 +115,8 @@ public class Form<T> extends Element implements IForm<T> {
     }
 
     private void setValueAction(String value) {
-        submit(PrintUtils.parseObjectAsString(value));
+        //TODO
+        //submit(PrintUtils.parseObjectAsString(value));
     }
 
     @Override

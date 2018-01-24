@@ -1,127 +1,177 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
-import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
-import com.epam.jdi.uitests.core.interfaces.base.IClickable;
-import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.win.winnium.elements.WinCascadeInit;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
 import com.epam.jdi.uitests.win.winnium.elements.base.SelectElement;
-import com.epam.jdi.uitests.win.winnium.elements.base.managers.ClickableManager;
-import com.epam.jdi.uitests.win.winnium.elements.base.managers.WebElementTextManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import static com.epam.commons.LinqUtils.last;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.fillByMsgTemplate;
 
 public class Cell extends Element implements ICell {
-    private int columnNum, rowNum;
-    private String columnName, rowName;
+    private int rowIndex;
+    private int columnIndex;
     private Table table;
-    private WebElementTextManager textManager = new WebElementTextManager(this);
-    private ClickableManager clickableManager = new ClickableManager(this);
+    private int columnNum;
+    private int rowNum;
+    private String columnName;
+    private String rowName;
+    private By cellLocatorTemplate = By.xpath(".//tr[{1}]/td[{0}]");
 
-    Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
-         String xpathTemplate, Table table) {
+    Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
+         By cellLocatorTemplate, Table table) {
+        this.getAvatar().setWebElement(webElement);
         this.columnNum = columnNum;
         this.rowNum = rowNum;
         this.columnName = colName;
         this.rowName = rowName;
+        if (cellLocatorTemplate != null)
+            this.cellLocatorTemplate = cellLocatorTemplate;
         this.table = table;
-
-        this.setParent(table);
-
-        String xpathExpression = String.format(xpathTemplate, rowIndex, columnIndex);
-        this.setAvatar(new GetElementModule(By.xpath(xpathExpression), this));
     }
 
-    @Override
-    public ISelect get() {
-        SelectElement selectElement = new SelectElement(getWebElement());
-        selectElement.setParent(table);
-        return selectElement;
+    Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
+         By cellLocatorTemplate, Table table) {
+        this.columnIndex = (((Rows)table.rows()).hasHeader && ((Rows)table.rows()).lineTemplate == null) ? columnIndex + 1 : columnIndex;
+        this.rowIndex = rowIndex;
+        this.columnNum = columnNum;
+        this.rowNum = rowNum;
+        this.columnName = colName;
+        this.rowName = rowName;
+        if (cellLocatorTemplate != null)
+            this.cellLocatorTemplate = cellLocatorTemplate;
+        this.table = table;
     }
 
-    @Override
-    public <T extends IClickable & IText> T get(Class<T> clazz) {
-        T instance;
-        try {
-            instance = (clazz.isInterface())
-                    ? (T) MapInterfaceToElement.getClassFromInterface(clazz).newInstance()
-                    : clazz.newInstance();
-        } catch (Exception ex) {
-            throw JDISettings.exception("Can't get Cell from interface/class: " +
-                    LinqUtils.last((clazz + "").split("\\.")));
-        }
-        return get(instance);
+    public void setWebElement(WebElement webElement) {
+        this.getAvatar().setWebElement(webElement);
     }
 
-    @Override
-    public <T extends IClickable & IText> T get(T element) {
-        element.setParent(this);
-
-        new WinCascadeInit().initElements(element, JDISettings.driverFactory.currentDriverName());
-
-        return element;
-    }
-
-    @Override
     public int columnNum() {
         return columnNum;
     }
 
-    @Override
     public int rowNum() {
         return rowNum;
     }
 
-    @Override
     public String columnName() {
         return (columnName != null && !columnName.equals(""))
                 ? columnName
                 : table.columns().headers().get(columnNum - 1);
     }
 
-    @Override
     public String rowName() {
         return (rowName != null && !rowName.equals(""))
                 ? rowName
                 : table.rows().headers().get(rowNum - 1);
     }
 
-    @Override
-    public void select() {
-        click();
+    protected String getTextAction() {
+        return get().getText();
     }
 
-    @Override
-    public boolean isSelected() {
+    protected void clickAction() {
+        get().click();
+    }
+
+    protected boolean isSelectedAction() {
         return get().isSelected();
     }
 
-    @Override
-    public void click() {
-        clickableManager.click();
+    private SelectElement get() {
+        SelectElement cell = avatar.hasWebElement()
+                ? new SelectElement(getWebElement())
+                : new SelectElement(getDriver().findElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex)));
+        //TODO
+        //cell.init(table, cell.getAvatar());
+        return cell;
     }
 
-    @Override
-    public String getText() {
-        return textManager.getText();
+    public WebElement get(By subLocator) {
+        //TODO
+        return null;
+        //return get().get(subLocator);
     }
 
-    @Override
-    public String waitText(String text) {
-        return textManager.waitText(text);
+    public <T extends IBaseElement> T get(Class<T> clazz) {
+        T instance;
+        try {
+            instance = (clazz.isInterface())
+                    ? (T) MapInterfaceToElement.getClassFromInterface(clazz).newInstance()
+                    : clazz.newInstance();
+            Element el = ((Element)instance);
+            el.setAvatar(getAvatar());
+            el.setLocator(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+            //TODO
+            //el.init(table, instance.getAvatar());
+        } catch (Exception ex) {
+            throw exception("Can't get Cell from interface/class: " + last((clazz + "").split("\\.")));
+        }
+        return get(instance);
     }
 
-    @Override
-    public String waitMatchText(String regEx) {
-        return textManager.waitMatchText(regEx);
+    public <T extends IBaseElement> T get(T cell) {
+        return null;
+        //TODO
+        /*
+        BaseElement cellSelect = (BaseElement) cell;
+        if (cellSelect.getAvatar().hasWebElement())
+            return cell;
+        By locator = cellSelect.getLocator();
+        if (locator == null || locator.toString().equals(""))
+            locator = cellLocatorTemplate;
+        if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
+            throw exception("Can't create cell with locator template " + cellSelect.getLocator()
+                    + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");
+        cellSelect.avatar.setDriverName(avatar.getDriverName());
+        cellSelect.init(table,
+                new GetElementModule(
+                        fillByMsgTemplate(locator, columnIndex, rowIndex), cellSelect));
+        return cell;*/
     }
 
-    @Override
+    public Cell updateData(String colName, String rowName) {
+        if ((columnName == null || columnName.equals("")) && !(colName == null || colName.equals("")))
+            columnName = colName;
+        if ((this.rowName == null || this.rowName.equals("")) && !(rowName == null || rowName.equals("")))
+            this.rowName = rowName;
+        return this;
+    }
+
     public String getValue() {
-        return getText();
+        throw new NotImplementedException();
+    }
+
+    public void click() {
+        throw new NotImplementedException();
+
+    }
+
+    public void select() {
+        throw new NotImplementedException();
+
+    }
+
+    public boolean isSelected() {
+        throw new NotImplementedException();
+    }
+
+    public String getText() {
+        throw new NotImplementedException();
+    }
+
+    public String waitText(String text) {
+        throw new NotImplementedException();
+    }
+
+    public String waitMatchText(String regEx) {
+        throw new NotImplementedException();
     }
 }

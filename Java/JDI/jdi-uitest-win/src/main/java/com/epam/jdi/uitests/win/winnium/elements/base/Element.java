@@ -1,11 +1,14 @@
 package com.epam.jdi.uitests.win.winnium.elements.base;
 
+import com.codeborne.selenide.Condition;
 import com.epam.jdi.uitests.core.annotations.JDIAction;
+import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
 import com.epam.jdi.uitests.win.winnium.elements.ElementsUtils;
 import org.openqa.selenium.WebElement;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.function.Supplier;
 
@@ -64,5 +67,41 @@ public class Element extends BaseElement implements IElement {
     public void waitVanished() {
         ElementsUtils.waitByCondition(isDisplayedSupplier, isDisplayed -> !isDisplayed,
                 "Element %s hasn't vanished after %d seconds", this, JDISettings.timeouts.getCurrentTimeoutSec());
+    }
+
+    public String getImgPath() {
+        throw new NotImplementedException();
+    }
+
+    public void setImgPath(String imgPath) {
+        throw new NotImplementedException();
+    }
+
+    public boolean verifyLayout(String imgPath) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement should(Condition... condition) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement shouldHave(Condition... condition) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement shouldBe(Condition... condition) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement shouldNot(Condition... condition) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement shouldNotHave(Condition... condition) {
+        throw new NotImplementedException();
+    }
+
+    public IBaseElement shouldNotBe(Condition... condition) {
+        throw new NotImplementedException();
     }
 }

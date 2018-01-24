@@ -1,10 +1,12 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
+import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -32,10 +34,22 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
         this.rowClass = rowClass;
     }
 
+    public List<R> getRows() {
+        throw new NotImplementedException("");
+    }
+
     @Override
     public List<R> getRows(String... colNames) {
         return Arrays.asList(colNames).stream().map(colName -> castToRow(new MapArray<>(size(),
                 i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
+    }
+
+    public List<R> getRows(JFuncTREx<R, Boolean> colNames) {
+        return null;
+    }
+
+    public R firstRow(JFuncTREx<R, Boolean> rule) {
+        return null;
     }
 
     private R castToRow(MapArray<String, ICell> row) {
@@ -68,8 +82,8 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
             } catch (InstantiationException | IllegalAccessException e) {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
-
-            value.setAvatar(cell.get().getAvatar());
+            //TODO
+            //value.setAvatar(cell.get().getAvatar());
             return value;
         });
     }
@@ -93,6 +107,14 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
     public List<E> entities(String... colNames) {
         return Arrays.asList(colNames).stream().map(colName -> rowToEntity(new MapArray<>(size(),
                 i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
+    }
+
+    public List<E> entities(JFuncTREx<E, Boolean> colNames) {
+        return null;
+    }
+
+    public E entity(JFuncTREx<E, Boolean> rule) {
+        return null;
     }
 
     @Override

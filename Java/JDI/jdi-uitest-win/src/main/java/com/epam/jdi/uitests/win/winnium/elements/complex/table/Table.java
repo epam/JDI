@@ -3,106 +3,355 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
-import com.epam.jdi.uitests.core.settings.JDISettings;
-import com.epam.jdi.uitests.win.winnium.elements.ElementsUtils;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
-import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.TableHeaderTypes;
+import com.epam.jdi.uitests.win.winnium.elements.common.Label;
+import com.epam.jdi.uitests.win.winnium.elements.common.TextBox;
+import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.JTable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.epam.commons.EnumUtils.getAllEnumNames;
+import static com.epam.commons.EnumUtils.getEnumValue;
+import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.PrintUtils.print;
-import static com.epam.commons.Timer.getByCondition;
 import static com.epam.commons.Timer.waitCondition;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
+import static com.epam.jdi.uitests.win.winnium.driver.FillFromAnnotationRules.fieldHasAnnotation;
+import static com.epam.jdi.uitests.win.winnium.driver.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.win.winnium.elements.ElementsUtils.timer;
+import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class Table extends Element implements ITable {
-    private boolean useCache = true;
-    private String cellXpath;
+public class Table extends Label implements ITable {
+    public boolean cache = true;
+    protected List<String> footer;
+    protected By cellLocatorTemplate;
+    protected List<ICell> allCells = new ArrayList<>();
+    protected Columns columns = new Columns();
+    protected Rows rows = new Rows();
+    protected By footerLocator = By.xpath(".//tfoot/tr/th");
 
-    protected Columns columns;
-    protected Rows rows;
+    // ------------------------------------------ //
 
     public Table() {
-        columns = new Columns(this);
-        rows = new Rows(this);
+        this(By.tagName("table"));
+        //GetFooterFunc = t => t.FindElements(By.xpath("//tfoot/tr/td")).Select(el => el.Text).ToArray();
     }
 
-    public boolean isUseCache() {
-        return useCache;
+    public Table(By tableLocator) {
+        setLocator(tableLocator);
+        columns.table = this;
+        rows.table = this;
     }
 
-    public void setUp(By root, String columnHeadersInTableXpath, String rowsInTableXpath, String headerInRowXpath,
-                      String columnsInRowXpath, TableHeaderTypes tableHeaderTypes, int rowStartIndex,
-                      int colStartIndex, boolean useCache) {
-        cellXpath = "." + rowsInTableXpath + "[%d]" + columnsInRowXpath + "[%d]";
+    public Table(By columnHeader, By row, By column) {
+        this();
+        if (column != null)
+            columns.lineTemplate = column;
+        if (columnHeader != null)
+            columns.headersLocator = columnHeader;
+        if (row != null)
+            rows.lineTemplate = row;
+    }
 
-        if (root != null)
-            setAvatar(new GetElementModule(root, this));
+    public Table(By rowHeader, By columnHeader, By row, By column, int rowStartIndex, int columnStartIndex) {
+        this();
+        if (column != null)
+            columns.lineTemplate = column;
+        if (columnHeader != null)
+            columns.headersLocator = columnHeader;
+        if (row != null)
+            rows.lineTemplate = row;
+        if (rowHeader != null)
+            rows.headersLocator = rowHeader;
 
-        this.useCache = useCache;
+        if (columnStartIndex > -1)
+            columns.startIndex = columnStartIndex;
+        if (rowStartIndex > -1)
+            rows.startIndex = rowStartIndex;
+    }
 
-        rows.setStartIndex(rowStartIndex);
-        rows.setLineTemplate("." + rowsInTableXpath + "[%d]" + columnsInRowXpath);
-        if (!"".equals(rowsInTableXpath) || !"".equals(headerInRowXpath))
-            rows.setHeadersXpathStr("." + rowsInTableXpath + headerInRowXpath);
-        columns.setStartIndex(colStartIndex);
-        columns.setLineTemplate("." + rowsInTableXpath + columnsInRowXpath + "[%d]");
-        if (!"".equals(columnHeadersInTableXpath))
-            columns.setHeadersXpathStr("." + columnHeadersInTableXpath);
+    public Table(By tableLocator, By cellLocatorTemplate) {
+        this(tableLocator);
+        this.cellLocatorTemplate = cellLocatorTemplate;
+    }
 
-        switch (tableHeaderTypes) {
-            case ALL_HEADERS:
-                hasAllHeaders();
-                break;
-            case NO_HEADERS:
-                hasNoHeaders();
-                break;
+    public Table(By columnHeader, By rowHeader, By row, By column, By footer,
+                 int columnStartIndex, int rowStartIndex) {
+        this();
+
+        columns.lineTemplate = column;
+        if (columnHeader != null)
+            columns.headersLocator = columnHeader;
+        rows.lineTemplate = row;
+        if (rowHeader != null)
+            rows.headersLocator = rowHeader;
+        footerLocator = footer;
+
+        columns.startIndex = columnStartIndex;
+        rows.startIndex = rowStartIndex;
+
+    }
+
+    public Table copy() {
+        return clone();
+    }
+
+    public Table clone() {
+        Table newTable = new Table();
+        newTable.rows = ((Rows)rows()).clone(new Rows(), newTable);
+        newTable.columns = ((Columns)columns()).clone(new Columns(), newTable);
+        newTable.avatar = new GetElementModule(getLocator(), newTable);
+        return newTable;
+    }
+
+    public List<ICell> getCells() {
+        List<ICell> result = new ArrayList<>();
+        for (String columnName : columns().headers())
+            //it was so
+            // columns().headers().forEach(rowName-> result.add(cell(columnName, rowName)))
+            rows().headers().forEach(rowName
+                    -> result.add(cell(columnName, rowName)));
+        if (cache)
+            allCells = result;
+        return result;
+    }
+
+    public void setup(Field field) {
+        if (!fieldHasAnnotation(field, JTable.class, ITable.class))
+            return;
+        JTable jTable = field.getAnnotation(JTable.class);
+        By root = findByToBy(jTable.root());
+        if (root == null)
+            root = findByToBy(jTable.root());
+        setLocator(root);
+        By headers = findByToBy(jTable.headers());
+        By rowNames = findByToBy(jTable.rowNames());
+        cellLocatorTemplate = findByToBy(jTable.cell());
+        columns.lineTemplate = findByToBy(jTable.column());
+        rows.lineTemplate = findByToBy(jTable.row());
+        footerLocator = findByToBy(jTable.footer());
+        columns.startIndex = jTable.colStartIndex();
+        rows.startIndex = jTable.rowStartIndex();
+
+        if (headers != null)
+            columns.headersLocator = headers;
+        if (rowNames != null)
+            rows.headersLocator = rowNames;
+
+        if (jTable.header().length > 0)
+            hasColumnHeaders(asList(jTable.header()));
+        if (jTable.rowsHeader().length > 0)
+            hasRowHeaders(asList(jTable.rowsHeader()));
+
+        if (jTable.height() > 0)
+            setColumnsCount(jTable.height());
+        if (jTable.width() > 0)
+            setRowsCount(jTable.width());
+        if (!jTable.size().equals("")) {
+            String[] split = jTable.size().split("x");
+            if (split.length == 1)
+                split = jTable.size().split("X");
+            if (split.length != 2)
+                throw exception("Can't setup Table from attribute. Bad size: " + jTable.size());
+            setColumnsCount(parseInt(split[0]));
+            setRowsCount(parseInt(split[1]));
+        }
+
+        switch (jTable.headerType()) {
             case COLUMNS_HEADERS:
                 hasOnlyColumnHeaders();
                 break;
             case ROWS_HEADERS:
                 hasOnlyRowHeaders();
                 break;
+            case ALL_HEADERS:
+                hasAllHeaders();
+                break;
+            case NO_HEADERS:
+                hasNoHeaders();
+                break;
         }
+        useCache(jTable.useCache());
     }
 
-    private int getColumnIndex(String name) {
-        List<String> headers = columns().headers();
-        if (headers != null) {
-            int nameIndex = headers.indexOf(name);
-            if (nameIndex != -1)
-                return nameIndex + columns().getStartIndex();
-        }
-
-        throw exception("Can't Get Column: '" + name + "'. " + ((headers == null)
-                ? "ColumnHeaders is Null"
-                : ("Available ColumnHeaders: " + print(headers, ", ", "'{0}'") + ")")));
+    public ITable useCache(boolean value) {
+        cache = value;
+        return this;
     }
 
-    private int getRowIndex(String name) {
-        int nameIndex;
-        List<String> headers = rows().headers();
-        if (headers != null && headers.contains(name))
-            nameIndex = headers.indexOf(name);
-        else
-            throw exception("Can't Get Row: '%s'. Available RowHeaders: (%s)", name, print(headers, ", ", "'{0}'"));
-        return nameIndex + rows().getStartIndex();
+    public void clean() {
+        allCells = new ArrayList<>();
+        columns().clean();
+        rows().clean();
     }
 
-    @Override
+    public void clear() {
+        clean();
+    }
+
+    public IColumn columns() {
+        return columns;
+    }
+
+    public MapArray<String, ICell> column(int colNum) {
+        return columns().getColumn(colNum);
+    }
+
+    public MapArray<String, ICell> column(String colName) {
+        return columns().getColumn(colName);
+    }
+
+    private MapArray<String, ICell> column(Column column) {
+        return column.get(this::column, this::column);
+    }
+
+    public List<String> columnValue(int colNum) {
+        return columns().getColumnValue(colNum);
+    }
+
+    public List<String> columnValue(String colName) {
+        return columns().getColumnValue(colName);
+    }
+
+    public void setColumns(Columns value) {
+        columns.update(value);
+    }
+
+    public IRow rows() {
+        return rows;
+    }
+
+    public MapArray<String, ICell> row(int rowNum) {
+        return rows().getRow(rowNum);
+    }
+
+    public MapArray<String, ICell> row(String rowName) {
+        return rows().getRow(rowName);
+    }
+
+    private MapArray<String, ICell> row(Row row) {
+        return row.get(this::row, this::row);
+    }
+
+    public List<String> rowValue(int rowNum) {
+        return rows().getRowValue(rowNum);
+    }
+
+    public List<String> rowValue(String rowName) {
+        return rows().getRowValue(rowName);
+    }
+
+    public void setRows(Rows value) {
+        rows.update(value);
+    }
+
+    public ITable hasAllHeaders() {
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = true;
+        return this;
+    }
+
+    public ITable hasNoHeaders() {
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = false;
+        return this;
+    }
+
+    public ITable hasOnlyColumnHeaders() {
+        ((Columns) columns()).hasHeader = true;
+        ((Rows)rows()).hasHeader = false;
+        return this;
+    }
+
+    public ITable hasOnlyRowHeaders() {
+        ((Columns) columns()).hasHeader = false;
+        ((Rows)rows()).hasHeader = true;
+        return this;
+    }
+
+
+    public ITable hasColumnHeaders(List<String> value) {
+        ((Columns) columns()).hasHeader = true;
+        ((Columns) columns()).headers = new ArrayList<>(value);
+        return this;
+    }
+
+    public <THeaders extends Enum> ITable hasColumnHeaders(Class<THeaders> headers) {
+        return hasColumnHeaders(getAllEnumNames(headers));
+    }
+
+    public ITable hasRowHeaders(List<String> value) {
+        ((Rows)rows()).hasHeader = true;
+        ((Rows)rows()).headers = new ArrayList<>(value);
+        return this;
+    }
+
+    public <THeaders extends Enum> ITable hasRowHeaders(Class<THeaders> headers) {
+        return hasRowHeaders(getAllEnumNames(headers));
+    }
+
+    public ITable setColumnsCount(int value) {
+        columns().setCount(value);
+        return this;
+    }
+
+    public ITable setRowsCount(int value) {
+        rows().setCount(value);
+        return this;
+    }
+
+    protected List<String> getFooterAction() {
+        return select(getWebElement()
+                .findElements(footerLocator), WebElement::getText);
+    }
+
+    private List<String> getFooter() {
+        return new ArrayList<>(footer);
+    }
+
+    public void setFooter(List<String> value) {
+        footer = new ArrayList<>(value);
+    }
+
+    public final MapArray<String, ISelect> header() {
+        return columns().header();
+    }
+
+    public final ISelect header(String name) {
+        return columns().header(name);
+    }
+    public final <TEnum extends Enum> ISelect header(TEnum enumName) {
+        return columns().header(getEnumValue(enumName));
+    }
+
+    public List<String> headers() {
+        return columns().headers();
+    }
+
+    public List<String> footer() {
+        if (footer != null)
+            return getFooter();
+        footer = invoker.doJActionResult("Get Footer", this::getFooterAction, "");
+        if (footer == null || footer.size() == 0)
+            return new ArrayList<>();
+        columns().setCount(footer.size());
+        return getFooter();
+    }
+
     public ICell cell(Column column, Row row) {
         int colIndex = column.get(this::getColumnIndex, num -> num + columns().getStartIndex() - 1);
         int rowIndex = row.get(this::getRowIndex, num -> num + rows().getStartIndex() - 1);
-
         return addCell(colIndex, rowIndex,
                 column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
                 row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
@@ -110,82 +359,67 @@ public class Table extends Element implements ITable {
                 row.get(name -> name, num -> ""));
     }
 
-    private ICell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {
-        return new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellXpath, this);
+    public ICell cell(WebElement webElement, Column column, Row row) {
+        return addCell(webElement,
+                column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
+                row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
+                column.get(name -> name, num -> ""),
+                row.get(name -> name, num -> ""));
     }
 
-    @Override
+    private List<ICell> contains(Collection<ICell> list, String value) {
+        return new ArrayList<>(where(list, cell -> cell.getValue().contains(value)));
+    }
+    private List<ICell> matches(Collection<ICell> list, String regex) {
+        return new ArrayList<>(where(list, cell -> cell.getValue().matches(regex)));
+    }
+
     public List<ICell> cells(String value) {
-        return getCells().stream().filter(cell -> cell.getValue().equals(value)).collect(Collectors.toList());
+        return new ArrayList<>(where(getCells(), cell -> cell.getValue().equals(value)));
     }
 
-    @Override
-    public ICell cellContains(String value, Row row) {
-        int rowNum = row.hasName() ? rows().headers().indexOf(row.getName()) + 1 : row.getNum();
-
-        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().contains(value));
-    }
-
-    @Override
-    public ICell cellMatch(String regex, Row row) {
-        MapArray<String, ICell> rowLine = row(row);
-        Optional<ICell> cellOpt = rowLine.values().stream().filter(cell -> cell.getValue().matches(regex)).findAny();
-
-        return cellOpt.isPresent() ? cellOpt.get() : null;
-    }
-
-    private MapArray<String, ICell> row(Row row) {
-        return row.get(this::row, this::row);
-    }
-
-    @Override
-    public ICell cellContains(String value, Column column) {
-        int colIndex = column.get(
-                name -> columns().headers().indexOf(name) + 1,
-                num -> num);
-        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
-    }
-
-    @Override
-    public ICell cellMatch(String regex, Column column) {
-        MapArray<String, ICell> columnLine = column(column);
-        Optional<ICell> cellOpt = columnLine.values().stream().filter(cell -> cell.getValue().matches(regex)).findAny();
-
-        return cellOpt.isPresent() ? cellOpt.get() : null;
-    }
-
-    private MapArray<String, ICell> column(Column column) {
-        return column.get(this::column, this::column);
-    }
-
-    @Override
     public List<ICell> cellsContains(String value) {
-        return getCells().stream().filter(cell -> cell.getValue().equals(value)).collect(Collectors.toList());
+        return contains(getCells(), value);
     }
-
-    @Override
     public List<ICell> cellsMatch(String regex) {
-        return getCells().stream().filter(cell -> cell.getValue().matches(regex)).collect(Collectors.toList());
+        return matches(getCells(), regex);
     }
 
-    @Override
     public ICell cell(String value) {
-        Optional<ICell> cellOpt = getCells().stream().filter(cell -> cell.getValue().equals(value)).findAny();
-        return cellOpt.isPresent() ? cellOpt.get() : null;
+        ICell result;
+        for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
+            result = row.value.first((cName, cValue) -> cValue.getText().equals(value));
+            if (result != null)
+                return result;
+        }
+        return null;
     }
 
-    @Override
     public ICell cellMatch(String regex) {
-        Optional<ICell> cellOpt = getCells().stream().filter(cell -> cell.getValue().matches(regex)).findAny();
-        return cellOpt.isPresent() ? cellOpt.get() : null;
+        ICell result;
+        for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
+            result = row.value.first((cName, cValue) -> cValue.getText().matches(regex));
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+    public MapArray<String, MapArray<String, ICell>> rows(String value, Column column) {
+        return rows().withValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsContains(String value, Column column) {
+        return rows().containsValue(value, column);
+    }
+    public MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column) {
+        return rows().matchesRegEx(regEx, column);
     }
 
-    @Override
     public MapArray<String, MapArray<String, ICell>> rows(String... colNameValues) {
+        if (colNameValues.length == 0)
+            return rows().get();
         List<TableFilter> filters = new ArrayList<>();
         for (String colNameValue : colNameValues)
             filters.add(new TableFilter(colNameValue));
-
         boolean matches = false;
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> row : rows().get()) {
@@ -201,7 +435,7 @@ public class Table extends Element implements ITable {
                     case CONTAINS:
                         matches = cell.getValue().contains(filter.value);
                         break;
-                    default:
+                    case MATCH:
                         matches = cell.getValue().matches(filter.value);
                         break;
                 }
@@ -212,23 +446,18 @@ public class Table extends Element implements ITable {
         return result;
     }
 
-    @Override
-    public MapArray<String, MapArray<String, ICell>> rows(String value, Column column) {
-        return rows().withValue(value, column);
+    public MapArray<String, MapArray<String, ICell>> columns(String value, Row row) {
+        return columns().withValue(value, row);
     }
-
-    @Override
-    public MapArray<String, MapArray<String, ICell>> rowsContains(String value, Column column) {
-        return rows().containsValue(value, column);
+    public MapArray<String, MapArray<String, ICell>> columnsContains(String value, Row row) {
+        return columns().containsValue(value, row);
     }
-
-    @Override
-    public MapArray<String, MapArray<String, ICell>> rowsMatches(String regEx, Column column) {
-        return rows().matchesRegEx(regEx, column);
+    public MapArray<String, MapArray<String, ICell>> columnsMatches(String regEx, Row row) {
+        return columns().matchesRegEx(regEx, row);
     }
-
-    @Override
     public MapArray<String, MapArray<String, ICell>> columns(String... rowNameValues) {
+        if (rowNameValues.length == 0)
+            return columns().get();
         MapArray<String, MapArray<String, ICell>> result = new MapArray<>();
         for (Pair<String, MapArray<String, ICell>> column : columns().get()) {
             boolean matches = true;
@@ -249,294 +478,184 @@ public class Table extends Element implements ITable {
         return result;
     }
 
-    @Override
-    public MapArray<String, MapArray<String, ICell>> columns(String value, Row row) {
-        return columns().withValue(value, row);
-    }
-
-    @Override
-    public MapArray<String, MapArray<String, ICell>> columnsContains(String value, Row row) {
-        return columns().containsValue(value, row);
-    }
-
-    @Override
-    public MapArray<String, MapArray<String, ICell>> columnsMatches(String regEx, Row row) {
-        return columns().withValue(regEx, row);
-    }
-
-    @Override
     public boolean waitValue(String value, Row row) {
-        return ElementsUtils.timer().wait(() -> column(value, row) != null);
+        return timer().wait(() -> column(value, row) != null);
     }
 
-    @Override
     public boolean waitValue(String value, Column column) {
-        return ElementsUtils.timer().wait(() -> row(value, column) != null);
+        return waitCondition(() -> row(value, column) != null);
     }
 
-    @Override
     public boolean isEmpty() {
-        return rows().count() == 0;
+        getDriver().manage().timeouts().implicitlyWait(0, MILLISECONDS);
+        int rowsCount = rows().count(true);
+        getDriver().manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
+        return rowsCount == 0;
     }
 
-    @Override
-    public boolean waitHaveRows() {
+    public boolean waitHasRows() {
         return waitRows(1);
     }
 
-    @Override
     public boolean waitRows(int count) {
         return waitCondition(() -> rows().count() >= count);
     }
 
-    @Override
     public ICell cell(String value, Row row) {
-        int rowIndex = row.get(name -> rows().headers().indexOf(name) + 1, num -> num);
-        return rows().getRow(rowIndex).first((name, cell) -> cell.getValue().equals(value));
+        int rowNum = row.hasName()
+                ? rows().headers().indexOf(row.getName()) + 1
+                : row.getNum();
+        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().equals(value));
+    }
+    public ICell cellContains(String value, Row row) {
+        int rowNum = row.hasName()
+                ? rows().headers().indexOf(row.getName()) + 1
+                : row.getNum();
+        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Row row) {
+        MapArray<String, ICell> rowLine = row(row);
+        List<ICell> cells =  matches(rowLine.values(), regex);
+        if (cells.size() == 0) {
+            logger.info(format("Can't find any cells in row %s that matches regEx: %s", row, regex));
+            return null;
+        }
+        return cells.get(0);
     }
 
-    @Override
     public ICell cell(String value, Column column) {
-        int colIndex = column.get(name -> columns().headers().indexOf(name) + 1, num -> num);
+        int colIndex = column.get(
+                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
+                num -> num);
         return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().equals(value));
     }
-
-    @Override
-    public List<ICell> cellsMatch(String regex, Row row) {
-        MapArray<String, ICell> rowLine = row(row);
-        return rowLine.values().stream().filter(cell -> cell.getValue().matches(regex)).collect(Collectors.toList());
+    public ICell cellContains(String value, Column column) {
+        int colIndex = column.get(
+                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
+                num -> num);
+        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
+    }
+    public ICell cellMatch(String regex, Column column) {
+        MapArray<String, ICell> columnLine = column(column);
+        List<ICell> cells = matches(columnLine.values(), regex);
+        if (cells.size() == 0) {
+            logger.info(format("Can't find any cells in column %s that matches regEx: %s", column, regex));
+            return null;
+        }
+        return cells.get(0);
     }
 
-    @Override
     public List<ICell> cellsMatch(String regex, Column column) {
         MapArray<String, ICell> columnLine = column(column);
-        return columnLine.values().stream().filter(cell -> cell.getValue().matches(regex)).collect(Collectors.toList());
+        return matches(columnLine.values(), regex);
     }
 
-    @Override
-    public MapArray<String, ICell> row(String value, Column column) {
-        ICell rowCell = cell(value, column);
-        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+    public List<ICell> cellsMatch(String regex, Row row) {
+        MapArray<String, ICell> rowLine = row(row);
+        return matches(rowLine.values(), regex);
     }
 
-    @Override
     public MapArray<String, ICell> column(String value, Row row) {
-        ICell columnCell = cellContains(value, row);
-        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+        ICell columnCell = cell(value, row);
+        if (columnCell == null) {
+            logger.info(format("Can't find any cells in row %s with value %s", row, value));
+            return null;
+        }
+        return columns().getColumn(columnCell.columnNum());
     }
-
-    @Override
     public MapArray<String, ICell> columnContains(String value, Row row) {
         ICell columnCell = cellContains(value, row);
-        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+        if (columnCell == null) {
+            logger.info(format("Can't find any cells in row %s that contains value %s", row, value));
+            return null;
+        }
+        return columns().getColumn(columnCell.columnNum());
     }
-
-    @Override
     public MapArray<String, ICell> columnMatch(String regEx, Row row) {
         ICell columnCell = cellMatch(regEx, row);
-        return columnCell != null ? columns().getColumn(columnCell.columnNum()) : null;
+        if (columnCell == null) {
+            logger.info(format("Can't find any cells in row %s that matches regex %s", row, regEx));
+            return null;
+        }
+        return columns().getColumn(columnCell.columnNum());
     }
 
-    @Override
+    public MapArray<String, ICell> row(String value, Column column) {
+        ICell rowCell = cell(value, column);
+        if (rowCell == null) {
+            logger.info(format("Can't find any cells in column %s with value %s", column, value));
+            return null;
+        }
+        return rows().getRow(rowCell.rowNum());
+    }
     public MapArray<String, ICell> rowContains(String value, Column column) {
         ICell rowCell = cellContains(value, column);
-        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+        if (rowCell == null) {
+            logger.info(format("Can't find any cells in column %s that contains value %s", column, value));
+            return null;
+        }
+        return rows().getRow(rowCell.rowNum());
     }
-
-    @Override
     public MapArray<String, ICell> rowMatch(String regEx, Column column) {
         ICell rowCell = cellMatch(regEx, column);
-        return rowCell != null ? rows().getRow(rowCell.rowNum()) : null;
+        if (rowCell == null) {
+            logger.info(format("Can't find any cells in column %s that matches regEx: %s", column, regEx));
+            return null;
+        }
+        return rows().getRow(rowCell.rowNum());
     }
 
-    @Override
-    public IRow rows() {
-        return rows;
+    private int getColumnIndex(String name) {
+        int nameIndex;
+        List<String> headers = select(columns().headers(), String::toLowerCase);
+        String lName = name.toLowerCase();
+        if (headers != null && headers.contains(lName))
+            nameIndex = headers.indexOf(lName);
+        else
+            throw exception("Can't Get Column: '" + name + "'. " + ((headers == null)
+                    ? "ColumnHeaders is Null"
+                    : ("Available ColumnHeaders: " + print(headers, ", ", "'%s'") + ")")));
+        return nameIndex + columns().getStartIndex();
     }
 
-    @Override
-    public MapArray<String, ICell> row(int rowNum) {
-        return rows().getRow(rowNum);
+    private int getRowIndex(String name) {
+        int nameIndex;
+        List<String> headers = select(rows().headers(), String::toLowerCase);
+        String lName = name.toLowerCase();
+        if (headers != null && headers.contains(lName))
+            nameIndex = headers.indexOf(lName);
+        else
+            throw exception("Can't Get Row: '%s'. Available RowHeaders: (%s)", name, print(headers, ", ", "'%s'"));
+        return nameIndex + rows().getStartIndex();
     }
 
-    @Override
-    public MapArray<String, ICell> row(String rowName) {
-        return rows().getRow(rowName);
+    protected String getTextAction() {
+        return "||X||" + print(columns().headers(), "|") + "||\n"
+                + print(select(rows().headers(),rowName -> "||" + rowName + "||" + print(rowValue(rowName), "|") + "||"), "\n");
     }
 
-    @Override
-    public List<String> rowValue(int rowNum) {
-        return rows().getRowValue(rowNum);
+    private Cell addCell(int colIndex, int rowIndex, int colNum, int rowNum, String colName, String rowName) {
+        Cell cell = allCells.size() != 0
+                ? (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum)
+                : null;
+        if (cell != null)
+            return cell.updateData(colName, rowName);
+        cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
+        cell.setParent(this);
+        if (cache)
+            allCells.add(cell);
+        return cell;
     }
 
-    @Override
-    public List<String> rowValue(String rowName) {
-        return rows().getRowValue(rowName);
-    }
-
-    @Override
-    public IColumn columns() {
-        return columns;
-    }
-
-    @Override
-    public MapArray<String, ICell> column(int colNum) {
-        return columns().getColumn(colNum);
-    }
-
-    @Override
-    public MapArray<String, ICell> column(String colName) {
-        return columns().getColumn(colName);
-    }
-
-    @Override
-    public List<String> columnValue(int colNum) {
-        return columns().getColumnValue(colNum);
-    }
-
-    @Override
-    public List<String> columnValue(String colName) {
-        return columns().getColumnValue(colName);
-    }
-
-    @Override
-    public MapArray<String, ISelect> header() {
-        return columns().header();
-    }
-
-    @Override
-    public ISelect header(String name) {
-        return columns().header(name);
-    }
-
-    @Override
-    public List<String> headers() {
-        return columns.headers();
-    }
-
-    @Override
-    public List<String> footer() {
-        throw JDISettings.exception("Not supported");
-    }
-
-    @Override
-    public List<ICell> getCells() {
-        List<ICell> result = new ArrayList<>();
-        for (String columnName : columns().headers())
-            rows().headers().forEach(rowName
-                    -> result.add(cell(columnName, rowName)));
-
-        return result;
-    }
-
-    @Override
-    public void clean() {
-        columns().clean();
-        rows().clean();
-    }
-
-    @Override
-    public void clear() {
-        clean();
-    }
-
-    @Override
-    public ITable useCache(boolean value) {
-        useCache = value;
-        return this;
-    }
-
-    @Override
-    public ITable clone() {
-        throw JDISettings.exception("Not supported");
-    }
-
-    @Override
-    public ITable copy() {
-        return clone();
-    }
-
-    public ITable hasAllHeaders() {
-        ((Columns) columns()).setHasHeader(true);
-        ((Rows)rows()).setHasHeader(true);
-        return this;
-    }
-
-    public ITable hasNoHeaders() {
-        ((Columns) columns()).setHasHeader(false);
-        ((Rows)rows()).setHasHeader(false);
-        return this;
-    }
-
-    public ITable hasOnlyColumnHeaders() {
-        ((Columns) columns()).setHasHeader(true);
-        ((Rows)rows()).setHasHeader(false);
-        return this;
-    }
-
-    public ITable hasOnlyRowHeaders() {
-        ((Columns) columns()).setHasHeader(false);
-        ((Rows)rows()).setHasHeader(true);
-        return this;
-    }
-
-    @Override
-    public ITable hasColumnHeaders(List<String> value) {
-        ((Columns) columns()).setHasHeader(true);
-        ((Columns) columns()).headers = new ArrayList<>(value);
-        return this;
-    }
-
-    @Override
-    public <THeaders extends Enum> ITable hasColumnHeaders(Class<THeaders> headers) {
-        return hasColumnHeaders(getAllEnumNames(headers));
-    }
-
-    @Override
-    public ITable hasRowHeaders(List<String> value) {
-        ((Rows)rows()).setHasHeader(true);
-        ((Rows)rows()).headers = new ArrayList<>(value);
-        return this;
-    }
-
-    @Override
-    public <THeaders extends Enum> ITable hasRowHeaders(Class<THeaders> headers) {
-        return hasRowHeaders(getAllEnumNames(headers));
-    }
-
-    @Override
-    public ITable setColumnsCount(int value) {
-        columns().setCount(value);
-        return this;
-    }
-
-    @Override
-    public ITable setRowsCount(int value) {
-        rows().setCount(value);
-        return this;
-    }
-
-    @Override
-    public String getText() {
-        return "||X||" + print(columns().headers(), "|") + "||\n" + print(
-                rows().headers().stream().map(rowName -> "||" + rowName + "||" + print(rowValue(rowName), "|") + "||").
-                        collect(Collectors.toList()), "\n");
-    }
-
-    @Override
-    public String waitText(String text) {
-        return invoker.doJActionResult(format("Wait text contains '%s'", text),
-                () -> getByCondition(this::getText, t -> t.contains(text)), this.toString());
-    }
-
-    @Override
-    public String waitMatchText(String regEx) {
-        return invoker.doJActionResult(format("Wait text match regex '%s'", regEx),
-                () -> getByCondition(this::getText, t -> t.matches(regEx)), this.toString());
-    }
-
-    @Override
-    public String getValue() {
-        return getText();
+    private Cell addCell(WebElement webElement, int colNum, int rowNum, String colName, String rowName) {
+        Cell cell = (Cell) first(allCells, c -> c.columnNum() == colNum && c.rowNum() == rowNum);
+        if (cell != null) {
+            cell.setWebElement(webElement);
+            return cell.updateData(colName, rowName);
+        }
+        cell = new Cell(webElement, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
+        if (cache)
+            allCells.add(cell);
+        return cell;
     }
 }

@@ -8,11 +8,15 @@ import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.actions.ActionInvoker;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
 
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public abstract class BaseElement implements IBaseElement {
     private Object parent;
@@ -30,10 +34,27 @@ public abstract class BaseElement implements IBaseElement {
     public By getLocator() {
         return avatar.getByLocator();
     }
+    public void setLocator(By locator) {
+        avatar.setByLocator(locator);
+    }
 
     @Override
     public GetElementModule getAvatar() {
         return avatar;
+    }
+
+    public WebDriver getDriver() {
+        return getAvatar().getDriver();
+    }
+
+    public void setWaitTimeout(int seconds) {
+        logger.debug("Set wait timeout to " + seconds);
+        getDriver().manage().timeouts().implicitlyWait(seconds, SECONDS);
+        timeouts.setCurrentTimeoutSec(seconds);
+    }
+
+    public void restoreWaitTimeout() {
+        setWaitTimeout(timeouts.getDefaultTimeoutSec());
     }
 
     @Override
