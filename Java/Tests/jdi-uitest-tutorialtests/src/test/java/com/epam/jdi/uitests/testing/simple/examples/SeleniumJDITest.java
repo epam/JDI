@@ -30,8 +30,8 @@ public class SeleniumJDITest {
         page.logo.click();
         page.menu.get(2).click();
         page.headerMenu.select(CAREERS);
+        page.selectButton.click();
         System.out.println("Entities count: " + page.jobs.size());
-        List<Job> jobs = page.jobs.entities();
-        //System.out.println(print(select(jobs, Job::toString), getProperty("line.separator")));
+        //        System.out.println(print(select(jobs, Job::toString), getProperty("line.separator")));
     }
 }

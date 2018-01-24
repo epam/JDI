@@ -6,12 +6,12 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import org.openqa.selenium.support.FindBy;
 
-@FindBy(css = "div.filterable-result")
-public class ItemsSection extends Section{
+@FindBy(css = ".detail-pages-list__holder")
+public class InsightsSection extends Section{
     @Root
-    @FindBy(css = "div.filterable-item")
+    @FindBy(css = ".detail-pages-list__item")
     public Elements<Section> items;
 
-    @FindBy(css = "img.filterable-item-image.image-replace")
+    @FindBy(css = ".detail-pages-list__img")
     public Elements<Image> photos;
 }

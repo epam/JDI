@@ -6,16 +6,21 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import org.openqa.selenium.support.FindBy;
 
 @FindBy(css = "div.extended-contact-us")
-public class ContactUsSection extends Section{
+public class ContactUsSection extends Section {
     @Root
-    @FindBy(css = "li.headquarters")
-    public Element headquarters;
+    @FindBy(css = "#edit-name")
+    public Element name;
 
     @Root
-    @FindBy(css = "li.events")
-    public Element events;
+    @FindBy(css = "#edit-mail")
+    public Element mail;
 
     @Root
-    @FindBy(css = "li.share")
-    public Element share;
+    @FindBy(css = "#edit-subject-0-value")
+    public Element subject;
+    @Root
+    @FindBy(css = "#edit-message-0-value")
+    public Element message;
+
+
 }
