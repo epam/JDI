@@ -44,15 +44,19 @@ public class EpamSite extends WebSite {
     @JPage(url = "/our-work", title = "Our Work")
     public static ourWorkPage ourWorkPage;
 
+    @JPage(url = "/contact-us", title = "Contact Us | EPAM Systems")
+    public static ContactUs contactUs;
+
     @JPage(url = "/insights", title = "Insights")
     public static InsightsPage insightsPage;
 
     @FindBy(css = ".top-navigation__list")
     public static Menu<HeaderMenu> headerMenu;
 
-    @JMenu(level1 = @JFindBy(css = "ul.top-navigation__list>li span a"),
-//            level2 = @JFindBy(css = "li.top-navigation__item-sub>a"),
-            level2 = @JFindBy(css = "ul.top-navigation__grand-sub-list>li a"))
+    @JMenu(     level1 = @JFindBy(css = "ul.top-navigation__list>li span a"),
+            //  level2 = @JFindBy(css = "li.top-navigation__item-sub>a"),
+            //  level3 = @JFindBy(css = "ul.top-navigation__grand-sub-list>li a"))
+                level2 = @JFindBy(css = "ul.top-navigation__grand-sub-list>li a"))
     public static Menu multipleHeaderMenu;
 
     @FindBy(css = ".tile-menu .submenu a")
@@ -68,5 +72,4 @@ public class EpamSite extends WebSite {
     };
 
     public static Header header;
-    public static ContactUsSection contactUs;
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 @FindBy(css = ".detail-pages-list__holder")
 public class OurWorkSection extends Section{
+
     @Root
     @FindBy(css = "h5>a")
     public Elements<Label> ourWork;

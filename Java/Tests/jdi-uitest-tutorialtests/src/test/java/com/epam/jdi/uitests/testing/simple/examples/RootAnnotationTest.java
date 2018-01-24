@@ -31,6 +31,6 @@ public class RootAnnotationTest extends TestsBase {
     public void rootTestContactSection() {
         EpamSite.shouldBeOpened();
         multipleHeaderMenu.hoverAndClick("ABOUT|Contact Us");
-        Assert.isTrue(contactUs.events.getParent() == null);
+        Assert.isTrue(contactUs.contactUsSection.name.getParent() == null);
     }
 }
