@@ -22,7 +22,7 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
     private String driversPath;
     private WebDriver winiumDriver;
     public static final String DEFAULT_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\";
-    private final String WINIUM = "winiumdesktop";
+    public static final String WINIUM = "winiumdesktop";
     private String currentDriverName = WINIUM;
 
     public WiniumDriverFactory() {

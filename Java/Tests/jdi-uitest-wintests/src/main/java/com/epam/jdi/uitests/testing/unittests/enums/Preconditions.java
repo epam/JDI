@@ -10,34 +10,35 @@ import org.openqa.selenium.WebDriver;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainTabPane;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
 
 
 public enum Preconditions implements IPreconditions {
     METALS_AND_COLORS_PAGE(new CheckAction(() -> By.className("MetalsAndColorsView")),
         () -> {
-            mainWindow.mainTabPane.supportButton.click();
-        mainWindow.mainTabPane.metalsAndColorsTab.click();
+            mainTabPane.supportButton.select("View");
+            mainTabPane.metalsAndColorsTab.click();
     }),
     SUPPORT_PAGE(() -> true, //todo поправить
-            () -> mainWindow.mainTabPane.supportButton.click()),
+            () -> mainWindow.mainTabPane.supportButton.select("View")),
     CONTACT_PAGE_FILLED(new CheckAction(() -> By.className("ContactFormView")), () -> {
-        mainWindow.mainTabPane.supportButton.click();
+        mainWindow.mainTabPane.supportButton.select("View");
                 mainWindow.mainTabPane.contactFormTab.click();
                 mainWindow.mainTabPane.contactFormTab.nestedContactFormView.nameTextBox.input("Name");
                 mainWindow.mainTabPane.contactFormTab.nestedContactFormView.lastNameTextBox.input("Last Name");
                 mainWindow.mainTabPane.contactFormTab.nestedContactFormView.descriptionTextBox.input("Description");
             }),
     CONTACT_PAGE(new CheckAction(() -> By.className("ContactFormView")), () -> {
-                mainWindow.mainTabPane.supportButton.click();
+                mainWindow.mainTabPane.supportButton.select("View");
                 mainWindow.mainTabPane.contactFormTab.click();
             }),
     COMPLEX_TABLE_PAGE(() -> true, () -> {
-        mainWindow.mainTabPane.supportButton.click();
+        mainWindow.mainTabPane.supportButton.select("View");
         mainWindow.mainTabPane.complexTablePageTab.click();
     }),
     SIMPLE_TABLE_PAGE(() -> true, () -> {
-        mainWindow.mainTabPane.supportButton.click();
+        mainWindow.mainTabPane.supportButton.select("View");
         mainWindow.mainTabPane.simpleTableTab.click();
     });
 

@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static com.epam.jdi.uitests.win.winnium.elements.composite.DesktopApplication.windowId;
 
 public class GetElementModule implements IAvatar {
     private static final String FAILED_TO_FIND_ELEMENT_MESSAGE = "Can't find Element '%s' during %s seconds";
@@ -79,7 +80,7 @@ public class GetElementModule implements IAvatar {
 
     private SearchContext getSearchContext(Object element) {
         if (element == null || !(element instanceof BaseElement))
-            return getDriver();
+            return getDefaultContext();
 
         BaseElement bElement = (BaseElement) element;
         By locator = bElement.getAvatar().getByLocator();
@@ -93,6 +94,12 @@ public class GetElementModule implements IAvatar {
 
     public WebDriver getDriver() {
         return (WebDriver) JDISettings.driverFactory.getDriver(driverName);
+    }
+    public SearchContext getDefaultContext() {
+        WebDriver driver =  (WebDriver) JDISettings.driverFactory.getDriver(driverName);
+        return windowId != null
+            ? driver.findElement(windowId)
+            : driver;
     }
 
     private WebElement getElementAction() {
