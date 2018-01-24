@@ -13,8 +13,7 @@ public class MainTabPane extends Section {
     @FindBy(id = "ContactFormTab")
     public ContactFormTab contactFormTab;
 
-    @FindBy(id = "supportTab")
-    //@FindBy(id = "SupportView")
+    @FindBy(id = "SupportView")
     public IButton supportButton;
 
     @FindBy(id = "DatesView")

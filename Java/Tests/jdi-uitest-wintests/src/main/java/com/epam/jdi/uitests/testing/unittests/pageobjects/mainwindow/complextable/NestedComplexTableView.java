@@ -7,11 +7,13 @@ import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects
 import org.openqa.selenium.support.FindBy;
 
 public class NestedComplexTableView extends Section {
+    //TODO
+    /*
     @JTable(root = @FindBy(className = "DataGrid"),
             columnHeadersInTableXpath = "/*[contains(@ControlType,'ControlType.Header')]/*[contains(@ControlType, 'ControlType.HeaderItem')]",
             rowsInTableXpath = "/*[contains(@ControlType,'ControlType.DataItem')]",
             columnsInRowXpath = "/*[contains(@ControlType,'ControlType.Custom')]",
             headerInRowXpath = "/*[contains(@ControlType,'ControlType.HeaderItem')]/*[contains(@ControlType, 'ControlType.Text')]",
-            headerType = TableHeaderTypes.COLUMNS_HEADERS)
+            headerType = TableHeaderTypes.COLUMNS_HEADERS)*/
     public DynamicTable table;
 }
