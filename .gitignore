@@ -2,7 +2,6 @@
 .idea/
 target/
 *.zip
-*.exe
 .logs/
 *.xlsx
 bin/
