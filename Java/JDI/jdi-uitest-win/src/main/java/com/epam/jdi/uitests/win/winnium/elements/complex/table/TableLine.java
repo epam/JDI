@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static java.util.Collections.addAll;
+import static java.util.stream.IntStream.*;
 
 abstract class TableLine extends Element implements ITableLine {
     protected List<String> headers;
@@ -29,13 +29,6 @@ abstract class TableLine extends Element implements ITableLine {
     private String lineTemplate;
     private int count = 0;
 
-    public void removeHeaders(String... names) {
-        for (String name : names)
-            headers.remove(name);
-    }
-    public void addHeaders(String... names) {
-        addAll(headers, names);
-    }
 
     public void setHeadersXpathStr(String headersXpathStr) {
         this.headersXpathStr = headersXpathStr;
@@ -136,7 +129,7 @@ abstract class TableLine extends Element implements ITableLine {
     }
 
     private List<String> getNumList() {
-        return IntStream.rangeClosed(1, count()).mapToObj(Integer::toString).collect(Collectors.toList());
+        return rangeClosed(1, count()).mapToObj(Integer::toString).collect(Collectors.toList());
     }
 
     @Override

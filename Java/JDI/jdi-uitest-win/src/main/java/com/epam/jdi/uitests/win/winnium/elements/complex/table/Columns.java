@@ -1,16 +1,13 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
-import com.epam.commons.linqinterfaces.JFuncTTREx;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IColumn;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Row;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
@@ -39,7 +36,7 @@ public class Columns extends TableLine implements IColumn {
     }
 
     private MapArray<String, MapArray<String, ICell>> withValueByRule(Row row,
-                                                                      JFuncTTREx<String, String, Boolean> func) {
+                                                                      BiFunction<String, String, Boolean> func) {
         Collection<String> rowNames = row.hasName()
                 ? table.rows().getRowAsText(row.getName()).where(func).keys()
                 : table.rows().getRowAsText(row.getNum()).where(func).keys();

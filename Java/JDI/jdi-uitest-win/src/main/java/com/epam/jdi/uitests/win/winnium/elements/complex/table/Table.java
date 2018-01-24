@@ -3,7 +3,8 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.*;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITable;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.ElementsUtils;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
@@ -279,7 +280,7 @@ public class Table extends Element implements ITable {
     }
 
     @Override
-    public boolean waitHasRows() {
+    public boolean waitHaveRows() {
         return waitRows(1);
     }
 

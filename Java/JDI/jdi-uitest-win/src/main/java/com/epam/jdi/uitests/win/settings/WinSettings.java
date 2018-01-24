@@ -30,6 +30,7 @@ import com.epam.jdi.uitests.win.winnium.elements.complex.Dropdown;
 import com.epam.jdi.uitests.win.winnium.elements.complex.RadioButtons;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.Table;
+import com.epam.jdi.uitests.win.winnium.elements.composite.DesktopApplication;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,16 +39,16 @@ import static com.epam.commons.PropertyReader.fillAction;
 
 public class WinSettings extends JDISettings {
 
-    private static WiniumDriverFactory getWiniumFactory() { return (WiniumDriverFactory)driverFactory; }
-    public static void initFromProperties()  throws IOException {
+    public static void initFromProperties() throws IOException {
         driverFactory = new WiniumDriverFactory();
         asserter = new TestNGCheck();
         PropertyReader.getProperties(jdiSettingsPath);
         logger = new JDILogger("JDI Logger");
         MapInterfaceToElement.init(defaultInterfacesMap);
 
-        fillAction(p -> getWiniumFactory().setDriverPath(p), "drivers.folder");
-        fillAction(p -> getWiniumFactory().setAppPath(p), "domain");
+        fillAction(driverFactory::setDriverPath, "drivers.folder");
+        fillAction(DesktopApplication::setAppPath, "domain");
+
         JDISettings.initFromProperties();
     }
 

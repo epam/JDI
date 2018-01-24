@@ -74,7 +74,7 @@ public class CheckList <TEnum extends Enum & Supplier<String>> extends BaseEleme
     }
 
     @Override
-    public void check(TEnum... names) {
+    public void check(TEnum[] names) {
         check(getNameStrings(names));
     }
 
@@ -91,7 +91,7 @@ public class CheckList <TEnum extends Enum & Supplier<String>> extends BaseEleme
     }
 
     @Override
-    public void uncheck(TEnum... names) {
+    public void uncheck(TEnum[] names) {
         uncheck(getNameStrings(names));
     }
 

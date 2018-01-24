@@ -2,9 +2,10 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
-import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.win.winnium.elements.WinCascadeInit;
 import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
@@ -35,14 +36,15 @@ public class Cell extends Element implements ICell {
         this.setAvatar(new GetElementModule(By.xpath(xpathExpression), this));
     }
 
-    private ISelect get() {
+    @Override
+    public ISelect get() {
         SelectElement selectElement = new SelectElement(getWebElement());
         selectElement.setParent(table);
         return selectElement;
     }
 
     @Override
-    public <T extends IBaseElement> T get(Class<T> clazz) {
+    public <T extends IClickable & IText> T get(Class<T> clazz) {
         T instance;
         try {
             instance = (clazz.isInterface())
@@ -56,7 +58,7 @@ public class Cell extends Element implements ICell {
     }
 
     @Override
-    public <T extends IBaseElement> T get(T element) {
+    public <T extends IClickable & IText> T get(T element) {
         element.setParent(this);
 
         new WinCascadeInit().initElements(element, JDISettings.driverFactory.currentDriverName());

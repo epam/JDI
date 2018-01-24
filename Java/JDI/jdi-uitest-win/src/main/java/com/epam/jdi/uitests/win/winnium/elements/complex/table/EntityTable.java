@@ -1,24 +1,19 @@
 package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 
-import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
-import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.IEntityTable;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.Column;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.ICell;
+import com.epam.jdi.uitests.core.interfaces.complex.interfaces.IEntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.BaseElement;
-import com.epam.jdi.uitests.win.winnium.elements.base.SelectElement;
 
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.LinqUtils.where;
 import static com.epam.commons.ReflectionUtils.convertStringToType;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
@@ -36,20 +31,11 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
         this(entityClass);
         this.rowClass = rowClass;
     }
-    public List<R> getRows() {
-        return select(rows().get(), row -> castToRow(row.value));
-    }
-    public List<R> getRows(JFuncTREx<R, Boolean> colNames) {
-        List<R> rows = where(getRows(), colNames);
-        if (rows.size() == 0)
-            logger.info("Can't find any rows that meat criterias");
-        return rows;
-    }
-    public R firstRow(JFuncTREx<R, Boolean> colNames) {
-        List<R> rows = getRows(colNames);
-        return rows.size() > 0
-                ? rows.get(0)
-                : null;
+
+    @Override
+    public List<R> getRows(String... colNames) {
+        return Arrays.asList(colNames).stream().map(colName -> castToRow(new MapArray<>(size(),
+                i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
     }
 
     private R castToRow(MapArray<String, ICell> row) {
@@ -83,7 +69,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
                 throw exception("Can't Instantiate row element: " + fieldName);
             }
 
-            value.setAvatar(cell.get(SelectElement.class).getAvatar());
+            value.setAvatar(cell.get().getAvatar());
             return value;
         });
     }
@@ -109,24 +95,6 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E, R> {
                 i -> columns.getColumn(colName).get(i)))).collect(Collectors.toList());
     }
 
-
-    public List<R> getRows(String... colNames) {
-        return select(colNames, colName
-                -> castToRow(columns.getColumn(colName)));
-    }
-    public List<E> entities(JFuncTREx<E, Boolean> rule) {
-        List<E> entities = where(entities(), rule);
-        if (rows.size() == 0)
-            logger.info("Can't find any rows that meat criterias");
-        return entities;
-    }
-
-    public E entity(JFuncTREx<E, Boolean> rule) {
-        List<E> rows = entities(rule);
-        return rows.size() > 0
-                ? rows.get(0)
-                : null;
-    }
     @Override
     public E entity(int rowNum) {
         return rowToEntity(rows.getRow(rowNum));
