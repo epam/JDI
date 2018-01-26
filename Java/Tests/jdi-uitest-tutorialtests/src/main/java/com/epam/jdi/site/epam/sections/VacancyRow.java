@@ -14,10 +14,11 @@ public class VacancyRow extends Section {
     public ILabel name;
     @Css(".search-result__item-description")
     public IText description;
-    @Css(".search-result__location")
-    public IText location;
     @Css(".search-result__item-apply")
     public ILink apply;
+    @Override
+    public String toString() {
+        return "Name: " + name.getText() + "; Description: " + description.getText();
+    }
 
 }
-

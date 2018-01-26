@@ -4,6 +4,7 @@ import com.epam.jdi.entities.Vacancy;
 import com.epam.jdi.site.epam.sections.VacancyRow;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
@@ -18,13 +19,17 @@ import static com.epam.commons.LinqUtils.where;
  */
 public class JobListingPage extends WebPage {
 
-    @Css(".search-result__list>.search-result__item")
+    @JTable(root = @FindBy(className = "search-result__list"),
+            row = @FindBy(xpath = ".//article[%s]/*"),
+            column = @FindBy(xpath = ".//article/*[%s]"),
+            header = {"name", "description", "apply"})
     public EntityTable<Vacancy, VacancyRow> jobsAsData;
+
     @JTable(root = @FindBy(className = "search-result-list"),
         row = @FindBy(xpath = ".//li[%s]//div"),
         column = @FindBy(xpath = ".//li//div[%s]"),
-        header = {"name", "category", "location", "apply"})
-    public EntityTable<Vacancy, VacancyRow> jobs;
+        header = {"name", "description", "apply"})
+    public Table jobs;
 
     @Css(".search-result__list>.search-result__item")
     public Elements<VacancyRow> jobsList;

@@ -21,11 +21,9 @@ import org.openqa.selenium.support.FindBy;
  * Created by Roman_Iovlev on 10/22/2015.
  */
 public class JobFilter extends Form<JobSearchFilter> {
-
     //Keyword or Vacancy ID
     @ByClass("job-search__input")
-    ITextArea keywords;
-
+    ITextField keywords;
 
     //Skills
     @JDropdown(
@@ -33,8 +31,6 @@ public class JobFilter extends Form<JobSearchFilter> {
             expand = @FindBy(css = ".default-label"),
             list = @FindBy(css = ".multi-select-dropdown li"))
     public IDropDown category;
-
-
 
     @JTree(
             select = @FindBy(css = ".job-search__location"),

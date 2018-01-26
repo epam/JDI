@@ -33,5 +33,7 @@ public class SeleniumJDITest {
         System.out.println("Entities count: " + page.vacancies.size());
         List<Vacancy> vacancies = page.vacancies.entities();
         //System.out.println(print(select(vacancies, Vacancy::toString), getProperty("line.separator")));
+        page.selectButton.click();
+
     }
 }

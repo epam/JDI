@@ -64,7 +64,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         expander = new GetElementType(selectLocator, getParent());
     }
 
-
     public void setup(Field field) {
         if (!fieldHasAnnotation(field, JDropdown.class, IDropDown.class))
             return;
@@ -156,7 +155,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         try {
             element = allLabels.get(TextList.class).getElement(name);
         } catch (Exception | Error ex) {
-            return false;
+            return true;
         }
         return element != null && element.isDisplayed();
     }

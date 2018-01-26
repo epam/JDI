@@ -279,7 +279,10 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction(int num) {
-        return isDisplayedInList(getElements(), num);
+        setWaitTimeout(0);
+        List<WebElement> els = getElements();
+        restoreWaitTimeout();
+        return els.size() != 0 && isDisplayedInList(getElements(), num);
     }
 
     private boolean isDisplayedInList(List<WebElement> els, int num) {

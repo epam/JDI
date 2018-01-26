@@ -113,9 +113,12 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
 
     public R firstRow(JFuncTREx<R, Boolean> rule) {
         List<R> rows = getRows(rule);
-        return rows.size() > 0
-            ? rows.get(0)
-            : null;
+        if (rows.size() > 0)
+            return rows.get(0);
+        else {
+            logger.info("Can't find any rows that meat criterias");
+            return null;
+        }
     }
 
     public List<R> getRows(JFuncTREx<R, Boolean> rule) {
@@ -169,9 +172,12 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
 
     public E entity(JFuncTREx<E, Boolean> rule) {
         List<E> rows = entities(rule);
-        return rows.size() > 0
-                ? rows.get(0)
-                : null;
+        if (rows.size() > 0)
+            return rows.get(0);
+        else {
+            logger.info("Can't find any rows that meat criterias");
+            return null;
+        }
     }
 
     public E entity(int rowNum){
