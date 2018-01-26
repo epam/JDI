@@ -1,6 +1,6 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.jdi.entities.Job;
+import com.epam.jdi.entities.Vacancy;
 import com.epam.jdi.selenium.pageobject.SeleniumJdiPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,8 +30,8 @@ public class SeleniumJDITest {
         page.logo.click();
         page.menu.get(2).click();
         page.headerMenu.select(CAREERS);
-        System.out.println("Entities count: " + page.jobs.size());
-        List<Job> jobs = page.jobs.entities();
-        //System.out.println(print(select(jobs, Job::toString), getProperty("line.separator")));
+        System.out.println("Entities count: " + page.vacancies.size());
+        List<Vacancy> vacancies = page.vacancies.entities();
+        //System.out.println(print(select(vacancies, Vacancy::toString), getProperty("line.separator")));
     }
 }

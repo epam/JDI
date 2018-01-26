@@ -1,12 +1,17 @@
 package com.epam.jdi.site.epam.pages;
 
-import com.epam.jdi.site.epam.sections.SearchResultItem;
+import com.epam.jdi.entities.Vacancy;
+import com.epam.jdi.site.epam.sections.VacancyRow;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
+import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTable;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
+import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.epam.commons.LinqUtils.where;
 
 /**
  * Created by Roman_Iovlev on 10/22/2015.
@@ -14,12 +19,18 @@ import java.util.stream.Collectors;
 public class JobListingPage extends WebPage {
 
     @Css(".search-result__list>.search-result__item")
-    public Elements<SearchResultItem> jobsList;
+    public EntityTable<Vacancy, VacancyRow> jobsAsData;
+    @JTable(root = @FindBy(className = "search-result-list"),
+        row = @FindBy(xpath = ".//li[%s]//div"),
+        column = @FindBy(xpath = ".//li//div[%s]"),
+        header = {"name", "category", "location", "apply"})
+    public EntityTable<Vacancy, VacancyRow> jobs;
+
+    @Css(".search-result__list>.search-result__item")
+    public Elements<VacancyRow> jobsList;
 
     public void getJobRowByName(String jobName) {
-        List<SearchResultItem> result = jobsList.stream()
-                .filter(job -> job.name.getText().equals(jobName))
-                .collect(Collectors.toList());
+        List<VacancyRow> result = where(jobsList, job -> job.name.getText().equals(jobName));
         result.get(0).apply.click();
     }
 

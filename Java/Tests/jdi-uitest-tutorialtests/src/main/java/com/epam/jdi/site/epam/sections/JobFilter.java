@@ -22,7 +22,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class JobFilter extends Form<JobSearchFilter> {
 
-    //Keyword or Job ID
+    //Keyword or Vacancy ID
     @ByClass("job-search__input")
     ITextArea keywords;
 

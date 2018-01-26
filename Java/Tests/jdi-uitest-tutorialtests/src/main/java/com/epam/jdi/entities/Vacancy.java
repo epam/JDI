@@ -9,14 +9,14 @@ import com.epam.commons.DataClass;
  */
 /*@AllArgsConstructor
 @NoArgsConstructor*/
-public class Job extends DataClass {
+public class Vacancy extends DataClass {
    public String name;
    public String category;
    public String location;
 
-   public Job (){}
+   public Vacancy(){}
 
-   public Job (String position, String category, String location){
+   public Vacancy(String position, String category, String location){
        this.name = position;
        this.category = category;
        this.location = location;

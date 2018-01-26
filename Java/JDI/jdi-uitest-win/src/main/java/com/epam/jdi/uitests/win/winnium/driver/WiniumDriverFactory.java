@@ -43,7 +43,7 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
                 DesktopOptions options = new DesktopOptions();
                 options.setApplicationPath(appPath);
                 return new WiniumDriver(new URL(WINIUM_DEFAULT_HOST), options);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw JDISettings.exception("Unknown driver: " + driverName);
             }
         };
