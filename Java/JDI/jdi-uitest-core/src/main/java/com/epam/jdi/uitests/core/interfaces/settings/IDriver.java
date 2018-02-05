@@ -27,6 +27,7 @@ public interface IDriver<T> {
     String registerDriver(String driverName);
 
     void setRunType(String runType);
+    void setRemoteHubUrl(String url);
 
     T getDriver();
 

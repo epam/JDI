@@ -58,6 +58,9 @@ public class GetElementModule implements IAvatar {
     private BaseElement element;
     private WebElement webElement;
     private List<WebElement> webElements;
+    public void setLocator(By locator) {
+        byLocator = locator;
+    }
 
     public GetElementModule(BaseElement element) {
         this.element = element;
@@ -102,7 +105,7 @@ public class GetElementModule implements IAvatar {
 
     public WebElement getElement() {
         logger.debug("Get Web Element: " + element);
-        WebElement element = webElement != null
+        WebElement element = hasWebElement()
                 ? webElement
                 : getElementAction();
         logger.debug("One Element found");
@@ -165,7 +168,7 @@ public class GetElementModule implements IAvatar {
         return this;
     }
     private List<WebElement> getOneOrMoreElements() {
-        List<WebElement> result = webElements != null
+        List<WebElement> result = hasWebElement()
             ? webElements
             : searchElements();
         if (result.size() == 1)
@@ -234,6 +237,7 @@ public class GetElementModule implements IAvatar {
 
     @Override
     public String toString() {
+        if (hasWebElement()) return "Has WebElement";
         return shortLogMessagesFormat
                 ? printFullLocator()
                 : format("Locator: '%s'", getLocator())

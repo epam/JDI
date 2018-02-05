@@ -22,8 +22,6 @@ import com.epam.jdi.uitests.core.interfaces.common.ITextField;
 import com.epam.jdi.uitests.web.selenium.elements.common.FileInput;
 import org.openqa.selenium.By;
 
-import java.io.File;
-
 import static com.epam.jdi.uitests.web.robot.JRobot.pasteText;
 
 /**

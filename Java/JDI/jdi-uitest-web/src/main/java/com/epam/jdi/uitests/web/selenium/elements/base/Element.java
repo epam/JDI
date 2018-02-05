@@ -79,6 +79,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
 
     public void setWebElement(WebElement webElement) {
         avatar.setWebElement(webElement);
+        useCache = true;
     }
 
     public WebElement get(By locator) {

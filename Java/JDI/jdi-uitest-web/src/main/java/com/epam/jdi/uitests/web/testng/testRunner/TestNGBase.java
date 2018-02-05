@@ -18,7 +18,6 @@ package com.epam.jdi.uitests.web.testng.testRunner;
  */
 
 import com.epam.commons.Timer;
-import com.epam.jdi.uitests.web.selenium.driver.DriverTypes;
 import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -30,11 +29,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.settings.WebSettings.initFromProperties;
-import static com.epam.jdi.uitests.web.settings.WebSettings.useDriver;
 
 /**
  * Created by Roman_Iovlev on 9/3/2015.
@@ -52,8 +49,6 @@ public class TestNGBase {
         logger.info("Init test run");
         if (WebSettings.killBrowser.toLowerCase().contains("before"))
             killAllRunWebBrowsers();
-        if (!driverFactory.hasDrivers())
-            useDriver(DriverTypes.CHROME);
         timer = new Timer();
     }
 

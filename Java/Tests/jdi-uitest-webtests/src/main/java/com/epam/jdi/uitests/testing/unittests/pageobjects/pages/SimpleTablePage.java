@@ -23,14 +23,14 @@ public class SimpleTablePage extends WebPage {
     public ITable getTable(By rowHeader, By columnHeader, By row, By column) {
 
         simpleTable = new Table(rowHeader, columnHeader, row, column, -1, -1);
-        simpleTable.setAvatar(By.xpath("*//table"));
+        simpleTable.setLocator(By.xpath("*//table"));
 
         return simpleTable;
     }
     public ITable getTable(By rowHeader, By columnHeader, By row, By column, int rowStartIndex, int columnStartIndex) {
 
         simpleTable = new Table(rowHeader, columnHeader, row, column, rowStartIndex, columnStartIndex);
-        simpleTable.setAvatar(By.xpath("*//table"));
+        simpleTable.setLocator(By.xpath("*//table"));
 
         return simpleTable;
     }
@@ -38,7 +38,7 @@ public class SimpleTablePage extends WebPage {
     public ITable getTable(By rowHeader, By columnHeader, int rowStartIndex, int columnStartIndex) {
 
         simpleTable = new Table(rowHeader, columnHeader, null, null, rowStartIndex, columnStartIndex);
-        simpleTable.setAvatar(By.xpath("*//table"));
+        simpleTable.setLocator(By.xpath("*//table"));
 
         return simpleTable;
     }
@@ -46,7 +46,7 @@ public class SimpleTablePage extends WebPage {
     public Table getTable(boolean hasRowHeaders, boolean hasColumnHeaders) {
 
         simpleTable = new Table();
-        simpleTable.setAvatar(By.xpath("*//table"));
+        simpleTable.setLocator(By.xpath("*//table"));
 
         simpleTable.hasAllHeaders();
         return simpleTable;
@@ -56,7 +56,7 @@ public class SimpleTablePage extends WebPage {
 
         simpleTable = new Table(rowHeaderLocator, columnHeaderLocator, null, null, -1, -1);
 
-        simpleTable.setAvatar(By.xpath("*//table"));
+        simpleTable.setLocator(By.xpath("*//table"));
 
         simpleTable.hasAllHeaders();
 

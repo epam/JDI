@@ -75,7 +75,7 @@ public class DropList<TEnum extends Enum> extends MultiSelector<TEnum> implement
             Element el = new Element(root);
             el.setParent(getParent());
             setParent(el);
-            setAvatar(root);
+            setLocator(root);
         }
         if (list != null) {
             this.allLabels = new GetElementType(list, this);

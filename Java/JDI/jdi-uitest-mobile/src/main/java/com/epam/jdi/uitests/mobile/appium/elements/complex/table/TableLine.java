@@ -53,6 +53,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected By headersLocator;
     protected By defaultTemplate;
     protected By lineTemplate = null;
+    public boolean locatorChanged() { return lineTemplate != null; }
 
     public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());

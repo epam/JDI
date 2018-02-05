@@ -1,6 +1,5 @@
 package com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow;
 
-import com.epam.jdi.uitests.core.interfaces.common.IButton;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.complextable.ComplexTableTab;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.contactform.ContactFormTab;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.dates.DatesTab;

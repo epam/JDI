@@ -3,15 +3,12 @@ package com.epam.jdi.site.epam;
 import com.epam.jdi.enums.HeaderMenu;
 import com.epam.jdi.enums.HeaderSolutionsMenu;
 import com.epam.jdi.site.epam.pages.*;
-import com.epam.jdi.site.epam.sections.ContactUsSection;
 import com.epam.jdi.site.epam.sections.Header;
-import com.epam.jdi.uitests.core.interfaces.complex.IDropDown;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropdown;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -38,6 +35,7 @@ public class EpamSite extends WebSite {
             urlTemplate = "/careers/job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
     public static JobListingPage jobListingPage;
+
 
     @JPage(url = "/careers/job-listings/job.11516", urlTemplate = ".*/careers/job-listings/job\\.\\d*",
             urlCheckType = MATCH)

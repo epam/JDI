@@ -17,7 +17,8 @@ import static com.epam.commons.LinqUtils.*;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.*;
+import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.fillByTemplate;
+import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.getByLocator;
 import static com.epam.jdi.uitests.win.winnium.elements.ElementsUtils.timer;
 import static java.util.Collections.addAll;
 
@@ -31,6 +32,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected By headersLocator;
     protected By defaultTemplate;
     protected By lineTemplate = null;
+    public boolean locatorChanged() { return lineTemplate != null; }
 
     public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());

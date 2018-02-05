@@ -54,6 +54,7 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
     public JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
+    public String remoteHubUrl;
     public String currentDriverName = "";
     public boolean isDemoMode = false;
     public HighlightSettings highlightSettings = new HighlightSettings();
@@ -107,6 +108,9 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
                 this.runType = RunTypes.REMOTE;
                 break;
         }
+    }
+    public void setRemoteHubUrl(String url) {
+        remoteHubUrl = url;
     }
 
     private String getDriversPath() {

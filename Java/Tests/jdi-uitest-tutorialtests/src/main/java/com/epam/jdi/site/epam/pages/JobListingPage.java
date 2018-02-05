@@ -25,10 +25,10 @@ public class JobListingPage extends WebPage {
             header = {"name", "description", "apply"})
     public EntityTable<Vacancy, VacancyRow> jobsAsData;
 
-    @JTable(root = @FindBy(className = "search-result-list"),
-        row = @FindBy(xpath = ".//li[%s]//div"),
-        column = @FindBy(xpath = ".//li//div[%s]"),
-        header = {"name", "description", "apply"})
+    @JTable(root = @FindBy(className = "search-result__list"),
+            row = @FindBy(xpath = ".//article[%s]/*"),
+            column = @FindBy(xpath = ".//article/*[%s]"),
+            header = {"name", "description", "apply"})
     public Table jobs;
 
     @Css(".search-result__list>.search-result__item")

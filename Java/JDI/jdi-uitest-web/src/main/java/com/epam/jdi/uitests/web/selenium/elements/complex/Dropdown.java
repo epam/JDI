@@ -82,7 +82,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
             expand = findByToBy(jDropdown.jexpand());
 
         if (root != null)
-            setAvatar(root);
+            setLocator(root);
         if (value != null) {
             this.element = new GetElementType(value, this);
             if (expander == null) this.expander = element;

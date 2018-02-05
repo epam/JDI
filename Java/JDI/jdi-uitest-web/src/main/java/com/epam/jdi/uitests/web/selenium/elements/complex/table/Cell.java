@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
+import com.epam.commons.linqinterfaces.JFuncREx;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
@@ -29,6 +30,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static com.epam.commons.LinqUtils.last;
+import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByMsgTemplate;
 
@@ -51,30 +53,48 @@ class Cell extends SelectElement implements ISelect, ICell {
     private int rowNum;
     private String columnName;
     private String rowName;
-    private By cellLocatorTemplate = By.xpath(".//tr[{1}]/td[{0}]");
+    private By defaultLocator = By.xpath(".//tr[{1}]/td[{0}]");
+    private JFuncREx<ICell> getFunc;
 
-    Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
-                By cellLocatorTemplate, Table table) {
-        this.getAvatar().setWebElement(webElement);
+    @Override
+    public WebElement getWebElement() {
+        if (getAvatar().hasWebElement() || getFunc == null)
+            return super.getWebElement();
+        try { return ((Cell)getFunc.invoke()).getWebElement();
+        } catch (Exception ex) { throw exception("Can't get cell " + this + LINE_BREAK + ex.getMessage()); }
+    }
+
+    Cell(int columnNum, int rowNum, String colName, String rowName, By defaultLocator, Table table) {
         this.columnNum = columnNum;
         this.rowNum = rowNum;
         this.columnName = colName;
         this.rowName = rowName;
-        if (cellLocatorTemplate != null)
-            this.cellLocatorTemplate = cellLocatorTemplate;
+        int colIndex = columnNum - 1 + table.columns().getStartIndex();
+        int rowIndex = rowNum - 1 + table.rows().getStartIndex();
+        if (table.cellLocatorTemplate != null)
+            setLocator(fillByMsgTemplate(table.cellLocatorTemplate, colIndex, rowIndex));
+        else { if (table.rows().locatorChanged())
+            getFunc = () -> table.row(rowNum).get(columnNum-1).value;
+        else { if (table.columns().locatorChanged())
+            getFunc = () -> table.column(columnNum).get(rowNum-1).value;
+        }}
+        if (!hasLocator() && getFunc == null)
+            setLocator(fillByMsgTemplate(defaultLocator, columnNum, rowNum));
         this.table = table;
     }
 
+    Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
+         By defaultLocator, Table table) {
+        this(columnNum, rowNum, colName, rowName, defaultLocator, table);
+        getAvatar().setWebElement(webElement);
+
+    }
+
     Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
-                By cellLocatorTemplate, Table table) {
-        this.columnIndex = (((Rows)table.rows()).hasHeader && ((Rows)table.rows()).lineTemplate == null) ? columnIndex + 1 : columnIndex;
+         By defaultLocator, Table table) {
+        this(columnNum, rowNum, colName, rowName, defaultLocator, table);
+        this.columnIndex = (((Rows)table.rows()).hasHeader && !table.rows().locatorChanged()) ? columnIndex + 1 : columnIndex;
         this.rowIndex = rowIndex;
-        this.columnNum = columnNum;
-        this.rowNum = rowNum;
-        this.columnName = colName;
-        this.rowName = rowName;
-        if (cellLocatorTemplate != null)
-            this.cellLocatorTemplate = cellLocatorTemplate;
         this.table = table;
     }
 
@@ -102,15 +122,15 @@ class Cell extends SelectElement implements ISelect, ICell {
                 : table.rows().headers().get(rowNum - 1);
     }
 
-    @Override
+/*    @Override
     protected String getTextAction() {
-        return get().getText();
+        return getText();
     }
 
     @Override
     protected void clickAction() {
-        get().click();
-    }
+        click();
+    }*/
 
     @Override
     protected boolean isSelectedAction() {
@@ -118,15 +138,13 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     private SelectElement get() {
-        SelectElement cell = avatar.hasWebElement()
-                ? new SelectElement(getWebElement())
-                : new SelectElement(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex));
+        SelectElement cell = new SelectElement(getWebElement());
         cell.init(table, cell.getAvatar());
         return cell;
     }
 
     public WebElement get(By subLocator) {
-        return get().get(subLocator);
+        return super.get(subLocator);
     }
 
     public <T extends IBaseElement> T get(Class<T> clazz) {
@@ -135,9 +153,8 @@ class Cell extends SelectElement implements ISelect, ICell {
             instance = (clazz.isInterface())
                     ? (T) MapInterfaceToElement.getClassFromInterface(clazz).newInstance()
                     : clazz.newInstance();
-            if (getWebElement() != null)
-                ((Element)instance).setWebElement(getWebElement());
-            else ((Element)instance).setAvatar(fillByMsgTemplate(cellLocatorTemplate, columnIndex, rowIndex), getAvatar());
+            Element el = ((Element)instance);
+            el.setWebElement(getWebElement());
             ((BaseElement) instance).init(table, instance.getAvatar());
         } catch (Exception ex) {
             throw exception("Can't get Cell from interface/class: " + last((clazz + "").split("\\.")));
@@ -151,7 +168,7 @@ class Cell extends SelectElement implements ISelect, ICell {
             return cell;
         By locator = cellSelect.getLocator();
         if (locator == null || locator.toString().equals(""))
-            locator = cellLocatorTemplate;
+            locator = defaultLocator; //TODO
         if (!locator.toString().contains("{0}") || !locator.toString().contains("{1}"))
             throw exception("Can't create cell with locator template " + cellSelect.getLocator()
                     + ". Template for Cell should contains '{0}' - for column and '{1}' - for row indexes.");

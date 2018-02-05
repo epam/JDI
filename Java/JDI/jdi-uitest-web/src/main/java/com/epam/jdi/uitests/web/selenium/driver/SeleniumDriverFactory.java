@@ -40,6 +40,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.awt.*;
 import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
@@ -51,8 +52,7 @@ import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.StringUtils.LINE_BREAK;
 import static com.epam.commons.Timer.sleep;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.downloadDriver;
 import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.shouldDownloadDriver;
 import static com.epam.jdi.uitests.web.selenium.driver.DriverTypes.*;
@@ -63,6 +63,7 @@ import static java.lang.System.setProperty;
 import static java.lang.Thread.currentThread;
 import static java.util.Arrays.asList;
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.openqa.selenium.ie.InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS;
 import static org.openqa.selenium.remote.CapabilityType.PAGE_LOAD_STRATEGY;
 
@@ -73,6 +74,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public static JFuncTREx<WebElement, Boolean> elementSearchCriteria = WebElement::isDisplayed;
     public static boolean onlyOneElementAllowedInSearch = true;
     public RunTypes runType = LOCAL;
+    public String remoteHubUrl;
     static final String FOLDER_PATH = new File("").getAbsolutePath() + "\\src\\main\\resources\\driver\\";
     public static String currentDriverName = "CHROME";
     public boolean isDemoMode = false;
@@ -168,6 +170,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 break;
         }
     }
+    public void setRemoteHubUrl(String url) {
+        remoteHubUrl = url;
+    }
 
     public String registerDriver(String driverName) {
         switch (driverName.toLowerCase()) {
@@ -179,7 +184,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             case "internetexplorer":
                 return registerDriver(IE);
             default:
-                throw exception("Unknown driver: " + driverName);
+                throw exception("Register driver failed. Unknown driver: " + driverName);
         }
     }
 
@@ -189,9 +194,28 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return registerLocalDriver(driverType);
             case REMOTE:
                 return registerDriver("Remote " + driverType,
-                        () -> new RemoteWebDriver(SauceLabRunner.getSauceUrl(), SauceLabRunner.getSauceDesiredCapabilities(driverType)));
+                        () -> new RemoteWebDriver(getRemoteURL(), getCapabilities(driverType)));
         }
-        throw exception("Unknown driver: " + driverType);
+        throw exception("Register driver failed. Unknown driver: " + driverType);
+    }
+    private URL getRemoteURL() {
+        try {
+            if (!isBlank(remoteHubUrl)) {
+                String url = remoteHubUrl.replaceAll("/*$", "/");
+                if (!url.contains("wd/hub"))
+                    url += "wd/hub/";
+                return new URL(url);
+            }
+            throw exception("You run tests in Remote mode, please specify 'remote.url' in test.properties");
+        } catch(Exception ex) { throw exception("Can't get remote Url: " + ex.getMessage()); }
+    }
+    private Capabilities getCapabilities(DriverTypes driverType) {
+        switch (driverType) {
+            case CHROME: return defaultChromeOptions();
+            case FIREFOX: return defaultFirefoxOptions();
+            case IE: return defaultIEOptions();
+        }
+        throw exception("Get capabilities failed. Unknown driver: " + driverType);
     }
 
     // GET DRIVER
@@ -211,6 +235,13 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
         throw exception("Unknown driver: " + driverType);
     }
+    private Supplier<WebDriver> getDefaultDriver() {
+        return () -> { setProperty("webdriver.chrome.driver",
+            getChromeDriverPath(getDriverPath()));
+            logger.info("USE DEFAULT DRIVER");
+            return new ChromeDriver(defaultChromeOptions());
+        };
+    }
     private void setUpDrivers(DriverTypes driverType) {
         switch (driverType) {
             case CHROME: setProperty("webdriver.chrome.driver",
@@ -219,7 +250,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 getFirefoxDriverPath(getDriverPath())); break;
             case IE: setProperty("webdriver.ie.driver",
                 getIEDriverPath(getDriverPath())); break;
-            default: throw exception("Wrong driver type: " + driverType);
+            default: throw exception("Setup driver failed. Wrong driver type: " + driverType);
         }
     }
     public static Function<MutableCapabilities, MutableCapabilities> modifyCapabilities =
@@ -296,8 +327,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
-            if (drivers.count() == 0)
-                registerDriver(driverName);
+            if (drivers.isEmpty())
+                registerDriver("DEFAULT DRIVER", getDefaultDriver());
             else throw exception("Can't find driver with name '%s'", driverName);
         try {
             Lock lock = new ReentrantLock();
@@ -370,13 +401,6 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         sleep(highlightSettings.getTimeoutInSec() * 1000);
         getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
                 webElement, orig);
-    }
-
-    public void runApplication() {
-
-    }
-
-    public void closeApplication() {
     }
 
     public void get(String s) {

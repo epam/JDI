@@ -1,13 +1,9 @@
 package com.epam.jdi.uitests.win.winnium.elements.composite;
 
 import com.epam.jdi.uitests.core.interfaces.Application;
-import com.epam.jdi.uitests.win.settings.WinSettings;
 import com.epam.jdi.uitests.win.winnium.elements.WinCascadeInit;
 import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.WinApp;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
-
-import java.io.File;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static com.epam.jdi.uitests.win.winnium.driver.WebAnnotationsUtil.findByToBy;

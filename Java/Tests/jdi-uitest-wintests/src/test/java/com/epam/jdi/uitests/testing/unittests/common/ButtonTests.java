@@ -3,7 +3,10 @@ package com.epam.jdi.uitests.testing.unittests.common;
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.mainwindow.metalsandcolors.NestedMetalsAndColorsView;
 import com.epam.web.matcher.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Factory;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

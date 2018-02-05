@@ -1,8 +1,5 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
-import com.epam.jdi.entities.Users;
-import com.epam.jdi.site.gitepam.Login;
-import com.epam.jdi.site.gitepam.TableList;
 import com.epam.jdi.site.google.custom.SearchResult;
 import com.epam.jdi.uitests.testing.GoogleTestsBase;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
@@ -13,12 +10,8 @@ import java.util.List;
 
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.jdi.site.gitepam.Login.loginWith;
-import static com.epam.jdi.site.gitepam.TableList.headers;
 import static com.epam.jdi.site.google.GoogleSite.homePage;
 import static com.epam.jdi.site.google.GoogleSite.searchPage;
-import static com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit.initPageObjects;
-import static com.epam.jdi.uitests.web.selenium.elements.composite.WebPage.openUrl;
 
 
 public class ListElementsExample extends GoogleTestsBase {
@@ -60,14 +53,5 @@ public class ListElementsExample extends GoogleTestsBase {
         return "!!!" + String.join(LINE_BREAK, select(jobs, SearchResult::print));
     }
 
-    // TODO @Test
-    public void removeElements() {
-        openUrl("https://epam.github.io/JDI/");
-        initPageObjects(Login.class, TableList.class);
-        loginWith(Users.DEFAULT);
-        openUrl("https://epam.github.io/JDI/page5.htm");
-        String s = headers.toString();
-        System.out.println(headers.toString());
-    }
 
 }

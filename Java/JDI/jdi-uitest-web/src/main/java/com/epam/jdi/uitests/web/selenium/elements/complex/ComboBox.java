@@ -82,7 +82,7 @@ public class ComboBox<TEnum extends Enum> extends Dropdown<TEnum> implements ICo
         By expand = findByToBy(jComboBox.expand());
 
         if (root != null)
-            setAvatar(root);
+            setLocator(root);
         if (value != null) {
             this.element = new GetElementType(value, this);
             if (expander == null){

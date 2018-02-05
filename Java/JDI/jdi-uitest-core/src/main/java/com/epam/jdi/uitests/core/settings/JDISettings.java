@@ -69,8 +69,6 @@ public abstract class JDISettings {
 
     public static synchronized void initFromProperties() throws IOException {
         getProperties(jdiSettingsPath);
-        fillAction(driverFactory::registerDriver, "driver");
-        fillAction(driverFactory::setRunType, "run.type");
         fillAction(p -> shortLogMessagesFormat = p.toLowerCase().equals("short"), "log.message.format");
         fillAction(p -> USE_CACHE =
             p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
@@ -80,6 +78,9 @@ public abstract class JDISettings {
         fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
         fillAction(p -> shouldVerifyLayout = p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "verifyLayout");
         fillAction(p -> rootImagesPath = p, "rootLayoutPath");
+        fillAction(driverFactory::setRunType, "run.type");
+        fillAction(driverFactory::setRemoteHubUrl, "remote.url");
+        fillAction(driverFactory::registerDriver, "driver");
         // fillAction(p -> timeouts.waitPageLoadSec = parseInt(p), "timeout.wait.pageLoad");
     }
 

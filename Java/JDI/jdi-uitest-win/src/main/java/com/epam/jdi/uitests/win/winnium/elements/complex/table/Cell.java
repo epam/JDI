@@ -3,7 +3,6 @@ package com.epam.jdi.uitests.win.winnium.elements.complex.table;
 import com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
-import com.epam.jdi.uitests.win.winnium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.win.winnium.elements.base.Element;
 import com.epam.jdi.uitests.win.winnium.elements.base.SelectElement;
 import org.openqa.selenium.By;

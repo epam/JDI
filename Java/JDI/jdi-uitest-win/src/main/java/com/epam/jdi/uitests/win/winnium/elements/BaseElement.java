@@ -13,9 +13,7 @@ import org.openqa.selenium.WebDriver;
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
-import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
-import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
+import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public abstract class BaseElement implements IBaseElement {

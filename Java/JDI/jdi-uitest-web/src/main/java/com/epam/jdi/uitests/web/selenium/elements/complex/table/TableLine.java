@@ -18,24 +18,24 @@ package com.epam.jdi.uitests.web.selenium.elements.complex.table;
  */
 
 
-        import com.epam.commons.map.MapArray;
-        import com.epam.jdi.uitests.core.interfaces.base.ISelect;
-        import com.epam.jdi.uitests.core.interfaces.common.IText;
-        import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ElementIndexType;
-        import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
-        import com.epam.jdi.uitests.web.selenium.elements.base.Element;
-        import org.openqa.selenium.By;
-        import org.openqa.selenium.WebElement;
+import com.epam.commons.map.MapArray;
+import com.epam.jdi.uitests.core.interfaces.base.ISelect;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ElementIndexType;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ITableLine;
+import com.epam.jdi.uitests.web.selenium.elements.base.Element;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
-        import static com.epam.commons.LinqUtils.*;
-        import static com.epam.commons.ReflectionUtils.isClass;
-        import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-        import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
-        import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
-        import static java.util.Collections.addAll;
+import static com.epam.commons.LinqUtils.*;
+import static com.epam.commons.ReflectionUtils.isClass;
+import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.getByLocator;
+import static java.util.Collections.addAll;
 
 /**
  * Created by 12345 on 25.10.2014.
@@ -50,6 +50,7 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
     protected By headersLocator;
     protected By defaultTemplate;
     protected By lineTemplate = null;
+    public boolean locatorChanged() { return lineTemplate != null; }
 
     public  <T extends TableLine> T clone(T newTableLine, Table newTable) {
         asserter.silent(() -> super.clone());
@@ -75,14 +76,14 @@ abstract class TableLine extends Element implements ITableLine, Cloneable {
 
     protected List<WebElement> getLineAction(String lineName) {
         int index = getIndex(select(headers(), String::toLowerCase), lineName.toLowerCase()) + 1;
-        if (lineTemplate != null && getByLocator(lineTemplate).contains("%s"))
+        if (locatorChanged() && getByLocator(lineTemplate).contains("%s"))
             return getElementByTemplate(index);
-        return lineTemplate == null
-                ? getLineAction(index)
-                : getElementByTemplate(index);
+        return locatorChanged()
+                ? getElementByTemplate(index)
+                : getLineAction(index);
     }
     private List<WebElement> getElementByTemplate(Object value) {
-        By locator = fillByTemplate(lineTemplate != null
+        By locator = fillByTemplate(locatorChanged()
                 ? lineTemplate
                 : defaultTemplate, value);
         return where(table.getWebElement().findElements(locator), WebElement::isDisplayed);

@@ -8,7 +8,6 @@ import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.gui.sikuli.elements.BaseElement;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
-import org.sikuli.script.Screen;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.awt.*;

@@ -10,14 +10,12 @@ import com.epam.jdi.uitests.win.winnium.elements.common.Button;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.epam.commons.EnumUtils.getEnumValue;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.fillByTemplate;
 import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.getByLocator;
-import static com.epam.jdi.uitests.win.winnium.driver.WebDriverByUtils.getByName;
 
 public class Selector<TEnum extends Enum> extends BaseElement implements IRadioButtons<TEnum> {
 

@@ -3,7 +3,6 @@ package com.epam.jdi.selenium.pageobject;
 import com.epam.jdi.entities.Vacancy;
 import com.epam.jdi.enums.HeaderMenu;
 import com.epam.jdi.site.epam.CustomElements.JobRecord;
-import com.epam.jdi.site.epam.sections.VacancyRow;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Elements;
 import com.epam.jdi.uitests.web.selenium.elements.complex.Menu;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
@@ -11,6 +10,7 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.object
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import java.util.List;
 
 /**

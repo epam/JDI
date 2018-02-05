@@ -181,6 +181,9 @@ public abstract class BaseElement implements IBaseElement {
         this.avatar = this.avatar.copy(byLocator);
         return this;
     }
+    public void setLocator(By byLocator) {
+        avatar.setLocator(byLocator);
+    }
 
     public BaseElement setAvatar(By byLocator, GetElementModule avatar) {
         this.avatar = avatar.copy(byLocator);
@@ -255,7 +258,7 @@ public abstract class BaseElement implements IBaseElement {
         return MessageFormat.format(shortLogMessagesFormat
                         ? "{1} ''{0}'' ({2}.{3}; {4})"
                         : "Name: ''{0}'', Type: ''{1}'' In: ''{2}'', {4}",
-                getName(), getTypeName(), getParentName(), getVarName(), avatar);
+                getName(), getTypeName(), getParentName(), getVarName(), getAvatar());
     }
 
     public IBaseElement should(Condition... conditions){

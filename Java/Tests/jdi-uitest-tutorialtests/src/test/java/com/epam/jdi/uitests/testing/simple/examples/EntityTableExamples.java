@@ -1,10 +1,8 @@
 package com.epam.jdi.uitests.testing.simple.examples;
 
 import com.epam.jdi.entities.Vacancy;
-import com.epam.jdi.site.epam.CustomElements.JobRecord;
 import com.epam.jdi.site.epam.sections.VacancyRow;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.EntityTable;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -12,8 +10,6 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-import static com.epam.commons.LinqUtils.select;
-import static com.epam.commons.PrintUtils.print;
 import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
 import static com.epam.jdi.site.epam.EpamSite.jobListingPage;
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Column.inColumn;
@@ -48,9 +44,8 @@ public class EntityTableExamples extends TestsBase {
 
     @Test
     public void searchInTable() {
-        jobsTable()
-            .getRow(withValue("Test Automation Engineer (back-end)\nST-PETERSBURG, RUSSIA"), inColumn("name")).apply.click();
-
+        jobsTable().getRow(withValue("Test Automation Engineer (back-end)\nST-PETERSBURG, RUSSIA"),
+            inColumn("name")).apply.click();
         jobDescriptionPage.checkOpened();
     }
     @Test

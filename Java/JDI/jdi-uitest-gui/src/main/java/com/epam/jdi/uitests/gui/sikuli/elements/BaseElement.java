@@ -15,7 +15,6 @@ import com.epam.jdi.uitests.gui.sikuli.elements.base.Element;
 import com.epam.jdi.uitests.gui.sikuli.elements.pageobjects.annotations.GuiAnnotationsUtil;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
-import org.sikuli.script.Screen;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;

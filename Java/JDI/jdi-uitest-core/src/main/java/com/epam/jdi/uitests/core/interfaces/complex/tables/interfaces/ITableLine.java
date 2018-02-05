@@ -35,6 +35,7 @@ public interface ITableLine {
     int count();
     int count(boolean acceptEmpty);
     default int size() { return count(); }
+    boolean locatorChanged();
 
     /**
      * Get Columns/Rows headers

@@ -153,7 +153,7 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
         By root = findByToBy(jTable.root());
         if (root == null)
             root = findByToBy(jTable.jRoot());
-        setAvatar(root);
+        setLocator(root);
         By headers = findByToBy(jTable.headers());
         By rowNames = findByToBy(jTable.rowNames());
         cellLocatorTemplate = findByToBy(jTable.cell());
@@ -168,9 +168,9 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
             rowNames = findByToBy(jTable.jRowNames());
         if (cellLocatorTemplate == null)
             cellLocatorTemplate = findByToBy(jTable.jCell());
-        if (columns.lineTemplate == null)
+        if (!columns.locatorChanged())
             columns.lineTemplate = findByToBy(jTable.jColumn());
-        if (rows.lineTemplate == null)
+        if (!rows.locatorChanged())
             rows.lineTemplate = findByToBy(jTable.jRow());
         if (footerLocator == null)
             footerLocator = findByToBy(jTable.jFooter());

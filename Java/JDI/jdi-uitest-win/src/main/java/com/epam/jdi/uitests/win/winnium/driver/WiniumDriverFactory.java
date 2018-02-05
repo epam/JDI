@@ -9,7 +9,6 @@ import org.openqa.selenium.winium.DesktopOptions;
 import org.openqa.selenium.winium.WiniumDriver;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.function.Supplier;
 
@@ -56,6 +55,8 @@ public class WiniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public void setRunType(String runType) {}
+
+    public void setRemoteHubUrl(String url) { }
 
     public WebDriver getDriver() {
         return getDriver(currentDriverName);
