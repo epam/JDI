@@ -136,23 +136,19 @@ public abstract class CascadeInit {
     private IBaseElement createChildFromFieldStatic(Object parent, Class<?> parentClass,
                                                     Field field, Class<?> type, String driverName) {
         IBaseElement instance = (IBaseElement) getValueField(field, parent);
-        if (instance == null) {
-            try {
-                instance = getElementInstance(field, driverName, parent);
-            } catch (Exception ex) {
-                throw exception(
-                    format("Can't create child for parent '%s' with type '%s'. Exception: %s",
-                        parentClass.getSimpleName(), field.getType().getSimpleName(),
-                        ex.getMessage()));
-            }
-        } else {
-            instance = fillInstance(instance, field);
+        try {
+            instance = instance == null
+                ? getElementInstance(field, driverName, parent)
+                : fillInstance(instance, field);
+        } catch (Exception ex) {
+            throw exception(
+                format("Can't create child for parent '%s' with type '%s'. Exception: %s",
+                    parentClass.getSimpleName(), field.getType().getSimpleName(),
+                    ex.getMessage()));
         }
-        if (field.isAnnotationPresent(Root.class)) {
-            instance.setParent(null);
-        } else {
-            instance.setParent(parent);
-        }
+        instance.setParent(field.isAnnotationPresent(Root.class)
+            ? null
+            : parent);
         instance = fillFromJDIAnnotation(instance, field);
         instance = specificAction(instance, field, parent, type);
         return instance;

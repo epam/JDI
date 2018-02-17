@@ -42,7 +42,7 @@ public class JobFilter extends Form<JobSearchFilter> {
     IButton selectButton;
 
     //Title
-    @Css("job-search-title")
+    @Css(".job-search-title")
     public Label label;
 
 //    @Override

@@ -78,7 +78,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>1.7.2</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -89,16 +89,6 @@
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-java-adaptor-api</artifactId>
             <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
         </dependency>
     </dependencies>
     <build>

@@ -24,7 +24,10 @@ package com.epam.jdi.uitests.web.selenium.driver;
 public enum DriverTypes {
     CHROME("chrome"),
     FIREFOX("firefox"),
-    IE("ie");
+    IE("ie"),
+    EDGE("edge"),
+    PHANTOMJS("phantom"),
+    OPERA("opera");
 
     public final String name;
 

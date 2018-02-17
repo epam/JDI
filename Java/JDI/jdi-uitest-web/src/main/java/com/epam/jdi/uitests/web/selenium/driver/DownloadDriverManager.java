@@ -1,9 +1,9 @@
 package com.epam.jdi.uitests.web.selenium.driver;
 
-import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 
@@ -23,25 +23,31 @@ public class DownloadDriverManager {
     }
 
     public static void downloadDriver(DriverTypes driverType) {
-        BrowserManager bm = null;
+        WebDriverManager wdm = null;
         try {
             switch (driverType) {
                 case CHROME:
-                    bm = ChromeDriverManager.getInstance(); break;
+                    wdm = WebDriverManager.chromedriver(); break;
                 case FIREFOX:
-                    bm = FirefoxDriverManager.getInstance(); break;
+                    wdm = WebDriverManager.firefoxdriver(); break;
                 case IE:
-                    bm = InternetExplorerDriverManager.getInstance(); break;
+                    wdm = WebDriverManager.iedriver(); break;
+                case EDGE:
+                    wdm = WebDriverManager.edgedriver(); break;
+                case PHANTOMJS:
+                    wdm = WebDriverManager.phantomjs(); break;
+                case OPERA:
+                    wdm = WebDriverManager.operadriver(); break;
             }
-            if (bm == null)
+            if (wdm == null)
                 throw exception("Unknown driver: " + driverType);
             switch (platform) {
-                case "32": bm = bm.arch32(); break;
-                case "64": bm = bm.arch64(); break;
+                case "32": wdm = wdm.arch32(); break;
+                case "64": wdm = wdm.arch64(); break;
             }
             if (hasVersion())
-                bm = bm.version(driverVersion);
-            bm.setup();
+                wdm = wdm.version(driverVersion);
+            wdm.setup();
         } catch (Exception ex) {
             throw exception("Can't download latest driver for " + driverType
                     + ". Exception " + ex.getMessage());
