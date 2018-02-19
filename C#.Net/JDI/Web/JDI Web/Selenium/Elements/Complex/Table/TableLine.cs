@@ -18,11 +18,11 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public int Count
         {
-            get => GetCount(false);
+            get { return GetCount(false); }
             set { if (Table.Cache)
                     _count = value; }
         }
-        
+
         private IList<string> _headers;
 
         public void AddHeaders(IList<string> headers)
@@ -155,9 +155,15 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             Count = 0;
         }
 
-        public IList<string> AllHeaders => GetHeadersAction.Where(el => el.Displayed)
-            .Select(el => el.Text).ToList();
-        
+        public IList<string> AllHeaders
+        {
+            get
+            {
+                return GetHeadersAction.Where(el => el.Displayed)
+                    .Select(el => el.Text).ToList();
+            }
+        }
+
         public void Update(TableLine tableLine)
         {
             if (tableLine.Count > 0)
@@ -174,7 +180,9 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                 ElementIndex = tableLine.ElementIndex;
         }
 
-        protected IList<IWebElement> GetHeadersAction 
-            => Table.WebElement.FindElements(HeadersLocator);
+        protected IList<IWebElement> GetHeadersAction
+        {
+            get { return Table.WebElement.FindElements(HeadersLocator); }
+        }
     }
 }

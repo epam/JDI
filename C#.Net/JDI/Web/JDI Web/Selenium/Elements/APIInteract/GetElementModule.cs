@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
 using Epam.JDI.Core.Interfaces.Base;
-using Epam.JDI.Core.Settings;
 using JDI_Web.Selenium.DriverFactory;
 using JDI_Web.Selenium.Base;
 using JDI_Web.Selenium.Elements.Base;
@@ -11,7 +10,6 @@ using JDI_Web.Settings;
 using OpenQA.Selenium;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
-using static JDI_Web.Settings.WebSettings;
 using WebDriverFactory = JDI_Web.Selenium.DriverFactory.WebDriverFactory;
 
 namespace JDI_Web.Selenium.Elements.APIInteract
@@ -24,8 +22,8 @@ namespace JDI_Web.Selenium.Elements.APIInteract
         public WebBaseElement RootElement;
         public string DriverName { get; set; }
 
-        public IWebDriver WebDriver 
-            => WebSettings.WebDriverFactory.GetDriver(DriverName);
+        public IWebDriver WebDriver => WebSettings.WebDriverFactory.GetDriver(DriverName);
+
         public Func<IWebElement, bool> LocalElementSearchCriteria;
 
         public GetElementModule(WebBaseElement element, By byLocator = null)
@@ -36,8 +34,10 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 DriverName = WebSettings.WebDriverFactory.CurrentDriverName;
         }
 
-        public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec*1000);
+        public Timer Timer => new Timer(Timeouts.CurrentTimeoutSec * 1000);
+
         public bool HasLocator => ByLocator != null;
+
         private IWebElement _webElement;
         private List<IWebElement> _webElements;
 
@@ -70,7 +70,7 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug("OneElement found");
                 return element;
             }
-            set => _webElement = value;
+            set { _webElement = value; }
         }
 
         public List<IWebElement> WebElements
@@ -82,8 +82,9 @@ namespace JDI_Web.Selenium.Elements.APIInteract
                 Logger.Debug($"Found {elements.Count} elements");
                 return elements;
             }
-            set => _webElements = value;
+            set { _webElements = value; }
         }
+
         public T FindImmediately<T>(Func<T> func, T ifError)
         {
             Element.SetWaitTimeout(0);
@@ -172,7 +173,9 @@ namespace JDI_Web.Selenium.Elements.APIInteract
             return searchContext.FindElements(locator.CorrectXPath()).ToList();
         }
 
-        private Func<IWebElement, bool> GetSearchCriteria 
-            => LocalElementSearchCriteria ?? WebSettings.WebDriverFactory.ElementSearchCriteria;
+        private Func<IWebElement, bool> GetSearchCriteria
+        {
+            get { return LocalElementSearchCriteria ?? WebSettings.WebDriverFactory.ElementSearchCriteria; }
+        }
     }
 }

@@ -3,16 +3,15 @@ using JDI_UIWebTests.Entities;
 using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Common;
 using JDI_Web.Selenium.Elements.Composite;
-using OpenQA.Selenium;
 using System.Collections.Generic;
 
 
 namespace JDI_UIWebTests.UIObjects.Sections
 {
-    public class ContactFormTwoButtons:Form<Contact>
+    public class ContactFormTwoButtons : Form<Contact>
     {
         [FindBy(Id = "Name")]
-        public TextField Name;
+        public new TextField Name;
 
         [FindBy(Id = "LastName")]
         public TextField LastName;
@@ -21,7 +20,7 @@ namespace JDI_UIWebTests.UIObjects.Sections
         public TextArea Description;
 
         [FindBy(XPath = "//*[text()='Submit']")]
-        public IButton Submit;
+        public new IButton Submit;
 
         [FindBy(XPath = ".//a[@class='ui-slider-handle ui-state-default ui-corner-all' and position()=1]")]
         public Link FirstRoller;
@@ -29,14 +28,14 @@ namespace JDI_UIWebTests.UIObjects.Sections
         [FindBy(XPath = ".//a[@class='ui-slider-handle ui-state-default ui-corner-all' and position()=2]")]
         public Link SecondRoller;
 
-        private IJavaScriptExecutor javaScriptExecutor;
-
         public List<string> GetFormValue()
         {
-            List<string> fields = new List<string>();
-            fields.Add(Name.GetText);
-            fields.Add(LastName.GetText);
-            fields.Add(Description.GetText);
+            var fields = new List<string>
+            {
+                Name.GetText,
+                LastName.GetText,
+                Description.GetText
+            };
             return fields;
         }
 
@@ -44,7 +43,7 @@ namespace JDI_UIWebTests.UIObjects.Sections
         {
             Name.NewInput(contact.FirstName);
             LastName.NewInput(contact.LastName);
-            Description.NewInput(contact.Description);            
-        }  
+            Description.NewInput(contact.Description);
+        }
     }
 }

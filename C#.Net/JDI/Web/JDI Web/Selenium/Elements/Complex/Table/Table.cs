@@ -37,30 +37,49 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
                     AllCells = result;
                 return result;
             }
-            set => _allCells = value;
+            set { _allCells = value; }
         }
 
         public Columns Columns
         {
-            get => _columns;
-            set => _columns.Update(value);
+            get { return _columns; }
+            set { _columns.Update(value); }
         }
 
         public Rows Rows
         {
-            get => _rows;
-            set => _rows.Update(value);
+            get { return _rows; }
+            set { _rows.Update(value); }
         }
 
         public bool Cache { set; get; }
 
-        public By RootBy { set => WebAvatar.ByLocator = value; }
+        public By RootBy
+        {
+            set { WebAvatar.ByLocator = value; }
+        }
+
         protected By CellLocatorBy { set; get; }
-        public By ColumnBy { set => Columns.LineTemplate = value; }
-        public By RowBy { set => Rows.LineTemplate = value; }
+        public By ColumnBy
+        {
+            set { Columns.LineTemplate = value; }
+        }
+
+        public By RowBy
+        {
+            set { Rows.LineTemplate = value; }
+        }
+
         public By FooterBy { get; set; } = By.XPath(".//tfoot/tr/th");
-        public By ColumnHeaderBy { set => Columns.HeadersLocator = value; }
-        public By RowHeaderBy { set => Rows.HeadersLocator = value; }
+        public By ColumnHeaderBy
+        {
+            set { Columns.HeadersLocator = value; }
+        }
+
+        public By RowHeaderBy
+        {
+            set { Rows.HeadersLocator = value; }
+        }
 
         public string[] ColumnHeaders
         {
@@ -80,8 +99,15 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             }
         }
 
-        public int ColumnFrom { set => Columns.StartIndex = value; }
-        public int RowFrom { set => Rows.StartIndex = value; }
+        public int ColumnFrom
+        {
+            set { Columns.StartIndex = value; }
+        }
+
+        public int RowFrom
+        {
+            set { Rows.StartIndex = value; }
+        }
 
         public TableHeaderTypes HeaderType
         {
@@ -115,17 +141,24 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             Rows.Table = this;
         }
 
-        protected override Func<WebBaseElement, string> GetTextAction => p =>
+        protected override Func<WebBaseElement, string> GetTextAction
         {
-            return "||X||" + Columns.Headers.Print("|") + "||\n"
-                   +
-                   Rows.Headers.Select(rowName =>
-                           "||" + rowName + "||" +
-                           GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value).Print("|") +
-                           "||").Print("\n");
-        };
+            get
+            {
+                return p =>
+                {
+                    return "||X||" + Columns.Headers.Print("|") + "||\n"
+                           +
+                           Rows.Headers.Select(rowName =>
+                               "||" + rowName + "||" +
+                               GetCells().Where(cell => cell.RowName.Equals(rowName)).Select(cell => cell.Value)
+                                   .Print("|") +
+                               "||").Print("\n");
+                };
+            }
+        }
 
-    public Table Copy()
+        public Table Copy()
         {
             return Clone();
         }
@@ -275,8 +308,8 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public IList<string> Footer
         {
-            get => new List<string>(_footer);
-            set => _footer = new List<string>(value);
+            get { return new List<string>(_footer); }
+            set { _footer = new List<string>(value); }
         }
 
         public Dictionary<string, SelectableElement> Header()
@@ -289,7 +322,10 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             return Columns.Header(name);
         }
 
-        public IList<string> Headers => Columns.Headers;
+        public IList<string> Headers
+        {
+            get { return Columns.Headers; }
+        }
 
         public IList<string> FooterInstance() // TODO method name conflict
         {

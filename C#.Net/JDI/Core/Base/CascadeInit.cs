@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Epam.JDI.Core.Attributes;
+using Epam.JDI.Core.Base;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Complex;
 using JDI_Commons;
-using static Epam.JDI.Core.Attributes.AttributesUtil;
-using static Epam.JDI.Core.ExceptionUtils;
+using ExceptionUtils = Epam.JDI.Core.ExceptionUtils;
 
-namespace Epam.JDI.Core.Base
+namespace JDI_Core.Base
 {
     public abstract class CascadeInit
     {
@@ -56,7 +57,7 @@ namespace Epam.JDI.Core.Base
             string driverName)
         {
             var instance = CreateChildFromFieldStatic(parent, parentType, field, type, driverName);
-            instance.SetFunction(GetFunction(field));
+            instance.SetFunction(AttributesUtil.GetFunction(field));
             return instance;
         }
 
@@ -75,7 +76,7 @@ namespace Epam.JDI.Core.Base
         {
             var instance = (IBaseElement) field.GetValue(parent);
             if (instance == null)
-                instance = ActionWithException(
+                instance = ExceptionUtils.ActionWithException(
                     () => GetElementInstance(field, driverName, parent),
                     ex =>
                         $"Can't create child for parent '{parentClass.Name}' with type '{field.FieldType.Name}'. Exception: {ex}");
@@ -88,7 +89,7 @@ namespace Epam.JDI.Core.Base
 
         protected void SetElement(object parent, Type parentType, FieldInfo field, string driverName)
         {
-            ActionWithException(() =>
+            ExceptionUtils.ActionWithException(() =>
             {
                 var type = field.FieldType;
                 var instance = typeof(IPage).IsAssignableFrom(type)
@@ -103,7 +104,7 @@ namespace Epam.JDI.Core.Base
                     InitElements(instance, driverName);
             },
                 ex =>
-                    $"Error in SetElement for field '{field.Name}' with parent '{parentType?.Name ?? "NULL Class" + ex.FromNewLine()}'");
+                    $"Error in SetElement for field '{field.Name}' with parent '{parentType?.Name ?? "NULL Class" + CommonExtensions.FromNewLine(ex)}'");
         }
 
         protected abstract IBaseElement GetElementsRules(FieldInfo field, string driverName, Type type, string fieldName);
@@ -112,9 +113,9 @@ namespace Epam.JDI.Core.Base
         {
             var type = field.FieldType;
             var fieldName = field.Name;
-            return ActionWithException(() => GetElementsRules(field, driverName, type, fieldName),
+            return ExceptionUtils.ActionWithException(() => GetElementsRules(field, driverName, type, fieldName),
                 ex =>
-                    $"Error in GetElementInstance for field '{fieldName}'{(parent != null ? "in " + parent.GetClassName() : "")} with type '{type.Name + ex.FromNewLine()}'");
+                    $"Error in GetElementInstance for field '{fieldName}'{(parent != null ? "in " + parent.GetClassName() : "")} with type '{type.Name + CommonExtensions.FromNewLine(ex)}'");
         }
     }
 }

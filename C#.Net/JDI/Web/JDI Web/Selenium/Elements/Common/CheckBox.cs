@@ -11,7 +11,7 @@ namespace JDI_Web.Selenium.Elements.Common
     {
         public CheckBox() : this(null) { }
         public CheckBox(By byLocator = null, IWebElement webElement = null, WebBaseElement element = null)
-            : base(byLocator, webElement, element:element) { }
+            : base(byLocator, webElement, element: element) { }
 
         public Action<CheckBox> CheckAction = el =>
         {
@@ -58,12 +58,12 @@ namespace JDI_Web.Selenium.Elements.Common
                 case "true":
                 case "1":
                 case "check":
-                    ((CheckBox) el).Check();
+                    ((CheckBox)el).Check();
                     break;
                 case "false":
                 case "0":
                 case "uncheck":
-                    ((CheckBox) el).Uncheck();
+                    ((CheckBox)el).Uncheck();
                     break;
                 default:
                     throw Exception(
@@ -73,11 +73,11 @@ namespace JDI_Web.Selenium.Elements.Common
 
         public string Value
         {
-            get => Actions.GetValue(GetValueFunc);
-            set => Actions.SetValue(value, SetValueAction);
+            get { return Actions.GetValue(GetValueFunc); }
+            set { Actions.SetValue(value, SetValueAction); }
         }
 
-        protected Func<WebBaseElement, string> GetValueFunc = el => ((CheckBox) el).IsChecked() + "";
+        protected Func<WebBaseElement, string> GetValueFunc = el => ((CheckBox)el).IsChecked() + "";
 
     }
 }
