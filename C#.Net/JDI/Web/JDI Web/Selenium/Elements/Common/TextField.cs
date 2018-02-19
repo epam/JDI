@@ -20,22 +20,22 @@ namespace JDI_Web.Selenium.Elements.Common
             Input(text);
         }
 
-        
+
         protected Action<WebBaseElement, string> InputAction =
-             (el,text)  => el.WebElement.SendKeys(text);
+             (el, text) => el.WebElement.SendKeys(text);
 
         public void Input(string text)
         {
             Actions.Input(text, InputAction);
         }
 
-        protected Action<WebBaseElement, string> SetValueAction = (el,val) =>
-            ((TextField) el).NewInput(val);
+        protected Action<WebBaseElement, string> SetValueAction = (el, val) =>
+            ((TextField)el).NewInput(val);
 
         public new string Value
         {
-            get => base.Value;
-            set => Actions.SetValue(value, SetValueAction);
+            get { return base.Value; }
+            set { Actions.SetValue(value, SetValueAction); }
         }
 
         public void SendKeys(string text)
@@ -43,7 +43,7 @@ namespace JDI_Web.Selenium.Elements.Common
             Input(text);
         }
 
-        protected Action<WebBaseElement> ClearAction = cl => cl.WebElement.Clear(); 
+        protected Action<WebBaseElement> ClearAction = cl => cl.WebElement.Clear();
 
         public void Clear()
         {

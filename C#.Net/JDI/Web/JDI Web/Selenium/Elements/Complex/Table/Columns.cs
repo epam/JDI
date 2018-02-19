@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JDI_Commons;
-using JDI_Web.Selenium.Elements.Base;
 using JDI_Web.Selenium.Elements.Complex.Table.Interfaces;
 using OpenQA.Selenium;
 using static Epam.JDI.Core.Settings.JDISettings;
@@ -19,7 +18,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             DefaultTemplate = By.XPath(".//tr/td[{0}]");
         }
 
-        protected List<IWebElement> GetHeadersAction()
+        protected new List<IWebElement> GetHeadersAction()
         {
             return Table.WebElements.FindAll(el => el.Equals(HeadersLocator));
         }

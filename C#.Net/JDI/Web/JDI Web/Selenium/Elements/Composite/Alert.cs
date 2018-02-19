@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JDI_Web.Selenium.Base;
+﻿using JDI_Web.Selenium.Base;
 using OpenQA.Selenium;
 
 namespace JDI_Web.Selenium.Elements.Composite
@@ -33,7 +28,7 @@ namespace JDI_Web.Selenium.Elements.Composite
             alert.Dismiss();
         }
 
-        protected string GetTextAction()
+        protected new string GetTextAction()
         {
             return alert.Text;
         }

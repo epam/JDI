@@ -1,18 +1,18 @@
 ﻿using Epam.JDI.Core.Interfaces.Common;
-using JDI_Web.Attributes;
 using JDI_Web.Selenium.Elements.Composite;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace JDI_UIWebTests.UIObjects.Sections
 {
-    public sealed class JdiSearch:Search
-    {        
-        [FindBy(Css = ".search-field input")]
+    public sealed class JdiSearch : Search
+    {
+        [FindsBy(How = How.CssSelector, Using = ".search-field input")]
         public ITextField SearchInput;
 
-        [FindBy(Css = ".search>.icon-search")]
-        public IButton SearchButton;
+        [FindsBy(How = How.CssSelector, Using = ".search>.icon-search")]
+        public new IButton SearchButton;
 
-        [FindBy(Css = ".icon-search.active")]
+        [FindsBy(How = How.CssSelector, Using = ".icon-search.active")]
         public IButton SearchButonActive;
     }
 }

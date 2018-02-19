@@ -1,29 +1,29 @@
 ﻿using Epam.JDI.Core.Attributes;
 using Epam.JDI.Core.Interfaces.Base;
 using Epam.JDI.Core.Interfaces.Common;
-using JDI_Web.Attributes;
-using JDI_Web.Selenium.Elements.Composite;
 using JDI_UIWebTests.Entities;
+using JDI_Web.Selenium.Elements.Composite;
+using OpenQA.Selenium.Support.PageObjects;
 
-namespace JDIWebTests.UIObjects.Sections
+namespace JDI_UIWebTests.UIObjects.Sections
 {
     public class LoginForm : Form<User>
     {
-        [FindBy(Css = "a>div.profile-photo")]
+        [FindsBy(How = How.CssSelector, Using = "a>div.profile-photo")]
         private IClickable profile;
 
-        [FindBy(Css = "button.btn-login")]
+        [FindsBy(How = How.CssSelector, Using = "button.btn-login")]
         private IButton loginButton;
 
-        [FindBy(Id = "Login")]
+        [FindsBy(How = How.Id, Using = "Login")]
         [Name("Login")]
         private ITextField loginField;
 
-        [FindBy(Id = "Password")]
+        [FindsBy(How = How.Id, Using = "Password")]
         [Name("Password")]
         private ITextField passwordField;
 
-        public void Submit(User user)
+        public new void Submit(User user)
         {
             profile.Click();
             base.Submit(user);

@@ -14,6 +14,7 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
     public class EntityTable<TEntity, TRow> : EntityTable<TEntity>
     {
         private TRow NewRow => Activator.CreateInstance<TRow>();
+
         private TRow CastToRow(Dictionary<string, ICell> row)
         {
             var newRow = NewRow;
@@ -61,8 +62,11 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             ColumnHeaders = typeof(TEntity).GetFieldsList().Select(f => f.Name).ToArray();
         }
 
-        private TEntity NewEntity => Activator.CreateInstance<TEntity>();
-        
+        private TEntity NewEntity
+        {
+            get { return Activator.CreateInstance<TEntity>(); }
+        }
+
         private TEntity RowToEntity(Dictionary<string, ICell> row)
         {
             var entity = NewEntity;
@@ -103,10 +107,20 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             return RowToEntity(Row(rowName));
         }
 
-        public IList<TEntity> All => Rows.Get().Select(r => RowToEntity(r.Value)).ToList();
+        public IList<TEntity> All
+        {
+            get { return Rows.Get().Select(r => RowToEntity(r.Value)).ToList(); }
+        }
 
-        public TEntity First => Entity(1);
-        public TEntity Last => Entity(Count);
+        public TEntity First
+        {
+            get { return Entity(1); }
+        }
+
+        public TEntity Last
+        {
+            get { return Entity(Count); }
+        }
 
         public IEnumerator<TEntity> GetEnumerator()
         {
@@ -140,8 +154,12 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
             throw new Exception("Not applicable");
         }
 
-        public int Count => Rows.Count;
+        //TODO: impementation of Count
+        public int Count { get; }
+
+
         public bool IsReadOnly => true;
+
         public int IndexOf(TEntity item)
         {
             return All.IndexOf(item);
@@ -159,16 +177,19 @@ namespace JDI_Web.Selenium.Elements.Complex.Table
 
         public TEntity this[int index]
         {
-            get => index > 0
-                ? Entity(index)
-                : Entity(Count + index + 1);
-            set => throw new Exception("Not applicable");
+            get
+            {
+                return index > 0
+                    ? Entity(index)
+                    : Entity(Count + index + 1);
+            }
+            set { throw new Exception("Not applicable"); }
         }
 
         public TEntity this[string name]
         {
-            get => Entity(name);
-            set => throw new Exception("Not applicable");
+            get { return Entity(name); }
+            set { throw new Exception("Not applicable"); }
         }
     }
 }

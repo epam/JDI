@@ -21,7 +21,9 @@ namespace JDI_Web.Selenium.Base
     public class WebBaseElement : IBaseElement
     {
         public By Locator => WebAvatar.ByLocator;
+
         public By FrameLocator => WebAvatar.FrameLocator;
+
         private readonly IWebElement _webElement;
 
         public object Parent { get; set; }
@@ -48,7 +50,7 @@ namespace JDI_Web.Selenium.Base
 
         public static ActionScenarios ActionScenrios
         {
-            set => ActionInvoker.ActionScenrios = value;
+            set { ActionInvoker.ActionScenrios = value; }
         }
 
         public static Action<string, Action<string>> DoActionRule = (text, action) =>
@@ -74,23 +76,25 @@ namespace JDI_Web.Selenium.Base
 
         public GetElementModule WebAvatar
         {
-            get => (GetElementModule) Avatar;
-            set => Avatar = value;
+            get { return (GetElementModule) Avatar; }
+            set { Avatar = value; }
         }
 
         public ActionInvoker Invoker;
         public string Name { get; set; }
         public string ParentTypeName => Parent?.GetType().Name ?? "";
+
         protected GetElementClass GetElementClass;
         public ElementsActions Actions;
         private string _varName;
         private string VarName => _varName ?? Name;
+
         private string _typeName;
 
         public string TypeName
         {
-            get => _typeName ?? GetType().Name;
-            set => _typeName = value;
+            get { return _typeName ?? GetType().Name; }
+            set { _typeName = value; }
         }
 
         protected Timer Timer => WebAvatar.Timer;
@@ -104,14 +108,14 @@ namespace JDI_Web.Selenium.Base
 
         public IWebElement WebElement
         {
-            get => _webElement ?? WebAvatar.WebElement;
-            set => WebAvatar.WebElement = value;
+            get { return _webElement ?? WebAvatar.WebElement; }
+            set { WebAvatar.WebElement = value; }
         }
 
         public List<IWebElement> WebElements
         {
-            get => WebAvatar.WebElements;
-            set => WebAvatar.WebElements = value;
+            get { return WebAvatar.WebElements; }
+            set { WebAvatar.WebElements = value; }
         }
 
         public bool HasLocator => WebAvatar.HasLocator;

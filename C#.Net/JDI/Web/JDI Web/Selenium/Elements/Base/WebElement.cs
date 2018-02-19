@@ -29,7 +29,7 @@ namespace JDI_Web.Selenium.Elements.Base
             }, ex => $"Can't copy Element: {element}. Exception: {ex}");
         }
 
-        public WebElement GetHighLightElement()
+        public new WebElement GetHighLightElement()
         {
             return Avatar.GetFirstValue<WebElement>();
         }

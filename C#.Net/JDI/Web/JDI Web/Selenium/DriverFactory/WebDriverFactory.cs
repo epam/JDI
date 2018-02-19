@@ -15,7 +15,6 @@ using OpenQA.Selenium.Remote;
 using static System.String;
 using static Epam.JDI.Core.Settings.JDISettings;
 using static JDI_Web.Properties.Settings;
-using Manager = WebDriverManager;
 
 namespace JDI_Web.Selenium.DriverFactory
 {
@@ -59,7 +58,7 @@ namespace JDI_Web.Selenium.DriverFactory
                 }
                 return _currentDriverName;
             }
-            set => _currentDriverName = value;
+            set { _currentDriverName = value; }
         }
 
         public string DriverPath { get; set; }
@@ -82,20 +81,12 @@ namespace JDI_Web.Selenium.DriverFactory
             {DriverTypes.Firefox, path => new FirefoxDriver()},
             {
                 DriverTypes.IE,
-                path => IsNullOrEmpty(path) 
-                    ? new InternetExplorerDriver() 
-                    : new InternetExplorerDriver(path)
+                path => IsNullOrEmpty(path) ? new InternetExplorerDriver() : new InternetExplorerDriver(path)
             }
         };
 
         private string RegisterLocalDriver(DriverTypes driverType)
         {
-
-            if (Settings.WebSettings.GetLatestDriver)
-            {
-                if(!DriverManager.WebDriverManager.IsLocalVersionLatestVersion(driverType, DriverPath))
-                DriverPath = DriverManager.WebDriverManager.GetLatestVersion(driverType);
-            }
             return RegisterDriver(GetDriverName(_driverNamesDictionary[driverType]),
                 () => WebDriverSettings(_driversDictionary[driverType](DriverPath)));
         }
