@@ -57,9 +57,10 @@ public class ScreenshotMaker {
                 result = result.substring(2);
         if (result.charAt(0) != '\\')
             result = "\\" + result;
-        return (result.charAt(result.length() - 1) == '\\')
+        result = (result.charAt(result.length() - 1) == '\\')
                 ? result
                 : result + "\\";
+        return result.replace("\\", File.separator);
     }
 
     public static String doScreenshotGetMessage() {
