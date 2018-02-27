@@ -416,8 +416,8 @@ function includeHeader() {
                 <li class="dropdown uui-profile-menu">\
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">\
                         <div class="profile-photo">\
-                            <i class="fa fa-user"></i>\
-                            <img src="images/icons/no_photo.png" alt="" style="display: none;" id="user-icon">\
+                            <!--i class="fa fa-user"></i-->\
+                            <img src="images/icons/user-icon.jpg" alt="" id="user-icon">\
                             <span>Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
