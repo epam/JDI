@@ -314,7 +314,7 @@ function closeSearch() {
 }
 
 function login() {
-    if ($('input#Login').val() == 'epam' && $('input#Password').val() == '1234') {
+    if ($('input#Name').val() == 'epam' && $('input#Password').val() == '1234') {
         $.cookie('authUser', 'true');
         $('.login-txt').addClass('hidden');
         checkLogin();
@@ -340,7 +340,7 @@ function checkLogin() {
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
     }
-    $('#Login').val('');
+    $('#Name').val('');
     $('#Password').val('');
 }
 
@@ -426,9 +426,9 @@ function includeHeader() {
                         <form class="form-horizontal login hidden" id="login-form">\
                             <div class="form-horizontal-pad">\
                                 <div class="form-group form-group10">\
-                                    <label for="Login" class="col-sm-3">Login</label>\
+                                    <label for="Name" class="col-sm-3">Login</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Login" type="text" class="uui-form-element">\
+                                        <input id="Name" type="text" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <div class="form-group form-group10">\
