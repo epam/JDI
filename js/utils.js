@@ -428,7 +428,7 @@ function includeHeader() {
                                 <div class="form-group form-group10">\
                                     <label for="Login" class="col-sm-3">Login</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Name" type="text" class="uui-form-element">\
+                                        <input id="Login" type="text" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <div class="form-group form-group10">\
