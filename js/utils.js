@@ -423,7 +423,7 @@ function includeHeader() {
                         <span class="caret"></span>\
                     </a>\
                     <div class="dropdown-menu dropdown-menu-login" role="menu">\
-                        <form class="form-horizontal login hidden" name="login form">\
+                        <form class="form-horizontal login hidden" id="login-form">\
                             <div class="form-horizontal-pad">\
                                 <div class="form-group form-group10">\
                                     <label for="Login" class="col-sm-3">Login</label>\
