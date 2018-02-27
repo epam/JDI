@@ -423,7 +423,7 @@ function includeHeader() {
                         <span class="caret"></span>\
                     </a>\
                     <div class="dropdown-menu dropdown-menu-login" role="menu">\
-                        <form class="form-horizontal login hidden">\
+                        <form class="form-horizontal login hidden" name="login form">\
                             <div class="form-horizontal-pad">\
                                 <div class="form-group form-group10">\
                                     <label for="Login" class="col-sm-3">Login</label>\
@@ -462,7 +462,7 @@ function includeHeader() {
 	$('.replace.site-header').replaceWith(code);
 }
 function includeSideBar() {
-	var code = '<div class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+	var code = '<div name="navigation-sidebar" class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <ul class="sidebar-menu">\
             <li>\
                 <a href="index.html">\
@@ -521,7 +521,7 @@ function includeSideBar() {
 	$('.replace.left-side-bar').replaceWith(code);
 }
 function includeLogBar() {
-	var code = '<div class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+	var code = '<div  name="log-sidebar" class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <section class="uui-info-panel-horizontal">\
             <div class="info-panel-header">\
                 Log\
