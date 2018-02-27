@@ -417,7 +417,7 @@ function includeHeader() {
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">\
                         <div class="profile-photo">\
                             <i class="fa fa-user"></i>\
-                            <img src="images/icons/no_photo.png" alt="" style="display: none;">\
+                            <img src="images/icons/no_photo.png" alt="" style="display: none;" id="user-icon">\
                             <span>Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
@@ -428,7 +428,7 @@ function includeHeader() {
                                 <div class="form-group form-group10">\
                                     <label for="Login" class="col-sm-3">Login</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Login" type="text" class="uui-form-element">\
+                                        <input id="Name" type="text" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <div class="form-group form-group10">\
