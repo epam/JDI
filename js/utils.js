@@ -418,7 +418,7 @@ function includeHeader() {
                         <div class="profile-photo">\
                             <!--i class="fa fa-user"></i-->\
                             <img src="images/icons/user-icon.jpg" alt="" id="user-icon">\
-                            <span>Piter Chailovskii</span>\
+                            <h3>Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
                     </a>\
