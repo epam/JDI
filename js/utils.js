@@ -474,7 +474,7 @@ function includeSideBar() {
                     <span>Contact form</span>\
                 </a>\
             </li>\
-            <li ui="label">\
+            <li>\
                 <a>\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
