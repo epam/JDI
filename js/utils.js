@@ -418,7 +418,7 @@ function includeHeader() {
                         <div class="profile-photo">\
                             <!--i class="fa fa-user"></i-->\
                             <img src="images/icons/user-icon.jpg" alt="" id="user-icon">\
-                            <h3>Piter Chailovskii</span>\
+                            <span ui="label">Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
                     </a>\
@@ -464,54 +464,54 @@ function includeHeader() {
 function includeSideBar() {
 	var code = '<div name="navigation-sidebar" class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <ul class="sidebar-menu">\
-            <li>\
+            <li ui="label">\
                 <a href="index.html">\
                     <span>Home</span>\
                 </a>\
             </li>\
-            <li>\
+            <li ui="label">\
                 <a href="contacts.html">\
                     <span>Contact form</span>\
                 </a>\
             </li>\
-            <li class="sub-menu active">\
+            <li ui="label">\
                 <a>\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
                 <ul class="sub" style="display: block;">\
-                    <li>\
+                    <li ui="label">\
                         <a href="support.html">\
                             <p>\
                                 <span>Support</span>\
                             </p>\
                         </a>\
                     </li>\
-                    <li>\
+                    <li ui="label">\
                         <a href="dates.html">\
                             <p>\
                                 <span>Dates</span>\
                             </p>\
                         </a>\
                     </li>\
-                    <li><a href="complex-table.html"><p>\
+                    <li ui="label"><a href="complex-table.html"><p>\
                         <span>Complex Table </span>\
                     </p></a></li>\
-                    <li class="active"><a href="simple-table.html"><p>\
+                    <li ui="label"><a href="simple-table.html"><p>\
                         <span>Simple Table</span>\
                     </p></a></li>\
-                    <li class="active"><a href="user-table.html"><p>\
+                    <li ui="label"><a href="user-table.html"><p>\
                         <span>User Table</span>\
                     </p></a></li>\
-                    <li><a href="table-pages.html"><p>\
+                    <li ui="label"><a href="table-pages.html"><p>\
                         <span>Table with pages</span>\
                     </p></a></li>\
-                    <li><a href="different-elements.html"><p>\
+                    <li ui="label"><a href="different-elements.html"><p>\
                         <span>Different elements</span>\
                     </p></a></li>\
                 </ul>\
             </li>\
-            <li class="">\
+            <li ui="label">\
                 <a href="metals-colors.html">\
                     <span>Metals &amp; Colors</span>\
                 </a>\
