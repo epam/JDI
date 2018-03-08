@@ -943,7 +943,7 @@ body:first-of-type .wrapper {
     min-width: 100%;
 }
 
-.metals input {
+.combobox input {
     position: absolute;
     z-index: 10000;
     border: none;
