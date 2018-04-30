@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="css/custom-styles.css"/>
     <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/lib/components/awesome-bootstrap-checkbox.css"/>
+    <link rel="stylesheet" href="css/lib/components/bootstrap-select.min.css"/>
     <link rel="stylesheet" href="css/lib/components/jquery.mCustomScrollbar.css"/>
     <script src="js/lib/jquery-1.11.1.min.js"></script>
     <script src="js/lib/components/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/lib/jquery.cookie.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/uui-core.min.js" type="text/javascript"></script>
-    <script src="js/utils.js" type="text/javascript"></script>
+    <script src="js/lib/components/bootstrap-select.min.js"></script>
+    <script src="js/utils.js" type="text/javascript"></script>	
     <!-- IE9- support of HTML5 -->
     <!--[if lt IE 9]>
     <script src="js/lib/html5shiv.js"></script>
@@ -30,22 +32,105 @@
 <div class="wrapper">
     <div class="replace left-side-bar">replace</div>
     <div class="uui-main-container page-inside">
-        <main>
+        <main class="main-form">
             <div class="pattern-top"></div>
             <div class="main-content">
                 <div class="main-content-hg">
-                    <form class="form" id="user-data">
+                    <form class="form" id="contact-form">
 						<div class="row overflow">
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="form-group form-group10">
 									<label for="Name">Name</label>
 									<input id="Name" type="text" class="uui-form-element">
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="form-group form-group10">
 									<label for="LastName">Last Name</label>
 									<input id="LastName" type="text" class="uui-form-element">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group form-group10">
+									<label for="Position">Position</label>
+									<input id="Position" type="text" class="uui-form-element">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group form-group10 lower" >
+									<label for="Passport">Passport</label>
+									<input id="Passport" type="checkbox" name="passport" class="uui-form-element">
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group form-group10">
+									<label for="Number">Number</label>
+									<input id="Number" type="text" class="uui-form-element">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group form-group10">
+									<label for="Seria">Seria</label>
+									<input id="Seria" type="text" class="uui-form-element">
+								</div>
+							</div>
+							</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<label for="gender">Gender</label>
+								<select class="uui-form-element" ui="dropdown" id="gender">
+									<option>Male</option>
+									<option checked>Female</option>
+								</select>
+							</div>
+							<div class="col-sm-4">
+								<label for="religion">Religion</label>
+								<div class="form-group metals" ui="combobox" id="religion">
+									<input type="text"/>
+									<select class="uui-form-element">
+										<option>Christian</option>
+										<option>Muslims</option>
+										<option>Induism</option>
+										<option>Other</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<label for="wheather">Wheather</label>
+								<div class="form-group salad" ui="droplist" id="wheather">
+									<div class="dropdown salad">
+										<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<span class="caret"></span> Wheather
+										</button>
+										<ul class="dropdown-menu" style="display: none;">
+											<li>
+												<a href="#" class="checkbox">
+													<input type="checkbox" id="g5" class="uui-form-element blue"/>
+													<label for="g5">Sun</label>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="checkbox">
+													<input type="checkbox" id="g6" class="uui-form-element blue"/>
+													<label for="g6">Rain</label>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="checkbox">
+													<input type="checkbox" id="g7" class="uui-form-element blue"
+														   checked="checked"/>
+													<label for="g7">Wheather</label>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="checkbox">
+													<input type="checkbox" id="g8" class="uui-form-element blue"/>
+													<label for="g8">Snow</label>
+												</a>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -53,10 +138,10 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label for="Description">Description</label>
-									<textarea class="uui-form-element" rows="8" cols="10" id="Description"></textarea>
+									<textarea class="uui-form-element" rows="4" cols="10" id="Description"></textarea>
 								</div>
 								<div> 
-									<input id="accept-conditions" type="checkbox">
+									<input id="accept-conditions" type="checkbox" name="accept-conditions">
 									<label for="accept-conditions">Accept conditions</label>
 								</div>
 							</div>
@@ -142,8 +227,11 @@
     <div class="replace footer">replace</div>
 </footer>
 
-<Script language="JavaScript">
+<!--Script language="JavaScript">
     UUI.Vertical_Menu.init({"open": true});
 </script>
+<script>
+    $('.selectpicker').selectpicker();
+</script-->
 </body>
 </html>

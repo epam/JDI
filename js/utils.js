@@ -314,7 +314,7 @@ function closeSearch() {
 }
 
 function login() {
-    if ($('input#Login').val() == 'epam' && $('input#Password').val() == '1234') {
+    if ($('input#Name').val() == 'epam' && $('input#Password').val() == '1234') {
         $.cookie('authUser', 'true');
         $('.login-txt').addClass('hidden');
         checkLogin();
@@ -340,7 +340,7 @@ function checkLogin() {
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
     }
-    $('#Login').val('');
+    $('#Name').val('');
     $('#Password').val('');
 }
 
@@ -417,19 +417,19 @@ function includeHeader() {
                 <li class="dropdown uui-profile-menu">\
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">\
                         <div class="profile-photo">\
-                            <i class="fa fa-user"></i>\
-                            <img src="images/icons/no_photo.png" alt="" style="display: none;">\
-                            <span>Piter Chailovskii</span>\
+                            <!--i class="fa fa-user"></i-->\
+                            <img src="images/icons/user-icon.jpg" alt="" id="user-icon">\
+                            <span ui="label">Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
                     </a>\
                     <div class="dropdown-menu dropdown-menu-login" role="menu">\
-                        <form class="form-horizontal login hidden">\
+                        <form class="form-horizontal login hidden" id="login-form">\
                             <div class="form-horizontal-pad">\
                                 <div class="form-group form-group10">\
-                                    <label for="Login" class="col-sm-3">Login</label>\
+                                    <label for="Name" class="col-sm-3">Login</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Login" type="text" class="uui-form-element">\
+                                        <input id="Name" type="text" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <div class="form-group form-group10">\
@@ -463,51 +463,51 @@ function includeHeader() {
 	$('.replace.site-header').replaceWith(code);
 }
 function includeSideBar() {
-	var code = '<div class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+	var code = '<div name="navigation-sidebar" class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <ul class="sidebar-menu">\
-            <li>\
+            <li ui="label">\
                 <a href="index.html">\
                     <span>Home</span>\
                 </a>\
             </li>\
-            <li>\
+            <li ui="label">\
                 <a href="contacts.html">\
                     <span>Contact form</span>\
                 </a>\
             </li>\
-            <li class="sub-menu active">\
+            <li>\
                 <a>\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
                 <ul class="sub" style="display: block;">\
-                    <li>\
+                    <li ui="label">\
                         <a href="support.html">\
                             <p>\
                                 <span>Support</span>\
                             </p>\
                         </a>\
                     </li>\
-                    <li>\
+                    <li ui="label">\
                         <a href="dates.html">\
                             <p>\
                                 <span>Dates</span>\
                             </p>\
                         </a>\
                     </li>\
-                    <li><a href="complex-table.html"><p>\
+                    <li ui="label"><a href="complex-table.html"><p>\
                         <span>Complex Table </span>\
                     </p></a></li>\
-                    <li class="active"><a href="simple-table.html"><p>\
+                    <li ui="label"><a href="simple-table.html"><p>\
                         <span>Simple Table</span>\
                     </p></a></li>\
-                    <li class="active"><a href="user-table.html"><p>\
+                    <li ui="label"><a href="user-table.html"><p>\
                         <span>User Table</span>\
                     </p></a></li>\
-                    <li><a href="table-pages.html"><p>\
+                    <li ui="label"><a href="table-pages.html"><p>\
                         <span>Table with pages</span>\
                     </p></a></li>\
-                    <li><a href="different-elements.html"><p>\
+                    <li ui="label"><a href="different-elements.html"><p>\
                         <span>Different elements</span>\
                     </p></a></li>\
                     <li><a href="performance.html"><p>\
@@ -515,7 +515,7 @@ function includeSideBar() {
                     </p></a></li>\
                 </ul>\
             </li>\
-            <li class="">\
+            <li ui="label">\
                 <a href="metals-colors.html">\
                     <span>Metals &amp; Colors</span>\
                 </a>\
@@ -525,7 +525,7 @@ function includeSideBar() {
 	$('.replace.left-side-bar').replaceWith(code);
 }
 function includeLogBar() {
-	var code = '<div class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
+	var code = '<div  name="log-sidebar" class="uui-side-bar right-fix-panel mCustomScrollbar _mCS_2 mCS_no_scrollbar"><div id="mCSB_2" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_2_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <section class="uui-info-panel-horizontal">\
             <div class="info-panel-header">\
                 Log\

@@ -69,6 +69,9 @@ header { z-index: 1001 }
     width: 459px;
 }
 
+.lower {
+	margin-top: 25px;
+}
 .uui-main-container {
     background: url("../images/pattern-bottom.png") right bottom no-repeat;
     /*height: 100%;*/
