@@ -1,4 +1,4 @@
-var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html']
+var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html', 'performance.html']
 var num = -1;
 var linum = -1;
 var testLocArr = '';
@@ -406,6 +406,7 @@ function includeHeader() {
                         <li><a href="user-table.html">User Table </a></li>\
                         <li><a href="table-pages.html">Table with pages</a></li>\
                         <li><a href="different-elements.html">Different elements</a></li>\
+						<li><a href="performance.html">Performance</a></li>\
                     </ul>\
                 </li>\
                 <li>\
@@ -508,6 +509,9 @@ function includeSideBar() {
                     </p></a></li>\
                     <li><a href="different-elements.html"><p>\
                         <span>Different elements</span>\
+                    </p></a></li>\
+                    <li><a href="performance.html"><p>\
+                        <span>Performance</span>\
                     </p></a></li>\
                 </ul>\
             </li>\
