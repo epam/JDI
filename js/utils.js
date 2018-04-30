@@ -510,7 +510,7 @@ function includeSideBar() {
                     <li ui="label"><a href="different-elements.html"><p>\
                         <span>Different elements</span>\
                     </p></a></li>\
-                    <li><a href="performance.html"><p>\
+                    <li ui="label"><a href="performance.html"><p>\
                         <span>Performance</span>\
                     </p></a></li>\
                 </ul>\
