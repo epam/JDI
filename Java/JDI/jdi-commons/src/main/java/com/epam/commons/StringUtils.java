@@ -17,6 +17,8 @@ package com.epam.commons;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.File;
+
 /**
  * Created by roman.i on 19.11.2014.
  */
@@ -26,6 +28,10 @@ public final class StringUtils {
     public static boolean namesEqual(String name1, String name2) {
         return name1.toLowerCase().replace(" ", "").equals(name2.toLowerCase().replace(" ", ""));
     }
+    public static String correctPath(String path) {
+        return path.replace("\\", File.separator);
+    }
+
     private StringUtils() {
     }
 

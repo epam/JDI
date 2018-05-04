@@ -274,13 +274,19 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction(String name) {
-        WebElement element = getWebElement(name);
+        WebElement element;
+        try {
+            element = getWebElement(name);
+        } catch (Exception ignore) {  return false; }
         return element != null && element.isDisplayed();
     }
 
     protected boolean isDisplayedAction(int num) {
         setWaitTimeout(0);
-        List<WebElement> els = getElements();
+        List<WebElement> els;
+        try {
+            els = getElements();
+        } catch (Exception ignore) {  return false; }
         restoreWaitTimeout();
         return els.size() != 0 && isDisplayedInList(getElements(), num);
     }
@@ -296,7 +302,10 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     }
 
     protected boolean isDisplayedAction() {
-        List<WebElement> els = avatar.findImmediately(this::getElements, null);
+        List<WebElement> els;
+        try {
+            els = avatar.findImmediately(this::getElements, null);
+        } catch (Exception ignore) {  return false; }
         return els != null && !els.isEmpty() && els.get(0).isDisplayed();
     }
 

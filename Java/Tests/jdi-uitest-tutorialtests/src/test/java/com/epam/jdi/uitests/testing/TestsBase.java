@@ -1,7 +1,9 @@
 package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.site.epam.EpamSite;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -16,6 +18,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
  * Created by Roman_Iovlev on 7/13/2015.
  */
 public abstract class TestsBase extends TestNGBase {
+
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
         logger.setLogLevel(STEP);

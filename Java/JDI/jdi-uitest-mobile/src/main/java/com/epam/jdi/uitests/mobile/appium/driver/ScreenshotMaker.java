@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.mobile.appium.driver;
  */
 
 
+import com.epam.commons.StringUtils;
 import com.epam.commons.Timer;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -25,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.commons.StringUtils.correctPath;
 import static com.epam.jdi.uitests.core.settings.JDIData.testName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static org.apache.commons.io.FileUtils.copyFile;
@@ -57,9 +59,9 @@ public class ScreenshotMaker {
                 result = result.substring(2);
         if (result.charAt(0) != '\\')
             result = "\\" + result;
-        return (result.charAt(result.length() - 1) == '\\')
-                ? result
-                : result + "\\";
+        if (result.charAt(result.length() - 1) != '\\')
+            result = result + "\\";
+        return StringUtils.correctPath(result);
     }
 
     public static String doScreenshotGetMessage() {

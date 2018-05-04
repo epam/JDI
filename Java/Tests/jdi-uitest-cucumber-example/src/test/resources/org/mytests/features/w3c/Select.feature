@@ -13,4 +13,4 @@ Feature: Dropdown item select functionality
     Given I am on DropDown page
     When I select Saab item using simple dropdown
     Then Saab item is selected using simple dropdown
-    And Closing driver
+    And Closing driverS

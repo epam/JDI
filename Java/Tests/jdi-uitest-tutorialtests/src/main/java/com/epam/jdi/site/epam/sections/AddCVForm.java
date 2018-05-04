@@ -25,9 +25,9 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
     @JDropdown(
-        root = @FindBy(css = ".country-field"),
-        expand = @FindBy(css = ".arrow"),
-        list = @FindBy(css = ".options li"))
+            root = @FindBy(css = ".country-field"),
+            expand = @FindBy(css = ".arrow"),
+            list = @FindBy(css = ".options li"))
     public IDropDown country;
 
     @JDropdown(

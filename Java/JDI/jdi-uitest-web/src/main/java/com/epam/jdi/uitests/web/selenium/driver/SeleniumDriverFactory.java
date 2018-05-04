@@ -51,6 +51,7 @@ import java.util.function.Supplier;
 import static com.epam.commons.LinqUtils.any;
 import static com.epam.commons.ReflectionUtils.isClass;
 import static com.epam.commons.StringUtils.LINE_BREAK;
+import static com.epam.commons.StringUtils.correctPath;
 import static com.epam.commons.Timer.sleep;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static com.epam.jdi.uitests.web.selenium.driver.DownloadDriverManager.downloadDriver;
@@ -108,7 +109,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public String getDriverPath() {
-        return driversPath.replace("\\", File.separator);
+        return correctPath(driversPath);
     }
 
     public void setDriverPath(String driverPath) {
