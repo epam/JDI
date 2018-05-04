@@ -277,7 +277,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         WebElement element;
         try {
             element = getWebElement(name);
-        } catch (Exception ignore) {  return false; }
+        } catch (Exception | Error ignore) {  return false; }
         return element != null && element.isDisplayed();
     }
 
@@ -286,7 +286,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         List<WebElement> els;
         try {
             els = getElements();
-        } catch (Exception ignore) {  return false; }
+        } catch (Exception | Error ignore) {  return false; }
         restoreWaitTimeout();
         return els.size() != 0 && isDisplayedInList(getElements(), num);
     }
@@ -305,7 +305,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
         List<WebElement> els;
         try {
             els = avatar.findImmediately(this::getElements, null);
-        } catch (Exception ignore) {  return false; }
+        } catch (Exception | Error ignore) {  return false; }
         return els != null && !els.isEmpty() && els.get(0).isDisplayed();
     }
 
