@@ -21,29 +21,29 @@ package com.epam.jdi.uitests.core.settings;
  * Created by 12345 on 04.07.2015.
  */
 public class TimeoutSettings {
-    private int waitElementSec = 20;
-    private int defaultWaitTimeout = 20;
-    private int waitPageLoadSec = 20;
-    private int retryMSec = 100;
+    private ThreadLocal<Integer> waitElementSec = ThreadLocal.withInitial(() -> 20);
+    private ThreadLocal<Integer> defaultWaitTimeout = ThreadLocal.withInitial(() -> 20);
+    private ThreadLocal<Integer> waitPageLoadSec = ThreadLocal.withInitial(() -> 20);
+    private ThreadLocal<Integer> retryMSec = ThreadLocal.withInitial(() -> 100);
 
     public TimeoutSettings() {
-        setCurrentTimeoutSec(waitElementSec);
+        setCurrentTimeoutSec(waitElementSec.get());
     }
 
     public void setDefaultTimeoutSec(int timeoutSec) {
-        defaultWaitTimeout = timeoutSec;
+        defaultWaitTimeout = ThreadLocal.withInitial(() -> timeoutSec);
     }
     public void setCurrentTimeoutSec(int timeoutSec) {
-        waitElementSec = timeoutSec;
+        waitElementSec = ThreadLocal.withInitial(() -> timeoutSec);
     }
     public int getDefaultTimeoutSec() {
-        return defaultWaitTimeout;
+        return defaultWaitTimeout.get();
     }
     public int getCurrentTimeoutSec() {
-        return waitElementSec;
+        return waitElementSec.get();
     }
 
     public void dropTimeouts() {
-        setCurrentTimeoutSec(defaultWaitTimeout);
+        setCurrentTimeoutSec(defaultWaitTimeout.get());
     }
 }
