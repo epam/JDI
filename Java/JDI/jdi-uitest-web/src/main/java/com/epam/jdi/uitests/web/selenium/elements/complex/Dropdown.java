@@ -68,6 +68,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         if (!fieldHasAnnotation(field, JDropdown.class, IDropDown.class))
             return;
         JDropdown jDropdown = field.getAnnotation(JDropdown.class);
+
         By root = findByToBy(jDropdown.root());
         By value = findByToBy(jDropdown.value());
         By list = findByToBy(jDropdown.list());
