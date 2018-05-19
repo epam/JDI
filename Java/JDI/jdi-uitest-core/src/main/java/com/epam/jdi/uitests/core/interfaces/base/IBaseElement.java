@@ -37,12 +37,6 @@ public interface IBaseElement extends IHasParent {
     String printContext();
     void setFunction(Functions function);
     IAvatar getAvatar();
-    String getImgPath();
-    void setImgPath(String imgPath);
-    boolean verifyLayout(String imgPath);
-    default void assertLayout(String imgPath){
-        asserter.isTrue(verifyLayout(imgPath));
-    }
 
     IBaseElement should(Condition... condition);
     IBaseElement shouldHave(Condition... condition);

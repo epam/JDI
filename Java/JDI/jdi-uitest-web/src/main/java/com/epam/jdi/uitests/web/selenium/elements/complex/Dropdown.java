@@ -287,16 +287,6 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         element().setAttribute(attributeName, value);
     }
 
-    @Override
-    public String getImgPath() {
-        return null;
-    }
-
-    @Override
-    public void setImgPath(String imgPath) {
-
-    }
-
     public WebElement getWebElement() {
         return new GetElementType(getLocator(), this).get(Element.class).getWebElement();
     }
