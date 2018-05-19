@@ -121,21 +121,6 @@ public class Selector<TEnum extends Enum> extends BaseElement implements IRadioB
     }
 
     @Override
-    public String getImgPath() {
-        return null;
-    }
-
-    @Override
-    public void setImgPath(String imgPath) {
-
-    }
-
-    @Override
-    public boolean verifyLayout(String imgPath) {
-        return false;
-    }
-
-    @Override
     public IBaseElement should(Condition... condition) {
         return null;
     }

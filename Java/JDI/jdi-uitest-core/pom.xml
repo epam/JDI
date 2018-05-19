@@ -59,16 +59,6 @@
             <artifactId>selenide</artifactId>
             <version>LATEST</version>
         </dependency>
-        <dependency>
-            <groupId>com.sikulix</groupId>
-            <artifactId>sikulixapi</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sikulix</groupId>
-            <artifactId>sikulixlibslux</artifactId>
-            <version>RELEASE</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

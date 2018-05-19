@@ -20,7 +20,7 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.complex.CheckList;
 import com.epam.jdi.uitests.web.selenium.elements.complex.ComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.ImageFile;
+
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JComboBox;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JDropList;
@@ -37,11 +37,9 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(id = "summary-block")
     public Summary summary;
 
-    @ImageFile("calculate_button.png")
     @FindBy(id = "calculate-button")
     public Label calculate;
 
-    @ImageFile("calculate_button.png")
     @FindBy(id = "calculate-button")
     public Button calculateButton;
     @FindBy(id = "calculate-button")
@@ -151,7 +149,6 @@ public class MetalsColorsPage extends WebPage {
     @FindBy(xpath = "//*[@id='elements-checklist']//*[label[text()='%s']]/label")
     public ICheckList<Nature> natureTemplate;
 
-    @ImageFile("checkbox.png")
     @FindBy(xpath = "//*[@id='elements-checklist']//*[text()='Water']")
     public CheckBox cbWater = new CheckBox() {
         @Override

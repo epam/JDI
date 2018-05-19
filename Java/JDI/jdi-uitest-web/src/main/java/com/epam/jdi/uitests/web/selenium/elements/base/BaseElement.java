@@ -27,7 +27,6 @@ import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
@@ -285,19 +284,5 @@ public abstract class BaseElement implements IBaseElement {
         return shouldNot(conditions);
     }
 
-    public boolean verifyLayout(String imgPath) {
-        logger.step(format("Verify element %s view (%s)", getName(), imgPath));
-        return Layout.verify(getFullImagePath(imgPath));
-    }
 
-    private String imgPath;
-    public String getImgPath() {
-        return imgPath;
-    }
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-    protected String getFullImagePath(String imgPath) {
-        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
-    }
 }
