@@ -19,12 +19,13 @@ package com.epam.jdi.uitests.core.interfaces.complex;
 
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
+import com.epam.jdi.uitests.core.interfaces.base.IVisible;
 import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Created by Roman_Iovlev on 7/29/2015.
  */
-public interface IPagination extends IBaseElement, IComposite {
+public interface IPagination extends IBaseElement, IComposite, IVisible {
     /**
      * Choose Next page
      */
@@ -38,7 +39,7 @@ public interface IPagination extends IBaseElement, IComposite {
     void previous();
 
     /**
-     * hoose First page
+     * Choose First page
      */
     @Step
     void first();
