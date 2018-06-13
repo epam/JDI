@@ -123,7 +123,7 @@ public class Pagination extends BaseElement implements IPagination, ISetup {
     }
 
     /**
-     * hoose First page
+     * Choose First page
      */
     public void first() {
         if (firstLocator != null) {

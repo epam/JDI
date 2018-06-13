@@ -160,6 +160,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         }
         return element != null && element.isDisplayed();
     }
+
     @Override
     protected String getValueAction() {
         return getTextAction();

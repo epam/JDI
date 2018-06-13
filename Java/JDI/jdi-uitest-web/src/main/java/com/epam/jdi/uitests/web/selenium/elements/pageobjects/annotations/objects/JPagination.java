@@ -43,7 +43,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface JPagination {
 
-
     /**
      * Locator of Paginator's container for assertion whether element is displayed or not.
      * @return
