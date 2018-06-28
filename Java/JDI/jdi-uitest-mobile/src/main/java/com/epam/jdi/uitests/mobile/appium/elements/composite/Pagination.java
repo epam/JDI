@@ -186,4 +186,20 @@ public class Pagination extends BaseElement implements IPagination {
             return pageLink;
         throw exception(cantChooseElementMsg(Integer.toString(index), shortName, "pageAction"));
     }
+
+    public boolean isDisplayed() {
+        return false;
+    }
+
+    public boolean isHidden() {
+        return false;
+    }
+
+    public void waitDisplayed() {
+
+    }
+
+    public void waitVanished() {
+
+    }
 }

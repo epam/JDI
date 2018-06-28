@@ -35,12 +35,15 @@ public class TimeoutSettings {
     public void setDefaultTimeoutSec(int timeoutSec) {
         defaultWaitTimeout.set(timeoutSec);
     }
+
     public void setCurrentTimeoutSec(int timeoutSec) {
         waitElementSec.set(timeoutSec);
     }
+
     public int getDefaultTimeoutSec() {
         return defaultWaitTimeout.get();
     }
+
     public int getCurrentTimeoutSec() {
         return waitElementSec.get();
     }
