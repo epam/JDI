@@ -1,9 +1,7 @@
 package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.site.epam.EpamSite;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 

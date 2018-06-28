@@ -29,7 +29,6 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.text.MessageFormat;
 import java.util.function.Supplier;
 
-import static com.epam.commons.FileUtils.getFiles;
 import static com.epam.jdi.uitests.core.settings.JDISettings.*;
 import static java.lang.String.format;
 

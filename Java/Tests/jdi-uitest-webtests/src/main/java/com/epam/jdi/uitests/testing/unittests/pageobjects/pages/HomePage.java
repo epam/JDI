@@ -9,7 +9,6 @@ import com.epam.jdi.uitests.web.selenium.elements.common.Link;
 import com.epam.jdi.uitests.web.selenium.elements.common.Text;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Search;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
-
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JMenu;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JSearch;

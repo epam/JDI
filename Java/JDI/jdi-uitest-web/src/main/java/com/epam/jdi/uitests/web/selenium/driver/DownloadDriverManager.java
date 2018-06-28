@@ -1,8 +1,5 @@
 package com.epam.jdi.uitests.web.selenium.driver;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;

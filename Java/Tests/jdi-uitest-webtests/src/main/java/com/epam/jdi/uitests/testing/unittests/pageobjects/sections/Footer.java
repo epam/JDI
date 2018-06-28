@@ -2,7 +2,6 @@ package com.epam.jdi.uitests.testing.unittests.pageobjects.sections;
 
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
-
 import org.openqa.selenium.support.FindBy;
 
 /**

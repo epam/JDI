@@ -6,7 +6,6 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.logger.LogLevels;
-import com.epam.jdi.uitests.core.settings.Layout;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ActionScenarios;
 import com.epam.jdi.uitests.gui.sikuli.elements.actions.ElementsActions;
@@ -19,13 +18,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.lang.reflect.Field;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.INFO;
 import static com.epam.jdi.uitests.core.settings.JDISettings.shortLogMessagesFormat;
 import static com.epam.jdi.uitests.core.settings.JDISettings.toLog;
-import static com.epam.jdi.uitests.core.settings.Layout.getScreen;
 import static java.lang.String.format;
 
 /**
@@ -108,7 +105,7 @@ public abstract class BaseElement implements IBaseElement {
         Rectangle parentRectangle = ((BaseElement)this.parent).getRectangle();
 
         if (parentRectangle == null || parentRectangle.getHeight() == 0 || parentRectangle.getWidth() == 0)
-            return getScreen();
+            return getParentRegion();
 
         return new Region(parentRectangle);
     }
@@ -143,17 +140,4 @@ public abstract class BaseElement implements IBaseElement {
         return shouldNot(conditions);
     }
 
-    public boolean verifyLayout(String imgPath) {
-        return Layout.verify(getFullImagePath(imgPath));
-    }
-    private String imgPath;
-    public String getImgPath() {
-        return imgPath;
-    }
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-    protected String getFullImagePath(String imgPath) {
-        return Paths.get(Layout.rootImagesPath).toAbsolutePath().toString().replace('\\', '/').replaceAll("/*$", "/") + imgPath;
-    }
 }

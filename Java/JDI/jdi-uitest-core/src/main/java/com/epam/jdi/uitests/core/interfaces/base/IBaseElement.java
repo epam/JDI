@@ -22,8 +22,6 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 
 import java.lang.reflect.Field;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-
 /**
  * Created by Roman_Iovlev on 6/10/2015.
  */
