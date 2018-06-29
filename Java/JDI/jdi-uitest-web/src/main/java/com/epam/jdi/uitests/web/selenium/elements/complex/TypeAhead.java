@@ -22,6 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.ITypeAhead;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.base.ClickableText;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JTypeAhead;
@@ -57,6 +58,33 @@ public class TypeAhead extends BaseSelector implements ITypeAhead, ISetup {
         super();
     }
 
+    public TypeAhead(By rootLocator, By inputLocator, By listLocator) {
+        this();
+
+        this.rootLocator = rootLocator;
+        this.inputLocator = inputLocator;
+        this.listLocator = listLocator;
+
+        if (rootLocator != null) {
+            setLocator(rootLocator);
+            this.root = new GetElementType(rootLocator, getParent());
+        }
+
+        if (inputLocator != null) {
+            this.input = new GetElementType(inputLocator, this);
+        }
+
+        if (listLocator != null) {
+            this.list = new GetElementType(listLocator, this);
+        }
+    }
+
+    public TypeAhead(By rootLocator, By inputLocator, By listLocator, int actionTimeout) {
+        this(rootLocator, inputLocator, listLocator);
+
+        this.actionTimeout = actionTimeout;
+    }
+
     public void setup(Field field) {
         if (!fieldHasAnnotation(field, JTypeAhead.class, ITypeAhead.class))
             return;
@@ -86,10 +114,10 @@ public class TypeAhead extends BaseSelector implements ITypeAhead, ISetup {
                 + "Please specify locator for this action using @JTypeAhead annotaion with all locators", shortName);
     }
 
-    protected Clickable root() {
+    protected ClickableText root() {
         String shortName = "rootLocator";
         if (rootLocator != null)
-            return new GetElementType(rootLocator, rootLocator).get(Clickable.class);
+            return new GetElementType(rootLocator, rootLocator).get(ClickableText.class);
         throw exception(cantChooseElementMsg(shortName));
     }
 
