@@ -17,43 +17,16 @@ package com.epam.jdi.uitests.core.interfaces.complex;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
-import com.epam.jdi.uitests.core.interfaces.base.IComposite;
-import com.epam.jdi.uitests.core.interfaces.base.IVisible;
-import ru.yandex.qatools.allure.annotations.Step;
+import com.epam.jdi.uitests.core.interfaces.base.IClickable;
+import com.epam.jdi.uitests.core.interfaces.common.IText;
 
 /**
- * Created by Roman_Iovlev on 7/29/2015.
+ * Created by Morokov Danila on 22.05.2018.
  */
-public interface IPagination extends IBaseElement, IComposite, IVisible {
-    /**
-     * Choose Next page
-     */
-    @Step
-    void next();
+public interface ITypeAhead<TEnum extends Enum> extends ISelector<TEnum>, IText, IClickable {
 
-    /**
-     * Choose Previous page
-     */
-    @Step
-    void previous();
+    void select(String query, String option);
 
-    /**
-     * Choose First page
-     */
-    @Step
-    void first();
+    void sendKeys(String value);
 
-    /**
-     * Choose Last page
-     */
-    @Step
-    void last();
-
-    /**
-     * @param index Specify page index
-     *              Choose page by index
-     */
-    @Step
-    void selectPage(int index);
 }

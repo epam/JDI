@@ -33,7 +33,6 @@ import java.util.function.Function;
 import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.core.settings.Layout.shouldVerifyLayout;
 import static java.lang.String.format;
 
 /**
@@ -131,9 +130,7 @@ public class Element extends BaseElement implements IElement, IHasElement {
      * @return Check is Element visible
      */
     public boolean isDisplayed() {
-        if (!actions.isDisplayed(this::isDisplayedAction))
-            return false;
-        return !shouldVerifyLayout || verifyLayout(getImgPath());
+        return actions.isDisplayed(this::isDisplayedAction);
     }
 
     protected void waitDisplayedAction() {

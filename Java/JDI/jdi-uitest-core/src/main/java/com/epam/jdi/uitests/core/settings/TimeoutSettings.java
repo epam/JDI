@@ -17,28 +17,33 @@ package com.epam.jdi.uitests.core.settings;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import static java.lang.ThreadLocal.withInitial;
+
 /**
  * Created by 12345 on 04.07.2015.
  */
 public class TimeoutSettings {
-    private ThreadLocal<Integer> waitElementSec = ThreadLocal.withInitial(() -> 20);
-    private ThreadLocal<Integer> defaultWaitTimeout = ThreadLocal.withInitial(() -> 20);
-    private ThreadLocal<Integer> waitPageLoadSec = ThreadLocal.withInitial(() -> 20);
-    private ThreadLocal<Integer> retryMSec = ThreadLocal.withInitial(() -> 100);
+    private ThreadLocal<Integer> waitElementSec = withInitial(() -> 20);
+    private ThreadLocal<Integer> defaultWaitTimeout = withInitial(() -> 20);
+    private ThreadLocal<Integer> waitPageLoadSec = withInitial(() -> 20);
+    private ThreadLocal<Integer> retryMSec = withInitial(() -> 100);
 
     public TimeoutSettings() {
         setCurrentTimeoutSec(waitElementSec.get());
     }
 
     public void setDefaultTimeoutSec(int timeoutSec) {
-        defaultWaitTimeout = ThreadLocal.withInitial(() -> timeoutSec);
+        defaultWaitTimeout.set(timeoutSec);
     }
+
     public void setCurrentTimeoutSec(int timeoutSec) {
-        waitElementSec = ThreadLocal.withInitial(() -> timeoutSec);
+        waitElementSec.set(timeoutSec);
     }
+
     public int getDefaultTimeoutSec() {
         return defaultWaitTimeout.get();
     }
+
     public int getCurrentTimeoutSec() {
         return waitElementSec.get();
     }

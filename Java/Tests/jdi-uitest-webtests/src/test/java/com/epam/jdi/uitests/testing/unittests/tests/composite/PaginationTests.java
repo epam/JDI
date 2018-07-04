@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.unittests.tests.composite;
 
 import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Pagination;
+import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,11 +20,13 @@ import static com.epam.web.matcher.testng.Assert.assertContains;
 public class PaginationTests extends InitTests {
     private Pagination pagination() { return  simpleTablePage.pagination; }
 
-    public static final String[] pages = {"index.html", "contacts.html", "support.html", "dates.html", "complex-table.html", "simple-table.html", "user-table.html", "table-pages.html", "different-elements.html", "metals-colors.html"};
-    private void checkPageOpenned(int num) {
+    public static final String[] pages = {"index.html", "contacts.html", "support.html", "dates.html",
+            "complex-table.html", "simple-table.html", "user-table.html", "table-pages.html",
+            "different-elements.html", "metals-colors.html"};
+
+    private void checkPageOpened(int num) {
         assertContains(() -> getDriver().getCurrentUrl(), "/" + pages[num]);
     }
-
 
     @BeforeMethod
     public void before(final Method method) {
@@ -33,24 +36,29 @@ public class PaginationTests extends InitTests {
     @Test
     public void nextTest() {
         pagination().next();
-        checkPageOpenned(6);
+        checkPageOpened(6);
     }
 
     @Test
     public void prevTest() {
         pagination().previous();
-        checkPageOpenned(4);
+        checkPageOpened(4);
     }
 
     @Test
     public void firstTest() {
         pagination().first();
-        checkPageOpenned(1);
+        checkPageOpened(1);
     }
 
     @Test
     public void lastTest() {
         pagination().last();
-        checkPageOpenned(pages.length-1);
+        checkPageOpened(pages.length-1);
+    }
+
+    @Test
+    public void jPaginationAnnotationTest() {
+        Assert.assertTrue(simpleTablePage.jPagination.isDisplayed());
     }
 }

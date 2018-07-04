@@ -188,5 +188,7 @@ public class WebSettings extends JDISettings {
             {IMenu.class, Menu.class},
             {IFileInput.class, FileInput.class},
             {IDatePicker.class, DatePicker.class},
+            {IPagination.class, Pagination.class},
+            {ITypeAhead.class, TypeAhead.class}
     };
 }

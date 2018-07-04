@@ -32,7 +32,6 @@ import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Section;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.Frame;
-import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.ImageFile;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JFindBy;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JPage;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.*;
@@ -56,7 +55,6 @@ import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.jdi.uitests.core.interfaces.MapInterfaceToElement.getClassFromInterface;
 import static com.epam.jdi.uitests.core.settings.JDIData.group;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
-import static com.epam.jdi.uitests.core.settings.Layout.shouldVerifyLayout;
 import static com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory.currentDriverName;
 import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.*;
 import static com.epam.jdi.uitests.web.settings.WebSettings.*;
@@ -176,26 +174,6 @@ public class WebCascadeInit extends CascadeInit {
             element.avatar.frameLocator = frameBy;
         }
         return element;
-    }
-
-    @Override
-    protected void setImage(Object parent, IBaseElement instance, Field field) {
-        if (shouldVerifyLayout) {
-            ImageFile image = field.getAnnotation(ImageFile.class);
-            if (image != null)
-                instance.setImgPath(getFullImagePath(parent, image.value()));
-            else if (parentHasImage(parent))
-                instance.setImgPath(((IBaseElement) parent).getImgPath());
-        }
-    }
-    private String getFullImagePath(Object parent, String imagePath) {
-        imagePath = imagePath.replaceAll("^/*", "").replaceAll("/*$", "");
-        return parentHasImage(parent)
-            ? ((IBaseElement) parent).getImgPath() + "/" + imagePath
-            : imagePath;
-    }
-    private boolean parentHasImage(Object parent) {
-        return parent != null && parent instanceof IBaseElement && ((IBaseElement) parent).getImgPath() != null;
     }
 
     protected IBaseElement getElementsRules(Field field, String driverName, Class<?> type,

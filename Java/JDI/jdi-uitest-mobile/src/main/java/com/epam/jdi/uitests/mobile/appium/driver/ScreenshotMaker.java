@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.epam.commons.StringUtils.LINE_BREAK;
-import static com.epam.commons.StringUtils.correctPath;
 import static com.epam.jdi.uitests.core.settings.JDIData.testName;
 import static com.epam.jdi.uitests.core.settings.JDISettings.driverFactory;
 import static org.apache.commons.io.FileUtils.copyFile;

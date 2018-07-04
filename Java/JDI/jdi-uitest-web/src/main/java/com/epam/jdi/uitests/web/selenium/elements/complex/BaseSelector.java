@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.web.selenium.elements.complex;
  */
 
 
+import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.IVisible;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -207,7 +208,7 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
     /**
      * @return Get value of Element
      */
-    public final String getValue() {
+    public String getValue() {
         return actions.getValue(this::getValueAction);
     }
 
@@ -215,14 +216,14 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
      * @param value Specify element value
      *              Set value to Element
      */
-    public final void setValue(String value) {
+    public void setValue(String value) {
         actions.setValue(value, this::setValueAction);
     }
 
     /**
      * @return Get labels of all options
      */
-    public final List<String> getOptions() {
+    public List<String> getOptions() {
         return getOptionsAction();
     }
 

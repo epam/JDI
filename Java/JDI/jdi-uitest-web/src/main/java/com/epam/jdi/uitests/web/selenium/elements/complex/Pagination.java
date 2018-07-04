@@ -1,4 +1,4 @@
-package com.epam.jdi.uitests.web.selenium.elements.composite;
+package com.epam.jdi.uitests.web.selenium.elements.complex;
 /*
  * Copyright 2004-2016 EPAM Systems
  *
@@ -21,10 +21,13 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 import com.epam.commons.LinqUtils;
 import com.epam.jdi.uitests.core.annotations.AnnotationsUtil;
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
+import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.IPagination;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
 import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
+import com.epam.jdi.uitests.web.selenium.elements.common.Label;
+import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.JPagination;
 import org.openqa.selenium.By;
 
 import java.lang.reflect.Field;
@@ -35,49 +38,74 @@ import static com.epam.commons.ReflectionUtils.getFields;
 import static com.epam.commons.ReflectionUtils.getValueField;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.WebAnnotationsUtil.findByToBy;
+import static com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.objects.FillFromAnnotationRules.fieldHasAnnotation;
 import static java.lang.String.format;
 
 /**
- * Created by Roman_Iovlev on 7/29/2015.
+ * Created by Morokov Danila on 15.05.2018.
  */
 
 /**
- * @deprecated
+ * This is the realization for @JPagination annotation
  *
- * Should be replaced by com.epam.jdi.uitests.web.selenium.elements.complex.Pagination;
  * {@see} Example of usage in the @JPagination
- *
  */
-@Deprecated
-public class Pagination extends BaseElement implements IPagination {
+public class Pagination extends BaseElement implements IPagination, ISetup {
+    protected GetElementType root;
+    protected GetElementType next;
+    protected GetElementType previous;
+    protected GetElementType first;
+    protected GetElementType last;
+    protected GetElementType pages;
+
+    private By rootLocator;
     private By nextLocator;
     private By previousLocator;
     private By firstLocator;
     private By lastLocator;
+    private By pagesLocator;
 
     public Pagination() {
         super();
     }
 
-    public Pagination(By byLocator) {
-        super(byLocator);
-    }
+    public void setup(Field field) {
+        if (!fieldHasAnnotation(field, JPagination.class, IPagination.class))
+            return;
+        JPagination pagination = field.getAnnotation(JPagination.class);
 
-    public Pagination(By nextLocator, By previousLocator) {
-        this(null, nextLocator, previousLocator, null, null);
-    }
+        rootLocator = findByToBy(pagination.root());
+        nextLocator = findByToBy(pagination.nextLocator());
+        previousLocator = findByToBy(pagination.previousLocator());
+        firstLocator = findByToBy(pagination.firstLocator());
+        lastLocator = findByToBy(pagination.lastLocator());
+        pagesLocator = findByToBy(pagination.pagesLocator());
 
-    public Pagination(By pageTemplateLocator, By nextLocator, By previousLocator) {
-        this(pageTemplateLocator, nextLocator, previousLocator, null, null);
-    }
+        if (rootLocator != null) {
+            setLocator(rootLocator);
+            this.root = new GetElementType(rootLocator, getParent());
+        }
 
-    public Pagination(By pageTemplateLocator, By nextLocator, By previousLocator,
-                      By firstLocator, By lastLocator) {
-        super(pageTemplateLocator);
-        this.nextLocator = nextLocator;
-        this.previousLocator = previousLocator;
-        this.firstLocator = firstLocator;
-        this.lastLocator = lastLocator;
+        if (nextLocator != null) {
+            this.next = new GetElementType(nextLocator, this);
+        }
+
+        if (previousLocator != null) {
+            this.previous = new GetElementType(previousLocator, this);
+        }
+
+        if (firstLocator != null) {
+            this.first = new GetElementType(firstLocator, this);
+        }
+
+        if (lastLocator != null) {
+            this.last = new GetElementType(lastLocator, this);
+        }
+
+        if (pagesLocator != null) {
+            this.pages = new GetElementType(pagesLocator, this);
+        }
     }
 
     /**
@@ -95,17 +123,21 @@ public class Pagination extends BaseElement implements IPagination {
     }
 
     /**
-     * hoose First page
+     * Choose First page
      */
     public void first() {
-        invoker.doJAction("Choose First page", () -> firstAction().click());
+        if (firstLocator != null) {
+            invoker.doJAction("Choose First page", () -> firstAction().click());
+        }
     }
 
     /**
      * Choose Last page
      */
     public void last() {
-        invoker.doJAction("Choose Last page", () -> lastAction().click());
+        if (lastLocator != null) {
+            invoker.doJAction("Choose Last page", () -> lastAction().click());
+        }
     }
 
     /**
@@ -113,7 +145,9 @@ public class Pagination extends BaseElement implements IPagination {
      *              Choose page by index
      */
     public void selectPage(int index) {
-        invoker.doJAction(format("Choose '%s' page", index), () -> pageAction(index).click());
+        if (pagesLocator != null) {
+            invoker.doJAction(format("Choose '%s' page", index), () -> pageAction(index).click());
+        }
     }
 
     private Clickable getClickable(String name) {
@@ -130,7 +164,7 @@ public class Pagination extends BaseElement implements IPagination {
                 + "or override {2}() in class", actionName, shortName, action, toString());
     }
 
-    protected Clickable nextAction() {
+    private Clickable nextAction() {
         String shortName = "next";
         if (nextLocator != null)
             return new GetElementType(nextLocator, this).get(Clickable.class);
@@ -187,9 +221,9 @@ public class Pagination extends BaseElement implements IPagination {
     }
 
     private Clickable pageAction(int index) {
-        String shortName = "page";
+        String shortName = "pages";
         if (getLocator() != null && getLocator().toString().contains("%s"))
-            return new GetElementType(fillByTemplate(getLocator(), index), this).get(Clickable.class);
+            return new GetElementType(fillByTemplate(pagesLocator, index), this).get(Clickable.class);
 
         Clickable pageLink = getClickable(shortName);
         if (pageLink != null)
@@ -197,19 +231,35 @@ public class Pagination extends BaseElement implements IPagination {
         throw exception(cantChooseElementMsg(Integer.toString(index), shortName, "pageAction"));
     }
 
+    private Label root() {
+        return root.get(Label.class);
+    }
+
     public boolean isDisplayed() {
-        return false;
+        return root().isDisplayed();
     }
 
     public boolean isHidden() {
-        return false;
+        return !root().isDisplayed();
     }
 
     public void waitDisplayed() {
-
+        root().waitDisplayed();
     }
 
     public void waitVanished() {
 
+    }
+
+    public String getAttribute(String name) {
+        return root().getAttribute(name);
+    }
+
+    public void waitAttribute(String name, String value) {
+        root().waitAttribute(name, value);
+    }
+
+    public void setAttribute(String attributeName, String value) {
+        root().setAttribute(attributeName, value);
     }
 }

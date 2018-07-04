@@ -26,8 +26,6 @@ import java.io.IOException;
 
 import static com.epam.commons.PropertyReader.fillAction;
 import static com.epam.jdi.uitests.core.settings.JDIPropertiesReader.getProperties;
-import static com.epam.jdi.uitests.core.settings.Layout.rootImagesPath;
-import static com.epam.jdi.uitests.core.settings.Layout.shouldVerifyLayout;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -76,8 +74,6 @@ public abstract class JDISettings {
             p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
         fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
         fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
-        fillAction(p -> shouldVerifyLayout = p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "verifyLayout");
-        fillAction(p -> rootImagesPath = p, "rootLayoutPath");
         fillAction(driverFactory::setRunType, "run.type");
         fillAction(driverFactory::setRemoteHubUrl, "remote.url");
         fillAction(driverFactory::registerDriver, "driver");
