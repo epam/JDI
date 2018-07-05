@@ -222,7 +222,7 @@ public class Pagination extends BaseElement implements IPagination, ISetup {
 
     private Clickable pageAction(int index) {
         String shortName = "pages";
-        if (getLocator() != null && getLocator().toString().contains("%s"))
+        if (pagesLocator != null && pagesLocator.toString().contains("%s"))
             return new GetElementType(fillByTemplate(pagesLocator, index), this).get(Clickable.class);
 
         Clickable pageLink = getClickable(shortName);
