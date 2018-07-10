@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 

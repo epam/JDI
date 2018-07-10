@@ -15,12 +15,12 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>

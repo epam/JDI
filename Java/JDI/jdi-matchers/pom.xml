@@ -21,7 +21,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 

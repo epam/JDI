@@ -34,21 +34,21 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
 
         <!--CucumberTestNG-->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
 
         <!--CucumberJava-->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -106,7 +106,7 @@
             <plugin>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
-                <version>LATEST</version>
+                <version>RELEASE</version>
             </plugin>
         </plugins>
     </reporting>

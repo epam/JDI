@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_junit</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
@@ -48,17 +48,17 @@
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava-gwt</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -68,12 +68,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-java-adaptor-api</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
     <build>

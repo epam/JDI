@@ -37,12 +37,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -52,12 +52,12 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-java-annotations</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
     <build>

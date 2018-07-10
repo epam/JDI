@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.epam.jdi</groupId>
@@ -38,29 +38,29 @@
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>LATEST</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
