@@ -60,7 +60,7 @@ public class TreeDropdown<T extends Enum> extends Dropdown<T> implements ISetup 
             List<WebElement> els = context.findElements(correctXPaths(treeLocators.get(i)));
             if (els.size() == 0)
                 throw exception("No elements found for locator: " + treeLocators.get(i) + " in TreeDropdown " + this);
-            context = first(els, el -> el.getText().equals(value));
+            context = first(els, el -> el.getText().startsWith(value));
             if (context == null)
                 throw exception("Can't find: " + value + "in TreeDropdown " + this);
             if (i < nodes.length - 1) {
