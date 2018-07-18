@@ -265,7 +265,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
     }
 ```
 
-See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
+See more Examples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
 
 ### UI Objects
 ```Java
