@@ -26,7 +26,7 @@ Similarly, you can use any external tools and frameworks for the relevant functi
 
 We strive to make the test process easier and full of joy.
 
-Enjoy to use! :)
+Enjoy! :)
 
 ## Simple detailed first example
 Lets implement simple login scenario with JDI on our test site (https://epam.github.io/JDI/)
