@@ -32,6 +32,7 @@ import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.Che
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -39,10 +40,10 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
-    public static String getUrlFromUri(String uri, Class<?> parentClass) {
-        return isNotBlank(domain)
-                ? domain.replaceAll("/*$", "") + "/"+ uri.replaceAll("^/*", "")
-                : "";
+    public static String getUrlFromUri(String uri) {
+        if (isBlank(domain)) return "";
+        if (isBlank(uri)) return domain;
+        return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
     }
 
     public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation, Class<?> parentClass) {
@@ -50,7 +51,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             ? pageAnnotation.value()
             : pageAnnotation.url();
         if (!url.contains("://"))
-            url = getUrlFromUri(url, parentClass);
+            url = getUrlFromUri(url);
         String title = pageAnnotation.title();
         String urlTemplate = pageAnnotation.urlTemplate();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
