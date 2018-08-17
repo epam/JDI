@@ -26,7 +26,7 @@ Similarly, you can use any external tools and frameworks for the relevant functi
 
 We strive to make the test process easier and full of joy.
 
-Enjoy to us! :)
+Enjoy! :)
 
 ## Simple detailed first example
 Lets implement simple login scenario with JDI on our test site (https://epam.github.io/JDI/)
@@ -265,7 +265,7 @@ Just add '() -> ' to your Assert and wait some result from service or page loadi
     }
 ```
 
-See more Eamples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
+See more Examples [here](https://github.com/epam/JDI/tree/master/Java/Tests/jdi-uitest-tutorialtests/src/test/java/com/epam/jdi/uitests/testing)
 
 ### UI Objects
 ```Java
