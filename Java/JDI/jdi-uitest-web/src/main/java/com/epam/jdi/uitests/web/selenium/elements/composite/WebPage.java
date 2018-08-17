@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.composite;
 
 
 import com.epam.commons.Timer;
+import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.complex.IPage;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.web.selenium.elements.base.BaseElement;
@@ -85,17 +86,30 @@ public class WebPage extends BaseElement implements IPage {
         return new StringCheckType(getDriver()::getTitle, title, title, "title", timer());
     }
 
+    /**
+     * Check that page opened
+     */
+    public void checkOpened(CheckPageTypes checkUrlType, CheckPageTypes checkTitleType) {
+        logger.step(format("I check '%s' is opened", getName()));
+        logger.logOff(() ->
+            asserter.isTrue(verifyOpened(checkUrlType, checkTitleType),
+                    format("Page '%s' is not opened", toString())));
+    }
 
     /**
      * Check that page opened
      */
     public void checkOpened() {
-        logger.step(format("I check '%s' is opened", getName()));
-        logger.logOff(() ->
-            asserter.isTrue(verifyOpened(),
-                    format("Page '%s' is not opened", toString())));
+        checkOpened(checkUrlType, checkTitleType);
     }
-    public boolean verifyOpened() {
+    /**
+     * Check that page opened
+     */
+    public void checkOpened(CheckPageTypes checkType) {
+        checkOpened(checkType, checkType);
+    }
+
+    public boolean verifyOpened(CheckPageTypes checkUrlType, CheckPageTypes checkTitleType) {
         boolean result = false;
         switch (checkUrlType) {
             case EQUAL:
@@ -116,6 +130,12 @@ public class WebPage extends BaseElement implements IPage {
                 return title().contains();
         }
         return false;
+    }
+    public boolean verifyOpened(CheckPageTypes checkType) {
+        return verifyOpened(checkType, checkType);
+    }
+    public boolean verifyOpened() {
+        return verifyOpened(checkUrlType, checkTitleType);
     }
 
     /**
@@ -208,6 +228,13 @@ public class WebPage extends BaseElement implements IPage {
     public void clearCache() {
         invoker.doJAction("Delete all cookies",
                 () -> getDriver().manage().deleteAllCookies());
+    }
+    private static MapArray<String, WebPage> pages;
+    public static void addPage(WebPage page) {
+        pages.update(page.getName(), page);
+    }
+    public static WebPage getPage(String name) {
+        return pages.get(name);
     }
 
     @Override

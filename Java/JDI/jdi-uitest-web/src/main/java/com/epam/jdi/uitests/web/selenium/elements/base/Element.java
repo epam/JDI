@@ -33,6 +33,7 @@ import java.util.function.Function;
 import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**
@@ -132,6 +133,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
     }
+    public void checkIsDisplayed() {
+        asserter.isTrue(this::isDisplayed);
+    }
 
     protected void waitDisplayedAction() {
         wait(WebElement::isDisplayed);
@@ -142,6 +146,9 @@ public class Element extends BaseElement implements IElement, IHasElement {
      */
     public boolean isHidden() {
         return actions.isDisplayed(() -> !isDisplayedAction());
+    }
+    public void checkIsHidden() {
+        asserter.isTrue(this::isHidden);
     }
 
     /**

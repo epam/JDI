@@ -6,6 +6,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.impl.BySelectorCollection;
 import com.codeborne.selenide.impl.DownloadFileWithHttpRequest;
+import com.epam.jdi.uitests.core.settings.JDISettings;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 
 /**
  * Created by Sergey_Mishanin on 12/14/16.
@@ -532,9 +534,13 @@ public class J extends Element implements SelenideElement {
     }
 
 
-    public File download() throws FileNotFoundException {
+    public File download() {
+        return download(timeouts.getDefaultTimeoutSec());
+    }
+
+    public File download(long l) {
         try {
-            return new DownloadFileWithHttpRequest().download(getWebElement());
+            return new DownloadFileWithHttpRequest().download(getWebElement(), l);
         } catch (IOException e) {
             throw new RuntimeException("Couldn't download file from the link: " + toString(), e);
         }

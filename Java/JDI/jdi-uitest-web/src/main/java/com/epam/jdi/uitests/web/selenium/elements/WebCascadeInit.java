@@ -78,15 +78,17 @@ public class WebCascadeInit extends CascadeInit {
     }
 
     protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
+        WebPage page = (WebPage) instance;
         if (field.getType().isAnnotationPresent(JPage.class)) {
-            fillPageFromAnnotaiton((WebPage) instance, field.getType().getAnnotation(JPage.class),
+            fillPageFromAnnotaiton(page, field.getType().getAnnotation(JPage.class),
                 parentType);
         } else {
             if (field.isAnnotationPresent(JPage.class)) {
-                fillPageFromAnnotaiton((WebPage) instance, field.getAnnotation(JPage.class),
+                fillPageFromAnnotaiton(page, field.getAnnotation(JPage.class),
                     parentType);
             }
         }
+        WebPage.addPage(page);
     }
 
     private static void initDriver() {

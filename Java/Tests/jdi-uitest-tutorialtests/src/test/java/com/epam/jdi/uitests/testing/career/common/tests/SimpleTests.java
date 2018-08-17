@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 
 
 import com.epam.jdi.uitests.testing.TestsBase;
+import com.epam.jdi.uitests.web.selenium.driver.SeleniumDriverFactory;
 import org.testng.annotations.Test;
 
 import static com.epam.jdi.enums.HeaderMenu.CAREERS;

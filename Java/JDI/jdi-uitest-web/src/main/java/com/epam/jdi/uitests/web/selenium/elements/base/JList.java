@@ -24,6 +24,7 @@ import java.net.URL;
 import java.util.List;
 
 import static com.epam.commons.LinqUtils.first;
+import static com.epam.jdi.uitests.core.settings.JDISettings.timeouts;
 
 /**
  * Created by Sergey_Mishanin on 12/14/16.
@@ -528,9 +529,13 @@ public class JList extends Element implements SelenideElement {
     }
 
     
-    public File download() throws FileNotFoundException {
+    public File download() {
+        return download(timeouts.getDefaultTimeoutSec());
+    }
+
+    public File download(long l) {
         try {
-            return new DownloadFileWithHttpRequest().download(getWebElement());
+            return new DownloadFileWithHttpRequest().download(getWebElement(), l);
         } catch (IOException e) {
             throw new RuntimeException("Couldn't download file from the link: " + toString(), e);
         }
