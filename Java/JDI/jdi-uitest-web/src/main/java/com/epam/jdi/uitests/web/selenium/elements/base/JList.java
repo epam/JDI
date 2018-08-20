@@ -302,7 +302,11 @@ public class JList extends Element implements SelenideElement {
         return new JList(parent);
     }
 
-    
+    public SelenideElement lastChild() {
+        throw new NotImplementedException("Not implemented");
+    }
+
+
     public JList closest(String tagOrClass) {
         String xpath = tagOrClass.startsWith(".") ?
                 String.format("ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' %s ')][1]", tagOrClass.substring(1)) :

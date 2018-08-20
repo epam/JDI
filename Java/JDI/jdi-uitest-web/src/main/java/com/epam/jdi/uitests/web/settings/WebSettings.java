@@ -93,102 +93,116 @@ public class WebSettings extends JDISettings {
         return getDriverFactory().registerDriver(name, driver);
     }
     public static JavascriptExecutor getJSExecutor() {
-        if (!initialized)
-            try { initFromProperties(); } catch (Exception ex) { throw new RuntimeException(ex); }
-        if (driverFactory.getDriver() instanceof JavascriptExecutor)
-            return (JavascriptExecutor) driverFactory.getDriver();
-        else
-            throw new ClassCastException("JavaScript Executor doesn't support");
+        try {
+            if (!initialized)
+            initFromProperties();
+            if (driverFactory.getDriver() instanceof JavascriptExecutor)
+                return (JavascriptExecutor) driverFactory.getDriver();
+            else
+                throw new ClassCastException("JavaScript Executor doesn't support");
+        } catch (Throwable ex) {
+            throw new RuntimeException("Can't Get JS Executor: " + ex.getMessage());
+        }
     }
 
-    public static synchronized void init() throws IOException {
-        logger = new TestNGLogger("JDI Logger");
-        asserter = new TestNGCheck().setUpLogger(logger);
-        setMatcher((BaseMatcher) asserter);
-        asserter.doScreenshot("screen_on_fail");
-        screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
-        timeouts = new WebTimeoutSettings();
-        MapInterfaceToElement.init(defaultInterfacesMap);
-        driverFactory = new SeleniumDriverFactory();
+    public static synchronized void init() {
+        try {
+            logger = new TestNGLogger("JDI Logger");
+            asserter = new TestNGCheck().setUpLogger(logger);
+            setMatcher((BaseMatcher) asserter);
+            asserter.doScreenshot("screen_on_fail");
+            screenshotAction = ScreenshotMaker::doScreenshotGetMessage;
+            timeouts = new WebTimeoutSettings();
+            MapInterfaceToElement.init(defaultInterfacesMap());
+            driverFactory = new SeleniumDriverFactory();
+        } catch (Throwable ex) {
+            throw new RuntimeException("Can't init JDI Settings: " + ex.getMessage());
+        }
     }
     public static boolean initialized = false;
 
     public static synchronized void initFromProperties() throws IOException {
-        init();
-        getProperties(jdiSettingsPath);
-        fillAction(p -> domain = p, "domain");
-        fillAction(driverFactory::setDriverPath, "drivers.folder");
-        fillAction(p -> driverVersion = p, "driver.version");
-        fillAction(p -> platform = p, "os.platform");
-        fillAction(p -> driverVersion =
-                p.toLowerCase().equals("true") || p.toLowerCase().equals("1")
-                ? "latest" : "none", "driver.getLatest");
-        fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
-        killBrowser = "afterAndBefore";
-        fillAction(p -> killBrowser = p, "browser.kill");
-        fillAction(p -> {
-            p = p.toLowerCase();
-            if (p.equals("soft"))
-                p = "any, multiple";
-            if (p.equals("strict"))
-                p = "visible, single";
-            if (p.split(",").length == 2) {
-                List<String> params = asList(p.split(","));
-                if (params.contains("visible") || params.contains("displayed"))
-                    elementSearchCriteria = WebElement::isDisplayed;
-                if (params.contains("any") || params.contains("all"))
-                    elementSearchCriteria = Objects::nonNull;
-                if (params.contains("single"))
-                    onlyOneElementAllowedInSearch = true;
-                if (params.contains("multiple"))
-                    onlyOneElementAllowedInSearch = false;
-            }
-        }, "search.element.strategy" );
-        fillAction(p -> {
-            String[] split = null;
-            if (p.split(",").length == 2)
-                split = p.split(",");
-            if (p.toLowerCase().split("x").length == 2)
-                split = p.toLowerCase().split("x");
-            if (split != null)
-                browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
-        }, "browser.size");
-        fillAction(p -> pageLoadStrategy = p, "page.load.strategy");
-        initialized = true;
-        setLogAction(s -> {
-            LIFECYCLE.fire(new StepStartedEvent(s));
-            logger.step(s);
-            LIFECYCLE.fire(new StepFinishedEvent());
-        });
-        JDISettings.initFromProperties();
+        try{
+            init();
+            getProperties(jdiSettingsPath);
+            fillAction(p -> domain = p, "domain");
+            fillAction(driverFactory::setDriverPath, "drivers.folder");
+            fillAction(p -> driverVersion = p, "driver.version");
+            fillAction(p -> platform = p, "os.platform");
+            fillAction(p -> driverVersion =
+                    p.toLowerCase().equals("true") || p.toLowerCase().equals("1")
+                    ? "latest" : "none", "driver.getLatest");
+            fillAction(p -> asserter.doScreenshot(p), "screenshot.strategy");
+            killBrowser = "afterAndBefore";
+            fillAction(p -> killBrowser = p, "browser.kill");
+            fillAction(p -> {
+                p = p.toLowerCase();
+                if (p.equals("soft"))
+                    p = "any, multiple";
+                if (p.equals("strict"))
+                    p = "visible, single";
+                if (p.split(",").length == 2) {
+                    List<String> params = asList(p.split(","));
+                    if (params.contains("visible") || params.contains("displayed"))
+                        elementSearchCriteria = WebElement::isDisplayed;
+                    if (params.contains("any") || params.contains("all"))
+                        elementSearchCriteria = Objects::nonNull;
+                    if (params.contains("single"))
+                        onlyOneElementAllowedInSearch = true;
+                    if (params.contains("multiple"))
+                        onlyOneElementAllowedInSearch = false;
+                }
+            }, "search.element.strategy" );
+            fillAction(p -> {
+                String[] split = null;
+                if (p.split(",").length == 2)
+                    split = p.split(",");
+                if (p.toLowerCase().split("x").length == 2)
+                    split = p.toLowerCase().split("x");
+                if (split != null)
+                    browserSizes = new Dimension(parseInt(split[0].trim()), parseInt(split[1].trim()));
+            }, "browser.size");
+            fillAction(p -> pageLoadStrategy = p, "page.load.strategy");
+            initialized = true;
+            setLogAction(s -> {
+                LIFECYCLE.fire(new StepStartedEvent(s));
+                logger.step(s);
+                LIFECYCLE.fire(new StepFinishedEvent());
+            });
+            JDISettings.initFromProperties();
+        } catch (Throwable ex) {
+            throw new RuntimeException("Can't init JDI from properties: " + ex.getMessage());
+        }
     }
 
-    private static Object[][] defaultInterfacesMap = new Object[][]{
-            {IElement.class, Element.class},
-            {SelenideElement.class, J.class},
-            {WebElement.class, J.class},
-            {IButton.class, Button.class},
-            {IClickable.class, Clickable.class},
-            {IComboBox.class, ComboBox.class},
-            {ILink.class, Link.class},
-            {ISelector.class, Selector.class},
-            {IText.class, Text.class},
-            {IImage.class, Image.class},
-            {ITextArea.class, TextArea.class},
-            {ITextField.class, TextField.class},
-            {ILabel.class, Label.class},
-            {IDropDown.class, Dropdown.class},
-            {IDropList.class, DropList.class},
-            {ITable.class, Table.class},
-            {ICheckBox.class, CheckBox.class},
-            {IRadioButtons.class, RadioButtons.class},
-            {ICheckList.class, CheckList.class},
-            {ITextList.class, TextList.class},
-            {ITabs.class, Tabs.class},
-            {IMenu.class, Menu.class},
-            {IFileInput.class, FileInput.class},
-            {IDatePicker.class, DatePicker.class},
-            {IPagination.class, Pagination.class},
-            {ITypeAhead.class, TypeAhead.class}
-    };
+    private static Object[][] defaultInterfacesMap() {
+        return new Object[][]{
+                {IElement.class, Element.class},
+                {SelenideElement.class, J.class},
+                {WebElement.class, J.class},
+                {IButton.class, Button.class},
+                {IClickable.class, Clickable.class},
+                {IComboBox.class, ComboBox.class},
+                {ILink.class, Link.class},
+                {ISelector.class, Selector.class},
+                {IText.class, Text.class},
+                {IImage.class, Image.class},
+                {ITextArea.class, TextArea.class},
+                {ITextField.class, TextField.class},
+                {ILabel.class, Label.class},
+                {IDropDown.class, Dropdown.class},
+                {IDropList.class, DropList.class},
+                {ITable.class, Table.class},
+                {ICheckBox.class, CheckBox.class},
+                {IRadioButtons.class, RadioButtons.class},
+                {ICheckList.class, CheckList.class},
+                {ITextList.class, TextList.class},
+                {ITabs.class, Tabs.class},
+                {IMenu.class, Menu.class},
+                {IFileInput.class, FileInput.class},
+                {IDatePicker.class, DatePicker.class},
+                {IPagination.class, Pagination.class},
+                {ITypeAhead.class, TypeAhead.class}
+        };
+    }
 }
