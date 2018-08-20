@@ -229,7 +229,7 @@ public class WebPage extends BaseElement implements IPage {
         invoker.doJAction("Delete all cookies",
                 () -> getDriver().manage().deleteAllCookies());
     }
-    private static MapArray<String, WebPage> pages;
+    private static MapArray<String, WebPage> pages = new MapArray<>();
     public static void addPage(WebPage page) {
         pages.update(page.getName(), page);
     }
