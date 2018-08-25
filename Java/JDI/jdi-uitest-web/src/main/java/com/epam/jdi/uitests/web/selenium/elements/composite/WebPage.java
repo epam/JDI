@@ -93,7 +93,7 @@ public class WebPage extends BaseElement implements IPage {
         logger.step(format("I check '%s' is opened", getName()));
         logger.logOff(() ->
             asserter.isTrue(verifyOpened(checkUrlType, checkTitleType),
-                    format("Page '%s' is not opened", toString())));
+                    format("Page '%s' is not opened (url:%s, title:%s)", toString(), getUrl(), getTitle())));
     }
 
     /**

@@ -38,6 +38,7 @@ import static com.epam.commons.LinqUtils.first;
 import static com.epam.commons.LinqUtils.select;
 import static com.epam.commons.ReflectionUtils.isInterface;
 import static com.epam.commons.Timer.waitCondition;
+import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverByUtils.fillByTemplate;
 
@@ -326,6 +327,9 @@ abstract class BaseSelector<TEnum extends Enum> extends BaseElement implements I
      */
     public boolean isDisplayed() {
         return actions.isDisplayed(this::isDisplayedAction);
+    }
+    public void checkIsDisplayed() {
+        asserter.isTrue(this::isDisplayed);
     }
     public boolean isDisplayed(String name) {
         return actions.isDisplayed(() -> isDisplayedAction(name));

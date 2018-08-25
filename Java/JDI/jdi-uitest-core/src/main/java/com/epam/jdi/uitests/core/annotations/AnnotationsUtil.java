@@ -24,6 +24,9 @@ import com.epam.jdi.uitests.core.annotations.functions.OkButton;
 
 import java.lang.reflect.Field;
 
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
+
 /**
  * Created by roman.i on 25.09.2014.
  */
@@ -49,10 +52,12 @@ public class AnnotationsUtil {
         return Functions.NONE;
     }
 
-    private static String splitCamelCase(String camel) {
+    public static String splitCamelCase(String camel) {
         String result = (camel.charAt(0) + "").toUpperCase();
         for (int i = 1; i < camel.length() - 1; i++)
-            result += ((isCapital(camel.charAt(i)) && !isCapital(camel.charAt(i - 1))) ? " " : "") + camel.charAt(i);
+            result += (isUpperCase(camel.charAt(i)) && (
+                    isLowerCase(camel.charAt(i+1)) || isLowerCase(camel.charAt(i-1)))
+                    ? " " : "") + camel.charAt(i);
         return result + camel.charAt(camel.length() - 1);
     }
 

@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.MATCH;
 import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -56,9 +57,10 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         String urlTemplate = pageAnnotation.urlTemplate();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
         CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
-        if (urlCheckType == EQUAL || urlCheckType == CONTAINS && urlTemplate.equals(""))
-            urlTemplate = url;
-
+        if (urlTemplate.equals(""))
+            if (urlCheckType == EQUAL || urlCheckType == CONTAINS)
+                urlTemplate = url;
+        else urlCheckType = MATCH;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
     }
 

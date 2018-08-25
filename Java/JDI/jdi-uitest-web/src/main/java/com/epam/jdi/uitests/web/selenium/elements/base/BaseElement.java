@@ -261,8 +261,10 @@ public abstract class BaseElement implements IBaseElement {
 
     public IBaseElement should(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-                Assert.assertEquals(condition.apply(getAvatar().getElement()), true));
-
+            Assert.assertEquals(() -> condition.apply(getAvatar().getElement()), true,
+                    format("Expected: '%s' but found '%s'", condition.toString(), getAvatar().getElement().getText())
+            )
+        );
         return this;
     }
     public IBaseElement shouldHave(Condition... conditions){

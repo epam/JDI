@@ -164,7 +164,8 @@ public abstract class BaseMatcher implements IChecker {
                 ? new Timer(timeout() * 1000).getResultByCondition(result, r -> r != null && r.equals(FOUND))
                 : result.get();
         if (resultMessage == null) {
-            assertException("Assert Failed by Timeout. Wait %s seconds", timeout());
+            assertException(failMessage == null ? "Assert Failed by Timeout. Wait "+timeout()+" seconds"
+                    : failMessage);
             return;
         }
         if (!resultMessage.equals(FOUND)) {
