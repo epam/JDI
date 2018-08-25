@@ -37,9 +37,9 @@ public class GUICascadeInit extends CascadeInit {
 
     protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, Page.class, Section.class, Element.class}; }
 
-    protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
+    protected void fillPageFromAnnotation(Field field, IBaseElement instance) {
         if (field.isAnnotationPresent(JPage.class))
-            GuiAnnotationsUtil.fillPageFromAnnotation((Page) instance, field.getAnnotation(JPage.class), parentType);
+            GuiAnnotationsUtil.fillPageFromAnnotation((Page) instance, field.getAnnotation(JPage.class));
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {

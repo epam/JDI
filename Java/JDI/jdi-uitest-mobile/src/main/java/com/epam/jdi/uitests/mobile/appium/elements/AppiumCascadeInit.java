@@ -57,7 +57,7 @@ import static com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotation
 public class AppiumCascadeInit extends CascadeInit {
     protected Class<?>[] stopTypes() { return new Class<?>[] {Object.class, Section.class, Element.class}; }
 
-    protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
+    protected void fillPageFromAnnotation(Field field, IBaseElement instance) {
     }
 
     protected IBaseElement fillInstance(IBaseElement instance, Field field) {

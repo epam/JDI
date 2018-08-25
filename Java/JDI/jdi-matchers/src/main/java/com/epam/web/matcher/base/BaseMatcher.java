@@ -548,7 +548,6 @@ public abstract class BaseMatcher implements IChecker {
     public void isTrue(BooleanSupplier condition) {
         isTrue(condition, null);
     }
-
     public void isFalse(BooleanSupplier condition, String failMessage) {
         waitAction(format("Check that condition '%s' is False", "result"), () -> !condition.getAsBoolean(), failMessage);
     }

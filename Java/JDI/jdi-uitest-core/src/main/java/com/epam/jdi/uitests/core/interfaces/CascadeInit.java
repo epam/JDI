@@ -71,8 +71,7 @@ public abstract class CascadeInit {
         return instance;
     }
 
-    protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance,
-                                                   Class<?> parentType);
+    protected abstract void fillPageFromAnnotation(Field field, IBaseElement instance);
 
     private void setElement(Object parent, Class<?> parentType, Field field, String driverName) {
         try {
@@ -106,7 +105,7 @@ public abstract class CascadeInit {
         if (instance == null) {
             instance = (IBaseElement) type.newInstance();
         }
-        fillPageFromAnnotation(field, instance, parentType);
+        fillPageFromAnnotation(field, instance);
         return instance;
     }
 

@@ -31,10 +31,10 @@ import java.util.function.Consumer;
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.CONTAINS;
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
 import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.MATCH;
-import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
+import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
+import static com.epam.jdi.uitests.web.settings.WebSettings.DOMAIN;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by roman.i on 25.09.2014.
@@ -42,12 +42,12 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 public class WebAnnotationsUtil extends AnnotationsUtil {
 
     public static String getUrlFromUri(String uri) {
-        if (isBlank(domain)) return "";
-        if (isBlank(uri)) return domain;
-        return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
+        if (isBlank(DOMAIN)) return "";
+        if (isBlank(uri)) return DOMAIN;
+        return DOMAIN.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
     }
 
-    public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation, Class<?> parentClass) {
+    public static void fillPageFromAnnotaiton(WebPage page, JPage pageAnnotation) {
         String url = pageAnnotation.url().equals("")
             ? pageAnnotation.value()
             : pageAnnotation.url();
@@ -57,9 +57,12 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
         String urlTemplate = pageAnnotation.urlTemplate();
         CheckPageTypes urlCheckType = pageAnnotation.urlCheckType();
         CheckPageTypes titleCheckType = pageAnnotation.titleCheckType();
-        if (urlTemplate.equals(""))
+        if (urlTemplate.equals("")) {
             if (urlCheckType == EQUAL || urlCheckType == CONTAINS)
                 urlTemplate = url;
+            else throw exception("In order to validate MATCH for page '%s', please specify 'template' in @Url",
+                    page.getName());
+        }
         else urlCheckType = MATCH;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
     }

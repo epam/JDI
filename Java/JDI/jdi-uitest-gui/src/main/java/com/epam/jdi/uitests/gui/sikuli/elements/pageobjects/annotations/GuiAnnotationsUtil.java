@@ -16,7 +16,7 @@ import static com.epam.jdi.uitests.gui.sikuli.elements.CheckPageTypes.NONE;
  * Created by Natalia_Grebenshchikova on 1/14/2016.
  */
 public class GuiAnnotationsUtil extends AnnotationsUtil {
-    public static void fillPageFromAnnotation(Page element, JPage pageAnnotation, Class<?> parentClass) {
+    public static void fillPageFromAnnotation(Page element, JPage pageAnnotation) {
         String filePath = GuiSettings.imageRoot + pageAnnotation.fileLogoPath();
         int x = pageAnnotation.rectangle()[0];
         int i = pageAnnotation.rectangle()[1];

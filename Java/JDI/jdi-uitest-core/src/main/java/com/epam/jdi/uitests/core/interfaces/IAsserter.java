@@ -32,6 +32,7 @@ public interface IAsserter {
     void isTrue(Boolean actual);
     void isTrue(Boolean actual, String msg);
     void isTrue(BooleanSupplier actual);
+    void isTrue(BooleanSupplier actual, String msg);
     void checkMessage(String checkMessage);
     void doScreenshot(String doScreenshot);
 }

@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.web.selenium.preconditions;
 
 import com.epam.jdi.uitests.core.preconditions.IPreconditions;
 
-import static com.epam.jdi.uitests.web.settings.WebSettings.domain;
+import static com.epam.jdi.uitests.web.settings.WebSettings.DOMAIN;
 import static com.epam.jdi.uitests.web.settings.WebSettings.getDriver;
 
 /**
@@ -36,7 +36,7 @@ public interface WebPreconditions extends IPreconditions {
     }
 
     static String getUrlByUri(String uri) {
-        return domain.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
+        return DOMAIN.replaceAll("/*$", "") + "/" + uri.replaceAll("^/*", "");
     }
 
     default void open() {

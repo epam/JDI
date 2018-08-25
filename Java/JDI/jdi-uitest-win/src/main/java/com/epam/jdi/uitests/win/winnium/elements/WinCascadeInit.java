@@ -54,7 +54,7 @@ public class WinCascadeInit extends CascadeInit {
     }
 
     @Override
-    protected void fillPageFromAnnotation(Field field, IBaseElement instance, Class<?> parentType) {
+    protected void fillPageFromAnnotation(Field field, IBaseElement instance) {
         throw exception("Not supported");
     }
 
