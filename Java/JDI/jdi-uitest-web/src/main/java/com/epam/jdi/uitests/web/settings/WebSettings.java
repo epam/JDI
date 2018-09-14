@@ -174,6 +174,11 @@ public class WebSettings extends JDISettings {
             throw new RuntimeException("Can't init JDI from properties: " + ex.getMessage());
         }
     }
+    
+    public static synchronized void initFromProperties(String propertiesPath) throws IOException {
+    	jdiSettingsPath = propertiesPath;
+    	initFromProperties();
+    }
 
     private static Object[][] defaultInterfacesMap() {
         return new Object[][]{
