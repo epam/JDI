@@ -7427,10 +7427,10 @@ main.promo-container .promo-section .section-wrapper {
     color: #fff
 }
 
-.uui-side-bar .sidebar-menu .sub {
+/*.uui-side-bar .sidebar-menu .sub {
     background: #f0f0f0;
-    display: none
-}
+    display: block
+}*/
 
 .uui-side-bar .sidebar-menu .sub > li > a {
     padding: 15px 10px 15px 32px;

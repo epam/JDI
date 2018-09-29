@@ -986,3 +986,33 @@ table.user-table {
 .user-table .bottom {
   vertical-align: bottom;
 }
+.line {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid;
+}
+.line label {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+input[type=number] {
+    width: 300px
+}
+input[type=range] {
+    width: 100px
+}
+#volume-value {
+    width: 30px
+}
+input[type=range].range {
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hide-menu {
+    display: none !important;
+}
+.disable {
+    pointer-events:none;
+}

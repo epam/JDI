@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Simple Table</title>
+    <title>Performance page</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
@@ -44,7 +44,7 @@
                 <div class="main-content-hg">
 				<textarea class="uui-form-element" ui="textarea" id="textarea-performance"></textarea>				
 				<div ui="dropdown" id="dropdown-performance">
-					<label for="gender">Columns</label>
+					<label for="user-names">Columns</label>
 					<select class="uui-form-element" ui="dropdown" id="user-names">
 						<option>Calvin Ramirez</option>
 						<option>Keith James</option>
@@ -2876,5 +2876,9 @@
 <script>
     $('.selectpicker').selectpicker();
 </script>
+<script>
+		includeSideBar();
+		activateTopElement(3,8);
+	</script>
 </body>
 </html>

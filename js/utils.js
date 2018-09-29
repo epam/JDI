@@ -1,4 +1,4 @@
-var pages = ['index.html', 'contacts.html', 'support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'metals-colors.html', 'performance.html']
+var pages = ['support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'performance.html']
 var num = -1;
 var linum = -1;
 var testLocArr = '';
@@ -8,10 +8,7 @@ var data = {};
 var sliderCheck = {};
 
 $(document).ready(function () {
-	getPageState();
 	includeHeader();
-	includeSideBar();
-	initLeftNavMenu();
     checkLogin();
     if ($('.pagination')) {
 		includePagination();
@@ -21,6 +18,10 @@ $(document).ready(function () {
 	}
 	includeFooter()
     reformTitle('salad');
+
+    $('.menu-title').click(function() {
+        $(this).children('.sub').toggleClass('hide-menu')
+    })
 
 
     $('html').click(function () {
@@ -365,14 +366,6 @@ function reformTitle(cname) {
 
     }
 }
-function getPageState() {	
-    testLocArr = location.pathname.split('/');
-    if (testLocArr.length > 0)
-        testLoc = testLocArr[testLocArr.length - 1];
-    else testLoc = location.pathname;
-    num = pages.indexOf(testLoc);
-    linum = (num < 2) ? num : num + 1;
-}
 function includeHeader() {
 	var code = ' <div class="uui-header dark-gray">\
         <nav role="navigation">\
@@ -462,63 +455,76 @@ function includeHeader() {
     </div>';
 	$('.replace.site-header').replaceWith(code);
 }
+function activateTopElement(top_index, sub_index) {
+    $('.sidebar-menu>li[index="'+top_index+'"]').toggleClass('active');
+    if(sub_index) {
+        $('.sidebar-menu>li[index="'+top_index+'"] ul>li[index="'+sub_index+'"]').toggleClass('active');
+    $('.sidebar-menu>li[index="'+top_index+'"] .sub').toggleClass('hide-menu')
+    }
+}
 function includeSideBar() {
 	var code = '<div name="navigation-sidebar" class="uui-side-bar mCustomScrollbar _mCS_1 mCS_no_scrollbar" style="max-height: inherit; display: block;"><div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside" tabindex="0" style="max-height: inherit;"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">\
         <ul class="sidebar-menu">\
-            <li ui="label">\
+            <li ui="label" index="1">\
                 <a href="index.html">\
                     <span>Home</span>\
                 </a>\
             </li>\
-            <li ui="label">\
+            <li ui="label" index="2">\
                 <a href="contacts.html">\
                     <span>Contact form</span>\
                 </a>\
             </li>\
-            <li>\
+            <li class="menu-title" index="3">\
                 <a>\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
-                <ul class="sub" style="display: block;">\
-                    <li ui="label">\
-                        <a href="support.html">\
-                            <p>\
-                                <span>Support</span>\
-                            </p>\
-                        </a>\
-                    </li>\
-                    <li ui="label">\
-                        <a href="dates.html">\
-                            <p>\
-                                <span>Dates</span>\
-                            </p>\
-                        </a>\
-                    </li>\
-                    <li ui="label"><a href="complex-table.html"><p>\
+                <ul class="sub hide-menu">\
+                    <li ui="label" index="1"><a href="support.html"><p>\
+                        <span>Support</span>\
+                    </p></a></li>\
+                    <li ui="label" index="2"><a href="dates.html"><p>\
+                        <span>Dates</span>\
+                    </p></a></li>\
+                    <li ui="label" index="3"><a href="complex-table.html"><p>\
                         <span>Complex Table </span>\
                     </p></a></li>\
-                    <li ui="label"><a href="simple-table.html"><p>\
+                    <li ui="label" index="4"><a href="simple-table.html"><p>\
                         <span>Simple Table</span>\
                     </p></a></li>\
-                    <li ui="label"><a href="user-table.html"><p>\
+                    <li ui="label" index="5"><a href="user-table.html"><p>\
                         <span>User Table</span>\
                     </p></a></li>\
-                    <li ui="label"><a href="table-pages.html"><p>\
+                    <li ui="label" index="6"><a href="table-pages.html"><p>\
                         <span>Table with pages</span>\
                     </p></a></li>\
-                    <li ui="label"><a href="different-elements.html"><p>\
+                    <li ui="label" index="7"><a href="different-elements.html"><p>\
                         <span>Different elements</span>\
                     </p></a></li>\
-                    <li ui="label"><a href="performance.html"><p>\
+                    <li ui="label" index="8"><a href="performance.html"><p>\
                         <span>Performance</span>\
                     </p></a></li>\
                 </ul>\
             </li>\
-            <li ui="label">\
+            <li ui="label" index="4">\
                 <a href="metals-colors.html">\
                     <span>Metals &amp; Colors</span>\
                 </a>\
+            </li>\
+            <li class="menu-title" index="5">\
+                <a>\
+                    <span>Elements packs</span>\
+                    <div class="fa fa-caret-down arrow"></div>\
+                </a>\
+                <ul class="sub hide-menu">\
+                    <li ui="label" index="1"><a href="html5.html"><p>\
+                        <span>HTML 5</span>\
+                    </p></a></li>\
+                    <li ui="label" index="2"><a><p>\
+                        <span>Bootstrap</span>\
+                    </p></a></li>\
+                </ul>\
             </li>\
         </ul>\
     </div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light mCSB_scrollTools_vertical" style="display: none;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; height: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></div>';
@@ -565,33 +571,28 @@ var code = '<div class="footer-bg">\
 	$('.replace.footer').replaceWith(code);
 }
 
-function initLeftNavMenu() {
-    $('.sidebar-menu li').removeClass('active');
-    $($('.sidebar-menu li')[linum]).addClass('active');
-    if (linum > 2 && linum <pages.length) {
-        $($('.sidebar-menu li')[2]).addClass('active');
-        $('.sidebar-menu li .sub').show();
-    }
-}
 function includePagination() {
-	var paginator = '<ul class="uui-pagination"><li class="prev"><a href="#"><i class="fa fa-long-arrow-left"></i></a></li><li class="first"><a href="contacts.html">First</a></li>'
-	for (var i = 1; i < pages.length; i++) {
-		var str = (i == num) ? ' class="active"' : '';
-		paginator += '<li' + str + '><a href="' + pages[i] + '">' + i + '</a></li>'
-	}
-	paginator += '<li class="last"><a href="metals-colors.html">Last</a></li> <li class="next"><a href="index.html"><i class="fa fa-long-arrow-right"></i></a></li> </ul>'
-	$('div.pagination').replaceWith(paginator);		
+    var num = $('.sub .active')[0].getAttribute("index");
+    var prev = pages[num-2];
+    var next = pages[num];
+    var first = "support.html";
+    var last = "performance.html";
+    var disable_first = "";
+    var disable_last = "";
 	if (num == 1) {
-		$('.prev').addClass('disable');
-		$('.first').addClass('disable');
-	} else if (num == pages.length - 1) {
-		$('.next').addClass('disable');
-		$('.last').addClass('disable');
+        disable_first = " disable";
+    }
+	if (num == pages.length) {
+	    disable_last = " disable";
 	}
-	if (num != pages.length - 1) $('.next:not(.disable) a').attr('href', pages[num + 1]);
-	if (num > 1) $('.prev:not(.disable) a').attr('href', pages[num - 1]);
-	$('.first:not(.disable) a').attr('href', pages[1]);
-	$('.last:not(.disable) a').attr('href', pages[pages.length - 1]);
+	var paginator = '<ul class="uui-pagination"><li class="prev'+disable_first+'"><a href="'+prev+'"><i class="fa fa-long-arrow-left"></i></a></li><li class="first'+disable_first+'"><a href="'+first+'">First</a></li>'
+	for (var i = 0; i < pages.length; i++) {
+		var str = (i == num-1) ? ' class="active"' : '';
+		paginator += '<li' + str + '><a href="' + pages[i] + '">' + (i+1) + '</a></li>'
+	}
+	paginator += '<li class="last'+disable_last+'"><a href="'+last+'">Last</a></li> <li class="next'+disable_last+'"><a href="'+next+'"><i class="fa fa-long-arrow-right"></i></a></li> </ul>'
+	$('div.pagination').replaceWith(paginator);		
+
 }
 
 function calculateValue() {
