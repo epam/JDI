@@ -10,9 +10,6 @@ var sliderCheck = {};
 $(document).ready(function () {
 	includeHeader();
     checkLogin();
-    if ($('.pagination')) {
-		includePagination();
-	}
 	if ($('.right-side-bar')) {
 		includeLogBar();
 	}
@@ -459,7 +456,7 @@ function activateTopElement(top_index, sub_index) {
     $('.sidebar-menu>li[index="'+top_index+'"]').toggleClass('active');
     if(sub_index) {
         $('.sidebar-menu>li[index="'+top_index+'"] ul>li[index="'+sub_index+'"]').toggleClass('active');
-    $('.sidebar-menu>li[index="'+top_index+'"] .sub').toggleClass('hide-menu')
+        $('.sidebar-menu>li[index="'+top_index+'"] .sub').toggleClass('hide-menu');
     }
 }
 function includeSideBar() {
