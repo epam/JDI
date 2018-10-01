@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a555be7-9ff2-4644-80c1-ea2d663bd444" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/html5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/jdi-logo.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/complex-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/complex-table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contacts.html" beforeDir="false" afterPath="$PROJECT_DIR$/contacts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dates.html" beforeDir="false" afterPath="$PROJECT_DIR$/dates.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/different-elements.html" beforeDir="false" afterPath="$PROJECT_DIR$/different-elements.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html5.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/performance.html" beforeDir="false" afterPath="$PROJECT_DIR$/performance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simple-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/simple-table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/support.html" beforeDir="false" afterPath="$PROJECT_DIR$/support.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/table-pages.html" beforeDir="false" afterPath="$PROJECT_DIR$/table-pages.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/user-table.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,29 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="complex-table.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/complex-table.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="728">
-              <caret line="315" column="28" selection-start-line="315" selection-start-column="28" selection-end-line="315" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dates.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dates.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="139" column="28" selection-start-line="139" selection-start-column="28" selection-end-line="139" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="different-elements.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/different-elements.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="713">
               <caret line="118" column="28" selection-start-line="118" selection-start-column="28" selection-end-line="118" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="html5.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html5.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-49">
+              <caret line="133" column="26" lean-forward="true" selection-start-line="133" selection-start-column="26" selection-end-line="133" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -112,8 +93,17 @@
       <file leaf-file-name="utils.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+            <state relative-caret-position="450">
+              <caret line="328" column="23" lean-forward="true" selection-start-line="328" selection-start-column="23" selection-end-line="328" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="metals-colors.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/metals-colors.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1219">
+              <caret line="202" column="12" lean-forward="true" selection-start-line="202" selection-start-column="12" selection-end-line="202" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -122,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>uui-main-container</find>
       <find>line</find>
       <find>label {</find>
       <find>time</find>
@@ -152,6 +141,7 @@
       <find>function includePagination()</find>
       <find>include</find>
       <find>pagination</find>
+      <find>login()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,8 +164,6 @@
         <option value="$PROJECT_DIR$/bootstrap/js/bootstrap-multiselect.js" />
         <option value="$PROJECT_DIR$/bootstrap/css/bootstrap-multiselect.css" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/metals-colors.html" />
-        <option value="$PROJECT_DIR$/html5.html" />
         <option value="$PROJECT_DIR$/css/uui-all.css" />
         <option value="$PROJECT_DIR$/css/custom-styles.css" />
         <option value="$PROJECT_DIR$/contacts.html" />
@@ -187,6 +175,8 @@
         <option value="$PROJECT_DIR$/support.html" />
         <option value="$PROJECT_DIR$/table-pages.html" />
         <option value="$PROJECT_DIR$/user-table.html" />
+        <option value="$PROJECT_DIR$/metals-colors.html" />
+        <option value="$PROJECT_DIR$/html5.html" />
         <option value="$PROJECT_DIR$/js/utils.js" />
       </list>
     </option>
@@ -215,7 +205,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="947" />
@@ -364,14 +354,28 @@
       <option name="project" value="LOCAL" />
       <updated>1538256207852</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add html 5 pages">
+      <created>1538257004861</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1538257004861</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix metals and colors">
+      <created>1538257378021</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1538257378021</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="11637000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="947" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="5" />
@@ -411,7 +415,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add html 5 pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="add html 5 pages" />
+    <MESSAGE value="fix metals and colors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix metals and colors" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/css/custom-styles.css">
@@ -515,20 +520,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/metals-colors.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="220" column="28" selection-start-line="220" selection-start-column="28" selection-end-line="220" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
-          <caret line="253" column="30" selection-start-line="253" selection-start-column="30" selection-end-line="253" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/uui-all.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -613,10 +604,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/metals-colors.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1219">
+          <caret line="202" column="12" lean-forward="true" selection-start-line="202" selection-start-column="12" selection-end-line="202" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-49">
+          <caret line="133" column="26" lean-forward="true" selection-start-line="133" selection-start-column="26" selection-end-line="133" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/js/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        <state relative-caret-position="450">
+          <caret line="328" column="23" lean-forward="true" selection-start-line="328" selection-start-column="23" selection-end-line="328" selection-end-column="23" />
         </state>
       </provider>
     </entry>
