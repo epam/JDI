@@ -48,13 +48,17 @@ public class FormTests extends InitTests {
     @Test
     public void submitSpecButtonStringTest() {
         form.get().submit(DEFAULT, "submit");
-        Assert.assertContains(Arrays.toString(mainWindow.passwordTextBox.getLines()), DEFAULT.toString());
+        String lines = Arrays.toString(mainWindow.passwordTextBox.getLines());
+        Assert.assertContains(DEFAULT.toString(), lines.replace("[","").replace("]",
+                ""));
     }
 
     @Test
     public void submitSpecButtonEnumTest() throws Exception {
         form.get().submit(DEFAULT, Buttons.SUBMIT);
-        Assert.assertContains(Arrays.toString(mainWindow.passwordTextBox.getLines()), DEFAULT.toString());
+        String lines = Arrays.toString(mainWindow.passwordTextBox.getLines());
+        Assert.assertContains(DEFAULT.toString(), lines.replace("[","").replace("]",
+                ""));
     }
 
     @Test

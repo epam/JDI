@@ -73,9 +73,10 @@ public class TextFieldTests extends InitTests {
 
     @Test
     public void multiKeyTest() throws Exception {
+        textFieldSupplier.get().clear();
         for(char letter : inputText.toCharArray())
             textFieldSupplier.get().sendKeys(Character.toString(letter));
-        assertEquals(textFieldSupplier.get().getText(), text + expectedText);
+        assertEquals(textFieldSupplier.get().getText(), expectedText);
     }
 
     @Factory
