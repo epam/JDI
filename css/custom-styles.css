@@ -80,20 +80,20 @@ header { z-index: 1001 }
     /*width: 100%;*/
     flex-grow: 2;
 }
-    .uui-main-container main,
-    .uui-main-container main .main-content {
-        height: 100%;
-    }
-        .uui-main-container.page-inside {
-            background: none;
-            margin-right: 374px;
-        }
-            .uui-main-container.page-inside .pattern-top {
-                display: none;
-            }
-            .uui-main-container.page-inside .main-content {
-                max-width: 780px;
-            }
+.uui-main-container main,
+.uui-main-container main .main-content {
+    height: 100%;
+}
+.uui-main-container.page-inside {
+    background: none;
+    margin-right: 374px;
+}
+.uui-main-container.page-inside .pattern-top {
+    display: none;
+}
+.uui-main-container.page-inside .main-content {
+    max-width: 1024px;
+}
 
 /*Type and Scaffolding*/
 
