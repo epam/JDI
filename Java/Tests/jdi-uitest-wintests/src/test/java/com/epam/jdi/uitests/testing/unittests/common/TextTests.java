@@ -25,8 +25,6 @@ public class TextTests extends InitTests {
     private String contains;
     private String regEx;
 
-    public TextTests() {}
-
     public TextTests(String elementType, Preconditions page, Supplier<? extends IText> textItem, String expectedText,
                      String contains, String regEx) {
         this.elementType = elementType;
