@@ -4,6 +4,8 @@ import com.epam.jdi.uitests.testing.unittests.entities.SupportEntity;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.EntityTable;
 import com.epam.jdi.uitests.win.winnium.elements.complex.table.Table;
 import com.epam.jdi.uitests.win.winnium.elements.composite.Section;
+import com.epam.jdi.uitests.win.winnium.elements.pageobjects.annotations.objects.JTable;
+import org.openqa.selenium.support.FindBy;
 
 public class NestedSimpleTableView extends Section {
     //TODO
@@ -24,5 +26,8 @@ public class NestedSimpleTableView extends Section {
         headerInRowXpath = "/*[contains(@ControlType,'ControlType.HeaderItem')]/*[contains(@ControlType, 'ControlType.Text')]",
         headerType = TableHeaderTypes.ALL_HEADERS)
         */
+    @JTable(root = @FindBy(className = "DataGrid"),
+            row = @FindBy(className = "DataGridRow"),
+            header = {"Type", "Now", "Plans"})
     public EntityTable<SupportEntity, ?> entityTable = new EntityTable<>(SupportEntity.class);
 }

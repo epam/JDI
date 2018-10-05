@@ -12,16 +12,20 @@ import java.util.function.Supplier;
 import static com.epam.jdi.uitests.core.preconditions.PreconditionsState.isInState;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 import static com.epam.jdi.uitests.testing.unittests.enums.Preconditions.SUPPORT_PAGE;
+import static com.epam.jdi.uitests.testing.unittests.pageobjects.Desktop.mainWindow;
 import static com.epam.web.matcher.testng.Assert.areEquals;
 import static java.lang.String.format;
 
 public class TextTests extends InitTests {
     private String elementType;
     private Preconditions page;
-    private Supplier<? extends IText> textItem;
+    private Supplier<? extends IText> textItem =
+            () -> mainWindow.mainTabPane.contactFormTab.nestedContactFormView.nameTextBox;
     private String expectedText;
     private String contains;
     private String regEx;
+
+    public TextTests() {}
 
     public TextTests(String elementType, Preconditions page, Supplier<? extends IText> textItem, String expectedText,
                      String contains, String regEx) {
