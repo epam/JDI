@@ -17,7 +17,8 @@ package com.epam.jdi.uitests.core.interfaces.base;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import ru.yandex.qatools.allure.annotations.Step;
+
+import io.qameta.allure.Step;
 
 import java.util.List;
 

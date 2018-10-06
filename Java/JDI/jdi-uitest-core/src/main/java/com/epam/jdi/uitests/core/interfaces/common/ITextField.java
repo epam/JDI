@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
 
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
-import ru.yandex.qatools.allure.annotations.Step;
+import io.qameta.allure.Step;
 
 /**
  * Created by Roman_Iovlev on 7/6/2015.

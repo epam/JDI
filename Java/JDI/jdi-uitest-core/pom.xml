@@ -69,11 +69,18 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j2.version}</version>
         </dependency>
-<!-- deprecated
-<dependency>
+        <!--adapter for log4j 1.0-->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <!-- deprecated-->
+<!--        <dependency>orog4j l
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <version>1.2.17</version>
         </dependency>-->
         <!--Allure 2.0-->
         <dependency>
@@ -87,11 +94,11 @@
                <artifactId>allure-testng-adaptor</artifactId>
                <version>RELEASE</version>
            </dependency>-->
-<!--        <dependency>
-            <groupId>ru.yandex.qatools.allure</groupId>
-            <artifactId>allure-java-annotations</artifactId>
-            <version>RELEASE</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>ru.yandex.qatools.allure</groupId>
+                    <artifactId>allure-java-annotations</artifactId>
+                    <version>RELEASE</version>
+                </dependency>-->
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
@@ -99,7 +106,6 @@
         </dependency>
     </dependencies>
     <build>
-
 
 
         <plugins>
