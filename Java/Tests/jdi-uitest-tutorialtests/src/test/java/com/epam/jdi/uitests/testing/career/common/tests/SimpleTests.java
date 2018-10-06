@@ -12,13 +12,13 @@ import static com.epam.jdi.site.epam.EpamSite.careerPage;
 import static com.epam.jdi.site.epam.EpamSite.headerMenu;
 
 public class SimpleTests extends TestsBase {
-  @BeforeClass
+/*  @BeforeClass
   public static void testAllureBeforeClass() {
     Allure.addAttachment("testAllureBeforeClass", "testAllureBeforeClass");
     Logger logger = LogManager.getLogger();
     logger.info("!!!!!!!!SimpleTests.testAllureBeforeClas!!!!!!!!!!!!");
     System.out.println("SimpleTests.testAllureBeforeClass");
-  }
+  }*/
 
   @Test
   public void simpleTest() {

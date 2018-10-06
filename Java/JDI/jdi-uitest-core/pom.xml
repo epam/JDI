@@ -96,12 +96,12 @@
             <artifactId>allure-testng-adaptor</artifactId>
             <version>RELEASE</version>
         </dependency>
+       -->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-java-annotations</artifactId>
             <version>RELEASE</version>
-        </dependency>-->
-
+        </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>

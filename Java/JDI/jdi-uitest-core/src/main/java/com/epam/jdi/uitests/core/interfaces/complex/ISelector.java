@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
 
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
-import io.qameta.allure.Step;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 
