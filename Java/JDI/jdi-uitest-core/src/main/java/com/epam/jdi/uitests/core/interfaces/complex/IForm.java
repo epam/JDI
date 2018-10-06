@@ -22,7 +22,7 @@ import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
-import ru.yandex.qatools.allure.annotations.Step;
+import io.qameta.allure.Step;
 
 import java.util.List;
 import java.util.Map;

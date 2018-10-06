@@ -77,28 +77,31 @@
         </dependency>
 
         <!-- deprecated-->
-<!--        <dependency>orog4j l
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>-->
+        <!--        <dependency>orog4j l
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>1.2.17</version>
+                </dependency>-->
+
         <!--Allure 2.0-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.testng.version}</version>
         </dependency>
-        <!--   <dependency>
-        allure 1.0
-               <groupId>ru.yandex.qatools.allure</groupId>
-               <artifactId>allure-testng-adaptor</artifactId>
-               <version>RELEASE</version>
-           </dependency>-->
-        <!--        <dependency>
-                    <groupId>ru.yandex.qatools.allure</groupId>
-                    <artifactId>allure-java-annotations</artifactId>
-                    <version>RELEASE</version>
-                </dependency>-->
+        <!--allure 1.0-->
+
+<!--        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-annotations</artifactId>
+            <version>RELEASE</version>
+        </dependency>-->
+
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>

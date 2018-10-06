@@ -7,19 +7,8 @@
             <class name="org.mytests.tests.JDIExampleSiteTests"/>
             <class name="org.mytests.tests.W3CSiteTests"/>
         </classes>
+
     </test>
+
 </suite>
 
-        <!--CucumberTestNG-->
-<dependency>
-<groupId>info.cukes</groupId>
-<artifactId>cucumber-testng</artifactId>
-<version>${cucumber.version}</version>
-</dependency>
-
-        <!--CucumberJava-->
-<dependency>
-<groupId>info.cukes</groupId>
-<artifactId>cucumber-java</artifactId>
-<version>${cucumber.version}</version>
-</dependency>

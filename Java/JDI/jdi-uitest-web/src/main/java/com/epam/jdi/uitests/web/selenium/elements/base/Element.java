@@ -23,9 +23,9 @@ import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.settings.WebSettings;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.function.Function;
@@ -33,7 +33,6 @@ import java.util.function.Function;
 import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**

@@ -6,9 +6,9 @@ import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.gui.sikuli.elements.BaseElement;
+import io.qameta.allure.Step;
 import org.sikuli.script.Pattern;
 import org.sikuli.script.Region;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.awt.*;
 import java.lang.reflect.Field;
