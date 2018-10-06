@@ -1,107 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.epam.jdi</groupId>
-	<artifactId>jdi-uitest-framework</artifactId>
-	<version>1.1.0</version>
+    <groupId>com.epam.jdi</groupId>
+    <artifactId>jdi-uitest-framework</artifactId>
+    <version>1.1.0</version>
 
-	<dependencies>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-core</artifactId>
-			<version>1.2.6-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>1.2.6-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>ru.yandex.qatools.allure</groupId>
-			<artifactId>allure-java-annotations</artifactId>
-			<version>1.5.4</version>
-		</dependency>
-	</dependencies>
-	<packaging>pom</packaging>
-	<name>EPAM UI Test Framework</name>
-	<description>Automation UI testing for web mobile and desktop</description>
-	<url>https://www.epam.com/</url>
+    <dependencies>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>1.2.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>1.2.6-SNAPSHOT</version>
+        </dependency>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
+        <!--		<dependency>
+                    <groupId>ru.yandex.qatools.allure</groupId>
+                    <artifactId>allure-java-annotations</artifactId>
+                    <version>1.5.4</version>
+                </dependency>-->
+    </dependencies>
+    <packaging>pom</packaging>
+    <name>EPAM UI Test Framework</name>
+    <description>Automation UI testing for web mobile and desktop</description>
+    <url>https://www.epam.com/</url>
 
-	<licenses>
-		<license>
-			<name>GNU General Public License v3</name>
-			<url>http://www.gnu.org/licenses/gpl.html</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
 
-	<scm>
-		<connection>scm:https://github.com/epam/JDI</connection>
-		<developerConnection>scm:https://github.com/epam/JDI</developerConnection>
-		<url>https://github.com/epam/JDI</url>
-	</scm>
+    <licenses>
+        <license>
+            <name>GNU General Public License v3</name>
+            <url>http://www.gnu.org/licenses/gpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<developers>
-		<developer>
-			<id>engineer</id>
-			<name>Roman Iovlev</name>
-			<email>roman_iovlev@epam.com</email>
-			<timezone>UTC+3</timezone>
-		</developer>
-	</developers>
+    <scm>
+        <connection>scm:https://github.com/epam/JDI</connection>
+        <developerConnection>scm:https://github.com/epam/JDI</developerConnection>
+        <url>https://github.com/epam/JDI</url>
+    </scm>
 
-	<properties>
-		<selenide.version>4.14.2</selenide.version>
-		<java.version>1.8</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<aspectj.version>1.8.5</aspectj.version>
-	</properties>
+    <developers>
+        <developer>
+            <id>engineer</id>
+            <name>Roman Iovlev</name>
+            <email>roman_iovlev@epam.com</email>
+            <timezone>UTC+3</timezone>
+        </developer>
+    </developers>
 
-	<modules>
-		<module>JDI/jdi-commons</module>
-		<module>JDI/jdi-matchers</module>
-		<module>JDI/jdi-uitest-core</module>
-		<module>JDI/jdi-uitest-web</module>
-		<module>JDI/jdi-uitest-mobile</module>
-		<module>JDI/jdi-uitest-gui</module>
-		<module>JDI/jdi-uitest-cucumber</module>
-		<module>JDI/jdi-http</module>
-		<module>JDI/jdi-http-cucumber</module>
-		<module>JDI/jdi-mock-rest</module>
-		<module>JDI/jdi-uitest-win</module>
+    <properties>
+        <selenide.version>4.14.2</selenide.version>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <aspectj.version>1.8.5</aspectj.version>
+        <surefire.version>2.20</surefire.version>
 
-		<module>Tests/jdi-uitest-tutorialtests</module>
-		<module>Tests/jdi-uitest-webtests</module>
-		<module>Tests/jdi-uitest-mobiletests</module>
-		<module>Tests/jdi-uitest-guitests</module>
-		<module>Tests/jdi-uitest-cucumbertests</module>
-		<module>Tests/jdi-httpTests</module>
-		<module>Tests/jdi-http-cucumbertests</module>
-		<module>Tests/jdi-uitest-web-examples</module>
-		<module>Tests/jdi-uitest-cucumber-example</module>
-		<module>Tests/jdi-uitest-wintests</module>
-	</modules>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-			</plugin>
-		</plugins>
-	</build>
+    <modules>
+        <module>JDI/jdi-commons</module>
+        <module>JDI/jdi-matchers</module>
+        <module>JDI/jdi-uitest-core</module>
+        <module>JDI/jdi-uitest-web</module>
+        <module>JDI/jdi-uitest-mobile</module>
+        <module>JDI/jdi-uitest-gui</module>
+        <module>JDI/jdi-uitest-cucumber</module>
+        <module>JDI/jdi-http</module>
+        <module>JDI/jdi-http-cucumber</module>
+        <module>JDI/jdi-mock-rest</module>
+        <module>JDI/jdi-uitest-win</module>
+
+        <module>Tests/jdi-uitest-tutorialtests</module>
+        <module>Tests/jdi-uitest-webtests</module>
+        <module>Tests/jdi-uitest-mobiletests</module>
+        <module>Tests/jdi-uitest-guitests</module>
+        <module>Tests/jdi-uitest-cucumbertests</module>
+        <module>Tests/jdi-httpTests</module>
+        <module>Tests/jdi-http-cucumbertests</module>
+        <module>Tests/jdi-uitest-web-examples</module>
+        <module>Tests/jdi-uitest-cucumber-example</module>
+        <module>Tests/jdi-uitest-wintests</module>
+    </modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
