@@ -4,7 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/../jdi-light/jdi-light/src/main/java/com/epam/jdi/light/elements/base/JDIBase.java" description="if (locator == null) locator = printLocator();" line="168" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a555be7-9ff2-4644-80c1-ea2d663bd444" name="Default" comment="add on clicks">
+    <list default="true" id="8a555be7-9ff2-4644-80c1-ea2d663bd444" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html5.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5.html" afterDir="false" />
     </list>
@@ -41,8 +41,8 @@
       <file leaf-file-name="html5.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="61" column="114" selection-start-line="61" selection-start-column="114" selection-end-line="61" selection-end-column="114" />
+            <state relative-caret-position="438">
+              <caret line="74" column="86" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
             </state>
           </provider>
         </entry>
@@ -191,7 +191,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -214,8 +213,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -342,7 +342,21 @@
       <option name="project" value="LOCAL" />
       <updated>1538991608099</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add on clicks">
+      <created>1539014375329</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1539014375329</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add on clicks">
+      <created>1539014686511</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1539014686511</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -422,7 +436,8 @@
     <MESSAGE value="fix metals and colors" />
     <MESSAGE value="small login fix" />
     <MESSAGE value="Add description for dfew html elements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add description for dfew html elements" />
+    <MESSAGE value="add on clicks" />
+    <option name="LAST_COMMIT_MESSAGE" value="add on clicks" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/css/uui-all.css">
@@ -705,8 +720,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="61" column="114" selection-start-line="61" selection-start-column="114" selection-end-line="61" selection-end-column="114" />
+        <state relative-caret-position="438">
+          <caret line="74" column="86" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
         </state>
       </provider>
     </entry>
