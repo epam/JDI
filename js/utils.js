@@ -474,7 +474,7 @@ function includeSideBar() {
             </li>\
             <li class="menu-title" index="3">\
                 <a>\
-                    <span>Service</span>\
+                    <span ui="label">Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
                 <ul class="sub hide-menu">\
@@ -516,7 +516,7 @@ function includeSideBar() {
                 </a>\
                 <ul class="sub hide-menu">\
                     <li ui="label" index="1"><a href="html5.html"><p>\
-                        <span>HTML 5</span>\
+                        <span ui="label">HTML 5</span>\
                     </p></a></li>\
                     <li ui="label" index="2"><a><p>\
                         <span>Bootstrap</span>\

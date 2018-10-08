@@ -45,8 +45,8 @@
                     <div class="support-title"><i class="fa fa-comments-o"></i>HTML 5 Elements</div>
                     <div class="doc-space line">
                         <div class="html-left">
-                            <h1>JDI Testing platform</h1>
-                            <p>Powerful Framework for UI Tests Automation. Suitable for any UI project: Web(Html5, Angular, React...), Mobile(Android IOs), Desktop(Win app) etc.</p>
+                            <h1 ui="jdi-title">JDI Testing platform</h1>
+                            <p ui="jdi-text">Powerful Framework for UI Tests Automation. Suitable for any UI project: Web(Html5, Angular, React...), Mobile(Android IOs), Desktop(Win app) etc.</p>
                         </div>
                         <div class="html-right">
                             Description
@@ -54,15 +54,14 @@
                     </div>
 					<div class="doc-space line">
                         <div class="html-left">
-                            <h4>Input type "text"</h4>
-                            <input type="button" value="Big Red Button-Input" class="uui-button red" id="red-button-input" /> <br><br>
-                            <input type="button" value="Disabled Button-Input" class="uui-button grey" id="disabled-button-input" disabled/> <br>
+                            <h4>Button element</h4>
+                            <input type="button" value="Big Red Button-Input" class="uui-button red" /> <br><br>
+                            <input type="button" value="Disabled Button-Input" class="uui-button grey" disabled/> <br>
                             <h4>Tag button</h4>
                             <button class="uui-button blue" id="blue-button">Big blue button</button> <br><br>
                             <button class="uui-button grey" id="disabled-button" disabled>Disabled Button</button>
                         </div>
                         <div class="html-right">
-                            <h4>Button</h4>
                             <p>W3C: <a>https://www.w3schools.com/tags/tag_a.asp</a></p>
                             <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
                             <p>click() - Click on link</p>
@@ -74,10 +73,10 @@
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                            <a href="https://github.com/jdi-testing">Github JDI</a>
+                            <h4>Link element</h4>
+                            <a ui="github-link" href="https://github.com/jdi-testing">Github JDI</a>
                         </div>
                         <div class="html-right">
-                            <h4>Link</h4>
                             <p>W3C: <a>https://www.w3schools.com/tags/tag_a.asp</a></p>
                             <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
                             <p>click() - Click on link</p>
@@ -110,222 +109,218 @@
                         </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="text-area">Text example:</label>
-                        <textarea id="text-area"
-                                  rows="3" cols="33" maxlength="200" minlength="10" required
-                                  wrap="hard">
+                            <label for="text-area">Text example:</label>
+                            <textarea id="text-area" rows="3" cols="33" maxlength="200" minlength="10" required wrap="hard">
 Textarea with sizing and wrap attribute (try values of hard, soft, and off to see how it affects wrapping). The maximum number of characters is constrained to 200 by the maxlength attribute.
-                        </textarea> <br>
-                        <textarea disabled placeholder="Disabled area" ></textarea>
+                            </textarea> <br>
+                            <textarea disabled placeholder="Disabled area" ></textarea>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
 
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="avatar">Profile picture:</label>
-                        <input type="file" id="avatar"
-                               accept="image/png, image/jpeg" />
-                        <input type="file"
-                               accept="image/png, image/jpeg" disabled/>
+                            <label for="avatar">Profile picture:</label>
+                            <input type="file" id="avatar"
+                                   accept="image/png, image/jpeg" />
+                            <input type="file"
+                                   accept="image/png, image/jpeg" disabled/>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="jdi-logo">JDI Logo:</label>
-                        <img src="/JDI/images/jdi-logo.jpg" id="jdi-logo" alt="Jdi Logo 2"
-                             width="100" height="100">
+                            <label for="jdi-logo">JDI Logo:</label>
+                            <img src="/JDI/images/jdi-logo.jpg" id="jdi-logo" alt="Jdi Logo 2"
+                                 width="100" height="100">
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="dress-code">Dress code:</label>
-                        <select id="dress-code">
-                            <option value="fancy">Fancy</option>
-                            <option value="casual" selected >Casual</option>
-                            <option value="pirate">Pirate</option>
-                        </select>
-                        <select id="disabled-dropdown" disabled>
-                            <option value="fancy">Fancy</option>
-                            <option value="casual" selected >Disabled</option>
-                            <option value="pirate">Pirate</option>
-                        </select>
-                        </div>
-                        <div class="html-right">Description</div>
-                    </div>
-
-                    <div class="doc-space line">
-                        <div class="html-left">
-                        <label for="multi-selector">Age status:</label>
-                        <select id="multi-selector" multiple size="4">
-                            <option value="electro">Electro</option>
-                            <option value="steam" selected >Steam</option>
-                            <option value="metalic">Metalic</option>
-                            <option value="dis" disabled>Disabled</option>
-                            <option value="wood">Wood</option>
-                        </select>
+                            <label for="dress-code">Dress code:</label>
+                            <select id="dress-code">
+                                <option value="fancy">Fancy</option>
+                                <option value="casual" selected >Casual</option>
+                                <option value="pirate">Pirate</option>
+                            </select>
+                            <select id="disabled-dropdown" disabled>
+                                <option value="fancy">Fancy</option>
+                                <option value="casual" selected >Disabled</option>
+                                <option value="pirate">Pirate</option>
+                            </select>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
 
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="multi-dropdown">Multi dropdown:</label>
-                        <select id="multi-dropdown" multiple="multiple" >
-                            <option value="electro">Electro</option>
-                            <option value="steam" selected >Steam</option>
-                            <option value="metalic">Metalic</option>
-                            <option value="dis" disabled>Disabled</option>
-                            <option value="wood">Wood</option>
-                        </select>
+                            <label for="ages">Age status:</label>
+                            <select id="ages" multiple size="4">
+                                <option value="electro">Electro</option>
+                                <option value="steam" selected >Steam</option>
+                                <option value="metalic">Metalic</option>
+                                <option value="dis" disabled>Disabled</option>
+                                <option value="wood">Wood</option>
+                            </select>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
 
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="ice-cream">Choose your lovely icecream</label>
-                        <input list="ice-cream-flavors" id="ice-cream" placeholder="Ice cream"/>
+                            <label for="multi-dropdown">Multi dropdown:</label>
+                            <select id="multi-dropdown" multiple="multiple" >
+                                <option value="electro">Electro</option>
+                                <option value="steam" selected >Steam</option>
+                                <option value="metalic">Metalic</option>
+                                <option value="dis" disabled>Disabled</option>
+                                <option value="wood">Wood</option>
+                            </select>
+                        </div>
+                        <div class="html-right">Description</div>
+                    </div>
 
-                        <datalist id="ice-cream-flavors">
-                            <option value="Chocolate">
-                            <option value="Coconut">
-                            <option value="Mint">
-                            <option value="Strawberry">
-                            <option value="Vanilla">
-                        </datalist>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="ice-cream">Choose your lovely icecream</label>
+                            <input list="ice-cream-flavors" id="ice-cream" placeholder="Ice cream"/>
+
+                            <datalist id="ice-cream-flavors">
+                                <option value="Chocolate">
+                                <option value="Coconut">
+                                <option value="Mint">
+                                <option value="Strawberry">
+                                <option value="Vanilla">
+                            </datalist>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <input type="checkbox" id="checkbox" checked />
-                        <label for="checkbox">Accept terms and conditions</label> <br>
+                            <input type="checkbox" id="accept-conditions" checked />
+                            <label for="accept-conditions">Accept terms and conditions</label> <br>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
 					<div class="doc-space line">
                         <div class="html-left">
-						<input type="checkbox" id="selected" checked />
-                        <label for="selected">Selected option</label> <br>
+                            <input type="checkbox" id="selected" checked />
+                            <label for="selected">Selected option</label> <br>
 
-                        <input type="checkbox" id="unchecked" />
-                        <label for="unchecked">Unchecked</label> <br>
+                            <input type="checkbox" id="unchecked" />
+                            <label for="unchecked">Unchecked</label> <br>
 
-                        <input type="checkbox" id="disabled-ch" disabled/>
-                        <label for="disabled-ch">Disabled</label>
+                            <input type="checkbox" id="disabled-ch" disabled/>
+                            <label for="disabled-ch">Disabled</label>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <input type="radio" id="red" name="color" />
-                        <label for="red">Red</label> <br>
+                            <input type="radio" id="red" name="colors" />
+                            <label for="red">Red</label> <br>
 
-                        <input type="radio" id="green" name="color" checked />
-                        <label for="green">Green</label> <br>
+                            <input type="radio" id="green" name="colors" checked />
+                            <label for="green">Green</label> <br>
 
-                        <input type="radio" id="blue" name="color" />
-                        <label for="blue">Blue</label> <br>
+                            <input type="radio" id="blue" name="colors" />
+                            <label for="blue">Blue</label> <br>
 
-                        <input type="radio" id="yellow" name="color" disabled/>
-                        <label for="yellow">Yellow</label>
+                            <input type="radio" id="yellow" name="colors" disabled/>
+                            <label for="yellow">Yellow</label>
                         </div>
                         <div class="html-right">Description</div>
 					</div>
 					<div class="doc-space line">
                         <div class="html-left">
-						<input type="color" value="#3fd7a6" id="color-picker" />
-                        <label for="color-picker">Select a color</label> <br>
-                        <input type="color" value="#ffd7a6" id="disabled-picker" disabled/> Disabled
+                            <input type="color" value="#3fd7a6" id="color-picker" />
+                            <label for="color-picker">Select a color</label> <br>
+                            <input type="color" value="#ffd7a6" id="disabled-picker" disabled/> Disabled
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="volume">Volume</label>
-                        <input type="text" disabled id="volume-value"/> <br>
-                        <span>10</span>
-                        <input type="range" id="volume"
-                               min="10" max="100" value="90" step="5" class="range" list="volume-list"
-                               oninput="showVal(this.value)" onchange="showVal(this.value)"/>
-                        <span>100</span>
+                            <label for="volume">Volume</label>
+                            <input type="text" disabled id="volume-value"/> <br>
+                            <span>10</span>
+                            <input type="range" id="volume"
+                                   min="10" max="100" value="90" step="5" class="range" list="volume-list"
+                                   oninput="showVal(this.value)" onchange="showVal(this.value)"/>
+                            <span>100</span>
 
-                        <datalist id="volume-list">
-                            <option value="0">
-                            <option value="20">
-                            <option value="40">
-                            <option value="60">
-                            <option value="80">
-                            <option value="100">
-                        </datalist> <br> <br>
+                            <datalist id="volume-list">
+                                <option value="0">
+                                <option value="20">
+                                <option value="40">
+                                <option value="60">
+                                <option value="80">
+                                <option value="100">
+                            </datalist> <br> <br>
 
-                        <input type="range" disabled/>
-                        </div>
-                        <div class="html-right">Description</div>
-                    </div>
-
-                    <div class="doc-space line">
-                        <div class="html-left">
-                        <label for="progress">File progress</label>
-                        <progress id="progress" max="100" value="70"></progress>
+                            <input type="range" disabled/>
                         </div>
                         <div class="html-right">Description</div>
                     </div>
 
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="birth-date">Birth date</label>
-                        <input type="date" id="birth-date"
-                               value="1985-06-18"
-                               min="1970-01-01" max="2030-12-31" />
+                            <label for="progress">File progress</label>
+                            <progress id="progress" max="100" value="70"></progress>
+                        </div>
+                        <div class="html-right">Description</div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="birth-date">Birth date</label>
+                            <input type="date" id="birth-date" value="1985-06-18"
+                                   min="1970-01-01" max="2030-12-31" />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="month-date">Month of Holidays</label>
-                        <input type="month" id="month-date"
-                               min="2015-03" max="2020-12" value="2018-05" />
+                            <label for="month-date">Month of Holidays</label>
+                            <input type="month" id="month-date"
+                                   min="2015-03" max="2020-12" value="2018-05" />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="party-time">Date/time:</label>
-                        <input type="datetime-local" id="party-time"
-                               value="2018-06-12T19:30"
-                               min="2018-05-07T00:00" max="2018-06-14T00:00" />
+                            <label for="party-time">Date/time:</label>
+                            <input type="datetime-local" id="party-time" value="2018-06-12T19:30"
+                                   min="2018-05-07T00:00" max="2018-06-14T00:00" />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="booking-time">Booking Time:</label>
-                        <input type="time" id="booking-time" value="11:00"
-                               min="9:00" max="18:00" />
+                            <label for="booking-time">Booking Time:</label>
+                            <input type="time" id="booking-time" value="11:00"
+                                   min="9:00" max="18:00" />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="autumn-week">Autumn</label>
-                        <input type="week" id="autumn-week" value="2018-W40"
-                               min="2018-W35" max="2018-W48" required />
+                            <label for="autumn-week">Autumn</label>
+                            <input type="week" id="autumn-week" value="2018-W40"
+                                   min="2018-W35" max="2018-W48" required />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
                     <div class="doc-space line">
                         <div class="html-left">
-                        <label for="height">Height (metres):</label>
-                        <input type="number" id="height"
-                               placeholder="20 cm increments. Range [0.3,2.5]" step="0.2"
-                               min="0.3" max="2.5" />
+                            <label for="height">Height (metres):</label>
+                            <input type="number" id="height" min="0.3" max="2.5" step="0.2"
+                                   placeholder="20 cm increments. Range [0.3,2.5]" />
                         </div>
                         <div class="html-right">Description</div>
                     </div>
+
 					<div class="doc-space line"/>
 				</div>
             </div>
