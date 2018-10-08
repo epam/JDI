@@ -84,11 +84,11 @@
                 </dependency>-->
 
         <!--Allure 2.0-->
-        <dependency>
+<!--        <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure.testng.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--allure 1.0-->
         <dependency>

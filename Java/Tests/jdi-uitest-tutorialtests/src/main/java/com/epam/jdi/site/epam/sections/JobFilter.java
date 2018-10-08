@@ -19,30 +19,31 @@ import org.openqa.selenium.support.FindBy;
  */
 public class JobFilter extends Form<JobSearchFilter> {
     //Keyword or Vacancy ID
-    @ByClass("job-search__input")
+    @ByClass("recruiting-search__input")
     ITextField keywords;
 
     //Skills
     @JDropdown(
+            //root = @FindBy(css = ".recruiting-search__column"),
             root = @FindBy(css = ".multi-select-filter"),
             expand = @FindBy(css = ".default-label"),
             list = @FindBy(css = ".multi-select-dropdown li"))
     public IDropDown category;
 
     @JTree(
-            select = @FindBy(css = ".job-search__location"),
-            levels = {@FindBy(css = "[role=tree]>li"),
+            select = @FindBy(css = ".recruiting-search__location"),
+            levels = {@FindBy(css = "li[role=list]"),
                     @FindBy(xpath = "//..//li")}
     ) TreeDropdown<Locations> location;
 
 
 
     //Submit button
-    @ByClass("job-search__submit")
+    @Css(".recruiting-search__submit")
     IButton selectButton;
 
     //Title
-    @Css(".job-search-title")
+    @Css(".title>h2.title-ui")
     public Label label;
 
 //    @Override
