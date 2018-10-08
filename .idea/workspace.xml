@@ -124,10 +124,10 @@
       <find>show-menu</find>
       <find>.menu-title'</find>
       <find>hide-menu</find>
-      <find>Teatro Cairoli</find>
-      <find>.uui-side-bar .sidebar-menu .sub</find>
+      <find />
+      <find />
       <find>page.</find>
-      <find>'.sidebar-menu li .sub'</find>
+      <find />
       <find>selectpicker</find>
       <find>getPageState</find>
       <find>initLeftNavMenu</find>
@@ -135,12 +135,12 @@
       <find>includeSideBar</find>
       <find>includeFooter</find>
       <find>.sidebar-menu&gt;li[index</find>
-      <find>function includePagination()</find>
+      <find />
       <find>include</find>
       <find>login()</find>
       <find>pagination</find>
       <find>line</find>
-      <find>.uui-main-container.page-inside .main-content</find>
+      <find />
     </findStrings>
   </component>
   <component name="Git.Settings">
