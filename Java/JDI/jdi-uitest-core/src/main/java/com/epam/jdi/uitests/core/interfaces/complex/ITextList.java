@@ -20,7 +20,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
 import com.epam.jdi.uitests.core.interfaces.base.IVisible;
-import io.qameta.allure.Step;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 

@@ -21,7 +21,7 @@ package com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces;
 import com.epam.commons.map.MapArray;
 import com.epam.jdi.uitests.core.interfaces.base.ISelect;
 import com.epam.jdi.uitests.core.interfaces.common.IText;
-import io.qameta.allure.Step;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 

@@ -89,14 +89,13 @@
             <artifactId>allure-testng</artifactId>
             <version>${allure.testng.version}</version>
         </dependency>
-        <!--allure 1.0-->
 
-<!--        <dependency>
+        <!--allure 1.0-->
+        <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-testng-adaptor</artifactId>
             <version>RELEASE</version>
         </dependency>
-       -->
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-java-annotations</artifactId>

@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.complex;
 
 import com.epam.jdi.uitests.core.interfaces.base.IComposite;
 import com.epam.jdi.uitests.core.interfaces.common.ITextField;
-import io.qameta.allure.Step;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 

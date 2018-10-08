@@ -23,9 +23,9 @@ import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.settings.WebSettings;
-import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.List;
 import java.util.function.Function;

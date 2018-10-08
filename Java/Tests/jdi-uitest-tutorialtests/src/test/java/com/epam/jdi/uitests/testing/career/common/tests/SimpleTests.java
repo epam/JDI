@@ -2,6 +2,7 @@ package com.epam.jdi.uitests.testing.career.common.tests;
 
 import com.epam.jdi.uitests.testing.TestsBase;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeClass;
@@ -19,9 +20,10 @@ public class SimpleTests extends TestsBase {
     logger.info("!!!!!!!!SimpleTests.testAllureBeforeClas!!!!!!!!!!!!");
     System.out.println("SimpleTests.testAllureBeforeClass");
   }*/
-
   @Test
   public void simpleTest() {
+
+
     headerMenu.select(CAREERS);
     careerPage.checkOpened();
   }

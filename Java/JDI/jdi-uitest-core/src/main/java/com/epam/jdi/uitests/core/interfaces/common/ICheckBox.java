@@ -19,7 +19,7 @@ package com.epam.jdi.uitests.core.interfaces.common;
 
 import com.epam.jdi.uitests.core.interfaces.base.IClickable;
 import com.epam.jdi.uitests.core.interfaces.base.ISetValue;
-import io.qameta.allure.Step;
+import ru.yandex.qatools.allure.annotations.Step;
 
 /**
  * Created by Roman_Iovlev on 7/6/2015.

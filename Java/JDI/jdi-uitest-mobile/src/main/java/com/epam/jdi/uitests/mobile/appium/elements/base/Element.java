@@ -26,12 +26,13 @@ import com.epam.jdi.uitests.core.settings.HighlightSettings;
 import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.mobile.WebSettings;
 import com.epam.jdi.uitests.mobile.appium.elements.BaseElement;
-import io.qameta.allure.Step;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.lang.reflect.Field;
 import java.util.List;
