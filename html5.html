@@ -45,7 +45,7 @@
                     <div class="support-title"><i class="fa fa-comments-o"></i>HTML 5 Elements</div>
                     <div class="doc-space line">
                         <div class="html-left">
-                            <h1 ui="jdi-title">JDI Testing platform</h1>
+                            <h1 ui="jdi-title" onclick="alert('JDI Title');">JDI Testing platform</h1>
                             <p ui="jdi-text">Powerful Framework for UI Tests Automation. Suitable for any UI project: Web(Html5, Angular, React...), Mobile(Android IOs), Desktop(Win app) etc.</p>
                         </div>
                         <div class="html-right">
@@ -55,11 +55,11 @@
 					<div class="doc-space line">
                         <div class="html-left">
                             <h4>Button element</h4>
-                            <input type="button" value="Big Red Button-Input" class="uui-button red" /> <br><br>
-                            <input type="button" value="Disabled Button-Input" class="uui-button grey" disabled/> <br>
+                            <input type="button" value="Big Red Button-Input" class="uui-button ed" onclick="alert('Red button');"/> <br><br>
+                            <input type="button" value="Disabled Button-Input" class="uui-button grey" disabled onclick="alert('Grey button');" /> <br>
                             <h4>Tag button</h4>
-                            <button class="uui-button blue" id="blue-button">Big blue button</button> <br><br>
-                            <button class="uui-button grey" id="disabled-button" disabled>Disabled Button</button>
+                            <button class="uui-button blue" id="blue-button" onclick="alert('Blue button');" >Big blue button</button> <br><br>
+                            <button class="uui-button grey" id="disabled-button" disabled onclick="alert('Disabled button');" >Disabled Button</button>
                         </div>
                         <div class="html-right">
                             <p>W3C: <a>https://www.w3schools.com/tags/tag_a.asp</a></p>
