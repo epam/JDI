@@ -14,7 +14,8 @@ public class CareerPage extends WebPage {
     @Css(".recruiting-search-ui.job-search-ui")
     public JobFilter jobFilter;
 
-    @Css(".tile-menu>li>a")
+    @Css(".top-navigation__row .top-navigation__item > span >a")
     public List<Label> listMenu;
+
 
 }

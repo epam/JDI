@@ -31,9 +31,12 @@ public class EpamSite extends WebSite {
     public static CareerPage careerPage;
     public static ProductDevelopmentPage productDevelopmentPage;
 
-    @JPage(url = "/careers/job-listings?query=test&country=Russia&city=St-Petersburg&department=Software+Test+Engineering",
-            urlTemplate = "/careers/job-listings", title = "Job Listings",
+    @JPage(url = "/careers/job-listings?query=Test+Automation+Engineer+(back-end)&country=Russia&city=St-Petersburg&department=Software+Test+Engineering",
+            urlTemplate = "job-listings", title = "Job Listings",
             urlCheckType = CONTAINS, titleCheckType = CONTAINS)
+/*    @JPage(url = "/careers/job-listings?query=country=Russia&city=St-Petersburg&department=Software+Test+Engineering",
+            urlTemplate = "/careers/job-listings", title = "Job Listings",
+            urlCheckType = CONTAINS, titleCheckType = CONTAINS)*/
     public static JobListingPage jobListingPage;
 
 

@@ -22,7 +22,7 @@
 
         <Console name="ColoredConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout
-                    pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{%pid}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+                    pattern="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss}} %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{%pid}{magenta} [%15.15t] %style{%-40.40C{1.}}{cyan} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%throwable}"/>
         </Console>
         <RollingFile name="fileAppender" fileName="${baseDir}/${logFileName}.log">
             <FilePattern>${baseDir}/${logFileName}_%d{yyyy-MM-dd__HH-mm}_%i.log</FilePattern>
@@ -61,6 +61,8 @@
             <!--<AppenderRef ref="SOUT"/>
                 <AppenderRef ref="SERR"/>-->
             <AppenderRef ref="ColoredConsoleAppender"/>
+            <AppenderRef ref="fileAppender"/>
+            <AppenderRef ref="htmlFileLogger"/>
         </Root>
 
         <!-- additivity means, that parent-logger (in every case the root-logger) will also get the chance to log this stuff -->
