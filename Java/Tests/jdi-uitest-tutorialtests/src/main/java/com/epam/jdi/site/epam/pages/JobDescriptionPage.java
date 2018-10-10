@@ -12,6 +12,6 @@ public class JobDescriptionPage extends WebPage {
 
     @Css(".section__sidebar") public AddCVForm addCVForm;
 
-    @Css(".captcha-ui") public IElement captcha;
+    @Css(".captcha-ui span") public IElement captcha;
 
 }

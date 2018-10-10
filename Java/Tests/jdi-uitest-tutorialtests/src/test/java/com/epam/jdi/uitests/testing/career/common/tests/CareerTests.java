@@ -14,7 +14,7 @@ public class CareerTests extends TestsBase {
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)
     public void sendCVTest(Attendee attendee) {
         headerMenu.select(CAREERS);
-        careerPage.checkOpened();
+        //careerPage.checkOpened();
         careerPage.jobFilter.search(attendee.filter);
         jobListingPage.checkOpened();
 
@@ -22,7 +22,7 @@ public class CareerTests extends TestsBase {
         jobListingPage.getJobRowByName("Test Automation Engineer (back-end)");
         jobDescriptionPage.addCVForm.submit(attendee);
         new Check("Captcha class contains 'form-error__tooltip'")
-                .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-error__field");
+                .contains(() -> jobDescriptionPage.captcha.getAttribute("id"), "captcha-error");
     }
 
 }

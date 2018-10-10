@@ -57,7 +57,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <!--adapter for log4j 2.0-->
+        <!--log4j 2.0-->
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

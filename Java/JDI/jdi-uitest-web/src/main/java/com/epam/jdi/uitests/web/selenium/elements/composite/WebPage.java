@@ -110,13 +110,13 @@ public class WebPage extends BaseElement implements IPage {
     }
 
     public boolean verifyOpened(CheckPageTypes checkUrlType, CheckPageTypes checkTitleType) {
-        logger.debug("GEEEE");
         boolean result = false;
         switch (checkUrlType) {
             case EQUAL:
                 result = url().check(); break;
             case MATCH:
-                result = url().match(); break;
+                StringCheckType url = url();
+                result = url.match(); break;
             case CONTAINS:
                 result = url().contains(); break;
         }
