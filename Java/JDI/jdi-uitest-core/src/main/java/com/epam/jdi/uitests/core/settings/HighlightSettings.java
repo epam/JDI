@@ -23,14 +23,16 @@ package com.epam.jdi.uitests.core.settings;
 public class HighlightSettings {
     private String bgColor = "yellow";
     private String frameColor = "red";
+    private String fontColor = "black";
     private int timeoutInSec = 1;
 
     public HighlightSettings() {
     }
 
-    public HighlightSettings(String bgColor, String frameColor, int timeoutInSec) {
+    public HighlightSettings(String bgColor, String frameColor, String fontColor, int timeoutInSec) {
         this.bgColor = bgColor;
         this.frameColor = frameColor;
+        this.fontColor = fontColor;
         this.timeoutInSec = timeoutInSec;
     }
 
@@ -60,4 +62,12 @@ public class HighlightSettings {
         this.timeoutInSec = timeoutInSec;
         return this;
     }
+
+public String getFontColor() {
+    return fontColor;
+}
+
+public void setFontColor(String fontColor) {
+    this.fontColor = fontColor;
+}
 }

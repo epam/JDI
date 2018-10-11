@@ -36,7 +36,8 @@ public abstract class JDISettings {
     public static IAsserter asserter;
     public static TimeoutSettings timeouts = new TimeoutSettings();
     public static boolean isDemoMode;
-    public static HighlightSettings highlightSettings = new HighlightSettings();
+    public static HighlightSettings highlightSettings = new HighlightSettings("mediumslateblue", "white", "white", 1);
+    //public static HighlightSettings highlightSettings = new HighlightSettings();
     public static boolean shortLogMessagesFormat = true;
     public static String jdiSettingsPath = "test.properties";
     public static IDriver driverFactory;
@@ -72,6 +73,10 @@ public abstract class JDISettings {
             p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "cache");
         fillAction(p -> isDemoMode =
             p.toLowerCase().equals("true") || p.toLowerCase().equals("1"), "demo.mode");
+        fillAction(p -> highlightSettings.setBgColor(p), "demo.color.background");
+        fillAction(p -> highlightSettings.setFrameColor(p), "demo.color.frame");
+        fillAction(p -> highlightSettings.setFontColor(p), "demo.color.text");
+
         fillAction(p -> highlightSettings.setTimeoutInSec(parseInt(p)), "demo.delay");
         fillAction(p -> timeouts.setDefaultTimeoutSec(parseInt(p)), "timeout.wait.element");
         fillAction(driverFactory::setRunType, "run.type");

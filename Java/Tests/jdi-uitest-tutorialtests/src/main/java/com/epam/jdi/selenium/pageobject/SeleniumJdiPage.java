@@ -20,10 +20,10 @@ public class SeleniumJdiPage {
     @FindBy(css = ".header__logo")
     public WebElement logo;
 
-    @FindBy(css = "ul.top-navigation__list>li span a")
+    @FindBy(css = ".top-navigation__row li span a")
     public List<WebElement> menu;
 
-    @FindBy(css = ".top-navigation__list")
+    @FindBy(css = ".top-navigation__row")
     public Menu<HeaderMenu> headerMenu;
 
     @JTable(

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.homePage;
-import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
 
 public class DemoModeExamples extends TestsBase {
   @BeforeMethod
@@ -20,13 +19,8 @@ public class DemoModeExamples extends TestsBase {
     homePage.shouldBeOpened();
   }
 
-  @Test
-  public void searchInTable() {
-    jobDescriptionPage.checkOpened();
-  }
-
   // TODO in progress
-  @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class, enabled = false)
+  @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class, enabled = true)
   public void sendCVTest(Attendee attendee) {
     WebSettings.isDemoMode = true; // you can also switch on demo mode in test.properties
     new CareerTests().sendCVTest(attendee);

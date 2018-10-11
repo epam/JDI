@@ -261,8 +261,7 @@ public class WebPage extends BaseElement implements IPage {
          * Check that current page url/title equals to expected url/title
          */
         @Step
-        public boolean check() {
-            logger.info(format("Check that page %s equals to '%s'", what, equals));
+        public boolean check() { logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
                 || equals.equals("")
                 || actual.get().equals(equals);
