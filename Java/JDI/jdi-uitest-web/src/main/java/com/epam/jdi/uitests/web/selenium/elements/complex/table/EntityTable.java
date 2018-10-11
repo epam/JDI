@@ -116,7 +116,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
         if (rows.size() > 0)
             return rows.get(0);
         else {
-            logger.info("Can't find any rows that meat criterias");
+            logger.info("Can't find any rows that meat criteria");
             return null;
         }
     }
@@ -124,7 +124,7 @@ public class EntityTable<E, R> extends Table implements IEntityTable<E,R> {
     public List<R> getRows(JFuncTREx<R, Boolean> rule) {
         List<R> rows = where(getRows(), rule);
         if (rows.size() == 0)
-            logger.info("Can't find any rows that meat criterias");
+            logger.info("Can't find any rows that meat criteria");
         return rows;
     }
 

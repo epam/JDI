@@ -22,15 +22,15 @@ import static com.epam.commons.LinqUtils.where;
 public class JobListingPage extends WebPage {
 
     @JTable(root = @FindBy(css = ".search-result__list"),
-            row = @FindBy(xpath = "./article[%s]/*"),
-            column = @FindBy(xpath = "./article/*[%s]"),
-            header = {"name", "description", "apply"})
+            row = @FindBy(xpath = ".//article[%s]/*"),
+            column = @FindBy(xpath = ".//article/*[%s]"),
+            header = {"name", "description", "applyShareCell"})
     public EntityTable<Vacancy, VacancyRow> jobsAsData;
 
     @JTable(root = @FindBy(css = ".search-result__list"),
-            row = @FindBy(xpath = "./article[%s]/*"),
-            column = @FindBy(xpath = "./article/*[%s]"),
-            header = {"name", "description", "apply"})
+            row = @FindBy(xpath = ".//article[%s]/*"),
+            column = @FindBy(xpath = ".//article/*[%s]"),
+            header = {"name", "description", "applyShareCell"})
     public Table jobs;
 
     @Css(".search-result__list>.search-result__item")
@@ -38,7 +38,7 @@ public class JobListingPage extends WebPage {
 
     public void getJobRowByName(String jobName) {
         List<VacancyRow> result = getRowsByName(jobName);
-        result.get(0).apply.click();
+    //    result.get(0).apply.click();
     }
 
 public List<VacancyRow> getRowsByName(String jobName) {

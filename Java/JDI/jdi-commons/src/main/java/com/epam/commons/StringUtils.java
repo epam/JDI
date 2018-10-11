@@ -18,6 +18,10 @@ package com.epam.commons;
  */
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by roman.i on 19.11.2014.
@@ -35,4 +39,26 @@ public final class StringUtils {
     private StringUtils() {
     }
 
+/**
+ *
+ * @param input
+ * @param delimeter
+ * @return
+ */
+public static String toUpperCamelCase(String input, char delimeter) {
+  return Arrays.stream(input.split(String.format("%s+",delimeter)))
+      .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase())
+      .collect(Collectors.joining());
+}
+
+/**
+ *
+ * @param input
+ * @param delimeter
+ * @return
+ */
+public static String toLowerCamelCase(String input, char delimeter) {
+    String value = toUpperCamelCase(input, delimeter);
+    return value.substring(0,1).toLowerCase().concat(value.substring(1));
+}
 }

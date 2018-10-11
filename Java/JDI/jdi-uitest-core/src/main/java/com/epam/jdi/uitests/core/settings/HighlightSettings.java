@@ -21,8 +21,8 @@ package com.epam.jdi.uitests.core.settings;
  * Created by Roman_Iovlev on 6/9/2015.
  */
 public class HighlightSettings {
-    private String bgColor = "yellow";
-    private String frameColor = "red";
+    private String bgColor = "mediumslateblue";
+    private String frameColor = "silver";
     private String fontColor = "black";
     private int timeoutInSec = 1;
 

@@ -36,7 +36,7 @@ public abstract class JDISettings {
     public static IAsserter asserter;
     public static TimeoutSettings timeouts = new TimeoutSettings();
     public static boolean isDemoMode;
-    public static HighlightSettings highlightSettings = new HighlightSettings("mediumslateblue", "white", "white", 1);
+    public static HighlightSettings highlightSettings = new HighlightSettings("mediumslateblue", "#000000", "white", 1);
     //public static HighlightSettings highlightSettings = new HighlightSettings();
     public static boolean shortLogMessagesFormat = true;
     public static String jdiSettingsPath = "test.properties";

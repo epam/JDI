@@ -119,6 +119,8 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+
+
     </dependencies>
     <build>
 

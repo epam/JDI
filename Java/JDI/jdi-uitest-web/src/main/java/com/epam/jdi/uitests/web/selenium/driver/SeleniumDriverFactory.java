@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -263,6 +263,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
     public ChromeOptions defaultChromeOptions() {
         ChromeOptions cap = new ChromeOptions();
+        cap.addArguments("start-fullscreen");
         return (ChromeOptions) modifyCapabilities.apply(cap);
     }
     public InternetExplorerOptions defaultIEOptions() {
@@ -312,19 +313,19 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         return driver;
     }
 
-    public static Function<WebDriver, WebDriver> webDriverSettings =
-        driver -> setupDriverTimeout(setupDriverSize(driver));
+  public static Function<WebDriver, WebDriver> webDriverSettings =
+      driver -> setupDriverTimeout(setupDriverSize(driver));
 
-    private static WebDriver setupDriverSize(WebDriver driver) {
-        if (browserSizes == null) {
-            String driverName = driver.toString().toLowerCase();
-            if (any(asList("chrome", "internetexplorer"), driverName::contains)
-                    && System.getProperty("os.name").toLowerCase().contains("mac"))
-                maximizeMacBrowser(driver);
-            else driver.manage().window().maximize();
-        } else driver.manage().window().setSize(browserSizes);
-        return driver;
-    }
+  private static WebDriver setupDriverSize(WebDriver driver) {
+    if (browserSizes == null) {
+      String driverName = driver.toString().toLowerCase();
+      if (any(asList("chrome", "internetexplorer"), driverName::contains)
+          && System.getProperty("os.name").toLowerCase().contains("mac")) {
+        maximizeMacBrowser(driver);
+      } else driver.manage().window().maximize();
+    } else driver.manage().window().setSize(browserSizes);
+    return driver;
+  }
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
