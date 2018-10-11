@@ -29,7 +29,7 @@
     <!-- Include the plugin's CSS and JS: -->
     <script type="text/javascript" src="bootstrap/js/bootstrap-multiselect.js"></script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
-    <![endif]-->
+
 </head>
 <body>
 <header>
@@ -62,7 +62,14 @@
                             <button class="uui-button grey" id="disabled-button" disabled onclick="alert('Disabled button');" >Disabled Button</button>
                         </div>
                         <div class="html-right">
-                            Description
+                            <h4>Button</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
+                            <p>click() - Click on link</p>
+                            <p>getText() - Get link's text</p>
+                            <p>getRef() - Get link's "ref" attribute</p>
+                            <p>getUrl() - Get link's "ref" attribute as URL</p>
+                            <p>getAlt() - Get link's "alt" attribute</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -71,8 +78,9 @@
                             <a ui="github-link" href="https://github.com/jdi-testing" alt="Github JDI Link" >Github JDI</a>
                         </div>
                         <div class="html-right">
+                            <h4>Link</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
                             <p>click() - Click on link</p>
                             <p>getText() - Get link's text</p>
                             <p>ref() - Get link's "ref" attribute</p>
@@ -90,8 +98,8 @@
                         <div class="html-right">
                             <h4>Textfield</h4>
                             <p>Input with type "text</p>
-                            <p>W3C: <a>https://www.w3schools.com/html/html_form_input_types.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/html/html_form_input_types.asp" target="_blank">https://www.w3schools.com/html/html_form_input_types.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text</a></p>
                             <p>sendKeys(value) - Input text in textfield in addition to tet that already at textfield. You also can use Keyboard keys as value</p>
                             <p>clear() - Clear text in textfield</p>
                             <p>input(value) - Set textfield with value text. Clear previously entered text</p>
@@ -112,13 +120,15 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Textarea</h4>
                             <p>Multi-line text input</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_textarea.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank">https://www.w3schools.com/tags/tag_textarea.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea</a></p>
                             <p>clear() - Clear text in textarea</p>
                             <p>input(value) - Set textarea with value text. Clear previously entered text</p>
                             <p>inputLines(value) - Clear textarea and Input several lines of text in textarea</p>
                             <p>addNewLine(value) - Add text in textarea from new line (without clearing previous)</p>
                             <p>getLines() - Get lines of text in textarea</p>
+                            <p>label() - Returns label element assosiated with textarea</p>
+                            <p>focus() - Just focus cursor to textfield</p>
                         </div>
                     </div>
 
@@ -131,8 +141,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Input FileUpload</h4>
                             <p>Let the user choose one or more files from their device storage</p>
-                            <p>W3C: <a>https://www.w3schools.com/jsref/dom_obj_fileupload.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/jsref/dom_obj_fileupload.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_fileupload.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file</a></p>
+                            <p>setValueAction(value) - Clear and input value</p>
+                            <p>focus() - Just focus cursor to uploader</p>
+                            <p>clear() - Clear value in uploader</p>
+                            <p>label() - Returns label element assosiated with uploader</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -144,10 +158,11 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Image</h4>
                             <p>Image in an HTML page</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_img.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_img.asp" target="_blank">https://www.w3schools.com/tags/tag_img.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img</a></p>
                             <p>getAlt() - Get image's "alt" attribute</p>
                             <p>getSource() - Get image source</p>
+                            <p>click() - Click on the element</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -167,12 +182,14 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Selector</h4>
                             <p>Drop-down list</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_select.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank">https://www.w3schools.com/tags/tag_select.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
                             <p>select(value) - Select Element with name from list</p>
                             <p>getSelected() - Get name of the selected Element</p>
                             <p>getSelectedIndex() - Get index of the selected Element</p>
                             <p>isSelectedAction(value) - Verifies selected text with value</p>
+                            <p>isHidden() - Check is Element hidden</p>
+                            <p>waitDisplayed() - Waits while Element becomes visible</p>
                         </div>
                     </div>
 
@@ -190,12 +207,15 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Multiple selector</h4>
                             <p>List with multiple options can be selected at once</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
                             <p>clearAction() - Clear options</p>
                             <p>select(values) - Select multiple values</p>
                             <p>uncheck(values) - Uncheck only specified options</p>
                             <p>areSelected() - Get names of checked options</p>
+                            <p>isHidden() - Check is Element hidden</p>
+                            <p>waitSelected(values) - Wait while all options with values selected</p>
+                            <p>areDeselected() - Get names of unchecked options</p>
                         </div>
                     </div>
 
@@ -213,11 +233,13 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Multi dropdown</h4>
                             <p>List with multiple dropdown options</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
                             <p>expand() - Expand DropDown</p>
                             <p>close() - Close DropDown</p>
                             <p>getTextAction() - Get first selected option</p>
+                            <p>select(values) - Select options with values from list</p>
+                            <p>clear() - Deselect all options</p>
                         </div>
                     </div>
 
@@ -237,8 +259,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Datalist</h4>
                             <p>List of pre-defined options for input</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_datalist.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_datalist.asp" target="_blank">https://www.w3schools.com/tags/tag_datalist.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist</a></p>
                             <p>expand() - Expand DropDown</p>
                             <p>getValue() - Get value of Element</p>
                             <p>clearAction() - Clear value</p>
@@ -252,8 +274,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Checkbox</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_checkbox.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
                             <p>click() - Click on checkbox</p>
                             <p>check() - Set checkbox checked</p>
                             <p>uncheck() - Set checkbox unchecked</p>
@@ -275,8 +297,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <b>Same as checkbox?</b>
                             <h4>Checkbox</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_checkbox.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
                             <p>click() - Click on checkbox</p>
                             <p>check() - Set checkbox checked</p>
                             <p>uncheck() - Set checkbox unchecked</p>
@@ -300,8 +322,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Radio</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_radio.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_radio.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_radio.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio</a></p>
                             <p>select(value) - Select Element with value from list</p>
                             <p>getSelected() - Get name of the selected Element</p>
                             <p>isSelectedAction(value) - Verify checked value</p>
@@ -316,8 +338,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Input type color</h4>
                             <p>Defines a color picker</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_color.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_color.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_color.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color</a></p>
                             <p>click() - Click on input</p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue - Get value of Element</p>
@@ -347,8 +369,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type range</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_range.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_range.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_range.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range</a></p>
                             <p>sendKeys(value) - Specify value to send</p>
                         </div>
                     </div>
@@ -361,8 +383,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         <div class="html-right">
                             <h4>Progress</h4>
                             <p>Represents the progress of a task</p>
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_progress.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_progress.asp" target="_blank">https://www.w3schools.com/tags/tag_progress.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress</a></p>
                             <p>getValue() - Get value of Element</p>
                         </div>
                     </div>
@@ -375,8 +397,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type date</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_date.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_date.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_date.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date" target="_blank">https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
@@ -389,8 +411,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type month</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_month.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_month.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_month.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
@@ -403,8 +425,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type datetime-local</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_datetime-local.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_datetime-local.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_datetime-local.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
@@ -417,8 +439,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type time</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_time.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_time.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_time.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
@@ -431,8 +453,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type week</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_week.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_week.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_week.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
@@ -445,8 +467,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                         </div>
                         <div class="html-right">
                             <h4>Input type number</h4>
-                            <p>W3C: <a>https://www.w3schools.com/tags/att_input_type_number.asp</a></p>
-                            <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_number.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_number.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number</a></p>
                             <p>setValue(value) - Set value to Element</p>
                             <p>getValue() - Get value from Element</p>
                         </div>
