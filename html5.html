@@ -71,13 +71,13 @@
                             <a ui="github-link" href="https://github.com/jdi-testing" alt="Github JDI Link" >Github JDI</a>
                         </div>
                         <div class="html-right">
-                            <p>W3C: <a>https://www.w3schools.com/tags/tag_a.asp</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
                             <p>MDN: <a>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
                             <p>click() - Click on link</p>
                             <p>getText() - Get link's text</p>
-                            <p>getRef() - Get link's "ref" attribute</p>
-                            <p>getUrl() - Get link's "ref" attribute as URL</p>
-                            <p>getAlt() - Get link's "alt" attribute</p>
+                            <p>ref() - Get link's "ref" attribute</p>
+                            <p>url() - Get link's "ref" attribute as URL</p>
+                            <p>alt() - Get link's "alt" attribute</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -98,7 +98,7 @@
                             <p>setText(value) - Set text in textfield immediately. Much faster than regular input or sendKeys. Save input time significantly for long text values</p>
                             <p>focus() - Just focus cursor to textfield</p>
                             <p>placeholder() - Returns textfiled's placeholder value</p>
-                            <p>label() - Returns label element assosiated with textfield</p>
+                            <p>label() - Returns label element associated with textfield</p>
                             <p>getText() - Get textfield's text</p>
                         </div>
                     <div class="doc-space line">
@@ -125,10 +125,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                     <div class="doc-space line">
                         <div class="html-left">
                             <label for="avatar">Profile picture:</label>
-                            <input type="file" id="avatar"
-                                   accept="image/png, image/jpeg" />
-                            <input type="file"
-                                   accept="image/png, image/jpeg" disabled/>
+                            <input type="file" id="avatar" accept="image/png, image/jpeg" />
+                            <input type="file" accept="image/png, image/jpeg" disabled/>
                         </div>
                         <div class="html-right">
                             <h4>Input FileUpload</h4>
