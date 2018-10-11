@@ -473,7 +473,7 @@ function includeSideBar() {
                 </a>\
             </li>\
             <li class="menu-title" index="3">\
-                <a>\
+                <a ui="label">\
                     <span>Service</span>\
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
