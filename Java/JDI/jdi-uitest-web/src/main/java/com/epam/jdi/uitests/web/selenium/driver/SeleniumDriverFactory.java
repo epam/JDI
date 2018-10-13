@@ -399,8 +399,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         String orig = webElement.getAttribute("style");
         getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
                 webElement, format("border: 3px solid %s; background-color: %s; color: %s;",
-                        highlightSettings.getFrameColor(),
-                        highlightSettings.getBgColor(), highlightSettings.getFontColor()));
+                        highlightSettings.getFrameColor().formatToRgbHexString("#"),
+                        highlightSettings.getBgColor().formatToRgbHexString("#"), highlightSettings.getFontColor().formatToRgbHexString("#")));
         sleep(highlightSettings.getTimeoutInSec() * 1000);
         getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
                 webElement, orig);

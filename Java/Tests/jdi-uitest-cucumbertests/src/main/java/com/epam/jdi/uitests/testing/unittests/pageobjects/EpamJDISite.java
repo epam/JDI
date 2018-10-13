@@ -21,7 +21,7 @@ public class EpamJDISite extends WebSite {
     public static HomePage homePage;
     @JPage(url = "/contacts.html", title = "Contact Form")
     public static ContactPage contactFormPage;
-    @JPage(url = "/metals-colors.html", title = "Metal and Colors")
+    @JPage(url = "/metals-colors.html", title = "Metal and CssColors")
     public static MetalsColorsPage metalsColorsPage;
     @JPage(url = "/support.html", title = "Support")
     public static SupportPage supportPage;

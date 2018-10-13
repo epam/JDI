@@ -17,39 +17,44 @@ package com.epam.jdi.uitests.core.settings;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.jdi.uitests.core.settings.highlighting.Color;
+import com.epam.jdi.uitests.core.settings.highlighting.CssColors;
+import com.epam.jdi.uitests.core.settings.highlighting.IColor;
+
+import java.util.Optional;
+
 /**
  * Created by Roman_Iovlev on 6/9/2015.
  */
 public class HighlightSettings {
-    private String bgColor = "mediumslateblue";
-    private String frameColor = "silver";
-    private String fontColor = "black";
+    private IColor bgColor = CssColors.MEDIUM_SLATE_BLUE;
+    private IColor frameColor = CssColors.DIM_GRAY;
+    private IColor fontColor = CssColors.CYAN;
     private int timeoutInSec = 1;
 
     public HighlightSettings() {
     }
 
-    public HighlightSettings(String bgColor, String frameColor, String fontColor, int timeoutInSec) {
-        this.bgColor = bgColor;
-        this.frameColor = frameColor;
-        this.fontColor = fontColor;
-        this.timeoutInSec = timeoutInSec;
-    }
-
-    public String getBgColor() {
+public HighlightSettings(IColor bgColor, IColor frameColor, IColor fontColor, int timeoutInSec) {
+    this.bgColor = bgColor;
+    this.frameColor = frameColor;
+    this.fontColor = fontColor;
+    this.timeoutInSec = timeoutInSec;
+}
+    public IColor getBgColor() {
         return bgColor;
     }
 
-    public HighlightSettings setBgColor(String bgColor) {
+    public HighlightSettings setBgColor(IColor bgColor) {
         this.bgColor = bgColor;
         return this;
     }
 
-    public String getFrameColor() {
+    public IColor getFrameColor() {
         return frameColor;
     }
 
-    public HighlightSettings setFrameColor(String frameColor) {
+    public HighlightSettings setFrameColor(IColor frameColor) {
         this.frameColor = frameColor;
         return this;
     }
@@ -63,11 +68,21 @@ public class HighlightSettings {
         return this;
     }
 
-public String getFontColor() {
+public IColor getFontColor() {
     return fontColor;
 }
 
-public void setFontColor(String fontColor) {
+public HighlightSettings setFontColor(IColor fontColor) {
     this.fontColor = fontColor;
+    return this;
+}
+
+public static IColor parseColor(String color, IColor defaultColor) {
+    Optional<IColor> color1 = CssColors.tryConstructEnumColor(color);
+    return color1.orElse(Optional.ofNullable(Color.tryConstructCustomShade(color )).orElse(defaultColor));
+}
+
+public static IColor parseColor(String color) {
+    return parseColor(color,null );
 }
 }
