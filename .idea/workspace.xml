@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../jdi-light/jdi-light/src/main/java/com/epam/jdi/light/elements/base/JDIBase.java" description="if (locator == null) locator = printLocator();" line="168" />
+    <bookmark url="file://$PROJECT_DIR$/../jdi-light/jdi-light/src/main/java/com/epam/jdi/light/elements/base/JDIBase.java" description="if (locator == null) locator = printLocator();" line="169" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a555be7-9ff2-4644-80c1-ea2d663bd444" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/images/captain-america.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cyclope.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/hulk.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/marvel-heroes.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/punisher.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/spider-man.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/wolverin.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html5.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/custom-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/custom-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/user-table.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,8 +31,8 @@
       <file leaf-file-name="custom-styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/custom-styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+            <state relative-caret-position="742">
+              <caret line="1019" column="23" selection-start-line="1019" selection-start-column="23" selection-end-line="1019" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -38,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="html5.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="html5.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html5.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+            <state relative-caret-position="214">
+              <caret line="209" column="20" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -65,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-table.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user-table.html">
+      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="187" column="28" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
+            <state relative-caret-position="33">
+              <caret line="485" column="34" lean-forward="true" selection-start-line="485" selection-start-column="34" selection-end-line="485" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -83,11 +91,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user-table.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/user-table.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="744">
+              <caret line="158" column="47" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>s/bootstrap.min.js</find>
       <find>multiselect.js</find>
       <find>jquery.min.js</find>
       <find>closeSearch</find>
@@ -117,6 +133,7 @@
       <find>.uui-main-container.page-inside .main-content</find>
       <find>&lt;label for=&quot;height&quot;&gt;Height (metres):&lt;/label&gt;</find>
       <find>assosiated</find>
+      <find>&lt;&lt;&lt;</find>
     </findStrings>
     <replaceStrings>
       <replace>associated</replace>
@@ -149,13 +166,13 @@
         <option value="$PROJECT_DIR$/simple-table.html" />
         <option value="$PROJECT_DIR$/support.html" />
         <option value="$PROJECT_DIR$/table-pages.html" />
-        <option value="$PROJECT_DIR$/user-table.html" />
         <option value="$PROJECT_DIR$/metals-colors.html" />
-        <option value="$PROJECT_DIR$/css/custom-styles.css" />
         <option value="$PROJECT_DIR$/css/uui-all.css" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/js/utils.js" />
         <option value="$PROJECT_DIR$/html5.html" />
+        <option value="$PROJECT_DIR$/css/custom-styles.css" />
+        <option value="$PROJECT_DIR$/user-table.html" />
       </list>
     </option>
   </component>
@@ -184,13 +201,14 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="831" />
+    <option name="x" value="324" />
     <option name="y" value="23" />
-    <option name="width" value="845" />
+    <option name="width" value="1352" />
     <option name="height" value="946" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+      <autoscrollFromSource ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -200,6 +218,16 @@
             <path>
               <item name="JDI" type="b2602c69:ProjectViewProjectNode" />
               <item name="JDI" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JDI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JDI" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JDI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JDI" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="JDI" type="b2602c69:ProjectViewProjectNode" />
@@ -387,7 +415,7 @@
     <option name="totallyTimeSpent" value="11637000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="831" y="23" width="845" height="946" extended-state="0" />
+    <frame x="324" y="23" width="1352" height="946" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="5" />
@@ -402,8 +430,9 @@
       <window_info anchor="bottom" id="Terminal" order="17" weight="0.32936078" />
       <window_info id="Capture Tool" order="11" />
       <window_info id="Designer" order="8" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.0124533" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.27328244" />
       <window_info anchor="right" id="emBrowser" order="1" weight="0.4035409" />
+      <window_info anchor="bottom" id="Find" order="5" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info id="UI Designer" order="12" />
@@ -417,7 +446,6 @@
       <window_info anchor="right" id="Commander" order="2" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="5" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="5" />
@@ -723,31 +751,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/custom-styles.css">
+    <entry file="file://$PROJECT_DIR$/html5.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+        <state relative-caret-position="214">
+          <caret line="209" column="20" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7211">
+        <state relative-caret-position="33">
           <caret line="485" column="34" lean-forward="true" selection-start-line="485" selection-start-column="34" selection-end-line="485" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/custom-styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="1019" column="23" selection-start-line="1019" selection-start-column="23" selection-end-line="1019" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="187" column="28" selection-start-line="187" selection-start-column="28" selection-end-line="187" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html5.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+        <state relative-caret-position="744">
+          <caret line="158" column="47" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
         </state>
       </provider>
     </entry>

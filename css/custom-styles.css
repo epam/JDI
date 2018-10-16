@@ -1016,3 +1016,9 @@ input[type=range].range {
 .disable {
     pointer-events:none;
 }
+.wolverine {
+    position: absolute;
+    clip-path: inset(0 50% 66% 0);
+    height: 200px;
+    width: 130px
+}
