@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/../jdi-light/jdi-light/src/main/java/com/epam/jdi/light/elements/base/JDIBase.java" description="if (locator == null) locator = printLocator();" line="169" />
+    <bookmark url="file://$PROJECT_DIR$/../jdi-light/jdi-light/src/main/java/com/epam/jdi/light/elements/base/JDIBase.java" description="if (locator == null) locator = printLocator();" line="172" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a555be7-9ff2-4644-80c1-ea2d663bd444" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/images/captain-america.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/cyclope.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/hulk.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/marvel-heroes.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/punisher.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/spider-man.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/wolverin.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/custom-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/custom-styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-table.html" beforeDir="false" afterPath="$PROJECT_DIR$/user-table.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -94,8 +85,8 @@
       <file leaf-file-name="user-table.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/user-table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="158" column="47" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
+            <state relative-caret-position="268">
+              <caret line="130" selection-start-line="130" selection-end-line="130" />
             </state>
           </provider>
         </entry>
@@ -408,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539033313839</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add marvel heroes">
+      <created>1539701448007</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1539701448007</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -491,7 +489,8 @@
     <MESSAGE value="Add description for dfew html elements" />
     <MESSAGE value="add on clicks" />
     <MESSAGE value="small fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="small fixes" />
+    <MESSAGE value="add marvel heroes" />
+    <option name="LAST_COMMIT_MESSAGE" value="add marvel heroes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/css/uui-all.css">
@@ -774,8 +773,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user-table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="744">
-          <caret line="158" column="47" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
+        <state relative-caret-position="268">
+          <caret line="130" selection-start-line="130" selection-end-line="130" />
         </state>
       </provider>
     </entry>
