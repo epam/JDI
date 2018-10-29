@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -139,6 +139,19 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
     }
 
+    /**
+     * Preventing 'Session ID is null. Using WebDriver after calling quit.'
+     *
+     * @param driver
+     */
+    static void safeQuit(WebDriver driver) {
+        try {
+            driver.close();
+        } catch (NoSuchSessionException e) {
+            logger.info("WebDriver instance {} already closed.", driver);
+        }
+    }
+
     public String currentDriverName() {
         return currentDriverName;
     }
@@ -171,6 +184,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 break;
         }
     }
+
     public void setRemoteHubUrl(String url) {
         remoteHubUrl = url;
     }
@@ -199,6 +213,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         }
         throw exception("Register driver failed. Unknown driver: " + driverType);
     }
+
     private URL getRemoteURL() {
         try {
             if (!isBlank(remoteHubUrl)) {
@@ -208,13 +223,19 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
                 return new URL(url);
             }
             throw exception("You run tests in Remote mode, please specify 'remote.url' in test.properties");
-        } catch(Exception ex) { throw exception("Can't get remote Url: " + ex.getMessage()); }
+        } catch (Exception ex) {
+            throw exception("Can't get remote Url: " + ex.getMessage());
+        }
     }
+
     private Capabilities getCapabilities(DriverTypes driverType) {
         switch (driverType) {
-            case CHROME: return defaultChromeOptions();
-            case FIREFOX: return defaultFirefoxOptions();
-            case IE: return defaultIEOptions();
+            case CHROME:
+                return defaultChromeOptions();
+            case FIREFOX:
+                return defaultFirefoxOptions();
+            case IE:
+                return defaultIEOptions();
         }
         throw exception("Get capabilities failed. Unknown driver: " + driverType);
     }
@@ -230,41 +251,60 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
 
     private Supplier<WebDriver> getDefaultDriver(DriverTypes driverType) {
         switch (driverType) {
-            case CHROME: return () -> new ChromeDriver(defaultChromeOptions());
-            case FIREFOX: return () -> new FirefoxDriver(defaultFirefoxOptions());
-            case IE: return () -> new InternetExplorerDriver(defaultIEOptions());
+            case CHROME:
+                return () -> new ChromeDriver(defaultChromeOptions());
+            case FIREFOX:
+                return () -> new FirefoxDriver(defaultFirefoxOptions());
+            case IE:
+                return () -> new InternetExplorerDriver(defaultIEOptions());
         }
         throw exception("Unknown driver: " + driverType);
     }
+
     private Supplier<WebDriver> getDefaultDriver() {
-        return () -> { setProperty("webdriver.chrome.driver",
-            getChromeDriverPath(getDriverPath()));
+        return () -> {
+            setProperty("webdriver.chrome.driver",
+                    getChromeDriverPath(getDriverPath()));
             logger.info("USE DEFAULT DRIVER");
             return new ChromeDriver(defaultChromeOptions());
         };
     }
+
     private void setUpDrivers(DriverTypes driverType) {
         switch (driverType) {
-            case CHROME: setProperty("webdriver.chrome.driver",
-                getChromeDriverPath(getDriverPath())); break;
-            case FIREFOX: setProperty("webdriver.gecko.driver",
-                getFirefoxDriverPath(getDriverPath())); break;
-            case IE: setProperty("webdriver.ie.driver",
-                getIEDriverPath(getDriverPath())); break;
-            default: throw exception("Setup driver failed. Wrong driver type: " + driverType);
+            case CHROME:
+                setProperty("webdriver.chrome.driver",
+                        getChromeDriverPath(getDriverPath()));
+                break;
+            case FIREFOX:
+                setProperty("webdriver.gecko.driver",
+                        getFirefoxDriverPath(getDriverPath()));
+                break;
+            case IE:
+                setProperty("webdriver.ie.driver",
+                        getIEDriverPath(getDriverPath()));
+                break;
+            default:
+                throw exception("Setup driver failed. Wrong driver type: " + driverType);
         }
     }
+
     public static Function<MutableCapabilities, MutableCapabilities> modifyCapabilities =
-        cap -> { cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy); return cap; };
+            cap -> {
+                cap.setCapability(PAGE_LOAD_STRATEGY, pageLoadStrategy);
+                return cap;
+            };
 
     public FirefoxOptions defaultFirefoxOptions() {
         FirefoxOptions cap = new FirefoxOptions();
         return (FirefoxOptions) modifyCapabilities.apply(cap);
     }
+
     public ChromeOptions defaultChromeOptions() {
         ChromeOptions cap = new ChromeOptions();
         return (ChromeOptions) modifyCapabilities.apply(cap);
     }
+
     public InternetExplorerOptions defaultIEOptions() {
         InternetExplorerOptions cap = new InternetExplorerOptions();
         cap.setCapability(INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
@@ -272,6 +312,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         //cap.setCapability("requireWindowFocus", true);
         return (InternetExplorerOptions) modifyCapabilities.apply(cap);
     }
+
     public String registerDriver(DriverTypes driverType, Supplier<WebDriver> driver) {
         int numerator = 2;
         String driverName = driverType.toString();
@@ -307,13 +348,14 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         driver.manage().window()
                 .setSize(new Dimension(screenSize.width, screenSize.height));
     }
+
     private static WebDriver setupDriverTimeout(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(timeouts.getCurrentTimeoutSec(), SECONDS);
         return driver;
     }
 
     public static Function<WebDriver, WebDriver> webDriverSettings =
-        driver -> setupDriverTimeout(setupDriverSize(driver));
+            driver -> setupDriverTimeout(setupDriverSize(driver));
 
     private static WebDriver setupDriverSize(WebDriver driver) {
         if (browserSizes == null) {
@@ -365,7 +407,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public void reopenDriver(String driverName) {
         MapArray<String, WebDriver> rDriver = runDrivers.get();
         if (rDriver.keys().contains(driverName)) {
-            rDriver.get(driverName).close();
+            safeQuit(rDriver.get(driverName));
             rDriver.removeByKey(driverName);
             runDrivers.set(rDriver);
         }
@@ -429,8 +471,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public void close() {
-        for (Pair<String, WebDriver> driver : runDrivers.get())
-            driver.value.quit();
+        runDrivers.get().values().forEach(SeleniumDriverFactory::safeQuit);
         runDrivers.get().clear();
     }
 
