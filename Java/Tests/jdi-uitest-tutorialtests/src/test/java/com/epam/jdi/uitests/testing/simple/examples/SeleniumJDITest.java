@@ -3,6 +3,7 @@ package com.epam.jdi.uitests.testing.simple.examples;
 import com.epam.jdi.entities.Vacancy;
 import com.epam.jdi.selenium.pageobject.SeleniumJdiPage;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -23,7 +24,7 @@ public class SeleniumJDITest {
         page = initPageObject(SeleniumJdiPage.class);
     }
 
-    //@Test
+    @Test
     public void seleniumJDITest() {
         openUrl("https://www.epam.com/");
         page.logo.click();

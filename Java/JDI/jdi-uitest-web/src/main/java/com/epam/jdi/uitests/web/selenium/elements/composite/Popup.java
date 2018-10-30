@@ -63,4 +63,5 @@ public class Popup extends Text implements IPopup {
         invoker.doJAction("Close on popup", this::closeAction);
     }
 
+
 }

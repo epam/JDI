@@ -176,6 +176,15 @@ public class GetElementModule implements IAvatar {
         return where(result, el -> getSearchCriteria().invoke(el));
     }
 
+
+public boolean isElementFound() {
+    List<WebElement> result = searchElements();
+    return result.size()>0;
+}
+public List<WebElement> getElementsIfAny() {
+    List<WebElement> result = searchElements();
+    return result;
+}
     private WebElement getElementAction() {
         int timeout = timeouts.getCurrentTimeoutSec();
         List<WebElement> result = getOneOrMoreElements();

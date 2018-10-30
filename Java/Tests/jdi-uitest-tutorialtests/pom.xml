@@ -17,6 +17,8 @@
     <properties>
         <aspectj.version>1.8.5</aspectj.version>
         <driver>chrome</driver>
+        <jetty.version>9.4.12.RC2</jetty.version>
+        <allure.mvn.version>2.9</allure.mvn.version>
     </properties>
 
     <dependencies>
@@ -24,6 +26,17 @@
             <groupId>com.epam.jdi</groupId>
             <artifactId>jdi-uitest-web</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <!--allure 1.0-->
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-java-annotations</artifactId>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -41,7 +54,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <!--systemPropertyVariables>
                         <serv>${environment}</serv>
@@ -50,10 +63,20 @@
                         <suiteXmlFile>src/test/resources/general.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
+                    <systemPropertyVariables>
+                        <allure.results.directory>target/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                     <properties>
+
+                        <!--
+                        <property>
+                              <name>listener</name>
+                              <value>ru.yandex.qatools.allure.testng.AllureTestListener</value>
+                          </property>
+                        -->
                         <property>
                             <name>usedefaultlisteners</name>
                             <value>true</value>
@@ -61,18 +84,40 @@
                         </property>
                     </properties>
                 </configuration>
+
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjweaver</artifactId>
                         <version>${aspectj.version}</version>
                     </dependency>
+
                 </dependencies>
             </plugin>
+            <!--Allure 2.0-->
+            <!--
+             <plugin>
+                      <groupId>io.qameta.allure</groupId>
+                      <artifactId>allure-maven</artifactId>
+                      <version>2.9</version>
+                      <configuration>
+                          <resultsDirectory>target/allure-results</resultsDirectory>
+                      </configuration>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>report</goal>
+                              </goals>
+                              <phase>post-integration-test</phase>
+                          </execution>
+
+                      </executions>
+                  </plugin>-->
+
             <plugin>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -81,6 +126,19 @@
                         <phase>post-integration-test</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <supportedPackagings>
+                        <supportedPackaging>jar</supportedPackaging>
+                    </supportedPackagings>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -97,7 +155,7 @@
             <plugin>
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
             </plugin>
         </plugins>
     </reporting>
@@ -109,7 +167,9 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <updatePolicy>daily</updatePolicy>
+                <!-- <updatePolicy>always</updatePolicy>
+                -->
             </snapshots>
         </repository>
     </repositories>

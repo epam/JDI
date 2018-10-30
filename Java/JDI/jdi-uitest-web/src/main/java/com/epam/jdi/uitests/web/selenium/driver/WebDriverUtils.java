@@ -44,6 +44,21 @@ public final class WebDriverUtils {
         }
     }
 
+  public static void killWebBrowserByName(String name) throws IOException {
+      String os = System.getProperty("os.name");
+      if (os.contains("Mac")) {
+          asserter.ignore(() -> {
+              String firstCap = String.join("", name.substring(0, 1).toUpperCase(), name.substring(1).toLowerCase());
+              killMacOSBrowsersByName(firstCap);
+          });
+      }else {
+          asserter.ignore(() -> killByName(String.format("%sdriver.exe", name)));
+
+      }
+
+
+  }
+
     //TODO Add OS type and current user check.
     //TODO Try to use C/C++ Library to work with processes.
     public static void killAllRunWebBrowsers() throws IOException {

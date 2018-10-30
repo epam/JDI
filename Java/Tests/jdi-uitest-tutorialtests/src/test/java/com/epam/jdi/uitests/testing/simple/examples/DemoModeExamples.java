@@ -13,17 +13,16 @@ import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.homePage;
 
-
 public class DemoModeExamples extends TestsBase {
-    @BeforeMethod
-    public void before(Method method) throws IOException {
-        homePage.shouldBeOpened();
-    }
+  @BeforeMethod
+  public void before(Method method) throws IOException {
+    homePage.shouldBeOpened();
+  }
 
-    //TODO in progress
-    @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class, enabled = false)
-    public void sendCVTest(Attendee attendee) {
-        WebSettings.isDemoMode = true;      // you can also switch on demo mode in test.properties
-        new CareerTests().sendCVTest(attendee);
-    }
+  // TODO in progress
+  @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class, enabled = true)
+  public void sendCVTest(Attendee attendee) {
+    WebSettings.isDemoMode = true; // you can also switch on demo mode in test.properties
+    new CareerTests().sendCVTest(attendee);
+  }
 }

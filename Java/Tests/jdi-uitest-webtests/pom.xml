@@ -68,10 +68,11 @@
                     <properties>
                         <property>
                             <name>usedefaultlisteners</name>
-                            <value>true</value>
+                            <value>false</value>
                             <!-- disabling default listeners is optional -->
                         </property>
                     </properties>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
         </plugins>

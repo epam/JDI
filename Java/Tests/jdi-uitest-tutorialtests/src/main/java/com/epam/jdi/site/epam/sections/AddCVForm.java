@@ -12,6 +12,8 @@ import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.simple.Css;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 /**
  * Created by Roman_Iovlev on 10/23/2015.
  */
@@ -25,15 +27,15 @@ public class AddCVForm extends Form<Attendee> {
     ITextField email;
 
     @JDropdown(
-            root = @FindBy(css = ".country-field"),
-            expand = @FindBy(css = ".arrow"),
-            list = @FindBy(css = ".options li"))
+            root = @FindBy(css = ".country-field-ui"),
+            expand = @FindBy(css = "[class*=arrow]"),
+            list = @FindBy(css = "[class*=options] li"))
     public IDropDown country;
 
     @JDropdown(
-            root = @FindBy(css = ".city-field"),
-            expand = @FindBy(css = ".arrow"),
-            list = @FindBy(css = ".options li"))
+            root = @FindBy(css = ".city-field-ui"),
+            expand = @FindBy(css = "[class*=arrow]"),
+            list = @FindBy(css = "[class*=options] li"))
     public IDropDown city;
 
     @Css(".file-upload")
@@ -42,8 +44,10 @@ public class AddCVForm extends Form<Attendee> {
     @Css(".comment__input")
     ITextArea comment;
 
-    @Css("button.button-ui")
+    @Css("button[type=\"submit\"].button-ui" )
     IButton submit;
+
+
 
 //    @XPath("//*[.='Cancel']")
 //    IButton cancel;

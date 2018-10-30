@@ -212,8 +212,9 @@ public class AppiumDriverFactory implements IDriver<WebDriver> {
                 ? highlightSettings
                 : new HighlightSettings();
         String orig = ((Element) element).getWebElement().getAttribute("style");
-        element.setAttribute("style", format("border: 3px solid %s; background-color: %s;", highlightSettings.getFrameColor(),
-                highlightSettings.getBgColor()));
+        element.setAttribute("style", format("border: 3px solid %s; background-color: %s;color: %s;",
+                highlightSettings.getFrameColor().formatToRgbHexString("#"),
+                highlightSettings.getBgColor().formatToRgbHexString("#"), highlightSettings.getFontColor().formatToRgbHexString("#")));
         sleep(highlightSettings.getTimeoutInSec() * 1000);
         element.setAttribute("style", orig);
     }

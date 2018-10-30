@@ -21,8 +21,8 @@ public class CareerTests extends TestsBase {
         new Check("Table is not empty").isFalse(jobListingPage.jobsList::isEmpty);
         jobListingPage.getJobRowByName("Test Automation Engineer (back-end)");
         jobDescriptionPage.addCVForm.submit(attendee);
-        new Check("Captcha class contains 'form-error__tooltip'")
-                .contains(() -> jobDescriptionPage.captcha.getAttribute("class"), "form-error__field");
+        new Check("Captcha id contains 'captcha-error'")
+                .contains(() -> jobDescriptionPage.captcha.getAttribute("id"), "captcha-error");
     }
 
 }

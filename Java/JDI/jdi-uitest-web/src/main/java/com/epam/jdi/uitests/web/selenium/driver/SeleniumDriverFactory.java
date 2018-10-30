@@ -275,6 +275,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
     public ChromeOptions defaultChromeOptions() {
         ChromeOptions cap = new ChromeOptions();
+        cap.addArguments("start-fullscreen");
         return (ChromeOptions) modifyCapabilities.apply(cap);
     }
     public InternetExplorerOptions defaultIEOptions() {
@@ -324,19 +325,19 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         return driver;
     }
 
-    public static Function<WebDriver, WebDriver> webDriverSettings =
-        driver -> setupDriverTimeout(setupDriverSize(driver));
+  public static Function<WebDriver, WebDriver> webDriverSettings =
+      driver -> setupDriverTimeout(setupDriverSize(driver));
 
-    private static WebDriver setupDriverSize(WebDriver driver) {
-        if (browserSizes == null) {
-            String driverName = driver.toString().toLowerCase();
-            if (any(asList("chrome", "internetexplorer"), driverName::contains)
-                    && System.getProperty("os.name").toLowerCase().contains("mac"))
-                maximizeMacBrowser(driver);
-            else driver.manage().window().maximize();
-        } else driver.manage().window().setSize(browserSizes);
-        return driver;
-    }
+  private static WebDriver setupDriverSize(WebDriver driver) {
+    if (browserSizes == null) {
+      String driverName = driver.toString().toLowerCase();
+      if (any(asList("chrome", "internetexplorer"), driverName::contains)
+          && System.getProperty("os.name").toLowerCase().contains("mac")) {
+        maximizeMacBrowser(driver);
+      } else driver.manage().window().maximize();
+    } else driver.manage().window().setSize(browserSizes);
+    return driver;
+  }
 
     public WebDriver getDriver(String driverName) {
         if (!drivers.keys().contains(driverName))
@@ -409,8 +410,9 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
         WebElement webElement = ((Element) element).getHighLightElement();
         String orig = webElement.getAttribute("style");
         getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
-                webElement, format("border: 3px solid %s; background-color: %s;", highlightSettings.getFrameColor(),
-                        highlightSettings.getBgColor()));
+                webElement, format("border: 3px solid %s; background-color: %s; color: %s;",
+                        highlightSettings.getFrameColor().formatToRgbHexString("#"),
+                        highlightSettings.getBgColor().formatToRgbHexString("#"), highlightSettings.getFontColor().formatToRgbHexString("#")));
         sleep(highlightSettings.getTimeoutInSec() * 1000);
         getJSExecutor().executeScript(format("arguments[0].setAttribute('%s',arguments[1]);", "style"),
                 webElement, orig);

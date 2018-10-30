@@ -128,7 +128,7 @@ public class Element extends BaseElement implements IElement {
 
     public void highlight(HighlightSettings highlightSettings) {
         TryCatchUtil.tryGetResult(() -> this.getParentRegion().find(this.getPattern())
-                .highlight(highlightSettings.getTimeoutInSec(), highlightSettings.getFrameColor()));
+                .highlight(highlightSettings.getTimeoutInSec(), highlightSettings.getFrameColor().getName()));
     }
 
     public void highlight() {

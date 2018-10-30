@@ -115,7 +115,8 @@ public class WebPage extends BaseElement implements IPage {
             case EQUAL:
                 result = url().check(); break;
             case MATCH:
-                result = url().match(); break;
+                StringCheckType url = url();
+                result = url.match(); break;
             case CONTAINS:
                 result = url().contains(); break;
         }
@@ -260,8 +261,7 @@ public class WebPage extends BaseElement implements IPage {
          * Check that current page url/title equals to expected url/title
          */
         @Step
-        public boolean check() {
-            logger.info(format("Check that page %s equals to '%s'", what, equals));
+        public boolean check() { logger.info(format("Check that page %s equals to '%s'", what, equals));
             return equals == null
                 || equals.equals("")
                 || actual.get().equals(equals);

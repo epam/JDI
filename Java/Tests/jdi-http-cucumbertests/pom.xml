@@ -83,6 +83,7 @@
                             <!-- disabling default listeners is optional -->
                         </property>
                     </properties>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>

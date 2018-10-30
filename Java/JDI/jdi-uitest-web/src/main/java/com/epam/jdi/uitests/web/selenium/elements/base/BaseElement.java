@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -26,7 +26,9 @@ import com.epam.jdi.uitests.core.annotations.functions.Functions;
 import com.epam.jdi.uitests.core.interfaces.base.IAvatar;
 import com.epam.jdi.uitests.core.interfaces.base.IBaseElement;
 import com.epam.jdi.uitests.core.interfaces.base.IHasValue;
+import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes;
 import com.epam.jdi.uitests.core.logger.LogLevels;
+import com.epam.jdi.uitests.core.settings.JDISettings;
 import com.epam.jdi.uitests.web.selenium.elements.WebCascadeInit;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionInvoker;
 import com.epam.jdi.uitests.web.selenium.elements.actions.ActionScenrios;
@@ -87,6 +89,7 @@ public abstract class BaseElement implements IBaseElement {
     public BaseElement() {
         this(By.id("EMPTY"));
     }
+
 
     public BaseElement(By byLocator) {
         avatar = new GetElementModule(byLocator == null || getByLocator(byLocator).equals("EMPTY")
@@ -232,6 +235,26 @@ public abstract class BaseElement implements IBaseElement {
     public void logAction(String actionName) {
         logAction(actionName, INFO);
     }
+
+  public boolean verifyElementPresent() {
+      logger.step(format("Check is any element of '%s' kind present.", getName()));
+      return getAvatar().isElementFound();
+  }
+
+public void checkAtLeastOnePresentOnPage() {
+    logger.step(format("Check that at least one element '%s' is present.", getName()));
+    logger.logOff(() ->
+            asserter.isTrue(() -> verifyElementPresent(),
+                    format("At least one element '%s' should present.", getName())));
+}
+
+
+public void checkNonePresentOnPage() {
+    logger.step(format("Check that '%s' is not present.", getName()));
+    logger.logOff(()->
+            asserter.isTrue(() -> !verifyElementPresent(),
+                    format("No elements '%s' present.", getName())));
+}
 
     public <T> T asEntity(Class<T> entityClass) {
         try {
