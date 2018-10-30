@@ -9,7 +9,7 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+ * JDI is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  *
@@ -21,7 +21,6 @@ package com.epam.jdi.uitests.web.selenium.driver;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JFuncTREx;
 import com.epam.commons.map.MapArray;
-import com.epam.commons.pairs.Pair;
 import com.epam.jdi.uitests.core.interfaces.base.IElement;
 import com.epam.jdi.uitests.core.interfaces.settings.IDriver;
 import com.epam.jdi.uitests.core.settings.HighlightSettings;
@@ -136,6 +135,19 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
             return "win";
         } else {
             return "nix";
+        }
+    }
+
+    /**
+     * Preventing 'Session ID is null. Using WebDriver after calling quit.'
+     *
+     * @param driver
+     */
+    static void safeQuit(WebDriver driver) {
+        try {
+            driver.close();
+        } catch (NoSuchSessionException e) {
+            logger.info("WebDriver instance {} already closed.", driver);
         }
     }
 
@@ -365,7 +377,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     public void reopenDriver(String driverName) {
         MapArray<String, WebDriver> rDriver = runDrivers.get();
         if (rDriver.keys().contains(driverName)) {
-            rDriver.get(driverName).close();
+            safeQuit(rDriver.get(driverName));
             rDriver.removeByKey(driverName);
             runDrivers.set(rDriver);
         }
@@ -429,8 +441,7 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
     }
 
     public void close() {
-        for (Pair<String, WebDriver> driver : runDrivers.get())
-            driver.value.quit();
+        runDrivers.get().values().forEach(SeleniumDriverFactory::safeQuit);
         runDrivers.get().clear();
     }
 
