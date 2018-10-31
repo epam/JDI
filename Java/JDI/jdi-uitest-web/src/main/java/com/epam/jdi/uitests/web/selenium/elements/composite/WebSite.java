@@ -31,8 +31,8 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 public class WebSite extends Application {
 
-    public static <T> void init(String driverName, Class<T>... sites) {
-        for (Class<T> site : sites) {
+    public static void init(String driverName, Class<?>... sites) {
+        for (Class<?> site : sites) {
             if (site.isAnnotationPresent(JSite.class)) {
                 String value = site.getAnnotation(JSite.class).value();
                 if (isNotBlank(value)) DOMAIN = value;
@@ -41,7 +41,7 @@ public class WebSite extends Application {
         }
         currentSite = sites[sites.length-1];
     }
-    public static <T> void init(Class<T>... sites) {
+    public static void init(Class<?>... sites) {
         if (!getDriverFactory().hasDrivers())
             useDriver(CHROME);
         String driverName = getDriverFactory().currentDriverName();

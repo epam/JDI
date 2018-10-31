@@ -50,7 +50,7 @@ public class EpamSite extends WebSite {
     @JPage(url = "/insights", title = "Insights")
     public static InsightsPage insightsPage;
 
-    @FindBy(css = ".top-navigation__list")
+    @FindBy(css = ".top-navigation__item a")
     public static Menu<HeaderMenu> headerMenu;
 
     @JMenu(level1 = @JFindBy(css = "ul.top-navigation__list>li span a"),

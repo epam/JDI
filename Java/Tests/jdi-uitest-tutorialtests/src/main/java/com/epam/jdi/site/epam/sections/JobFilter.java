@@ -19,7 +19,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class JobFilter extends Form<JobSearchFilter> {
     //Keyword or Vacancy ID
-    @ByClass("job-search__input")
+    @ByClass("[class*='hide-on-mobile'] .recruiting-search__input")
     ITextField keywords;
 
     //Skills
