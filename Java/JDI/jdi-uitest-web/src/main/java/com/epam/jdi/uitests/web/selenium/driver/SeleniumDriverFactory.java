@@ -145,8 +145,8 @@ public class SeleniumDriverFactory implements IDriver<WebDriver> {
      */
     static void safeQuit(WebDriver driver) {
         try {
-            driver.close();
-        } catch (NoSuchSessionException e) {
+            driver.quit();
+        } catch (WebDriverException e) {
             logger.info("WebDriver instance {} already closed.", driver);
         }
     }

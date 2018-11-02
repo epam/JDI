@@ -10,14 +10,13 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.interactions.Coordinates;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.support.ui.Select;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
