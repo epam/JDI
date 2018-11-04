@@ -19,6 +19,7 @@ package com.epam.jdi.uitests.web.selenium.elements.base;
 
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JFuncTREx;
@@ -261,7 +262,7 @@ public abstract class BaseElement implements IBaseElement {
 
     public IBaseElement should(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-            Assert.assertEquals(() -> condition.apply(getAvatar().getElement()), true,
+            Assert.assertEquals(() -> condition.apply(WebDriverRunner.driver(), getAvatar().getElement()), true,
                     format("Expected: '%s' but found '%s'", condition.toString(), getAvatar().getElement().getText())
             )
         );
@@ -275,7 +276,7 @@ public abstract class BaseElement implements IBaseElement {
     }
     public IBaseElement shouldNot(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-            Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
+            Assert.assertEquals(condition.apply(WebDriverRunner.driver(), getAvatar().getElement()), false));
         return this;
     }
     public IBaseElement shouldNotHave(Condition... conditions){

@@ -1,9 +1,6 @@
 package com.epam.jdi.uitests.web.selenium.elements.base;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import com.codeborne.selenide.impl.BySelectorCollection;
 import com.codeborne.selenide.impl.DownloadFileWithHttpRequest;
 import org.apache.commons.lang3.NotImplementedException;
@@ -358,12 +355,12 @@ public class J extends Element implements SelenideElement {
 
 
     public ElementsCollection findAll(String cssSelector) {
-        return new ElementsCollection(new BySelectorCollection(By.cssSelector(cssSelector)));
+        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.driver(), By.cssSelector(cssSelector)));
     }
 
     
     public ElementsCollection findAll(By by) {
-        return new ElementsCollection(new BySelectorCollection(by));
+        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.driver(), by));
     }
 
     
@@ -542,7 +539,7 @@ public class J extends Element implements SelenideElement {
 
     public File download(long l) {
         try {
-            return new DownloadFileWithHttpRequest().download(getWebElement(), l);
+            return new DownloadFileWithHttpRequest().download(WebDriverRunner.driver(), getWebElement(), l);
         } catch (IOException e) {
             throw new RuntimeException("Couldn't download file from the link: " + toString(), e);
         }
