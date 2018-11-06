@@ -20,7 +20,8 @@ package com.epam.jdi.uitests.web.selenium.driver;
 import java.io.IOException;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static org.openqa.selenium.os.WindowsUtils.killByName;
+import static java.lang.Runtime.getRuntime;
+import static java.lang.String.format;
 
 /**
  * Created by 12345 on 26.01.2015.
@@ -33,30 +34,34 @@ public final class WebDriverUtils {
     private static void killMacOSBrowsersByName(String driverName) {
         try {
             Process process = new ProcessBuilder(
-                    "/usr/bin/pkill",
-                    "-f",
-                    ".*" + driverName + ".*")
-                    .start();
+                "/usr/bin/pkill",
+                "-f",
+                ".*" + driverName + ".*")
+                .start();
             process.waitFor();
         }
         catch (IOException | InterruptedException e1){
             e1.printStackTrace();
         }
     }
+    private static void killByName(String name) throws IOException {
+        getRuntime().exec(format("taskkill /F /IM %s.exe /T", name));
+    }
 
     //TODO Add OS type and current user check.
     //TODO Try to use C/C++ Library to work with processes.
     public static void killAllRunWebBrowsers() throws IOException {
-        String os = System.getProperty("os.name");
-        if (os.contains("Mac")) {
-            asserter.ignore(() -> killMacOSBrowsersByName("Firefox"));
-            asserter.ignore(() -> killMacOSBrowsersByName("Chrome"));
-        }
-        else {
-            asserter.ignore(() -> killByName("chromedriver.exe"));
-            asserter.ignore(() -> killByName("geckodriver.exe"));
-            asserter.ignore(() -> killByName("IEDriverServer.exe"));
-            asserter.ignore(() -> killByName("MicrosoftWebDriver.exe"));
-        }
+        try {
+            String os = System.getProperty("os.name");
+            if (os.contains("Mac")) {
+                killMacOSBrowsersByName("Firefox");
+                killMacOSBrowsersByName("Chrome");
+            } else {
+                killByName("chromedriver.exe");
+                killByName("geckodriver.exe");
+                killByName("IEDriverServer.exe");
+                killByName("MicrosoftWebDriver.exe");
+            }
+        } catch (Exception ignore) { }
     }
 }

@@ -20,6 +20,7 @@ package com.epam.web.matcher.base;
 import com.epam.commons.LinqUtils;
 import com.epam.commons.Timer;
 import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JActionT;
 import com.epam.commons.linqinterfaces.JFuncREx;
 import com.epam.commons.map.MapArray;
@@ -206,7 +207,7 @@ public abstract class BaseMatcher implements IChecker {
         }
     }
 
-    public void ignore(JAction action) {
+    public void ignore(JActionEx action) {
         try {
             action.invoke();
         } catch (Exception ignore) { }

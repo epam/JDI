@@ -18,6 +18,7 @@ package com.epam.jdi.uitests.core.interfaces;
  */
 
 import com.epam.commons.linqinterfaces.JAction;
+import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JFuncREx;
 
 import java.util.function.BooleanSupplier;
@@ -28,7 +29,7 @@ import java.util.function.BooleanSupplier;
 public interface IAsserter {
     RuntimeException exception(String message, Object... args);
     <TResult> TResult silent(JFuncREx<TResult> func);
-    void ignore(JAction action);
+    void ignore(JActionEx action);
     void isTrue(Boolean actual);
     void isTrue(Boolean actual, String msg);
     void isTrue(BooleanSupplier actual);

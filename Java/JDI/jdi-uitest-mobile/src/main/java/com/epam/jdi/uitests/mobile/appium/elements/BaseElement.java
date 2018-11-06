@@ -34,6 +34,7 @@ import com.epam.web.matcher.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
@@ -208,10 +209,7 @@ public abstract class BaseElement implements IBaseElement {
                 getName(), getTypeName(), getParentName(), getVarName(), avatar);
     }
     public IBaseElement should(Condition... conditions){
-        Arrays.stream(conditions).forEach(condition ->
-                Assert.assertEquals(condition.apply(getAvatar().getElement()), true));
-
-        return this;
+        throw new NotImplementedException();
     }
     public IBaseElement shouldHave(Condition... conditions){
         return should(conditions);
@@ -220,9 +218,7 @@ public abstract class BaseElement implements IBaseElement {
         return should(conditions);
     }
     public IBaseElement shouldNot(Condition... conditions){
-        Arrays.stream(conditions).forEach(condition ->
-                Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
-        return this;
+        throw new NotImplementedException();
     }
     public IBaseElement shouldNotHave(Condition... conditions){
         return shouldNot(conditions);
