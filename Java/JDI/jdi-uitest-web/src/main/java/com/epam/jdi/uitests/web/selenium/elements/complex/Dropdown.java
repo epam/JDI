@@ -115,12 +115,13 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
     protected void expandAction(String name) {
         if (element().isDisplayed()) {
             setWaitTimeout(0);
-            if (!isDisplayedAction(name))
+            if (!isDisplayedAction(name)) {
                 restoreWaitTimeout();
                 timer().wait(() -> {
                     expander().click();
                     return timer(1).wait(() -> isDisplayedAction(name));
                 });
+            }
             restoreWaitTimeout();
         }
     }
@@ -156,7 +157,7 @@ public class Dropdown<TEnum extends Enum> extends Selector<TEnum> implements IDr
         try {
             element = allLabels.get(TextList.class).getElement(name);
         } catch (Exception | Error ex) {
-            return true;
+            return false;
         }
         return element != null && element.isDisplayed();
     }
