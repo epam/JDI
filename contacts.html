@@ -85,15 +85,13 @@
 							</div>
 							<div class="col-sm-4">
 								<label for="religion">Religion</label>
-								<div class="form-group metals" ui="combobox" id="religion">
-									<input type="text"/>
-									<select class="uui-form-element">
-										<option>Christian</option>
-										<option>Muslims</option>
-										<option>Induism</option>
-										<option>Other</option>
-									</select>
-								</div>
+								<input list="religion-options" id="religion" placeholder="Religion">
+								<datalist id="religion-options">
+									<option>Christian</option>
+									<option>Muslims</option>
+									<option>Induism</option>
+									<option>Other</option>
+								</select>
 							</div>
 							<div class="col-sm-4">
 								<label for="wheather">Wheather</label>
