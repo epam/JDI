@@ -95,42 +95,16 @@
 						</datalist>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<label for="wheather">Wheather</label>
-					<div class="form-group salad" ui="droplist" id="wheather">
-						<div class="dropdown salad">
-							<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="caret"></span> Wheather
-							</button>
-							<ul class="dropdown-menu" style="display: none;">
-								<li>
-									<a href="#" class="checkbox">
-										<input type="checkbox" id="g5" class="uui-form-element blue"/>
-										<label for="g5">Sun</label>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="checkbox">
-										<input type="checkbox" id="g6" class="uui-form-element blue"/>
-										<label for="g6">Rain</label>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="checkbox">
-										<input type="checkbox" id="g7" class="uui-form-element blue"
-											   checked="checked"/>
-										<label for="g7">Wheather</label>
-									</a>
-								</li>
-								<li>
-									<a href="#" class="checkbox">
-										<input type="checkbox" id="g8" class="uui-form-element blue"/>
-										<label for="g8">Snow</label>
-									</a>
-								</li>
-							</ul>
-						</div>
+				<div class="col-sm-4">	
+					<label for="weather">Multi dropdown:</label>
+					<div class="form-group form-group10">
+						<select id="weather" multiple="multiple" >
+							<option value="sun">Sun</option>
+							<option value="rain" selected >Rain</option>
+							<option value="weather">Weather</option>
+							<option value="snow">Snow</option>
+							<option value="clouds">Clouds</option>
+						</select>
 					</div>
 				</div>
 			</div>
