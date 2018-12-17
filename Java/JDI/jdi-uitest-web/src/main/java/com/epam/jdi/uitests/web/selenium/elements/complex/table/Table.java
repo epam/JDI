@@ -384,18 +384,18 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
         int colIndex = column.get(this::getColumnIndex, num -> num + columns().getStartIndex() - 1);
         int rowIndex = row.get(this::getRowIndex, num -> num + rows().getStartIndex() - 1);
         return addCell(colIndex, rowIndex,
-                column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
-                row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
-                column.get(name -> name, num -> ""),
-                row.get(name -> name, num -> ""));
+                column.get(columnName -> columns().headers().indexOf(columnName) + 1, num -> num),
+                row.get(rowName -> rows().headers().indexOf(rowName) + 1, num -> num),
+                column.get(columnName -> columnName, num -> ""),
+                row.get(rowName -> rowName, num -> ""));
     }
 
     public ICell cell(WebElement webElement, Column column, Row row) {
         return addCell(webElement,
-                column.get(name -> columns().headers().indexOf(name) + 1, num -> num),
-                row.get(name -> rows().headers().indexOf(name) + 1, num -> num),
-                column.get(name -> name, num -> ""),
-                row.get(name -> name, num -> ""));
+                column.get(columnName -> columns().headers().indexOf(columnName) + 1, num -> num),
+                row.get(rowName -> rows().headers().indexOf(rowName) + 1, num -> num),
+                column.get(columnName -> columnName, num -> ""),
+                row.get(rowName -> rowName, num -> ""));
     }
 
     private List<ICell> contains(Collection<ICell> list, String value) {
@@ -536,13 +536,13 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
         int rowNum = row.hasName()
                 ? rows().headers().indexOf(row.getName()) + 1
                 : row.getNum();
-        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().equals(value));
+        return rows().getRow(rowNum).first((rowName, cell) -> cell.getValue().equals(value));
     }
     public ICell cellContains(String value, Row row) {
         int rowNum = row.hasName()
                 ? rows().headers().indexOf(row.getName()) + 1
                 : row.getNum();
-        return rows().getRow(rowNum).first((name, cell) -> cell.getValue().contains(value));
+        return rows().getRow(rowNum).first((rowName, cell) -> cell.getValue().contains(value));
     }
     public ICell cellMatch(String regex, Row row) {
         MapArray<String, ICell> rowLine = row(row);
@@ -556,15 +556,15 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
 
     public ICell cell(String value, Column column) {
         int colIndex = column.get(
-                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
+                columnName -> select(columns().headers(), String::toLowerCase).indexOf(columnName.toLowerCase()) + 1,
                 num -> num);
-        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().equals(value));
+        return columns().getColumn(colIndex).first((columnName, cell) -> cell.getValue().equals(value));
     }
     public ICell cellContains(String value, Column column) {
         int colIndex = column.get(
-                name -> select(columns().headers(), String::toLowerCase).indexOf(name.toLowerCase()) + 1,
+        		columnName -> select(columns().headers(), String::toLowerCase).indexOf(columnName.toLowerCase()) + 1,
                 num -> num);
-        return columns().getColumn(colIndex).first((name, cell) -> cell.getValue().contains(value));
+        return columns().getColumn(colIndex).first((columnName, cell) -> cell.getValue().contains(value));
     }
     public ICell cellMatch(String regex, Column column) {
         MapArray<String, ICell> columnLine = column(column);
