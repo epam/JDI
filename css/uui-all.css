@@ -8102,6 +8102,9 @@ footer .uui-promo-footer .uui-footer-navigation li a:hover, footer .uui-promo-fo
     float: left;
     position: relative
 }
+.invisible {
+	style.visibility: hidden
+}
 
 .vertical-group {
     position: relative;
