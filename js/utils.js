@@ -200,13 +200,13 @@ $(document).ready(function () {
 
         logEvent(this);
     });
-    $('#Name').bind('change', function () {
+    $('#name').bind('change', function () {
         logEvent(this);
     });
-    $('#LastName').bind('change', function () {
+    $('#last-name').bind('change', function () {
         logEvent(this);
     });
-    $('#Description').bind('change', function () {
+    $('#description').bind('change', function () {
         logEvent(this);
     });
     $('.colors select').bind('change', function () {
@@ -312,7 +312,7 @@ function closeSearch() {
 }
 
 function login() {
-    if ($('input#Name').val() == 'epam' && $('input#Password').val() == '1234') {
+    if ($('input#name').val() == 'epam' && $('input#password').val() == '1234') {
         $.cookie('authUser', 'true');
         $('.login-txt').addClass('hidden');
         checkLogin();
@@ -338,12 +338,12 @@ function checkLogin() {
         $('.dropdown-menu-login .logout').addClass('hidden');
         $('.profile-photo span').addClass('hidden');
     }
-    $('#Name').val('');
-    $('#Password').val('');
+    $('#name').val('');
+    $('#password').val('');
 }
 
 function passwordFocus() {
-    $('#Password').focus();
+    $('#password').focus();
 }
 
 function reformTitle(cname) {
@@ -417,20 +417,20 @@ function includeHeader() {
                         <form class="form-horizontal login hidden" id="login-form">\
                             <div class="form-horizontal-pad">\
                                 <div class="form-group form-group10">\
-                                    <label for="Name" class="col-sm-3">Login</label>\
+                                    <label for="name" class="col-sm-3">Login</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Name" type="text" class="uui-form-element">\
+                                        <input id="name" type="text" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <div class="form-group form-group10">\
-                                    <label for="Password" class="col-sm-3">Password</label>\
+                                    <label for="password" class="col-sm-3">Password</label>\
                                     <div class="col-sm-9">\
-                                        <input id="Password" type="password" class="uui-form-element">\
+                                        <input id="password" type="password" class="uui-form-element">\
                                     </div>\
                                 </div>\
                                 <span class="login-txt hidden">* Login Faild</span>\
                             </div>\
-                            <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-in"></i><span>Enter</span></button>\
+                            <button type="submit" class="uui-button dark-blue btn-login" id="submit-button"><i class="fa fa-sign-in"></i><span>Enter</span></button>\
                         </form>\
                         <div class="logout">\
                             <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-out"></i><span>Logout</span></button>\
@@ -611,11 +611,11 @@ function submitForm() {
     var data = [];
 
     /*Name*/
-    data.push({'key': 'name', 'value': $('#Name').val(), 'description': 'Name'});
+    data.push({'key': 'name', 'value': $('#name').val(), 'description': 'Name'});
     /*LastName*/
-    data.push({'key': 'lname', 'value': $('#LastName').val(), 'description': 'Last Name'});
+    data.push({'key': 'lname', 'value': $('#last-name').val(), 'description': 'Last Name'});
     /*Description*/
-    data.push({'key': 'descr', 'value': $('#Description').val(), 'description': 'Description'});
+    data.push({'key': 'descr', 'value': $('#description').val(), 'description': 'Description'});
     /*Summary*/
     calculateValue();
     /*Elements*/

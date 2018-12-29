@@ -61,6 +61,7 @@
                             <button class="uui-button blue" id="blue-button" onclick="confirm('Blue button');" >Big blue button</button> <br><br>
                             <button class="uui-button grey" id="disabled-button" disabled onclick="alert('Disabled button');" >Disabled Button</button> <br><br>
                             <button class="uui-button dark-green invisible" id="suspend-button" onclick="confirm('Suspend button');" >Suspend button</button> 
+                            <button class="uui-button dark-green" id="ghost-button" onclick="confirm('Suspend button');" >Ghost button</button> 
                         </div>
                         <div class="html-right">
                             <h4>Button</h4>
@@ -495,7 +496,10 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
     <div class="replace footer">replace</div>
 </footer>
 <script>
-    setTimeout(function() {$('#suspend-button')[0].style.visibility = "visible"}, 3000);
+    setTimeout(function() {
+		$('#suspend-button')[0].style.visibility = "visible";
+		$('#ghost-button')[0].style.visibility = "invisible";
+	}, 3000);
 </script>
 <script>
     const volumeSpan = $('#volume-value')[0];
