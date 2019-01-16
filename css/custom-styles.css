@@ -80,20 +80,20 @@ header { z-index: 1001 }
     /*width: 100%;*/
     flex-grow: 2;
 }
-    .uui-main-container main,
-    .uui-main-container main .main-content {
-        height: 100%;
-    }
-        .uui-main-container.page-inside {
-            background: none;
-            margin-right: 374px;
-        }
-            .uui-main-container.page-inside .pattern-top {
-                display: none;
-            }
-            .uui-main-container.page-inside .main-content {
-                max-width: 780px;
-            }
+.uui-main-container main,
+.uui-main-container main .main-content {
+    height: 100%;
+}
+.uui-main-container.page-inside {
+    background: none;
+    margin-right: 374px;
+}
+.uui-main-container.page-inside .pattern-top {
+    display: none;
+}
+.uui-main-container.page-inside .main-content {
+    max-width: 1024px;
+}
 
 /*Type and Scaffolding*/
 
@@ -150,7 +150,7 @@ h3.main-title {
 /*------HEADER-----*/
 
 header {
-    min-width: 1200px;
+    min-width: 768px;
     min-height: 60px;
     max-height: 60px;
     width: 100%;
@@ -985,4 +985,40 @@ table.user-table {
 }
 .user-table .bottom {
   vertical-align: bottom;
+}
+.line {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid;
+}
+.line label {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+input[type=number] {
+    width: 300px
+}
+input[type=range] {
+    width: 100px
+}
+#volume-value {
+    width: 30px
+}
+input[type=range].range {
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hide-menu {
+    display: none !important;
+}
+.disable {
+    pointer-events:none;
+}
+.wolverine {
+    position: absolute;
+    clip-path: inset(0 50% 66% 0);
+    height: 200px;
+    width: 130px
 }

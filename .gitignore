@@ -1,2 +1,4 @@
 node_modules/
 .idea/
+.DL_Store
+.DS_Store

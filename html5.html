@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML 5</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/uui-all.css" />
+    <link rel="stylesheet" href="css/custom-styles.css" />
+    <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/lib/components/awesome-bootstrap-checkbox.css" />
+    <link rel="stylesheet" href="css/lib/components/datepicker3.css" />
+    <link rel="stylesheet" href="css/lib/components/bootstrap-timepicker.css" />
+    <link rel="stylesheet" href="css/lib/components/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="css/lib/components/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.min.css" />
+    <script src="js/lib/jquery-1.11.1.min.js"></script>
+    <script src="js/lib/components/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/lib/jquery.cookie.js"></script>
+    <script src="jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/uui-core.min.js" type="text/javascript"></script>
+    <script src="js/lib/components/bootstrap-datepicker.js"></script>
+    <script src="js/lib/components/bootstrap-timepicker.min.js"></script>
+    <script src="js/lib/components/bootstrap-select.min.js"></script>
+    <script src="js/utils.js" type="text/javascript"></script>
+
+    <!-- Include the plugin's CSS and JS: -->
+    <script type="text/javascript" src="bootstrap/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
+
+</head>
+<body>
+<header>
+    <div class="replace site-header">replace</div>
+</header>
+<div class="wrapper">
+    <div class="replace left-side-bar">replace</div>
+    <div class="uui-main-container page-inside">
+        <main>
+            <div class="pattern-top"></div>
+            <div class="main-content">
+                <div class="main-content-hg">
+                    <div class="support-title"><i class="fa fa-comments-o"></i>HTML 5 Elements</div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <h1 ui="jdi-title" onclick="alert('JDI Title');">JDI Testing platform</h1>
+                            <p ui="jdi-text">Powerful Framework for UI Tests Automation. Suitable for any UI project: Web(Html5, Angular, React...), Mobile(Android IOs), Desktop(Win app) etc.</p>
+                        </div>
+                        <div class="html-right">
+                            Description
+                        </div>
+                    </div>
+					<div class="doc-space line">
+                        <div class="html-left">
+                            <h4>Button element</h4>
+                            <input type="button" value="Big Red Button-Input" class="uui-button red" onclick="alert('Red button');"/> <br><br>
+                            <input type="button" value="Disabled Button-Input" class="uui-button grey" disabled onclick="alert('Grey button');" /> <br>
+                            <h4>Tag button</h4>
+                            <button class="uui-button blue" id="blue-button" onclick="confirm('Blue button');" >Big blue button</button> <br><br>
+                            <button class="uui-button grey" id="disabled-button" disabled onclick="alert('Disabled button');" >Disabled Button</button> <br><br>
+                            <button class="uui-button dark-blue invisible" id="suspend-button" onclick="confirm('Suspend button');" >Suspend button</button>  <br><br>
+                            <button class="uui-button dark-green" id="ghost-button" onclick="confirm('Suspend button');" >Ghost button</button> 
+                        </div>
+                        <div class="html-right">
+                            <h4>Button</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
+                            <p>click() - Click on link</p>
+                            <p>getText() - Get link's text</p>
+                            <p>getRef() - Get link's "ref" attribute</p>
+                            <p>getUrl() - Get link's "ref" attribute as URL</p>
+                            <p>getAlt() - Get link's "alt" attribute</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <h4>Link element</h4>
+                            <a ui="github-link" href="https://github.com/jdi-testing" alt="Github JDI Link" >Github JDI</a>
+                        </div>
+                        <div class="html-right">
+                            <h4>Link</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
+                            <p>click() - Click on link</p>
+                            <p>getText() - Get link's text</p>
+                            <p>ref() - Get link's "ref" attribute</p>
+                            <p>url() - Get link's "ref" attribute as URL</p>
+                            <p>alt() - Get link's "alt" attribute</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="name">Your name:</label>
+                            <input type="text" id="name" placeholder="Input name" />
+                            <label for="disabled-name">Surname:</label>
+                            <input type="text" id="disabled-name" placeholder="Iovlev" disabled/>
+                        </div>
+                        <div class="html-right">
+                            <h4>Textfield</h4>
+                            <p>Input with type "text</p>
+                            <p>W3C: <a href="https://www.w3schools.com/html/html_form_input_types.asp" target="_blank">https://www.w3schools.com/html/html_form_input_types.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text</a></p>
+                            <p>sendKeys(value) - Input text in textfield in addition to tet that already at textfield. You also can use Keyboard keys as value</p>
+                            <p>clear() - Clear text in textfield</p>
+                            <p>input(value) - Set textfield with value text. Clear previously entered text</p>
+                            <p>setText(value) - Set text in textfield immediately. Much faster than regular input or sendKeys. Save input time significantly for long text values</p>
+                            <p>focus() - Just focus cursor to textfield</p>
+                            <p>placeholder() - Returns textfiled's placeholder value</p>
+                            <p>label() - Returns label element associated with textfield</p>
+                            <p>getText() - Get textfield's text</p>
+                        </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="text-area">Text example:</label>
+                            <textarea id="text-area" rows="3" cols="33" maxlength="200" minlength="10" required wrap="hard" placeholder="Input huge text">
+Textarea with sizing and wrap attribute (try values of hard, soft, and off to see how it affects wrapping). The maximum number of characters is constrained to 200 by the maxlength attribute.
+                            </textarea> <br>
+                            <textarea disabled placeholder="Disabled area" ></textarea>
+                        </div>
+                        <div class="html-right">
+                            <h4>Textarea</h4>
+                            <p>Multi-line text input</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank">https://www.w3schools.com/tags/tag_textarea.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea</a></p>
+                            <p>clear() - Clear text in textarea</p>
+                            <p>input(value) - Set textarea with value text. Clear previously entered text</p>
+                            <p>inputLines(value) - Clear textarea and Input several lines of text in textarea</p>
+                            <p>addNewLine(value) - Add text in textarea from new line (without clearing previous)</p>
+                            <p>getLines() - Get lines of text in textarea</p>
+                            <p>label() - Returns label element assosiated with textarea</p>
+                            <p>focus() - Just focus cursor to textfield</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="avatar">Profile picture:</label>
+                            <input type="file" id="avatar" accept="image/png, image/jpeg" />
+                            <input type="file" accept="image/png, image/jpeg" disabled/>
+			    <a href="/JDI/images/jdi-logo.jpg" download="">Download JDI Logo</a>
+                        </div>
+                        <div class="html-right">
+                            <h4>Input FileUpload</h4>
+                            <p>Let the user choose one or more files from their device storage</p>
+                            <p>W3C: <a href="https://www.w3schools.com/jsref/dom_obj_fileupload.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_fileupload.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file</a></p>
+                            <p>setValueAction(value) - Clear and input value</p>
+                            <p>focus() - Just focus cursor to uploader</p>
+                            <p>clear() - Clear value in uploader</p>
+                            <p>label() - Returns label element assosiated with uploader</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="jdi-logo">JDI Logo:</label>
+                            <img src="/JDI/images/jdi-logo.jpg" id="jdi-logo" alt="Jdi Logo 2"
+                                 width="101" height="100" onclick="alert('JDI Logo');">
+                        </div>
+                        <div class="html-right">
+                            <h4>Image</h4>
+                            <p>Image in an HTML page</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_img.asp" target="_blank">https://www.w3schools.com/tags/tag_img.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img</a></p>
+                            <p>getAlt() - Get image's "alt" attribute</p>
+                            <p>getSource() - Get image source</p>
+                            <p>click() - Click on the element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="dress-code">Dress code:</label>
+                            <select id="dress-code">
+                                <option value="fancy">Fancy</option>
+                                <option value="casual" selected >Casual</option>
+                                <option value="disabled" disabled >Disabled</option>
+                                <option value="pirate">Pirate</option>
+                            </select>
+                            <select id="disabled-dropdown" disabled>
+                                <option value="fancy">Fancy</option>
+                                <option value="casual" selected >Disabled</option>
+                                <option value="pirate">Pirate</option>
+                            </select>
+                        </div>
+                        <div class="html-right">
+                            <h4>Selector</h4>
+                            <p>Drop-down list</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank">https://www.w3schools.com/tags/tag_select.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>select(value) - Select Element with name from list</p>
+                            <p>getSelected() - Get name of the selected Element</p>
+                            <p>getSelectedIndex() - Get index of the selected Element</p>
+                            <p>isSelectedAction(value) - Verifies selected text with value</p>
+                            <p>isHidden() - Check is Element hidden</p>
+                            <p>waitDisplayed() - Waits while Element becomes visible</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="ages">Age status:</label>
+                            <select id="ages" multiple size="4">
+                                <option value="electro">Electro</option>
+                                <option value="steam" selected >Steam</option>
+                                <option value="metalic">Metalic</option>
+                                <option value="dis" disabled>Disabled</option>
+                                <option value="wood">Wood</option>
+                            </select>
+                        </div>
+                        <div class="html-right">
+                            <h4>Multiple selector</h4>
+                            <p>List with multiple options can be selected at once</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>clearAction() - Clear options</p>
+                            <p>select(values) - Select multiple values</p>
+                            <p>uncheck(values) - Uncheck only specified options</p>
+                            <p>areSelected() - Get names of checked options</p>
+                            <p>isHidden() - Check is Element hidden</p>
+                            <p>waitSelected(values) - Wait while all options with values selected</p>
+                            <p>areDeselected() - Get names of unchecked options</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="multi-dropdown">Multi dropdown:</label>
+                            <select id="multi-dropdown" multiple="multiple" >
+                                <option value="electro">Electro</option>
+                                <option value="steam" selected >Steam</option>
+                                <option value="metalic">Metalic</option>
+                                <option value="dis" disabled>Disabled</option>
+                                <option value="wood">Wood</option>
+                            </select>
+                        </div>
+                        <div class="html-right">
+                            <h4>Multi dropdown</h4>
+                            <p>List with multiple dropdown options</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
+                            <p>expand() - Expand DropDown</p>
+                            <p>close() - Close DropDown</p>
+                            <p>getTextAction() - Get first selected option</p>
+                            <p>select(values) - Select options with values from list</p>
+                            <p>clear() - Deselect all options</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="ice-cream">Choose your lovely icecream</label>
+                            <input list="ice-cream-flavors" id="ice-cream" placeholder="Ice cream"/>
+
+                            <datalist id="ice-cream-flavors">
+                                <option value="Chocolate">
+                                <option value="Coconut">
+                                <option value="Mint">
+                                <option value="Strawberry">
+                                <option value="Vanilla">
+                            </datalist>
+                        </div>
+                        <div class="html-right">
+                            <h4>Datalist</h4>
+                            <p>List of pre-defined options for input</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_datalist.asp" target="_blank">https://www.w3schools.com/tags/tag_datalist.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist</a></p>
+                            <p>expand() - Expand DropDown</p>
+                            <p>getValue() - Get value of Element</p>
+                            <p>clearAction() - Clear value</p>
+                            <p>input(value) - Input text in textfield</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <input type="checkbox" id="accept-conditions" checked />
+                            <label for="accept-conditions">Accept terms and conditions</label> <br>
+                        </div>
+                        <div class="html-right">
+                            <h4>Checkbox</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_checkbox.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
+                            <p>click() - Click on checkbox</p>
+                            <p>check() - Set checkbox checked</p>
+                            <p>uncheck() - Set checkbox unchecked</p>
+                            <p>isChecked() - Verify is checkbox checked</p>
+                            <p>getValue() - Get value of Element</p>
+                        </div>
+                    </div>
+					<div class="doc-space line">
+                        <div class="html-left">
+                            <input type="checkbox" id="hot" name="checks-group" checked />
+                            <label for="hot">Hot option</label> <br>
+
+                            <input type="checkbox" id="cold" name="checks-group" />
+                            <label for="cold">Cold</label> <br>
+				
+                            <input type="checkbox" id="rainy" name="checks-group" />
+                            <label for="rainy">Rainy day</label> <br>
+				
+                            <input type="checkbox" id="sunny-day" name="checks-group" />
+                            <label for="sunny-day">Sunny</label> <br>
+
+                            <input type="checkbox" id="disabled-ch" name="checks-group" disabled/>
+                            <label for="disabled-ch">Disabled</label>
+                        </div>
+                        <div class="html-right">
+                            <h4>Checklist</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_checkbox.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Checking_boxes_by_default" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
+			    <p>check(String... values) - Check only specified values. All other values make unchecked</p>
+			    <p>check(TEnum... values) - Same as above for values in Enum</p>
+			    <p>check(int... values) - Same as above but for indexes</p>				
+			    <p>uncheck(int... indexes) - Uncheck only specified values. All other values make unchecked</p>
+			    <p>uncheck(TEnum... values) - Same as above for values in Enum</p>
+			    <p>uncheck(int... values) - Same as above but for indexes</p>	
+			    <p>List<String> checked() - List of checked values</p>				    
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <input type="radio" id="red" name="colors" />
+                            <label for="red">Red</label> <br>
+
+                            <input type="radio" id="green" name="colors" checked />
+                            <label for="green">Green</label> <br>
+
+                            <input type="radio" id="blue" name="colors" />
+                            <label for="blue">Blue</label> <br>
+
+                            <input type="radio" id="yellow" name="colors" disabled/>
+                            <label for="yellow">Yellow</label>
+                        </div>
+                        <div class="html-right">
+                            <h4>Radio</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_radio.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_radio.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio</a></p>
+                            <p>select(value) - Select Element with value from list</p>
+                            <p>getSelected() - Get name of the selected Element</p>
+                            <p>isSelectedAction(value) - Verify checked value</p>
+                        </div>
+					</div>
+					<div class="doc-space line">
+                        <div class="html-left">
+                            <input type="color" value="#3fd7a6" id="color-picker" />
+                            <label for="color-picker">Select a color</label> <br>
+                            <input type="color" value="#ffd7a6" id="disabled-picker" disabled/> Disabled
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type color</h4>
+                            <p>Defines a color picker</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_color.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_color.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color</a></p>
+                            <p>click() - Click on input</p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue - Get value of Element</p>
+                            <p>ok() - Click on ok button</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="volume">Volume</label>
+                            <input type="text" disabled id="volume-value"/> <br>
+                            <span>10</span>
+                            <input type="range" id="volume"
+                                   min="10" max="100" value="90" step="5" class="range" list="volume-list"
+                                   oninput="showVal(this.value)" onchange="showVal(this.value)"/>
+                            <span>100</span>
+
+                            <datalist id="volume-list">
+                                <option value="0">
+                                <option value="20">
+                                <option value="40">
+                                <option value="60">
+                                <option value="80">
+                                <option value="100">
+                            </datalist> <br> <br>
+
+                            <input type="range" disabled/>
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type range</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_range.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_range.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range</a></p>
+                            <p>sendKeys(value) - Specify value to send</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="progress">File progress</label>
+                            <progress id="progress" max="100" value="70"></progress>
+                        </div>
+                        <div class="html-right">
+                            <h4>Progress</h4>
+                            <p>Represents the progress of a task</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_progress.asp" target="_blank">https://www.w3schools.com/tags/tag_progress.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress</a></p>
+                            <p>getValue() - Get value of Element</p>
+                        </div>
+                    </div>
+
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="birth-date">Birth date</label>
+                            <input type="date" id="birth-date" value="1985-06-18"
+                                   min="1970-01-01" max="2030-12-31" />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type date</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_date.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_date.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date" target="_blank">https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="month-date">Month of Holidays</label>
+                            <input type="month" id="month-date"
+                                   min="2015-03" max="2020-12" value="2018-05" />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type month</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_month.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_month.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="party-time">Date/time:</label>
+                            <input type="datetime-local" id="party-time" value="2018-06-12T19:30"
+                                   min="2018-05-07T00:00" max="2018-06-14T00:00" />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type datetime-local</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_datetime-local.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_datetime-local.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="booking-time">Booking Time:</label>
+                            <input type="time" id="booking-time" value="11:00"
+                                   min="9:00" max="18:00" />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type time</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_time.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_time.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="autumn-week">Autumn</label>
+                            <input type="week" id="autumn-week" value="2018-W40"
+                                   min="2018-W35" max="2018-W48" required />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type week</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_week.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_week.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+                    <div class="doc-space line">
+                        <div class="html-left">
+                            <label for="height">Height (metres):</label>
+                            <input type="number" id="height" min="0.3" max="2.5" step="0.2"
+                                   placeholder="20 cm increments. Range [0.3,2.5]" />
+                        </div>
+                        <div class="html-right">
+                            <h4>Input type number</h4>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_number.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_number.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number</a></p>
+                            <p>setValue(value) - Set value to Element</p>
+                            <p>getValue() - Get value from Element</p>
+                        </div>
+                    </div>
+
+					<div class="doc-space line"/>
+				</div>
+            </div>
+        </main>
+    </div>
+    <!--<div class="replace right-side-bar">replace</div>-->
+</div>
+<footer>
+    <div class="replace footer">replace</div>
+</footer>
+<script>
+    setTimeout(function() {
+		$('#suspend-button')[0].classList.remove("invisible");
+		$('#ghost-button')[0].classList.add("invisible");
+	}, 3000);
+</script>
+<script>
+    const volumeSpan = $('#volume-value')[0];
+    volumeSpan.value = $('#volume')[0].value;
+    function showVal(val) {
+        volumeSpan.value = val;
+    }
+</script>
+<script type="text/javascript">
+    $('#multi-dropdown').multiselect();
+</script>
+<Script language="JavaScript">
+    UUI.Vertical_Menu.init({"open":true});
+</script>
+<script>
+    $('.selectpicker').selectpicker();
+</script>
+<script>
+		includeSideBar();
+		activateTopElement(5,1);
+	</script>
+</body>
+</html>

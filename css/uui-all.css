@@ -7427,10 +7427,10 @@ main.promo-container .promo-section .section-wrapper {
     color: #fff
 }
 
-.uui-side-bar .sidebar-menu .sub {
+/*.uui-side-bar .sidebar-menu .sub {
     background: #f0f0f0;
-    display: none
-}
+    display: block
+}*/
 
 .uui-side-bar .sidebar-menu .sub > li > a {
     padding: 15px 10px 15px 32px;
@@ -8101,6 +8101,9 @@ footer .uui-promo-footer .uui-footer-navigation li a:hover, footer .uui-promo-fo
 .horizontal-group .uui-button {
     float: left;
     position: relative
+}
+.invisible {
+	style.visibility: hidden
 }
 
 .vertical-group {
@@ -9889,4 +9892,18 @@ input[type=radio].uui-form-element.disable + label, input[type=checkbox].uui-for
 
 .tooltip.bottom .tooltip-arrow, .tooltip.bottom-left .tooltip-arrow, .tooltip.bottom-right .tooltip-arrow {
     border-bottom-color: #1a9cb0
+}
+.html-left {
+    display: inline-block;
+    float: left;
+    width: 30%;
+}
+.html-right {
+    display: inline-block;
+    float: right;
+    width: 70%;
+    padding-left:50px
+}
+.doc-space {
+    clear:both;
 }
