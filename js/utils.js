@@ -409,7 +409,7 @@ function includeHeader() {
                         <div class="profile-photo">\
                             <!--i class="fa fa-user"></i-->\
                             <img src="images/icons/user-icon.jpg" alt="" id="user-icon">\
-                            <span ui="label" id="user-name">Piter Chailovskii</span>\
+                            <span ui="label">Piter Chailovskii</span>\
                         </div>\
                         <span class="caret"></span>\
                     </a>\
@@ -430,7 +430,7 @@ function includeHeader() {
                                 </div>\
                                 <span class="login-txt hidden">* Login Faild</span>\
                             </div>\
-                            <button type="submit" class="uui-button dark-blue btn-login" id="login-button"><i class="fa fa-sign-in"></i><span>Enter</span></button>\
+                            <button type="submit" class="uui-button dark-blue btn-login" id="submit-button"><i class="fa fa-sign-in"></i><span>Enter</span></button>\
                         </form>\
                         <div class="logout">\
                             <button type="submit" class="uui-button dark-blue btn-login"><i class="fa fa-sign-out"></i><span>Logout</span></button>\
@@ -442,7 +442,7 @@ function includeHeader() {
                 <span class="icon-search"></span>\
                 <div class="search-active hidden">\
                     <span class="search-title">Search this Site</span>\
-                    <span class="search-icon active"></span>\
+                    <span class="icon-search active"></span>\
                     <div class="search-field">\
                         <input type="text">\
                     </div>\
