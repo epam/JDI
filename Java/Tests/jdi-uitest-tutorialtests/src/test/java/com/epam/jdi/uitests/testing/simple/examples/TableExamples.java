@@ -4,6 +4,7 @@ import com.epam.commons.map.MapArray;
 import com.epam.jdi.site.epam.sections.JobTitle;
 import com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.ICell;
 import com.epam.jdi.uitests.testing.TestsBase;
+import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.complex.table.Table;
 import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -60,6 +61,7 @@ public class TableExamples extends TestsBase {
         table().rows("name~=back-end")
             .get(0).value.get("apply").click();
         jobDescriptionPage.checkOpened();
+
     }
     @Test
     public void searchMatchInTableExample() {

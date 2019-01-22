@@ -3,7 +3,10 @@ package com.epam.jdi.uitests.testing.simple.examples;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
+import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.testng.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

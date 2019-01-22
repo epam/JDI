@@ -15,7 +15,8 @@ import org.openqa.selenium.support.FindBy;
  */
 public class SortingTablePage extends WebPage {
 
-    @FindBy(id = "DataTables_Table_0")
+    //@FindBy(id = "DataTables_Table_0")
+    @FindBy(css = "[ui=d-table]")
     public Table sortingTable;
 
     public Pagination tablePagination = new Pagination(

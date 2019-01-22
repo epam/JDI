@@ -6,9 +6,11 @@ import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import com.epam.web.matcher.verify.Verify;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.login;
+import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.open;
 import static com.epam.jdi.uitests.web.settings.WebSettings.logger;
 
@@ -30,5 +32,10 @@ public class InitTests extends TestNGBase {
     @AfterMethod
     public void tearDown() {
         Verify.getFails();
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public static void shutDown() {
+        killAllRunWebBrowsers();
     }
 }

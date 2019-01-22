@@ -672,7 +672,7 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
             : null;
         if (cell != null)
             return cell.updateData(colName, rowName);
-        cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
+        cell = new Cell(colIndex, rowIndex, colNum, rowNum, colName, rowName, this);
         cell.setParent(this);
         if (cache)
             allCells.add(cell);
@@ -685,7 +685,7 @@ public class Table extends Text implements ITable, Cloneable, ISetup {
             cell.setWebElement(webElement);
             return cell.updateData(colName, rowName);
         }
-        cell = new Cell(webElement, colNum, rowNum, colName, rowName, cellLocatorTemplate, this);
+        cell = new Cell(webElement, colNum, rowNum, colName, rowName, this);
         if (cache)
             allCells.add(cell);
         return cell;

@@ -11,9 +11,9 @@ import org.openqa.selenium.support.FindBy;
  * Created by Maksim_Palchevskii on 9/9/2015.
  */
 public class Login extends Form<User> {
-    @FindBy(id = "Name")
+    @FindBy(id = "name")
     private ITextField login;
-    @FindBy(id = "Password")
+    @FindBy(id = "password")
     private ITextField password;
     @FindBy(css = ".btn-login")
     private IButton loginButton;

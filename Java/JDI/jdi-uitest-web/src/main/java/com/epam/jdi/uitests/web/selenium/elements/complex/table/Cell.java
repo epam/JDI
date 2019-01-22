@@ -64,7 +64,7 @@ class Cell extends SelectElement implements ISelect, ICell {
         } catch (Exception ex) { throw exception("Can't get cell " + this + LINE_BREAK + ex.getMessage()); }
     }
 
-    Cell(int columnNum, int rowNum, String colName, String rowName, By defaultLocator, Table table) {
+    Cell(int columnNum, int rowNum, String colName, String rowName, Table table) {
         this.columnNum = columnNum;
         this.rowNum = rowNum;
         this.columnName = colName;
@@ -84,15 +84,15 @@ class Cell extends SelectElement implements ISelect, ICell {
     }
 
     Cell(WebElement webElement, int columnNum, int rowNum, String colName, String rowName,
-         By defaultLocator, Table table) {
-        this(columnNum, rowNum, colName, rowName, defaultLocator, table);
+         Table table) {
+        this(columnNum, rowNum, colName, rowName, table);
         getAvatar().setWebElement(webElement);
 
     }
 
     Cell(int columnIndex, int rowIndex, int columnNum, int rowNum, String colName, String rowName,
-         By defaultLocator, Table table) {
-        this(columnNum, rowNum, colName, rowName, defaultLocator, table);
+         Table table) {
+        this(columnNum, rowNum, colName, rowName, table);
         this.columnIndex = (((Rows)table.rows()).hasHeader && !table.rows().locatorChanged()) ? columnIndex + 1 : columnIndex;
         this.rowIndex = rowIndex;
         this.table = table;

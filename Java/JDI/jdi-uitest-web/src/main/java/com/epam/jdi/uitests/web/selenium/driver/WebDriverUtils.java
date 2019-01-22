@@ -17,9 +17,12 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import com.epam.jdi.uitests.web.settings.WebSettings;
+
 import java.io.IOException;
 
-import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
+import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
+import static com.epam.jdi.uitests.web.selenium.driver.UnixProcessUtils.killProcessesTree;
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.format;
 
@@ -28,40 +31,67 @@ import static java.lang.String.format;
  */
 public final class WebDriverUtils {
 
+
     private WebDriverUtils() {
     }
 
-    private static void killMacOSBrowsersByName(String driverName) {
+    /**
+     * @throws IOException
+     */
+    public static void killAllRunWebBrowsers() {
+        String os = System.getProperty("os.name");
         try {
-            Process process = new ProcessBuilder(
-                "/usr/bin/pkill",
-                "-f",
-                ".*" + driverName + ".*")
-                .start();
-            process.waitFor();
+            if (os.contains("Mac")) {
+                killAllMacOSDriverProcesses();
+            } else {
+                killAllWindowsDriverProcesses();
+            }
         }
-        catch (IOException | InterruptedException e1){
-            e1.printStackTrace();
+        catch (Exception ignore){
+            logger.info("Can't kill driver processes");
         }
-    }
-    private static void killByName(String name) throws IOException {
-        getRuntime().exec(format("taskkill /F /IM %s.exe /T", name));
     }
 
-    //TODO Add OS type and current user check.
-    //TODO Try to use C/C++ Library to work with processes.
-    public static void killAllRunWebBrowsers() throws IOException {
-        try {
-            String os = System.getProperty("os.name");
-            if (os.contains("Mac")) {
-                killMacOSBrowsersByName("Firefox");
-                killMacOSBrowsersByName("Chrome");
-            } else {
-                killByName("chromedriver.exe");
-                killByName("geckodriver.exe");
-                killByName("IEDriverServer.exe");
-                killByName("MicrosoftWebDriver.exe");
-            }
-        } catch (Exception ignore) { }
+    private static void killAllMacOSDriverProcesses() {
+        killMacOSDriverProcesses("firefox");
+        killMacOSDriverProcesses("chrome");
     }
+
+    /**
+     *
+     */
+    private static void killAllWindowsDriverProcesses() throws IOException {
+        killByName("chromedriver");
+        killByName("geckodriver");
+        killByName("IEDriverServer");
+        killByName("MicrosoftWebDriver");
+    }
+
+    private static void killByName(String value) throws IOException {
+        getRuntime().exec(format("taskkill /F /IM %s.exe /T", value));
+    }
+
+    private static void killMacOSDriverProcesses(String browserName) {
+        String name = null;
+        switch (browserName.toLowerCase()) {
+            case "firefox":
+                name = "geckodriver";
+                break;
+            case "chrome":
+                name = "chromedriver";
+                break;
+
+        }
+        if (name != null) {
+            killAllMacOSDriverProcessesByName(name);
+        }
+    }
+
+    /**
+     * @param driverName
+     */
+    private static void killAllMacOSDriverProcessesByName(String driverName) {
+        killProcessesTree(driverName);
+    }
+
 }
