@@ -11,6 +11,7 @@ public class Alert extends Popup {
             alert = getDriver().switchTo().alert();
         return alert;
     }
+
     @Override
     protected void okAction() {
         getAlert().accept();
