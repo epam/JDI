@@ -442,7 +442,7 @@ function includeHeader() {
                 <span class="icon-search"></span>\
                 <div class="search-active hidden">\
                     <span class="search-title">Search this Site</span>\
-                    <span class="search-icon active"></span>\
+                    <span class="icon-search active"></span>\
                     <div class="search-field">\
                         <input type="text">\
                     </div>\
