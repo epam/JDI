@@ -2877,6 +2877,11 @@
     $('.selectpicker').selectpicker();
 </script>
 <script>
+	$( "#users-table td" ).on( "click", function() {
+		alert( $( this ).text() );
+	});
+</script>
+<script>
 		includeSideBar();
 		activateTopElement(3,8);
 		includePagination();
