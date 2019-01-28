@@ -481,27 +481,27 @@ function includeSideBar() {
                     <li ui="label" index="1"><a href="support.html"><p>\
                         <span>Support</span>\
                     </p></a></li>\
-                    <li ui="label" index="2"><a href="dates.html"><p>\
+                    <li ui="label" index="2"><a href="dates.html">\
                         <span>Dates</span>\
-                    </p></a></li>\
-                    <li ui="label" index="3"><a href="complex-table.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="3"><a href="complex-table.html">\
                         <span>Complex Table </span>\
-                    </p></a></li>\
-                    <li ui="label" index="4"><a href="simple-table.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="4"><a href="simple-table.html">\
                         <span>Simple Table</span>\
-                    </p></a></li>\
-                    <li ui="label" index="5"><a href="user-table.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="5"><a href="user-table.html">\
                         <span>User Table</span>\
-                    </p></a></li>\
-                    <li ui="label" index="6"><a href="table-pages.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="6"><a href="table-pages.html">\
                         <span>Table with pages</span>\
-                    </p></a></li>\
-                    <li ui="label" index="7"><a href="different-elements.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="7"><a href="different-elements.html">\
                         <span>Different elements</span>\
-                    </p></a></li>\
-                    <li ui="label" index="8"><a href="performance.html"><p>\
+                    </a></li>\
+                    <li ui="label" index="8"><a href="performance.html">\
                         <span>Performance</span>\
-                    </p></a></li>\
+                    </a></li>\
                 </ul>\
             </li>\
             <li ui="label" index="4">\
@@ -515,12 +515,12 @@ function includeSideBar() {
                     <div class="fa fa-caret-down arrow"></div>\
                 </a>\
                 <ul class="sub hide-menu">\
-                    <li ui="label" index="1"><a href="html5.html"><p>\
+                    <li ui="label" index="1"><a href="html5.html">\
                         <span>HTML 5</span>\
-                    </p></a></li>\
-                    <li ui="label" index="2"><a><p>\
+                    </a></li>\
+                    <li ui="label" index="2"><a>\
                         <span>Bootstrap</span>\
-                    </p></a></li>\
+                    </a></li>\
                 </ul>\
             </li>\
         </ul>\
