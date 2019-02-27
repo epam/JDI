@@ -14,7 +14,7 @@ import static java.lang.System.currentTimeMillis;
  */
 public class RestRequest {
     public static RestResponse doRequest(
-            RestMethodTypes methodType, RequestSpecification spec, ResponseStatusType excpecedtStatus) {
+            RestMethodTypes methodType, RequestSpecification spec, ResponseStatusType expectedStatus) {
         Response response;
         long time;
         try {
@@ -24,7 +24,7 @@ public class RestRequest {
         } catch (Exception ex) { throw exception("Request failed"); }
         RestResponse resp = new RestResponse(response, time);
         if (verifyOkStatus)
-            resp.isStatus(excpecedtStatus);
+            resp.isStatus(expectedStatus);
         return resp;
     }
     private static String printRS(RequestSpecification rs) {
