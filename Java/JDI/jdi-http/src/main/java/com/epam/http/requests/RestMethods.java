@@ -24,11 +24,17 @@ public class RestMethods {
     public static RestResponse POST(String url) {
         return new RestMethod(POST, url).call();
     }
+    public static RestResponse POST(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(POST, url, requestSpecification).call();
+    }
     public static RestResponse PUT(RequestData data) {
         return new RestMethod(PUT, data).call();
     }
     public static RestResponse PUT(String url) {
         return new RestMethod(PUT, url).call();
+    }
+    public static RestResponse PUT(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(PUT, url, requestSpecification).call();
     }
     public static RestResponse DELETE(RequestData data) {
         return new RestMethod(DELETE, data).call();
@@ -36,10 +42,16 @@ public class RestMethods {
     public static RestResponse DELETE(String url) {
         return new RestMethod(DELETE, url).call();
     }
+    public static RestResponse DELETE(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(DELETE, url, requestSpecification).call();
+    }
     public static RestResponse PATCH(RequestData data) {
         return new RestMethod(PATCH, data).call();
     }
     public static RestResponse PATCH(String url) {
         return new RestMethod(PATCH, url).call();
+    }
+    public static RestResponse PATCH(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(PATCH, url, requestSpecification).call();
     }
 }
