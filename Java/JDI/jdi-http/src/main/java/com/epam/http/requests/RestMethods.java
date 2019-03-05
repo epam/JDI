@@ -1,6 +1,7 @@
 package com.epam.http.requests;
 
 import com.epam.http.response.RestResponse;
+import io.restassured.specification.RequestSpecification;
 
 import static com.epam.http.requests.RestMethodTypes.*;
 
@@ -13,6 +14,9 @@ public class RestMethods {
     }
     public static RestResponse GET(String url) {
         return new RestMethod(GET, url).call();
+    }
+    public static RestResponse GET(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(GET, url, requestSpecification).call();
     }
     public static RestResponse POST(RequestData data) {
         return new RestMethod(POST, data).call();

@@ -43,6 +43,10 @@ public class RestMethod<T> {
         this.data = data;
         this.type = type;
     }
+    public RestMethod(RestMethodTypes type, String url, RequestSpecification requestSpecification) {
+        this(type, url);
+        this.spec = requestSpecification;
+    }
     public void addHeader(String name, String value) {
         data.headers.add(name, value);
     }
@@ -113,6 +117,12 @@ public class RestMethod<T> {
             data.body = requestData.body;
        return call();
     }
+
+    public RestResponse call(RequestSpecification requestSpecification) {
+        this.spec = requestSpecification;
+        return call();
+    }
+
     public RequestSpecification getSpec() {
         if (data == null)
             return spec;

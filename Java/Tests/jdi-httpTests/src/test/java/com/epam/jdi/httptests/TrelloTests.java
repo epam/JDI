@@ -33,19 +33,19 @@ public class TrelloTests {
     @Test
     public void getBoardById() {
         RestResponse response = getBoardById
-                .call(requestPathParams("board_id", BOARD_ID));
+                .call(requestParams("board_id", BOARD_ID));
         response.isOk().body("id", equalTo(BOARD_ID));
     }
 
     @Test
     public void getBoardCardsList() {
-        getBoardCardsList.call(requestPathParams("board_id", BOARD_ID))
+        getBoardCardsList.call(requestParams("board_id", BOARD_ID))
             .isOk().body("name.size()", equalTo(6));
     }
 
     @Test
     public void getCardByShortId() {
-        getBoardCardById.call(requestPathParams(new Object[][] {{"board_id", BOARD_ID}, {"short_card_id", "1"}}))
+        getBoardCardById.call(requestParams(new Object[][] {{"board_id", BOARD_ID}, {"short_card_id", "1"}}))
             .isOk().assertThat().body("name", equalTo("Lorem ipsum dolor sit amet"));
     }
 
@@ -64,7 +64,7 @@ public class TrelloTests {
     @Test
     public void getAllUserBoards() {
         RestResponse restResponse = getAllMemberBoards
-            .call(requestPathParams("user_name", "jdiframwork"));
+            .call(requestParams("user_name", "jdiframwork"));
         restResponse.assertThat()
             .body("name.size()", greaterThan(4));
     }
