@@ -33,6 +33,11 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-rest-assured</artifactId>
+            <version>RELEASE</version>
+        </dependency>
      </dependencies>
 
     <build>

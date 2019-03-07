@@ -8,6 +8,7 @@ import com.epam.http.annotations.QueryParameter;
 import com.epam.http.response.ResponseStatusType;
 import com.epam.http.response.RestResponse;
 import com.google.gson.Gson;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
@@ -25,7 +26,7 @@ import static java.lang.System.currentTimeMillis;
  * Created by Roman_Iovlev on 12/19/2016.
  */
 public class RestMethod<T> {
-    public RequestSpecification spec = given();
+    public RequestSpecification spec = given().filter(new AllureRestAssured());
     private RequestData data;
     private RestMethodTypes type;
     private Gson gson = new Gson();
@@ -45,7 +46,7 @@ public class RestMethod<T> {
     }
     public RestMethod(RestMethodTypes type, String url, RequestSpecification requestSpecification) {
         this(type, url);
-        this.spec = requestSpecification;
+        this.spec = spec.spec(requestSpecification);
     }
     public void addHeader(String name, String value) {
         data.headers.add(name, value);
@@ -119,7 +120,7 @@ public class RestMethod<T> {
     }
 
     public RestResponse call(RequestSpecification requestSpecification) {
-        this.spec = requestSpecification;
+        this.spec = spec.spec(requestSpecification);
         return call();
     }
 
