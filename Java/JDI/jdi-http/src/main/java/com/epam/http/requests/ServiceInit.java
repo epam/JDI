@@ -78,6 +78,10 @@ public class ServiceInit {
             return new MethodData(method.getAnnotation(DELETE.class).value(),DELETE);
         if (method.isAnnotationPresent(PATCH.class))
             return new MethodData(method.getAnnotation(PATCH.class).value(),PATCH);
+        if (method.isAnnotationPresent(HEAD.class))
+            return new MethodData(method.getAnnotation(HEAD.class).value(), HEAD);
+        if (method.isAnnotationPresent(OPTIONS.class))
+            return new MethodData(method.getAnnotation(OPTIONS.class).value(), OPTIONS);
         return new MethodData(null, GET);
     }
     private static String getUrlFromDomain(String domain, String uri, String methodName, String className) {
