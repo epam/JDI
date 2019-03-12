@@ -54,4 +54,22 @@ public class RestMethods {
     public static RestResponse PATCH(String url, RequestSpecification requestSpecification) {
         return new RestMethod(PATCH, url, requestSpecification).call();
     }
+    public static RestResponse OPTIONS(RequestData data) {
+        return new RestMethod(OPTIONS, data).call();
+    }
+    public static RestResponse OPTIONS(String url) {
+        return new RestMethod(OPTIONS, url).call();
+    }
+    public static RestResponse OPTIONS(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(OPTIONS, url, requestSpecification).call();
+    }
+    public static RestResponse HEAD(RequestData data) {
+        return new RestMethod(HEAD, data).call();
+    }
+    public static RestResponse HEAD(String url) {
+        return new RestMethod(HEAD, url).call();
+    }
+    public static RestResponse HEAD(String url, RequestSpecification requestSpecification) {
+        return new RestMethod(HEAD, url, requestSpecification).call();
+    }
 }

@@ -14,7 +14,9 @@ public enum RestMethodTypes {
     POST(RequestSenderOptions::post),
     PUT(RequestSenderOptions::put),
     DELETE(RequestSenderOptions::delete),
-    PATCH(RequestSenderOptions::patch);
+    PATCH(RequestSenderOptions::patch),
+    OPTIONS(RequestSenderOptions::options),
+    HEAD(RequestSenderOptions::head);
 
     public Function<RequestSpecification, Response> method;
     RestMethodTypes(Function<RequestSpecification, Response> method) {
