@@ -54,6 +54,10 @@ public class ServiceInit {
             method.addHeader(field.getAnnotation(Header.class));
         if (field.isAnnotationPresent(Headers.class))
             method.addHeaders(field.getAnnotation(Headers.class).value());
+        if (field.isAnnotationPresent(Cookie.class))
+            method.addCookie(field.getAnnotation(Cookie.class));
+        if (field.isAnnotationPresent(Cookies.class))
+            method.addCookies(field.getAnnotation(Cookies.class).value());
         /* Case for class annotations*/
         if (c.isAnnotationPresent(QueryParameter.class))
             method.addQueryParameters(c.getAnnotation(QueryParameter.class));

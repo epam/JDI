@@ -16,8 +16,8 @@ public class RequestData extends DataClass<RequestData> {
     public ContentType contentType = ANY;
     public MapArray<String, String> headers = new MapArray<>();
     public MapArray<String, String> pathParams = new MapArray<>();
-    public MapArray<String,String> queryParams = new MapArray<>();
-
+    public MapArray<String, String> queryParams = new MapArray<>();
+    public MapArray<String, String> cookies = new MapArray<>();
 
     public static RequestData requestData(JActionT<RequestData> valueFunc) {
         return new RequestData().set(valueFunc);

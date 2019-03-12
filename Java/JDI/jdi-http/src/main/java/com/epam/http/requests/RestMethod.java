@@ -4,6 +4,7 @@ import com.epam.commons.PrintUtils;
 import com.epam.commons.linqinterfaces.JActionT;
 import com.epam.commons.map.MapArray;
 import com.epam.commons.pairs.Pair;
+import com.epam.http.annotations.Cookie;
 import com.epam.http.annotations.QueryParameter;
 import com.epam.http.response.ResponseStatusType;
 import com.epam.http.response.RestResponse;
@@ -68,6 +69,18 @@ public class RestMethod<T> {
         for(Header header : headers)
             addHeader(header);
     }
+
+    public void addCookie(String name, String value) {
+        data.cookies.add(name, value);
+    }
+    public void addCookie(Cookie cookie) {
+        addCookie(cookie.name(), cookie.value());
+    }
+    public void addCookies(Cookie... cookies) {
+        for (Cookie cookie : cookies) {
+            addCookie(cookie);
+        }
+    }
     public RestMethod expectStatus(ResponseStatusType status) {
         expectedStatus = status; return this;
     }
@@ -116,6 +129,12 @@ public class RestMethod<T> {
             data.queryParams.addAll(requestData.queryParams);
         if (requestData.body != null)
             data.body = requestData.body;
+        if (!requestData.headers.isEmpty()) {
+            data.headers.addAll(requestData.headers);
+        }
+        if (!requestData.cookies.isEmpty()) {
+            data.cookies.addAll(requestData.cookies);
+        }
        return call();
     }
 
@@ -140,6 +159,8 @@ public class RestMethod<T> {
             spec.body(data.body);
         if (data.headers.any())
             spec.headers(data.headers.toMap());
+        if (data.cookies.any())
+            spec.cookies(data.cookies.toMap());
         return spec;
     }
     public boolean isAlive() {
