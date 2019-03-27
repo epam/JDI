@@ -443,7 +443,7 @@ function includeHeader() {
                 <span class="icon-search"></span>\
                 <div class="search-active hidden">\
                     <span class="search-title">Search this Site</span>\
-                    <span class="icon-search active" onclick="window.open(\'search.html\')"></span>\
+                    <span class="icon-search active" onclick="window.open(\'search.html\',\'_self\')"></span>\
                     <div class="search-field">\
                         <input type="text">\
                     </div>\
