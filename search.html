@@ -106,9 +106,9 @@
 </script>
 <script>
     setTimeout(function() {
-		$.each($('.invisible'), function() {
-			$( this ).classList.remove("invisible");
-		});
+		$('.invisible').each(function(index) {
+			$(this)[0].classList.remove('invisible')
+		})
 	}, 2000);
 </script>
 <script>
