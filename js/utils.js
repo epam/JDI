@@ -242,12 +242,12 @@ $(document).ready(function () {
             openSearch();
         }
     });
-    $('.search').bind('click', function (event) {
+   /* $('.search').bind('click', function (event) {
         event.stopPropagation();
         if ($(event.target).hasClass('active') && $('.search input').val()) {
             location.href = pages[2];
         }
-    });
+    });*/
     $('.uui-profile-menu a').bind('click', function () {
         $('.login-txt').addClass('hidden');
     });
