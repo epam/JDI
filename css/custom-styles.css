@@ -1022,3 +1022,7 @@ input[type=range].range {
     height: 200px;
     width: 130px
 }
+.box {
+	border: 1px solid;
+	width: 400px;
+}

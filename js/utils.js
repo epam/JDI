@@ -391,6 +391,7 @@ function includeHeader() {
                     <ul class="dropdown-menu" role="menu">\
                         <li><a href="support.html">Support</a></li>\
                         <li><a href="dates.html">Dates</a></li>\
+                        <li><a href="search.html">Search</a></li>\
                         <li><a href="complex-table.html">Complex Table </a></li>\
                         <li><a href="simple-table.html">Simple Table </a></li>\
                         <li><a href="user-table.html">User Table </a></li>\
@@ -445,6 +446,7 @@ function includeHeader() {
                     <span class="icon-search active"></span>\
                     <div class="search-field">\
                         <input type="text">\
+                        <button id="search"> <a href="search.html">Search</a><button>\
                     </div>\
                 </div>\
             </div>\
