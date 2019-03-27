@@ -70,12 +70,12 @@
 								<p>JDI Documentation</p>
 								<a href="https://jdi-docs.github.io/jdi-light" target="_blank">See more</a>
 							</li>			
-							<li class="box">
+							<li class="box invisible">
 								<h3>JDI VK Group</h3>
 								<p>Russian Community VK group</p>
 								<a href="https://vk.com/jdi_framework" target="_blank">Visit Group</a>
 							</li> 								
-							<li class="box">
+							<li class="box invisible">
 								<h3>JDI Facebook Group</h3>
 								<p>English Community Facebook group</p>
 								<a href="https://www.facebook.com/groups/jdi.framework/" target="_blank">Visit Group</a>
@@ -103,6 +103,11 @@
 </script>
 <script>
     $('.selectpicker').selectpicker();
+</script>
+<script>
+    setTimeout(function() {
+		$('.invisible')[0].classList.remove("invisible");
+	}, 3000);
 </script>
 <script>
 		includeSideBar();

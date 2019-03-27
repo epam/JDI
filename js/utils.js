@@ -443,10 +443,10 @@ function includeHeader() {
                 <span class="icon-search"></span>\
                 <div class="search-active hidden">\
                     <span class="search-title">Search this Site</span>\
+					<a id="search" href="search.html">Search</a>\
                     <span class="icon-search active"></span>\
                     <div class="search-field">\
                         <input type="text">\
-                        <button id="search"> <a href="search.html">Search</a><button>\
                     </div>\
                 </div>\
             </div>\
@@ -492,16 +492,19 @@ function includeSideBar() {
                     <li ui="label" index="4"><a href="simple-table.html">\
                         <span>Simple Table</span>\
                     </a></li>\
-                    <li ui="label" index="5"><a href="user-table.html">\
+                    <li ui="label" index="5"><a href="search.html">\
+                        <span>Search</span>\
+                    </a></li>\
+                    <li ui="label" index="6"><a href="user-table.html">\
                         <span>User Table</span>\
                     </a></li>\
-                    <li ui="label" index="6"><a href="table-pages.html">\
+                    <li ui="label" index="7"><a href="table-pages.html">\
                         <span>Table with pages</span>\
                     </a></li>\
-                    <li ui="label" index="7"><a href="different-elements.html">\
+                    <li ui="label" index="8"><a href="different-elements.html">\
                         <span>Different elements</span>\
                     </a></li>\
-                    <li ui="label" index="8"><a href="performance.html">\
+                    <li ui="label" index="9"><a href="performance.html">\
                         <span>Performance</span>\
                     </a></li>\
                 </ul>\
