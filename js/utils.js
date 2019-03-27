@@ -443,8 +443,7 @@ function includeHeader() {
                 <span class="icon-search"></span>\
                 <div class="search-active hidden">\
                     <span class="search-title">Search this Site</span>\
-					<a id="search" href="search.html">Search</a>\
-                    <span class="icon-search active"></span>\
+                    <span class="icon-search active" onclick="window.open('search.html')"></span>\
                     <div class="search-field">\
                         <input type="text">\
                     </div>\
@@ -454,6 +453,7 @@ function includeHeader() {
     </div>';
 	$('.replace.site-header').replaceWith(code);
 }
+
 function activateTopElement(top_index, sub_index) {
     $('.sidebar-menu>li[index="'+top_index+'"]').toggleClass('active');
     if(sub_index) {
@@ -777,3 +777,4 @@ function getTimeString() {
     var sec = time.getSeconds();
     return ((hrs > 9) ? hrs : '0' + hrs) + ':' + ((min > 9) ? min : '0' + min) + ':' + ((sec > 9) ? sec : '0' + sec);
 }
+
