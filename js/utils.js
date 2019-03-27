@@ -1,4 +1,4 @@
-var pages = ['support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'performance.html']
+var pages = ['support.html', 'dates.html', 'complex-table.html', 'simple-table.html', 'search.html', 'user-table.html', 'table-pages.html', 'different-elements.html', 'performance.html']
 var num = -1;
 var linum = -1;
 var testLocArr = '';
@@ -242,12 +242,12 @@ $(document).ready(function () {
             openSearch();
         }
     });
-   /* $('.search').bind('click', function (event) {
+    $('.search').bind('click', function (event) {
         event.stopPropagation();
         if ($(event.target).hasClass('active') && $('.search input').val()) {
-            location.href = pages[2];
+            location.href = pages[4];
         }
-    });*/
+    });
     $('.uui-profile-menu a').bind('click', function () {
         $('.login-txt').addClass('hidden');
     });
