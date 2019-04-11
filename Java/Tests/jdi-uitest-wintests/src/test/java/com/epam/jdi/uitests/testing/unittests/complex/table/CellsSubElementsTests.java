@@ -9,7 +9,6 @@ import com.epam.web.matcher.verify.Verify;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
@@ -26,12 +25,12 @@ public class CellsSubElementsTests extends InitTests {
 
 
     @BeforeMethod
-    private void before(Method method) throws IOException {
+    private void before(Method method) {
         isInState(Preconditions.COMPLEX_TABLE_PAGE, method);
     }
 
     @Test
-    public void clickCellLinkTest() throws InstantiationException, IllegalAccessException {
+    public void clickCellLinkTest() {
         complexTableSupplier.get().getLabel(2, 2).click();
         new Check("Actual Log Info").matches(mainWindow.logTextBox.getLines()[0],
                 "([0-9]{1,2}:){2}[0-9]{2} :See More link clicked");

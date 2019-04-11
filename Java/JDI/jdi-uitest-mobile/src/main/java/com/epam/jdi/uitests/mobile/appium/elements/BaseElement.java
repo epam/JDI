@@ -30,7 +30,6 @@ import com.epam.jdi.uitests.mobile.appium.elements.actions.ElementsActions;
 import com.epam.jdi.uitests.mobile.appium.elements.apiInteract.GetElementModule;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.AppiumAnnotationsUtil;
 import com.epam.jdi.uitests.mobile.appium.elements.pageobjects.annotations.GetElement;
-import com.epam.web.matcher.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -38,7 +37,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Field;
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 

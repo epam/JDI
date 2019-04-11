@@ -16,7 +16,7 @@ import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
 public class W3cInitTests extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         WebSite.init(W3CSite.class);
         logger.info("Run Tests");
     }

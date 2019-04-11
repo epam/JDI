@@ -60,7 +60,7 @@ public class TextTests extends InitTests {
     }
 
     @Test
-    public void getValueTest() throws Exception {
+    public void getValueTest() {
         areEquals(textItem.get()::getValue, expectedText);
     }
 

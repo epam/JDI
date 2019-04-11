@@ -11,33 +11,33 @@ import org.junit.Assert;
  */
 public class UserStepdefs {
     @When("^I'm wait (\\d+) seconds$")
-    public void iMWaitSeconds(int arg0) throws Throwable {
+    public void iMWaitSeconds(int arg0) {
     }
 
     @Then("^Log contains \"([^\"]*)\"$")
-    public void logContains(String arg0) throws Throwable {
+    public void logContains(String arg0) {
         Assert.assertTrue(true);
     }
 
     @When("^I'm input lines to \"([^\"]*)\"$")
-    public void iMInputLinesTo(String arg0) throws Throwable {
+    public void iMInputLinesTo(String arg0) {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
     @Then("^Result contains \"([^\"]*)\"$")
-    public void resultContains(String arg0) throws Throwable {
+    public void resultContains(String arg0) {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
     @Then("^Url is \"([^\"]*)\"$")
-    public void urlIs(String arg0) throws Throwable {
+    public void urlIs(String arg0) {
 
     }
 
     @Then("^Log is empty$")
-    public void logIsEmpty() throws Throwable {
+    public void logIsEmpty() {
 
     }
 

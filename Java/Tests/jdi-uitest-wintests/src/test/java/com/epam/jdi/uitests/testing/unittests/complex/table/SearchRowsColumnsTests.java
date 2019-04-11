@@ -9,7 +9,6 @@ import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -75,12 +74,12 @@ public class SearchRowsColumnsTests extends InitTests {
             () -> mainWindow.mainTabPane.simpleTableTab.nestedSimpleTableView.simpleTable;
 
     @BeforeMethod
-    private void before(Method method) throws IOException {
+    private void before(Method method) {
         isInState(Preconditions.SIMPLE_TABLE_PAGE, method);
     }
 
     @Test
-    public void columnByNumTest() throws IllegalAccessException, InstantiationException {
+    public void columnByNumTest() {
         MapArray<String, ICell> column = simpleTableSupplier.get().column(2);
         String print = print(column.select((rowK, rowV) -> format("%s:%s", rowK, rowV.getText())));
         areEquals(print, EXPECTED_COLUMN);

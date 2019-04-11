@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class ChecklistTests extends InitTests {
     private  CheckListOfTypeOne natureExtended() {return metalsColorsPage.natureExtended; }
 
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         isInState(METALS_AND_COLORS_PAGE);
     }
 

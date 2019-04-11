@@ -33,7 +33,6 @@ import java.util.function.Function;
 import static com.epam.commons.ReflectionUtils.newEntity;
 import static com.epam.jdi.uitests.core.logger.LogLevels.DEBUG;
 import static com.epam.jdi.uitests.core.settings.JDISettings.asserter;
-import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static java.lang.String.format;
 
 /**

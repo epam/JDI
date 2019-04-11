@@ -169,11 +169,9 @@ public abstract class BaseMatcher implements IChecker {
                     : failMessage);
             return;
         }
-        if (!resultMessage.equals(FOUND)) {
-            if (doScreenshot == SCREEN_ON_FAIL)
-                logger.debug(doScreenshotGetMessage());
-            assertException(failMessage == null ? defaultMessage + " failed" : failMessage);
-        }
+        if (!resultMessage.equals(FOUND))
+            assertException(failMessage == null
+                ? defaultMessage + " failed" : failMessage);
     }
 
     private String getBeforeMessage(String defaultMessage) {

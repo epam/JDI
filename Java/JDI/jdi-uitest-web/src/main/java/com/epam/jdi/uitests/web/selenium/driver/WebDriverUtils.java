@@ -17,8 +17,6 @@ package com.epam.jdi.uitests.web.selenium.driver;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.jdi.uitests.web.settings.WebSettings;
-
 import java.io.IOException;
 
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;

@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
  */
 public class InitTestsAngular extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         WebSite.init(AngularSite.class);
     }
 

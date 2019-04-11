@@ -22,5 +22,5 @@ package com.epam.commons.linqinterfaces;
  */
 @FunctionalInterface
 public interface JActionTEx<TInput1> {
-    void invoke(TInput1 val1) throws Exception;
+    void invoke(TInput1 val1);
 }

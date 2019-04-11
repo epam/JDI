@@ -52,13 +52,13 @@ public class FormTests extends InitTests {
     }
 
     @Test
-    public void submitSpecButtonEnumTest() throws Exception {
+    public void submitSpecButtonEnumTest() {
         form.get().submit(DEFAULT, Buttons.SUBMIT);
         Assert.assertContains(Arrays.toString(mainWindow.passwordTextBox.getLines()), DEFAULT.toString());
     }
 
     @Test
-    public void submitStringTest() throws Exception {
+    public void submitStringTest() {
         form.get().submit(DEFAULT.name);
         Assert.assertContains(String.format("Summary: 3\nName: %s", DEFAULT.name), DEFAULT.name);
     }

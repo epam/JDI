@@ -19,7 +19,7 @@ import static com.epam.jdi.uitests.web.settings.WebSettings.*;
 public class W3CInit extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         DOMAIN = "http://www.w3schools.com";
         init(useDriver(CHROME), W3cSite.class);
         init(useDriver(CHROME), EpamJDISite.class);

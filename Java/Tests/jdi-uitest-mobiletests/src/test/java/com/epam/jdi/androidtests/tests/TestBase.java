@@ -17,7 +17,7 @@ import static com.epam.jdi.uitests.mobile.appium.elements.composite.Application.
 public abstract class TestBase extends TestNGBase {
 
     @BeforeMethod
-    public static void setUp() throws Exception {
+    public static void setUp() {
         init(EpamJDIAndroidApp.class);
         logger.info("Run Tests");
     }

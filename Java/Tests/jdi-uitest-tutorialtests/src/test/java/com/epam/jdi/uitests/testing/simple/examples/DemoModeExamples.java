@@ -8,7 +8,6 @@ import com.epam.jdi.uitests.web.settings.WebSettings;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.homePage;
@@ -16,7 +15,7 @@ import static com.epam.jdi.site.epam.EpamSite.homePage;
 
 public class DemoModeExamples extends TestsBase {
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         homePage.shouldBeOpened();
     }
 

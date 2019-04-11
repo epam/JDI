@@ -1,12 +1,9 @@
 package com.epam.jdi.uitests.testing;
 
 import com.epam.jdi.site.epam.EpamSite;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.jdi.uitests.web.testng.testRunner.TestNGBase;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-import java.io.IOException;
 
 import static com.epam.jdi.uitests.core.logger.LogLevels.STEP;
 import static com.epam.jdi.uitests.core.settings.JDISettings.logger;
@@ -19,7 +16,7 @@ import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.init;
 public abstract class TestsBase extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws IOException {
+    public static void setUp() {
         logger.setLogLevel(STEP);
         init(EpamSite.class);
         EpamSite.open();
@@ -27,7 +24,7 @@ public abstract class TestsBase extends TestNGBase {
     }
 
     @AfterSuite(alwaysRun = true)
-    public static void tearDown() throws IOException {
+    public static void tearDown() {
         killAllRunWebBrowsers();
     }
 }

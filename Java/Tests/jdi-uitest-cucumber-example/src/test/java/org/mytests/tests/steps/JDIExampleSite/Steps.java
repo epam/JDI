@@ -40,7 +40,7 @@ public class Steps {
     }
 
     @When("^I login as ([^\\\"]*)/([^\\\"]*)$")
-    public void loginExecute(String userName, String userPassword) throws IOException {
+    public void loginExecute(String userName, String userPassword) {
         login(new User(userName, userPassword));
     }
 

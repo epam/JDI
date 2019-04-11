@@ -7,7 +7,6 @@ import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
@@ -30,17 +29,17 @@ public class SmokeTableTests extends InitTests {
             () -> mainWindow.mainTabPane.simpleTableTab.nestedSimpleTableView.simpleTable;
 
     @BeforeMethod
-    private void before(Method method) throws IOException {
+    private void before(Method method) {
         isInState(Preconditions.SIMPLE_TABLE_PAGE, method);
     }
 
     @Test
-    public void getValueTest() throws InstantiationException, IllegalAccessException {
+    public void getValueTest() {
         new Check("Table print").areEquals(simpleTableSupplier.get().getValue(), tableAsText);
     }
 
     @Test
-    public void getTextTest() throws InstantiationException, IllegalAccessException {
+    public void getTextTest() {
         new Check("Table print").areEquals(simpleTableSupplier.get().getText(), tableAsText);
     }
 

@@ -30,4 +30,23 @@ public class Alert extends Popup {
         return getAlert().getText();
     }
 
+    /**
+     * Click on Button marked with annotation @CancelButton or named "cancelButton"
+     */
+    public void sendKeys(String text) {
+        invoker.doJAction("Send keys in popup", () -> sendKeysAction(text));
+    }
+    /**
+     * Click on Button marked with annotation @CancelButton or named "cancelButton"
+     */
+    public void inputAndAccept(String text) {
+        invoker.doJAction("Send keys in popup", () -> {
+            sendKeysAction(text);
+            okAction();
+        } );
+    }
+    protected void sendKeysAction(String text) {
+        getAlert().sendKeys(text);
+    }
+
 }

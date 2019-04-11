@@ -25,7 +25,7 @@ public class GetCellTests extends InitTests {
     }
 
     @Test
-    public void getCellIntIntTests() throws InstantiationException, IllegalAccessException {
+    public void getCellIntIntTests() {
         areEquals(tableSupplier.get().cell(2, 4).getText(), cellValue);
     }
 

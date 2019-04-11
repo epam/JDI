@@ -55,38 +55,38 @@ public class TextFieldTests extends InitTests {
     }
 
     @Test
-    public void inputTest() throws Exception {
+    public void inputTest() {
         textField.get().input(inputText);
         assertEquals(textField.get().getText(), text + expectedText);
     }
 
     @Test
-    public void sendKeyTest() throws Exception {
+    public void sendKeyTest() {
         textField.get().sendKeys(inputText);
         assertEquals(textField.get().getText(), text + expectedText);
     }
 
     @Test
-    public void newInputTest() throws Exception {
+    public void newInputTest() {
         textField.get().newInput(inputText);
         assertEquals(textField.get().getText(), expectedText);
     }
 
     @Test
-    public void clearTest() throws Exception {
+    public void clearTest() {
         textField.get().clear();
         assertEquals(textField.get().getText(), "");
     }
 
     @Test
-    public void multiKeyTest() throws Exception {
+    public void multiKeyTest() {
         for (char letter : inputText.toCharArray())
             textField.get().sendKeys(Character.toString(letter));
         assertEquals(textField.get().getText(), text + expectedText);
     }
 
     @Test
-    public void focusTest() throws Exception {
+    public void focusTest() {
         String value = "value";
         String attrName = "focusTest";
         textField.get().setAttribute(attrName, value);

@@ -22,5 +22,5 @@ package com.epam.commons.linqinterfaces;
  */
 @FunctionalInterface
 public interface JActionEx {
-    void invoke() throws Exception;
+    void invoke();
 }

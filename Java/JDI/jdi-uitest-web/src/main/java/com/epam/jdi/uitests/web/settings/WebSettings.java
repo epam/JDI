@@ -121,7 +121,7 @@ public class WebSettings extends JDISettings {
     }
     public static boolean initialized = false;
 
-    public static synchronized void initFromProperties() throws IOException {
+    public static synchronized void initFromProperties() {
         try{
             init();
             getProperties(jdiSettingsPath);

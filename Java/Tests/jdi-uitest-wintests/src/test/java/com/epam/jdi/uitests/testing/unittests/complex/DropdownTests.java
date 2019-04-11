@@ -7,7 +7,6 @@ import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
@@ -20,7 +19,7 @@ public class DropdownTests extends InitTests {
             () -> mainWindow.mainTabPane.metalsAndColorsTab.nestedMetalsAndColorsView.colors;
 
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         isInState(METALS_AND_COLORS_PAGE);
     }
 

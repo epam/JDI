@@ -105,7 +105,7 @@ public final class Utils {
         } catch (Exception ex) { throw exception("Can't create object from Json. Exception: " + ex.getMessage()); }
     }
 
-    public static List<Object> filterCompositeFields(Object o) throws IllegalAccessException {
+    public static List<Object> filterCompositeFields(Object o) {
         List<Object> containers = new ArrayList<>();
         for (Field f : o instanceof Class ? ((Class) o).getFields() : o.getClass().getFields()) {
             Object fData = getValueField(f, o);

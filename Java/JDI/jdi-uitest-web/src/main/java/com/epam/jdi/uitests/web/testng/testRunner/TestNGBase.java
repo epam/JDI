@@ -53,7 +53,7 @@ public class TestNGBase {
     }
 
     @AfterSuite(alwaysRun = true)
-    public static void jdiTearDown() throws IOException {
+    public static void jdiTearDown() {
         LocalDateTime date = Instant.ofEpochMilli(21 * 3600000 + getTestRunTime())
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();

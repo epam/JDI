@@ -17,7 +17,6 @@ package com.epam.jdi.uitests.core.interfaces;
  * along with JDI. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.epam.commons.linqinterfaces.JAction;
 import com.epam.commons.linqinterfaces.JActionEx;
 import com.epam.commons.linqinterfaces.JFuncREx;
 

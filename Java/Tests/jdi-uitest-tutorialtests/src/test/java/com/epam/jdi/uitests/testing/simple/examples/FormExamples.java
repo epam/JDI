@@ -3,14 +3,10 @@ package com.epam.jdi.uitests.testing.simple.examples;
 import com.epam.jdi.dataProviders.AttendeesProvider;
 import com.epam.jdi.entities.Attendee;
 import com.epam.jdi.uitests.testing.TestsBase;
-import com.epam.jdi.uitests.web.settings.WebSettings;
 import com.epam.web.matcher.testng.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
@@ -19,7 +15,7 @@ import static com.epam.jdi.site.epam.EpamSite.jobDescriptionPage;
 public class FormExamples extends TestsBase {
 
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         jobDescriptionPage.shouldBeOpened();
     }
     @Test(dataProvider = "attendees", dataProviderClass = AttendeesProvider.class)

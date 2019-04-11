@@ -74,7 +74,7 @@ public class LinkTests extends InitTests {
     }
 
     @Test
-    public void waitMatchReferenceTest() throws Exception {
+    public void waitMatchReferenceTest() {
         isInState(SUPPORT_PAGE);
         runParallel(homePage::open);
         areEquals(() -> link().waitMatchReference(".*html"), supportPage.url);

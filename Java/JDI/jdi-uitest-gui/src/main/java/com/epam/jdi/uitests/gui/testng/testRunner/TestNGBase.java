@@ -31,7 +31,7 @@ public class TestNGBase {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public static void jdiSetUp() throws Exception {
+    public static void jdiSetUp() {
 
     }
 

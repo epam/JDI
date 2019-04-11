@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeSuite;
 
 public class InitSelenideTestsTableForm extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         WebSite.init(EpamSite.class);
     }
 

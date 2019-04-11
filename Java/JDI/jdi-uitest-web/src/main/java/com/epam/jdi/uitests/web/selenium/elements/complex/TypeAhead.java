@@ -21,7 +21,6 @@ import com.epam.commons.Timer;
 import com.epam.jdi.uitests.core.interfaces.base.ISetup;
 import com.epam.jdi.uitests.core.interfaces.complex.ITypeAhead;
 import com.epam.jdi.uitests.web.selenium.elements.GetElementType;
-import com.epam.jdi.uitests.web.selenium.elements.base.Clickable;
 import com.epam.jdi.uitests.web.selenium.elements.base.ClickableText;
 import com.epam.jdi.uitests.web.selenium.elements.base.Element;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;

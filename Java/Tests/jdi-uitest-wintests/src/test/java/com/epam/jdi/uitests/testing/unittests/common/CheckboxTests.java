@@ -31,27 +31,27 @@ public class CheckboxTests extends InitTests {
     }
 
     @Test
-    public void checkSingleTest() throws InterruptedException {
+    public void checkSingleTest() {
         nestedMetalsAndColorsView.cbWater.check();
         Assert.assertContains(mainWindow.logTextBox.getLines()[0], "Water: condition changed to true");
     }
 
     @Test
-    public void uncheckSingleTest() throws InterruptedException {
+    public void uncheckSingleTest() {
         nestedMetalsAndColorsView.cbWater.click();
         nestedMetalsAndColorsView.cbWater.uncheck();
         Assert.assertContains(mainWindow.logTextBox.getLines()[0], "Water: condition changed to false");
     }
 
     @Test
-    public void isCheckTest() throws Exception {
+    public void isCheckTest() {
         assertFalse(nestedMetalsAndColorsView.cbWater.isChecked());
         nestedMetalsAndColorsView.cbWater.click();
         assertTrue(nestedMetalsAndColorsView.cbWater.isChecked());
     }
 
     @Test
-    public void multiUncheckTest() throws Exception {
+    public void multiUncheckTest() {
         nestedMetalsAndColorsView.cbWater.click();
         nestedMetalsAndColorsView.cbWater.uncheck();
         nestedMetalsAndColorsView.cbWater.uncheck();
@@ -59,14 +59,14 @@ public class CheckboxTests extends InitTests {
     }
 
     @Test
-    public void multiCheckTest() throws Exception {
+    public void multiCheckTest() {
         nestedMetalsAndColorsView.cbWater.check();
         nestedMetalsAndColorsView.cbWater.check();
         Assert.assertContains(mainWindow.logTextBox.getLines()[0], "Water: condition changed to true");
     }
 
     @Test
-    public void clickTest() throws Exception {
+    public void clickTest() {
         nestedMetalsAndColorsView.cbWater.click();
         Assert.assertContains(mainWindow.logTextBox.getLines()[0], "Water: condition changed to true");
         nestedMetalsAndColorsView.cbWater.click();

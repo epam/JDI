@@ -43,7 +43,7 @@ public class Steps {
     }
 
     @Then("^([^\\\"]*) item is selected$")
-    public void checkSelected(String selectedItem) throws Throwable {
+    public void checkSelected(String selectedItem) {
         Assert.areEquals(dropDownPage.frame.cars.getSelected(), selectedItem);
     }
 

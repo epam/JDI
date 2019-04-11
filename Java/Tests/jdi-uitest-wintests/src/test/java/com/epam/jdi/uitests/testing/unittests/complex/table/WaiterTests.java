@@ -7,7 +7,6 @@ import com.epam.web.matcher.testng.Check;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
@@ -22,7 +21,7 @@ public class WaiterTests extends InitTests {
             () -> mainWindow.mainTabPane.simpleTableTab.nestedSimpleTableView.simpleTable;
 
     @BeforeMethod
-    private void before(Method method) throws IOException {
+    private void before(Method method) {
         isInState(Preconditions.SIMPLE_TABLE_PAGE, method);
     }
 

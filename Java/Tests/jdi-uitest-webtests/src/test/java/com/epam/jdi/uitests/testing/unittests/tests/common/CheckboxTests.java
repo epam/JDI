@@ -7,7 +7,6 @@ import com.epam.web.matcher.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.codeborne.selenide.Condition.checked;
@@ -27,32 +26,32 @@ public class CheckboxTests extends InitTests {
     }
 
     @BeforeMethod
-    public void before(final Method method) throws IOException {
+    public void before(final Method method) {
         isInState(METALS_AND_COLORS_PAGE, method);
     }
 
     @Test
-    public void checkSingleTest() throws InterruptedException {
+    public void checkSingleTest() {
         checkBox().check();
         checkAction("Water: condition changed to true");
     }
 
     @Test
-    public void uncheckSingleTest() throws InterruptedException {
+    public void uncheckSingleTest() {
         checkBox().click();
         checkBox().uncheck();
         checkAction("");
     }
 
     @Test
-    public void isCheckTest() throws Exception {
+    public void isCheckTest() {
         Assert.isFalse(checkBox().isChecked());
         checkBox().click();
         Assert.isTrue(checkBox().isChecked());
     }
 
     @Test
-    public void multiUncheckTest() throws Exception {
+    public void multiUncheckTest() {
         checkBox().click();
         checkBox().uncheck();
         checkBox().uncheck();
@@ -60,14 +59,14 @@ public class CheckboxTests extends InitTests {
     }
 
     @Test
-    public void multiCheckTest() throws Exception {
+    public void multiCheckTest() {
         checkBox().check();
         checkBox().check();
         checkAction("Water: condition changed to true");
     }
 
     @Test
-    public void clickTest() throws Exception {
+    public void clickTest() {
         checkBox().click();
         checkAction("Water: condition changed to true");
         checkBox().click();

@@ -48,31 +48,31 @@ public class TextFieldTests extends InitTests {
     }
 
     @Test
-    public void inputTest() throws Exception {
+    public void inputTest() {
         textFieldSupplier.get().input(inputText);
         Assert.assertEquals(textFieldSupplier.get().getText(), text + expectedText);
     }
 
     @Test
-    public void sendKeyTest() throws Exception {
+    public void sendKeyTest() {
         textFieldSupplier.get().input(inputText);
         Assert.assertEquals(textFieldSupplier.get().getText(), text + expectedText);
     }
 
     @Test
-    public void newInputTest() throws Exception {
+    public void newInputTest() {
         textFieldSupplier.get().newInput(inputText);
         assertEquals(textFieldSupplier.get().getText(), expectedText);
     }
 
     @Test
-    public void clearTest() throws Exception {
+    public void clearTest() {
         textFieldSupplier.get().clear();
         assertEquals(textFieldSupplier.get().getText(), "");
     }
 
     @Test
-    public void multiKeyTest() throws Exception {
+    public void multiKeyTest() {
         for(char letter : inputText.toCharArray())
             textFieldSupplier.get().sendKeys(Character.toString(letter));
         assertEquals(textFieldSupplier.get().getText(), text + expectedText);

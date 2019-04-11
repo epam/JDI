@@ -4,7 +4,6 @@ import com.epam.jdi.entities.Vacancy;
 import com.epam.jdi.selenium.pageobject.SeleniumJdiPage;
 import org.testng.annotations.BeforeMethod;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class SeleniumJDITest {
     SeleniumJdiPage page;
 
     @BeforeMethod
-    public void before(Method method) throws IOException {
+    public void before(Method method) {
         page = initPageObject(SeleniumJdiPage.class);
     }
 

@@ -10,7 +10,7 @@ import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.hom
 
 public class JMenuTests extends InitTests {
     //TODO @Test(dataProvider = "menuData", dataProviderClass = JMenuDP.class)
-    public void jMenuTest(IMenu menu, List list, String options) throws InterruptedException {
+    public void jMenuTest(IMenu menu, List list, String options) {
 
         new Check().areEquals(homePage.menu1.getOptionsAsText(), options);
         new Check().areEquals(homePage.menu1.getNames(), list);

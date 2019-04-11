@@ -32,7 +32,7 @@ public class ImageTests extends InitTests {
     }
 
     @Test
-    public void clickTest() throws InterruptedException {
+    public void clickTest() {
         EpamJDISite.contactFormPage.open();
         clickableItem().click();
         EpamJDISite.homePage.checkOpened();

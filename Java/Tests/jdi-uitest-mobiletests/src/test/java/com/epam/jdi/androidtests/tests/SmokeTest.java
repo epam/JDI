@@ -36,7 +36,7 @@ public class SmokeTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         driver.quit();
     }
 

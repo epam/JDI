@@ -49,7 +49,7 @@ public class Steps {
     }
 
     @When("^I input ([^\\\"]*)$")
-    public void inputText(String text) throws Throwable {
+    public void inputText(String text) {
         careerPage.keywords.newInput(text);
     }
 

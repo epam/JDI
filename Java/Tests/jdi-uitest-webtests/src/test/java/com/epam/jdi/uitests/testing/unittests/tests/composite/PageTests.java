@@ -52,7 +52,7 @@ public class PageTests extends InitTests {
     }
 
     @Test
-    public void addCookieTest() throws Exception{
+    public void addCookieTest() {
         getDriver().manage().deleteAllCookies();
         assertTrue(() -> getDriver().manage().getCookies().isEmpty());
         Cookie cookie = new Cookie("key", "value");
@@ -61,7 +61,7 @@ public class PageTests extends InitTests {
     }
 
     @Test
-    public void clearCacheTest()throws Exception{
+    public void clearCacheTest() {
         Cookie cookie = new Cookie("key", "value");
         getDriver().manage().addCookie(cookie);
         assertFalse(() -> getDriver().manage().getCookies().isEmpty());

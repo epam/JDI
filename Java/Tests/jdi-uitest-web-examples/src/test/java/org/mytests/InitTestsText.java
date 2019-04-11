@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
  */
 public class InitTestsText extends TestNGBase {
     @BeforeSuite(alwaysRun = true)
-    public static void setUp() throws Exception {
+    public static void setUp() {
         WebSite.init(TextSite.class);
     }
 }

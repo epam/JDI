@@ -11,7 +11,7 @@ import static com.epam.jdi.androidtestind.page_objects.EpamJDIAndroidApp.startPa
 public class ContactTest extends TestBase {
 
     @Test
-    public void addContactTest() throws InterruptedException {
+    public void addContactTest() {
         ContactDetails contacts = new ContactDetails("Irina", "758-58-58");
 
         startPage.addContact.click();

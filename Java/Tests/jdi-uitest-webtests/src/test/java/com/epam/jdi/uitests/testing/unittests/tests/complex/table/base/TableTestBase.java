@@ -4,7 +4,6 @@ import com.epam.jdi.uitests.testing.unittests.InitTests;
 import com.epam.web.matcher.verify.Verify;
 import org.testng.annotations.BeforeMethod;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 /**
@@ -14,7 +13,7 @@ public class TableTestBase extends InitTests{
 
 
     @BeforeMethod
-    protected void before(Method method) throws IOException {
+    protected void before(Method method) {
         Verify.getFails();
     }
 }

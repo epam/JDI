@@ -44,7 +44,7 @@ public class RFileInputTests extends InitTests {
     }
 
     @Test
-    public void newInputTest() throws Exception {
+    public void newInputTest() {
         fileInput().newInput(getFPath());
         checkFileLoaded(fileName());
     }

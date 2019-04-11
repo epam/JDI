@@ -28,9 +28,7 @@ import org.openqa.selenium.support.ui.Quotes;
 
 import java.util.function.Consumer;
 
-import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.CONTAINS;
-import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.EQUAL;
-import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.MATCH;
+import static com.epam.jdi.uitests.core.interfaces.complex.tables.interfaces.CheckPageTypes.*;
 import static com.epam.jdi.uitests.core.settings.JDISettings.exception;
 import static com.epam.jdi.uitests.web.settings.WebSettings.DOMAIN;
 import static java.lang.String.format;
