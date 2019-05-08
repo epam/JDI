@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script language="JavaScript">
+ function add(){
+var nodet = document.createElement('tr');
+var node = document.createElement('td');
+node.innerHTML = "<input class = 'badge' type='text' value='status'>";
+document.getElementById('tabl').appendChild(nodet);
+nodet.appendChild(node);
+}
+    </script>
+</head>
+
+
+<body>
+<table id='tabl' ui='item' align='left'>
+    <tr>
+        <td><input class='badge' type='text' value='status'></td>
+    </tr>
+    <tr>
+        <td><input class='badge' type='text' value='status'></td>
+    </tr>
+</table>
+<input type='button' id='button' value='Click' onClick='add();'>
+</body>
+</html>
