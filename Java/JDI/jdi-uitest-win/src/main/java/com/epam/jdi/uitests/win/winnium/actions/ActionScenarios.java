@@ -17,7 +17,7 @@ public class ActionScenarios {
     public void actionScenario(String actionName, JAction jAction, LogLevels logSettings, String baseElementToString) {
         logAction(actionName, logSettings, baseElementToString);
         Timer timer = new Timer();
-        new Timer(timeouts.getCurrentTimeoutSec()).wait(() -> {
+        new Timer(timeouts.getCurrentTimeoutSec()*1000).wait(() -> {
             jAction.invoke();
             return true;
         });
@@ -31,7 +31,7 @@ public class ActionScenarios {
         logAction(actionName, baseElementToString);
         TResult result;
         try {
-            result = new Timer(timeouts.getCurrentTimeoutSec()).getResult(jAction::get);
+            result = new Timer(timeouts.getCurrentTimeoutSec()*1000).getResult(jAction::get);
         } catch (Exception | Error ex) {
             throw asserter.exception("Do action %s failed. Can't got result. Reason: %s", actionName, ex.getMessage());
         }

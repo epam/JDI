@@ -39,14 +39,11 @@ public class CommonActionsData {
     }
 
     public static void runParallel(final JAction action) {
-        new Thread() {
-            @Override
-            public void run() {
-                timer = new Timer();
-                Timer.sleep(waitTimeOut);
-                action.invoke();
-            }
-        }.run();
+        new Thread(() -> {
+            timer = new Timer();
+            Timer.sleep(waitTimeOut);
+            action.invoke();
+        }).run();
     }
 
     private static void createFile() {

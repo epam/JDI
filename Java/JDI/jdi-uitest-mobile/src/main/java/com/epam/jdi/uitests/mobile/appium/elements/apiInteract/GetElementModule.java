@@ -31,6 +31,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.epam.commons.LinqUtils.any;
@@ -102,7 +103,7 @@ public class GetElementModule implements IAvatar {
         logger.debug("Get Web Element: " + element);
         WebElement element = webElement != null
                 ? webElement
-                : timer().getResultByCondition(this::getElementAction, el -> el != null);
+                : timer().getResultByCondition(this::getElementAction, Objects::nonNull);
         logger.debug("One Element found");
         return element;
     }

@@ -28,8 +28,6 @@ public class ButtonTests extends InitTests {
     @Test
     public void clickTest() {
         button.get().click();
-        System.out.println(metalsColorsPage.calculateText.getAttribute("value"+"---------------------------"));
-        System.out.println(metalsColorsPage.calculateText.getText()+"++++++++++++++++++++++++++++++++");
         checkCalculate("Summary: 3");
         Assert.assertTrue(false);
     }

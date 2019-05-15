@@ -61,7 +61,7 @@ public class WebAnnotationsUtil extends AnnotationsUtil {
             else throw exception("In order to validate MATCH for page '%s', please specify 'template' in @Url",
                     page.getName());
         }
-        else urlCheckType = MATCH;
+        else if (urlCheckType == EQUAL) urlCheckType = CONTAINS;
         page.updatePageData(url, title, urlCheckType, titleCheckType, urlTemplate);
     }
 
