@@ -205,6 +205,7 @@ public class J extends Element implements SelenideElement {
 
     
     public boolean is(Condition condition) {
+
         return Selenide.$(getWebElement()).is(condition);
     }
 
@@ -355,12 +356,12 @@ public class J extends Element implements SelenideElement {
 
 
     public ElementsCollection findAll(String cssSelector) {
-        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.driver(), By.cssSelector(cssSelector)));
+        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.getWebDriver(), By.cssSelector(cssSelector)));
     }
 
     
     public ElementsCollection findAll(By by) {
-        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.driver(), by));
+        return new ElementsCollection(new BySelectorCollection(WebDriverRunner.getWebDriver(), by));
     }
 
     
@@ -539,7 +540,7 @@ public class J extends Element implements SelenideElement {
 
     public File download(long l) {
         try {
-            return new DownloadFileWithHttpRequest().download(WebDriverRunner.driver(), getWebElement(), l);
+            return new DownloadFileWithHttpRequest().download(getWebElement());
         } catch (IOException e) {
             throw new RuntimeException("Couldn't download file from the link: " + toString(), e);
         }

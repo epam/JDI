@@ -1,5 +1,6 @@
 package com.epam.jdi.uitests.testing.unittests;
 
+import com.epam.jdi.uitests.core.logger.LogLevels;
 import com.epam.jdi.uitests.testing.unittests.entities.User;
 import com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
@@ -9,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import static com.epam.jdi.uitests.core.logger.LogLevels.OFF;
 import static com.epam.jdi.uitests.testing.unittests.pageobjects.EpamJDISite.login;
 import static com.epam.jdi.uitests.web.selenium.driver.WebDriverUtils.killAllRunWebBrowsers;
 import static com.epam.jdi.uitests.web.selenium.elements.composite.WebSite.open;
@@ -22,6 +24,7 @@ public class InitTests extends TestNGBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void setUp() {
+        logger.setLogLevel(OFF);
         WebSite.init(EpamJDISite.class);
         open();
         login.submit(User.DEFAULT);

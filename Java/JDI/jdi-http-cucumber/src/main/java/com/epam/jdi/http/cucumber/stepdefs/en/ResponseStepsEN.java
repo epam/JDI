@@ -11,8 +11,8 @@ import org.testng.Assert;
 import static com.epam.jdi.http.cucumber.Utils.performanceResult;
 import static com.epam.jdi.http.cucumber.Utils.restResponse;
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.testng.Assert.assertEquals;
 
 public class ResponseStepsEN {

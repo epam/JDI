@@ -53,7 +53,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>RELEASE</version>
+            <version>3.141.59</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>RELEASE</version>
+            <version>4.11.4</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
-            <version>RELEASE</version>
+            <version>3.141.59</version>
         </dependency>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>

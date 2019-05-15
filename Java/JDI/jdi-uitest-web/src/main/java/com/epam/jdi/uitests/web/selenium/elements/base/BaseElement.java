@@ -262,7 +262,7 @@ public abstract class BaseElement implements IBaseElement {
 
     public IBaseElement should(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-            Assert.assertEquals(() -> condition.apply(WebDriverRunner.driver(), getAvatar().getElement()), true,
+            Assert.assertEquals(() -> condition.apply(getAvatar().getElement()), true,
                     format("Expected: '%s' but found '%s'", condition.toString(), getAvatar().getElement().getText())
             )
         );
@@ -276,7 +276,7 @@ public abstract class BaseElement implements IBaseElement {
     }
     public IBaseElement shouldNot(Condition... conditions){
         Arrays.stream(conditions).forEach(condition ->
-            Assert.assertEquals(condition.apply(WebDriverRunner.driver(), getAvatar().getElement()), false));
+            Assert.assertEquals(condition.apply(getAvatar().getElement()), false));
         return this;
     }
     public IBaseElement shouldNotHave(Condition... conditions){
