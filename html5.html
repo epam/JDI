@@ -65,13 +65,14 @@
                         </div>
                         <div class="html-right">
                             <h4>Button</h4>
-                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
-                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
-                            <p>click() - Click on link</p>
-                            <p>getText() - Get link's text</p>
-                            <p>getRef() - Get link's "ref" attribute</p>
-                            <p>getUrl() - Get link's "ref" attribute as URL</p>
-                            <p>getAlt() - Get link's "alt" attribute</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_button.asp" target="_blank">https://www.w3schools.com/tags/tag_button.asp</a></p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_input.asp" target="_blank">https://www.w3schools.com/tags/tag_input.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button</a></p>
+                            <p>click()	- Click the button</p>
+                            <p>getText() - Get button text</p>
+                            <p>is() - Assert action</p>
+                            <p>assertThat() - Assert action</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -81,13 +82,15 @@
                         </div>
                         <div class="html-right">
                             <h4>Link</h4>
-                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_a.asp" target="_blank">https://www.w3schools.com/tags/tag_a.asp</a></p>
-                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a</a></p>
-                            <p>click() - Click on link</p>
-                            <p>getText() - Get link's text</p>
-                            <p>ref() - Get link's "ref" attribute</p>
-                            <p>url() - Get link's "ref" attribute as URL</p>
-                            <p>alt() - Get link's "alt" attribute</p>
+                            <p>W3C: <a href="https://www.w3schools.com/tags/tag_link.asp" target="_blank">https://www.w3schools.com/tags/tag_link.asp</a></p>
+                            <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link</a></p>
+                            <p>click() - Follow the link</p>
+                            <p>getText() - Returns the link text</p>
+                            <p>ref() - Returns the reference</p>
+                            <p>url() - Returns the URL</p>
+                            <p>alt() - Returns the alternate text</p>
+                            <p>is() - Returns object for work with assertions</p>
+                            <p>assertThat() - Returns object for work with assertions</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -111,6 +114,7 @@
                             <p>label() - Returns label element associated with textfield</p>
                             <p>getText() - Get textfield's text</p>
                         </div>
+                    </div>
                     <div class="doc-space line">
                         <div class="html-left">
                             <label for="text-area">Text example:</label>
@@ -124,13 +128,16 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Multi-line text input</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank">https://www.w3schools.com/tags/tag_textarea.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea</a></p>
-                            <p>clear() - Clear text in textarea</p>
-                            <p>input(value) - Set textarea with value text. Clear previously entered text</p>
-                            <p>inputLines(value) - Clear textarea and Input several lines of text in textarea</p>
-                            <p>addNewLine(value) - Add text in textarea from new line (without clearing previous)</p>
-                            <p>getLines() - Get lines of text in textarea</p>
-                            <p>label() - Returns label element assosiated with textarea</p>
-                            <p>focus() - Just focus cursor to textfield</p>
+                            <p>setLines(String... lines) - sets lines (text)</p>
+                            <p>getLines() - returns lines (text) from the text area</p>
+                            <p>rows() - returns value of rows attribute</p>
+                            <p>cols() - returns value of cols attribute</p>
+                            <p>minlength() - returns value of minlength attribute</p>
+                            <p>maxlength() - returns value of maxlength attribute</p>
+                            <p>placeholder() - returns value of placeholder attribute</p>
+                            <p>addNewLine(String line) - add line to the already existing</p>
+                            <p>is() - returns object for work with assertions</p>
+                            <p>assertThat()	- returns object for work with assertions</p>
                         </div>
                     </div>
 
@@ -146,10 +153,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Let the user choose one or more files from their device storage</p>
                             <p>W3C: <a href="https://www.w3schools.com/jsref/dom_obj_fileupload.asp" target="_blank">https://www.w3schools.com/jsref/dom_obj_fileupload.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/file</a></p>
-                            <p>setValueAction(value) - Clear and input value</p>
-                            <p>focus() - Just focus cursor to uploader</p>
-                            <p>clear() - Clear value in uploader</p>
-                            <p>label() - Returns label element assosiated with uploader</p>
+                            <p>uploadFile(String) - Select file to upload</p>
+
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -163,9 +168,13 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Image in an HTML page</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_img.asp" target="_blank">https://www.w3schools.com/tags/tag_img.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img</a></p>
-                            <p>getAlt() - Get image's "alt" attribute</p>
-                            <p>getSource() - Get image source</p>
-                            <p>click() - Click on the element</p>
+                            <p>click() - click on the image</p>
+                            <p>src() - get value of src attribute</p>
+                            <p>height() - get value of height attribute</p>
+                            <p>width() - get value of width attribute</p>
+                            <p>alt() - get value of alt attribute</p>
+                            <p>is() - method for building assertions</p>
+                            <p>assertThat() - method for building</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -188,12 +197,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Drop-down list</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_select.asp" target="_blank">https://www.w3schools.com/tags/tag_select.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
-                            <p>select(value) - Select Element with name from list</p>
-                            <p>getSelected() - Get name of the selected Element</p>
-                            <p>getSelectedIndex() - Get index of the selected Element</p>
-                            <p>isSelectedAction(value) - Verifies selected text with value</p>
-                            <p>isHidden() - Check is Element hidden</p>
-                            <p>waitDisplayed() - Waits while Element becomes visible</p>
+                            <p>select(value) - Select dropdown by value/index</p>
+                            <p>selected() - Get selected dropdown value</p>
                         </div>
                     </div>
 
@@ -213,13 +218,10 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>List with multiple options can be selected at once</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
-                            <p>clearAction() - Clear options</p>
-                            <p>select(values) - Select multiple values</p>
-                            <p>uncheck(values) - Uncheck only specified options</p>
-                            <p>areSelected() - Get names of checked options</p>
-                            <p>isHidden() - Check is Element hidden</p>
-                            <p>waitSelected(values) - Wait while all options with values selected</p>
-                            <p>areDeselected() - Get names of unchecked options</p>
+                            <p>check(String/String.../Enum.../int...) - Select values in multi dropdown</p>
+                            <p>uncheck(String.../Enum.../int...) - Unselect values in multi dropdown</p>
+                            <p>selected() - Get selected value by default</p>
+                            <p>checked() - Get selected values</p>
                         </div>
                     </div>
 
@@ -239,11 +241,10 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>List with multiple dropdown options</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_select_multiple.asp" target="_blank">https://www.w3schools.com/tags/att_select_multiple.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select</a></p>
-                            <p>expand() - Expand DropDown</p>
-                            <p>close() - Close DropDown</p>
-                            <p>getTextAction() - Get first selected option</p>
-                            <p>select(values) - Select options with values from list</p>
-                            <p>clear() - Deselect all options</p>
+                            <p>check(String/String.../Enum.../int...) - Select values in multi dropdown</p>
+                            <p>uncheck(String.../Enum.../int...) - Unselect values in multi dropdown</p>
+                            <p>selected() - Get selected value by default</p>
+                            <p>checked() - Get selected values</p>
                         </div>
                     </div>
 
@@ -265,10 +266,11 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>List of pre-defined options for input</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_datalist.asp" target="_blank">https://www.w3schools.com/tags/tag_datalist.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist</a></p>
-                            <p>expand() - Expand DropDown</p>
-                            <p>getValue() - Get value of Element</p>
-                            <p>clearAction() - Clear value</p>
-                            <p>input(value) - Input text in textfield</p>
+                            <p>select(String/Enum/int) - Select datalist option by value or index</p>
+                            <p>selected() - Get selected option value</p>
+                            <p>values()	- Get all option values from datalist</p>
+                            <p>listEnabled() - Return list of values of enabled options</p>
+                            <p>listDisabled() - Return list of values of disabled options</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -282,9 +284,11 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
                             <p>click() - Click on checkbox</p>
                             <p>check() - Set checkbox checked</p>
+                            <p>check(String) - Set to checked on "true" (case insensitive) or unchecked otherwise</p>
                             <p>uncheck() - Set checkbox unchecked</p>
-                            <p>isChecked() - Verify is checkbox checked</p>
-                            <p>getValue() - Get value of Element</p>
+                            <p>isSelected() - Verify is checkbox checked</p>
+                            <p>assertThat() - Assert action checkbox</p>
+                            <p>is() - Assert action checkbox</p>
                         </div>
                     </div>
 					<div class="doc-space line">
@@ -308,13 +312,23 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Checklist</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_checkbox.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_checkbox.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#Checking_boxes_by_default" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox</a></p>
-			    <p>check(String... values) - Check only specified values. All other values make unchecked</p>
-			    <p>check(TEnum... values) - Same as above for values in Enum</p>
-			    <p>check(int... values) - Same as above but for indexes</p>				
-			    <p>uncheck(int... indexes) - Uncheck only specified values. All other values make unchecked</p>
-			    <p>uncheck(TEnum... values) - Same as above for values in Enum</p>
-			    <p>uncheck(int... values) - Same as above but for indexes</p>	
-			    <p>List<String> checked() - List of checked values</p>				    
+                            <p>check(String... values) - Check only specified values. All other values make unchecked</p>
+                            <p>check(TEnum... values) - Same as above for values in Enum</p>
+                            <p>check(int... values) - Same as above but for indexes</p>
+                            <p>uncheck(int... indexes) - Uncheck only specified values. All other values make unchecked</p>
+                            <p>uncheck(TEnum... values) - Same as above for values in Enum</p>
+                            <p>uncheck(int... values) - Same as above but for indexes</p>
+                            <p>uncheckAll() - Uncheck all checkboxes from checklist</p>
+                            <p>checkAll() - Check all checkboxes from checklist</p>
+                            <p>checked() - Get selected checkbox values</p>
+                            <p>values() - Get checklist values</p>
+                            <p>listEnabled() - Get enabled checkboxes</p>
+                            <p>listDisabled() - Get disabled checkboxes</p>
+                            <p>size() - Get checklist size</p>
+                            <p>is() - Get select assert</p>
+                            <p>assertThat() - Get select assert</p>
+                            <p>has() - Get select assert</p>
+                            <p>selected() - Get selected checkbox</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -335,9 +349,8 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Radio</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_radio.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_radio.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/radio</a></p>
-                            <p>select(value) - Select Element with value from list</p>
-                            <p>getSelected() - Get name of the selected Element</p>
-                            <p>isSelectedAction(value) - Verify checked value</p>
+                            <p>select(String/int/Enum) - Select radiobutton by value/index</p>
+                            <p>selected() - Get selected radiobutton value</p>
                         </div>
 					</div>
 					<div class="doc-space line">
@@ -351,10 +364,10 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Defines a color picker</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_color.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_color.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color</a></p>
-                            <p>click() - Click on input</p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue - Get value of Element</p>
-                            <p>ok() - Click on ok button</p>
+                            <p>color() - Returns color code in hexadecimal format ("#rrggbb")</p>
+                            <p>setColor(String) - Set color from string hex representation ("#rrggbb")</p>
+                            <p>is() - Assert acton color</p>
+                            <p>assertThat() - Assert acton</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -382,7 +395,13 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type range</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_range.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_range.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range</a></p>
-                            <p>sendKeys(value) - Specify value to send</p>
+                            <p>setVolume(int volume) - Sets the value</p>
+                            <p>volume() - Returns the value</p>
+                            <p>max() - Returns the max value</p>
+                            <p>min() - Returns the min value</p>
+                            <p>step() - Returns the step value</p>
+                            <p>is() - Returns object for work with assertions</p>
+                            <p>assertThat() - Returns object for work with assertions</p>
                         </div>
                     </div>
 
@@ -396,7 +415,10 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <p>Represents the progress of a task</p>
                             <p>W3C: <a href="https://www.w3schools.com/tags/tag_progress.asp" target="_blank">https://www.w3schools.com/tags/tag_progress.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress</a></p>
-                            <p>getValue() - Get value of Element</p>
+                            <p>value() - Get current progress value</p>
+                            <p>max() - Get progressbar maximum possible value</p>
+                            <p>is() - Various assert actions for Progress bar</p>
+                            <p>assertThat() - Various assert actions for Progress bar</p>
                         </div>
                     </div>
 
@@ -410,8 +432,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type date</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_date.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_date.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date" target="_blank">https://developer.mozilla.org/ru/docs/Web/HTML/Element/Input/date</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>setDateTime(string value) - Sets a date or time</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -424,8 +450,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type month</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_month.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_month.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>setDateTime(string value) - Sets a date or time</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -438,8 +468,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type datetime-local</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_datetime-local.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_datetime-local.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/datetime-local</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>setDateTime(string value) - Sets a date or time</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -452,8 +486,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type time</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_time.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_time.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>setDateTime(string value) - Sets a date or time</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -466,8 +504,12 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type week</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_week.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_week.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>setDateTime(string value) - Sets a date or time</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
                     <div class="doc-space line">
@@ -480,8 +522,14 @@ Textarea with sizing and wrap attribute (try values of hard, soft, and off to se
                             <h4>Input type number</h4>
                             <p>W3C: <a href="https://www.w3schools.com/tags/att_input_type_number.asp" target="_blank">https://www.w3schools.com/tags/att_input_type_number.asp</a></p>
                             <p>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number</a></p>
-                            <p>setValue(value) - Set value to Element</p>
-                            <p>getValue() - Get value from Element</p>
+                            <p>placeholder() - Returns the placeholder text</p>
+                            <p>value() - Returns the set date or time</p>
+                            <p>min() - Gets attribute with name min</p>
+                            <p>max() - Gets attribute with name max</p>
+                            <p>step() - Returns the step value</p>
+                            <p>setNumber(String) - Sets the value</p>
+                            <p>is() - Assertion</p>
+                            <p>assertThat() - Assertion</p>
                         </div>
                     </div>
 
