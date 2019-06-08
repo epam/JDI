@@ -1,0 +1,32 @@
+<ruleset comparisonMethod="maven" xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
+    <ignoreVersions>
+        <ignoreVersion type="regex">.*-does-not-exist</ignoreVersion>
+        <ignoreVersion type="regex">.*[Aa]lpha.*</ignoreVersion>
+        <ignoreVersion type="regex">.*(?i)beta.*</ignoreVersion>
+        <ignoreVersion type="regex">.*pre.*</ignoreVersion>
+        <ignoreVersion type="regex">.*[Dd]raft.*</ignoreVersion>
+        <ignoreVersion type="regex">.*-rc.*</ignoreVersion>
+        <ignoreVersion type="regex">20041228\.180559</ignoreVersion>
+        <ignoreVersion type="regex">.*jbossorg.*</ignoreVersion>
+        <ignoreVersion type="regex">.*dev.*</ignoreVersion>
+        <ignoreVersion type="regex">\d+\.\d+</ignoreVersion>
+        <ignoreVersion type="regex">.*(19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01]).*</ignoreVersion>
+        <ignoreVersion type="regex">.*jboss.*</ignoreVersion>
+        <ignoreVersion type="regex">.*atlassian.*</ignoreVersion>
+        <ignoreVersion type="regex">.*xwiki.*</ignoreVersion>
+        <ignoreVersion type="regex">.*b\d\d</ignoreVersion>
+        <ignoreVersion type="regex">.*_ALPHA</ignoreVersion>
+        <ignoreVersion type="regex">.*M\d</ignoreVersion>
+        <ignoreVersion type="regex">.*RC\d</ignoreVersion>
+        <ignoreVersion type="regex">.*\.jre7</ignoreVersion>
+        <ignoreVersion type="regex">.*\.jre6</ignoreVersion>
+        <ignoreVersion type="regex">.*CR\d</ignoreVersion>
+        <ignoreVersion type="regex">.*M\d*</ignoreVersion>
+        <ignoreVersion type="regex">.*pr\d</ignoreVersion>
+        <ignoreVersion type="regex">.*android</ignoreVersion>
+        <ignoreVersion type="regex">.*m\d*</ignoreVersion>
+        <ignoreVersion type="regex">.*p\d*</ignoreVersion>
+    </ignoreVersions>
+</ruleset>
