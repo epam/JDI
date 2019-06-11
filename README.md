@@ -8,6 +8,6 @@ If you would like to try JDI Light then pass our [tutorials](https://jdi-docs.gi
 <dependency>
     <groupId>com.epam.jdi</groupId>
     <artifactId>jdi-light-html</artifactId>
-    <version>1.0.65</version>
+    <version>RELEASE</version>
 </dependency>
 ```
