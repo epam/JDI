@@ -48,7 +48,7 @@
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
-            <version>RELEASE</version>
+            <version>2.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
